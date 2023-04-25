@@ -5,7 +5,7 @@ import '@/scss/main.scss';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof OeTest> = {
-  title: 'Example/Test',
+  title: 'Components/Test',
   component: OeTest,
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/vue/writing-docs/autodocs
   tags: ['autodocs'],
