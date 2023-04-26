@@ -1,9 +1,5 @@
 <template>
   <div class="address-crab">
-    <!-- <select value.bind="data.land" disabled.bind="disabled">
-            <option repeat.for="land of landen" value.bind="land.id">${land.naam}</option>
-          </select> -->
-
     <VlProperties>
       <VlPropertiesTitle>Adres</VlPropertiesTitle>
 
@@ -33,9 +29,19 @@
           <VlMultiselect
             v-model="gemeente"
             placeholder="Gemeente"
+            :disabled="!land"
             :mod-multiple="false"
             :options="gemeenten"
-          />
+          >
+            <option
+              v-for="item in gemeenten"
+              :key="item.id"
+              :value="item.id"
+              :disabled="item.disabled"
+            >
+              {{ item.naam }}
+            </option>
+          </VlMultiselect>
         </VlPropertiesData>
 
         <!-- Postcode -->
@@ -44,6 +50,7 @@
           <VlMultiselect
             v-model="postcode"
             placeholder="Postcode"
+            :disabled="!gemeente"
             :mod-multiple="false"
             :options="postcodes"
           />
@@ -55,6 +62,7 @@
           <VlMultiselect
             v-model="straat"
             placeholder="Straat"
+            :disabled="!gemeente"
             :mod-multiple="false"
             :options="straten"
           />
@@ -66,6 +74,7 @@
           <VlMultiselect
             v-model="huisnummer"
             placeholder="Huisnummer"
+            :disabled="!straat"
             :mod-multiple="false"
             :options="huisnummers"
           />
@@ -74,11 +83,10 @@
         <!-- Busnummer -->
         <VlPropertiesLabel>Busnr.</VlPropertiesLabel>
         <VlPropertiesData>
-          <VlMultiselect
+          <VlInputField
             v-model="busnummer"
+            mod-block
             placeholder="Busnummer"
-            :mod-multiple="false"
-            :options="busnummers"
           />
         </VlPropertiesData>
       </VlPropertiesList>
@@ -97,8 +105,10 @@
 </template>
 
 <script setup lang="ts">
-import { VlMultiselect, VlProperties, VlPropertiesData, VlPropertiesLabel, VlPropertiesList, VlPropertiesTitle, VlSelect } from '@govflanders/vl-ui-design-system-vue3';
-import { ref } from 'vue';
+import { VlMultiselect, VlProperties, VlPropertiesData, VlPropertiesLabel, VlPropertiesList, VlPropertiesTitle, VlSelect, VlInputField } from '@govflanders/vl-ui-design-system-vue3';
+import { computed, ref, watch } from 'vue';
+import { CrabService } from '../../services/crab.api-service';
+import type { Huisnummer } from '../../services/models/locatie';
 
 // Form values
 const land = ref('');
@@ -109,7 +119,9 @@ const huisnummer = ref('');
 const busnummer = ref('');
 
 // Reference data
-const landen = ref([
+const crabService = new CrabService();
+
+const staticLanden = [
   { id: 'BE', naam: 'België' },
   { id: 'DE', naam: 'Duitsland' },
   { id: 'FR', naam: 'Frankrijk' },
@@ -117,12 +129,23 @@ const landen = ref([
   { id: 'NL', naam: 'Nederland' },
   { id: 'LU', naam: 'Luxemburg' },
   { id: 'divider', naam: '─────────────────────────', disabled: true }
-]);
-const gemeenten = ref(['Gent', 'Leuven'])
+];
+const apiLanden = await crabService.getLanden();
+const landen = computed(() => [...staticLanden, ...apiLanden])
+const gemeenten = await crabService.getGemeenten()
 const postcodes = ref([])
 const straten = ref([])
-const huisnummers = ref([])
+const huisnummers = ref<Huisnummer[]>([])
 const busnummers = ref([])
+
+watch(gemeente, async (selectedGemeente: any) => {
+  postcodes.value = await crabService.getPostcodes(selectedGemeente.id);
+  straten.value = await crabService.getStraten(selectedGemeente.id);
+})
+
+watch(straat, async (selectedStraat: any) => {
+  huisnummers.value = await crabService.getHuisnrs(selectedStraat.id)
+})
 </script>
 
 <style lang="scss" scoped>
