@@ -27,6 +27,7 @@
         <VlPropertiesLabel>Gemeente</VlPropertiesLabel>
         <VlPropertiesData>
           <VlMultiselect
+            v-if="isBelgiumOrEmpty"
             v-model="gemeente"
             placeholder="Gemeente"
             :disabled="!land"
@@ -42,17 +43,32 @@
               {{ item.naam }}
             </option>
           </VlMultiselect>
+
+          <VlInputField
+            v-else
+            v-model="gemeente"
+            mod-block
+            placeholder="Gemeente"
+          />
         </VlPropertiesData>
 
         <!-- Postcode -->
         <VlPropertiesLabel>Postcode</VlPropertiesLabel>
         <VlPropertiesData>
           <VlMultiselect
+            v-if="isBelgiumOrEmpty"
             v-model="postcode"
             placeholder="Postcode"
             :disabled="!gemeente"
             :mod-multiple="false"
             :options="postcodes"
+          />
+
+          <VlInputField
+            v-else
+            v-model="postcode"
+            mod-block
+            placeholder="Postcode"
           />
         </VlPropertiesData>
 
@@ -60,11 +76,19 @@
         <VlPropertiesLabel>Straat</VlPropertiesLabel>
         <VlPropertiesData>
           <VlMultiselect
+            v-if="isBelgiumOrEmpty"
             v-model="straat"
             placeholder="Straat"
             :disabled="!gemeente"
             :mod-multiple="false"
             :options="straten"
+          />
+
+          <VlInputField
+            v-else
+            v-model="straat"
+            mod-block
+            placeholder="Straat"
           />
         </VlPropertiesData>
 
@@ -72,11 +96,20 @@
         <VlPropertiesLabel>Huisnummer</VlPropertiesLabel>
         <VlPropertiesData>
           <VlMultiselect
+            v-if="isBelgiumOrEmpty"
             v-model="huisnummer"
             placeholder="Huisnummer"
             :disabled="!straat"
             :mod-multiple="false"
             :options="huisnummers"
+          />
+
+          <VlInputField
+            v-else
+            v-model="huisnummer"
+            type="number"
+            mod-block
+            placeholder="Huisnummer"
           />
         </VlPropertiesData>
 
@@ -118,6 +151,8 @@ const straat = ref('');
 const huisnummer = ref('');
 const busnummer = ref('');
 
+const isBelgiumOrEmpty = computed(() => land.value === 'BE' || land.value === '');
+
 // Reference data
 const crabService = new CrabService();
 
@@ -136,15 +171,20 @@ const gemeenten = await crabService.getGemeenten()
 const postcodes = ref([])
 const straten = ref([])
 const huisnummers = ref<Huisnummer[]>([])
-const busnummers = ref([])
 
+// Gemeente side-effects
 watch(gemeente, async (selectedGemeente: any) => {
-  postcodes.value = await crabService.getPostcodes(selectedGemeente.id);
-  straten.value = await crabService.getStraten(selectedGemeente.id);
+  if (isBelgiumOrEmpty.value) {
+    postcodes.value = await crabService.getPostcodes(selectedGemeente.id);
+    straten.value = await crabService.getStraten(selectedGemeente.id);
+  }
 })
 
+// Straat side-effects
 watch(straat, async (selectedStraat: any) => {
-  huisnummers.value = await crabService.getHuisnrs(selectedStraat.id)
+  if (isBelgiumOrEmpty.value) {
+    huisnummers.value = await crabService.getHuisnrs(selectedStraat.id);
+  }
 })
 </script>
 
