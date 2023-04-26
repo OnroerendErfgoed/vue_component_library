@@ -17,3 +17,4 @@ logs
 # TypeScript
 typings/
 *.tsbuildinfo
+.vscode/settings.json
