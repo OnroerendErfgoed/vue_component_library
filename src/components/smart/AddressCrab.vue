@@ -198,5 +198,9 @@ watch(straat, async (selectedStraat: any) => {
   .copy-button {
     margin-left: 5px;
   }
+
+  .vl-properties__label {
+    max-width: 100%;
+  }
 }
 </style>
