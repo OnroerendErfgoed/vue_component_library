@@ -21,6 +21,7 @@
   "dependencies": {
     "@govflanders/vl-ui-design-system-style": "^1.0.0-alpha.1",
     "@govflanders/vl-ui-design-system-vue3": "^1.0.0-alpha.1",
+    "axios": "^1.4.0",
     "pyoes": "https://gitpkg.now.sh/OnroerendErfgoed/pyoes/npm-packages/pyoes",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6"
@@ -45,7 +46,9 @@
     "cypress": "^12.7.0",
     "eslint": "^8.34.0",
     "eslint-config-prettier": "^8.8.0",
+    "eslint-import-resolver-typescript": "^3.5.5",
     "eslint-plugin-cypress": "^2.12.1",
+    "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.11.0",
     "npm-run-all": "^4.1.5",
