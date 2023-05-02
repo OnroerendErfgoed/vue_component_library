@@ -1,41 +1,45 @@
-export class Gemeente {
-  public id: number;
-  public naam: string;
-  public niscode?: number;
-
-  constructor(
-    id: number,
-    naam: string,
-    niscode?: number
-  ) {
-    this.id = id;
-    this.naam = naam;
-    this.niscode = niscode;
-  }
+export interface Adres {
+  id?: string;
+  land: string;
+  gemeente: string;
+  postcode: string;
+  straat: string;
+  huisnummer: string;
+  subadres: string;
 }
 
-export class Straat {
-  public id: number;
-  public naam: string;
-
-  constructor(
-    id: number,
-    naam: string
-  ) {
-    this.id = id;
-    this.naam = naam;
-  }
+export interface Land {
+  id: string;
+  naam: string;
+  disabled?: boolean;
 }
 
-export class Huisnummer {
-  public id: number;
-  public naam: string;
+export interface Gemeente {
+  id: number;
+  naam: string;
+  niscode: number;
+}
 
-  constructor(
-    id: number,
-    naam: string
-  ) {
-    this.id = id;
-    this.naam = naam;
-  }
+export interface Postcode {
+  id: number;
+}
+
+export interface Straat {
+  id: number;
+  naam: string;
+  label?: string;
+  status?: Status;
+}
+
+export interface Huisnummer {
+  id: number;
+  label: string;
+  naam: string;
+  status?: Status;
+}
+
+interface Status {
+  definitie: string;
+  id: string;
+  naam: string;
 }
