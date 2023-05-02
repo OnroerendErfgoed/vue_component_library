@@ -126,7 +126,6 @@
           <VlInputField
             v-else
             v-model="huisnummer"
-            type="number"
             mod-block
             placeholder="Huisnummer"
           />
@@ -198,6 +197,11 @@ const postcodes = ref<Postcode[]>([]);
 const straten = ref<Straat[]>([]);
 const huisnummers = ref<Huisnummer[]>([]);
 
+// Land side-effects
+watch(land, () => {
+  gemeente.value = '';  
+});
+
 // Gemeente side-effects
 watch(gemeente, async (selectedGemeente: Gemeente | string) => {
   postcode.value = '';
@@ -212,6 +216,7 @@ watch(gemeente, async (selectedGemeente: Gemeente | string) => {
 // Straat side-effects
 watch(straat, async (selectedStraat: Straat | string) => {
   huisnummer.value = '';
+  busnummer.value = '';
 
   if (isBelgiumOrEmpty.value && selectedStraat) {
     huisnummers.value = await crabService.getHuisnummers((selectedStraat as Straat).id);
