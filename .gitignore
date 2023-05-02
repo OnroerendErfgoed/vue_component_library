@@ -18,3 +18,6 @@ logs
 typings/
 *.tsbuildinfo
 .vscode/settings.json
+
+# npm keys
+.npmrc
