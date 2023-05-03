@@ -13,7 +13,7 @@ module.exports = {
     // override/add rules settings here, such as:
     'vue/no-unused-vars': 'error',
     'import/no-unresolved': 'error',
-    'semi': 'error',
+    semi: 'error',
   },
   settings: {
     'import/parsers': {
@@ -22,6 +22,7 @@ module.exports = {
     'import/resolver': {
       typescript: {
         alwaysTryTypes: true,
+        extensions: ['.ts', '.tsx'],
       },
     },
   },
