@@ -11,13 +11,17 @@
     ".": {
       "import": "./dist/vue-components.js",
       "require": "./dist/vue-components.umd.cjs"
+    },
+    "./dist/style.css": {
+      "import": "./dist/style.css",
+      "require": "./dist/style.css"
     }
   },
   "private": true,
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
-    "build:watch": "run-p type-check build-only:watch",
+    "build:watch": "run-p type-check build-only:w",
     "preview": "vite preview",
     "test:e2e": "start-server-and-test preview http://localhost:4173 'cypress run --e2e'",
     "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'",
@@ -69,6 +73,7 @@
     "prettier": "^2.8.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "rollup-plugin-copy": "^3.4.0",
     "sass": "^1.62.0",
     "start-server-and-test": "^2.0.0",
     "storybook": "^7.0.7",
@@ -77,6 +82,9 @@
     "vite": "^4.1.4",
     "vue-eslint-parser": "^9.1.1",
     "vue-tsc": "^1.2.0"
+  },
+  "peerDependencies": {
+    "pyoes": "https://gitpkg.now.sh/OnroerendErfgoed/pyoes/npm-packages/pyoes"
   },
   "readme": "README.md",
   "_id": "vue_component_library@0.0.0"
