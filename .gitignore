@@ -17,3 +17,9 @@ logs
 # TypeScript
 typings/
 *.tsbuildinfo
+.vscode/settings.json
+
+# npm keys
+.npmrc
+dist/*
+.DS_Store

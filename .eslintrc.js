@@ -1,12 +1,29 @@
 module.exports = {
+  parserOptions: {
+    parser: '@typescript-eslint/parser',
+  },
   extends: [
     // add more generic rulesets here, such as:
     // 'eslint:recommended',
     'plugin:vue/vue3-recommended',
-    // 'plugin:vue/recommended' // Use this if you are using Vue.js 2.x.
+    '@vue/typescript/recommended',
   ],
+  plugins: ['@typescript-eslint', 'prettier', 'import'],
   rules: {
     // override/add rules settings here, such as:
-    // 'vue/no-unused-vars': 'error'
-  }
-}
+    'vue/no-unused-vars': 'error',
+    'import/no-unresolved': 'error',
+    semi: 'error',
+  },
+  settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
+    'import/resolver': {
+      typescript: {
+        alwaysTryTypes: true,
+        extensions: ['.ts', '.tsx'],
+      },
+    },
+  },
+};
