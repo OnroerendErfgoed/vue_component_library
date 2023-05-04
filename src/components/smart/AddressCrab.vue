@@ -7,17 +7,8 @@
         <!-- Land -->
         <VlPropertiesLabel>Land</VlPropertiesLabel>
         <VlPropertiesData>
-          <VlSelect
-            v-model:value="land"
-            mod-block
-            placeholder-text="Land"
-          >
-            <option
-              v-for="item in landen"
-              :key="item.id"
-              :value="item.id"
-              :disabled="item.disabled"
-            >
+          <VlSelect v-model:value="land" mod-block placeholder-text="Land">
+            <option v-for="item in landen" :key="item.id" :value="item.id" :disabled="item.disabled">
               {{ item.naam }}
             </option>
           </VlSelect>
@@ -26,15 +17,8 @@
         <!-- Gemeente -->
         <VlPropertiesLabel>Gemeente</VlPropertiesLabel>
         <VlPropertiesData>
-          <VlMultiselect
-            v-if="isBelgiumOrEmpty"
-            v-model="gemeente"
-            placeholder="Gemeente"
-            :custom-label="customGemeenteLabel"
-            :disabled="!land"
-            :mod-multiple="false"
-            :options="gemeenten"
-          >
+          <VlMultiselect v-if="isBelgiumOrEmpty" v-model="gemeente" placeholder="Gemeente"
+            :custom-label="customGemeenteLabel" :disabled="!land" :mod-multiple="false" :options="gemeenten">
             <template #option="props">
               <div>
                 <span>{{ props.option.naam }}</span>
@@ -42,26 +26,14 @@
             </template>
           </VlMultiselect>
 
-          <VlInputField
-            v-else
-            v-model="gemeente"
-            mod-block
-            placeholder="Gemeente"
-          />
+          <VlInputField v-else v-model="gemeente" mod-block placeholder="Gemeente" />
         </VlPropertiesData>
 
         <!-- Postcode -->
         <VlPropertiesLabel>Postcode</VlPropertiesLabel>
         <VlPropertiesData>
-          <VlMultiselect
-            v-if="isBelgiumOrEmpty"
-            v-model="postcode"
-            placeholder="Postcode"
-            :custom-label="customPostcodeLabel"
-            :disabled="!gemeente"
-            :mod-multiple="false"
-            :options="postcodes"
-          >
+          <VlMultiselect v-if="isBelgiumOrEmpty" v-model="postcode" placeholder="Postcode"
+            :custom-label="customPostcodeLabel" :disabled="!gemeente" :mod-multiple="false" :options="postcodes">
             <template #option="props">
               <div>
                 <span>{{ props.option.id }}</span>
@@ -69,26 +41,14 @@
             </template>
           </VlMultiselect>
 
-          <VlInputField
-            v-else
-            v-model="postcode"
-            mod-block
-            placeholder="Postcode"
-          />
+          <VlInputField v-else v-model="postcode" mod-block placeholder="Postcode" />
         </VlPropertiesData>
 
         <!-- Straat -->
         <VlPropertiesLabel>Straat</VlPropertiesLabel>
         <VlPropertiesData>
-          <VlMultiselect
-            v-if="isBelgiumOrEmpty"
-            v-model="straat"
-            placeholder="Straat"
-            :custom-label="customStraatLabel"
-            :disabled="!gemeente"
-            :mod-multiple="false"
-            :options="straten"
-          >
+          <VlMultiselect v-if="isBelgiumOrEmpty" v-model="straat" placeholder="Straat" :custom-label="customStraatLabel"
+            :disabled="!gemeente" :mod-multiple="false" :options="straten">
             <template #option="props">
               <div>
                 <span>{{ props.option.naam }}</span>
@@ -96,26 +56,14 @@
             </template>
           </VlMultiselect>
 
-          <VlInputField
-            v-else
-            v-model="straat"
-            mod-block
-            placeholder="Straat"
-          />
+          <VlInputField v-else v-model="straat" mod-block placeholder="Straat" />
         </VlPropertiesData>
 
         <!-- Huisnummer -->
         <VlPropertiesLabel>Huisnummer</VlPropertiesLabel>
         <VlPropertiesData>
-          <VlMultiselect
-            v-if="isBelgiumOrEmpty"
-            v-model="huisnummer"
-            placeholder="Huisnummer"
-            :custom-label="customHuisnummerLabel"
-            :disabled="!straat"
-            :mod-multiple="false"
-            :options="huisnummers"
-          >
+          <VlMultiselect v-if="isBelgiumOrEmpty" v-model="huisnummer" placeholder="Huisnummer"
+            :custom-label="customHuisnummerLabel" :disabled="!straat" :mod-multiple="false" :options="huisnummers">
             <template #option="props">
               <div>
                 <span>{{ props.option.naam }}</span>
@@ -123,22 +71,13 @@
             </template>
           </VlMultiselect>
 
-          <VlInputField
-            v-else
-            v-model="huisnummer"
-            mod-block
-            placeholder="Huisnummer"
-          />
+          <VlInputField v-else v-model="huisnummer" mod-block placeholder="Huisnummer" />
         </VlPropertiesData>
 
         <!-- Busnummer -->
         <VlPropertiesLabel>Busnr.</VlPropertiesLabel>
         <VlPropertiesData>
-          <VlInputField
-            v-model="busnummer"
-            mod-block
-            placeholder="Busnummer"
-          />
+          <VlInputField v-model="busnummer" mod-block placeholder="Busnummer" />
         </VlPropertiesData>
       </VlPropertiesList>
     </VlProperties>
@@ -150,9 +89,9 @@
 
 <script setup lang="ts">
 import { VlInputField, VlMultiselect, VlProperties, VlPropertiesData, VlPropertiesLabel, VlPropertiesList, VlPropertiesTitle, VlSelect } from '@govflanders/vl-ui-design-system-vue3';
+import type { Adres, Gemeente, Huisnummer, Land, Postcode, Straat } from '@models/locatie';
+import { CrabService } from '@services/crab.api-service';
 import { computed, ref, watch } from 'vue';
-import { CrabService } from '../../services/crab.api-service';
-import type { Adres, Gemeente, Huisnummer, Land, Postcode, Straat } from '../../services/models/locatie';
 
 // Custom multiselect labels
 const customGemeenteLabel = (option: Gemeente) => option.naam;
@@ -199,7 +138,7 @@ const huisnummers = ref<Huisnummer[]>([]);
 
 // Land side-effects
 watch(land, () => {
-  gemeente.value = '';  
+  gemeente.value = '';
 });
 
 // Gemeente side-effects
@@ -225,18 +164,18 @@ watch(straat, async (selectedStraat: Straat | string) => {
 </script>
 
 <style lang="scss" scoped>
-.address-crab {
-  div.placeholder-container {
-    margin: 0;
-    border: none;
-  }
+  .address-crab {
+    div.placeholder-container {
+      margin: 0;
+      border: none;
+    }
 
-  .copy-button {
-    margin-left: 5px;
-  }
+    .copy-button {
+      margin-left: 5px;
+    }
 
-  .vl-properties__label {
-    max-width: 100%;
+    .vl-properties__label {
+      max-width: 100%;
+    }
   }
-}
 </style>

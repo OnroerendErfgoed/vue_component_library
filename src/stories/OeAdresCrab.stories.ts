@@ -1,14 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
-
-import SuspenseAddressCrab from '@/components/smart/AddressCrabSuspense.vue';
 import '@/scss/main.scss';
+import SuspenseAddressCrab from '@components/smart/AddressCrabSuspense.vue';
+import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof SuspenseAddressCrab> = {
   title: 'Smart components/Address-crab',
   // Suspense wrapper needed for components with async setup
   component: SuspenseAddressCrab,
   tags: ['autodocs'],
-    
 };
 
 export default meta;

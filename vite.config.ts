@@ -1,9 +1,7 @@
-import { fileURLToPath, URL } from 'node:url';
-
 import vue from '@vitejs/plugin-vue';
-import { defineConfig } from 'vite';
 import { resolve } from 'path';
-import copy from 'rollup-plugin-copy'
+import copy from 'rollup-plugin-copy';
+import { defineConfig } from 'vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -34,14 +32,16 @@ export default defineConfig({
   plugins: [
     vue(),
     copy({
-      targets: [
-        { src: 'src/scss', dest: 'dist/style' }
-      ]
-    })
+      targets: [{ src: 'src/scss', dest: 'dist/style' }],
+    }),
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@': resolve(__dirname, './src'),
+      '@assets': resolve(__dirname, './src/assets'),
+      '@components': resolve(__dirname, './src/components'),
+      '@services': resolve(__dirname, './src/services'),
+      '@models': resolve(__dirname, './src/models'),
     },
   },
 });

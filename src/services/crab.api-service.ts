@@ -1,5 +1,11 @@
 import axios from 'axios';
-import type { Gemeente, Huisnummer, Land, Postcode, Straat } from './models/locatie';
+import type {
+  Land,
+  Gemeente,
+  Postcode,
+  Straat,
+  Huisnummer,
+} from '@models/locatie';
 
 export class CrabService {
   private landen: Land[] = [];
@@ -21,16 +27,22 @@ export class CrabService {
     if (!!this.gemeenten?.length) {
       return Promise.resolve(this.gemeenten);
     } else {
-      return Promise.all([this.crabGet<Gemeente[]>('crab/gewesten/1/gemeenten'), this.crabGet<Gemeente[]>('crab/gewesten/2/gemeenten'), this.crabGet<Gemeente[]>('crab/gewesten/3/gemeenten')]).then(
-        (gemeenten) => {
-          if (gemeenten[0] && gemeenten[1] && gemeenten[2]) {
-            this.gemeenten = this.gemeenten.concat(gemeenten[0], gemeenten[1], gemeenten[2]);
-            this.gemeenten.sort(this.compareByNaam);
-            return this.gemeenten;
-          }
-          return [];
+      return Promise.all([
+        this.crabGet<Gemeente[]>('crab/gewesten/1/gemeenten'),
+        this.crabGet<Gemeente[]>('crab/gewesten/2/gemeenten'),
+        this.crabGet<Gemeente[]>('crab/gewesten/3/gemeenten'),
+      ]).then((gemeenten) => {
+        if (gemeenten[0] && gemeenten[1] && gemeenten[2]) {
+          this.gemeenten = this.gemeenten.concat(
+            gemeenten[0],
+            gemeenten[1],
+            gemeenten[2]
+          );
+          this.gemeenten.sort(this.compareByNaam);
+          return this.gemeenten;
         }
-      );
+        return [];
+      });
     }
   }
 
@@ -43,9 +55,15 @@ export class CrabService {
   }
 
   getHuisnummers(straat: number) {
-    return this.crabGet<Huisnummer[]>(`crab/straten/${straat}/huisnummers`).then((response) => {
-      const huisnummers: Huisnummer[] = response.map((huisnummer: Huisnummer) => ({ ...huisnummer, naam: huisnummer.label }));
-      return huisnummers.sort((a, b) => parseInt(a.naam, 0) - parseInt(b.naam, 0));
+    return this.crabGet<Huisnummer[]>(
+      `crab/straten/${straat}/huisnummers`
+    ).then((response) => {
+      const huisnummers: Huisnummer[] = response.map(
+        (huisnummer: Huisnummer) => ({ ...huisnummer, naam: huisnummer.label })
+      );
+      return huisnummers.sort(
+        (a, b) => parseInt(a.naam, 0) - parseInt(b.naam, 0)
+      );
     });
   }
 
@@ -59,6 +77,7 @@ export class CrabService {
   }
 
   private async crabGet<T>(endpoint: string): Promise<T> {
-    return (await axios.get(`https://dev-geo.onroerenderfgoed.be/${endpoint}`)).data;
+    return (await axios.get(`https://dev-geo.onroerenderfgoed.be/${endpoint}`))
+      .data;
   }
 }
