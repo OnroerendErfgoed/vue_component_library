@@ -2777,11 +2777,6 @@
     "@vue/compiler-dom" "3.3.0-beta.3"
     "@vue/shared" "3.3.0-beta.3"
 
-"@vue/devtools-api@^6.4.5":
-  version "6.5.0"
-  resolved "https://registry.yarnpkg.com/@vue/devtools-api/-/devtools-api-6.5.0.tgz#98b99425edee70b4c992692628fa1ea2c1e57d07"
-  integrity sha512-o9KfBeaBmCKl10usN4crU53fYtC1r7jJwdGKjPT24t348rHxgfpZ0xL3Xm/gLUYnc0oTp8LAmrxOeLyu6tbk2Q==
-
 "@vue/eslint-config-prettier@^7.1.0":
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/@vue/eslint-config-prettier/-/eslint-config-prettier-7.1.0.tgz#97936379c7fb1d982b9d2c6b122306e3c2e464c8"
@@ -8853,13 +8848,6 @@ vue-inbrowser-compiler-independent-utils@^4.69.0:
   version "4.69.0"
   resolved "https://registry.yarnpkg.com/vue-inbrowser-compiler-independent-utils/-/vue-inbrowser-compiler-independent-utils-4.69.0.tgz#41e46d06c070b9d4feaf826bae03cec0fad84a45"
   integrity sha512-z9BTi8iXqS1ZLDK2quH6mrahMsaT+UuB5InhVPqR2Ft08OJw1Wxtalr9Cp5rRHOUirq9vaklzjEfD8WJGOIpuA==
-
-vue-router@^4.1.6:
-  version "4.1.6"
-  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.1.6.tgz#b70303737e12b4814578d21d68d21618469375a1"
-  integrity sha512-DYWYwsG6xNPmLq/FmZn8Ip+qrhFEzA14EI12MsMgVxvHFDYvlr4NXpVF5hrRH1wVcDP8fGi5F4rxuJSl8/r+EQ==
-  dependencies:
-    "@vue/devtools-api" "^6.4.5"
 
 vue-template-compiler@^2.7.14:
   version "2.7.14"
