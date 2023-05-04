@@ -1,20 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
+import AppHeader from './AppHeader.vue';
 
-import MyHeader from './Header.vue';
-
-const meta: Meta<typeof MyHeader> = {
+const meta: Meta<typeof AppHeader> = {
   /* 👇 The title prop is optional.
    * See https://storybook.js.org/docs/vue/configure/overview#configure-story-loading
    * to learn how to generate automatic titles
    */
   title: 'Example/Header',
-  component: MyHeader,
-  render: (args: any) => ({
-    components: { MyHeader },
+  component: AppHeader,
+  render: (args) => ({
+    components: { AppHeader },
     setup() {
       return { args };
     },
-    template: '<my-header :user="args.user" />',
+    template: '<AppHeader :user="args.user" />',
   }),
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/react/configure/story-layout
@@ -25,7 +24,7 @@ const meta: Meta<typeof MyHeader> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof MyHeader>;
+type Story = StoryObj<typeof AppHeader>;
 
 export const LoggedIn: Story = {
   args: {

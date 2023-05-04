@@ -1,9 +1,7 @@
 <template>
   <Suspense>
     <AddressCrab />
-    <template #fallback>
-      Loading...
-    </template>
+    <template #fallback> Loading... </template>
   </Suspense>
 </template>
 

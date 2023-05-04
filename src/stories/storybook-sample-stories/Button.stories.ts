@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-
-import Button from './Button.vue';
+import AppButton from './AppButton.vue';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
-const meta: Meta<typeof Button> = {
+const meta: Meta<typeof AppButton> = {
   title: 'Example/Button',
-  component: Button,
+  component: AppButton,
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/vue/writing-docs/autodocs
   tags: ['autodocs'],
   argTypes: {
@@ -17,7 +16,7 @@ const meta: Meta<typeof Button> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<typeof AppButton>;
 /*
  *👇 Render functions are a framework specific feature to allow you control on how the component renders.
  * See https://storybook.js.org/docs/vue/api/csf
