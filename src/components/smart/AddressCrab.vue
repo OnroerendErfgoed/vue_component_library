@@ -2,7 +2,6 @@
   <div class="address-crab">
     <VlProperties>
       <VlPropertiesTitle>Adres</VlPropertiesTitle>
-
       <VlPropertiesList>
         <!-- Land -->
         <VlPropertiesLabel>Land</VlPropertiesLabel>
@@ -26,10 +25,11 @@
             :mod-multiple="false"
             :options="gemeenten"
           >
-            <template #option="props">
-              <div>
-                <span>{{ props.option.naam }}</span>
-              </div>
+            <template #noResult>
+              <span>Geen resultaten gevonden...</span>
+            </template>
+            <template #noOptions>
+              <span>Geen opties beschikbaar!</span>
             </template>
           </VlMultiselect>
 
@@ -48,10 +48,11 @@
             :mod-multiple="false"
             :options="postcodes"
           >
-            <template #option="props">
-              <div>
-                <span>{{ props.option.id }}</span>
-              </div>
+            <template #noResult>
+              <span>Geen resultaten gevonden...</span>
+            </template>
+            <template #noOptions>
+              <span>Geen opties beschikbaar!</span>
             </template>
           </VlMultiselect>
 
@@ -70,10 +71,11 @@
             :mod-multiple="false"
             :options="straten"
           >
-            <template #option="props">
-              <div>
-                <span>{{ props.option.naam }}</span>
-              </div>
+            <template #noResult>
+              <span>Geen resultaten gevonden...</span>
+            </template>
+            <template #noOptions>
+              <span>Geen opties beschikbaar!</span>
             </template>
           </VlMultiselect>
 
@@ -92,10 +94,11 @@
             :mod-multiple="false"
             :options="huisnummers"
           >
-            <template #option="props">
-              <div>
-                <span>{{ props.option.naam }}</span>
-              </div>
+            <template #noResult>
+              <span>Geen resultaten gevonden...</span>
+            </template>
+            <template #noOptions>
+              <span>Geen opties beschikbaar!</span>
             </template>
           </VlMultiselect>
 
