@@ -211,6 +211,24 @@
   </div>
 </template>
 
+<script lang="ts">
+export interface AdresCrabProps {
+  config?: AdresCrabConfig;
+}
+export interface AdresCrabConfig {
+  land?: ConfigOption;
+  gemeente?: ConfigOption;
+  postcode?: ConfigOption;
+  straat?: ConfigOption;
+  huisnummer?: ConfigOption;
+  busnummer?: ConfigOption;
+}
+
+interface ConfigOption {
+  required: boolean;
+}
+</script>
+
 <script setup lang="ts">
 import {
   VlFormMessageError,
@@ -229,6 +247,17 @@ import { CrabService } from '@services/crab.api-service';
 import { required } from '@utils/i18n-validators';
 import { useVuelidate } from '@vuelidate/core';
 import { computed, ref, watch } from 'vue';
+
+const props = withDefaults(defineProps<AdresCrabProps>(), {
+  config: () => ({
+    land: { required: true },
+    gemeente: { required: true },
+    postcode: { required: true },
+    straat: { required: true },
+    huisnummer: { required: true },
+    busnummer: { required: false },
+  }),
+});
 
 // Custom multiselect labels
 const customGemeenteLabel = (option: Gemeente) => option.naam;
@@ -257,14 +286,14 @@ const adres = computed<Adres>(() => ({
 }));
 
 // Validation rules
-const rules = {
-  land: { required },
-  gemeente: { required },
-  postcode: { required },
-  straat: { required },
-  huisnummer: { required },
-  subadres: { required },
-};
+const rules = computed(() => ({
+  land: { required: props.config.land?.required ? required : '' },
+  gemeente: { required: props.config.gemeente?.required ? required : '' },
+  postcode: { required: props.config.postcode?.required ? required : '' },
+  straat: { required: props.config.straat?.required ? required : '' },
+  huisnummer: { required: props.config.huisnummer?.required ? required : '' },
+  subadres: { required: props.config.busnummer?.required ? required : '' },
+}));
 
 // Init validation instance
 const v$ = useVuelidate(rules, adres, { $autoDirty: true, $lazy: true });
