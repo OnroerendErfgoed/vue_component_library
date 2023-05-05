@@ -1,25 +1,43 @@
 <template>
-  <div class="address-crab">
+  <div class="adres-crab">
     <VlProperties>
       <VlPropertiesTitle>Adres</VlPropertiesTitle>
       <VlPropertiesList>
         <!-- Land -->
-        <VlPropertiesLabel>Land</VlPropertiesLabel>
+        <VlPropertiesLabel>
+          <vl-form-message-label>
+            Land
+            <span class="vl-form__annotation">
+              {{ '(verplicht)' }}
+            </span>
+          </vl-form-message-label>
+        </VlPropertiesLabel>
         <VlPropertiesData>
-          <VlSelect v-model:value="land" mod-block placeholder-text="Land">
+          <VlSelect v-model:value="land" :mod-error="!!v$.land.$errors.length" mod-block placeholder-text="Land">
             <option v-for="item in landen" :key="item.id" :value="item.id" :disabled="item.disabled">
               {{ item.naam }}
             </option>
           </VlSelect>
+          <vl-form-message-error v-for="error of v$.land.$errors" :key="error.$uid">
+            {{ error.$message }}
+          </vl-form-message-error>
         </VlPropertiesData>
 
         <!-- Gemeente -->
-        <VlPropertiesLabel>Gemeente</VlPropertiesLabel>
+        <VlPropertiesLabel>
+          <vl-form-message-label>
+            Gemeente
+            <span class="vl-form__annotation">
+              {{ '(verplicht)' }}
+            </span>
+          </vl-form-message-label>
+        </VlPropertiesLabel>
         <VlPropertiesData>
           <VlMultiselect
             v-if="isBelgiumOrEmpty"
             v-model="gemeente"
             placeholder="Gemeente"
+            :mod-error="!!v$.gemeente.$errors.length"
             :custom-label="customGemeenteLabel"
             :disabled="!land"
             :mod-multiple="false"
@@ -33,11 +51,27 @@
             </template>
           </VlMultiselect>
 
-          <VlInputField v-else v-model="gemeente" mod-block placeholder="Gemeente" />
+          <VlInputField
+            v-else
+            v-model="gemeente"
+            :mod-error="!!v$.gemeente.$errors.length"
+            mod-block
+            placeholder="Gemeente"
+          />
+          <vl-form-message-error v-for="error of v$.gemeente.$errors" :key="error.$uid">
+            {{ error.$message }}
+          </vl-form-message-error>
         </VlPropertiesData>
 
         <!-- Postcode -->
-        <VlPropertiesLabel>Postcode</VlPropertiesLabel>
+        <VlPropertiesLabel>
+          <vl-form-message-label>
+            Postcode
+            <span class="vl-form__annotation">
+              {{ '(verplicht)' }}
+            </span>
+          </vl-form-message-label>
+        </VlPropertiesLabel>
         <VlPropertiesData>
           <VlMultiselect
             v-if="isBelgiumOrEmpty"
@@ -45,6 +79,7 @@
             placeholder="Postcode"
             :custom-label="customPostcodeLabel"
             :disabled="!gemeente"
+            :mod-error="!!v$.postcode.$errors.length"
             :mod-multiple="false"
             :options="postcodes"
           >
@@ -56,11 +91,27 @@
             </template>
           </VlMultiselect>
 
-          <VlInputField v-else v-model="postcode" mod-block placeholder="Postcode" />
+          <VlInputField
+            v-else
+            v-model="postcode"
+            :mod-error="!!v$.postcode.$errors.length"
+            mod-block
+            placeholder="Postcode"
+          />
+          <vl-form-message-error v-for="error of v$.postcode.$errors" :key="error.$uid">
+            {{ error.$message }}
+          </vl-form-message-error>
         </VlPropertiesData>
 
         <!-- Straat -->
-        <VlPropertiesLabel>Straat</VlPropertiesLabel>
+        <VlPropertiesLabel>
+          <vl-form-message-label>
+            Straat
+            <span class="vl-form__annotation">
+              {{ '(verplicht)' }}
+            </span>
+          </vl-form-message-label>
+        </VlPropertiesLabel>
         <VlPropertiesData>
           <VlMultiselect
             v-if="isBelgiumOrEmpty"
@@ -69,6 +120,7 @@
             :custom-label="customStraatLabel"
             :disabled="!gemeente"
             :mod-multiple="false"
+            :mod-error="!!v$.straat.$errors.length"
             :options="straten"
           >
             <template #noResult>
@@ -79,11 +131,27 @@
             </template>
           </VlMultiselect>
 
-          <VlInputField v-else v-model="straat" mod-block placeholder="Straat" />
+          <VlInputField
+            v-else
+            v-model="straat"
+            :mod-error="!!v$.straat.$errors.length"
+            mod-block
+            placeholder="Straat"
+          />
+          <vl-form-message-error v-for="error of v$.straat.$errors" :key="error.$uid">
+            {{ error.$message }}
+          </vl-form-message-error>
         </VlPropertiesData>
 
         <!-- Huisnummer -->
-        <VlPropertiesLabel>Huisnummer</VlPropertiesLabel>
+        <VlPropertiesLabel>
+          <vl-form-message-label>
+            Huisnummer
+            <span class="vl-form__annotation">
+              {{ '(verplicht)' }}
+            </span>
+          </vl-form-message-label>
+        </VlPropertiesLabel>
         <VlPropertiesData>
           <VlMultiselect
             v-if="isBelgiumOrEmpty"
@@ -92,6 +160,7 @@
             :custom-label="customHuisnummerLabel"
             :disabled="!straat"
             :mod-multiple="false"
+            :mod-error="!!v$.huisnummer.$errors.length"
             :options="huisnummers"
           >
             <template #noResult>
@@ -102,13 +171,37 @@
             </template>
           </VlMultiselect>
 
-          <VlInputField v-else v-model="huisnummer" mod-block placeholder="Huisnummer" />
+          <VlInputField
+            v-else
+            v-model="huisnummer"
+            mod-block
+            placeholder="Huisnummer"
+            :mod-error="!!v$.huisnummer.$errors.length"
+          />
+          <vl-form-message-error v-for="error of v$.huisnummer.$errors" :key="error.$uid">
+            {{ error.$message }}
+          </vl-form-message-error>
         </VlPropertiesData>
 
         <!-- Busnummer -->
-        <VlPropertiesLabel>Busnr.</VlPropertiesLabel>
+        <VlPropertiesLabel>
+          <vl-form-message-label>
+            Busnummer
+            <span class="vl-form__annotation">
+              {{ '(verplicht)' }}
+            </span>
+          </vl-form-message-label>
+        </VlPropertiesLabel>
         <VlPropertiesData>
-          <VlInputField v-model="busnummer" mod-block placeholder="Busnummer" />
+          <VlInputField
+            v-model="busnummer"
+            mod-block
+            :mod-error="!!v$.subadres.$errors.length"
+            placeholder="Busnummer"
+          />
+          <vl-form-message-error v-for="error of v$.subadres.$errors" :key="error.$uid">
+            {{ error.$message }}
+          </vl-form-message-error>
         </VlPropertiesData>
       </VlPropertiesList>
     </VlProperties>
@@ -120,6 +213,8 @@
 
 <script setup lang="ts">
 import {
+  VlFormMessageError,
+  VlFormMessageLabel,
   VlInputField,
   VlMultiselect,
   VlProperties,
@@ -131,6 +226,8 @@ import {
 } from '@govflanders/vl-ui-design-system-vue3';
 import type { Adres, Gemeente, Huisnummer, Land, Postcode, Straat } from '@models/locatie';
 import { CrabService } from '@services/crab.api-service';
+import { required } from '@utils/i18n-validators';
+import { useVuelidate } from '@vuelidate/core';
 import { computed, ref, watch } from 'vue';
 
 // Custom multiselect labels
@@ -148,6 +245,8 @@ const huisnummer = ref('');
 const busnummer = ref('');
 
 const isBelgiumOrEmpty = computed(() => land.value === 'BE' || land.value === '');
+
+// Form binding
 const adres = computed<Adres>(() => ({
   land: land.value,
   gemeente: typeof gemeente.value === 'string' ? gemeente.value : (gemeente.value as Gemeente).niscode.toString(),
@@ -156,6 +255,19 @@ const adres = computed<Adres>(() => ({
   huisnummer: typeof huisnummer.value === 'string' ? huisnummer.value : (huisnummer.value as Huisnummer).id.toString(),
   subadres: busnummer.value,
 }));
+
+// Validation rules
+const rules = {
+  land: { required },
+  gemeente: { required },
+  postcode: { required },
+  straat: { required },
+  huisnummer: { required },
+  subadres: { required },
+};
+
+// Init validation instance
+const v$ = useVuelidate(rules, adres, { $autoDirty: true, $lazy: true });
 
 // Reference data
 const crabService = new CrabService();
@@ -204,7 +316,7 @@ watch(straat, async (selectedStraat: Straat | string) => {
 </script>
 
 <style lang="scss" scoped>
-.address-crab {
+.adres-crab {
   div.placeholder-container {
     margin: 0;
     border: none;
