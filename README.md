@@ -1,10 +1,10 @@
-# vue_component_library
+# Vue component library
 
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) + [Vue VSCode Snippets](https://marketplace.visualstudio.com/items?itemName=sdras.vue-vscode-snippets)
 
 ## Type Support for `.vue` Imports in TS
 
@@ -21,34 +21,96 @@ If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has a
 
 See [Vite Configuration Reference](https://vitejs.dev/config/).
 
+## Code style
+
+### Pre-commit hook
+
+See [Pre-commit](https://pre-commit.com/#install) for installation.
+
+After installing this on your local machine, the config in `.pre-commit-config.yaml` will be picked up and makes sure `lint` and `format` are run before commit to guarantee the code style.
+
+### Lint and format on save (VSCode)
+
+Add following config to your `settings.json` to enable lint and format on save.
+
+```json
+{
+  ...,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
+```
+
 ## Project Setup
 
 ```sh
-npm install
+yarn
 ```
 
-### Compile and Hot-Reload for Development
+### Development with Storybook
 
 ```sh
-npm run dev
+yarn storybook
 ```
+
+### Build and watch for Development in implementing applications
+
+```sh
+yarn build:watch
+```
+
+#### Symlink
+
+A symlink can be created between the library and implementing applications.
+
+```sh
+yarn link
+```
+
+Afterwards link the package in the desired implementing application.
+
+```sh
+yarn link "vue-components"
+```
+
+Whilst running the `build:watch` command, changes in the library will automatically be reflected in linked applications.
 
 ### Type-Check, Compile and Minify for Production
 
 ```sh
-npm run build
+yarn build
 ```
 
 ### Run Headed Component Tests with [Cypress Component Testing](https://on.cypress.io/component)
 
 ```sh
-npm run test:unit:dev # or `npm run test:unit` for headless testing
+yarn test:unit:dev # or `yarn test:unit` for headless testing
 ```
 
 ### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
 
 ```sh
-npm run test:e2e:dev
+yarn test:e2e:dev
 ```
 
 This runs the end-to-end tests against the Vite development server.
@@ -57,12 +119,18 @@ It is much faster than the production build.
 But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
 
 ```sh
-npm run build
-npm run test:e2e
+yarn build
+yarn test:e2e
 ```
 
 ### Lint with [ESLint](https://eslint.org/)
 
 ```sh
-npm run lint
+yarn lint
+```
+
+### Format with [Prettier](https://prettier.io/)
+
+```sh
+yarn format
 ```

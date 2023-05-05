@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { within, userEvent } from '@storybook/testing-library';
-import MyPage from './Page.vue';
+import AppPage from './AppPage.vue';
 
-const meta: Meta<typeof MyPage> = {
+const meta: Meta<typeof AppPage> = {
   title: 'Example/Page',
-  component: MyPage,
+  component: AppPage,
   render: () => ({
-    components: { MyPage },
-    template: '<my-page />',
+    components: { AppPage },
+    template: '<AppPage />',
   }),
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/vue/configure/story-layout
@@ -18,11 +18,11 @@ const meta: Meta<typeof MyPage> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof MyPage>;
+type Story = StoryObj<typeof AppPage>;
 
 // More on interaction testing: https://storybook.js.org/docs/vue/writing-tests/interaction-testing
 export const LoggedIn: Story = {
-  play: async ({ canvasElement }: any) => {
+  play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const loginButton = await canvas.getByRole('button', {
       name: /Log in/i,

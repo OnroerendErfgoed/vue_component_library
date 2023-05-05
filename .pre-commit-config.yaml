@@ -1,0 +1,28 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v3.0.0-alpha.9-for-vscode
+    hooks:
+      - id: prettier
+        types_or: [ts, javascript, scss, css, yaml, json, vue]
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v8.39.0
+    hooks:
+      - id: eslint
+        additional_dependencies:
+          - eslint@8.34.0
+          - eslint-config-prettier@8.8.0
+          - eslint-import-resolver-typescript@3.5.5
+          - eslint-plugin-cypress@2.12.1
+          - eslint-plugin-import@2.27.5
+          - eslint-plugin-prettier@4.2.1
+          - eslint-plugin-vue@9.11.0
+          - '@vue/eslint-config-prettier@7.1.0'
+          - '@vue/eslint-config-typescript@11.0.2'
+        files: \.[jt]sx|\.vue?$ # *.js, *.jsx, *.ts and *.tsx
+        types: [file]
