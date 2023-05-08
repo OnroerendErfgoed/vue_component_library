@@ -7,7 +7,7 @@
         <VlPropertiesLabel>
           <vl-form-message-label>
             Land
-            <span class="vl-form__annotation">
+            <span v-if="$props.config?.land?.required" class="vl-form__annotation">
               {{ '(verplicht)' }}
             </span>
           </vl-form-message-label>
@@ -27,7 +27,7 @@
         <VlPropertiesLabel>
           <vl-form-message-label>
             Gemeente
-            <span class="vl-form__annotation">
+            <span v-if="$props.config?.gemeente?.required" class="vl-form__annotation">
               {{ '(verplicht)' }}
             </span>
           </vl-form-message-label>
@@ -67,7 +67,7 @@
         <VlPropertiesLabel>
           <vl-form-message-label>
             Postcode
-            <span class="vl-form__annotation">
+            <span v-if="$props.config?.postcode?.required" class="vl-form__annotation">
               {{ '(verplicht)' }}
             </span>
           </vl-form-message-label>
@@ -107,7 +107,7 @@
         <VlPropertiesLabel>
           <vl-form-message-label>
             Straat
-            <span class="vl-form__annotation">
+            <span v-if="$props.config?.straat?.required" class="vl-form__annotation">
               {{ '(verplicht)' }}
             </span>
           </vl-form-message-label>
@@ -147,7 +147,7 @@
         <VlPropertiesLabel>
           <vl-form-message-label>
             Huisnummer
-            <span class="vl-form__annotation">
+            <span v-if="$props.config?.huisnummer?.required" class="vl-form__annotation">
               {{ '(verplicht)' }}
             </span>
           </vl-form-message-label>
@@ -187,7 +187,7 @@
         <VlPropertiesLabel>
           <vl-form-message-label>
             Busnummer
-            <span class="vl-form__annotation">
+            <span v-if="$props.config?.busnummer?.required" class="vl-form__annotation">
               {{ '(verplicht)' }}
             </span>
           </vl-form-message-label>
@@ -255,7 +255,7 @@ const props = withDefaults(defineProps<AdresCrabProps>(), {
     postcode: { required: true },
     straat: { required: true },
     huisnummer: { required: true },
-    busnummer: { required: true },
+    busnummer: { required: false },
   }),
 });
 
