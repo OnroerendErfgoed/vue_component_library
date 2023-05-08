@@ -21,6 +21,11 @@ const meta: Meta<typeof AdresCrab> = {
   argTypes: {
     config: {
       control: 'object',
+      description: 'Configuratie per veld',
+    },
+    api: {
+      control: 'text',
+      description: 'API host url',
     },
   },
 };

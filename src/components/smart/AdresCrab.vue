@@ -209,7 +209,8 @@
 </template>
 
 <script lang="ts">
-export interface AdresCrabProps {
+interface AdresCrabProps {
+  api: string;
   config?: AdresCrabConfig;
 }
 export interface AdresCrabConfig {
@@ -254,6 +255,7 @@ const props = withDefaults(defineProps<AdresCrabProps>(), {
     huisnummer: { required: true },
     busnummer: { required: false },
   }),
+  api: 'https://dev-geo.onroerenderfgoed.be/',
 });
 
 // Custom multiselect labels
@@ -296,7 +298,7 @@ const rules = computed(() => ({
 const v$ = useVuelidate(rules, adres, { $autoDirty: true, $lazy: true });
 
 // Reference data
-const crabService = new CrabService();
+const crabService = new CrabService(props.api);
 
 const staticLanden: Land[] = [
   { id: 'BE', naam: 'België' },
@@ -313,6 +315,14 @@ const gemeenten: Gemeente[] = await crabService.getGemeenten();
 const postcodes = ref<Postcode[]>([]);
 const straten = ref<Straat[]>([]);
 const huisnummers = ref<Huisnummer[]>([]);
+
+// Api changes
+watch(
+  () => props.api,
+  (current) => {
+    crabService.setApiUrl(current);
+  }
+);
 
 // Land side-effects
 watch(land, () => {

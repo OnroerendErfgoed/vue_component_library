@@ -2,8 +2,17 @@ import axios from 'axios';
 import type { Land, Gemeente, Postcode, Straat, Huisnummer } from '@models/locatie';
 
 export class CrabService {
+  private API_URL: string;
   private landen: Land[] = [];
   private gemeenten: Gemeente[] = [];
+
+  constructor(apiUrl: string) {
+    this.API_URL = apiUrl;
+  }
+
+  setApiUrl(apiUrl: string) {
+    this.API_URL = apiUrl;
+  }
 
   getLanden(): Promise<Land[]> {
     if (this.landen?.length) {
@@ -64,6 +73,6 @@ export class CrabService {
   }
 
   private async crabGet<T>(endpoint: string): Promise<T> {
-    return (await axios.get(`https://dev-geo.onroerenderfgoed.be/${endpoint}`)).data;
+    return (await axios.get(`${this.API_URL}${endpoint}`)).data;
   }
 }
