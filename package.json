@@ -41,6 +41,7 @@
     "@vuelidate/validators": "^2.0.2",
     "@vueuse/core": "^10.1.2",
     "axios": "^1.4.0",
+    "lodash": "^4.17.21",
     "pyoes": "https://gitpkg.now.sh/OnroerendErfgoed/pyoes/npm-packages/pyoes",
     "vue": "^3.2.47",
     "vue-i18n": "9"

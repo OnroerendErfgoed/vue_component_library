@@ -81,7 +81,7 @@
             :disabled="!gemeente"
             :mod-error="!!v$.postcode.$errors.length"
             :mod-multiple="false"
-            :options="postcodes"
+            :options="postinfo"
           >
             <template #noResult>
               <span>Geen resultaten gevonden...</span>
@@ -193,24 +193,45 @@
           </vl-form-message-label>
         </VlPropertiesLabel>
         <VlPropertiesData>
+          <VlMultiselect
+            v-if="isBelgiumOrEmpty"
+            v-model="busnummer"
+            placeholder="Busnummer"
+            :custom-label="customBusnummerLabel"
+            :disabled="!huisnummer"
+            :mod-multiple="false"
+            :mod-error="!!v$.busnummer.$errors.length"
+            :options="busnummers"
+          >
+            <template #noResult>
+              <span>Geen resultaten gevonden...</span>
+            </template>
+            <template #noOptions>
+              <span>Geen opties beschikbaar!</span>
+            </template>
+          </VlMultiselect>
+
           <VlInputField
+            v-else
             v-model="busnummer"
             mod-block
-            :mod-error="!!v$.subadres.$errors.length"
             placeholder="Busnummer"
+            :mod-error="!!v$.busnummer.$errors.length"
           />
-          <vl-form-message-error v-for="error of v$.subadres.$errors" :key="error.$uid">
+          <vl-form-message-error v-for="error of v$.busnummer.$errors" :key="error.$uid">
             {{ error.$message }}
           </vl-form-message-error>
         </VlPropertiesData>
       </VlPropertiesList>
     </VlProperties>
+
+    <pre>{{ adres }}</pre>
   </div>
 </template>
 
 <script lang="ts">
 interface AdresCrabProps {
-  api: string;
+  api?: string;
   config?: AdresCrabConfig;
 }
 export interface AdresCrabConfig {
@@ -240,10 +261,11 @@ import {
   VlPropertiesTitle,
   VlSelect,
 } from '@govflanders/vl-ui-design-system-vue3';
-import type { Adres, Gemeente, Huisnummer, Land, Postcode, Straat } from '@models/locatie';
+import type { Adres, AdresNew, Gemeente, Land, Postinfo, Straat } from '@models/locatie';
 import { CrabService } from '@services/crab.api-service';
 import { required } from '@utils/i18n-validators';
 import { useVuelidate } from '@vuelidate/core';
+import { sortBy, uniqBy } from 'lodash';
 import { computed, ref, watch } from 'vue';
 
 const props = withDefaults(defineProps<AdresCrabProps>(), {
@@ -260,9 +282,10 @@ const props = withDefaults(defineProps<AdresCrabProps>(), {
 
 // Custom multiselect labels
 const customGemeenteLabel = (option: Gemeente) => option.naam;
-const customPostcodeLabel = (option: Postcode) => option.id;
+const customPostcodeLabel = (option: Postinfo) => option.postcode;
 const customStraatLabel = (option: Straat) => option.naam;
-const customHuisnummerLabel = (option: Huisnummer) => option.naam;
+const customHuisnummerLabel = (option: Adres) => option.huisnummer;
+const customBusnummerLabel = (option: Adres) => option.busnummer;
 
 // Form values
 const land = ref('');
@@ -273,15 +296,17 @@ const huisnummer = ref('');
 const busnummer = ref('');
 
 const isBelgiumOrEmpty = computed(() => land.value === 'BE' || land.value === '');
+const isBelgium = computed(() => land.value === 'BE');
 
 // Form binding
-const adres = computed<Adres>(() => ({
+const adres = computed<AdresNew>(() => ({
   land: land.value,
-  gemeente: typeof gemeente.value === 'string' ? gemeente.value : (gemeente.value as Gemeente).niscode.toString(),
-  postcode: typeof postcode.value === 'string' ? postcode.value : (postcode.value as Postcode).id.toString(),
+  gemeente: typeof gemeente.value === 'string' ? gemeente.value : (gemeente.value as Gemeente).niscode,
+  postcode: typeof postcode.value === 'string' ? postcode.value : (postcode.value as Postinfo).postcode,
   straat: typeof straat.value === 'string' ? straat.value : (straat.value as Straat).id.toString(),
-  huisnummer: typeof huisnummer.value === 'string' ? huisnummer.value : (huisnummer.value as Huisnummer).id.toString(),
-  subadres: busnummer.value,
+  huisnummer:
+    typeof huisnummer.value === 'string' ? huisnummer.value : (huisnummer.value as Adres).huisnummer.toString(),
+  busnummer: typeof busnummer.value === 'string' ? busnummer.value : (busnummer.value as Adres).busnummer.toString(),
 }));
 
 // Validation rules
@@ -291,7 +316,7 @@ const rules = computed(() => ({
   postcode: { required: props.config.postcode?.required ? required : '' },
   straat: { required: props.config.straat?.required ? required : '' },
   huisnummer: { required: props.config.huisnummer?.required ? required : '' },
-  subadres: { required: props.config.busnummer?.required ? required : '' },
+  busnummer: { required: props.config.busnummer?.required ? required : '' },
 }));
 
 // Init validation instance
@@ -311,10 +336,11 @@ const staticLanden: Land[] = [
 ];
 const apiLanden: Land[] = await crabService.getLanden();
 const landen = computed<Land[]>(() => [...staticLanden, ...apiLanden]);
-const gemeenten: Gemeente[] = await crabService.getGemeenten();
-const postcodes = ref<Postcode[]>([]);
+const gemeenten = ref<Gemeente[]>([]);
+const postinfo = ref<Postinfo[]>([]);
 const straten = ref<Straat[]>([]);
-const huisnummers = ref<Huisnummer[]>([]);
+const huisnummers = ref<Adres[]>([]);
+const busnummers = ref<Adres[]>([]);
 
 // Api changes
 watch(
@@ -325,7 +351,10 @@ watch(
 );
 
 // Land side-effects
-watch(land, () => {
+watch(land, async () => {
+  if (isBelgium.value) {
+    gemeenten.value = await crabService.getGemeenten();
+  }
   gemeente.value = '';
 });
 
@@ -335,18 +364,32 @@ watch(gemeente, async (selectedGemeente: Gemeente | string) => {
   straat.value = '';
 
   if (isBelgiumOrEmpty.value && selectedGemeente) {
-    postcodes.value = await crabService.getPostcodes((selectedGemeente as Gemeente).id);
-    straten.value = await crabService.getStraten((selectedGemeente as Gemeente).id);
+    postinfo.value = await crabService.getPostinfo((selectedGemeente as Gemeente).naam);
+    straten.value = await crabService.getStraten((selectedGemeente as Gemeente).niscode);
   }
 });
 
 // Straat side-effects
 watch(straat, async (selectedStraat: Straat | string) => {
   huisnummer.value = '';
-  busnummer.value = '';
 
   if (isBelgiumOrEmpty.value && selectedStraat) {
-    huisnummers.value = await crabService.getHuisnummers((selectedStraat as Straat).id);
+    huisnummers.value = uniqBy(
+      sortBy(await crabService.getAdressen((selectedStraat as Straat).id), 'huisnummer'),
+      'huisnummer'
+    );
+  }
+});
+
+// Huisnummer side-effects
+watch(huisnummer, async (selectedHuisnummer: Adres | string) => {
+  busnummer.value = '';
+
+  if (isBelgiumOrEmpty.value && selectedHuisnummer) {
+    busnummers.value = sortBy(
+      await crabService.getAdressen(adres.value.straat, (selectedHuisnummer as Adres).huisnummer),
+      'busnummer'
+    );
   }
 });
 </script>

@@ -1,5 +1,6 @@
+import type { Adres, Gemeente, Gewest, Land, Postinfo, Straat } from '@models/locatie';
 import axios from 'axios';
-import type { Land, Gemeente, Postcode, Straat, Huisnummer } from '@models/locatie';
+import { sortBy } from 'lodash';
 
 export class CrabService {
   private API_URL: string;
@@ -18,9 +19,8 @@ export class CrabService {
     if (this.landen?.length) {
       return Promise.resolve(this.landen);
     } else {
-      return this.crabGet<Land[]>('crab/landen').then((landen) => {
-        this.landen = landen;
-        this.landen.sort(this.compareByNaam);
+      return this.crabGet<Land[]>('adressenregister/landen').then((landen) => {
+        this.landen = sortBy(landen, 'naam');
         return this.landen;
       });
     }
@@ -30,49 +30,38 @@ export class CrabService {
     if (this.gemeenten?.length) {
       return Promise.resolve(this.gemeenten);
     } else {
-      return Promise.all([
-        this.crabGet<Gemeente[]>('crab/gewesten/1/gemeenten'),
-        this.crabGet<Gemeente[]>('crab/gewesten/2/gemeenten'),
-        this.crabGet<Gemeente[]>('crab/gewesten/3/gemeenten'),
-      ]).then((gemeenten) => {
-        if (gemeenten[0] && gemeenten[1] && gemeenten[2]) {
-          this.gemeenten = this.gemeenten.concat(gemeenten[0], gemeenten[1], gemeenten[2]);
-          this.gemeenten.sort(this.compareByNaam);
-          return this.gemeenten;
-        }
-        return [];
+      return this.crabGet<Gewest[]>('adressenregister/gewesten').then((gewesten) => {
+        const getGemeenten = gewesten.map((gewest) =>
+          this.crabGet<Gemeente[]>(`adressenregister/gewesten/${gewest.niscode}/gemeenten`)
+        );
+
+        return Promise.all(getGemeenten).then((gemeenten) => {
+          if (gemeenten[0] && gemeenten[1] && gemeenten[2]) {
+            this.gemeenten = this.gemeenten.concat(gemeenten[0], gemeenten[1], gemeenten[2]);
+            return sortBy(this.gemeenten, 'naam');
+          }
+          return [];
+        });
       });
     }
   }
 
-  getPostcodes(gemeente: number): Promise<Postcode[]> {
-    return this.crabGet<Postcode[]>(`crab/gemeenten/${gemeente}/postkantons`);
+  getPostinfo(gemeente: string): Promise<Postinfo[]> {
+    return this.crabGet<Postinfo[]>(`adressenregister/gemeenten/${gemeente}/postinfo`);
   }
 
-  getStraten(gemeente: number): Promise<Straat[]> {
-    return this.crabGet<Straat[]>(`crab/gemeenten/${gemeente}/straten`);
+  getStraten(gemeente: string): Promise<Straat[]> {
+    return this.crabGet<Straat[]>(`adressenregister/gemeenten/${gemeente}/straten`);
   }
 
-  getHuisnummers(straat: number) {
-    return this.crabGet<Huisnummer[]>(`crab/straten/${straat}/huisnummers`).then((response) => {
-      const huisnummers: Huisnummer[] = response.map((huisnummer: Huisnummer) => ({
-        ...huisnummer,
-        naam: huisnummer.label,
-      }));
-      return huisnummers.sort((a, b) => parseInt(a.naam, 0) - parseInt(b.naam, 0));
-    });
-  }
-
-  private compareByNaam(a: { naam: string }, b: { naam: string }): number {
-    if (a.naam < b.naam) {
-      return -1;
-    } else if (a.naam > b.naam) {
-      return 1;
+  getAdressen(straat: string, huisnummer?: string): Promise<Adres[]> {
+    if (huisnummer) {
+      return this.crabGet<Adres[]>(`adressenregister/straten/${straat}/huisnummers/${huisnummer}`);
     }
-    return 0;
+    return this.crabGet<Adres[]>(`adressenregister/straten/${straat}/adressen`);
   }
 
   private async crabGet<T>(endpoint: string): Promise<T> {
-    return (await axios.get(`${this.API_URL.replace(/\/?$/, '/')}${endpoint}`)).data;
+    return (await axios.get(`${this.API_URL.replace(/\/?$/, '/')}${endpoint.replace(/^\/?/, '')}`)).data;
   }
 }

@@ -1,11 +1,20 @@
-export interface Adres {
+export interface AdresNew {
   id?: string;
   land: string;
   gemeente: string;
   postcode: string;
   straat: string;
   huisnummer: string;
-  subadres: string;
+  busnummer: string;
+}
+
+export interface Adres {
+  id: string;
+  uri: string;
+  label: string;
+  huisnummer: string;
+  busnummer: string;
+  status: string;
 }
 
 export interface Land {
@@ -14,32 +23,32 @@ export interface Land {
   disabled?: boolean;
 }
 
-export interface Gemeente {
+export interface Gewest {
   id: number;
   naam: string;
-  niscode: number;
+  niscode: string;
 }
 
-export interface Postcode {
-  id: number;
+export interface Provincie {
+  niscode: string;
+}
+
+export interface Gemeente {
+  naam: string;
+  niscode: string;
+  provincie: Provincie;
+}
+
+export interface Postinfo {
+  names: string[];
+  postcode: string;
+  status: string;
+  uri: string;
 }
 
 export interface Straat {
-  id: number;
-  naam: string;
-  label?: string;
-  status?: Status;
-}
-
-export interface Huisnummer {
-  id: number;
-  label: string;
-  naam: string;
-  status?: Status;
-}
-
-interface Status {
-  definitie: string;
   id: string;
   naam: string;
+  status: string;
+  uri: string;
 }
