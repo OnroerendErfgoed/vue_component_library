@@ -255,7 +255,7 @@ const props = withDefaults(defineProps<AdresCrabProps>(), {
     postcode: { required: true },
     straat: { required: true },
     huisnummer: { required: true },
-    busnummer: { required: false },
+    busnummer: { required: true },
   }),
 });
 

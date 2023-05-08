@@ -2,7 +2,7 @@ import vue from '@vitejs/plugin-vue';
 import { resolve } from 'path';
 import copy from 'rollup-plugin-copy';
 import { defineConfig } from 'vite';
-import vueI18n from '@intlify/vite-plugin-vue-i18n';
+import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -32,7 +32,7 @@ export default defineConfig({
   },
   plugins: [
     vue(),
-    vueI18n({
+    VueI18nPlugin({
       include: resolve(__dirname, './src/utils/i18n.ts'),
     }),
     copy({
