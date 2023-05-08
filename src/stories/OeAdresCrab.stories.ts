@@ -37,4 +37,23 @@ type Story = StoryObj<typeof AdresCrab>;
  * See https://storybook.js.org/docs/vue/api/csf
  * to learn how to use render functions.
  */
-export const Primary: Story = {};
+export const Default: Story = {};
+
+export const CustomApi: Story = {
+  args: {
+    api: 'https://test-geo.onroerenderfgoed.be/',
+  },
+};
+
+export const CustomConfig: Story = {
+  args: {
+    config: {
+      land: { required: true },
+      gemeente: { required: true },
+      postcode: { required: false },
+      straat: { required: false },
+      huisnummer: { required: false },
+      busnummer: { required: false },
+    },
+  },
+};

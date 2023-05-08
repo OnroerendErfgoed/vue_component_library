@@ -73,6 +73,6 @@ export class CrabService {
   }
 
   private async crabGet<T>(endpoint: string): Promise<T> {
-    return (await axios.get(`${this.API_URL}${endpoint}`)).data;
+    return (await axios.get(`${this.API_URL.replace(/\/?$/, '/')}${endpoint}`)).data;
   }
 }
