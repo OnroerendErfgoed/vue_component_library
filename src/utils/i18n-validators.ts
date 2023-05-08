@@ -5,7 +5,9 @@ import i18n from './i18n.json';
 const { createI18nMessage } = validators;
 
 // Create your i18n message instance. Used for vue-i18n@9
-const withI18nMessage = createI18nMessage({ t: createI18n(i18n).global.t.bind(i18n) });
+const withI18nMessage = createI18nMessage({
+  t: createI18n({ ...i18n, locale: 'nl', legacy: false }).global.t.bind(i18n),
+});
 
 // wrap each validator.
 export const required = withI18nMessage(validators.required);

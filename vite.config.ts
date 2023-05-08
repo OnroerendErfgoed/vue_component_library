@@ -33,7 +33,7 @@ export default defineConfig({
   plugins: [
     vue(),
     VueI18nPlugin({
-      include: resolve(__dirname, './src/utils/i18n.ts'),
+      include: resolve(__dirname, './src/utils/i18n.json'),
     }),
     copy({
       targets: [{ src: 'src/scss', dest: 'dist/style' }],
