@@ -1,16 +1,32 @@
 import '@/scss/main.scss';
-import SuspenseAdresCrab from '@components/smart/AdresCrabSuspense.vue';
+import { AdresCrab } from '@components/index';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-const meta: Meta<typeof SuspenseAdresCrab> = {
+const meta: Meta<typeof AdresCrab> = {
   title: 'Smart components/Adres-crab',
-  // Suspense wrapper needed for components with async setup
-  component: SuspenseAdresCrab,
+  component: AdresCrab,
   tags: ['autodocs'],
+  render: (args) => ({
+    components: { AdresCrab },
+    inheritAttrs: false,
+    setup() {
+      return { args };
+    },
+    template: `
+      <Suspense>
+        <AdresCrab v-bind="args" />
+      </Suspense>
+    `,
+  }),
+  argTypes: {
+    config: {
+      control: 'object',
+    },
+  },
 };
 
 export default meta;
-type Story = StoryObj<typeof SuspenseAdresCrab>;
+type Story = StoryObj<typeof AdresCrab>;
 /*
  *👇 Render functions are a framework specific feature to allow you control on how the component renders.
  * See https://storybook.js.org/docs/vue/api/csf

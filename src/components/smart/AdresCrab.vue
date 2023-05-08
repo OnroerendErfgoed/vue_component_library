@@ -205,9 +205,6 @@
         </VlPropertiesData>
       </VlPropertiesList>
     </VlProperties>
-
-    Form values:
-    <pre>{{ adres }}</pre>
   </div>
 </template>
 
