@@ -14,7 +14,13 @@
             </vl-form-message-label>
           </VlPropertiesLabel>
           <VlPropertiesData>
-            <VlSelect v-model:value="land" :mod-error="!!v$.land.$errors.length" mod-block placeholder-text="Land">
+            <VlSelect
+              v-model:value="land"
+              data-cy="select-country"
+              :mod-error="!!v$.land.$errors.length"
+              mod-block
+              placeholder-text="Land"
+            >
               <option v-for="item in landen" :key="item.id" :value="item.id" :disabled="item.disabled">
                 {{ item.naam }}
               </option>

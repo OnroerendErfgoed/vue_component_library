@@ -41,5 +41,11 @@ describe('Adres CRAB', () => {
     it('has an input label huisnummer - required', () => {
       cy.checkLabel('huisnummer', 'Huisnummer(verplicht)');
     });
+
+    describe('country selection België', () => {
+      it('fills in the form', () => {
+        cy.getDataCy('select-country').select(1).should('have.value', 'BE');
+      });
+    });
   });
 });
