@@ -23,13 +23,6 @@ export default defineConfig({
       },
     },
   },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@import "@/scss/main.scss";`,
-      },
-    },
-  },
   plugins: [
     vue(),
     VueI18nPlugin({
@@ -47,6 +40,7 @@ export default defineConfig({
       '@services': resolve(__dirname, './src/services'),
       '@models': resolve(__dirname, './src/models'),
       '@utils': resolve(__dirname, './src/utils'),
+      vue: 'vue/dist/vue.esm-bundler.js',
     },
   },
 });

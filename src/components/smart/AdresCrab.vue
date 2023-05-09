@@ -1,13 +1,13 @@
 <template>
   <div class="adres-crab">
     <VlProperties>
-      <VlPropertiesTitle>Adres</VlPropertiesTitle>
+      <VlPropertiesTitle data-cy="title-adres">Adres</VlPropertiesTitle>
       <VlPropertiesList>
         <!-- Land -->
         <template v-if="!props.countryId">
           <VlPropertiesLabel>
-            <vl-form-message-label>
-              Land
+            <vl-form-message-label data-cy="label-land">
+              <span class="vl-u-spacer-right--xxsmall">Land</span>
               <span v-if="$props.config?.land?.required" class="vl-form__annotation">
                 {{ '(verplicht)' }}
               </span>
@@ -27,8 +27,8 @@
 
         <!-- Gemeente -->
         <VlPropertiesLabel>
-          <vl-form-message-label>
-            Gemeente
+          <vl-form-message-label data-cy="label-gemeente">
+            <span class="vl-u-spacer-right--xxsmall">Gemeente</span>
             <span v-if="$props.config?.gemeente?.required" class="vl-form__annotation">
               {{ '(verplicht)' }}
             </span>
@@ -70,8 +70,8 @@
 
         <!-- Postcode -->
         <VlPropertiesLabel>
-          <vl-form-message-label>
-            Postcode
+          <vl-form-message-label data-cy="label-postcode">
+            <span class="vl-u-spacer-right--xxsmall">Postcode</span>
             <span v-if="$props.config?.postcode?.required" class="vl-form__annotation">
               {{ '(verplicht)' }}
             </span>
@@ -113,8 +113,8 @@
 
         <!-- Straat -->
         <VlPropertiesLabel>
-          <vl-form-message-label>
-            Straat
+          <vl-form-message-label data-cy="label-straat">
+            <span class="vl-u-spacer-right--xxsmall">Straat</span>
             <span v-if="$props.config?.straat?.required" class="vl-form__annotation">
               {{ '(verplicht)' }}
             </span>
@@ -155,8 +155,8 @@
 
         <!-- Huisnummer -->
         <VlPropertiesLabel>
-          <vl-form-message-label>
-            Huisnummer
+          <vl-form-message-label data-cy="label-huisnummer">
+            <span class="vl-u-spacer-right--xxsmall">Huisnummer</span>
             <span v-if="$props.config?.huisnummer?.required" class="vl-form__annotation">
               {{ '(verplicht)' }}
             </span>
@@ -208,8 +208,8 @@
 
         <!-- Busnummer -->
         <VlPropertiesLabel>
-          <vl-form-message-label>
-            Busnummer
+          <vl-form-message-label data-cy="label-busnummer">
+            <span class="vl-u-spacer-right--xxsmall">Busnummer</span>
             <span v-if="$props.config?.busnummer?.required" class="vl-form__annotation">
               {{ '(verplicht)' }}
             </span>
@@ -610,6 +610,9 @@ const resetFreeTextState = () => {
 
 <style lang="scss" scoped>
 .adres-crab {
+  .vl-u-spacer-right--xxsmall {
+    margin-right: 0.5rem;
+  }
   .vl-properties__label {
     max-width: 100%;
   }

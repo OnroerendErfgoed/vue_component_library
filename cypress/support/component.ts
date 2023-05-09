@@ -16,11 +16,9 @@
 // Import commands.js using ES2015 syntax:
 import './commands';
 
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
+import '@/scss/main.scss';
 
-// Import global styles
-import '@/assets/main.css';
+// Alternatively you can use CommonJS syntax:
 
 import { mount } from 'cypress/vue';
 
