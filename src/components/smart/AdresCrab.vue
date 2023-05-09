@@ -184,44 +184,46 @@
         </VlPropertiesData>
 
         <!-- Busnummer -->
-        <VlPropertiesLabel>
-          <vl-form-message-label>
-            Busnummer
-            <span v-if="$props.config?.busnummer?.required" class="vl-form__annotation">
-              {{ '(verplicht)' }}
-            </span>
-          </vl-form-message-label>
-        </VlPropertiesLabel>
-        <VlPropertiesData>
-          <VlMultiselect
-            v-if="isBelgiumOrEmpty"
-            v-model="busnummer"
-            placeholder="Busnummer"
-            :custom-label="customBusnummerLabel"
-            :disabled="!huisnummer"
-            :mod-multiple="false"
-            :mod-error="!!v$.busnummer.$errors.length"
-            :options="busnummers"
-          >
-            <template #noResult>
-              <span>Geen resultaten gevonden...</span>
-            </template>
-            <template #noOptions>
-              <span>Geen opties beschikbaar!</span>
-            </template>
-          </VlMultiselect>
+        <template v-if="showBusnummer">
+          <VlPropertiesLabel>
+            <vl-form-message-label>
+              Busnummer
+              <span v-if="$props.config?.busnummer?.required" class="vl-form__annotation">
+                {{ '(verplicht)' }}
+              </span>
+            </vl-form-message-label>
+          </VlPropertiesLabel>
+          <VlPropertiesData>
+            <VlMultiselect
+              v-if="isBelgiumOrEmpty"
+              v-model="busnummer"
+              placeholder="Busnummer"
+              :custom-label="customBusnummerLabel"
+              :disabled="!huisnummer"
+              :mod-multiple="false"
+              :mod-error="!!v$.busnummer.$errors.length"
+              :options="busnummers"
+            >
+              <template #noResult>
+                <span>Geen resultaten gevonden...</span>
+              </template>
+              <template #noOptions>
+                <span>Geen opties beschikbaar!</span>
+              </template>
+            </VlMultiselect>
 
-          <VlInputField
-            v-else
-            v-model="busnummer"
-            mod-block
-            placeholder="Busnummer"
-            :mod-error="!!v$.busnummer.$errors.length"
-          />
-          <vl-form-message-error v-for="error of v$.busnummer.$errors" :key="error.$uid">
-            {{ error.$message }}
-          </vl-form-message-error>
-        </VlPropertiesData>
+            <VlInputField
+              v-else
+              v-model="busnummer"
+              mod-block
+              placeholder="Busnummer"
+              :mod-error="!!v$.busnummer.$errors.length"
+            />
+            <vl-form-message-error v-for="error of v$.busnummer.$errors" :key="error.$uid">
+              {{ error.$message }}
+            </vl-form-message-error>
+          </VlPropertiesData>
+        </template>
       </VlPropertiesList>
     </VlProperties>
 
@@ -295,18 +297,19 @@ const straat = ref('');
 const huisnummer = ref('');
 const busnummer = ref('');
 
+// Conditionals
 const isBelgiumOrEmpty = computed(() => land.value === 'BE' || land.value === '');
 const isBelgium = computed(() => land.value === 'BE');
+const showBusnummer = computed(() => (huisnummer.value && busnummers.value.length > 1) || !isBelgiumOrEmpty.value);
 
 // Form binding
 const adres = computed<AdresNew>(() => ({
   land: land.value,
   gemeente: typeof gemeente.value === 'string' ? gemeente.value : (gemeente.value as Gemeente).niscode,
   postcode: typeof postcode.value === 'string' ? postcode.value : (postcode.value as Postinfo).postcode,
-  straat: typeof straat.value === 'string' ? straat.value : (straat.value as Straat).id.toString(),
-  huisnummer:
-    typeof huisnummer.value === 'string' ? huisnummer.value : (huisnummer.value as Adres).huisnummer.toString(),
-  busnummer: typeof busnummer.value === 'string' ? busnummer.value : (busnummer.value as Adres).busnummer.toString(),
+  straat: typeof straat.value === 'string' ? straat.value : (straat.value as Straat).id,
+  huisnummer: typeof huisnummer.value === 'string' ? huisnummer.value : (huisnummer.value as Adres).huisnummer,
+  busnummer: typeof busnummer.value === 'string' ? busnummer.value : (busnummer.value as Adres).busnummer,
 }));
 
 // Validation rules
@@ -324,7 +327,6 @@ const v$ = useVuelidate(rules, adres, { $autoDirty: true, $lazy: true });
 
 // Reference data
 const crabService = new CrabService(props.api);
-
 const staticLanden: Land[] = [
   { id: 'BE', naam: 'België' },
   { id: 'DE', naam: 'Duitsland' },
@@ -390,21 +392,16 @@ watch(huisnummer, async (selectedHuisnummer: Adres | string) => {
       await crabService.getAdressen(adres.value.straat, (selectedHuisnummer as Adres).huisnummer),
       'busnummer'
     );
+
+    if (busnummers.value.length === 1) {
+      busnummer.value = (busnummers.value.at(0) as Adres)?.busnummer;
+    }
   }
 });
 </script>
 
 <style lang="scss" scoped>
 .adres-crab {
-  div.placeholder-container {
-    margin: 0;
-    border: none;
-  }
-
-  .copy-button {
-    margin-left: 5px;
-  }
-
   .vl-properties__label {
     max-width: 100%;
   }
