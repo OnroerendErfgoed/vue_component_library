@@ -16,7 +16,7 @@
           <VlPropertiesData>
             <VlSelect
               v-model:value="land"
-              data-cy="select-country"
+              data-cy="select-land"
               :mod-error="!!v$.land.$errors.length"
               mod-block
               placeholder-text="Land"
@@ -45,6 +45,7 @@
             v-if="isBelgiumOrEmpty"
             v-model="gemeente"
             placeholder="Gemeente"
+            data-cy="select-gemeente"
             :mod-error="!!v$.gemeente.naam.$errors.length"
             :custom-label="customGemeenteLabel"
             :disabled="!land"

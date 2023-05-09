@@ -1,4 +1,5 @@
 import AdresCrab from '@components/smart/AdresCrab.vue';
+import { flushPromises } from '@vue/test-utils';
 import { mount } from 'cypress/vue';
 import { defineComponent } from 'vue';
 
@@ -43,8 +44,13 @@ describe('Adres CRAB', () => {
     });
 
     describe('country selection België', () => {
-      it('fills in the form', () => {
-        cy.getDataCy('select-country').select(1).should('have.value', 'BE');
+      it('fills in the form', async () => {
+        cy.getDataCy('select-land').select(1).should('have.value', 'BE');
+
+        await flushPromises();
+
+        cy.getDataCy('select-gemeente').click();
+        cy.getDataCy('select-gemeente').get('.multiselect__input').type('Lummen');
       });
     });
   });
