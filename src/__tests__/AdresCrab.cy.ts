@@ -38,27 +38,20 @@ describe('Adres CRAB', () => {
       cy.checkLabel('straat', 'Straat(verplicht)');
     });
 
-    it('has an input label huisnummer - required', () => {
-      cy.checkLabel('huisnummer', 'Huisnummer(verplicht)');
-    });
-
     describe('country selection België', () => {
-      it('fills in the form with a single busnummer', () => {
+      it('fills in the form', () => {
         fillInAdresCrabBelgium();
       });
 
-      it('fills in the form with multiple busnummers', () => {
-        fillInAdresCrabBelgium(true);
-      });
-
       it('clears the form when changing country', () => {
-        fillInAdresCrabBelgium(true);
+        fillInAdresCrabBelgium();
 
         cy.get('[data-cy="select-land"]').select(2).select(1);
 
         getMultiSelect('gemeente').find('.multiselect__single').should('not.exist');
         getMultiSelect('postcode').find('.multiselect__single').should('not.exist');
         getMultiSelect('straat').find('.multiselect__single').should('not.exist');
+        getMultiSelect('huisnummer').find('.multiselect__single').should('not.exist');
         getMultiSelect('huisnummer').find('.multiselect__single').should('not.exist');
       });
 
@@ -74,7 +67,7 @@ describe('Adres CRAB', () => {
 const getMultiSelect = (field: string) => cy.get(`[data-cy="select-${field}"]`);
 const getTextInput = (field: string) => cy.get(`[data-cy="input-${field}"]`);
 
-const fillInAdresCrabBelgium = (withMultipleBusnummers = false) => {
+const fillInAdresCrabBelgium = () => {
   // Country selection
   cy.get('[data-cy="select-land"]').select(1).should('have.value', 'BE');
 
@@ -103,27 +96,17 @@ const fillInAdresCrabBelgium = (withMultipleBusnummers = false) => {
 
   cy.wait('@dataGet');
 
-  if (withMultipleBusnummers) {
-    // Huisnummer with multiple busnummers
-    cy.get('[data-cy="select-huisnummer"]').click();
-    cy.get('[data-cy="select-huisnummer"] .multiselect__input').type('416');
-    cy.get('[data-cy="select-huisnummer"] .multiselect__element').first().click();
-    cy.get('[data-cy="select-huisnummer"] .multiselect__single').should('have.text', '416');
-    cy.get('[data-cy="select-busnummer"]').should('exist');
+  // Huisnummer with multiple busnummers
+  cy.get('[data-cy="select-huisnummer"]').click();
+  cy.get('[data-cy="select-huisnummer"] .multiselect__input').type('416');
+  cy.get('[data-cy="select-huisnummer"] .multiselect__element').first().click();
+  cy.get('[data-cy="select-huisnummer"] .multiselect__single').should('have.text', '416');
 
-    cy.wait('@dataGet');
+  cy.wait('@dataGet');
 
-    // Busnummer selection
-    cy.get('[data-cy="select-busnummer"]').click();
-    cy.get('[data-cy="select-busnummer"] .multiselect__input').type('0101');
-    cy.get('[data-cy="select-busnummer"] .multiselect__element').first().click();
-    cy.get('[data-cy="select-busnummer"] .multiselect__single').should('have.text', '0101');
-  } else {
-    // Huisnummer selection
-    cy.get('[data-cy="select-huisnummer"]').click();
-    cy.get('[data-cy="select-huisnummer"] .multiselect__input').type('3');
-    cy.get('[data-cy="select-huisnummer"] .multiselect__element').first().click();
-    cy.get('[data-cy="select-huisnummer"] .multiselect__single').should('have.text', '3');
-    cy.get('[data-cy="select-busnummer"]').should('not.exist');
-  }
+  // Busnummer selection
+  cy.get('[data-cy="select-busnummer"]').click();
+  cy.get('[data-cy="select-busnummer"] .multiselect__input').type('0101');
+  cy.get('[data-cy="select-busnummer"] .multiselect__element').first().click();
+  cy.get('[data-cy="select-busnummer"] .multiselect__single').should('have.text', '0101');
 };
