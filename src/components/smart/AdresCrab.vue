@@ -175,14 +175,14 @@
             v-else
             v-model="huisnummer"
             mod-block
-            :placeholder="huisnummerFreeText ? 'Vul hier je huisnummer in' : 'Busnummer'"
+            :placeholder="isBelgium && huisnummerFreeText ? 'Vul hier het huisnummer in' : 'Huisnummer'"
             :mod-error="!!v$.huisnummer.$errors.length"
           />
 
-          <vl-button v-if="isBelgium" class="input-modifier" mod-link @click="huisnummerFreeText = !huisnummerFreeText">
+          <button v-if="isBelgium" class="vl-link" @click="huisnummerFreeText = !huisnummerFreeText">
             <span v-if="!huisnummerFreeText">Huisnummer niet gevonden?</span>
             <span v-else>Suggesties</span>
-          </vl-button>
+          </button>
 
           <vl-form-message-error v-for="error of v$.huisnummer.$errors" :key="error.$uid">
             {{ error.$message }}
@@ -221,19 +221,18 @@
             v-else
             v-model="busnummer"
             mod-block
-            :placeholder="busnummerFreeText ? 'Vul hier je busnummer in' : 'Busnummer'"
+            :placeholder="busnummerFreeText ? 'Vul hier het busnummer in' : 'Busnummer'"
             :mod-error="!!v$.busnummer.$errors.length"
           />
 
-          <vl-button
+          <button
             v-if="isBelgium && !huisnummerFreeText"
-            class="input-modifier"
-            mod-link
+            class="vl-link"
             @click="busnummerFreeText = !busnummerFreeText"
           >
             <span v-if="!busnummerFreeText">Busnummer niet gevonden?</span>
             <span v-else>Suggesties</span>
-          </vl-button>
+          </button>
           <vl-form-message-error v-for="error of v$.busnummer.$errors" :key="error.$uid">
             {{ error.$message }}
           </vl-form-message-error>
@@ -257,7 +256,6 @@ import {
   VlPropertiesList,
   VlPropertiesTitle,
   VlSelect,
-  VlButton,
 } from '@govflanders/vl-ui-design-system-vue3';
 import type { IAdres, IAdresNew, IGemeente, ILand, IPostinfo, IStraat } from '@models/locatie';
 import { CrabService } from '@services/crab.api-service';
@@ -425,7 +423,7 @@ watch(busnummerFreeText, () => (busnummer.value = ''));
     max-width: 100%;
   }
 
-  .input-modifier {
+  .vl-link {
     outline: none;
     float: right;
     cursor: pointer;
