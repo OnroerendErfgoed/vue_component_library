@@ -30,15 +30,10 @@ Cypress.Commands.add('checkLabel', (field: string, match: string) => {
   cy.get(`[data-cy="label-${field}"]`).should('have.text', match);
 });
 
-Cypress.Commands.add('getDataCy', (name: string) => {
-  cy.get(`[data-cy="${name}"]`);
-});
-
 declare global {
   namespace Cypress {
     interface Chainable {
       checkLabel(field: string, match: string): Chainable<Element>;
-      getDataCy(name: string): Chainable<Element>;
     }
   }
 }

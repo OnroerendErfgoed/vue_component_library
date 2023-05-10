@@ -66,6 +66,7 @@
           <VlInputField
             v-else
             v-model="gemeente"
+            data-cy="input-gemeente"
             :mod-error="!!v$.gemeente.naam.$errors.length"
             mod-block
             placeholder="Gemeente"
@@ -89,6 +90,7 @@
             v-if="isBelgiumOrEmpty"
             v-model="postcode"
             placeholder="Postcode"
+            data-cy="select-postcode"
             :custom-label="customPostcodeLabel"
             :disabled="!gemeente"
             :mod-error="!!v$.postcode.nummer.$errors.length"
@@ -132,6 +134,7 @@
             v-if="isBelgiumOrEmpty && !straatFreeText"
             v-model="straat"
             placeholder="Straat"
+            data-cy="select-straat"
             :custom-label="customStraatLabel"
             :disabled="!gemeente"
             :mod-multiple="false"
@@ -174,6 +177,7 @@
             v-if="isBelgiumOrEmpty && !huisnummerFreeText"
             v-model="huisnummer"
             placeholder="Huisnummer"
+            data-cy="select-huisnummer"
             :custom-label="customHuisnummerLabel"
             :disabled="!straat"
             :mod-multiple="false"
@@ -227,6 +231,7 @@
             v-if="isBelgiumOrEmpty && !huisnummerFreeText && !busnummerFreeText"
             v-model="busnummer"
             placeholder="Busnummer"
+            data-cy="select-busnummer"
             :custom-label="customBusnummerLabel"
             :disabled="!huisnummer"
             :mod-multiple="false"
