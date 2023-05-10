@@ -231,25 +231,6 @@
   </div>
 </template>
 
-<script lang="ts">
-interface AdresCrabProps {
-  api?: string;
-  config?: AdresCrabConfig;
-}
-export interface AdresCrabConfig {
-  land?: ConfigOption;
-  gemeente?: ConfigOption;
-  postcode?: ConfigOption;
-  straat?: ConfigOption;
-  huisnummer?: ConfigOption;
-  busnummer?: ConfigOption;
-}
-
-interface ConfigOption {
-  required: boolean;
-}
-</script>
-
 <script setup lang="ts">
 import {
   VlFormMessageError,
@@ -263,31 +244,49 @@ import {
   VlPropertiesTitle,
   VlSelect,
 } from '@govflanders/vl-ui-design-system-vue3';
-import type { Adres, AdresNew, Gemeente, Land, Postinfo, Straat } from '@models/locatie';
+import type { IAdres, IAdresNew, IGemeente, ILand, IPostinfo, IStraat } from '@models/locatie';
 import { CrabService } from '@services/crab.api-service';
 import { required } from '@utils/i18n-validators';
 import { useVuelidate } from '@vuelidate/core';
 import { sortBy, uniqBy } from 'lodash';
 import { computed, ref, watch } from 'vue';
 
-const props = withDefaults(defineProps<AdresCrabProps>(), {
+export interface IAdresCrabProps {
+  api?: string;
+  config?: IAdresCrabConfig;
+}
+
+export interface IAdresCrabConfig {
+  land?: IConfigOption;
+  gemeente?: IConfigOption;
+  postcode?: IConfigOption;
+  straat?: IConfigOption;
+  huisnummer?: IConfigOption;
+  busnummer?: IConfigOption;
+}
+
+interface IConfigOption {
+  required: boolean;
+}
+
+const props = withDefaults(defineProps<IAdresCrabProps>(), {
   config: () => ({
     land: { required: true },
     gemeente: { required: true },
     postcode: { required: true },
     straat: { required: true },
-    huisnummer: { required: true },
+    huisnummer: { required: false },
     busnummer: { required: false },
   }),
   api: 'https://dev-geo.onroerenderfgoed.be/',
 });
 
 // Custom multiselect labels
-const customGemeenteLabel = (option: Gemeente) => option.naam;
-const customPostcodeLabel = (option: Postinfo) => option.postcode;
-const customStraatLabel = (option: Straat) => option.naam;
-const customHuisnummerLabel = (option: Adres) => option.huisnummer;
-const customBusnummerLabel = (option: Adres) => option.busnummer;
+const customGemeenteLabel = (option: IGemeente) => option.naam;
+const customPostcodeLabel = (option: IPostinfo) => option.postcode;
+const customStraatLabel = (option: IStraat) => option.naam;
+const customHuisnummerLabel = (option: IAdres) => option.huisnummer;
+const customBusnummerLabel = (option: IAdres) => option.busnummer;
 
 // Form values
 const land = ref('');
@@ -303,13 +302,13 @@ const isBelgium = computed(() => land.value === 'BE');
 const showBusnummer = computed(() => (huisnummer.value && busnummers.value.length > 1) || !isBelgiumOrEmpty.value);
 
 // Form binding
-const adres = computed<AdresNew>(() => ({
+const adres = computed<IAdresNew>(() => ({
   land: land.value,
-  gemeente: typeof gemeente.value === 'string' ? gemeente.value : (gemeente.value as Gemeente).niscode,
-  postcode: typeof postcode.value === 'string' ? postcode.value : (postcode.value as Postinfo).postcode,
-  straat: typeof straat.value === 'string' ? straat.value : (straat.value as Straat).id,
-  huisnummer: typeof huisnummer.value === 'string' ? huisnummer.value : (huisnummer.value as Adres).huisnummer,
-  busnummer: typeof busnummer.value === 'string' ? busnummer.value : (busnummer.value as Adres).busnummer,
+  gemeente: typeof gemeente.value === 'string' ? gemeente.value : (gemeente.value as IGemeente).niscode,
+  postcode: typeof postcode.value === 'string' ? postcode.value : (postcode.value as IPostinfo).postcode,
+  straat: typeof straat.value === 'string' ? straat.value : (straat.value as IStraat).id,
+  huisnummer: typeof huisnummer.value === 'string' ? huisnummer.value : (huisnummer.value as IAdres).huisnummer,
+  busnummer: typeof busnummer.value === 'string' ? busnummer.value : (busnummer.value as IAdres).busnummer,
 }));
 
 // Validation rules
@@ -327,7 +326,7 @@ const v$ = useVuelidate(rules, adres, { $autoDirty: true, $lazy: true });
 
 // Reference data
 const crabService = new CrabService(props.api);
-const staticLanden: Land[] = [
+const staticLanden: ILand[] = [
   { id: 'BE', naam: 'België' },
   { id: 'DE', naam: 'Duitsland' },
   { id: 'FR', naam: 'Frankrijk' },
@@ -336,13 +335,13 @@ const staticLanden: Land[] = [
   { id: 'LU', naam: 'Luxemburg' },
   { id: 'divider', naam: '─────────────────────────', disabled: true },
 ];
-const apiLanden: Land[] = await crabService.getLanden();
-const landen = computed<Land[]>(() => [...staticLanden, ...apiLanden]);
-const gemeenten = ref<Gemeente[]>([]);
-const postinfo = ref<Postinfo[]>([]);
-const straten = ref<Straat[]>([]);
-const huisnummers = ref<Adres[]>([]);
-const busnummers = ref<Adres[]>([]);
+const apiLanden: ILand[] = await crabService.getLanden();
+const landen = computed<ILand[]>(() => [...staticLanden, ...apiLanden]);
+const gemeenten = ref<IGemeente[]>([]);
+const postinfo = ref<IPostinfo[]>([]);
+const straten = ref<IStraat[]>([]);
+const huisnummers = ref<IAdres[]>([]);
+const busnummers = ref<IAdres[]>([]);
 
 // Api changes
 watch(
@@ -361,40 +360,40 @@ watch(land, async () => {
 });
 
 // Gemeente side-effects
-watch(gemeente, async (selectedGemeente: Gemeente | string) => {
+watch(gemeente, async (selectedGemeente: IGemeente | string) => {
   postcode.value = '';
   straat.value = '';
 
   if (isBelgiumOrEmpty.value && selectedGemeente) {
-    postinfo.value = await crabService.getPostinfo((selectedGemeente as Gemeente).naam);
-    straten.value = await crabService.getStraten((selectedGemeente as Gemeente).niscode);
+    postinfo.value = await crabService.getPostinfo((selectedGemeente as IGemeente).naam);
+    straten.value = await crabService.getStraten((selectedGemeente as IGemeente).niscode);
   }
 });
 
 // Straat side-effects
-watch(straat, async (selectedStraat: Straat | string) => {
+watch(straat, async (selectedStraat: IStraat | string) => {
   huisnummer.value = '';
 
   if (isBelgiumOrEmpty.value && selectedStraat) {
     huisnummers.value = uniqBy(
-      sortBy(await crabService.getAdressen((selectedStraat as Straat).id), 'huisnummer'),
+      sortBy(await crabService.getAdressen((selectedStraat as IStraat).id), 'huisnummer'),
       'huisnummer'
     );
   }
 });
 
 // Huisnummer side-effects
-watch(huisnummer, async (selectedHuisnummer: Adres | string) => {
+watch(huisnummer, async (selectedHuisnummer: IAdres | string) => {
   busnummer.value = '';
 
   if (isBelgiumOrEmpty.value && selectedHuisnummer) {
     busnummers.value = sortBy(
-      await crabService.getAdressen(adres.value.straat, (selectedHuisnummer as Adres).huisnummer),
+      await crabService.getAdressen(adres.value.straat, (selectedHuisnummer as IAdres).huisnummer),
       'busnummer'
     );
 
     if (busnummers.value.length === 1) {
-      busnummer.value = (busnummers.value.at(0) as Adres)?.busnummer;
+      busnummer.value = (busnummers.value.at(0) as IAdres)?.busnummer;
     }
   }
 });

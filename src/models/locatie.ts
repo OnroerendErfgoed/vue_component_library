@@ -1,4 +1,4 @@
-export interface AdresNew {
+export interface IAdresNew {
   id?: string;
   land: string;
   gemeente: string;
@@ -8,7 +8,7 @@ export interface AdresNew {
   busnummer: string;
 }
 
-export interface Adres {
+export interface IAdres {
   id: string;
   uri: string;
   label: string;
@@ -17,36 +17,36 @@ export interface Adres {
   status: string;
 }
 
-export interface Land {
+export interface ILand {
   id: string;
   naam: string;
   disabled?: boolean;
 }
 
-export interface Gewest {
+export interface IGewest {
   id: number;
   naam: string;
   niscode: string;
 }
 
-export interface Provincie {
+export interface IProvincie {
   niscode: string;
 }
 
-export interface Gemeente {
+export interface IGemeente {
   naam: string;
   niscode: string;
-  provincie: Provincie;
+  provincie: IProvincie;
 }
 
-export interface Postinfo {
+export interface IPostinfo {
   names: string[];
   postcode: string;
   status: string;
   uri: string;
 }
 
-export interface Straat {
+export interface IStraat {
   id: string;
   naam: string;
   status: string;
