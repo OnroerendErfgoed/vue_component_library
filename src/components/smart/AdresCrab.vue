@@ -154,7 +154,7 @@
         </VlPropertiesLabel>
         <VlPropertiesData>
           <VlMultiselect
-            v-if="isBelgiumOrEmpty"
+            v-if="isBelgiumOrEmpty && !huisnummerFreeText"
             v-model="huisnummer"
             placeholder="Huisnummer"
             :custom-label="customHuisnummerLabel"
@@ -175,55 +175,69 @@
             v-else
             v-model="huisnummer"
             mod-block
-            placeholder="Huisnummer"
+            :placeholder="huisnummerFreeText ? 'Vul hier je huisnummer in' : 'Busnummer'"
             :mod-error="!!v$.huisnummer.$errors.length"
           />
+
+          <vl-button v-if="isBelgium" class="input-modifier" mod-link @click="huisnummerFreeText = !huisnummerFreeText">
+            <span v-if="!huisnummerFreeText">Huisnummer niet gevonden?</span>
+            <span v-else>Suggesties</span>
+          </vl-button>
+
           <vl-form-message-error v-for="error of v$.huisnummer.$errors" :key="error.$uid">
             {{ error.$message }}
           </vl-form-message-error>
         </VlPropertiesData>
 
         <!-- Busnummer -->
-        <template v-if="showBusnummer">
-          <VlPropertiesLabel>
-            <vl-form-message-label>
-              Busnummer
-              <span v-if="$props.config?.busnummer?.required" class="vl-form__annotation">
-                {{ '(verplicht)' }}
-              </span>
-            </vl-form-message-label>
-          </VlPropertiesLabel>
-          <VlPropertiesData>
-            <VlMultiselect
-              v-if="isBelgiumOrEmpty"
-              v-model="busnummer"
-              placeholder="Busnummer"
-              :custom-label="customBusnummerLabel"
-              :disabled="!huisnummer"
-              :mod-multiple="false"
-              :mod-error="!!v$.busnummer.$errors.length"
-              :options="busnummers"
-            >
-              <template #noResult>
-                <span>Geen resultaten gevonden...</span>
-              </template>
-              <template #noOptions>
-                <span>Geen opties beschikbaar!</span>
-              </template>
-            </VlMultiselect>
+        <VlPropertiesLabel>
+          <vl-form-message-label>
+            Busnummer
+            <span v-if="$props.config?.busnummer?.required" class="vl-form__annotation">
+              {{ '(verplicht)' }}
+            </span>
+          </vl-form-message-label>
+        </VlPropertiesLabel>
+        <VlPropertiesData>
+          <VlMultiselect
+            v-if="isBelgiumOrEmpty && !huisnummerFreeText && !busnummerFreeText"
+            v-model="busnummer"
+            placeholder="Busnummer"
+            :custom-label="customBusnummerLabel"
+            :disabled="!huisnummer"
+            :mod-multiple="false"
+            :mod-error="!!v$.busnummer.$errors.length"
+            :options="busnummers"
+          >
+            <template #noResult>
+              <span>Geen resultaten gevonden...</span>
+            </template>
+            <template #noOptions>
+              <span>Geen opties beschikbaar!</span>
+            </template>
+          </VlMultiselect>
 
-            <VlInputField
-              v-else
-              v-model="busnummer"
-              mod-block
-              placeholder="Busnummer"
-              :mod-error="!!v$.busnummer.$errors.length"
-            />
-            <vl-form-message-error v-for="error of v$.busnummer.$errors" :key="error.$uid">
-              {{ error.$message }}
-            </vl-form-message-error>
-          </VlPropertiesData>
-        </template>
+          <VlInputField
+            v-else
+            v-model="busnummer"
+            mod-block
+            :placeholder="busnummerFreeText ? 'Vul hier je busnummer in' : 'Busnummer'"
+            :mod-error="!!v$.busnummer.$errors.length"
+          />
+
+          <vl-button
+            v-if="isBelgium && !huisnummerFreeText"
+            class="input-modifier"
+            mod-link
+            @click="busnummerFreeText = !busnummerFreeText"
+          >
+            <span v-if="!busnummerFreeText">Busnummer niet gevonden?</span>
+            <span v-else>Suggesties</span>
+          </vl-button>
+          <vl-form-message-error v-for="error of v$.busnummer.$errors" :key="error.$uid">
+            {{ error.$message }}
+          </vl-form-message-error>
+        </VlPropertiesData>
       </VlPropertiesList>
     </VlProperties>
 
@@ -243,6 +257,7 @@ import {
   VlPropertiesList,
   VlPropertiesTitle,
   VlSelect,
+  VlButton,
 } from '@govflanders/vl-ui-design-system-vue3';
 import type { IAdres, IAdresNew, IGemeente, ILand, IPostinfo, IStraat } from '@models/locatie';
 import { CrabService } from '@services/crab.api-service';
@@ -281,6 +296,9 @@ const props = withDefaults(defineProps<IAdresCrabProps>(), {
   api: 'https://dev-geo.onroerenderfgoed.be/',
 });
 
+const huisnummerFreeText = ref(false);
+const busnummerFreeText = ref(false);
+
 // Custom multiselect labels
 const customGemeenteLabel = (option: IGemeente) => option.naam;
 const customPostcodeLabel = (option: IPostinfo) => option.postcode;
@@ -299,7 +317,6 @@ const busnummer = ref('');
 // Conditionals
 const isBelgiumOrEmpty = computed(() => land.value === 'BE' || land.value === '');
 const isBelgium = computed(() => land.value === 'BE');
-const showBusnummer = computed(() => (huisnummer.value && busnummers.value.length > 1) || !isBelgiumOrEmpty.value);
 
 // Form binding
 const adres = computed<IAdresNew>(() => ({
@@ -386,23 +403,32 @@ watch(straat, async (selectedStraat: IStraat | string) => {
 watch(huisnummer, async (selectedHuisnummer: IAdres | string) => {
   busnummer.value = '';
 
-  if (isBelgiumOrEmpty.value && selectedHuisnummer) {
+  if (isBelgiumOrEmpty.value && selectedHuisnummer && !huisnummerFreeText.value) {
     busnummers.value = sortBy(
       await crabService.getAdressen(adres.value.straat, (selectedHuisnummer as IAdres).huisnummer),
       'busnummer'
-    );
+    ).filter((v) => !!v.busnummer);
 
     if (busnummers.value.length === 1) {
       busnummer.value = (busnummers.value.at(0) as IAdres)?.busnummer;
     }
   }
 });
+
+watch(huisnummerFreeText, () => (huisnummer.value = ''));
+watch(busnummerFreeText, () => (busnummer.value = ''));
 </script>
 
 <style lang="scss" scoped>
 .adres-crab {
   .vl-properties__label {
     max-width: 100%;
+  }
+
+  .input-modifier {
+    outline: none;
+    float: right;
+    cursor: pointer;
   }
 }
 </style>
