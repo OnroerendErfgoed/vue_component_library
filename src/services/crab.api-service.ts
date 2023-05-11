@@ -1,11 +1,18 @@
 import type { IAdres, IGemeente, IGewest, ILand, IPostinfo, IStraat } from '@models/locatie';
+import { Niscode } from '@models/niscode.enum';
 import axios from 'axios';
 import { sortBy } from 'lodash';
 
 export class CrabService {
   private API_URL: string;
+
   private landen: ILand[] = [];
+
   private gemeenten: IGemeente[] = [];
+
+  private gemeentenVlaamsGewest: IGemeente[] = [];
+  private gemeentenWaalsGewest: IGemeente[] = [];
+  private gemeentenBHGewest: IGemeente[] = [];
 
   constructor(apiUrl: string) {
     this.API_URL = apiUrl;
@@ -26,24 +33,61 @@ export class CrabService {
     }
   }
 
+  get vlaamseGemeenten(): IGemeente[] {
+    return this.gemeentenVlaamsGewest;
+  }
+
+  get waalseGemeenten(): IGemeente[] {
+    return this.gemeentenWaalsGewest;
+  }
+
+  get brusselseGemeenten(): IGemeente[] {
+    return this.gemeentenBHGewest;
+  }
+
   getGemeenten(): Promise<IGemeente[]> {
     if (this.gemeenten?.length) {
       return Promise.resolve(this.gemeenten);
     } else {
       return this.crabGet<IGewest[]>('adressenregister/gewesten').then((gewesten) => {
-        const getGemeenten = gewesten.map((gewest) =>
-          this.crabGet<IGemeente[]>(`adressenregister/gewesten/${gewest.niscode}/gemeenten`)
-        );
+        let gemeentenVlaamsGewestGet;
+        let gemeentenWaalsGewestGet;
+        let gemeentenBHGewestGet;
 
-        return Promise.all(getGemeenten).then((gemeenten) => {
-          if (gemeenten[0] && gemeenten[1] && gemeenten[2]) {
-            this.gemeenten = this.gemeenten.concat(gemeenten[0], gemeenten[1], gemeenten[2]);
-            return sortBy(this.gemeenten, 'naam');
+        gewesten.forEach((gewest) => {
+          if (gewest.niscode === Niscode.VlaamsGewest) {
+            gemeentenVlaamsGewestGet = this.getGemeentenPerGewest(Niscode.VlaamsGewest);
           }
-          return [];
+          if (gewest.niscode === Niscode.WaalsGewest) {
+            gemeentenWaalsGewestGet = this.getGemeentenPerGewest(Niscode.WaalsGewest);
+          }
+          if (gewest.niscode === Niscode.BrusselsHoofdstedelijkGewest) {
+            gemeentenBHGewestGet = this.getGemeentenPerGewest(Niscode.BrusselsHoofdstedelijkGewest);
+          }
         });
+
+        return Promise.all([gemeentenVlaamsGewestGet, gemeentenWaalsGewestGet, gemeentenBHGewestGet]).then(
+          (gemeenten) => {
+            if (gemeenten[0] && gemeenten[1] && gemeenten[2]) {
+              this.gemeentenVlaamsGewest = gemeenten[0];
+              this.gemeentenWaalsGewest = gemeenten[1];
+              this.gemeentenBHGewest = gemeenten[2];
+              this.gemeenten = this.gemeenten.concat(
+                this.gemeentenVlaamsGewest,
+                this.gemeentenWaalsGewest,
+                this.gemeentenBHGewest
+              );
+              return sortBy(this.gemeenten, 'naam');
+            }
+            return [];
+          }
+        );
       });
     }
+  }
+
+  getGemeentenPerGewest(niscode: Niscode): Promise<IGemeente[]> {
+    return this.crabGet<IGemeente[]>(`adressenregister/gewesten/${niscode}/gemeenten`);
   }
 
   getPostinfo(gemeente: string): Promise<IPostinfo[]> {

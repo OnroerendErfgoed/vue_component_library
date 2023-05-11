@@ -114,7 +114,7 @@
         </VlPropertiesLabel>
         <VlPropertiesData>
           <VlMultiselect
-            v-if="isBelgiumOrEmpty"
+            v-if="isBelgiumOrEmpty && !straatFreeText"
             v-model="straat"
             placeholder="Straat"
             :custom-label="customStraatLabel"
@@ -130,7 +130,6 @@
               <span>Geen opties beschikbaar!</span>
             </template>
           </VlMultiselect>
-
           <VlInputField
             v-else
             v-model="straat"
@@ -175,11 +174,15 @@
             v-else
             v-model="huisnummer"
             mod-block
-            :placeholder="isBelgium && huisnummerFreeText ? 'Vul hier het huisnummer in' : 'Huisnummer'"
+            placeholder="Huisnummer"
             :mod-error="!!v$.huisnummer.$errors.length"
           />
 
-          <button v-if="isBelgium" class="vl-link" @click="huisnummerFreeText = !huisnummerFreeText">
+          <button
+            v-if="isBelgium && !straatFreeText && isVlaamseGemeente"
+            class="vl-link"
+            @click="huisnummerFreeText = !huisnummerFreeText"
+          >
             <span v-if="!huisnummerFreeText">Huisnummer niet gevonden?</span>
             <span v-else>Suggesties</span>
           </button>
@@ -221,12 +224,12 @@
             v-else
             v-model="busnummer"
             mod-block
-            :placeholder="busnummerFreeText ? 'Vul hier het busnummer in' : 'Busnummer'"
+            placeholder="Busnummer"
             :mod-error="!!v$.busnummer.$errors.length"
           />
 
           <button
-            v-if="isBelgium && !huisnummerFreeText"
+            v-if="isBelgium && !huisnummerFreeText && isVlaamseGemeente"
             class="vl-link"
             @click="busnummerFreeText = !busnummerFreeText"
           >
@@ -261,6 +264,7 @@ import type { IAdres, IAdresNew, IGemeente, ILand, IPostinfo, IStraat } from '@m
 import { CrabService } from '@services/crab.api-service';
 import { required } from '@utils/i18n-validators';
 import { useVuelidate } from '@vuelidate/core';
+import { AxiosError } from 'axios';
 import { sortBy, uniqBy } from 'lodash';
 import { computed, ref, watch } from 'vue';
 
@@ -294,6 +298,7 @@ const props = withDefaults(defineProps<IAdresCrabProps>(), {
   api: 'https://dev-geo.onroerenderfgoed.be/',
 });
 
+const straatFreeText = ref(false);
 const huisnummerFreeText = ref(false);
 const busnummerFreeText = ref(false);
 
@@ -315,6 +320,12 @@ const busnummer = ref('');
 // Conditionals
 const isBelgiumOrEmpty = computed(() => land.value === 'BE' || land.value === '');
 const isBelgium = computed(() => land.value === 'BE');
+const isVlaamseGemeente = computed(() => {
+  if (isBelgium.value && gemeente.value) {
+    return crabService.vlaamseGemeenten.some((g) => g.niscode === (gemeente.value as unknown as IGemeente).niscode);
+  }
+  return false;
+});
 
 // Form binding
 const adres = computed<IAdresNew>(() => ({
@@ -388,8 +399,24 @@ watch(gemeente, async (selectedGemeente: IGemeente | string) => {
 
   if (isBelgiumOrEmpty.value && selectedGemeente) {
     resetFreeTextState();
-    postinfo.value = await crabService.getPostinfo((selectedGemeente as IGemeente).naam);
-    straten.value = await crabService.getStraten((selectedGemeente as IGemeente).niscode);
+
+    try {
+      postinfo.value = await crabService.getPostinfo((selectedGemeente as IGemeente).naam);
+      straten.value = await crabService.getStraten((selectedGemeente as IGemeente).niscode);
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        const knownError = error as AxiosError;
+        if (knownError?.response?.status === 404) {
+          if (!isVlaamseGemeente.value) {
+            straten.value = [];
+
+            straatFreeText.value = true;
+            huisnummerFreeText.value = true;
+            busnummerFreeText.value = true;
+          }
+        }
+      }
+    }
   }
 });
 
@@ -397,12 +424,28 @@ watch(gemeente, async (selectedGemeente: IGemeente | string) => {
 watch(straat, async (selectedStraat: IStraat | string) => {
   huisnummer.value = '';
 
-  if (isBelgiumOrEmpty.value && selectedStraat) {
+  if (isBelgiumOrEmpty.value && selectedStraat && !straatFreeText.value) {
     resetFreeTextState();
-    huisnummers.value = uniqBy(
-      sortBy(await crabService.getAdressen((selectedStraat as IStraat).id), 'huisnummer'),
-      'huisnummer'
-    );
+
+    try {
+      huisnummers.value = uniqBy(
+        sortBy(await crabService.getAdressen((selectedStraat as IStraat).id), 'huisnummer'),
+        'huisnummer'
+      );
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        const knownError = error as AxiosError;
+        if (knownError?.response?.status === 404) {
+          if (!isVlaamseGemeente.value) {
+            huisnummers.value = [];
+            busnummers.value = [];
+
+            huisnummerFreeText.value = true;
+            busnummerFreeText.value = true;
+          }
+        }
+      }
+    }
   }
 });
 
@@ -426,6 +469,7 @@ watch(huisnummerFreeText, () => (huisnummer.value = ''));
 watch(busnummerFreeText, () => (busnummer.value = ''));
 
 const resetFreeTextState = () => {
+  straatFreeText.value = false;
   huisnummerFreeText.value = false;
   busnummerFreeText.value = false;
 };
