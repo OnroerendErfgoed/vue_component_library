@@ -375,6 +375,7 @@ watch(
 // Land side-effects
 watch(land, async () => {
   if (isBelgium.value) {
+    resetFreeTextState();
     gemeenten.value = await crabService.getGemeenten();
   }
   gemeente.value = '';
@@ -386,6 +387,7 @@ watch(gemeente, async (selectedGemeente: IGemeente | string) => {
   straat.value = '';
 
   if (isBelgiumOrEmpty.value && selectedGemeente) {
+    resetFreeTextState();
     postinfo.value = await crabService.getPostinfo((selectedGemeente as IGemeente).naam);
     straten.value = await crabService.getStraten((selectedGemeente as IGemeente).niscode);
   }
@@ -396,6 +398,7 @@ watch(straat, async (selectedStraat: IStraat | string) => {
   huisnummer.value = '';
 
   if (isBelgiumOrEmpty.value && selectedStraat) {
+    resetFreeTextState();
     huisnummers.value = uniqBy(
       sortBy(await crabService.getAdressen((selectedStraat as IStraat).id), 'huisnummer'),
       'huisnummer'
@@ -421,6 +424,11 @@ watch(huisnummer, async (selectedHuisnummer: IAdres | string) => {
 
 watch(huisnummerFreeText, () => (huisnummer.value = ''));
 watch(busnummerFreeText, () => (busnummer.value = ''));
+
+const resetFreeTextState = () => {
+  huisnummerFreeText.value = false;
+  busnummerFreeText.value = false;
+};
 </script>
 
 <style lang="scss" scoped>
