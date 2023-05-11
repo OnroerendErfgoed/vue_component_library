@@ -21,11 +21,15 @@ const meta: Meta<typeof AdresCrab> = {
   argTypes: {
     config: {
       control: 'object',
-      description: 'Configuratie per veld',
+      description: 'Configuration per field',
     },
     api: {
       control: 'text',
       description: 'API host url',
+    },
+    countryId: {
+      control: 'text',
+      description: 'Pre selected country - input will be hidden',
     },
   },
 };
@@ -55,5 +59,11 @@ export const CustomConfig: Story = {
       huisnummer: { required: false },
       busnummer: { required: false },
     },
+  },
+};
+
+export const SpecificCountry: Story = {
+  args: {
+    countryId: 'BE',
   },
 };

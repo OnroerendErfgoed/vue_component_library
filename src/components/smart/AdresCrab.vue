@@ -4,24 +4,26 @@
       <VlPropertiesTitle>Adres</VlPropertiesTitle>
       <VlPropertiesList>
         <!-- Land -->
-        <VlPropertiesLabel>
-          <vl-form-message-label>
-            Land
-            <span v-if="$props.config?.land?.required" class="vl-form__annotation">
-              {{ '(verplicht)' }}
-            </span>
-          </vl-form-message-label>
-        </VlPropertiesLabel>
-        <VlPropertiesData>
-          <VlSelect v-model:value="land" :mod-error="!!v$.land.$errors.length" mod-block placeholder-text="Land">
-            <option v-for="item in landen" :key="item.id" :value="item.id" :disabled="item.disabled">
-              {{ item.naam }}
-            </option>
-          </VlSelect>
-          <vl-form-message-error v-for="error of v$.land.$errors" :key="error.$uid">
-            {{ error.$message }}
-          </vl-form-message-error>
-        </VlPropertiesData>
+        <template v-if="!props.countryId">
+          <VlPropertiesLabel>
+            <vl-form-message-label>
+              Land
+              <span v-if="$props.config?.land?.required" class="vl-form__annotation">
+                {{ '(verplicht)' }}
+              </span>
+            </vl-form-message-label>
+          </VlPropertiesLabel>
+          <VlPropertiesData>
+            <VlSelect v-model:value="land" :mod-error="!!v$.land.$errors.length" mod-block placeholder-text="Land">
+              <option v-for="item in landen" :key="item.id" :value="item.id" :disabled="item.disabled">
+                {{ item.naam }}
+              </option>
+            </VlSelect>
+            <vl-form-message-error v-for="error of v$.land.$errors" :key="error.$uid">
+              {{ error.$message }}
+            </vl-form-message-error>
+          </VlPropertiesData>
+        </template>
 
         <!-- Gemeente -->
         <VlPropertiesLabel>
@@ -266,11 +268,12 @@ import { required } from '@utils/i18n-validators';
 import { useVuelidate } from '@vuelidate/core';
 import { AxiosError } from 'axios';
 import { sortBy, uniqBy } from 'lodash';
-import { computed, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 
 export interface IAdresCrabProps {
   api?: string;
   config?: IAdresCrabConfig;
+  countryId?: string;
 }
 
 export interface IAdresCrabConfig {
@@ -296,6 +299,7 @@ const props = withDefaults(defineProps<IAdresCrabProps>(), {
     busnummer: { required: false },
   }),
   api: 'https://dev-geo.onroerenderfgoed.be/',
+  countryId: '',
 });
 
 const straatFreeText = ref(false);
@@ -374,6 +378,20 @@ const postinfo = ref<IPostinfo[]>([]);
 const straten = ref<IStraat[]>([]);
 const huisnummers = ref<IAdres[]>([]);
 const busnummers = ref<IAdres[]>([]);
+
+onMounted(() => {
+  if (props.countryId) {
+    land.value = props.countryId;
+  }
+});
+
+// Api changes
+watch(
+  () => props.countryId,
+  (current) => {
+    land.value = current;
+  }
+);
 
 // Api changes
 watch(
