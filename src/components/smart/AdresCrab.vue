@@ -319,11 +319,17 @@ const isBelgium = computed(() => land.value === 'BE');
 // Form binding
 const adres = computed<IAdresNew>(() => ({
   land: land.value,
-  gemeente: typeof gemeente.value === 'string' ? gemeente.value : (gemeente.value as IGemeente).niscode,
-  postcode: typeof postcode.value === 'string' ? postcode.value : (postcode.value as IPostinfo).postcode,
-  straat: typeof straat.value === 'string' ? straat.value : (straat.value as IStraat).id,
-  huisnummer: typeof huisnummer.value === 'string' ? huisnummer.value : (huisnummer.value as IAdres).huisnummer,
-  busnummer: typeof busnummer.value === 'string' ? busnummer.value : (busnummer.value as IAdres).busnummer,
+  gemeente:
+    !gemeente.value || typeof gemeente.value === 'string' ? gemeente.value : (gemeente.value as IGemeente).niscode,
+  postcode:
+    !postcode.value || typeof postcode.value === 'string' ? postcode.value : (postcode.value as IPostinfo).postcode,
+  straat: !straat.value || typeof straat.value === 'string' ? straat.value : (straat.value as IStraat).id,
+  huisnummer:
+    !huisnummer.value || typeof huisnummer.value === 'string'
+      ? huisnummer.value
+      : (huisnummer.value as IAdres).huisnummer,
+  busnummer:
+    !busnummer.value || typeof busnummer.value === 'string' ? busnummer.value : (busnummer.value as IAdres).busnummer,
 }));
 
 // Validation rules
