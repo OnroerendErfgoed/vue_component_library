@@ -1,20 +1,26 @@
-export interface IAdresNew {
+export interface ILocatieAdres {
+  land: string;
+  gemeente: { niscode?: string; naam: string };
+  postcode: { nummer: string };
+  straat: { id?: string; naam: string };
+  adres: {
+    id?: string;
+    huisnummer?: string;
+    busnummer?: string;
+  };
+}
+
+export interface IAdres {
   id?: string;
+  uri?: string;
+  label?: string;
+  status?: string;
   land: string;
   gemeente: string;
   postcode: string;
   straat: string;
   huisnummer: string;
   busnummer: string;
-}
-
-export interface IAdres {
-  id: string;
-  uri: string;
-  label: string;
-  huisnummer: string;
-  busnummer: string;
-  status: string;
 }
 
 export interface ILand {

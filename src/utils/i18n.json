@@ -2,7 +2,8 @@
   "messages": {
     "nl": {
       "validations": {
-        "required": "Het veld {property} is verplicht.",
+        "required": "Het veld {field} is verplicht.",
+        "requiredIf": "Het veld {field} is verplicht.",
         "minLength": "Het veld {property} heeft de waarde '{model}', maar het moet een minimale lengte van {min} hebben."
       }
     }

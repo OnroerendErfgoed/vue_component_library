@@ -39,7 +39,7 @@
             v-if="isBelgiumOrEmpty"
             v-model="gemeente"
             placeholder="Gemeente"
-            :mod-error="!!v$.gemeente.$errors.length"
+            :mod-error="!!v$.gemeente.naam.$errors.length"
             :custom-label="customGemeenteLabel"
             :disabled="!land"
             :mod-multiple="false"
@@ -56,11 +56,11 @@
           <VlInputField
             v-else
             v-model="gemeente"
-            :mod-error="!!v$.gemeente.$errors.length"
+            :mod-error="!!v$.gemeente.naam.$errors.length"
             mod-block
             placeholder="Gemeente"
           />
-          <vl-form-message-error v-for="error of v$.gemeente.$errors" :key="error.$uid">
+          <vl-form-message-error v-for="error of v$.gemeente.naam.$errors" :key="error.$uid">
             {{ error.$message }}
           </vl-form-message-error>
         </VlPropertiesData>
@@ -81,7 +81,7 @@
             placeholder="Postcode"
             :custom-label="customPostcodeLabel"
             :disabled="!gemeente"
-            :mod-error="!!v$.postcode.$errors.length"
+            :mod-error="!!v$.postcode.nummer.$errors.length"
             :mod-multiple="false"
             :options="postinfo"
           >
@@ -96,11 +96,11 @@
           <VlInputField
             v-else
             v-model="postcode"
-            :mod-error="!!v$.postcode.$errors.length"
+            :mod-error="!!v$.postcode.nummer.$errors.length"
             mod-block
             placeholder="Postcode"
           />
-          <vl-form-message-error v-for="error of v$.postcode.$errors" :key="error.$uid">
+          <vl-form-message-error v-for="error of v$.postcode.nummer.$errors" :key="error.$uid">
             {{ error.$message }}
           </vl-form-message-error>
         </VlPropertiesData>
@@ -122,7 +122,7 @@
             :custom-label="customStraatLabel"
             :disabled="!gemeente"
             :mod-multiple="false"
-            :mod-error="!!v$.straat.$errors.length"
+            :mod-error="!!v$.straat.naam.$errors.length"
             :options="straten"
           >
             <template #noResult>
@@ -135,11 +135,11 @@
           <VlInputField
             v-else
             v-model="straat"
-            :mod-error="!!v$.straat.$errors.length"
+            :mod-error="!!v$.straat.naam.$errors.length"
             mod-block
             placeholder="Straat"
           />
-          <vl-form-message-error v-for="error of v$.straat.$errors" :key="error.$uid">
+          <vl-form-message-error v-for="error of v$.straat.naam.$errors" :key="error.$uid">
             {{ error.$message }}
           </vl-form-message-error>
         </VlPropertiesData>
@@ -161,7 +161,7 @@
             :custom-label="customHuisnummerLabel"
             :disabled="!straat"
             :mod-multiple="false"
-            :mod-error="!!v$.huisnummer.$errors.length"
+            :mod-error="!!v$.adres.huisnummer.$errors.length"
             :options="huisnummers"
           >
             <template #noResult>
@@ -177,7 +177,7 @@
             v-model="huisnummer"
             mod-block
             placeholder="Huisnummer"
-            :mod-error="!!v$.huisnummer.$errors.length"
+            :mod-error="!!v$.adres.huisnummer.$errors.length"
           />
 
           <button
@@ -189,7 +189,7 @@
             <span v-else>Suggesties</span>
           </button>
 
-          <vl-form-message-error v-for="error of v$.huisnummer.$errors" :key="error.$uid">
+          <vl-form-message-error v-for="error of v$.adres.huisnummer.$errors" :key="error.$uid">
             {{ error.$message }}
           </vl-form-message-error>
         </VlPropertiesData>
@@ -211,7 +211,7 @@
             :custom-label="customBusnummerLabel"
             :disabled="!huisnummer"
             :mod-multiple="false"
-            :mod-error="!!v$.busnummer.$errors.length"
+            :mod-error="!!v$.adres.busnummer.$errors.length"
             :options="busnummers"
           >
             <template #noResult>
@@ -227,7 +227,7 @@
             v-model="busnummer"
             mod-block
             placeholder="Busnummer"
-            :mod-error="!!v$.busnummer.$errors.length"
+            :mod-error="!!v$.adres.busnummer.$errors.length"
           />
 
           <button
@@ -238,7 +238,7 @@
             <span v-if="!busnummerFreeText">Busnummer niet gevonden?</span>
             <span v-else>Suggesties</span>
           </button>
-          <vl-form-message-error v-for="error of v$.busnummer.$errors" :key="error.$uid">
+          <vl-form-message-error v-for="error of v$.adres.busnummer.$errors" :key="error.$uid">
             {{ error.$message }}
           </vl-form-message-error>
         </VlPropertiesData>
@@ -262,12 +262,13 @@ import {
   VlPropertiesTitle,
   VlSelect,
 } from '@govflanders/vl-ui-design-system-vue3';
-import type { IAdres, IAdresNew, IGemeente, ILand, IPostinfo, IStraat } from '@models/locatie';
+import type { IAdres, IGemeente, ILand, ILocatieAdres, IPostinfo, IStraat } from '@models/locatie';
 import { CrabService } from '@services/crab.api-service';
-import { required } from '@utils/i18n-validators';
+import { requiredIf } from '@utils/i18n-validators';
 import { useVuelidate } from '@vuelidate/core';
+import { helpers } from '@vuelidate/validators';
 import { AxiosError } from 'axios';
-import { sortBy, uniqBy } from 'lodash';
+import { pick, sortBy, uniqBy } from 'lodash';
 import { computed, onMounted, ref, watch } from 'vue';
 
 export interface IAdresCrabProps {
@@ -332,33 +333,95 @@ const isVlaamseGemeente = computed(() => {
 });
 
 // Form binding
-const adres = computed<IAdresNew>(() => ({
-  land: land.value,
-  gemeente:
-    !gemeente.value || typeof gemeente.value === 'string' ? gemeente.value : (gemeente.value as IGemeente).niscode,
-  postcode:
-    !postcode.value || typeof postcode.value === 'string' ? postcode.value : (postcode.value as IPostinfo).postcode,
-  straat: !straat.value || typeof straat.value === 'string' ? straat.value : (straat.value as IStraat).id,
-  huisnummer:
-    !huisnummer.value || typeof huisnummer.value === 'string'
-      ? huisnummer.value
-      : (huisnummer.value as IAdres).huisnummer,
-  busnummer:
-    !busnummer.value || typeof busnummer.value === 'string' ? busnummer.value : (busnummer.value as IAdres).busnummer,
-}));
+const adres = computed<ILocatieAdres>(() => {
+  const landValue: ILocatieAdres['land'] = land.value;
+  let gemeenteValue: ILocatieAdres['gemeente'];
+  let postcodeValue: ILocatieAdres['postcode'];
+  let straatValue: ILocatieAdres['straat'];
+  let adresValue: ILocatieAdres['adres'] = {};
 
-// Validation rules
+  if (!gemeente.value || typeof gemeente.value === 'string') {
+    gemeenteValue = { naam: gemeente.value };
+  } else {
+    gemeenteValue = {
+      naam: (gemeente.value as IGemeente).naam,
+      niscode: (gemeente.value as IGemeente).niscode,
+    };
+  }
+
+  if (!postcode.value || typeof postcode.value === 'string') {
+    postcodeValue = { nummer: postcode.value };
+  } else {
+    postcodeValue = {
+      nummer: (postcode.value as IPostinfo).postcode,
+    };
+  }
+
+  if (!straat.value || typeof straat.value === 'string') {
+    straatValue = { naam: straat.value };
+  } else {
+    straatValue = {
+      naam: (straat.value as IStraat).naam,
+      id: (straat.value as IStraat).id,
+    };
+  }
+
+  if (!huisnummer.value || typeof huisnummer.value === 'string') {
+    adresValue = { ...adresValue, huisnummer: huisnummer.value };
+  } else {
+    adresValue = pick(huisnummer.value, ['id', 'huisnummer', 'busnummer']);
+  }
+
+  if (!busnummer.value || typeof busnummer.value === 'string') {
+    adresValue = { ...adresValue, busnummer: busnummer.value };
+  } else {
+    adresValue = pick(busnummer.value, ['id', 'huisnummer', 'busnummer']);
+  }
+
+  return {
+    land: landValue,
+    gemeente: gemeenteValue,
+    postcode: postcodeValue,
+    straat: straatValue,
+    adres: adresValue,
+  };
+});
+
+// Form validation rules
 const rules = computed(() => ({
-  land: { required: props.config.land?.required ? required : '' },
-  gemeente: { required: props.config.gemeente?.required ? required : '' },
-  postcode: { required: props.config.postcode?.required ? required : '' },
-  straat: { required: props.config.straat?.required ? required : '' },
-  huisnummer: { required: props.config.huisnummer?.required ? required : '' },
-  busnummer: { required: props.config.busnummer?.required ? required : '' },
+  land: { required: requiredIf(!!props.config.land?.required) },
+  gemeente: {
+    naam: {
+      requiredIf: helpers.withParams({ field: 'gemeente' }, requiredIf(!!props.config.gemeente?.required)),
+      $autoDirty: true,
+    },
+  },
+  postcode: {
+    nummer: {
+      requiredIf: helpers.withParams({ field: 'postcode' }, requiredIf(!!props.config.postcode?.required)),
+      $autoDirty: true,
+    },
+  },
+  straat: {
+    naam: {
+      requiredIf: helpers.withParams({ field: 'straat' }, requiredIf(!!props.config.straat?.required)),
+      $autoDirty: true,
+    },
+  },
+  adres: {
+    huisnummer: {
+      requiredIf: helpers.withParams({ field: 'huisnummer' }, requiredIf(!!props.config.huisnummer?.required)),
+      $autoDirty: true,
+    },
+    busnummer: {
+      requiredIf: helpers.withParams({ field: 'busnummer' }, requiredIf(!!props.config.busnummer?.required)),
+      $autoDirty: true,
+    },
+  },
 }));
 
 // Init validation instance
-const v$ = useVuelidate(rules, adres, { $autoDirty: true, $lazy: true });
+const v$ = useVuelidate(rules, adres, { $lazy: true });
 
 // Reference data
 const crabService = new CrabService(props.api);
@@ -473,7 +536,7 @@ watch(huisnummer, async (selectedHuisnummer: IAdres | string) => {
 
   if (isBelgiumOrEmpty.value && selectedHuisnummer && !huisnummerFreeText.value) {
     busnummers.value = sortBy(
-      await crabService.getAdressen(adres.value.straat, (selectedHuisnummer as IAdres).huisnummer),
+      await crabService.getAdressen(adres.value.straat.id as string, (selectedHuisnummer as IAdres).huisnummer),
       'busnummer'
     ).filter((v) => !!v.busnummer);
 
