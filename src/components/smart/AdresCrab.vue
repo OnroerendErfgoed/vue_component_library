@@ -510,7 +510,7 @@ watch(straat, async (selectedStraat: IStraat | string) => {
 
     try {
       huisnummers.value = uniqBy(
-        sortBy(await crabService.getAdressen((selectedStraat as IStraat).id), 'huisnummer'),
+        sortBy(await crabService.getAdressen((selectedStraat as IStraat).id), (s) => parseInt(s.huisnummer, 0)),
         'huisnummer'
       );
     } catch (error: unknown) {
