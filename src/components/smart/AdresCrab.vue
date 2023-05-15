@@ -71,7 +71,11 @@
             mod-block
             placeholder="Gemeente"
           />
-          <vl-form-message-error v-for="error of v$.gemeente.naam.$errors" :key="error.$uid">
+          <vl-form-message-error
+            v-for="error of v$.gemeente.naam.$errors"
+            :key="error.$uid"
+            data-cy="form-error-gemeente"
+          >
             {{ error.$message }}
           </vl-form-message-error>
         </VlPropertiesData>
@@ -115,7 +119,11 @@
             mod-block
             placeholder="Postcode"
           />
-          <vl-form-message-error v-for="error of v$.postcode.nummer.$errors" :key="error.$uid">
+          <vl-form-message-error
+            v-for="error of v$.postcode.nummer.$errors"
+            :key="error.$uid"
+            data-cy="form-error-postcode"
+          >
             {{ error.$message }}
           </vl-form-message-error>
         </VlPropertiesData>
@@ -154,11 +162,12 @@
           <VlInputField
             v-else
             v-model="straat"
+            data-cy="input-straat"
             :mod-error="!!v$.straat.naam.$errors.length"
             mod-block
             placeholder="Straat"
           />
-          <vl-form-message-error v-for="error of v$.straat.naam.$errors" :key="error.$uid">
+          <vl-form-message-error v-for="error of v$.straat.naam.$errors" :key="error.$uid" data-cy="form-error-straat">
             {{ error.$message }}
           </vl-form-message-error>
         </VlPropertiesData>
@@ -198,6 +207,7 @@
           <VlInputField
             v-else
             v-model="huisnummer"
+            data-cy="input-huisnummer"
             mod-block
             placeholder="Huisnummer"
             :mod-error="!!v$.adres.huisnummer.$errors.length"
@@ -205,6 +215,7 @@
 
           <button
             v-if="isBelgium && !straatFreeText && isVlaamseGemeente"
+            data-cy="action-huisnummer-not-found"
             class="vl-link"
             @click="huisnummerFreeText = !huisnummerFreeText"
           >
@@ -212,7 +223,11 @@
             <span v-else>Suggesties</span>
           </button>
 
-          <vl-form-message-error v-for="error of v$.adres.huisnummer.$errors" :key="error.$uid">
+          <vl-form-message-error
+            v-for="error of v$.adres.huisnummer.$errors"
+            :key="error.$uid"
+            data-cy="form-error-huisnummer"
+          >
             {{ error.$message }}
           </vl-form-message-error>
         </VlPropertiesData>
@@ -252,6 +267,7 @@
           <VlInputField
             v-else
             v-model="busnummer"
+            data-cy="input-busnummer"
             mod-block
             placeholder="Busnummer"
             :mod-error="!!v$.adres.busnummer.$errors.length"
@@ -259,13 +275,18 @@
 
           <button
             v-if="isBelgium && !huisnummerFreeText && isVlaamseGemeente"
+            data-cy="action-busnummer-not-found"
             class="vl-link"
             @click="busnummerFreeText = !busnummerFreeText"
           >
             <span v-if="!busnummerFreeText">Busnummer niet gevonden?</span>
             <span v-else>Suggesties</span>
           </button>
-          <vl-form-message-error v-for="error of v$.adres.busnummer.$errors" :key="error.$uid">
+          <vl-form-message-error
+            v-for="error of v$.adres.busnummer.$errors"
+            :key="error.$uid"
+            data-cy="form-error-busnummer"
+          >
             {{ error.$message }}
           </vl-form-message-error>
         </VlPropertiesData>
