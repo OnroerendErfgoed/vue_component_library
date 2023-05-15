@@ -31,6 +31,14 @@ const meta: Meta<typeof AdresCrab> = {
       control: 'text',
       description: 'Pre selected country - input will be hidden',
     },
+    adres: {
+      control: 'object',
+      description: 'Pre selected adres',
+    },
+    optionsLimit: {
+      control: 'number',
+      description: 'Max. amount of items in a multi-select list',
+    },
   },
 };
 
@@ -101,4 +109,10 @@ export const TwoWayBinding: Story = {
       </Suspense>
     `,
   }),
+};
+
+export const MultiSelectOptionsLimit: Story = {
+  args: {
+    optionsLimit: 5000,
+  },
 };

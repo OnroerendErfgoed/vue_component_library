@@ -44,6 +44,7 @@
             :disabled="!land"
             :mod-multiple="false"
             :options="gemeenten"
+            :options-limit="optionsLimit"
           >
             <template #noResult>
               <span>Geen resultaten gevonden...</span>
@@ -84,6 +85,7 @@
             :mod-error="!!v$.postcode.nummer.$errors.length"
             :mod-multiple="false"
             :options="postinfo"
+            :options-limit="optionsLimit"
           >
             <template #noResult>
               <span>Geen resultaten gevonden...</span>
@@ -124,6 +126,7 @@
             :mod-multiple="false"
             :mod-error="!!v$.straat.naam.$errors.length"
             :options="straten"
+            :options-limit="optionsLimit"
           >
             <template #noResult>
               <span>Geen resultaten gevonden...</span>
@@ -163,6 +166,7 @@
             :mod-multiple="false"
             :mod-error="!!v$.adres.huisnummer.$errors.length"
             :options="huisnummers"
+            :options-limit="optionsLimit"
           >
             <template #noResult>
               <span>Geen resultaten gevonden...</span>
@@ -213,6 +217,7 @@
             :mod-multiple="false"
             :mod-error="!!v$.adres.busnummer.$errors.length"
             :options="busnummers"
+            :options-limit="optionsLimit"
           >
             <template #noResult>
               <span>Geen resultaten gevonden...</span>
@@ -276,6 +281,7 @@ export interface IAdresCrabProps {
   config?: IAdresCrabConfig;
   countryId?: string;
   adres?: ILocatieAdres;
+  optionsLimit?: number;
 }
 
 export interface IAdresCrabConfig {
@@ -303,6 +309,7 @@ const props = withDefaults(defineProps<IAdresCrabProps>(), {
   api: 'https://dev-geo.onroerenderfgoed.be/',
   countryId: '',
   adres: undefined,
+  optionsLimit: 5000,
 });
 
 const emit = defineEmits(['update:adres']);
@@ -514,7 +521,7 @@ watch(gemeente, async (selectedGemeente, oldValue) => {
 
     try {
       postinfo.value = await crabService.getPostinfo((selectedGemeente as IGemeente).naam);
-      straten.value = await crabService.getStraten((selectedGemeente as IGemeente).niscode);
+      straten.value = sortBy(await crabService.getStraten((selectedGemeente as IGemeente).niscode), 'naam');
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
         const knownError = error as AxiosError;
