@@ -67,3 +67,38 @@ export const SpecificCountry: Story = {
     countryId: 'BE',
   },
 };
+
+export const TwoWayBinding: Story = {
+  args: {
+    adres: {
+      land: 'BE',
+      gemeente: {
+        naam: 'Bertem',
+        niscode: '24009',
+      },
+      postcode: {
+        nummer: '3060',
+      },
+      straat: {
+        naam: 'Dorpstraat',
+        id: '32110',
+      },
+      adres: {
+        huisnummer: '416',
+        busnummer: '0101',
+      },
+    },
+  },
+  render: ({ adres }) => ({
+    components: { AdresCrab },
+    inheritAttrs: false,
+    setup() {
+      return { adres };
+    },
+    template: `
+      <Suspense>
+        <AdresCrab v-model:adres="adres" />
+      </Suspense>
+    `,
+  }),
+};
