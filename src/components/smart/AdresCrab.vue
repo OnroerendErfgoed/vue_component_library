@@ -275,6 +275,7 @@ export interface IAdresCrabProps {
   api?: string;
   config?: IAdresCrabConfig;
   countryId?: string;
+  adres?: ILocatieAdres;
 }
 
 export interface IAdresCrabConfig {
@@ -301,7 +302,10 @@ const props = withDefaults(defineProps<IAdresCrabProps>(), {
   }),
   api: 'https://dev-geo.onroerenderfgoed.be/',
   countryId: '',
+  adres: undefined,
 });
+
+const emit = defineEmits(['update:adres']);
 
 const straatFreeText = ref(false);
 const huisnummerFreeText = ref(false);
@@ -316,17 +320,17 @@ const customBusnummerLabel = (option: IAdres) => option.busnummer;
 
 // Form values
 const land = ref('');
-const gemeente = ref('');
-const postcode = ref('');
-const straat = ref('');
-const huisnummer = ref('');
-const busnummer = ref('');
+const gemeente = ref<string | IGemeente>();
+const postcode = ref<string | IPostinfo>();
+const straat = ref<string | IStraat>();
+const huisnummer = ref<string | IAdres>();
+const busnummer = ref<string | IAdres>();
 
 // Conditionals
 const isBelgiumOrEmpty = computed(() => land.value === 'BE' || land.value === '');
 const isBelgium = computed(() => land.value === 'BE');
 const isVlaamseGemeente = computed(() => {
-  if (isBelgium.value && gemeente.value) {
+  if (isBelgium.value && gemeente.value && !!gemeenten.value.length) {
     return crabService.vlaamseGemeenten.some((g) => g.niscode === (gemeente.value as unknown as IGemeente).niscode);
   }
   return false;
@@ -341,7 +345,7 @@ const adres = computed<ILocatieAdres>(() => {
   let adresValue: ILocatieAdres['adres'] = {};
 
   if (!gemeente.value || typeof gemeente.value === 'string') {
-    gemeenteValue = { naam: gemeente.value };
+    gemeenteValue = { naam: gemeente.value as string };
   } else {
     gemeenteValue = {
       naam: (gemeente.value as IGemeente).naam,
@@ -350,7 +354,7 @@ const adres = computed<ILocatieAdres>(() => {
   }
 
   if (!postcode.value || typeof postcode.value === 'string') {
-    postcodeValue = { nummer: postcode.value };
+    postcodeValue = { nummer: postcode.value as string };
   } else {
     postcodeValue = {
       nummer: (postcode.value as IPostinfo).postcode,
@@ -358,7 +362,7 @@ const adres = computed<ILocatieAdres>(() => {
   }
 
   if (!straat.value || typeof straat.value === 'string') {
-    straatValue = { naam: straat.value };
+    straatValue = { naam: straat.value as string };
   } else {
     straatValue = {
       naam: (straat.value as IStraat).naam,
@@ -375,7 +379,11 @@ const adres = computed<ILocatieAdres>(() => {
   if (!busnummer.value || typeof busnummer.value === 'string') {
     adresValue = { ...adresValue, busnummer: busnummer.value };
   } else {
-    adresValue = pick(busnummer.value, ['id', 'huisnummer', 'busnummer']);
+    adresValue = {
+      ...adresValue,
+      busnummer: busnummer.value.busnummer,
+      ...(!!busnummer.value.id && { id: busnummer.value.id }),
+    };
   }
 
   return {
@@ -446,7 +454,26 @@ onMounted(() => {
   if (props.countryId) {
     land.value = props.countryId;
   }
+
+  if (props.adres) {
+    land.value = props.adres.land;
+    if (isBelgium.value) {
+      gemeente.value = props.adres.gemeente as IGemeente;
+      postcode.value = { postcode: props.adres.postcode.nummer } as IPostinfo;
+      straat.value = props.adres.straat as IStraat;
+      huisnummer.value = props.adres.adres as IAdres;
+      busnummer.value = props.adres.adres as IAdres;
+    } else {
+      gemeente.value = props.adres.gemeente.naam;
+      postcode.value = props.adres.postcode.nummer;
+      straat.value = props.adres.straat.naam;
+      huisnummer.value = props.adres.adres.huisnummer;
+      busnummer.value = props.adres.adres.busnummer;
+    }
+  }
 });
+
+watch(adres, () => emit('update:adres', adres.value));
 
 // Api changes
 watch(
@@ -465,18 +492,22 @@ watch(
 );
 
 // Land side-effects
-watch(land, async () => {
+watch(land, async (selectedLand, oldValue) => {
+  if (oldValue) {
+    gemeente.value = '';
+  }
   if (isBelgium.value) {
     resetFreeTextState();
     gemeenten.value = await crabService.getGemeenten();
   }
-  gemeente.value = '';
 });
 
 // Gemeente side-effects
-watch(gemeente, async (selectedGemeente: IGemeente | string) => {
-  postcode.value = '';
-  straat.value = '';
+watch(gemeente, async (selectedGemeente, oldValue) => {
+  if (oldValue) {
+    postcode.value = '';
+    straat.value = '';
+  }
 
   if (isBelgiumOrEmpty.value && selectedGemeente) {
     resetFreeTextState();
@@ -502,8 +533,10 @@ watch(gemeente, async (selectedGemeente: IGemeente | string) => {
 });
 
 // Straat side-effects
-watch(straat, async (selectedStraat: IStraat | string) => {
-  huisnummer.value = '';
+watch(straat, async (selectedStraat, oldValue) => {
+  if (oldValue) {
+    huisnummer.value = '';
+  }
 
   if (isBelgiumOrEmpty.value && selectedStraat && !straatFreeText.value) {
     resetFreeTextState();
@@ -531,8 +564,10 @@ watch(straat, async (selectedStraat: IStraat | string) => {
 });
 
 // Huisnummer side-effects
-watch(huisnummer, async (selectedHuisnummer: IAdres | string) => {
-  busnummer.value = '';
+watch(huisnummer, async (selectedHuisnummer, oldValue) => {
+  if (oldValue) {
+    busnummer.value = '';
+  }
 
   if (isBelgiumOrEmpty.value && selectedHuisnummer && !huisnummerFreeText.value) {
     busnummers.value = sortBy(

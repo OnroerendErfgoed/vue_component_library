@@ -15,10 +15,10 @@ export interface IAdres {
   uri?: string;
   label?: string;
   status?: string;
-  land: string;
-  gemeente: string;
-  postcode: string;
-  straat: string;
+  land?: string;
+  gemeente?: string;
+  straat?: string;
+  postcode?: string;
   huisnummer: string;
   busnummer: string;
 }
