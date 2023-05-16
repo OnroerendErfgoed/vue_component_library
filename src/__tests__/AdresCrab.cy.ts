@@ -5,7 +5,7 @@ import { defineComponent } from 'vue';
 describe('Adres CRAB', () => {
   const TestComponent = defineComponent({
     components: { AdresCrab },
-    template: '<Suspense><AdresCrab/></Suspense>',
+    template: '<Suspense><AdresCrab v-model:adres="adres"/></Suspense>',
   });
 
   it('renders', () => {
@@ -271,6 +271,89 @@ describe('Adres CRAB', () => {
       });
     });
   });
+
+  describe('form - 2-way binding', () => {
+    it('fills in the predefined values', () => {
+      mount(TestComponent, {
+        data: () => ({
+          adres: {
+            land: 'BE',
+            gemeente: {
+              naam: 'Bertem',
+              niscode: '24009',
+            },
+            postcode: {
+              nummer: '3060',
+            },
+            straat: {
+              naam: 'Dorpstraat',
+              id: '32110',
+            },
+            adres: {
+              huisnummer: '416',
+              busnummer: '0101',
+            },
+          },
+        }),
+      });
+
+      getMultiSelect('land').should('have.value', 'BE');
+      getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Bertem');
+      getMultiSelect('postcode').find('.multiselect__single').should('have.text', '3060');
+      getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Dorpstraat');
+      getMultiSelect('huisnummer').find('.multiselect__single').should('have.text', '416');
+      getMultiSelect('busnummer').find('.multiselect__single').should('have.text', '0101');
+    });
+
+    it('updates the model binding on value change', () => {
+      mount(TestComponent, {
+        data: () => ({
+          adres: {
+            land: 'BE',
+            gemeente: {
+              naam: 'Bertem',
+              niscode: '24009',
+            },
+            postcode: {
+              nummer: '3060',
+            },
+            straat: {
+              naam: 'Dorpstraat',
+              id: '32110',
+            },
+            adres: {
+              huisnummer: '416',
+              busnummer: '0101',
+            },
+          },
+        }),
+      }).then(({ component }) => {
+        getMultiSelect('gemeente').click();
+        getMultiSelect('gemeente').find('.multiselect__input').type('Lummen');
+        getMultiSelect('gemeente')
+          .find('.multiselect__element')
+          .click()
+          .then(() => {
+            expect(component.$data.adres).to.deep.equal({
+              land: 'BE',
+              gemeente: {
+                naam: 'Lummen',
+                niscode: '71037',
+              },
+              postcode: {
+                nummer: '',
+              },
+              straat: {
+                naam: '',
+              },
+              adres: {
+                huisnummer: '',
+                busnummer: '',
+              },
+            });
+          });
+      });
+    });
   });
 });
 
