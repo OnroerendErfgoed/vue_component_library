@@ -595,6 +595,33 @@ describe('Adres CRAB', () => {
       getMultiSelect('busnummer').should('exist');
     });
   });
+
+  describe('form - multi select options limit', () => {
+    beforeEach(() => {
+      mount(TestComponent, {
+        template: '<Suspense><AdresCrab :options-limit="3" v-model:adres="adres"/></Suspense>',
+      });
+    });
+    it('sets the max amount of items at multi-select elements', () => {
+      getMultiSelect('land').select(1).should('have.value', 'BE');
+
+      cy.intercept({ method: 'GET', url: 'https://dev-geo.onroerenderfgoed.be/**' }).as('dataGet');
+      cy.wait('@dataGet');
+
+      getMultiSelect('gemeente').click();
+      getMultiSelect('gemeente').find('.multiselect__element').should('have.length', 3);
+
+      getMultiSelect('gemeente').find('.multiselect__input').type('Aalst');
+      getMultiSelect('gemeente').find('.multiselect__element').click();
+      getMultiSelect('postcode').click();
+      getMultiSelect('postcode').find('.multiselect__element').should('have.length', 3);
+
+      getMultiSelect('postcode').find('.multiselect__input').type('9300');
+      getMultiSelect('postcode').find('.multiselect__element').click();
+      getMultiSelect('straat').click();
+      getMultiSelect('straat').find('.multiselect__element').should('have.length', 3);
+    });
+  });
 });
 
 const getLabel = (field: string) => cy.get(`[data-cy="label-${field}"]`);
