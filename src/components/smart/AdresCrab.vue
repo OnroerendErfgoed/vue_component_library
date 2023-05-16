@@ -115,6 +115,7 @@
           <VlInputField
             v-else
             v-model="postcode"
+            data-cy="input-postcode"
             :mod-error="!!v$.postcode.nummer.$errors.length"
             mod-block
             placeholder="Postcode"

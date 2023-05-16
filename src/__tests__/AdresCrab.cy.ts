@@ -231,6 +231,46 @@ describe('Adres CRAB', () => {
         });
       });
     });
+
+    describe('country selection other', () => {
+      it('fills in the form', () => {
+        fillInAdresCrabOther();
+      });
+
+      it('clears the form when changing country', () => {
+        fillInAdresCrabOther();
+
+        getMultiSelect('land').select(3);
+
+        getTextInput('gemeente').should('have.text', '');
+        getTextInput('postcode').should('have.text', '');
+        getTextInput('straat').should('have.text', '');
+        getTextInput('huisnummer').should('have.text', '');
+        getTextInput('busnummer').should('have.text', '');
+      });
+
+      it('triggers required validation after fields are touched and emptied', () => {
+        fillInAdresCrabOther();
+
+        getMultiSelect('land').select(3);
+
+        getTextInput('gemeente').should('have.class', 'vl-input-field--error');
+        getFormError('gemeente').should('have.text', 'Het veld gemeente is verplicht.');
+
+        getTextInput('postcode').should('have.class', 'vl-input-field--error');
+        getFormError('postcode').should('have.text', 'Het veld postcode is verplicht.');
+
+        getTextInput('straat').should('have.class', 'vl-input-field--error');
+        getFormError('straat').should('have.text', 'Het veld straat is verplicht.');
+
+        getTextInput('huisnummer').should('not.have.class', 'vl-input-field--error');
+        getFormError('huisnummer').should('not.exist');
+
+        getTextInput('busnummer').should('not.have.class', 'vl-input-field--error');
+        getFormError('busnummer').should('not.exist');
+      });
+    });
+  });
   });
 });
 
@@ -281,4 +321,16 @@ const fillInAdresCrabBelgium = () => {
   getMultiSelect('busnummer').find('.multiselect__input').type('0101');
   getMultiSelect('busnummer').find('.multiselect__element').first().click();
   getMultiSelect('busnummer').find('.multiselect__single').should('have.text', '0101');
+};
+
+const fillInAdresCrabOther = () => {
+  // Country selection
+  getMultiSelect('land').select(2).should('have.value', 'DE');
+
+  // Gemeente input
+  getTextInput('gemeente').type('Koln');
+  getTextInput('postcode').type('50667');
+  getTextInput('straat').type('Beuelsweg');
+  getTextInput('huisnummer').type('33');
+  getTextInput('busnummer').type('B3');
 };
