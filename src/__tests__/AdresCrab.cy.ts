@@ -1,4 +1,4 @@
-import AdresCrab from '@components/smart/AdresCrab.vue';
+import AdresCrab, { type IAdresCrabConfig } from '@components/smart/AdresCrab.vue';
 import { mount } from 'cypress/vue';
 import { defineComponent } from 'vue';
 
@@ -370,6 +370,209 @@ describe('Adres CRAB', () => {
         cy.wait('@dataGetLanden').then((intercept) => {
           expect(intercept.request.url).to.equal('https://test.be/adressenregister/landen');
         });
+      });
+    });
+  });
+
+  describe('form - custom config', () => {
+    describe('applies custom configuration to free-text fields - land and gemeente required', () => {
+      const config: IAdresCrabConfig = {
+        land: {
+          required: true,
+        },
+        gemeente: {
+          required: true,
+        },
+        postcode: {
+          required: false,
+        },
+        straat: {
+          required: false,
+        },
+        huisnummer: {
+          required: false,
+        },
+        busnummer: {
+          required: false,
+        },
+      };
+
+      beforeEach(() => {
+        mount(TestComponent, {
+          data: () => ({ config }),
+          template: '<Suspense><AdresCrab :config="config"/></Suspense>',
+        });
+      });
+
+      it('has an input label land - required', () => {
+        getLabel('land').should('have.text', 'Land(verplicht)');
+      });
+
+      it('has an input label gemeente - required', () => {
+        getLabel('gemeente').should('have.text', 'Gemeente(verplicht)');
+      });
+
+      it('has an input label postcode', () => {
+        getLabel('postcode').should('have.text', 'Postcode');
+      });
+
+      it('has an input label straat', () => {
+        getLabel('straat').should('have.text', 'Straat');
+      });
+
+      it('has an input label huisnummer', () => {
+        getLabel('huisnummer').should('have.text', 'Huisnummer');
+      });
+
+      it('has an input label busnummer', () => {
+        getLabel('busnummer').should('have.text', 'Busnummer');
+      });
+
+      it('triggers required validation after fields are touched and emptied', () => {
+        fillInAdresCrabOther();
+
+        getMultiSelect('land').select(3);
+
+        getTextInput('gemeente').should('have.class', 'vl-input-field--error');
+        getFormError('gemeente').should('have.text', 'Het veld gemeente is verplicht.');
+
+        getTextInput('postcode').should('not.have.class', 'vl-input-field--error');
+        getFormError('postcode').should('not.exist');
+
+        getTextInput('straat').should('not.have.class', 'vl-input-field--error');
+        getFormError('straat').should('not.exist');
+
+        getTextInput('huisnummer').should('not.have.class', 'vl-input-field--error');
+        getFormError('huisnummer').should('not.exist');
+
+        getTextInput('busnummer').should('not.have.class', 'vl-input-field--error');
+        getFormError('busnummer').should('not.exist');
+      });
+    });
+
+    describe('applies custom configuration to free-text fields - all required', () => {
+      const config: IAdresCrabConfig = {
+        land: {
+          required: true,
+        },
+        gemeente: {
+          required: true,
+        },
+        postcode: {
+          required: true,
+        },
+        straat: {
+          required: true,
+        },
+        huisnummer: {
+          required: true,
+        },
+        busnummer: {
+          required: true,
+        },
+      };
+
+      beforeEach(() => {
+        mount(TestComponent, {
+          data: () => ({ config }),
+          template: '<Suspense><AdresCrab :config="config"/></Suspense>',
+        });
+      });
+
+      it('has an input label land - required', () => {
+        getLabel('land').should('have.text', 'Land(verplicht)');
+      });
+
+      it('has an input label gemeente - required', () => {
+        getLabel('gemeente').should('have.text', 'Gemeente(verplicht)');
+      });
+
+      it('has an input label postcode', () => {
+        getLabel('postcode').should('have.text', 'Postcode(verplicht)');
+      });
+
+      it('has an input label straat', () => {
+        getLabel('straat').should('have.text', 'Straat(verplicht)');
+      });
+
+      it('has an input label huisnummer', () => {
+        getLabel('huisnummer').should('have.text', 'Huisnummer(verplicht)');
+      });
+
+      it('has an input label busnummer', () => {
+        getLabel('busnummer').should('have.text', 'Busnummer(verplicht)');
+      });
+
+      it('triggers required validation after fields are touched and emptied', () => {
+        fillInAdresCrabOther();
+
+        getMultiSelect('land').select(3);
+
+        getTextInput('gemeente').should('have.class', 'vl-input-field--error');
+        getFormError('gemeente').should('have.text', 'Het veld gemeente is verplicht.');
+
+        getTextInput('postcode').should('have.class', 'vl-input-field--error');
+        getFormError('postcode').should('have.text', 'Het veld postcode is verplicht.');
+
+        getTextInput('straat').should('have.class', 'vl-input-field--error');
+        getFormError('straat').should('have.text', 'Het veld straat is verplicht.');
+
+        getTextInput('huisnummer').should('have.class', 'vl-input-field--error');
+        getFormError('huisnummer').should('have.text', 'Het veld huisnummer is verplicht.');
+
+        getTextInput('busnummer').should('have.class', 'vl-input-field--error');
+        getFormError('busnummer').should('have.text', 'Het veld busnummer is verplicht.');
+      });
+    });
+
+    describe('applies custom configuration to multi-select fields - all required', () => {
+      const config: IAdresCrabConfig = {
+        land: {
+          required: true,
+        },
+        gemeente: {
+          required: true,
+        },
+        postcode: {
+          required: true,
+        },
+        straat: {
+          required: true,
+        },
+        huisnummer: {
+          required: true,
+        },
+        busnummer: {
+          required: true,
+        },
+      };
+
+      beforeEach(() => {
+        mount(TestComponent, {
+          data: () => ({ config }),
+          template: '<Suspense><AdresCrab :config="config"/></Suspense>',
+        });
+      });
+
+      it('triggers required validation after fields are touched and emptied', () => {
+        fillInAdresCrabBelgium();
+
+        getMultiSelect('land').select(3).select(1);
+
+        getMultiSelect('gemeente').parent().should('have.class', 'vl-multiselect--error');
+        getFormError('gemeente').should('have.text', 'Het veld gemeente is verplicht.');
+
+        getMultiSelect('postcode').parent().should('have.class', 'vl-multiselect--error');
+        getFormError('postcode').should('have.text', 'Het veld postcode is verplicht.');
+
+        getMultiSelect('straat').parent().should('have.class', 'vl-multiselect--error');
+        getFormError('straat').should('have.text', 'Het veld straat is verplicht.');
+
+        getMultiSelect('huisnummer').parent().should('have.class', 'vl-multiselect--error');
+        getFormError('huisnummer').should('have.text', 'Het veld huisnummer is verplicht.');
+
+        getMultiSelect('busnummer').parent().should('have.class', 'vl-multiselect--error');
+        getFormError('busnummer').should('have.text', 'Het veld busnummer is verplicht.');
       });
     });
   });
