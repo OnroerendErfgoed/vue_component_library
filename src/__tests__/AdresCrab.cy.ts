@@ -576,6 +576,25 @@ describe('Adres CRAB', () => {
       });
     });
   });
+
+  describe('form - specific country', () => {
+    beforeEach(() => {
+      mount(TestComponent, {
+        template: '<Suspense><AdresCrab countryId="BE" v-model:adres="adres"/></Suspense>',
+      });
+    });
+
+    it('does not render the land entry', () => {
+      getLabel('land').should('not.exist');
+      getMultiSelect('land').should('not.exist');
+
+      getMultiSelect('gemeente').should('exist');
+      getMultiSelect('postcode').should('exist');
+      getMultiSelect('straat').should('exist');
+      getMultiSelect('huisnummer').should('exist');
+      getMultiSelect('busnummer').should('exist');
+    });
+  });
 });
 
 const getLabel = (field: string) => cy.get(`[data-cy="label-${field}"]`);
