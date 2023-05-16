@@ -5,7 +5,7 @@ import { defineComponent } from 'vue';
 describe('Adres CRAB', () => {
   const TestComponent = defineComponent({
     components: { AdresCrab },
-    template: '<Suspense><AdresCrab v-model:adres="adres"/></Suspense>',
+    template: '<Suspense><AdresCrab/></Suspense>',
   });
 
   it('renders', () => {
@@ -23,27 +23,27 @@ describe('Adres CRAB', () => {
     });
 
     it('has an input label land - required', () => {
-      cy.checkLabel('land', 'Land(verplicht)');
+      getLabel('land').should('have.text', 'Land(verplicht)');
     });
 
     it('has an input label gemeente - required', () => {
-      cy.checkLabel('gemeente', 'Gemeente(verplicht)');
+      getLabel('gemeente').should('have.text', 'Gemeente(verplicht)');
     });
 
     it('has an input label postcode - required', () => {
-      cy.checkLabel('postcode', 'Postcode(verplicht)');
+      getLabel('postcode').should('have.text', 'Postcode(verplicht)');
     });
 
     it('has an input label straat - required', () => {
-      cy.checkLabel('straat', 'Straat(verplicht)');
+      getLabel('straat').should('have.text', 'Straat(verplicht)');
     });
 
     it('has an input label huisnummer', () => {
-      cy.checkLabel('huisnummer', 'Huisnummer');
+      getLabel('huisnummer').should('have.text', 'Huisnummer');
     });
 
     it('has an input label busnummer', () => {
-      cy.checkLabel('busnummer', 'Busnummer');
+      getLabel('busnummer').should('have.text', 'Busnummer');
     });
 
     describe('country selection België', () => {
@@ -295,6 +295,7 @@ describe('Adres CRAB', () => {
             },
           },
         }),
+        template: '<Suspense><AdresCrab v-model:adres="adres"/></Suspense>',
       });
 
       getMultiSelect('land').should('have.value', 'BE');
@@ -327,6 +328,7 @@ describe('Adres CRAB', () => {
             },
           },
         }),
+        template: '<Suspense><AdresCrab v-model:adres="adres"/></Suspense>',
       }).then(({ component }) => {
         getMultiSelect('gemeente').click();
         getMultiSelect('gemeente').find('.multiselect__input').type('Lummen');
@@ -355,8 +357,25 @@ describe('Adres CRAB', () => {
       });
     });
   });
+
+  describe('form - custom API', () => {
+    it('addresses the network call to the given API', () => {
+      const api = 'https://test.be';
+      cy.intercept(`${api}/adressenregister/landen`, {}).as('dataGetLanden');
+
+      mount(TestComponent, {
+        data: () => ({ api }),
+        template: '<Suspense><AdresCrab :api="api"/></Suspense>',
+      }).then(() => {
+        cy.wait('@dataGetLanden').then((intercept) => {
+          expect(intercept.request.url).to.equal('https://test.be/adressenregister/landen');
+        });
+      });
+    });
+  });
 });
 
+const getLabel = (field: string) => cy.get(`[data-cy="label-${field}"]`);
 const getMultiSelect = (field: string) => cy.get(`[data-cy="select-${field}"]`);
 const getTextInput = (field: string) => cy.get(`[data-cy="input-${field}"]`);
 const getFormError = (field: string) => cy.get(`[data-cy="form-error-${field}"]`);

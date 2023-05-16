@@ -26,10 +26,6 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 //
 
-Cypress.Commands.add('checkLabel', (field: string, match: string) => {
-  cy.get(`[data-cy="label-${field}"]`).should('have.text', match);
-});
-
 declare global {
   namespace Cypress {
     interface Chainable {
