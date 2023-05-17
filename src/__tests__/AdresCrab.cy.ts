@@ -336,7 +336,8 @@ describe('Adres CRAB', () => {
           .find('.multiselect__element')
           .click()
           .then(() => {
-            expect(component.$data.adres).to.deep.equal({
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            expect((component.$data as any).adres).to.deep.equal({
               land: 'BE',
               gemeente: {
                 naam: 'Lummen',
