@@ -23,5 +23,6 @@ export default defineConfig({
       // https://github.com/bahmutov/cypress-watch-and-reload
       return plugin(on, config);
     },
+    video: false,
   },
 });
