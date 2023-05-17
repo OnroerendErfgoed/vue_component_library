@@ -45,6 +45,7 @@
             :mod-multiple="false"
             :options="gemeenten"
             :options-limit="optionsLimit"
+            :preserve-search="true"
           >
             <template #noResult>
               <span>Geen resultaten gevonden...</span>
@@ -86,6 +87,7 @@
             :mod-multiple="false"
             :options="postinfo"
             :options-limit="optionsLimit"
+            :preserve-search="true"
           >
             <template #noResult>
               <span>Geen resultaten gevonden...</span>
@@ -127,6 +129,7 @@
             :mod-error="!!v$.straat.naam.$errors.length"
             :options="straten"
             :options-limit="optionsLimit"
+            :preserve-search="true"
           >
             <template #noResult>
               <span>Geen resultaten gevonden...</span>
@@ -167,6 +170,7 @@
             :mod-error="!!v$.adres.huisnummer.$errors.length"
             :options="huisnummers"
             :options-limit="optionsLimit"
+            :preserve-search="true"
           >
             <template #noResult>
               <span>Geen resultaten gevonden...</span>
@@ -218,6 +222,7 @@
             :mod-error="!!v$.adres.busnummer.$errors.length"
             :options="busnummers"
             :options-limit="optionsLimit"
+            :preserve-search="true"
           >
             <template #noResult>
               <span>Geen resultaten gevonden...</span>
