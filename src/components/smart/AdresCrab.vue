@@ -50,7 +50,7 @@
               <span>Geen resultaten gevonden...</span>
             </template>
             <template #noOptions>
-              <span>Geen opties beschikbaar!</span>
+              <span>Geen opties beschikbaar</span>
             </template>
           </VlMultiselect>
 
@@ -91,7 +91,7 @@
               <span>Geen resultaten gevonden...</span>
             </template>
             <template #noOptions>
-              <span>Geen opties beschikbaar!</span>
+              <span>Geen opties beschikbaar</span>
             </template>
           </VlMultiselect>
 
@@ -132,7 +132,7 @@
               <span>Geen resultaten gevonden...</span>
             </template>
             <template #noOptions>
-              <span>Geen opties beschikbaar!</span>
+              <span>Geen opties beschikbaar</span>
             </template>
           </VlMultiselect>
           <VlInputField
@@ -172,7 +172,7 @@
               <span>Geen resultaten gevonden...</span>
             </template>
             <template #noOptions>
-              <span>Geen opties beschikbaar!</span>
+              <span>Geen opties beschikbaar</span>
             </template>
           </VlMultiselect>
 
@@ -223,7 +223,7 @@
               <span>Geen resultaten gevonden...</span>
             </template>
             <template #noOptions>
-              <span>Geen opties beschikbaar!</span>
+              <span>Geen opties beschikbaar</span>
             </template>
           </VlMultiselect>
 
