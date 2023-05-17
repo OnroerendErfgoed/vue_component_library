@@ -46,6 +46,7 @@
             :options="gemeenten"
             :options-limit="optionsLimit"
             :preserve-search="true"
+            @keydown.tab="!gemeente ? $event.preventDefault() : null"
           >
             <template #noResult>
               <span>Geen resultaten gevonden...</span>
@@ -88,6 +89,7 @@
             :options="postinfo"
             :options-limit="optionsLimit"
             :preserve-search="true"
+            @keydown.tab="!postcode ? $event.preventDefault() : null"
           >
             <template #noResult>
               <span>Geen resultaten gevonden...</span>
@@ -130,6 +132,7 @@
             :options="straten"
             :options-limit="optionsLimit"
             :preserve-search="true"
+            @keydown.tab="!straat ? $event.preventDefault() : null"
           >
             <template #noResult>
               <span>Geen resultaten gevonden...</span>
@@ -171,6 +174,7 @@
             :options="huisnummers"
             :options-limit="optionsLimit"
             :preserve-search="true"
+            @keydown.tab="!huisnummer ? $event.preventDefault() : null"
           >
             <template #noResult>
               <span>Geen resultaten gevonden...</span>
@@ -223,6 +227,7 @@
             :options="busnummers"
             :options-limit="optionsLimit"
             :preserve-search="true"
+            @keydown.tab="!busnummer ? $event.preventDefault() : null"
           >
             <template #noResult>
               <span>Geen resultaten gevonden...</span>
