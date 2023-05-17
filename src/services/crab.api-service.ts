@@ -1,69 +1,111 @@
+import type { IAdres, IGemeente, IGewest, ILand, IPostinfo, IStraat } from '@models/locatie';
+import { Niscode } from '@models/niscode.enum';
 import axios from 'axios';
-import type { Land, Gemeente, Postcode, Straat, Huisnummer } from '@models/locatie';
+import { sortBy } from 'lodash';
 
 export class CrabService {
-  private landen: Land[] = [];
-  private gemeenten: Gemeente[] = [];
+  private API_URL: string;
 
-  getLanden(): Promise<Land[]> {
+  private landen: ILand[] = [];
+
+  private gemeenten: IGemeente[] = [];
+
+  private gemeentenVlaamsGewest: IGemeente[] = [];
+  private gemeentenWaalsGewest: IGemeente[] = [];
+  private gemeentenBHGewest: IGemeente[] = [];
+
+  constructor(apiUrl: string) {
+    this.API_URL = apiUrl;
+  }
+
+  setApiUrl(apiUrl: string) {
+    this.API_URL = apiUrl;
+  }
+
+  getLanden(): Promise<ILand[]> {
     if (this.landen?.length) {
       return Promise.resolve(this.landen);
     } else {
-      return this.crabGet<Land[]>('crab/landen').then((landen) => {
-        this.landen = landen;
-        this.landen.sort(this.compareByNaam);
+      return this.crabGet<ILand[]>('adressenregister/landen').then((landen) => {
+        this.landen = sortBy(landen, 'naam');
         return this.landen;
       });
     }
   }
 
-  getGemeenten(): Promise<Gemeente[]> {
+  get vlaamseGemeenten(): IGemeente[] {
+    return this.gemeentenVlaamsGewest;
+  }
+
+  get waalseGemeenten(): IGemeente[] {
+    return this.gemeentenWaalsGewest;
+  }
+
+  get brusselseGemeenten(): IGemeente[] {
+    return this.gemeentenBHGewest;
+  }
+
+  getGemeenten(): Promise<IGemeente[]> {
     if (this.gemeenten?.length) {
       return Promise.resolve(this.gemeenten);
     } else {
-      return Promise.all([
-        this.crabGet<Gemeente[]>('crab/gewesten/1/gemeenten'),
-        this.crabGet<Gemeente[]>('crab/gewesten/2/gemeenten'),
-        this.crabGet<Gemeente[]>('crab/gewesten/3/gemeenten'),
-      ]).then((gemeenten) => {
-        if (gemeenten[0] && gemeenten[1] && gemeenten[2]) {
-          this.gemeenten = this.gemeenten.concat(gemeenten[0], gemeenten[1], gemeenten[2]);
-          this.gemeenten.sort(this.compareByNaam);
-          return this.gemeenten;
-        }
-        return [];
+      return this.crabGet<IGewest[]>('adressenregister/gewesten').then((gewesten) => {
+        let gemeentenVlaamsGewestGet;
+        let gemeentenWaalsGewestGet;
+        let gemeentenBHGewestGet;
+
+        gewesten.forEach((gewest) => {
+          if (gewest.niscode === Niscode.VlaamsGewest) {
+            gemeentenVlaamsGewestGet = this.getGemeentenPerGewest(Niscode.VlaamsGewest);
+          }
+          if (gewest.niscode === Niscode.WaalsGewest) {
+            gemeentenWaalsGewestGet = this.getGemeentenPerGewest(Niscode.WaalsGewest);
+          }
+          if (gewest.niscode === Niscode.BrusselsHoofdstedelijkGewest) {
+            gemeentenBHGewestGet = this.getGemeentenPerGewest(Niscode.BrusselsHoofdstedelijkGewest);
+          }
+        });
+
+        return Promise.all([gemeentenVlaamsGewestGet, gemeentenWaalsGewestGet, gemeentenBHGewestGet]).then(
+          (gemeenten) => {
+            if (gemeenten[0] && gemeenten[1] && gemeenten[2]) {
+              this.gemeentenVlaamsGewest = gemeenten[0];
+              this.gemeentenWaalsGewest = gemeenten[1];
+              this.gemeentenBHGewest = gemeenten[2];
+              this.gemeenten = this.gemeenten.concat(
+                this.gemeentenVlaamsGewest,
+                this.gemeentenWaalsGewest,
+                this.gemeentenBHGewest
+              );
+              return sortBy(this.gemeenten, 'naam');
+            }
+            return [];
+          }
+        );
       });
     }
   }
 
-  getPostcodes(gemeente: number): Promise<Postcode[]> {
-    return this.crabGet<Postcode[]>(`crab/gemeenten/${gemeente}/postkantons`);
+  getGemeentenPerGewest(niscode: Niscode): Promise<IGemeente[]> {
+    return this.crabGet<IGemeente[]>(`adressenregister/gewesten/${niscode}/gemeenten`);
   }
 
-  getStraten(gemeente: number): Promise<Straat[]> {
-    return this.crabGet<Straat[]>(`crab/gemeenten/${gemeente}/straten`);
+  getPostinfo(gemeente: string): Promise<IPostinfo[]> {
+    return this.crabGet<IPostinfo[]>(`adressenregister/gemeenten/${gemeente}/postinfo`);
   }
 
-  getHuisnummers(straat: number) {
-    return this.crabGet<Huisnummer[]>(`crab/straten/${straat}/huisnummers`).then((response) => {
-      const huisnummers: Huisnummer[] = response.map((huisnummer: Huisnummer) => ({
-        ...huisnummer,
-        naam: huisnummer.label,
-      }));
-      return huisnummers.sort((a, b) => parseInt(a.naam, 0) - parseInt(b.naam, 0));
-    });
+  getStraten(gemeente: string): Promise<IStraat[]> {
+    return this.crabGet<IStraat[]>(`adressenregister/gemeenten/${gemeente}/straten`);
   }
 
-  private compareByNaam(a: { naam: string }, b: { naam: string }): number {
-    if (a.naam < b.naam) {
-      return -1;
-    } else if (a.naam > b.naam) {
-      return 1;
+  getAdressen(straat: string, huisnummer?: string): Promise<IAdres[]> {
+    if (huisnummer) {
+      return this.crabGet<IAdres[]>(`adressenregister/straten/${straat}/huisnummers/${huisnummer}`);
     }
-    return 0;
+    return this.crabGet<IAdres[]>(`adressenregister/straten/${straat}/adressen`);
   }
 
   private async crabGet<T>(endpoint: string): Promise<T> {
-    return (await axios.get(`https://dev-geo.onroerenderfgoed.be/${endpoint}`)).data;
+    return (await axios.get(`${this.API_URL.replace(/\/?$/, '/')}${endpoint.replace(/^\/?/, '')}`)).data;
   }
 }

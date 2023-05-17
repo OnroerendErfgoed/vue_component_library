@@ -37,11 +37,17 @@
   "dependencies": {
     "@govflanders/vl-ui-design-system-style": "^1.0.0-alpha.2",
     "@govflanders/vl-ui-design-system-vue3": "^1.0.0-alpha.2",
+    "@vuelidate/core": "^2.0.2",
+    "@vuelidate/validators": "^2.0.2",
+    "@vueuse/core": "^10.1.2",
     "axios": "^1.4.0",
+    "lodash": "^4.17.21",
     "pyoes": "https://gitpkg.now.sh/OnroerendErfgoed/pyoes/npm-packages/pyoes",
-    "vue": "^3.2.47"
+    "vue": "^3.2.47",
+    "vue-i18n": "9"
   },
   "devDependencies": {
+    "@intlify/unplugin-vue-i18n": "^0.10.0",
     "@rushstack/eslint-patch": "^1.2.0",
     "@storybook/addon-essentials": "^7.0.6",
     "@storybook/addon-interactions": "^7.0.6",
