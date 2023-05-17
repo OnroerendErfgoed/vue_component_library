@@ -293,8 +293,6 @@
         </VlPropertiesData>
       </VlPropertiesList>
     </VlProperties>
-
-    <pre>{{ adres }}</pre>
   </div>
 </template>
 
