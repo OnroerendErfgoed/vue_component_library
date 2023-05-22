@@ -1,20 +1,26 @@
 <template>
   <div class="adres-crab">
     <VlProperties>
-      <VlPropertiesTitle>Adres</VlPropertiesTitle>
+      <VlPropertiesTitle data-cy="title-adres">Adres</VlPropertiesTitle>
       <VlPropertiesList>
         <!-- Land -->
         <template v-if="!props.countryId">
           <VlPropertiesLabel>
-            <vl-form-message-label>
-              Land
+            <vl-form-message-label data-cy="label-land">
+              <span class="vl-u-spacer-right--xxsmall">Land</span>
               <span v-if="$props.config?.land?.required" class="vl-form__annotation">
                 {{ '(verplicht)' }}
               </span>
             </vl-form-message-label>
           </VlPropertiesLabel>
           <VlPropertiesData>
-            <VlSelect v-model:value="land" :mod-error="!!v$.land.$errors.length" mod-block placeholder-text="Land">
+            <VlSelect
+              v-model:value="land"
+              data-cy="select-land"
+              :mod-error="!!v$.land.$errors.length"
+              mod-block
+              placeholder-text="Land"
+            >
               <option v-for="item in landen" :key="item.id" :value="item.id" :disabled="item.disabled">
                 {{ item.naam }}
               </option>
@@ -27,8 +33,8 @@
 
         <!-- Gemeente -->
         <VlPropertiesLabel>
-          <vl-form-message-label>
-            Gemeente
+          <vl-form-message-label data-cy="label-gemeente">
+            <span class="vl-u-spacer-right--xxsmall">Gemeente</span>
             <span v-if="$props.config?.gemeente?.required" class="vl-form__annotation">
               {{ '(verplicht)' }}
             </span>
@@ -39,6 +45,7 @@
             v-if="isBelgiumOrEmpty"
             v-model="gemeente"
             placeholder="Gemeente"
+            data-cy="select-gemeente"
             :mod-error="!!v$.gemeente.naam.$errors.length"
             :custom-label="customGemeenteLabel"
             :disabled="!land"
@@ -59,19 +66,24 @@
           <VlInputField
             v-else
             v-model="gemeente"
+            data-cy="input-gemeente"
             :mod-error="!!v$.gemeente.naam.$errors.length"
             mod-block
             placeholder="Gemeente"
           />
-          <vl-form-message-error v-for="error of v$.gemeente.naam.$errors" :key="error.$uid">
+          <vl-form-message-error
+            v-for="error of v$.gemeente.naam.$errors"
+            :key="error.$uid"
+            data-cy="form-error-gemeente"
+          >
             {{ error.$message }}
           </vl-form-message-error>
         </VlPropertiesData>
 
         <!-- Postcode -->
         <VlPropertiesLabel>
-          <vl-form-message-label>
-            Postcode
+          <vl-form-message-label data-cy="label-postcode">
+            <span class="vl-u-spacer-right--xxsmall">Postcode</span>
             <span v-if="$props.config?.postcode?.required" class="vl-form__annotation">
               {{ '(verplicht)' }}
             </span>
@@ -82,6 +94,7 @@
             v-if="isBelgiumOrEmpty"
             v-model="postcode"
             placeholder="Postcode"
+            data-cy="select-postcode"
             :custom-label="customPostcodeLabel"
             :disabled="!gemeente"
             :mod-error="!!v$.postcode.nummer.$errors.length"
@@ -102,19 +115,24 @@
           <VlInputField
             v-else
             v-model="postcode"
+            data-cy="input-postcode"
             :mod-error="!!v$.postcode.nummer.$errors.length"
             mod-block
             placeholder="Postcode"
           />
-          <vl-form-message-error v-for="error of v$.postcode.nummer.$errors" :key="error.$uid">
+          <vl-form-message-error
+            v-for="error of v$.postcode.nummer.$errors"
+            :key="error.$uid"
+            data-cy="form-error-postcode"
+          >
             {{ error.$message }}
           </vl-form-message-error>
         </VlPropertiesData>
 
         <!-- Straat -->
         <VlPropertiesLabel>
-          <vl-form-message-label>
-            Straat
+          <vl-form-message-label data-cy="label-straat">
+            <span class="vl-u-spacer-right--xxsmall">Straat</span>
             <span v-if="$props.config?.straat?.required" class="vl-form__annotation">
               {{ '(verplicht)' }}
             </span>
@@ -125,6 +143,7 @@
             v-if="isBelgiumOrEmpty && !straatFreeText"
             v-model="straat"
             placeholder="Straat"
+            data-cy="select-straat"
             :custom-label="customStraatLabel"
             :disabled="!gemeente"
             :mod-multiple="false"
@@ -144,19 +163,20 @@
           <VlInputField
             v-else
             v-model="straat"
+            data-cy="input-straat"
             :mod-error="!!v$.straat.naam.$errors.length"
             mod-block
             placeholder="Straat"
           />
-          <vl-form-message-error v-for="error of v$.straat.naam.$errors" :key="error.$uid">
+          <vl-form-message-error v-for="error of v$.straat.naam.$errors" :key="error.$uid" data-cy="form-error-straat">
             {{ error.$message }}
           </vl-form-message-error>
         </VlPropertiesData>
 
         <!-- Huisnummer -->
         <VlPropertiesLabel>
-          <vl-form-message-label>
-            Huisnummer
+          <vl-form-message-label data-cy="label-huisnummer">
+            <span class="vl-u-spacer-right--xxsmall">Huisnummer</span>
             <span v-if="$props.config?.huisnummer?.required" class="vl-form__annotation">
               {{ '(verplicht)' }}
             </span>
@@ -167,6 +187,7 @@
             v-if="isBelgiumOrEmpty && !huisnummerFreeText"
             v-model="huisnummer"
             placeholder="Huisnummer"
+            data-cy="select-huisnummer"
             :custom-label="customHuisnummerLabel"
             :disabled="!straat"
             :mod-multiple="false"
@@ -187,6 +208,7 @@
           <VlInputField
             v-else
             v-model="huisnummer"
+            data-cy="input-huisnummer"
             mod-block
             placeholder="Huisnummer"
             :mod-error="!!v$.adres.huisnummer.$errors.length"
@@ -194,6 +216,7 @@
 
           <button
             v-if="isBelgium && !straatFreeText && isVlaamseGemeente"
+            data-cy="action-huisnummer-not-found"
             class="vl-link"
             @click="huisnummerFreeText = !huisnummerFreeText"
           >
@@ -201,15 +224,19 @@
             <span v-else>Suggesties</span>
           </button>
 
-          <vl-form-message-error v-for="error of v$.adres.huisnummer.$errors" :key="error.$uid">
+          <vl-form-message-error
+            v-for="error of v$.adres.huisnummer.$errors"
+            :key="error.$uid"
+            data-cy="form-error-huisnummer"
+          >
             {{ error.$message }}
           </vl-form-message-error>
         </VlPropertiesData>
 
         <!-- Busnummer -->
         <VlPropertiesLabel>
-          <vl-form-message-label>
-            Busnummer
+          <vl-form-message-label data-cy="label-busnummer">
+            <span class="vl-u-spacer-right--xxsmall">Busnummer</span>
             <span v-if="$props.config?.busnummer?.required" class="vl-form__annotation">
               {{ '(verplicht)' }}
             </span>
@@ -220,6 +247,7 @@
             v-if="isBelgiumOrEmpty && !huisnummerFreeText && !busnummerFreeText"
             v-model="busnummer"
             placeholder="Busnummer"
+            data-cy="select-busnummer"
             :custom-label="customBusnummerLabel"
             :disabled="!huisnummer"
             :mod-multiple="false"
@@ -240,6 +268,7 @@
           <VlInputField
             v-else
             v-model="busnummer"
+            data-cy="input-busnummer"
             mod-block
             placeholder="Busnummer"
             :mod-error="!!v$.adres.busnummer.$errors.length"
@@ -247,20 +276,23 @@
 
           <button
             v-if="isBelgium && !huisnummerFreeText && isVlaamseGemeente"
+            data-cy="action-busnummer-not-found"
             class="vl-link"
             @click="busnummerFreeText = !busnummerFreeText"
           >
             <span v-if="!busnummerFreeText">Busnummer niet gevonden?</span>
             <span v-else>Suggesties</span>
           </button>
-          <vl-form-message-error v-for="error of v$.adres.busnummer.$errors" :key="error.$uid">
+          <vl-form-message-error
+            v-for="error of v$.adres.busnummer.$errors"
+            :key="error.$uid"
+            data-cy="form-error-busnummer"
+          >
             {{ error.$message }}
           </vl-form-message-error>
         </VlPropertiesData>
       </VlPropertiesList>
     </VlProperties>
-
-    <pre>{{ adres }}</pre>
   </div>
 </template>
 
@@ -610,6 +642,9 @@ const resetFreeTextState = () => {
 
 <style lang="scss" scoped>
 .adres-crab {
+  .vl-u-spacer-right--xxsmall {
+    margin-right: 0.5rem;
+  }
   .vl-properties__label {
     max-width: 100%;
   }
