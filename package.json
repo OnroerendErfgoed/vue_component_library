@@ -12,7 +12,7 @@
       "import": "./dist/vue-components.es.js",
       "require": "./dist/vue-components.umd.js"
     },
-    "./dist/style.css": {
+    "./dist/vue-components.css": {
       "import": "./dist/vue-components.css",
       "require": "./dist/vue-components.css"
     }

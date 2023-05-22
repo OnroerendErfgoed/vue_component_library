@@ -53,4 +53,11 @@ export default defineConfig({
       vue: 'vue/dist/vue.esm-bundler.js',
     },
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "@/scss/main.scss";`,
+      },
+    },
+  },
 });
