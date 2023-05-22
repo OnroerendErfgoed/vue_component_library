@@ -23,8 +23,6 @@
     "build:watch": "run-p type-check build-only:watch",
     "build-only": "vite build",
     "build-only:watch": "vite build --watch",
-    "test:e2e": "start-server-and-test preview http://localhost:4173 'cypress run --e2e'",
-    "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'",
     "test:unit": "cypress run --component --browser=chrome",
     "test:unit:dev": "cypress open --component",
     "type-check": "vue-tsc --noEmit -p tsconfig.cypress-ct.json --composite false",
