@@ -2,7 +2,6 @@ import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import vue from '@vitejs/plugin-vue';
 import { resolve } from 'path';
 import copy from 'rollup-plugin-copy';
-import typescript2 from 'rollup-plugin-typescript2';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 
@@ -34,12 +33,7 @@ export default defineConfig({
   },
   plugins: [
     vue(),
-    dts({ insertTypesEntry: true, exclude: ['src/stories/**'] }),
-    typescript2({
-      check: false,
-      include: ['src/components/**/*.vue', '*.ts+(|x)', '**/*.ts+(|x)'],
-      exclude: ['vite.config.ts', 'src/stories/**/*.ts'],
-    }),
+    dts({ insertTypesEntry: true, exclude: ['src/stories/**'], compilerOptions: { ignoreDeprecations: '5.0' } }),
     VueI18nPlugin({
       include: resolve(__dirname, './src/utils/i18n.json'),
     }),
