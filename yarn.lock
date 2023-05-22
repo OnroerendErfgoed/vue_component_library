@@ -279,6 +279,11 @@
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.21.8.tgz#642af7d0333eab9c0ad70b14ac5e76dbde7bfdf8"
   integrity sha512-6zavDGdzG3gUqAdWvlLFfk+36RilI+Pwyuuh7HItyeScCWP3k6i8vKclAQ0bM/0y/Kz/xiwvxhMv9MgTJP5gmA==
 
+"@babel/parser@^7.16.4":
+  version "7.21.9"
+  resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.21.9.tgz#ab18ea3b85b4bc33ba98a8d4c2032c557d23cf14"
+  integrity sha512-q5PNg/Bi1OpGgx5jYlvWZwAorZepEudDMCLtj967aeS7WMont7dUZI46M2XwcIQqvUlMxWfdLFu4S/qSxeUu5g==
+
 "@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression@^7.18.6":
   version "7.18.6"
   resolved "https://registry.yarnpkg.com/@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression/-/plugin-bugfix-safari-id-destructuring-collision-in-function-expression-7.18.6.tgz#da5b8f9a580acdfbe53494dba45ea389fb09a4d2"
@@ -1201,12 +1206,12 @@
   resolved "https://registry.yarnpkg.com/@fal-works/esbuild-plugin-global-externals/-/esbuild-plugin-global-externals-2.1.2.tgz#c05ed35ad82df8e6ac616c68b92c2282bd083ba4"
   integrity sha512-cEee/Z+I12mZcFJshKcCqC8tuX5hG3s+d+9nZ3LabqKF1vKdF41B92pJVCBggjAGORAeOzyyDDKrZwIkLffeOQ==
 
-"@govflanders/vl-ui-design-system-style@^1.0.0-alpha.2":
+"@govflanders/vl-ui-design-system-style@^1.0.0-alpha.3":
   version "1.0.0-alpha.3"
   resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-design-system-style/-/vl-ui-design-system-style-1.0.0-alpha.3.tgz#257e27fd4912b4259842b3421c3ca561edab4134"
   integrity sha512-q43D1mwZa+oj/1ktZT0P/K366kIRooAT0FOcnsuWgB9EKZDLRRM585wMjYpBaENCVE3XZ8urtSSIJy6bLvQlmg==
 
-"@govflanders/vl-ui-design-system-vue3@^1.0.0-alpha.2":
+"@govflanders/vl-ui-design-system-vue3@^1.0.0-alpha.3":
   version "1.0.0-alpha.3"
   resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-design-system-vue3/-/vl-ui-design-system-vue3-1.0.0-alpha.3.tgz#82c4a141dd4ca56f8f7545f004fe67eea3eb7703"
   integrity sha512-xm4656D8OMYKCKTWv1k9V5AYZevWe/k5Fjl8FxI8pQ0Q3j0TJY7yaPsyMfmfzfrDk8qHc2Vk0MherfNtrdTgGw==
@@ -2888,6 +2893,16 @@
   dependencies:
     "@volar/typescript" "1.4.1-patch.2"
     "@volar/vue-language-core" "1.6.5"
+
+"@vue/compiler-core@3.2.47":
+  version "3.2.47"
+  resolved "https://registry.yarnpkg.com/@vue/compiler-core/-/compiler-core-3.2.47.tgz#3e07c684d74897ac9aa5922c520741f3029267f8"
+  integrity sha512-p4D7FDnQb7+YJmO2iPEv0SQNeNzcbHdGByJDsT4lynf63AFkOTFN07HsiRSvjGo0QrxR/o3d0hUyNCUnBU2Tig==
+  dependencies:
+    "@babel/parser" "^7.16.4"
+    "@vue/shared" "3.2.47"
+    estree-walker "^2.0.2"
+    source-map "^0.6.1"
 
 "@vue/compiler-core@3.3.4":
   version "3.3.4"

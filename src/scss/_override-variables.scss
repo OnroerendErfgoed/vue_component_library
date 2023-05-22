@@ -1,17 +1,10 @@
-@import 'pyoes/scss/pyoes-settings';
-
 /**
-  @govflanders/vl-ui-design-system-style (Webuniversum styling) currently does not export their variables yet, only 1 bundled css file
-  Later, the variables, when exported, should be overridden here to have our own color branding applied on their components
-  For now, this is a general file where we can override some classes manually
+  This file is used to override @govflanders/vl-ui-design-system-style (Webuniversum styling)
+  Make sure to define the variables you want to overwrite before importing the scss files.
 **/
 
-.vl-button {
-  background-color: $primary-color;
-  &:hover {
-    background-color: $dark-purple;
-  }
-  &:focus {
-    outline: 3px solid rgba($primary-color, 0.65);
-  }
-}
+$vl-action-color: $primary-color;
+$vl-action-hover-color: $dark-purple;
+$vl-action-active-color: darken($primary-color, 10);
+
+@import '@govflanders/vl-ui-design-system-style/scss';
