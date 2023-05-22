@@ -309,6 +309,7 @@ import {
   VlPropertiesTitle,
   VlSelect,
 } from '@govflanders/vl-ui-design-system-vue3';
+import type { IAdresCrabProps } from '@models/adres-crab';
 import type { IAdres, IGemeente, ILand, ILocatieAdres, IPostinfo, IStraat } from '@models/locatie';
 import { CrabService } from '@services/crab.api-service';
 import { requiredIf } from '@utils/i18n-validators';
@@ -318,36 +319,17 @@ import { AxiosError } from 'axios';
 import { pick, sortBy, uniqBy } from 'lodash';
 import { computed, onMounted, ref, watch } from 'vue';
 
-export interface IAdresCrabProps {
-  api?: string;
-  config?: IAdresCrabConfig;
-  countryId?: string;
-  adres?: ILocatieAdres;
-  optionsLimit?: number;
-}
-
-export interface IAdresCrabConfig {
-  land?: IConfigOption;
-  gemeente?: IConfigOption;
-  postcode?: IConfigOption;
-  straat?: IConfigOption;
-  huisnummer?: IConfigOption;
-  busnummer?: IConfigOption;
-}
-
-interface IConfigOption {
-  required: boolean;
-}
-
 const props = withDefaults(defineProps<IAdresCrabProps>(), {
-  config: () => ({
-    land: { required: true },
-    gemeente: { required: true },
-    postcode: { required: true },
-    straat: { required: true },
-    huisnummer: { required: false },
-    busnummer: { required: false },
-  }),
+  config: () => {
+    return {
+      land: { required: true },
+      gemeente: { required: true },
+      postcode: { required: true },
+      straat: { required: true },
+      huisnummer: { required: false },
+      busnummer: { required: false },
+    };
+  },
   api: 'https://dev-geo.onroerenderfgoed.be/',
   countryId: '',
   adres: undefined,
