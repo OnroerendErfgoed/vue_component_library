@@ -21,6 +21,13 @@
       "require": "./dist/scss/main.scss"
     }
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OnroerendErfgoed/vue_component_library.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "types": "./dist/main.d.ts",
   "private": true,
   "scripts": {
