@@ -1,5 +1,5 @@
 {
-  "name": "vue-components",
+  "name": "@onroerend-erfgoed/vue_component_library",
   "type": "module",
   "files": [
     "dist"
@@ -26,7 +26,7 @@
     "url": "https://github.com/OnroerendErfgoed/vue_component_library.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@OnroerendErfgoed"
+    "registry": "https://npm.pkg.github.com"
   },
   "types": "./dist/main.d.ts",
   "scripts": {
