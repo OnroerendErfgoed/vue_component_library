@@ -15,6 +15,10 @@
     "./dist/vue-components.css": {
       "import": "./dist/vue-components.css",
       "require": "./dist/vue-components.css"
+    },
+    "./dist/scss/main.scss": {
+      "import": "./dist/scss/main.scss",
+      "require": "./dist/scss/main.scss"
     }
   },
   "types": "./dist/main.d.ts",
