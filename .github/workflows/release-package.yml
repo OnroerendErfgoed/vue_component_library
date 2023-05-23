@@ -45,7 +45,7 @@ jobs:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
       - run: |
-          echo @onroerend-erfgoed:registry=https://npm.pkg.github.com/ > ~/.npmrc
+          echo @OnroerendErfgoed:registry=https://npm.pkg.github.com/ > ~/.npmrc
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
       - run: cat ~/.npmrc
       - run: yarn build
