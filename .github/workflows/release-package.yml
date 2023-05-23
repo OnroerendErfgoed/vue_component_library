@@ -16,10 +16,9 @@ jobs:
           always-auth: true
           node-version: '16.x'
           registry-url: https://registry.npmjs.org
-      - run: yarn
+      - run: yarn ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GOVFLANDERS_NPM_TOKEN}}
-      - run: yarn test:unit
 
   publish-gpr:
     needs: build
@@ -29,8 +28,20 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
         with:
+          always-auth: true
+          node-version: '16.x'
+          registry-url: https://registry.npmjs.org
+      - name: Install dependencies
+        run: yarn ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GOVFLANDERS_NPM_TOKEN}}
+      - name: Build and publish
+        uses: actions/setup-node@v3
+        with:
+          always-auth: true
           node-version: 16
           registry-url: https://npm.pkg.github.com/
       - run: yarn build

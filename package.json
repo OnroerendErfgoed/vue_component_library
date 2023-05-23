@@ -26,11 +26,11 @@
     "url": "https://github.com/OnroerendErfgoed/vue_component_library.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com/@OnroerendErfgoed"
   },
   "types": "./dist/main.d.ts",
-  "private": true,
   "scripts": {
+    "ci": "yarn install --frozen-lockfile",
     "build": "rm -rf dist && run-p type-check build-only",
     "build:watch": "run-p type-check build-only:watch",
     "build-only": "vite build",
