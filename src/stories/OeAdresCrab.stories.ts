@@ -1,5 +1,5 @@
 import '@/scss/main.scss';
-import { AdresCrab } from '@components/index';
+import AdresCrab from '@components/smart/AdresCrab.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof AdresCrab> = {

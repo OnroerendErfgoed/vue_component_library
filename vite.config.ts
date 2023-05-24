@@ -3,11 +3,11 @@ import vue from '@vitejs/plugin-vue';
 import { resolve } from 'path';
 import copy from 'rollup-plugin-copy';
 import { defineConfig } from 'vite';
-import dts from 'vite-plugin-dts';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
+    target: 'esnext',
     lib: {
       entry: resolve(__dirname, 'src/main.ts'),
       name: 'VueComponents',
@@ -33,7 +33,6 @@ export default defineConfig({
   },
   plugins: [
     vue(),
-    dts({ insertTypesEntry: true, exclude: ['src/stories/**'], compilerOptions: { ignoreDeprecations: '5.0' } }),
     VueI18nPlugin({
       include: resolve(__dirname, './src/utils/i18n.json'),
     }),

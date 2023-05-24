@@ -1,2 +1,4 @@
-export { default as AdresCrab } from '@components/smart/AdresCrab.vue';
-export { default as OeTest } from '@components/dumb/OeTest.vue';
+import OeTest from './dumb/OeTest.vue';
+import AdresCrab from './smart/AdresCrab.vue';
+
+export { AdresCrab, OeTest };
