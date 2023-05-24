@@ -26,5 +26,5 @@ repos:
           - eslint-plugin-vue@9.11.0
           - '@vue/eslint-config-prettier@7.1.0'
           - '@vue/eslint-config-typescript@11.0.2'
-        files: \.[jt]sx$ # *.js, *.jsx, *.ts and *.tsx
+        files: \.[jt]sx|\.vue?$ # *.js, *.jsx, *.ts, *.tsx and *.vue
         types: [file]

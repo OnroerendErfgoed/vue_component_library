@@ -22,7 +22,7 @@ jobs:
       - run: yarn build
       - uses: actions/upload-artifact@v3
         with:
-          name: bundle
+          name: dist
           path: dist/
 
   publish-gpr:
@@ -35,8 +35,9 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/download-artifact@v3
         with:
-          name: bundle
-      - name: Display structure of downloaded files
+          name: dist
+          path: dist/
+      - name: Display folder structure
         run: ls -R
       - name: Build and publish
         uses: actions/setup-node@v3

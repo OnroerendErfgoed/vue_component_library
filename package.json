@@ -6,7 +6,7 @@
   ],
   "main": "./dist/vue-components.umd.js",
   "module": "./dist/vue-components.es.js",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "exports": {
     ".": {
       "import": "./dist/vue-components.es.js",
@@ -103,6 +103,5 @@
   "peerDependencies": {
     "pyoes": "https://gitpkg.now.sh/OnroerendErfgoed/pyoes/npm-packages/pyoes"
   },
-  "readme": "README.md",
   "_id": "vue_component_library@0.0.0"
 }
