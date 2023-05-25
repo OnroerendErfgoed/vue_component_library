@@ -1,10 +1,18 @@
 export interface ILocatieAdres {
   land: string;
   gemeente: { niscode?: string; naam: string };
-  postcode: { nummer: string };
-  straat: { id?: string; naam: string };
+  postcode: {
+    uri?: string;
+    nummer: string;
+  };
+  straat: {
+    id?: string;
+    uri?: string;
+    naam: string;
+  };
   adres: {
     id?: string;
+    uri?: string;
     huisnummer?: string;
     busnummer?: string;
   };

@@ -406,6 +406,7 @@ const adres = computed<ILocatieAdres>(() => {
     postcodeValue = { nummer: postcode.value as string };
   } else {
     postcodeValue = {
+      uri: (postcode.value as IPostinfo).uri,
       nummer: (postcode.value as IPostinfo).postcode,
     };
   }
@@ -416,13 +417,14 @@ const adres = computed<ILocatieAdres>(() => {
     straatValue = {
       naam: (straat.value as IStraat).naam,
       id: (straat.value as IStraat).id,
+      uri: (straat.value as IStraat).uri,
     };
   }
 
   if (!huisnummer.value || typeof huisnummer.value === 'string') {
     adresValue = { ...adresValue, huisnummer: huisnummer.value };
   } else {
-    adresValue = pick(huisnummer.value, ['id', 'huisnummer', 'busnummer']);
+    adresValue = pick(huisnummer.value, ['id', 'uri', 'huisnummer', 'busnummer']);
   }
 
   if (!busnummer.value || typeof busnummer.value === 'string') {
@@ -432,6 +434,7 @@ const adres = computed<ILocatieAdres>(() => {
       ...adresValue,
       busnummer: busnummer.value.busnummer,
       ...(!!busnummer.value.id && { id: busnummer.value.id }),
+      ...(!!busnummer.value.uri && { id: busnummer.value.uri }),
     };
   }
 
