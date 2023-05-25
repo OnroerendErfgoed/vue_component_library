@@ -1,6 +1,6 @@
 # Vue component library
 
-This template should help get you started developing with Vue 3 in Vite.
+Vue components based on @govflanders Webuniversum components with our own branding applied.
 
 ## Recommended IDE Setup
 

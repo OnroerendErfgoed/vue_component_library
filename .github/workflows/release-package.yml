@@ -1,0 +1,54 @@
+name: Github Packages UI Library Actions
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          always-auth: true
+          node-version: '16.x'
+          registry-url: https://registry.npmjs.org
+      - run: yarn ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GOVFLANDERS_NPM_TOKEN}}
+      - run: yarn test:unit
+      - run: yarn build
+      - uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist/
+
+  publish-gpr:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v3
+        with:
+          name: dist
+          path: dist/
+      - name: Display folder structure
+        run: ls -R
+      - name: Build and publish
+        uses: actions/setup-node@v3
+        with:
+          always-auth: true
+          node-version: 16
+          registry-url: https://npm.pkg.github.com/
+      - run: |
+          echo @OnroerendErfgoed:registry=https://npm.pkg.github.com/ > ~/.npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
+      - run: cat ~/.npmrc
+      - run: yarn publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
