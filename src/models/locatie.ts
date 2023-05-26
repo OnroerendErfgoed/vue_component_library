@@ -2,16 +2,16 @@ export interface ILocatieAdres {
   land: string;
   gemeente: {
     niscode?: string;
-    naam: string;
+    naam?: string;
   };
   postcode: {
     uri?: string;
-    nummer: string;
+    nummer?: string;
   };
   straat: {
     id?: string;
     uri?: string;
-    naam: string;
+    naam?: string;
   };
   adres: {
     id?: string;
@@ -22,10 +22,10 @@ export interface ILocatieAdres {
 }
 
 export interface IAdres {
-  id?: string;
-  uri?: string;
-  label?: string;
-  status?: string;
+  id: string;
+  uri: string;
+  label: string;
+  status: string;
   huisnummer: string;
   busnummer: string;
 }

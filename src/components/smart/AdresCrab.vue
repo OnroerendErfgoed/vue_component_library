@@ -424,7 +424,7 @@ const adres = computed<ILocatieAdres>(() => {
   if (!huisnummer.value || typeof huisnummer.value === 'string') {
     adresValue = { ...adresValue, huisnummer: huisnummer.value };
   } else {
-    adresValue = pick(huisnummer.value, ['id', 'uri', 'huisnummer', 'busnummer']);
+    adresValue = pick(huisnummer.value, ['id', 'uri', 'huisnummer']);
   }
 
   if (!busnummer.value || typeof busnummer.value === 'string') {
