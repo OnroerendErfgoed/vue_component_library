@@ -1,6 +1,7 @@
 import '@/scss/main.scss';
 import { AdresCrab } from '@components/index';
 import type { Meta, StoryObj } from '@storybook/vue3';
+import type { ILocatieAdres } from '@models/locatie';
 
 const meta: Meta<typeof AdresCrab> = {
   title: 'Smart components/Adres-crab',
@@ -86,18 +87,22 @@ export const TwoWayBinding: Story = {
       },
       postcode: {
         nummer: '3060',
+        uri: 'https://data.vlaanderen.be/id/postinfo/3060',
       },
       straat: {
         naam: 'Dorpstraat',
         id: '32110',
+        uri: 'https://data.vlaanderen.be/id/straatnaam/32110',
       },
       adres: {
         huisnummer: '416',
         busnummer: '0101',
+        uri: 'https://data.vlaanderen.be/id/adres/993686',
+        id: '993686',
       },
     },
   },
-  render: ({ adres }) => ({
+  render: ({ adres }: ILocatieAdres) => ({
     components: { AdresCrab },
     inheritAttrs: false,
     setup() {

@@ -21,7 +21,7 @@
               mod-block
               placeholder-text="Land"
             >
-              <option v-for="item in landen" :key="item.id" :value="item.id" :disabled="item.disabled">
+              <option v-for="item in landen" :key="item.id" :value="item.id" :disabled="item.id === 'divider'">
                 {{ item.naam }}
               </option>
             </VlSelect>
@@ -434,7 +434,7 @@ const adres = computed<ILocatieAdres>(() => {
       ...adresValue,
       busnummer: busnummer.value.busnummer,
       ...(!!busnummer.value.id && { id: busnummer.value.id }),
-      ...(!!busnummer.value.uri && { id: busnummer.value.uri }),
+      ...(!!busnummer.value.uri && { uri: busnummer.value.uri }),
     };
   }
 
@@ -492,7 +492,7 @@ const staticLanden: ILand[] = [
   { id: 'GB', naam: 'Groot-Brittanië' },
   { id: 'NL', naam: 'Nederland' },
   { id: 'LU', naam: 'Luxemburg' },
-  { id: 'divider', naam: '─────────────────────────', disabled: true },
+  { id: 'divider', naam: '─────────────────────────' },
 ];
 const apiLanden: ILand[] = await crabService.getLanden();
 const landen = computed<ILand[]>(() => [...staticLanden, ...apiLanden]);
@@ -511,7 +511,7 @@ onMounted(() => {
     land.value = props.adres.land;
     if (isBelgium.value) {
       gemeente.value = props.adres.gemeente as IGemeente;
-      postcode.value = { postcode: props.adres.postcode.nummer } as IPostinfo;
+      postcode.value = { postcode: props.adres.postcode.nummer, uri: props.adres.postcode.uri } as IPostinfo;
       straat.value = props.adres.straat as IStraat;
       huisnummer.value = props.adres.adres as IAdres;
       busnummer.value = props.adres.adres as IAdres;
@@ -525,7 +525,10 @@ onMounted(() => {
   }
 });
 
-watch(adres, () => emit('update:adres', adres.value));
+watch(adres, () => {
+  emit('update:adres', adres.value);
+  console.debug('adres', adres.value);
+});
 
 // Api changes
 watch(

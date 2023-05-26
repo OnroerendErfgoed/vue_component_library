@@ -1,6 +1,9 @@
 export interface ILocatieAdres {
   land: string;
-  gemeente: { niscode?: string; naam: string };
+  gemeente: {
+    niscode?: string;
+    naam: string;
+  };
   postcode: {
     uri?: string;
     nummer: string;
@@ -23,10 +26,6 @@ export interface IAdres {
   uri?: string;
   label?: string;
   status?: string;
-  land?: string;
-  gemeente?: string;
-  straat?: string;
-  postcode?: string;
   huisnummer: string;
   busnummer: string;
 }
@@ -34,11 +33,9 @@ export interface IAdres {
 export interface ILand {
   id: string;
   naam: string;
-  disabled?: boolean;
 }
 
 export interface IGewest {
-  id: number;
   naam: string;
   niscode: string;
 }
@@ -54,7 +51,7 @@ export interface IGemeente {
 }
 
 export interface IPostinfo {
-  names: string[];
+  namen: string[];
   postcode: string;
   status: string;
   uri: string;
