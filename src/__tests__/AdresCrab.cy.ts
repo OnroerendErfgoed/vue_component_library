@@ -1,6 +1,7 @@
-import AdresCrab, { type IAdresCrabConfig } from '@components/smart/AdresCrab.vue';
 import { mount } from 'cypress/vue';
 import { defineComponent } from 'vue';
+import AdresCrab from '@components/smart/AdresCrab.vue';
+import type { IAdresCrabConfig } from '@models/adres-crab';
 
 describe('Adres CRAB', () => {
   const TestComponent = defineComponent({
@@ -67,9 +68,7 @@ describe('Adres CRAB', () => {
         getMultiSelect('busnummer').should('have.class', 'multiselect--disabled');
 
         // Gemeente selection
-        getMultiSelect('gemeente').click();
-        getMultiSelect('gemeente').find('.multiselect__input').type('Bertem');
-        getMultiSelect('gemeente').find('.multiselect__element').click();
+        setMultiSelectValue('gemeente', 'Bertem');
 
         getMultiSelect('gemeente').should('not.have.class', 'multiselect--disabled');
         getMultiSelect('postcode').should('not.have.class', 'multiselect--disabled');
@@ -78,9 +77,7 @@ describe('Adres CRAB', () => {
         getMultiSelect('busnummer').should('have.class', 'multiselect--disabled');
 
         // Straat selection
-        getMultiSelect('straat').click();
-        getMultiSelect('straat').find('.multiselect__input').type('Dorpstraat');
-        getMultiSelect('straat').find('.multiselect__element').click();
+        setMultiSelectValue('straat', 'Dorpstraat');
 
         getMultiSelect('gemeente').should('not.have.class', 'multiselect--disabled');
         getMultiSelect('postcode').should('not.have.class', 'multiselect--disabled');
@@ -89,9 +86,7 @@ describe('Adres CRAB', () => {
         getMultiSelect('busnummer').should('have.class', 'multiselect--disabled');
 
         // Huisnummer selection
-        getMultiSelect('huisnummer').click();
-        getMultiSelect('huisnummer').find('.multiselect__input').type('416');
-        getMultiSelect('huisnummer').find('.multiselect__element').first().click();
+        setMultiSelectValue('huisnummer', '416');
 
         getMultiSelect('gemeente').should('not.have.class', 'multiselect--disabled');
         getMultiSelect('postcode').should('not.have.class', 'multiselect--disabled');
@@ -114,6 +109,21 @@ describe('Adres CRAB', () => {
         getMultiSelect('straat').find('.multiselect__single').should('not.exist');
         getMultiSelect('huisnummer').find('.multiselect__single').should('not.exist');
         getMultiSelect('huisnummer').find('.multiselect__single').should('not.exist');
+      });
+
+      it('resets huisnummers when street fetch throws a 404', () => {
+        fillInAdresCrabBelgium();
+
+        cy.intercept('GET', 'https://dev-geo.onroerenderfgoed.be/adressenregister/straten/**/adressen', {
+          statusCode: 404,
+        }).as('dataNotFound');
+
+        setMultiSelectValue('gemeente', 'Aarschot');
+        setMultiSelectValue('straat', 'Beekweg');
+
+        getMultiSelect('huisnummer').click();
+
+        cy.get('[data-cy="no-options-huisnummers"]').should('be.visible');
       });
 
       it('triggers required validation after fields are touched and emptied', () => {
@@ -145,9 +155,7 @@ describe('Adres CRAB', () => {
         cy.wait('@dataGet');
 
         // Gemeente selection
-        getMultiSelect('gemeente').click();
-        getMultiSelect('gemeente').find('.multiselect__input').type('Edingen');
-        getMultiSelect('gemeente').find('.multiselect__element').click();
+        setMultiSelectValue('gemeente', 'Edingen');
         getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Edingen');
 
         getMultiSelect('straat').should('not.exist');
@@ -162,15 +170,11 @@ describe('Adres CRAB', () => {
         cy.wait('@dataGet');
 
         // Gemeente selection
-        getMultiSelect('gemeente').click();
-        getMultiSelect('gemeente').find('.multiselect__input').type('Durbuy');
-        getMultiSelect('gemeente').find('.multiselect__element').click();
+        setMultiSelectValue('gemeente', 'Durbuy');
         getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Durbuy');
 
         // Straat selection
-        getMultiSelect('straat').click();
-        getMultiSelect('straat').find('.multiselect__input').type('Champoutre');
-        getMultiSelect('straat').find('.multiselect__element').click();
+        setMultiSelectValue('straat', 'Champoutre');
         getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Champoutre');
 
         getMultiSelect('huisnummer').should('not.exist');
@@ -186,9 +190,7 @@ describe('Adres CRAB', () => {
           cy.wait('@dataGet');
 
           // Gemeente selection
-          getMultiSelect('gemeente').click();
-          getMultiSelect('gemeente').find('.multiselect__input').type('Bertem');
-          getMultiSelect('gemeente').find('.multiselect__element').click();
+          setMultiSelectValue('gemeente', 'Bertem');
           getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Bertem');
         });
 
@@ -639,39 +641,29 @@ const fillInAdresCrabBelgium = () => {
   cy.wait('@dataGet');
 
   // Gemeente selection
-  getMultiSelect('gemeente').click();
-  getMultiSelect('gemeente').find('.multiselect__input').type('Bertem');
-  getMultiSelect('gemeente').find('.multiselect__element').click();
+  setMultiSelectValue('gemeente', 'Bertem');
   getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Bertem');
 
   // Postcode selection
-  getMultiSelect('postcode').click();
-  getMultiSelect('postcode').find('.multiselect__input').type('3060');
-  getMultiSelect('postcode').find('.multiselect__element').click();
+  setMultiSelectValue('postcode', '3060');
   getMultiSelect('postcode').find('.multiselect__single').should('have.text', '3060');
 
   cy.wait('@dataGet');
 
   // Straat selection
-  getMultiSelect('straat').click();
-  getMultiSelect('straat').find('.multiselect__input').type('Dorpstraat');
-  getMultiSelect('straat').find('.multiselect__element').click();
+  setMultiSelectValue('straat', 'Dorpstraat');
   getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Dorpstraat');
 
   cy.wait('@dataGet');
 
   // Huisnummer with multiple busnummers
-  getMultiSelect('huisnummer').click();
-  getMultiSelect('huisnummer').find('.multiselect__input').type('416');
-  getMultiSelect('huisnummer').find('.multiselect__element').first().click();
+  setMultiSelectValue('huisnummer', '416');
   getMultiSelect('huisnummer').find('.multiselect__single').should('have.text', '416');
 
   cy.wait('@dataGet');
 
   // Busnummer selection
-  getMultiSelect('busnummer').click();
-  getMultiSelect('busnummer').find('.multiselect__input').type('0101');
-  getMultiSelect('busnummer').find('.multiselect__element').first().click();
+  setMultiSelectValue('busnummer', '0101');
   getMultiSelect('busnummer').find('.multiselect__single').should('have.text', '0101');
 };
 
@@ -685,4 +677,10 @@ const fillInAdresCrabOther = () => {
   getTextInput('straat').type('Beuelsweg');
   getTextInput('huisnummer').type('33');
   getTextInput('busnummer').type('B3');
+};
+
+const setMultiSelectValue = (field: string, value: string) => {
+  getMultiSelect(field).click();
+  getMultiSelect(field).find('.multiselect__input').type(value);
+  getMultiSelect(field).find('.multiselect__element').click();
 };
