@@ -56,6 +56,18 @@ $vl-error-color: $input-error-message-font-color;
   }
 }
 
+// vl-dropdown-navigation
+.vl-dropdown-navigation .vl-popover.js-vl-popover--open .vl-dropdown-navigation__toggle,
+.vl-dropdown-navigation .vl-popover.js-vl-popover--open .vl-popover__toggle {
+  color: $white;
+  background-color: $primary-color;
+}
+
+.vl-dropdown-navigation .vl-popover__toggle {
+  background-color: $gray !important;
+  color: $primary-color;
+}
+
 /**
 -------------------------------
  End override specific styles

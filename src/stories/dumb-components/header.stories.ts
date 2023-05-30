@@ -18,4 +18,12 @@ type Story = StoryObj<typeof OeHeader>;
  * See https://storybook.js.org/docs/vue/api/csf
  * to learn how to use render functions.
  */
-export const Default: Story = {};
+export const Default: Story = {
+  parameters: {
+    docs: {
+      story: {
+        height: '250px',
+      },
+    },
+  },
+};
