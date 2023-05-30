@@ -37,6 +37,6 @@ type Story = StoryObj<typeof OeButton>;
  */
 export const Default: Story = {
   args: {
-    default: 'My primary button',
+    default: '<p>My primary button</p>',
   },
 };

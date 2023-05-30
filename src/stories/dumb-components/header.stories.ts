@@ -1,7 +1,7 @@
+import '@/scss/main.scss';
+
 import OeHeader from '@components/dumb/OeHeader.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
-
-import '@/scss/main.scss';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof OeHeader> = {
@@ -9,6 +9,12 @@ const meta: Meta<typeof OeHeader> = {
   component: OeHeader,
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/vue/writing-docs/autodocs
   tags: ['autodocs'],
+  argTypes: {
+    logoUrl: {
+      type: 'string',
+      description: 'Url where the logo link should refer to',
+    },
+  },
 };
 
 export default meta;
@@ -22,7 +28,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       story: {
-        height: '250px',
+        height: '275px',
       },
     },
   },
