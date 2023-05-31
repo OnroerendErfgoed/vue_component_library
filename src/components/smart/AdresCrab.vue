@@ -201,7 +201,7 @@
               <span>Geen resultaten gevonden...</span>
             </template>
             <template #noOptions>
-              <span>Geen opties beschikbaar</span>
+              <span data-cy="no-options-huisnummers">Geen opties beschikbaar</span>
             </template>
           </VlMultiselect>
 
@@ -312,6 +312,7 @@ import {
   VlPropertiesTitle,
   VlSelect,
 } from '@govflanders/vl-ui-design-system-vue3';
+import type { IAdresCrabProps } from '@models/adres-crab';
 import type { IAdres, IGemeente, ILand, ILocatieAdres, IPostinfo, IStraat } from '@models/locatie';
 import { CrabService } from '@services/crab.api-service';
 import { requiredIf } from '@utils/i18n-validators';
@@ -320,27 +321,6 @@ import { helpers } from '@vuelidate/validators';
 import { AxiosError } from 'axios';
 import { pick, sortBy, uniqBy } from 'lodash';
 import { computed, onMounted, ref, watch } from 'vue';
-
-export interface IAdresCrabProps {
-  api?: string;
-  config?: IAdresCrabConfig;
-  countryId?: string;
-  adres?: ILocatieAdres;
-  optionsLimit?: number;
-}
-
-export interface IAdresCrabConfig {
-  land?: IConfigOption;
-  gemeente?: IConfigOption;
-  postcode?: IConfigOption;
-  straat?: IConfigOption;
-  huisnummer?: IConfigOption;
-  busnummer?: IConfigOption;
-}
-
-interface IConfigOption {
-  required: boolean;
-}
 
 const props = withDefaults(defineProps<IAdresCrabProps>(), {
   config: () => ({
@@ -599,9 +579,9 @@ watch(gemeente, async (selectedGemeente, oldValue) => {
       if (error instanceof AxiosError) {
         const knownError = error as AxiosError;
         if (knownError?.response?.status === 404) {
-          if (!isVlaamseGemeente.value) {
-            straten.value = [];
+          straten.value = [];
 
+          if (!isVlaamseGemeente.value) {
             straatFreeText.value = true;
             huisnummerFreeText.value = true;
             busnummerFreeText.value = true;
@@ -630,10 +610,10 @@ watch(straat, async (selectedStraat, oldValue) => {
       if (error instanceof AxiosError) {
         const knownError = error as AxiosError;
         if (knownError?.response?.status === 404) {
-          if (!isVlaamseGemeente.value) {
-            huisnummers.value = [];
-            busnummers.value = [];
+          huisnummers.value = [];
+          busnummers.value = [];
 
+          if (!isVlaamseGemeente.value) {
             huisnummerFreeText.value = true;
             busnummerFreeText.value = true;
           }

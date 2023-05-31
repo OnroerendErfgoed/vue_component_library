@@ -1,8 +1,7 @@
-// Use Webuniversum design system style
-@import '@govflanders/vl-ui-design-system-style';
-
-// Override Webuniversum fonts
-@import 'override-fonts';
+@import 'pyoes/scss/pyoes-settings';
 
 // Override Webuniversum variables
 @import 'override-variables';
+
+// Override Webuniversum fonts
+@import 'override-fonts';

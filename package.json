@@ -1,31 +1,45 @@
 {
-  "name": "vue-components",
+  "name": "@OnroerendErfgoed/vue_component_library",
   "type": "module",
   "files": [
     "dist"
   ],
-  "main": "./dist/vue-components.umd.cjs",
-  "module": "./dist/vue-components.js",
-  "version": "0.0.0",
+  "main": "./dist/vue-components.umd.js",
+  "module": "./dist/vue-components.es.js",
+  "typings": "./dist/main.d.ts",
+  "version": "0.0.3",
   "exports": {
     ".": {
-      "import": "./dist/vue-components.js",
-      "require": "./dist/vue-components.umd.cjs"
+      "import": "./dist/vue-components.es.js",
+      "require": "./dist/vue-components.umd.js"
     },
-    "./dist/style.css": {
-      "import": "./dist/style.css",
-      "require": "./dist/style.css"
+    "./dist/vue-components.css": {
+      "import": "./dist/vue-components.css",
+      "require": "./dist/vue-components.css"
+    },
+    "./dist/scss/main.scss": {
+      "import": "./dist/scss/main.scss",
+      "require": "./dist/scss/main.scss"
     }
   },
-  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OnroerendErfgoed/vue_component_library.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "types": "./dist/main.d.ts",
   "scripts": {
-    "build": "run-p type-check build-only",
+    "ci": "yarn install --frozen-lockfile",
+    "build": "yarn type-check && yarn build-only && yarn type-generation",
     "build:watch": "run-p type-check build-only:watch",
     "build-only": "vite build",
     "build-only:watch": "vite build --watch",
     "test:unit": "cypress run --component --browser=chrome",
     "test:unit:dev": "cypress open --component",
-    "type-check": "vue-tsc --noEmit -p tsconfig.cypress-ct.json --composite false",
+    "type-check": "vue-tsc --noEmit",
+    "type-generation": "vue-tsc --declaration --emitDeclarationOnly",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
     "storybook": "storybook dev -p 6006",
@@ -33,15 +47,15 @@
     "chromatic": "npx chromatic --project-token=CHROMATIC_PROJECT_TOKEN"
   },
   "dependencies": {
-    "@govflanders/vl-ui-design-system-style": "^1.0.0-alpha.2",
-    "@govflanders/vl-ui-design-system-vue3": "^1.0.0-alpha.2",
+    "@govflanders/vl-ui-design-system-style": "^1.0.0-alpha.3",
+    "@govflanders/vl-ui-design-system-vue3": "^1.0.0-alpha.3",
     "@vuelidate/core": "^2.0.2",
     "@vuelidate/validators": "^2.0.2",
     "@vueuse/core": "^10.1.2",
     "axios": "^1.4.0",
     "lodash": "^4.17.21",
     "pyoes": "https://gitpkg.now.sh/OnroerendErfgoed/pyoes/npm-packages/pyoes",
-    "vue": "^3.2.47",
+    "vue": "^3.3.4",
     "vue-i18n": "9"
   },
   "devDependencies": {
@@ -57,7 +71,7 @@
     "@types/node": "^18.14.2",
     "@typescript-eslint/eslint-plugin": "^5.59.0",
     "@typescript-eslint/parser": "^5.59.0",
-    "@vitejs/plugin-vue": "^4.0.0",
+    "@vitejs/plugin-vue": "^4.2.3",
     "@vue/eslint-config-prettier": "^7.1.0",
     "@vue/eslint-config-typescript": "^11.0.2",
     "@vue/test-utils": "^2.3.2",
@@ -73,6 +87,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.11.0",
     "npm-run-all": "^4.1.5",
+    "path": "^0.12.7",
     "prettier": "^2.8.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -84,11 +99,10 @@
     "typescript": "~4.8.4",
     "vite": "^4.1.4",
     "vue-eslint-parser": "^9.1.1",
-    "vue-tsc": "^1.2.0"
+    "vue-tsc": "^1.6.5"
   },
   "peerDependencies": {
     "pyoes": "https://gitpkg.now.sh/OnroerendErfgoed/pyoes/npm-packages/pyoes"
   },
-  "readme": "README.md",
   "_id": "vue_component_library@0.0.0"
 }
