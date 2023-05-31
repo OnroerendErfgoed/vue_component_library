@@ -372,7 +372,7 @@ const adres = computed<ILocatieAdres>(() => {
   let gemeenteValue: ILocatieAdres['gemeente'];
   let postcodeValue: ILocatieAdres['postcode'];
   let straatValue: ILocatieAdres['straat'];
-  let adresValue: ILocatieAdres['adres'] = {};
+  let adresValue: ILocatieAdres['adres'];
 
   if (!land.value) {
     landValue = {};
@@ -383,7 +383,9 @@ const adres = computed<ILocatieAdres>(() => {
     };
   }
 
-  if (!gemeente.value || typeof gemeente.value === 'string') {
+  if (!gemeente.value) {
+    gemeenteValue = {};
+  } else if (typeof gemeente.value === 'string') {
     gemeenteValue = { naam: gemeente.value as string };
   } else {
     gemeenteValue = {
@@ -392,7 +394,9 @@ const adres = computed<ILocatieAdres>(() => {
     };
   }
 
-  if (!postcode.value || typeof postcode.value === 'string') {
+  if (!postcode.value) {
+    postcodeValue = {};
+  } else if (typeof postcode.value === 'string') {
     postcodeValue = { nummer: postcode.value as string };
   } else {
     postcodeValue = {
@@ -401,7 +405,9 @@ const adres = computed<ILocatieAdres>(() => {
     };
   }
 
-  if (!straat.value || typeof straat.value === 'string') {
+  if (!straat.value) {
+    straatValue = {};
+  } else if (typeof straat.value === 'string') {
     straatValue = { naam: straat.value as string };
   } else {
     straatValue = {
@@ -411,21 +417,25 @@ const adres = computed<ILocatieAdres>(() => {
     };
   }
 
-  if (!huisnummer.value || typeof huisnummer.value === 'string') {
-    adresValue = { ...adresValue, huisnummer: huisnummer.value };
+  if (!huisnummer.value) {
+    adresValue = {};
+  } else if (typeof huisnummer.value === 'string') {
+    adresValue = { huisnummer: huisnummer.value };
   } else {
     adresValue = pick(huisnummer.value, ['id', 'uri', 'huisnummer']);
   }
 
-  if (!busnummer.value || typeof busnummer.value === 'string') {
-    adresValue = { ...adresValue, busnummer: busnummer.value };
-  } else {
-    adresValue = {
-      ...adresValue,
-      busnummer: busnummer.value.busnummer,
-      ...(!!busnummer.value.id && { id: busnummer.value.id }),
-      ...(!!busnummer.value.uri && { uri: busnummer.value.uri }),
-    };
+  if (busnummer.value) {
+    if (typeof busnummer.value === 'string') {
+      adresValue = { ...adresValue, busnummer: busnummer.value };
+    } else {
+      adresValue = {
+        ...adresValue,
+        busnummer: busnummer.value.busnummer,
+        ...(!!busnummer.value.id && { id: busnummer.value.id }),
+        ...(!!busnummer.value.uri && { uri: busnummer.value.uri }),
+      };
+    }
   }
 
   return {
