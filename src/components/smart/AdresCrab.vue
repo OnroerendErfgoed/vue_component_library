@@ -201,7 +201,7 @@
               <span>Geen resultaten gevonden...</span>
             </template>
             <template #noOptions>
-              <span>Geen opties beschikbaar</span>
+              <span data-cy="no-options-huisnummers">Geen opties beschikbaar</span>
             </template>
           </VlMultiselect>
 
@@ -320,16 +320,14 @@ import { pick, sortBy, uniqBy } from 'lodash';
 import { computed, onMounted, ref, watch } from 'vue';
 
 const props = withDefaults(defineProps<IAdresCrabProps>(), {
-  config: () => {
-    return {
-      land: { required: true },
-      gemeente: { required: true },
-      postcode: { required: true },
-      straat: { required: true },
-      huisnummer: { required: false },
-      busnummer: { required: false },
-    };
-  },
+  config: () => ({
+    land: { required: true },
+    gemeente: { required: true },
+    postcode: { required: true },
+    straat: { required: true },
+    huisnummer: { required: false },
+    busnummer: { required: false },
+  }),
   api: 'https://dev-geo.onroerenderfgoed.be/',
   countryId: '',
   adres: undefined,
@@ -550,9 +548,9 @@ watch(gemeente, async (selectedGemeente, oldValue) => {
       if (error instanceof AxiosError) {
         const knownError = error as AxiosError;
         if (knownError?.response?.status === 404) {
-          if (!isVlaamseGemeente.value) {
-            straten.value = [];
+          straten.value = [];
 
+          if (!isVlaamseGemeente.value) {
             straatFreeText.value = true;
             huisnummerFreeText.value = true;
             busnummerFreeText.value = true;
@@ -581,10 +579,10 @@ watch(straat, async (selectedStraat, oldValue) => {
       if (error instanceof AxiosError) {
         const knownError = error as AxiosError;
         if (knownError?.response?.status === 404) {
-          if (!isVlaamseGemeente.value) {
-            huisnummers.value = [];
-            busnummers.value = [];
+          huisnummers.value = [];
+          busnummers.value = [];
 
+          if (!isVlaamseGemeente.value) {
             huisnummerFreeText.value = true;
             busnummerFreeText.value = true;
           }
