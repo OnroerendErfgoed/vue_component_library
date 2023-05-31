@@ -42,7 +42,12 @@
     <div class="header__userinfo">
       <div class="triangle-placeholder triangle-placeholder--invert"></div>
       <div class="username vl-u-spacer-left--large vl-u-spacer-right--small">
-        <vl-dropdown-navigation class="vl-u-spacer-bottom--none vl-col--12-12" label="Doe, John" title-size="h5">
+        <vl-dropdown-navigation
+          :title="username"
+          class="vl-u-spacer-bottom--none vl-col--12-12"
+          :label="username"
+          title-size="h5"
+        >
           <vl-link-list mod-border>
             <vl-link-list-item>
               <vl-link to="user" mod-block mod-bold>Mijn profiel</vl-link>
@@ -55,7 +60,7 @@
             </vl-link-list-item>
           </vl-link-list>
         </vl-dropdown-navigation>
-        <small class="vl-col--12-12 vl-u-text--small">Beheerder</small>
+        <small class="vl-col--12-12 vl-u-text--small role" :title="role">{{ role }}</small>
       </div>
       <div class="logout">
         <vl-link title="Afmelden" to="afmelden" mod-icon-only icon="logout"></vl-link>
@@ -70,6 +75,8 @@ import type { IHeaderProps } from '@models/header';
 
 const props = withDefaults(defineProps<IHeaderProps>(), {
   logoUrl: 'https://www.onroerenderfgoed.be/',
+  username: '',
+  role: '',
 });
 </script>
 
@@ -132,15 +139,26 @@ const props = withDefaults(defineProps<IHeaderProps>(), {
         z-index: 1000;
       }
 
+      :deep(.vl-title) {
+        text-overflow: ellipsis;
+        max-width: 200px;
+        min-width: 60px;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+
+      .role {
+        padding-right: 2.5rem;
+        display: inline-block;
+        text-overflow: ellipsis;
+        max-width: 50px;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+
       & > * {
         padding-left: 0;
       }
-    }
-    .role {
-      position: relative;
-      display: block;
-      width: 100%;
-      padding-right: 0.8rem;
     }
 
     .logout {

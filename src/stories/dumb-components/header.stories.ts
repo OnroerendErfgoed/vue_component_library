@@ -10,6 +10,14 @@ const meta: Meta<typeof OeHeader> = {
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/vue/writing-docs/autodocs
   tags: ['autodocs'],
   argTypes: {
+    username: {
+      type: 'string',
+      description: 'Name of the logged in user',
+    },
+    role: {
+      type: 'string',
+      description: 'Role of the logged in user',
+    },
     logoUrl: {
       type: 'string',
       description: 'Url where the logo link should refer to',
@@ -18,6 +26,10 @@ const meta: Meta<typeof OeHeader> = {
       control: 'text',
       description: 'Named slot to pass in some action buttons into the header',
     },
+  },
+  args: {
+    username: 'Doe, John',
+    role: 'Beheerder',
   },
   parameters: {
     docs: {
