@@ -94,7 +94,7 @@ const props = withDefaults(defineProps<IHeaderProps>(), {
       padding: 0;
       font-weight: 600;
 
-      .vl-link {
+      :deep(.vl-link) {
         text-decoration: none;
         color: $primary-color;
       }
@@ -141,7 +141,7 @@ const props = withDefaults(defineProps<IHeaderProps>(), {
       }
     }
 
-    .vl-link {
+    :deep(.vl-link) {
       color: $primary-color;
       text-align: center;
 
