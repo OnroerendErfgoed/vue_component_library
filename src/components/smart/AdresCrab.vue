@@ -357,10 +357,7 @@ const huisnummer = ref<string | IAdres>();
 const busnummer = ref<string | IAdres>();
 
 // Conditionals
-const isBelgiumOrEmpty = computed(() => {
-  console.debug('isBelgiumOrEmpty', land.value?.code === 'BE');
-  return land.value?.code === 'BE' || land.value?.code === '';
-});
+const isBelgiumOrEmpty = computed(() => land.value?.code === 'BE' || land.value?.code === '');
 const isBelgium = computed(() => land.value?.code === 'BE');
 const isVlaamseGemeente = computed(() => {
   if (isBelgium.value && gemeente.value && !!gemeenten.value.length) {
