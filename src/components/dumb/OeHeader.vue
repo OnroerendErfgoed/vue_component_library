@@ -35,6 +35,9 @@
         <vl-link to="/" exact>Plannen</vl-link>
       </h1>
       <div class="triangle-placeholder"></div>
+      <div class="header__actions">
+        <slot name="actions"></slot>
+      </div>
     </div>
     <div class="header__userinfo">
       <div class="triangle-placeholder triangle-placeholder--invert"></div>
@@ -55,7 +58,7 @@
         <small class="vl-col--12-12 vl-u-text--small">Beheerder</small>
       </div>
       <div class="logout">
-        <vl-link to="afmelden" mod-icon-only icon="logout"></vl-link>
+        <vl-link title="Afmelden" to="afmelden" mod-icon-only icon="logout"></vl-link>
       </div>
     </div>
   </div>
@@ -84,6 +87,7 @@ const props = withDefaults(defineProps<IHeaderProps>(), {
   &__title {
     background-color: $white;
     display: flex;
+    flex: 1;
     align-items: center;
     justify-content: space-between;
 
@@ -104,6 +108,16 @@ const props = withDefaults(defineProps<IHeaderProps>(), {
   &__logo {
     fill: $primary-color;
     padding: 0.5rem;
+  }
+
+  &__actions {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    color: $white;
+    background-color: $primary-color;
   }
 
   &__userinfo {
