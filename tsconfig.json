@@ -1,6 +1,14 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "src/**/*.ts", "src/**/*.json"],
+  "include": [
+    "env.d.ts",
+    "src/**/*",
+    "src/**/*.vue",
+    "src/**/*.ts",
+    "src/**/*.json",
+    "cypress/support/component.*",
+    "cypress/support/commands.ts"
+  ],
   "compilerOptions": {
     "outDir": "dist",
     "baseUrl": ".",
@@ -11,7 +19,7 @@
       "@utils/*": ["./src/utils/*"],
       "@/*": ["./src/*"]
     },
-    "types": ["@intlify/unplugin-vue-i18n/messages", "vite/client"],
+    "types": ["@intlify/unplugin-vue-i18n/messages", "vite/client", "cypress"],
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,

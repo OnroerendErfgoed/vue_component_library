@@ -1,11 +1,15 @@
 <template>
   <div class="header">
     <div class="header__title">
-      <h1 class="vl-u-spacer-left--small" :title="appName">
+      <h1 data-cy="application-name" class="vl-u-spacer-left--small" :title="appName">
         <vl-link :to="appUrl" exact>{{ appName }}</vl-link>
       </h1>
       <a title="Navigeer naar de officiële website van Onroerend Erfgoed" :href="props.logoUrl">
-        <img class="header__logo vl-u-spacer-right--medium" src="@/assets/oe-logo.svg" alt="Logo Vlaanderen is erfgoed"
+        <img
+          data-cy="logo"
+          class="header__logo vl-u-spacer-right--medium"
+          src="@/assets/oe-logo.svg"
+          alt="Logo Vlaanderen is erfgoed"
       /></a>
       <div class="triangle-placeholder"></div>
       <div class="header__actions">
@@ -14,7 +18,7 @@
     </div>
     <div class="header__userinfo">
       <div class="triangle-placeholder triangle-placeholder--invert"></div>
-      <div class="username vl-u-spacer-left--large vl-u-spacer-right--small">
+      <div data-cy="username" class="username vl-u-spacer-left--large vl-u-spacer-right--small">
         <vl-dropdown-navigation
           :title="username"
           class="vl-u-spacer-bottom--none vl-col--12-12"
@@ -33,7 +37,7 @@
             </vl-link-list-item>
           </vl-link-list>
         </vl-dropdown-navigation>
-        <small class="vl-col--12-12 vl-u-text--small role" :title="role">{{ role }}</small>
+        <small data-cy="role" class="vl-col--12-12 vl-u-text--small role" :title="role">{{ role }}</small>
       </div>
       <div v-if="showLogoutShortcut" class="logout">
         <vl-link title="Afmelden" to="afmelden" mod-icon-only icon="logout"></vl-link>
