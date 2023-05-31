@@ -10,6 +10,14 @@ const meta: Meta<typeof OeHeader> = {
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/vue/writing-docs/autodocs
   tags: ['autodocs'],
   argTypes: {
+    appName: {
+      type: 'string',
+      description: 'Name of application',
+    },
+    appUrl: {
+      type: 'string',
+      description: 'Url to navigate to when clicking on appName',
+    },
     username: {
       type: 'string',
       description: 'Name of the logged in user',
@@ -26,10 +34,16 @@ const meta: Meta<typeof OeHeader> = {
       control: 'text',
       description: 'Named slot to pass in some action buttons into the header',
     },
+    showLogoutShortcut: {
+      control: 'boolean',
+      description: 'Show shortcut button to logout without having to open the dropdown',
+    },
   },
   args: {
     username: 'Doe, John',
     role: 'Beheerder',
+    appName: 'Application',
+    appUrl: '/',
   },
   parameters: {
     docs: {
@@ -69,5 +83,11 @@ export const SlotActions: Story = {
     actions: `<button mod-naked class="vl-button">Action1</button>
 <button mod-naked class="vl-button">Action2</button>
 <button mod-naked class="vl-button">Action3</button>`,
+  },
+};
+
+export const WithLogoutShortcut: Story = {
+  args: {
+    showLogoutShortcut: true,
   },
 };
