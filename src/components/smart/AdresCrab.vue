@@ -21,7 +21,7 @@
               mod-block
               placeholder-text="Land"
             >
-              <option v-for="item in landen" :key="item.code" :value="item.code" :disabled="item.code === 'divider'">
+              <option v-for="item in landen" :key="item.code" :value="item" :disabled="item.code === 'divider'">
                 {{ item.naam }}
               </option>
             </VlSelect>
