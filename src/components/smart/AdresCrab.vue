@@ -293,8 +293,6 @@
         </VlPropertiesData>
       </VlPropertiesList>
     </VlProperties>
-    <pre>{{ isBelgium }}</pre>
-    <pre>{{ isBelgiumOrEmpty }}</pre>
     <pre>{{ adres }}</pre>
   </div>
 </template>
@@ -380,11 +378,7 @@ const adres = computed<ILocatieAdres>(() => {
   let adresValue: ILocatieAdres['adres'] = {};
 
   if (!land.value) {
-    return {
-      land: {
-        code: undefined,
-      },
-    };
+    landValue = {};
   } else {
     landValue = {
       code: (land.value as ILand).code,
@@ -554,7 +548,7 @@ watch(
 // Land side-effects
 watch(land, async (selectedLand, oldValue) => {
   if (oldValue) {
-    gemeente.value = '';
+    gemeente.value = undefined;
   }
   if (isBelgium.value) {
     resetFreeTextState();
@@ -565,8 +559,8 @@ watch(land, async (selectedLand, oldValue) => {
 // Gemeente side-effects
 watch(gemeente, async (selectedGemeente, oldValue) => {
   if (oldValue) {
-    postcode.value = '';
-    straat.value = '';
+    postcode.value = undefined;
+    straat.value = undefined;
   }
 
   if (isBelgiumOrEmpty.value && selectedGemeente) {
@@ -595,7 +589,7 @@ watch(gemeente, async (selectedGemeente, oldValue) => {
 // Straat side-effects
 watch(straat, async (selectedStraat, oldValue) => {
   if (oldValue) {
-    huisnummer.value = '';
+    huisnummer.value = undefined;
   }
 
   if (isBelgiumOrEmpty.value && selectedStraat && !straatFreeText.value) {
@@ -626,7 +620,7 @@ watch(straat, async (selectedStraat, oldValue) => {
 // Huisnummer side-effects
 watch(huisnummer, async (selectedHuisnummer, oldValue) => {
   if (oldValue) {
-    busnummer.value = '';
+    busnummer.value = undefined;
   }
 
   if (adres.value.straat && isBelgiumOrEmpty.value && selectedHuisnummer && !huisnummerFreeText.value) {

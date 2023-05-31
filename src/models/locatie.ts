@@ -3,20 +3,20 @@ export interface ILocatieAdres {
     code?: string;
     naam?: string;
   };
-  gemeente?: {
+  gemeente: {
     niscode?: string;
     naam?: string;
   };
-  postcode?: {
+  postcode: {
     uri?: string;
     nummer?: string;
   };
-  straat?: {
+  straat: {
     id?: string;
     uri?: string;
     naam?: string;
   };
-  adres?: {
+  adres: {
     id?: string;
     uri?: string;
     huisnummer?: string;
