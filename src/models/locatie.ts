@@ -1,19 +1,22 @@
 export interface ILocatieAdres {
-  land: string;
-  gemeente: {
+  land: {
+    code?: string;
+    naam?: string;
+  };
+  gemeente?: {
     niscode?: string;
     naam?: string;
   };
-  postcode: {
+  postcode?: {
     uri?: string;
     nummer?: string;
   };
-  straat: {
+  straat?: {
     id?: string;
     uri?: string;
     naam?: string;
   };
-  adres: {
+  adres?: {
     id?: string;
     uri?: string;
     huisnummer?: string;
@@ -31,8 +34,8 @@ export interface IAdres {
 }
 
 export interface ILand {
-  id: string;
-  naam: string;
+  code: string;
+  naam?: string;
 }
 
 export interface IGewest {

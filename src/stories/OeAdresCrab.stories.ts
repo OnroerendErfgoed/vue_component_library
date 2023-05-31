@@ -80,7 +80,10 @@ export const SpecificCountry: Story = {
 export const TwoWayBinding: Story = {
   args: {
     adres: {
-      land: 'BE',
+      land: {
+        code: 'BE',
+        naam: 'België',
+      },
       gemeente: {
         naam: 'Bertem',
         niscode: '24009',

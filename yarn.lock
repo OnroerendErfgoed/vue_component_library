@@ -1202,14 +1202,14 @@
   integrity sha512-cEee/Z+I12mZcFJshKcCqC8tuX5hG3s+d+9nZ3LabqKF1vKdF41B92pJVCBggjAGORAeOzyyDDKrZwIkLffeOQ==
 
 "@govflanders/vl-ui-design-system-style@^1.0.0-alpha.2":
-  version "1.0.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-design-system-style/-/vl-ui-design-system-style-1.0.0-alpha.2.tgz#10f64b610e65d21cc58a2119ab8b77811aa8f956"
-  integrity sha512-fh6I3V5yxr3ZsMjAysxUmM/NvQTszzkRt7/ARsE5eOnnBFMC+k81aSLrV/vPmkUbi9zwi2MtHZ/UH3/3FsLy0g==
+  version "1.0.0-alpha.3"
+  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-design-system-style/-/vl-ui-design-system-style-1.0.0-alpha.3.tgz#257e27fd4912b4259842b3421c3ca561edab4134"
+  integrity sha512-q43D1mwZa+oj/1ktZT0P/K366kIRooAT0FOcnsuWgB9EKZDLRRM585wMjYpBaENCVE3XZ8urtSSIJy6bLvQlmg==
 
 "@govflanders/vl-ui-design-system-vue3@^1.0.0-alpha.2":
-  version "1.0.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-design-system-vue3/-/vl-ui-design-system-vue3-1.0.0-alpha.2.tgz#80a5ceeb6af83d8dc056b855a5ec409518cada2d"
-  integrity sha512-m+2nC+yxUbdildbSklL1kSJ6bSzseFfAPvatwI9EK4qniL9NUaAXEYkv0kMjgsD5n+njktQagjjPkpATqEWI6A==
+  version "1.0.0-alpha.3"
+  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-design-system-vue3/-/vl-ui-design-system-vue3-1.0.0-alpha.3.tgz#82c4a141dd4ca56f8f7545f004fe67eea3eb7703"
+  integrity sha512-xm4656D8OMYKCKTWv1k9V5AYZevWe/k5Fjl8FxI8pQ0Q3j0TJY7yaPsyMfmfzfrDk8qHc2Vk0MherfNtrdTgGw==
 
 "@hapi/hoek@^9.0.0":
   version "9.3.0"
