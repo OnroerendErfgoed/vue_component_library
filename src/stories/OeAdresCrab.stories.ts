@@ -15,9 +15,14 @@ const meta: Meta<typeof AdresCrab> = {
     },
     template: `
       <Suspense>
-        <AdresCrab v-bind="args" />
+        <AdresCrab v-bind="args" @update:adres="onUpdateAdres" />
       </Suspense>
     `,
+    methods: {
+      onUpdateAdres(payload: ILocatieAdres) {
+        console.log('Adres gewijzigd:', payload);
+      },
+    },
   }),
   argTypes: {
     config: {
@@ -113,9 +118,14 @@ export const TwoWayBinding: Story = {
     },
     template: `
       <Suspense>
-        <AdresCrab v-model:adres="adres" />
+        <AdresCrab v-model:adres="adres"  @update:adres="onUpdateAdres" />
       </Suspense>
     `,
+    methods: {
+      onUpdateAdres(payload: ILocatieAdres) {
+        console.log('Adres gewijzigd:', payload);
+      },
+    },
   }),
 };
 
