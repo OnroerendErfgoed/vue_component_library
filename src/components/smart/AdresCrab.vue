@@ -293,7 +293,6 @@
         </VlPropertiesData>
       </VlPropertiesList>
     </VlProperties>
-    <pre>{{ adres }}</pre>
   </div>
 </template>
 
@@ -349,7 +348,7 @@ const customHuisnummerLabel = (option: IAdres) => option.huisnummer;
 const customBusnummerLabel = (option: IAdres) => option.busnummer;
 
 // Form values
-const land = ref<ILand>();
+const land = ref<string | ILand>(''); // string is nodig om de placeholder te kunnen tonen
 const gemeente = ref<string | IGemeente>();
 const postcode = ref<string | IPostinfo>();
 const straat = ref<string | IStraat>();
@@ -357,8 +356,10 @@ const huisnummer = ref<string | IAdres>();
 const busnummer = ref<string | IAdres>();
 
 // Conditionals
-const isBelgiumOrEmpty = computed(() => land.value?.code === 'BE' || land.value?.code === '');
-const isBelgium = computed(() => land.value?.code === 'BE');
+const isBelgiumOrEmpty = computed(() => {
+  return (land.value as ILand)?.code === 'BE' || (land.value as ILand)?.code === '';
+});
+const isBelgium = computed(() => (land.value as ILand)?.code === 'BE');
 const isVlaamseGemeente = computed(() => {
   if (isBelgium.value && gemeente.value && !!gemeenten.value.length) {
     return crabService.vlaamseGemeenten.some((g) => g.niscode === (gemeente.value as unknown as IGemeente).niscode);
@@ -528,7 +529,6 @@ onMounted(() => {
 
 watch(adres, () => {
   emit('update:adres', adres.value);
-  console.debug('adres', adres.value);
 });
 
 // Api changes
