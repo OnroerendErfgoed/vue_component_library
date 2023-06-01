@@ -26,11 +26,13 @@ const formatDate = (dateString: string) => {
       year: 'numeric',
       month: '2-digit',
       day: '2-digit',
+      timeZone: 'Europe/Brussels'
     };
 
     const options2: Intl.DateTimeFormatOptions = {
       hour: 'numeric',
       minute: 'numeric',
+      timeZone: 'Europe/Brussels'
     };
 
     return (
