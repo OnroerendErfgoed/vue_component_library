@@ -1,7 +1,6 @@
-import '@/scss/main.scss';
-
 import OeHeader from '@components/dumb/OeHeader.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
+import '@/scss/main.scss';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof OeHeader> = {
@@ -11,23 +10,19 @@ const meta: Meta<typeof OeHeader> = {
   tags: ['autodocs'],
   argTypes: {
     appName: {
-      type: 'string',
+      control: 'text',
       description: 'Name of application',
     },
     appUrl: {
-      type: 'string',
+      control: 'text',
       description: 'Url to navigate to when clicking on appName',
     },
-    username: {
-      type: 'string',
-      description: 'Name of the logged in user',
-    },
-    role: {
-      type: 'string',
-      description: 'Role of the logged in user',
+    user: {
+      control: 'object',
+      description: 'User object configuration of logged in user',
     },
     logoUrl: {
-      type: 'string',
+      control: 'text',
       description: 'Url where the logo link should refer to',
     },
     actions: {
@@ -40,12 +35,15 @@ const meta: Meta<typeof OeHeader> = {
     },
   },
   args: {
-    username: 'Doe, John',
-    role: 'Beheerder',
+    user: {
+      name: 'Doe, John',
+      role: 'Beheerder',
+    },
     appName: 'Application',
     appUrl: '/',
   },
   parameters: {
+    layout: 'fullscreen',
     docs: {
       story: {
         height: '250px',
@@ -61,7 +59,13 @@ type Story = StoryObj<typeof OeHeader>;
  * See https://storybook.js.org/docs/vue/api/csf
  * to learn how to use render functions.
  */
-export const Default: Story = {};
+export const LoggedIn: Story = {};
+
+export const LoggedOut: Story = {
+  args: {
+    user: undefined,
+  },
+};
 
 export const SlotActions: Story = {
   render: (args) => ({

@@ -19,7 +19,7 @@
       "@utils/*": ["./src/utils/*"],
       "@/*": ["./src/*"]
     },
-    "types": ["@intlify/unplugin-vue-i18n/messages", "vite/client", "cypress"],
+    "types": ["@intlify/unplugin-vue-i18n/messages", "vite/client"],
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,

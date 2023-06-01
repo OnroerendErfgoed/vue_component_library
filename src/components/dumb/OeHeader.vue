@@ -12,35 +12,45 @@
           alt="Logo Vlaanderen is erfgoed"
       /></a>
       <div class="triangle-placeholder"></div>
-      <div class="header__actions">
+      <div class="header__actions" data-cy="header-actions">
         <slot name="actions"></slot>
       </div>
     </div>
     <div class="header__userinfo">
       <div class="triangle-placeholder triangle-placeholder--invert"></div>
-      <div data-cy="username" class="username vl-u-spacer-left--large vl-u-spacer-right--small">
+      <div v-if="user" data-cy="user" class="user vl-u-spacer-left--large vl-u-spacer-right--small">
         <vl-dropdown-navigation
-          :title="username"
+          data-cy="dropdown-navigation"
+          :title="user.name"
           class="vl-u-spacer-bottom--none vl-col--12-12"
-          :label="username"
+          :label="user.name"
           title-size="h5"
         >
-          <vl-link-list mod-border>
-            <vl-link-list-item title="Mijn profiel">
-              <vl-link to="user" mod-block mod-bold>Mijn profiel</vl-link>
+          <vl-link-list data-cy="navigation-list" mod-border>
+            <vl-link-list-item data-cy="navigation-profile" title="Ga naar mijn gegevens">
+              <vl-link :to="props.profileUrl" mod-block mod-bold>Mijn profiel</vl-link>
             </vl-link-list-item>
-            <vl-link-list-item title="Wisselen">
-              <vl-link to="wisselen" mod-block mod-bold>Wisselen</vl-link>
+            <vl-link-list-item data-cy="navigation-change" title="Wissel van profiel">
+              <vl-link :to="props.changeUrl" mod-block mod-bold>Wisselen</vl-link>
             </vl-link-list-item>
-            <vl-link-list-item title="Afmelden">
-              <vl-link to="afmelden" mod-block mod-bold mod-button>Afmelden</vl-link>
+            <vl-link-list-item data-cy="navigation-logout" title="Meld je af">
+              <vl-link :to="props.logoutUrl" mod-block mod-bold mod-button>Afmelden</vl-link>
             </vl-link-list-item>
           </vl-link-list>
         </vl-dropdown-navigation>
-        <small data-cy="role" class="vl-col--12-12 vl-u-text--small role" :title="role">{{ role }}</small>
+        <small data-cy="role" class="vl-col--12-12 vl-u-text--small role" :title="user.role">{{ user.role }}</small>
       </div>
-      <div v-if="showLogoutShortcut" class="logout">
-        <vl-link title="Afmelden" to="afmelden" mod-icon-only icon="logout"></vl-link>
+      <div v-else class="login">
+        <vl-link
+          data-cy="login"
+          class="vl-u-spacer-left--medium vl-u-spacer-right--medium"
+          title="Aanmelden"
+          :to="props.loginUrl"
+          >Aanmelden</vl-link
+        >
+      </div>
+      <div v-if="user && showLogoutShortcut" data-cy="logout-shortcut" class="logout">
+        <vl-link title="Afmelden" :to="props.logoutUrl" mod-icon-only icon="logout"></vl-link>
       </div>
     </div>
   </div>
@@ -51,11 +61,14 @@ import { VlDropdownNavigation, VlLinkList, VlLinkListItem, VlLink } from '@govfl
 import type { IHeaderProps } from '@models/header';
 
 const props = withDefaults(defineProps<IHeaderProps>(), {
+  user: undefined,
   logoUrl: 'https://www.onroerenderfgoed.be/',
-  username: '',
-  role: '',
   appName: '',
   appUrl: '/',
+  profileUrl: '/profiel',
+  changeUrl: '/wisselen?goto=/aanmelden',
+  logoutUrl: '/afmelden',
+  loginUrl: '/aanmelden',
   showLogoutShortcut: false,
 });
 </script>
@@ -70,6 +83,11 @@ const props = withDefaults(defineProps<IHeaderProps>(), {
   margin: 0;
   background-color: $primary-color;
   justify-content: space-between;
+
+  :deep(.vl-link) {
+    text-decoration: none;
+    color: $primary-color;
+  }
 
   &__title {
     background-color: $white;
@@ -88,11 +106,6 @@ const props = withDefaults(defineProps<IHeaderProps>(), {
       color: $primary-color;
       padding: 0;
       font-weight: 600;
-
-      :deep(.vl-link) {
-        text-decoration: none;
-        color: $primary-color;
-      }
     }
   }
 
@@ -125,7 +138,7 @@ const props = withDefaults(defineProps<IHeaderProps>(), {
     margin-bottom: 0;
     background-color: $white;
 
-    .username {
+    .user {
       :deep(.vl-dropdown-navigation .vl-popover) {
         top: 13px;
         z-index: 1000;
@@ -151,6 +164,11 @@ const props = withDefaults(defineProps<IHeaderProps>(), {
       & > * {
         padding-left: 0;
       }
+    }
+
+    .login {
+      display: flex;
+      align-items: center;
     }
 
     .logout {
