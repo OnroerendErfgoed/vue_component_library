@@ -102,7 +102,6 @@ const props = withDefaults(defineProps<IHeaderProps>(), {
 
     h1 {
       font-size: 24px;
-      padding-top: 50px;
       color: $primary-color;
       padding: 0;
       font-weight: 600;
