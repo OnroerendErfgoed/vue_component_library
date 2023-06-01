@@ -357,7 +357,7 @@ const busnummer = ref<string | IAdres>();
 
 // Conditionals
 const isBelgiumOrEmpty = computed(() => {
-  return (land.value as ILand)?.code === 'BE' || (land.value as ILand)?.code === '';
+  return !land.value || (land.value as ILand)?.code === 'BE' || (land.value as ILand)?.code === '';
 });
 const isBelgium = computed(() => (land.value as ILand)?.code === 'BE');
 const isVlaamseGemeente = computed(() => {
