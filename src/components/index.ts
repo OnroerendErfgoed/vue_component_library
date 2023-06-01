@@ -1,4 +1,5 @@
-import OeTest from './dumb/OeTest.vue';
+import OeButton from './dumb/OeButton.vue';
+import OeHeader from './dumb/OeHeader.vue';
 import AdresCrab from './smart/AdresCrab.vue';
 
-export { AdresCrab, OeTest };
+export { AdresCrab, OeButton, OeHeader };
