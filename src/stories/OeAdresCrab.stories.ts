@@ -14,13 +14,23 @@ const meta: Meta<typeof AdresCrab> = {
       return { args };
     },
     template: `
+      <div>
       <Suspense>
         <AdresCrab v-bind="args" @update:adres="onUpdateAdres" />
       </Suspense>
+      <h3>Adres:</h3>
+      <pre>{{ eventOutput }}</pre>
+      </div>
     `,
+    data() {
+      return {
+        eventOutput: '' as string,
+      };
+    },
     methods: {
       onUpdateAdres(payload: ILocatieAdres) {
         console.log('Adres gewijzigd:', payload);
+        this.eventOutput = payload;
       },
     },
   }),
@@ -117,13 +127,23 @@ export const TwoWayBinding: Story = {
       return { adres };
     },
     template: `
+      <div>
       <Suspense>
         <AdresCrab v-model:adres="adres"  @update:adres="onUpdateAdres" />
       </Suspense>
+      <h3>Adres:</h3>
+      <pre>{{ eventOutput }}</pre>
+      </div>
     `,
+    data() {
+      return {
+        eventOutput: '' as string,
+      };
+    },
     methods: {
       onUpdateAdres(payload: ILocatieAdres) {
         console.log('Adres gewijzigd:', payload);
+        this.eventOutput = payload;
       },
     },
   }),
