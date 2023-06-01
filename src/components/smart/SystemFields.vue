@@ -4,10 +4,10 @@
     <li data-cy="systemfield-aangemaakt-door">
       <span>Aangemaakt door:</span> {{ props.createdBy || '-' }} op {{ createdAt }}
     </li>
-    <li data-cy="systemfield-laatst-bewerkt" v-if="props.updatedBy">
+    <li v-if="props.updatedBy" data-cy="systemfield-laatst-bewerkt">
       <span>Laatst bewerkt door:</span> {{ props.updatedBy }} op {{ updatedAt }}
     </li>
-    <slot data-cy="systemfield-slot"></slot>
+    <slot></slot>
   </ul>
 </template>
 

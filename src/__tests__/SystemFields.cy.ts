@@ -8,12 +8,12 @@ const createdAt = '2023-05-24T13:45:03.427155+02:00';
 const updatedBy = 'Miss. Foo';
 const updatedAt = '2023-05-24T13:45:03.497579+02:00';
 
-describe('SystemFields - no data', () => {
-  const TestComponent = defineComponent({
-    components: { SystemFields },
-    template: '<SystemFields></SystemFields>',
-  });
+const TestComponent = defineComponent({
+  components: { SystemFields },
+  template: '<SystemFields></SystemFields>',
+});
 
+describe('SystemFields - no data', () => {
   it('renders', () => {
     mount(TestComponent);
   });
@@ -30,11 +30,6 @@ describe('SystemFields - no data', () => {
 });
 
 describe('SystemFields - default data', () => {
-  const TestComponent = defineComponent({
-    components: { SystemFields },
-    template: '<SystemFields></SystemFields>',
-  });
-
   it('should show klad status', () => {
     mount(TestComponent, {
       data: () => ({ status }),
@@ -116,12 +111,6 @@ describe('SystemFields - default data', () => {
 });
 
 describe('SystemFields - slot data', () => {
-  const TestComponent = defineComponent({
-    components: { SystemFields },
-    template: `<SystemFields>
-    </SystemFields>`,
-  });
-
   it('should have 4 list items', () => {
     mount(TestComponent, {
       data: () => ({ status, createdBy, createdAt, updatedBy, updatedAt }),
