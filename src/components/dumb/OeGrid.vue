@@ -1,5 +1,5 @@
 <template>
-  <ag-grid-vue class="ag-grid-vue ag-theme-balham"></ag-grid-vue>
+  <ag-grid-vue data-cy="ag-grid-vue" class="ag-grid-vue ag-theme-balham"></ag-grid-vue>
 </template>
 
 <script setup lang="ts">
