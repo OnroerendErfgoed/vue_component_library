@@ -146,7 +146,7 @@ const props = withDefaults(defineProps<IHeaderProps>(), {
       :deep(.vl-title) {
         text-overflow: ellipsis;
         max-width: 200px;
-        min-width: 60px;
+        min-width: 120px;
         white-space: nowrap;
         overflow: hidden;
       }
