@@ -1,7 +1,14 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "src/**/*.ts", "src/**/*.json"],
-  "exclude": ["src/**/__tests__/*"],
+  "include": [
+    "env.d.ts",
+    "src/**/*",
+    "src/**/*.vue",
+    "src/**/*.ts",
+    "src/**/*.json",
+    "cypress/support/component.*",
+    "cypress/support/commands.ts"
+  ],
   "compilerOptions": {
     "outDir": "dist",
     "baseUrl": ".",

@@ -3,7 +3,7 @@ import { within, userEvent } from '@storybook/testing-library';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof AppPage> = {
-  title: 'Example/Page',
+  title: 'Example stories/Page',
   component: AppPage,
   render: () => ({
     components: { AppPage },

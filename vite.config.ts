@@ -37,7 +37,10 @@ export default defineConfig({
       include: resolve(__dirname, './src/utils/i18n.json'),
     }),
     copy({
-      targets: [{ src: 'src/scss/*', dest: 'dist/scss' }],
+      targets: [
+        { src: 'src/scss/*', dest: 'dist/scss' },
+        { src: 'src/assets/*', dest: 'dist/assets' },
+      ],
       hook: 'writeBundle',
     }),
   ],
