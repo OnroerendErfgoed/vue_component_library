@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
 import AppButton from './AppButton.vue';
+import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof AppButton> = {
