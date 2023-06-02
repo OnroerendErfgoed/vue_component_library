@@ -20,12 +20,12 @@ describe('SystemFields - no data', () => {
 
   it('has an empty status field', () => {
     mount(TestComponent);
-    cy.get('[data-cy="systemfield-status"]').should('have.text', 'Status: -');
+    cy.dataCy('systemfield-status').should('have.text', 'Status: -');
   });
 
   it('has an empty aangemaakt door field', () => {
     mount(TestComponent);
-    cy.get('[data-cy="systemfield-aangemaakt-door"]').should('have.text', 'Aangemaakt door: - op -');
+    cy.dataCy('systemfield-aangemaakt-door').should('have.text', 'Aangemaakt door: - op -');
   });
 });
 
@@ -36,7 +36,7 @@ describe('SystemFields - default data', () => {
       template: `<SystemFields :status="status"></SystemFields>`,
     });
 
-    cy.get('[data-cy="systemfield-status"]').should('have.text', 'Status: Klad');
+    cy.dataCy('systemfield-status').should('have.text', 'Status: Klad');
   });
 
   it('should show the right created by', () => {
@@ -45,7 +45,7 @@ describe('SystemFields - default data', () => {
       template: `<SystemFields :created-by="createdBy"></SystemFields>`,
     });
 
-    cy.get('[data-cy="systemfield-aangemaakt-door"]').should('have.text', 'Aangemaakt door: Mr. Foo op -');
+    cy.dataCy('systemfield-aangemaakt-door').should('have.text', 'Aangemaakt door: Mr. Foo op -');
   });
 
   it('should show the right created at', () => {
@@ -54,7 +54,7 @@ describe('SystemFields - default data', () => {
       template: `<SystemFields :created-at="createdAt"></SystemFields>`,
     });
 
-    cy.get('[data-cy="systemfield-aangemaakt-door"]').should('have.text', 'Aangemaakt door: - op 24/05/2023 om 13:45');
+    cy.dataCy('systemfield-aangemaakt-door').should('have.text', 'Aangemaakt door: - op 24/05/2023 om 13:45');
   });
 
   it('should show the right created at', () => {
@@ -63,7 +63,7 @@ describe('SystemFields - default data', () => {
       template: `<SystemFields :created-at="createdAt"></SystemFields>`,
     });
 
-    cy.get('[data-cy="systemfield-aangemaakt-door"]').should('have.text', 'Aangemaakt door: - op 24/05/2023 om 13:45');
+    cy.dataCy('systemfield-aangemaakt-door').should('have.text', 'Aangemaakt door: - op 24/05/2023 om 13:45');
   });
 
   it('should show the right updated by', () => {
@@ -72,7 +72,7 @@ describe('SystemFields - default data', () => {
       template: `<SystemFields :updated-by="updatedBy"></SystemFields>`,
     });
 
-    cy.get('[data-cy="systemfield-laatst-bewerkt"]').should('have.text', 'Laatst bewerkt door: Miss. Foo op -');
+    cy.dataCy('systemfield-laatst-bewerkt').should('have.text', 'Laatst bewerkt door: Miss. Foo op -');
   });
 
   it('should show the right updated at', () => {
@@ -81,7 +81,7 @@ describe('SystemFields - default data', () => {
       template: `<SystemFields :updatedBy="updatedBy" :updated-at="updatedAt"></SystemFields>`,
     });
 
-    cy.get('[data-cy="systemfield-laatst-bewerkt"]').should(
+    cy.dataCy('systemfield-laatst-bewerkt').should(
       'have.text',
       'Laatst bewerkt door: Miss. Foo op 24/05/2023 om 13:45'
     );
@@ -98,12 +98,9 @@ describe('SystemFields - default data', () => {
       :updated-at="updatedAt"></SystemFields>`,
     });
 
-    cy.get('[data-cy="systemfield-status"]').should('have.text', 'Status: Klad');
-    cy.get('[data-cy="systemfield-aangemaakt-door"]').should(
-      'have.text',
-      'Aangemaakt door: Mr. Foo op 24/05/2023 om 13:45'
-    );
-    cy.get('[data-cy="systemfield-laatst-bewerkt"]').should(
+    cy.dataCy('systemfield-status').should('have.text', 'Status: Klad');
+    cy.dataCy('systemfield-aangemaakt-door').should('have.text', 'Aangemaakt door: Mr. Foo op 24/05/2023 om 13:45');
+    cy.dataCy('systemfield-laatst-bewerkt').should(
       'have.text',
       'Laatst bewerkt door: Miss. Foo op 24/05/2023 om 13:45'
     );
@@ -124,6 +121,6 @@ describe('SystemFields - slot data', () => {
       </SystemFields>`,
     });
 
-    cy.get('[data-cy="systemfield-ul"]').children().should('have.length', '4');
+    cy.dataCy('systemfield-ul').children().should('have.length', '4');
   });
 });
