@@ -73,6 +73,20 @@ $vl-error-color: $input-error-message-font-color;
   color: $primary-color;
 }
 
+// vl-tabs
+.vl-tabs {
+  .vl-tab {
+    color: $tabs-navigation-bg-color;
+    outline: none;
+
+    &--active {
+      &:visited {
+        color: $black;
+      }
+    }
+  }
+}
+
 /**
 -------------------------------
  End override specific styles
