@@ -15,7 +15,7 @@ describe('Adres CRAB', () => {
 
   it('has a title adres', () => {
     mount(TestComponent);
-    cy.get('[data-cy="title-adres"]').should('have.text', 'Adres');
+    cy.dataCy('title-adres').should('have.text', 'Adres');
   });
 
   describe('form - default', () => {
@@ -124,7 +124,7 @@ describe('Adres CRAB', () => {
 
         getMultiSelect('huisnummer').click();
 
-        cy.get('[data-cy="no-options-huisnummers"]').should('be.visible');
+        cy.dataCy('no-options-huisnummers').should('be.visible');
       });
 
       it('triggers required validation after fields are touched and emptied', () => {
@@ -630,11 +630,11 @@ describe('Adres CRAB', () => {
   });
 });
 
-const getLabel = (field: string) => cy.get(`[data-cy="label-${field}"]`);
-const getMultiSelect = (field: string) => cy.get(`[data-cy="select-${field}"]`);
-const getTextInput = (field: string) => cy.get(`[data-cy="input-${field}"]`);
-const getFormError = (field: string) => cy.get(`[data-cy="form-error-${field}"]`);
-const getAction = (action: string) => cy.get(`[data-cy="action-${action}"]`);
+const getLabel = (field: string) => cy.dataCy(`label-${field}`);
+const getMultiSelect = (field: string) => cy.dataCy(`select-${field}`);
+const getTextInput = (field: string) => cy.dataCy(`input-${field}`);
+const getFormError = (field: string) => cy.dataCy(`form-error-${field}`);
+const getAction = (action: string) => cy.dataCy(`action-${action}`);
 
 const fillInAdresCrabBelgium = () => {
   // Country selection
