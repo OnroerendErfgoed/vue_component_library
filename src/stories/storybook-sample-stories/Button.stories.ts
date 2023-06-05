@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
 import AppButton from './AppButton.vue';
+import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof AppButton> = {
-  title: 'Example/Button',
+  title: 'Example stories/Button',
   component: AppButton,
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/vue/writing-docs/autodocs
   tags: ['autodocs'],

@@ -26,10 +26,14 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 //
 
+Cypress.Commands.add('dataCy', (name: string) => {
+  cy.get(`[data-cy="${name}"]`);
+});
+
 declare global {
   namespace Cypress {
     interface Chainable {
-      checkLabel(field: string, match: string): Chainable<Element>;
+      dataCy(name: string): Chainable<Element>;
     }
   }
 }

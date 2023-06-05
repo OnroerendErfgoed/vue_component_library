@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import type { ILocatieAdres } from '@models/locatie';
 
 const meta: Meta<typeof AdresCrab> = {
-  title: 'Smart components/Adres-crab',
+  title: 'Smart components/AdresCrab',
   component: AdresCrab,
   tags: ['autodocs'],
   render: (args) => ({

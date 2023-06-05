@@ -1,5 +1,7 @@
 <template>
-  <VlButton>My primary button</VlButton>
+  <vl-button>
+    <slot></slot>
+  </vl-button>
 </template>
 
 <script lang="ts" setup>
