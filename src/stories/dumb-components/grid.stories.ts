@@ -49,3 +49,28 @@ export const Default: Story = {
     template: `<oe-grid style="width: 100%; height: 300px" :grid-options="gridOptions" @first-data-rendered="firstDataRendered" />`,
   }),
 };
+
+export const Sortable: Story = {
+  render: () => ({
+    components: { OeGrid },
+    setup() {
+      const gridOptions: GridOptions = {
+        columnDefs: [
+          { headerName: 'Make', field: 'make', sortable: true },
+          { headerName: 'Model', field: 'model', sortable: true },
+          { headerName: 'Price', field: 'price', sortable: true },
+        ],
+        rowData: [
+          { make: 'Toyota', model: 'Celica', price: 35000 },
+          { make: 'Ford', model: 'Mondeo', price: 32000 },
+          { make: 'Porsche', model: 'Boxster', price: 72000 },
+        ],
+      };
+      const firstDataRendered = (grid: FirstDataRenderedEvent) => {
+        grid.api.sizeColumnsToFit();
+      };
+      return { firstDataRendered, gridOptions };
+    },
+    template: `<oe-grid style="width: 100%; height: 300px" :grid-options="gridOptions" @first-data-rendered="firstDataRendered" />`,
+  }),
+};
