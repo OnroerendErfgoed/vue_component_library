@@ -128,12 +128,6 @@ export const InfiniteRowModelWithDatasource: Story = {
         const updateData = (data: unknown[]) => {
           const dataSource = {
             getRows: (params: IGetRowsParams) => {
-              console.log(
-                '[Story - Infinite Row Model With Datasource] asking for rows ' +
-                  params.startRow +
-                  ' to ' +
-                  params.endRow
-              );
               // At this point in your code, you would call the server.
               // To make the demo look real, wait for 500ms before returning
               setTimeout(() => {
