@@ -167,3 +167,36 @@ export const InfiniteRowModelWithDatasource: Story = {
 `,
   }),
 };
+
+export const Pagination: Story = {
+  render: () => ({
+    components: { OeGrid },
+    setup() {
+      const gridOptions: GridOptions = {
+        pagination: true,
+        paginationAutoPageSize: true,
+        columnDefs: [
+          { headerName: 'Make', field: 'make', sortable: true },
+          { headerName: 'Model', field: 'model', sortable: true },
+          { headerName: 'Price', field: 'price', sortable: true },
+        ],
+        rowData: [
+          { make: 'Toyota', model: 'Celica', price: 35000 },
+          { make: 'Ford', model: 'Mondeo', price: 32000 },
+          { make: 'Porsche', model: 'Boxster', price: 72000 },
+          { make: 'Mercedes', model: 'A250e', price: 45000 },
+          { make: 'VW', model: 'Golf', price: 30000 },
+          { make: 'Skoda', model: 'Fabia', price: 22000 },
+          { make: 'BMW', model: 'i4', price: 72000 },
+          { make: 'Tesla', model: 'Model3', price: 50000 },
+          { make: 'Polestar', model: '2', price: 45000 },
+        ],
+      };
+      const firstDataRendered = (grid: FirstDataRenderedEvent) => {
+        grid.api.sizeColumnsToFit();
+      };
+      return { firstDataRendered, gridOptions };
+    },
+    template: `<oe-grid style="width: 100%; height: 300px" :grid-options="gridOptions" @first-data-rendered="firstDataRendered" />`,
+  }),
+};
