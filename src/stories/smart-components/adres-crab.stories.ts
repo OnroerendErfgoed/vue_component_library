@@ -141,7 +141,6 @@ export const TwoWayBinding: Story = {
     },
     methods: {
       onUpdateAdres(payload: ILocatieAdres) {
-        console.log('Adres gewijzigd:', payload);
         this.eventOutput = payload;
       },
     },
