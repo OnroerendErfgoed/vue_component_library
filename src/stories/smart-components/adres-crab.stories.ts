@@ -29,7 +29,6 @@ const meta: Meta<typeof AdresCrab> = {
     },
     methods: {
       onUpdateAdres(payload: ILocatieAdres) {
-        console.log('Adres gewijzigd:', payload);
         this.eventOutput = payload;
       },
     },
