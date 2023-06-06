@@ -2,7 +2,13 @@ import OeGrid from '@components/dumb/OeGrid.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import '@/scss/main.scss';
-import type { FirstDataRenderedEvent, GridOptions } from 'ag-grid-community';
+import type {
+  FirstDataRenderedEvent,
+  GridOptions,
+  GridReadyEvent,
+  ICellRendererParams,
+  IGetRowsParams,
+} from 'ag-grid-community';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof OeGrid> = {
@@ -16,7 +22,7 @@ const meta: Meta<typeof OeGrid> = {
         component:
           'This component is a wrapper around ag-grid-vue3 (https://www.ag-grid.com/vue-data-grid/).\n\n' +
           'All properties and events are automatically inherited and thus can be used.\n\n ' +
-          'Below, 1 example is showed passing in the gridOptions.',
+          'Some examples in the specified stories, not all functionality is covered in these stories, consult the ag-grid docs for more info.',
       },
     },
   },
@@ -72,5 +78,92 @@ export const Sortable: Story = {
       return { firstDataRendered, gridOptions };
     },
     template: `<oe-grid style="width: 100%; height: 300px" :grid-options="gridOptions" @first-data-rendered="firstDataRendered" />`,
+  }),
+};
+
+export const InfiniteRowModelWithDatasource: Story = {
+  render: () => ({
+    components: { OeGrid },
+    setup() {
+      const gridOptions: GridOptions = {
+        columnDefs: [
+          {
+            headerName: 'ID',
+            maxWidth: 100,
+            valueGetter: 'node.id',
+            cellRenderer: (params: ICellRendererParams) => {
+              if (params.value !== undefined) {
+                return params.value;
+              } else {
+                return '<img src="https://www.ag-grid.com/example-assets/loading.gif">';
+              }
+            },
+          },
+          { field: 'athlete', minWidth: 150 },
+          { field: 'age' },
+          { field: 'country', minWidth: 150 },
+          { field: 'year' },
+          { field: 'date', minWidth: 150 },
+          { field: 'sport', minWidth: 150 },
+          { field: 'gold' },
+          { field: 'silver' },
+          { field: 'bronze' },
+          { field: 'total' },
+        ],
+        defaultColDef: {
+          flex: 1,
+          resizable: true,
+          minWidth: 100,
+        },
+        rowBuffer: 0,
+        rowSelection: 'multiple',
+        rowModelType: 'infinite',
+        cacheBlockSize: 100,
+        cacheOverflowSize: 2,
+        maxConcurrentDatasourceRequests: 1,
+        infiniteInitialRowCount: 1000,
+        maxBlocksInCache: 10,
+      };
+      const onGridReady = (gridReadyEvent: GridReadyEvent) => {
+        const updateData = (data: unknown[]) => {
+          const dataSource = {
+            getRows: (params: IGetRowsParams) => {
+              console.log(
+                '[Story - Infinite Row Model With Datasource] asking for rows ' +
+                  params.startRow +
+                  ' to ' +
+                  params.endRow
+              );
+              // At this point in your code, you would call the server.
+              // To make the demo look real, wait for 500ms before returning
+              setTimeout(() => {
+                // take a slice of the total rows
+                const rowsThisPage = data.slice(params.startRow, params.endRow);
+                // if on or after the last page, work out the last row.
+                let lastRow = -1;
+                if (data.length <= params.endRow) {
+                  lastRow = data.length;
+                }
+                // call the success callback
+                params.successCallback(rowsThisPage, lastRow);
+              }, 500);
+            },
+          };
+          gridReadyEvent.api.setDatasource(dataSource);
+        };
+
+        fetch('https://www.ag-grid.com/example-assets/olympic-winners.json')
+          .then((resp) => resp.json())
+          .then((data) => updateData(data));
+      };
+      return { onGridReady, gridOptions };
+    },
+    template: `
+      <oe-grid
+        style="width: 100%; height:300px;"
+        :grid-options="gridOptions"
+        @grid-ready="onGridReady">
+     </oe-grid>
+`,
   }),
 };
