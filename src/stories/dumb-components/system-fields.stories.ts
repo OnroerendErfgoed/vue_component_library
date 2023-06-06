@@ -2,8 +2,9 @@ import SystemFields from '@components/smart/SystemFields.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof SystemFields> = {
-  title: 'Smart components/SystemFields',
+  title: 'Dumb components/SystemFields',
   component: SystemFields,
+  tags: ['autodocs'],
   argTypes: {
     status: { control: 'text' },
     createdBy: { control: 'text' },

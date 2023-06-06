@@ -1,0 +1,117 @@
+<template>
+  <ag-grid-vue data-cy="ag-grid-vue" class="ag-grid-vue ag-theme-balham"></ag-grid-vue>
+</template>
+
+<script setup lang="ts">
+import 'ag-grid-community/styles/ag-grid.css';
+import 'ag-grid-community/styles/ag-theme-balham.css';
+import { AgGridVue } from 'ag-grid-vue3';
+</script>
+
+<style lang="scss" scoped>
+@import 'pyoes/scss/pyoes-settings';
+
+.ag-grid-vue {
+  padding: 3rem;
+  color: #333;
+
+  .ag-cell-edit-input {
+    margin: 0;
+  }
+
+  &.error .ag-overlay-wrapper {
+    border: 1px solid red;
+  }
+
+  .ag-overlay-wrapper {
+    background-color: aliceblue;
+
+    &.ag-overlay-no-rows-wrapper {
+      padding-top: 0;
+    }
+  }
+
+  .ag-root-wrapper {
+    border: 1px solid #ddd;
+
+    .ag-header {
+      background-color: #eee;
+
+      .ag-cell-label-container,
+      .ag-header-cell-label {
+        height: inherit;
+        width: inherit;
+      }
+
+      .ag-header-cell-sortable {
+        cursor: pointer;
+      }
+
+      .ag-header-icon {
+        position: absolute;
+        right: 5px;
+        transform: scale(0.75);
+      }
+    }
+
+    .ag-header-cell-label,
+    .ag-cell {
+      display: flex;
+      align-items: center;
+      padding: 5px;
+    }
+
+    .ag-header-cell-resize {
+      position: absolute;
+      right: 0;
+    }
+
+    .ag-row,
+    .ag-header-row {
+      .ag-cell,
+      .ag-header-cell {
+        border-color: #ddd;
+        border-style: solid;
+        border-width: 0 1px 1px 0;
+      }
+    }
+
+    .ag-cell-focus {
+      outline: none;
+    }
+
+    .ag-body-viewport {
+      .ag-body-container.ag-layout-auto-height {
+        display: block;
+        min-height: 0;
+        margin-bottom: 0;
+      }
+
+      .ag-row-focus {
+        background-color: #bbb;
+      }
+
+      .acties-cell,
+      .icon-cell {
+        justify-content: center;
+      }
+
+      i.fa,
+      a.fa {
+        cursor: pointer;
+        color: $dark-purple;
+      }
+
+      i.fa.fa-times {
+        cursor: default;
+        color: #960000;
+      }
+
+      i.fa.fa-check {
+        cursor: default;
+        color: #008000;
+      }
+    }
+  }
+}
+</style>
