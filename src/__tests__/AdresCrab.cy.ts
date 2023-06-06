@@ -15,7 +15,7 @@ describe('Adres CRAB', () => {
 
   it('has a title adres', () => {
     mount(TestComponent);
-    cy.get('[data-cy="title-adres"]').should('have.text', 'Adres');
+    cy.dataCy('title-adres').should('have.text', 'Adres');
   });
 
   describe('form - default', () => {
@@ -48,16 +48,17 @@ describe('Adres CRAB', () => {
     });
 
     describe('country selection België', () => {
-      it('disables fields as long as the parent is not filled in', () => {
+      it('disables fields when country select is empty', () => {
         getMultiSelect('gemeente').should('have.class', 'multiselect--disabled');
         getMultiSelect('postcode').should('have.class', 'multiselect--disabled');
         getMultiSelect('straat').should('have.class', 'multiselect--disabled');
         getMultiSelect('huisnummer').should('have.class', 'multiselect--disabled');
         getMultiSelect('busnummer').should('have.class', 'multiselect--disabled');
+      });
 
+      it('disables fields as long as the parent is not filled in', () => {
         // Country selection
-        getMultiSelect('land').select(1).should('have.value', 'BE');
-
+        getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
         cy.intercept({ method: 'GET', url: 'https://dev-geo.onroerenderfgoed.be/**' }).as('dataGet');
         cy.wait('@dataGet');
 
@@ -123,7 +124,7 @@ describe('Adres CRAB', () => {
 
         getMultiSelect('huisnummer').click();
 
-        cy.get('[data-cy="no-options-huisnummers"]').should('be.visible');
+        cy.dataCy('no-options-huisnummers').should('be.visible');
       });
 
       it('triggers required validation after fields are touched and emptied', () => {
@@ -149,7 +150,7 @@ describe('Adres CRAB', () => {
 
       it('requires straat to be free text input when no streets were found', () => {
         // Country selection
-        getMultiSelect('land').select(1).should('have.value', 'BE');
+        getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
 
         cy.intercept({ method: 'GET', url: 'https://dev-geo.onroerenderfgoed.be/**' }).as('dataGet');
         cy.wait('@dataGet');
@@ -164,7 +165,7 @@ describe('Adres CRAB', () => {
 
       it('requires huisnummer to be free text input when no house numbers were found', () => {
         // Country selection
-        getMultiSelect('land').select(1).should('have.value', 'BE');
+        getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
 
         cy.intercept({ method: 'GET', url: 'https://dev-geo.onroerenderfgoed.be/**' }).as('dataGet');
         cy.wait('@dataGet');
@@ -184,7 +185,7 @@ describe('Adres CRAB', () => {
       describe('after gemeente selection', () => {
         beforeEach(() => {
           // Country selection
-          getMultiSelect('land').select(1).should('have.value', 'BE');
+          getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
 
           cy.intercept({ method: 'GET', url: 'https://dev-geo.onroerenderfgoed.be/**' }).as('dataGet');
           cy.wait('@dataGet');
@@ -279,7 +280,10 @@ describe('Adres CRAB', () => {
       mount(TestComponent, {
         data: () => ({
           adres: {
-            land: 'BE',
+            land: {
+              naam: 'België',
+              code: 'BE',
+            },
             gemeente: {
               naam: 'Bertem',
               niscode: '24009',
@@ -300,7 +304,7 @@ describe('Adres CRAB', () => {
         template: '<Suspense><AdresCrab v-model:adres="adres"/></Suspense>',
       });
 
-      getMultiSelect('land').should('have.value', 'BE');
+      getMultiSelect('land').find(':selected').should('have.text', 'België');
       getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Bertem');
       getMultiSelect('postcode').find('.multiselect__single').should('have.text', '3060');
       getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Dorpstraat');
@@ -312,7 +316,10 @@ describe('Adres CRAB', () => {
       mount(TestComponent, {
         data: () => ({
           adres: {
-            land: 'BE',
+            land: {
+              naam: 'België',
+              code: 'BE',
+            },
             gemeente: {
               naam: 'Bertem',
               niscode: '24009',
@@ -340,21 +347,17 @@ describe('Adres CRAB', () => {
           .then(() => {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             expect((component.$data as any).adres).to.deep.equal({
-              land: 'BE',
+              land: {
+                naam: 'België',
+                code: 'BE',
+              },
               gemeente: {
                 naam: 'Lummen',
                 niscode: '71037',
               },
-              postcode: {
-                nummer: '',
-              },
-              straat: {
-                naam: '',
-              },
-              adres: {
-                huisnummer: '',
-                busnummer: '',
-              },
+              postcode: {},
+              straat: {},
+              adres: {},
             });
           });
       });
@@ -606,7 +609,7 @@ describe('Adres CRAB', () => {
       });
     });
     it('sets the max amount of items at multi-select elements', () => {
-      getMultiSelect('land').select(1).should('have.value', 'BE');
+      getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
 
       cy.intercept({ method: 'GET', url: 'https://dev-geo.onroerenderfgoed.be/**' }).as('dataGet');
       cy.wait('@dataGet');
@@ -627,15 +630,15 @@ describe('Adres CRAB', () => {
   });
 });
 
-const getLabel = (field: string) => cy.get(`[data-cy="label-${field}"]`);
-const getMultiSelect = (field: string) => cy.get(`[data-cy="select-${field}"]`);
-const getTextInput = (field: string) => cy.get(`[data-cy="input-${field}"]`);
-const getFormError = (field: string) => cy.get(`[data-cy="form-error-${field}"]`);
-const getAction = (action: string) => cy.get(`[data-cy="action-${action}"]`);
+const getLabel = (field: string) => cy.dataCy(`label-${field}`);
+const getMultiSelect = (field: string) => cy.dataCy(`select-${field}`);
+const getTextInput = (field: string) => cy.dataCy(`input-${field}`);
+const getFormError = (field: string) => cy.dataCy(`form-error-${field}`);
+const getAction = (action: string) => cy.dataCy(`action-${action}`);
 
 const fillInAdresCrabBelgium = () => {
   // Country selection
-  getMultiSelect('land').select(1).should('have.value', 'BE');
+  getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
 
   cy.intercept({ method: 'GET', url: 'https://dev-geo.onroerenderfgoed.be/**' }).as('dataGet');
   cy.wait('@dataGet');
@@ -669,7 +672,7 @@ const fillInAdresCrabBelgium = () => {
 
 const fillInAdresCrabOther = () => {
   // Country selection
-  getMultiSelect('land').select(2).should('have.value', 'DE');
+  getMultiSelect('land').select(2).find(':selected').should('have.text', 'Duitsland');
 
   // Gemeente input
   getTextInput('gemeente').type('Koln');

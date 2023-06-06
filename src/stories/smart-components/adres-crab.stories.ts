@@ -1,6 +1,7 @@
 import '@/scss/main.scss';
 import AdresCrab from '@components/smart/AdresCrab.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
+import type { ILocatieAdres } from '@models/locatie';
 
 const meta: Meta<typeof AdresCrab> = {
   title: 'Smart components/AdresCrab',
@@ -13,10 +14,24 @@ const meta: Meta<typeof AdresCrab> = {
       return { args };
     },
     template: `
+      <div>
       <Suspense>
-        <AdresCrab v-bind="args" />
+        <AdresCrab v-bind="args" @update:adres="onUpdateAdres" />
       </Suspense>
+      <h3>Adres:</h3>
+      <pre>{{ eventOutput }}</pre>
+      </div>
     `,
+    data() {
+      return {
+        eventOutput: '' as string,
+      };
+    },
+    methods: {
+      onUpdateAdres(payload: ILocatieAdres) {
+        this.eventOutput = payload;
+      },
+    },
   }),
   argTypes: {
     config: {
@@ -79,35 +94,56 @@ export const SpecificCountry: Story = {
 export const TwoWayBinding: Story = {
   args: {
     adres: {
-      land: 'BE',
+      land: {
+        code: 'BE',
+        naam: 'België',
+      },
       gemeente: {
         naam: 'Bertem',
         niscode: '24009',
       },
       postcode: {
         nummer: '3060',
+        uri: 'https://data.vlaanderen.be/id/postinfo/3060',
       },
       straat: {
         naam: 'Dorpstraat',
         id: '32110',
+        uri: 'https://data.vlaanderen.be/id/straatnaam/32110',
       },
       adres: {
         huisnummer: '416',
         busnummer: '0101',
+        uri: 'https://data.vlaanderen.be/id/adres/993686',
+        id: '993686',
       },
     },
   },
-  render: ({ adres }) => ({
+  render: ({ adres }: ILocatieAdres) => ({
     components: { AdresCrab },
     inheritAttrs: false,
     setup() {
       return { adres };
     },
     template: `
+      <div>
       <Suspense>
-        <AdresCrab v-model:adres="adres" />
+        <AdresCrab v-model:adres="adres"  @update:adres="onUpdateAdres" />
       </Suspense>
+      <h3>Adres:</h3>
+      <pre>{{ eventOutput }}</pre>
+      </div>
     `,
+    data() {
+      return {
+        eventOutput: '' as string,
+      };
+    },
+    methods: {
+      onUpdateAdres(payload: ILocatieAdres) {
+        this.eventOutput = payload;
+      },
+    },
   }),
 };
 
