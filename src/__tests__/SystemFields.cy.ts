@@ -1,4 +1,4 @@
-import SystemFields from '@components/smart/SystemFields.vue';
+import SystemFields from '@components/dumb/SystemFields.vue';
 import { mount } from 'cypress/vue';
 import { defineComponent } from 'vue';
 
@@ -90,9 +90,9 @@ describe('SystemFields - default data', () => {
   it('should show the right fields', () => {
     mount(TestComponent, {
       data: () => ({ status, createdBy, createdAt, updatedBy, updatedAt }),
-      template: `<SystemFields 
-      :status="status" 
-      :created-by="createdBy" 
+      template: `<SystemFields
+      :status="status"
+      :created-by="createdBy"
       :created-at="createdAt"
       :updated-by="updatedBy"
       :updated-at="updatedAt"></SystemFields>`,
@@ -111,9 +111,9 @@ describe('SystemFields - slot data', () => {
   it('should have 4 list items', () => {
     mount(TestComponent, {
       data: () => ({ status, createdBy, createdAt, updatedBy, updatedAt }),
-      template: `<SystemFields 
-      :status="status" 
-      :created-by="createdBy" 
+      template: `<SystemFields
+      :status="status"
+      :created-by="createdBy"
       :created-at="createdAt"
       :updated-by="updatedBy"
       :updated-at="updatedAt">

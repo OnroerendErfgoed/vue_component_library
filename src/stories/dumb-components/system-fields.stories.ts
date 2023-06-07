@@ -1,4 +1,4 @@
-import SystemFields from '@components/smart/SystemFields.vue';
+import SystemFields from '@components/dumb/SystemFields.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof SystemFields> = {
