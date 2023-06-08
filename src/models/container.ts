@@ -1,4 +1,5 @@
 export interface IContainerProps {
+  activeTab?: ITab;
   tabs?: ITab[];
 }
 

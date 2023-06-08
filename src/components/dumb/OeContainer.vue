@@ -8,6 +8,7 @@
         <vl-pill
           v-for="item in props.tabs"
           :key="item.id"
+          :class="{ 'is-active': item.id === props.activeTab?.id }"
           :mod-closable="item.closable"
           mod-clickable
           @click="(event: Event) => select(event, item)"
@@ -26,6 +27,7 @@ import type { IContainerProps, ITab } from '@models/container';
 
 const props = withDefaults(defineProps<IContainerProps>(), {
   tabs: undefined,
+  activeTab: undefined,
 });
 const emit = defineEmits<{
   (e: 'tab-selected', tab: ITab): void;
@@ -74,6 +76,19 @@ const close = (item: ITab) => {
     .vl-pill {
       cursor: pointer;
       margin-right: 0.5rem;
+
+      &.is-active {
+        margin-left: 0.5rem;
+        margin-right: 1rem;
+
+        scale: 1.1;
+        background-color: $primary-color;
+        color: $white;
+
+        .vl-pill__close {
+          background-color: $white;
+        }
+      }
     }
   }
 }

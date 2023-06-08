@@ -39,6 +39,12 @@ const meta: Meta<typeof OeContainer> = {
         type: { summary: 'ITab[]' },
       },
     },
+    activeTab: {
+      description: 'Active tab - needed to have the visual indication of which tab is selected',
+      table: {
+        type: { summary: 'ITab' },
+      },
+    },
     'tab-selected': {
       description: 'Emits selected tab on click',
       table: {
@@ -95,7 +101,7 @@ export const Tabs: Story = {
         story:
           'Tabs can passed into this components using the specified ITab interface.\n\r' +
           'The component will handle the tabs placement and will emit events for selecting and closing tab actions.\n\r' +
-          'The consuming application is responsible for showing/hiding contents based on the selected tab that can be tracked watching the emitted events',
+          'The consuming application is responsible for showing/hiding contents and passing in the currently active tab, based on the selected tab that can be tracked watching the emitted events.',
       },
     },
   },
@@ -124,7 +130,7 @@ export const Tabs: Story = {
       return { tabs, activeTab, addTab, setActiveTab, closeTab };
     },
     template: `
-     <oe-container style="height: 200px" :tabs="tabs" @tab-selected="setActiveTab" @tab-closed="closeTab">
+     <oe-container style="height: 200px" :tabs="tabs" :active-tab="activeTab" @tab-selected="setActiveTab" @tab-closed="closeTab">
       <div v-if="activeTab.id === 'menu'">
         <p class="vl-u-spacer--small">Dit is het menu overzicht</p>
         <vl-button @click="addTab">Open new tab</vl-button>
