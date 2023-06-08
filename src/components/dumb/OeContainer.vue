@@ -74,6 +74,10 @@ const close = (item: ITab) => {
     bottom: 0;
     border-top: 1px solid $dark-purple;
 
+    .vl-action-group button:last-child {
+      margin-right: -1px;
+    }
+
     .vl-pill {
       cursor: pointer;
       margin-right: 0.5rem;
