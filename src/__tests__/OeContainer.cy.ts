@@ -87,7 +87,7 @@ describe('Container', () => {
     it('shows the tab label as text', () => {
       cy.mount(TestComponent).then(({ component }) => {
         cy.dataCy('bottom-tabs')
-          .find('.vl-pill')
+          .find('.vl-pill .vl-pill__text')
           .each((element, i) => {
             expect(element.text()).to.equal(component.tabs[i].label);
           });

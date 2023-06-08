@@ -39,7 +39,7 @@
     "test:unit": "cypress run --component --browser=chrome",
     "test:unit:dev": "cypress open --component",
     "type-check": "vue-tsc --noEmit",
-    "type-generation": "vue-tsc --declaration --emitDeclarationOnly ",
+    "type-generation": "vue-tsc --declaration --emitDeclarationOnly",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
     "storybook": "storybook dev -p 6006",

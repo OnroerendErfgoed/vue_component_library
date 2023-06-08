@@ -10,6 +10,7 @@
           :key="item.id"
           :class="[{ 'is-active': item.id === props.activeTab?.id }, `tab-${item.id}`]"
           :mod-closable="item.closable"
+          :close-label="`Sluit tab ${item.label}`"
           mod-clickable
           @click="(event: Event) => select(event, item)"
           @close="close(item)"
