@@ -1,14 +1,14 @@
 <template>
   <div class="container">
-    <div class="container__content">
+    <div data-cy="container-content" class="container__content">
       <slot></slot>
     </div>
-    <div v-if="props.tabs" class="bottom-tabs">
+    <div v-if="props.tabs" class="bottom-tabs" data-cy="bottom-tabs">
       <vl-action-group>
         <vl-pill
           v-for="item in props.tabs"
           :key="item.id"
-          :class="{ 'is-active': item.id === props.activeTab?.id }"
+          :class="[{ 'is-active': item.id === props.activeTab?.id }, `tab-${item.id}`]"
           :mod-closable="item.closable"
           mod-clickable
           @click="(event: Event) => select(event, item)"
