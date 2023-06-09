@@ -15,16 +15,14 @@
       </vl-input-field>
       <vl-datepicker
         v-else-if="selectedOption.type === FilterOptionType.DATE"
-        id="datepicker-01"
-        v-model="dateFilter"
+        id="datepicker"
+        :value="dateFilter"
+        visual-format="d-m-Y"
+        @input="($event: Event) => dateChange($event)"
       />
       <div v-else-if="selectedOption.type === FilterOptionType.RADIO" class="radio-select">
-        <vl-radio id="radio-01" v-model="choiceDefault" name="radio-name-01" value="ja" @click="radioClicked"
-          >Ja</vl-radio
-        >
-        <vl-radio id="radio-02" v-model="choiceDefault" name="radio-name-01" value="nee" @click="radioClicked"
-          >Nee</vl-radio
-        >
+        <vl-radio id="radio-ja" v-model="radioFilter" name="radio-filter" value="Ja">Ja</vl-radio>
+        <vl-radio id="radio-nee" v-model="radioFilter" name="radio-filter" value="Nee">Nee</vl-radio>
       </div>
       <!-- <vl-select v-else-if="selectedOption.type === FilterOptionType.SELECT" mod-block placeholder="fw"></vl-select>
       <VlMultiselect
@@ -84,7 +82,8 @@ import { FilterOptionType, type IFilter, type IFilterOption } from '@models/filt
 import { ref } from 'vue';
 
 const textFilter = ref('');
-const dateFilter = ref('');
+const dateFilter = ref<string[]>([]);
+const radioFilter = ref('');
 
 const filters = ref<IFilter[]>([]);
 const addFilter = () => {
@@ -102,7 +101,10 @@ const addFilter = () => {
       filter.value = { label: textFilter.value, value: textFilter.value };
       break;
     case FilterOptionType.DATE:
-      filter.value = { label: dateFilter.value, value: dateFilter.value };
+      filter.value = { label: dateFilter.value[0], value: dateFilter.value[0] };
+      break;
+    case FilterOptionType.RADIO:
+      filter.value = { label: radioFilter.value, value: radioFilter.value };
       break;
   }
 
@@ -113,12 +115,20 @@ const addFilter = () => {
     filters.value.push(filter);
     clearInputs();
   }
-
   console.log(filters.value);
+};
+
+const dateChange = (event: Event) => {
+  const dateValue = (event.target as HTMLInputElement)?.value;
+  if (dateValue) {
+    dateFilter.value = [dateValue];
+  }
 };
 
 const clearInputs = () => {
   textFilter.value = '';
+  dateFilter.value = [];
+  radioFilter.value = '';
 };
 
 // Options
