@@ -1,4 +1,5 @@
-import FilterInput from '@components/smart/FilterInput.vue';
+import { VlSelect } from '@govflanders/vl-ui-design-system-vue3';
+import FilterInput from '../../components/smart/FilterInput.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import '@/scss/main.scss';
@@ -24,4 +25,26 @@ type Story = StoryObj<typeof FilterInput>;
  * See https://storybook.js.org/docs/vue/api/csf
  * to learn how to use render functions.
  */
-export const Default: Story = {};
+export const Default: Story = {
+  render: () => ({
+    components: {
+      FilterInput,
+      VlSelect,
+    },
+    template: `
+      <filter-input>
+        <template v-slot:select-filter="{value, setValue, selectedOption}">
+          <vl-select v-if="selectedOption.key === 'status'" mod-block :value="value" @update:value="setValue">
+            <optgroup label="Niet Actief">
+              <option value="klad">Klad</option>
+              <option value="kladzonderfoto">Klad zonder foto</option>
+            </optgroup>
+            <optgroup label="Actief">
+              <option value="actief">Actief</option>
+            </optgroup>
+          </vl-select>
+        </template>
+      </filter-input>
+    `,
+  }),
+};

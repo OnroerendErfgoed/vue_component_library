@@ -24,8 +24,17 @@
         <vl-radio id="radio-ja" v-model="radioFilter" name="radio-filter" value="Ja">Ja</vl-radio>
         <vl-radio id="radio-nee" v-model="radioFilter" name="radio-filter" value="Nee">Nee</vl-radio>
       </div>
-      <!-- <vl-select v-else-if="selectedOption.type === FilterOptionType.SELECT" mod-block placeholder="fw"></vl-select>
-      <VlMultiselect
+
+      <slot
+        v-else-if="selectedOption.type === FilterOptionType.SELECT"
+        name="select-filter"
+        :value="selectFilter"
+        :set-value="setSelectValue"
+        :selected-option="selectedOption"
+      >
+      </slot>
+
+      <!--   <VlMultiselect
         v-else-if="selectedOption.type === FilterOptionType.MULTISELECT"
         v-model="gemeente"
         :placeholder="selectedOption.label"
@@ -95,8 +104,13 @@ const textFilter = ref('');
 const dateFilter = ref<string[]>([]);
 const radioFilter = ref('');
 
+const selectFilter = ref('');
+const setSelectValue = (value: string) => (selectFilter.value = value);
+
 const filterValuesEmpty = computed(() => {
-  return isEmpty(textFilter.value) && isEmpty(dateFilter.value) && isEmpty(radioFilter.value);
+  return (
+    isEmpty(textFilter.value) && isEmpty(dateFilter.value) && isEmpty(radioFilter.value) && isEmpty(selectFilter.value)
+  );
 });
 const filters = ref<IFilter[]>([]);
 const addFilter = () => {
@@ -118,6 +132,9 @@ const addFilter = () => {
       break;
     case FilterOptionType.RADIO:
       filter.value = { label: radioFilter.value, value: radioFilter.value };
+      break;
+    case FilterOptionType.SELECT:
+      filter.value = { label: selectFilter.value, value: selectFilter.value };
       break;
   }
 
@@ -147,6 +164,7 @@ const clearInputs = () => {
   textFilter.value = '';
   dateFilter.value = [];
   radioFilter.value = '';
+  selectFilter.value = '';
 };
 
 // Options
@@ -201,11 +219,11 @@ const options: IFilterOption[] = [
   //   key: 'aanduidingsobject',
   //   type: FilterOptionType.AANDUIDINGSOBJECT,
   // },
-  // {
-  //   label: 'Status',
-  //   key: 'status',
-  //   type: FilterOptionType.PLAN_STATUS,
-  // },
+  {
+    label: 'Status',
+    key: 'status',
+    type: FilterOptionType.SELECT,
+  },
 ];
 const selectedOption = ref<IFilterOption>(options[0]);
 
