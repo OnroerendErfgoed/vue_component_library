@@ -3,7 +3,7 @@
     <div data-cy="container-content" class="container__content">
       <slot></slot>
     </div>
-    <div v-if="props.tabs" class="bottom-tabs" data-cy="bottom-tabs">
+    <div v-if="props.tabs.length" class="bottom-tabs" data-cy="bottom-tabs">
       <vl-action-group>
         <vl-pill
           v-for="item in props.tabs"
@@ -27,7 +27,7 @@ import { VlPill, VlActionGroup } from '@govflanders/vl-ui-design-system-vue3';
 import type { IContainerProps, ITab } from '@models/container';
 
 const props = withDefaults(defineProps<IContainerProps>(), {
-  tabs: undefined,
+  tabs: () => [],
   activeTab: undefined,
 });
 const emit = defineEmits<{

@@ -33,16 +33,17 @@ const meta: Meta<typeof OeContainer> = {
       description: 'Default slot rendering the container content',
     },
     tabs: {
-      control: 'object',
       description: 'Tabs to show at the bottom of the container',
       table: {
         type: { summary: 'ITab[]' },
+        defaultValue: { summary: '[]' },
       },
     },
     activeTab: {
       description: 'Active tab - needed to have the visual indication of which tab is selected',
       table: {
         type: { summary: 'ITab' },
+        defaultValue: { summary: 'undefined' },
       },
     },
     'tab-selected': {
