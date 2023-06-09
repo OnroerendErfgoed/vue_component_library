@@ -1,6 +1,6 @@
 <template>
   <div class="vl-grid filters-input">
-    <vl-select v-model:value="selectedOption" class="vl-col--5-12" mod-block mod-inline>
+    <vl-select v-model:value="selectedOption" class="vl-col--5-12" mod-block mod-inline @change="clearInputs">
       <option v-for="option in options" :key="option.key" :value="option">
         {{ option.label }}
       </option>
@@ -42,6 +42,8 @@
         </template>
       </VlMultiselect> -->
       <vl-input-addon
+        :mod-disabled="filterValuesEmpty"
+        :disabled="filterValuesEmpty"
         tag-name="button"
         type="button"
         icon="plus"
@@ -79,12 +81,16 @@ import {
   VlPill,
 } from '@govflanders/vl-ui-design-system-vue3';
 import { FilterOptionType, type IFilter, type IFilterOption } from '@models/filter-input';
-import { ref } from 'vue';
+import { isEmpty } from 'lodash';
+import { computed, ref } from 'vue';
 
 const textFilter = ref('');
 const dateFilter = ref<string[]>([]);
 const radioFilter = ref('');
 
+const filterValuesEmpty = computed(() => {
+  return isEmpty(textFilter.value) && isEmpty(dateFilter.value) && isEmpty(radioFilter.value);
+});
 const filters = ref<IFilter[]>([]);
 const addFilter = () => {
   const filter: IFilter = {
