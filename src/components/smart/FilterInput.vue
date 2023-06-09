@@ -53,15 +53,18 @@
       />
     </vl-input-group>
   </div>
-  <div class="vl-grid filters-selected">
+  <div v-if="!!filters.length" class="vl-grid filters-selected">
     <span class="vl-col--1-12">Filters:</span>
-    <vl-action-group class="vl-col--11-12">
+    <vl-action-group class="vl-col--10-12">
+      <vl-pill class="vl-u-spacer-left--xsmall vl-u-spacer-bottom--xsmall" mod-clickable @click="filters = []"
+        >Alle filters wissen</vl-pill
+      >
       <vl-pill
         v-for="filter in filters"
         :key="filter.key"
-        mod-clickable
         mod-closable
         class="vl-u-spacer-left--xsmall vl-u-spacer-bottom--xsmall"
+        @close="removeFilter(filter)"
       >
         {{ filter.label }} / {{ filter.value.label }}
       </vl-pill>
@@ -81,8 +84,12 @@ import {
   VlPill,
 } from '@govflanders/vl-ui-design-system-vue3';
 import { FilterOptionType, type IFilter, type IFilterOption } from '@models/filter-input';
-import { isEmpty } from 'lodash';
+import { isEmpty, remove } from 'lodash';
 import { computed, ref } from 'vue';
+
+const emit = defineEmits<{
+  (e: 'filters-selected', filters: IFilter[]): void;
+}>();
 
 const textFilter = ref('');
 const dateFilter = ref<string[]>([]);
@@ -122,7 +129,12 @@ const addFilter = () => {
     clearInputs();
   }
   console.log(filters.value);
+
+  emit('filters-selected', filters.value);
 };
+
+const removeFilter = (filter: IFilter) =>
+  remove(filters.value, (f) => f.key === filter.key && filter.value.value === f.value.value);
 
 const dateChange = (event: Event) => {
   const dateValue = (event.target as HTMLInputElement)?.value;
@@ -211,6 +223,8 @@ const selectedOption = ref<IFilterOption>(options[0]);
 </script>
 
 <style lang="scss" scoped>
+@import 'pyoes/scss/pyoes-settings';
+
 .vl-grid {
   &.filters-input {
     margin: 1rem 0.5rem;

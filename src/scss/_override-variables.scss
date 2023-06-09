@@ -39,6 +39,12 @@ $vl-error-color: $input-error-message-font-color;
   cursor: pointer;
 }
 
+//vl-pill
+.vl-pill {
+  cursor: pointer;
+  color: $primary-color;
+}
+
 // vl-link
 .vl-link {
   color: $link-color;
