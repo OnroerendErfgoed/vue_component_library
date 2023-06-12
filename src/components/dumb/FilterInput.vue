@@ -93,7 +93,6 @@ import { isEmpty, remove } from 'lodash';
 import { computed, ref, watch } from 'vue';
 
 const props = withDefaults(defineProps<IFilterInputProps>(), {
-  api: '',
   options: () => [],
 });
 const emit = defineEmits<{
