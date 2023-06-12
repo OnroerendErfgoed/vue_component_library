@@ -58,11 +58,24 @@ $vl-error-color: $input-error-message-font-color;
 
 // vl-multiselect
 .vl-multiselect {
+  flex: 1;
+
   .multiselect__element {
     &:hover {
       .multiselect__option {
         box-shadow: none;
       }
+    }
+  }
+
+  .multiselect__tags {
+    padding-top: 0;
+    display: flex;
+    align-items: center;
+
+    .multiselect__single {
+      margin-bottom: 0;
+      padding-top: 0;
     }
   }
 }

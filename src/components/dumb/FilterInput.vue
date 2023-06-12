@@ -226,19 +226,4 @@ const selectedOption = ref<IFilterOption>(props.options[0]);
     }
   }
 }
-
-.vl-multiselect {
-  flex: 1;
-
-  :deep(.multiselect__tags) {
-    padding-top: 0;
-    display: flex;
-    align-items: center;
-
-    .multiselect__single {
-      margin-bottom: 0;
-      padding-top: 0;
-    }
-  }
-}
 </style>
