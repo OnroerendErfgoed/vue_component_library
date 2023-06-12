@@ -1,6 +1,6 @@
 <template>
   <div class="vl-grid filters-input">
-    <span v-if="!props.options.length" class="vl-alert--warning">Geen filteropties geconfigureerd</span>
+    <span v-if="!props?.options.length" class="vl-alert--warning">Geen filteropties geconfigureerd</span>
     <template v-else>
       <vl-select v-model:value="selectedOption" class="vl-col--5-12" mod-block mod-inline @change="clearInputs">
         <option v-for="option in props.options" :key="option.key" :value="option">
@@ -13,6 +13,7 @@
           v-model="textFilter"
           mod-block
           :placeholder="selectedOption.label"
+          @keyup.enter="addFilter"
         >
         </vl-input-field>
         <vl-datepicker
@@ -89,7 +90,7 @@ import {
 } from '@govflanders/vl-ui-design-system-vue3';
 import { FilterOptionType, type IFilter, type IFilterInputProps, type IFilterOption } from '@models/filter-input';
 import { isEmpty, remove } from 'lodash';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 const props = withDefaults(defineProps<IFilterInputProps>(), {
   api: '',
@@ -163,6 +164,14 @@ const addFilter = () => {
 };
 const removeFilter = (filter: IFilter) =>
   remove(filters.value, (f) => f.key === filter.key && filter.value.value === f.value.value);
+
+watch(
+  filters,
+  () => {
+    emit('filters-selected', filters.value);
+  },
+  { deep: true }
+);
 
 const dateChange = (event: Event) => {
   const dateValue = (event.target as HTMLInputElement)?.value;
