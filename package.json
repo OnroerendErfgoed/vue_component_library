@@ -104,8 +104,8 @@
     "vue-tsc": "^1.6.5"
   },
   "peerDependencies": {
-    "pyoes": "https://gitpkg.now.sh/OnroerendErfgoed/pyoes/npm-packages/pyoes",
-    "@govflanders/vl-ui-design-system-style": "^1.0.0-alpha.3"
+    "@govflanders/vl-ui-design-system-style": "^1.0.0-alpha.3",
+    "pyoes": "https://gitpkg.now.sh/OnroerendErfgoed/pyoes/npm-packages/pyoes"
   },
   "_id": "vue_component_library@0.0.0"
 }
