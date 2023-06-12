@@ -106,6 +106,16 @@ $vl-error-color: $input-error-message-font-color;
   }
 }
 
+// flatpickr - year input color
+.flatpickr-current-month input.cur-year {
+  color: $primary-color;
+}
+
+// flatpickr - today indication
+.flatpickr-calendar.mark-today .flatpickr-day.today:not(.selected) {
+  background-color: $gray;
+}
+
 /**
 -------------------------------
  End override specific styles
