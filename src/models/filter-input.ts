@@ -1,11 +1,12 @@
 export interface IFilterInputProps {
   api: string;
+  options: IFilterOption[];
 }
 
 export interface IFilter {
   key: string;
   label: string;
-  value: { label: string; value: string | number | boolean };
+  value: { label: string; value: string | number | boolean | unknown };
 }
 
 export interface IFilterOption {

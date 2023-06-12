@@ -1,66 +1,61 @@
 <template>
   <div class="vl-grid filters-input">
-    <vl-select v-model:value="selectedOption" class="vl-col--5-12" mod-block mod-inline @change="clearInputs">
-      <option v-for="option in options" :key="option.key" :value="option">
-        {{ option.label }}
-      </option>
-    </vl-select>
-    <vl-input-group class="vl-col--7-12">
-      <vl-input-field
-        v-if="selectedOption.type === FilterOptionType.TEXT"
-        v-model="textFilter"
-        mod-block
-        :placeholder="selectedOption.label"
-      >
-      </vl-input-field>
-      <vl-datepicker
-        v-else-if="selectedOption.type === FilterOptionType.DATE"
-        id="datepicker"
-        :value="dateFilter"
-        visual-format="d-m-Y"
-        @input="($event: Event) => dateChange($event)"
-      />
-      <div v-else-if="selectedOption.type === FilterOptionType.RADIO" class="radio-select">
-        <vl-radio id="radio-ja" v-model="radioFilter" name="radio-filter" value="Ja">Ja</vl-radio>
-        <vl-radio id="radio-nee" v-model="radioFilter" name="radio-filter" value="Nee">Nee</vl-radio>
-      </div>
+    <span v-if="!props.options.length" class="vl-alert--warning">Geen filteropties geconfigureerd</span>
+    <template v-else>
+      <vl-select v-model:value="selectedOption" class="vl-col--5-12" mod-block mod-inline @change="clearInputs">
+        <option v-for="option in props.options" :key="option.key" :value="option">
+          {{ option.label }}
+        </option>
+      </vl-select>
+      <vl-input-group class="vl-col--7-12">
+        <vl-input-field
+          v-if="selectedOption.type === FilterOptionType.TEXT"
+          v-model="textFilter"
+          mod-block
+          :placeholder="selectedOption.label"
+        >
+        </vl-input-field>
+        <vl-datepicker
+          v-else-if="selectedOption.type === FilterOptionType.DATE"
+          id="datepicker"
+          :value="dateFilter"
+          visual-format="d-m-Y"
+          @input="($event: Event) => dateChange($event)"
+        />
+        <div v-else-if="selectedOption.type === FilterOptionType.RADIO" class="radio-select">
+          <vl-radio id="radio-ja" v-model="radioFilter" name="radio-filter" value="Ja">Ja</vl-radio>
+          <vl-radio id="radio-nee" v-model="radioFilter" name="radio-filter" value="Nee">Nee</vl-radio>
+        </div>
 
-      <slot
-        v-else-if="selectedOption.type === FilterOptionType.SELECT"
-        name="select-filter"
-        :value="selectFilter"
-        :set-value="setSelectValue"
-        :selected-option="selectedOption"
-      >
-      </slot>
+        <slot
+          v-else-if="selectedOption.type === FilterOptionType.SELECT"
+          name="select-filter"
+          :value="selectFilter"
+          :set-value="setSelectValue"
+          :selected-option="selectedOption"
+        >
+        </slot>
 
-      <!--   <VlMultiselect
-        v-else-if="selectedOption.type === FilterOptionType.MULTISELECT"
-        v-model="gemeente"
-        :placeholder="selectedOption.label"
-        :custom-label="customGemeenteLabel"
-        :mod-multiple="false"
-        :options="gemeenten"
-        :preserve-search="true"
-      >
-        <template #noResult>
-          <span>Geen resultaten gevonden...</span>
-        </template>
-        <template #noOptions>
-          <span>Geen opties beschikbaar</span>
-        </template>
-      </VlMultiselect> -->
-      <vl-input-addon
-        :mod-disabled="filterValuesEmpty"
-        :disabled="filterValuesEmpty"
-        tag-name="button"
-        type="button"
-        icon="plus"
-        tooltip="Filter toevoegen"
-        text="Filter toevoegen"
-        @click="addFilter"
-      />
-    </vl-input-group>
+        <slot
+          v-else-if="selectedOption.type === FilterOptionType.MULTISELECT"
+          name="multiselect-filter"
+          :value="multiselectFilter"
+          :set-value="setMultiselectValue"
+          :selected-option="selectedOption"
+        ></slot>
+
+        <vl-input-addon
+          :mod-disabled="filterValuesEmpty"
+          :disabled="filterValuesEmpty"
+          tag-name="button"
+          type="button"
+          icon="plus"
+          tooltip="Filter toevoegen"
+          text="Filter toevoegen"
+          @click="addFilter"
+        />
+      </vl-input-group>
+    </template>
   </div>
   <div v-if="!!filters.length" class="vl-grid filters-selected">
     <span class="vl-col--1-12">Filters:</span>
@@ -92,10 +87,14 @@ import {
   VlSelect,
   VlPill,
 } from '@govflanders/vl-ui-design-system-vue3';
-import { FilterOptionType, type IFilter, type IFilterOption } from '@models/filter-input';
+import { FilterOptionType, type IFilter, type IFilterInputProps, type IFilterOption } from '@models/filter-input';
 import { isEmpty, remove } from 'lodash';
 import { computed, ref } from 'vue';
 
+const props = withDefaults(defineProps<IFilterInputProps>(), {
+  api: '',
+  options: () => [],
+});
 const emit = defineEmits<{
   (e: 'filters-selected', filters: IFilter[]): void;
 }>();
@@ -104,15 +103,24 @@ const textFilter = ref('');
 const dateFilter = ref<string[]>([]);
 const radioFilter = ref('');
 
+// select filter
 const selectFilter = ref('');
 const setSelectValue = (value: string) => (selectFilter.value = value);
 
+// multiselect filter
+const multiselectFilter = ref<{ label?: string; value?: unknown }>();
+const setMultiselectValue = (value: unknown, label: string) => (multiselectFilter.value = { value, label });
+
+const filters = ref<IFilter[]>([]);
 const filterValuesEmpty = computed(() => {
   return (
-    isEmpty(textFilter.value) && isEmpty(dateFilter.value) && isEmpty(radioFilter.value) && isEmpty(selectFilter.value)
+    isEmpty(textFilter.value) &&
+    isEmpty(dateFilter.value) &&
+    isEmpty(radioFilter.value) &&
+    isEmpty(selectFilter.value) &&
+    isEmpty(multiselectFilter.value)
   );
 });
-const filters = ref<IFilter[]>([]);
 const addFilter = () => {
   const filter: IFilter = {
     key: selectedOption.value.key,
@@ -136,6 +144,11 @@ const addFilter = () => {
     case FilterOptionType.SELECT:
       filter.value = { label: selectFilter.value, value: selectFilter.value };
       break;
+    case FilterOptionType.MULTISELECT:
+      filter.value = {
+        label: multiselectFilter.value?.label as string,
+        value: multiselectFilter.value?.value as unknown,
+      };
   }
 
   if (
@@ -145,11 +158,9 @@ const addFilter = () => {
     filters.value.push(filter);
     clearInputs();
   }
-  console.log(filters.value);
 
   emit('filters-selected', filters.value);
 };
-
 const removeFilter = (filter: IFilter) =>
   remove(filters.value, (f) => f.key === filter.key && filter.value.value === f.value.value);
 
@@ -165,79 +176,10 @@ const clearInputs = () => {
   dateFilter.value = [];
   radioFilter.value = '';
   selectFilter.value = '';
+  multiselectFilter.value = {};
 };
 
-// Options
-const options: IFilterOption[] = [
-  {
-    label: 'ID',
-    key: 'id',
-    type: FilterOptionType.TEXT,
-  },
-  {
-    label: 'Type plan',
-    key: 'plantype',
-    type: FilterOptionType.SELECT,
-  },
-  // {
-  //   label: 'Onderwerp',
-  //   key: 'onderwerp',
-  //   type: FilterOptionType.TEXT,
-  // },
-  {
-    label: 'Gemeente',
-    key: 'gemeente',
-    type: FilterOptionType.MULTISELECT,
-  },
-  // {
-  //   label: 'Provincie',
-  //   key: 'provincie',
-  //   type: FilterOptionType.PROVINCIE,
-  // },
-  {
-    label: 'Datum goedkeuring vanaf',
-    key: 'datum_goedkeuring_van',
-    type: FilterOptionType.DATE,
-  },
-  // {
-  //   label: 'Datum goedkeuring tot',
-  //   key: 'datum_goedkeuring_tot',
-  //   type: FilterOptionType.DATE,
-  // },
-  // {
-  //   label: 'Beheersplan verlopen',
-  //   key: 'beheersplan_verlopen',
-  //   type: FilterOptionType.RADIO,
-  // },
-  {
-    label: 'Beheerscommissie',
-    key: 'beheerscommissie',
-    type: FilterOptionType.RADIO,
-  },
-  // {
-  //   label: 'Aanduidingsobject',
-  //   key: 'aanduidingsobject',
-  //   type: FilterOptionType.AANDUIDINGSOBJECT,
-  // },
-  {
-    label: 'Status',
-    key: 'status',
-    type: FilterOptionType.SELECT,
-  },
-];
-const selectedOption = ref<IFilterOption>(options[0]);
-
-// Gemeenten
-// const crabService = new CrabService(props.api);
-// const customGemeenteLabel = (option: IGemeente) => option.naam;
-// const gemeenten = ref<IGemeente[]>([]);
-// const gemeente = ref<IGemeente>();
-
-// watch(selectedOption, async (newValue) => {
-//   if (newValue.key === 'gemeente') {
-//     gemeenten.value = await crabService.getGemeenten();
-//   }
-// });
+const selectedOption = ref<IFilterOption>(props.options[0]);
 </script>
 
 <style lang="scss" scoped>
@@ -255,6 +197,10 @@ const selectedOption = ref<IFilterOption>(options[0]);
       width: 100%;
       display: flex;
       justify-content: flex-end;
+    }
+
+    :deep(.vl-multiselect) {
+      width: 100%;
     }
   }
 
