@@ -1,12 +1,13 @@
-import { VlMultiselect, VlSelect } from '@govflanders/vl-ui-design-system-vue3';
 import type { Meta, StoryObj } from '@storybook/vue3';
+import FilterDatepicker from '../../components/dumb/FilterDatepicker.vue';
+import FilterGemeente from '../../components/dumb/FilterGemeente.vue';
 import FilterInput from '../../components/dumb/FilterInput.vue';
+import FilterInputField from '../../components/dumb/FilterInputField.vue';
+import FilterRadio from '../../components/dumb/FilterRadio.vue';
+import FilterSelect from '../../components/dumb/FilterSelect.vue';
 
 import '@/scss/main.scss';
-import { onBeforeMount, ref } from 'vue';
-import { FilterOptionType, type IFilterOption } from '../../models/filter-input';
-import type { IGemeente } from '../../models/locatie';
-import { CrabService } from '../../services/crab.api-service';
+import { type IFilterOption, type IOption } from '../../models/filter-input';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof FilterInput> = {
@@ -38,130 +39,96 @@ const meta: Meta<typeof FilterInput> = {
 
 export default meta;
 type Story = StoryObj<typeof FilterInput>;
-/*
- *👇 Render functions are a framework specific feature to allow you control on how the component renders.
- * See https://storybook.js.org/docs/vue/api/csf
- * to learn how to use render functions.
- */
+
 export const Default: Story = {
   render: () => ({
     components: {
       FilterInput,
-      VlSelect,
-      VlMultiselect,
+      FilterInputField,
+      FilterDatepicker,
+      FilterGemeente,
+      FilterRadio,
+      FilterSelect,
     },
     setup() {
       const filterOptions: IFilterOption[] = [
         {
           label: 'ID',
           key: 'id',
-          type: FilterOptionType.TEXT,
         },
         {
           label: 'Type plan',
           key: 'plantype',
-          type: FilterOptionType.SELECT,
         },
         {
           label: 'Onderwerp',
           key: 'onderwerp',
-          type: FilterOptionType.TEXT,
         },
         {
           label: 'Gemeente',
           key: 'gemeente',
-          type: FilterOptionType.MULTISELECT,
         },
         {
           label: 'Datum goedkeuring vanaf',
           key: 'datum_goedkeuring_van',
-          type: FilterOptionType.DATE,
         },
         {
           label: 'Datum goedkeuring tot',
           key: 'datum_goedkeuring_tot',
-          type: FilterOptionType.DATE,
         },
         {
           label: 'Beheersplan verlopen',
           key: 'beheersplan_verlopen',
-          type: FilterOptionType.RADIO,
         },
         {
           label: 'Beheerscommissie',
           key: 'beheerscommissie',
-          type: FilterOptionType.RADIO,
         },
         {
           label: 'Status',
           key: 'status',
-          type: FilterOptionType.SELECT,
+        },
+      ];
+      const statusOptions: IOption[] = [
+        {
+          label: 'Klad',
+          value: 'klad',
+        },
+        {
+          label: 'Actief',
+          value: 'actief',
+        },
+      ];
+      const radioOptions: IOption[] = [
+        {
+          label: 'Ja',
+          value: 'ja',
+        },
+        {
+          label: 'Nee',
+          value: 'nee',
         },
       ];
 
-      // Gemeenten
-      const crabService = new CrabService('https://dev-geo.onroerenderfgoed.be/');
-      const gemeenten = ref<IGemeente[]>([]);
-      const customGemeenteLabel = (option: IGemeente) => option.naam;
-
-      onBeforeMount(async () => {
-        gemeenten.value = await crabService.getGemeenten();
-      });
-
-      return { filterOptions, customGemeenteLabel, gemeenten };
+      return { filterOptions, statusOptions, radioOptions };
     },
     template: `
-    <filter-input :options="filterOptions" @filters-selected="filters = $event">
-      <template v-slot:select-filter="{ value, setValue, selectedOption }">
-        <vl-select
-          v-if="selectedOption.key === 'status'"
-          placeholder-text="Status"
-          mod-block
-          :value="value"
-          @update:value="setValue"
-        >
-          <optgroup label="Niet Actief">
-            <option value="klad">Klad</option>
-            <option value="kladzonderfoto">Klad zonder foto</option>
-          </optgroup>
-          <optgroup label="Actief">
-            <option value="actief">Actief</option>
-          </optgroup>
-        </vl-select>
-
-        <vl-select
-          v-if="selectedOption.key === 'plantype'"
-          placeholder-text="Type plan"
-          mod-block
-          :value="value"
-          @update:value="setValue"
-        >
-          <option>Geïntegreerd Beheersplan</option>
-          <option>Onroerend Erfgoed Beheersplan</option>
-          <option>Onroerenderfgoedrichtplan</option>
-        </vl-select>
-      </template>
-
-      <template v-slot:multiselect-filter="{ value, setValue, selectedOption }">
-        <vl-multiselect
-          v-if="selectedOption.key === 'gemeente'"
-          placeholder="Gemeente"
-          :custom-label="customGemeenteLabel"
-          :mod-multiple="false"
-          :options="gemeenten"
-          :preserve-search="true"
-          :value="value?.value"
-          @update:value="setValue($event, $event.naam)"
-          @keydown.tab="!value ? $event.preventDefault() : null"
-        >
-          <template #noResult>
-            <span>Geen resultaten gevonden...</span>
-          </template>
-          <template #noOptions>
-            <span>Geen opties beschikbaar</span>
-          </template></vl-multiselect
-        >
-      </template>
+    <filter-input v-slot="{ value, setValue, selectedOption }" :options="filterOptions" @filters-selected="filters = $event">
+      <filter-input-field v-if="selectedOption.key === 'id'" :value="value" @update:value="setValue($event, $event)" placeholder="ID"></filter-input-field>
+      <filter-input-field v-if="selectedOption.key === 'onderwerp'" :value="value" @update:value="setValue($event, $event)" placeholder="Onderwerp"></filter-input-field>
+      <filter-datepicker v-if="selectedOption.key === 'datum_goedkeuring_van' || selectedOption.key === 'datum_goedkeuring_tot'" :value="value" @update:value="setValue($event, $event[0])"></filter-datepicker>
+      <filter-gemeente v-if="selectedOption.key === 'gemeente'" :value="value" @update:value="setValue($event, $event.naam)"></filter-gemeente>
+      <filter-radio v-if="selectedOption.key === 'beheerscommissie' || selectedOption.key === 'beheersplan_verlopen'" :options="radioOptions" :value="value" @update:value="setValue($event, $event)"></filter-radio>
+      <filter-select v-if="selectedOption.key === 'plantype'" placeholder="Type plan" :value="value" @update:value="setValue($event, $event)">
+        <optgroup label="Niet Actief">
+          <option value="klad">Klad</option>
+          <option value="kladzonderfoto">Klad zonder foto</option>
+        </optgroup>
+        <optgroup label="Actief">
+          <option value="actief">Actief</option>
+        </optgroup>
+      </filter-select>
+      <filter-select v-if="selectedOption.key === 'status'" :options="statusOptions" placeholder="Status" :value="value" @update:value="setValue($event, $event)"></filter-select>
     </filter-input>
     `,
   }),
