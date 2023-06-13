@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import FilterDatepicker from '../../components/dumb/FilterDatepicker.vue';
-import FilterGemeente from '../../components/dumb/FilterGemeente.vue';
 import FilterInput from '../../components/dumb/FilterInput.vue';
-import FilterInputField from '../../components/dumb/FilterInputField.vue';
 import FilterRadio from '../../components/dumb/FilterRadio.vue';
 import FilterSelect from '../../components/dumb/FilterSelect.vue';
+import FilterText from '../../components/dumb/FilterText.vue';
+import FilterGemeente from '../../components/smart/FilterGemeente.vue';
 
 import '@/scss/main.scss';
 import { type IFilterOption, type IOption } from '../../models/filter-input';
@@ -19,9 +19,26 @@ const meta: Meta<typeof FilterInput> = {
       story: {
         height: '400px',
       },
+      description: {
+        component:
+          'Generic filter input component that accepts any filter input field as long as the slot props are correctly used.\n\n See the `Filter Inputs` folder (both in `smart` and `dumb` components) for example components to be used. A subset is used in the example below.',
+      },
     },
   },
   argTypes: {
+    default: {
+      description:
+        'Default slot that exposes a couple of props to hook into. This way, custom filter field components can work with this input-filter component',
+      table: {
+        type: {
+          summary: 'Exposed props',
+          detail: `
+value: current filter field value
+selectedOption: selected option from provided options list, can be used to determine which custom filter field to show
+setValue: function to apply the entered filter value from the custom filter field to the filter input component`,
+        },
+      },
+    },
     options: {
       description: 'List of filter options to populate the select input',
       table: {
@@ -44,7 +61,7 @@ export const Default: Story = {
   render: () => ({
     components: {
       FilterInput,
-      FilterInputField,
+      FilterText,
       FilterDatepicker,
       FilterGemeente,
       FilterRadio,
@@ -114,8 +131,8 @@ export const Default: Story = {
     },
     template: `
     <filter-input v-slot="{ value, setValue, selectedOption }" :options="filterOptions" @filters-selected="filters = $event">
-      <filter-input-field v-if="selectedOption.key === 'id'" :value="value" @update:value="setValue($event, $event)" placeholder="ID"></filter-input-field>
-      <filter-input-field v-if="selectedOption.key === 'onderwerp'" :value="value" @update:value="setValue($event, $event)" placeholder="Onderwerp"></filter-input-field>
+      <filter-text v-if="selectedOption.key === 'id'" :value="value" @update:value="setValue($event, $event)" placeholder="ID"></filter-text>
+      <filter-text v-if="selectedOption.key === 'onderwerp'" :value="value" @update:value="setValue($event, $event)" placeholder="Onderwerp"></filter-text>
       <filter-datepicker v-if="selectedOption.key === 'datum_goedkeuring_van' || selectedOption.key === 'datum_goedkeuring_tot'" :value="value" @update:value="setValue($event, $event[0])"></filter-datepicker>
       <filter-gemeente v-if="selectedOption.key === 'gemeente'" :value="value" @update:value="setValue($event, $event.naam)"></filter-gemeente>
       <filter-radio v-if="selectedOption.key === 'beheerscommissie' || selectedOption.key === 'beheersplan_verlopen'" :options="radioOptions" :value="value" @update:value="setValue($event, $event)"></filter-radio>

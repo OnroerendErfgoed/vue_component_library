@@ -8,7 +8,6 @@ import type { IFilterDatepickerProps } from '@models/filter-input';
 
 const props = withDefaults(defineProps<IFilterDatepickerProps>(), {
   value: () => [],
-  placeholder: '',
 });
 const emit = defineEmits(['update:value']);
 const updateValue = (event: Event) => {

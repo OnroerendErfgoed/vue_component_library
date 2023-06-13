@@ -4,9 +4,9 @@
 
 <script setup lang="ts">
 import { VlInputField } from '@govflanders/vl-ui-design-system-vue3';
-import type { IFilterInputFieldProps } from '@models/filter-input';
+import type { IFilterTextProps } from '@models/filter-input';
 
-const props = withDefaults(defineProps<IFilterInputFieldProps>(), {
+const props = withDefaults(defineProps<IFilterTextProps>(), {
   value: '',
   placeholder: '',
 });

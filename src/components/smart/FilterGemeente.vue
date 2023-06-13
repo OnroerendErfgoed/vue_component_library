@@ -25,11 +25,14 @@ import type { IGemeente } from '@models/locatie';
 import { CrabService } from '@services/crab.api-service';
 import { ref, onBeforeMount } from 'vue';
 
-const props = defineProps<IFilterGemeenteProps>();
+const props = withDefaults(defineProps<IFilterGemeenteProps>(), {
+  api: 'https://dev-geo.onroerenderfgoed.be/',
+  value: undefined,
+});
 const emit = defineEmits(['update:value']);
 const updateValue = (value: IGemeente) => emit('update:value', value);
 
-const crabService = new CrabService('https://dev-geo.onroerenderfgoed.be/');
+const crabService = new CrabService(props.api);
 const gemeenten = ref<IGemeente[]>([]);
 const customGemeenteLabel = (option: IGemeente) => option.naam;
 
