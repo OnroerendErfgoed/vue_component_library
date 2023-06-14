@@ -1,15 +1,15 @@
-import FilterDatepicker from '@/components/dumb/FilterDatepicker.vue';
-import FilterRadio from '@/components/dumb/FilterRadio.vue';
-import FilterSelect from '@/components/dumb/FilterSelect.vue';
-import FilterInput from '@components/dumb/FilterInput.vue';
-import FilterText from '@components/dumb/FilterText.vue';
-import OeButton from '@components/dumb/OeButton.vue';
-import OeContainer from '@components/dumb/OeContainer.vue';
-import OeGrid from '@components/dumb/OeGrid.vue';
-import OeHeader from '@components/dumb/OeHeader.vue';
-import SystemFields from '@components/dumb/SystemFields.vue';
-import AdresCrab from '@components/smart/AdresCrab.vue';
-import FilterGemeente from '@components/smart/FilterGemeente.vue';
+import FilterDatepicker from './dumb/FilterDatepicker.vue';
+import FilterInput from './dumb/FilterInput.vue';
+import FilterRadio from './dumb/FilterRadio.vue';
+import FilterSelect from './dumb/FilterSelect.vue';
+import FilterText from './dumb/FilterText.vue';
+import OeButton from './dumb/OeButton.vue';
+import OeContainer from './dumb/OeContainer.vue';
+import OeGrid from './dumb/OeGrid.vue';
+import OeHeader from './dumb/OeHeader.vue';
+import SystemFields from './dumb/SystemFields.vue';
+import AdresCrab from './smart/AdresCrab.vue';
+import FilterGemeente from './smart/FilterGemeente.vue';
 
 export {
   AdresCrab,

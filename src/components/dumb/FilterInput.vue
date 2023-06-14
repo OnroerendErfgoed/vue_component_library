@@ -48,7 +48,7 @@
 
 <script setup lang="ts">
 import { VlInputGroup, VlInputAddon, VlActionGroup, VlSelect, VlPill } from '@govflanders/vl-ui-design-system-vue3';
-import type { IFilter, IFilterInputProps, IFilterOption } from '@models/filter-input';
+import type { TFilterInput, IFilter, IFilterInputProps, IFilterOption } from '@models/filter-input';
 import { isEmpty, remove } from 'lodash';
 import { computed, ref, watch } from 'vue';
 
@@ -63,9 +63,9 @@ const emit = defineEmits<{
 const selectedOption = ref<IFilterOption>(props.options[0]);
 
 // Filter input
-const filterInputValue = ref<{ value?: unknown; label?: string }>();
+const filterInputValue = ref<{ value?: TFilterInput; label?: string }>();
 const filterValuesAreEmpty = computed(() => isEmpty(filterInputValue.value));
-const setFilterInputValue = (value: unknown, label: string) => (filterInputValue.value = { value, label });
+const setFilterInputValue = (value: TFilterInput, label: string) => (filterInputValue.value = { value, label });
 const clearInputs = () => (filterInputValue.value = {});
 
 // Filters
@@ -85,7 +85,7 @@ const addFilter = () => {
     label: selectedOption.value.label,
     value: {
       label: filterInputValue.value?.label as string,
-      value: filterInputValue.value?.value as unknown,
+      value: filterInputValue.value?.value,
     },
   };
 

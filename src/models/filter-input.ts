@@ -1,5 +1,7 @@
 import type { IGemeente } from './locatie';
 
+export type TFilterInput = string | IGemeente;
+
 export interface IFilterInputProps {
   options: IFilterOption[];
 }
