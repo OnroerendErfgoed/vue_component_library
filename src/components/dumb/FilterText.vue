@@ -1,5 +1,11 @@
 <template>
-  <vl-input-field mod-block :placeholder="props.placeholder" :value="props.value" @update:model-value="updateValue" />
+  <vl-input-field
+    data-cy="filter-text"
+    mod-block
+    :placeholder="props.placeholder"
+    :value="props.value"
+    @update:model-value="updateValue"
+  />
 </template>
 
 <script setup lang="ts">

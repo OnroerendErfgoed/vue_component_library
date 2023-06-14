@@ -1,5 +1,5 @@
 <template>
-  <div class="radio-select">
+  <div data-cy="filter-radio" class="radio-select">
     <vl-radio
       v-for="option in options"
       :id="`radio-${option.value}`"

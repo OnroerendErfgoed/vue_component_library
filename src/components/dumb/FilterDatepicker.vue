@@ -1,5 +1,11 @@
 <template>
-  <vl-datepicker placeholder="dd-mm-jjjj" :value="props.value" visual-format="d-m-Y" @input="updateValue" />
+  <vl-datepicker
+    data-cy="filter-datepicker"
+    placeholder="dd-mm-jjjj"
+    :value="props.value"
+    visual-format="d-m-Y"
+    @input="updateValue"
+  />
 </template>
 
 <script setup lang="ts">
@@ -12,6 +18,7 @@ const props = withDefaults(defineProps<IFilterDatepickerProps>(), {
 const emit = defineEmits(['update:value']);
 const updateValue = (event: Event) => {
   const dateValue = (event.target as HTMLInputElement)?.value;
+
   if (dateValue) {
     emit('update:value', [dateValue]);
   }

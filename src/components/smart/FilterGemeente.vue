@@ -1,5 +1,6 @@
 <template>
   <vl-multiselect
+    data-cy="filter-gemeente"
     placeholder="Gemeente"
     :custom-label="customGemeenteLabel"
     :mod-multiple="false"

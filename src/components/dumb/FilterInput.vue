@@ -1,8 +1,17 @@
 <template>
   <div class="vl-grid filters-input">
-    <span v-if="!props?.options.length" class="vl-alert--warning">Geen filteropties geconfigureerd</span>
+    <span v-if="!props?.options.length" data-cy="no-options" class="vl-alert--warning"
+      >Geen filteropties geconfigureerd</span
+    >
     <template v-else>
-      <vl-select v-model:value="selectedOption" class="vl-col--5-12" mod-block mod-inline @update:value="clearInputs">
+      <vl-select
+        v-model:value="selectedOption"
+        data-cy="filter-select"
+        class="vl-col--5-12"
+        mod-block
+        mod-inline
+        @update:value="clearInputs"
+      >
         <option v-for="option in props.options" :key="option.key" :value="option">
           {{ option.label }}
         </option>
@@ -15,6 +24,7 @@
         ></slot>
 
         <vl-input-addon
+          data-cy="filter-add-button"
           :mod-disabled="filterValuesAreEmpty"
           :disabled="filterValuesAreEmpty"
           tag-name="button"
@@ -28,14 +38,19 @@
     </template>
   </div>
   <div v-if="!!filters.length" class="vl-grid filters-selected">
-    <span class="vl-col--1-12">Filters:</span>
+    <span data-cy="filters-label" class="vl-col--1-12">Filters:</span>
     <vl-action-group class="vl-col--10-12">
-      <vl-pill class="vl-u-spacer-left--xsmall vl-u-spacer-bottom--xsmall" mod-clickable @click="filters = []"
+      <vl-pill
+        data-cy="clear-filter-button"
+        class="vl-u-spacer-left--xsmall vl-u-spacer-bottom--xsmall"
+        mod-clickable
+        @click="filters = []"
         >Alle filters wissen</vl-pill
       >
       <vl-pill
         v-for="filter in filters"
         :key="filter.key"
+        :data-cy="`filter-${filter.key}-${filter.value.value}`"
         mod-closable
         class="vl-u-spacer-left--xsmall vl-u-spacer-bottom--xsmall"
         @close="removeFilter(filter)"
@@ -96,8 +111,6 @@ const addFilter = () => {
     filters.value.push(filter);
     clearInputs();
   }
-
-  emit('filters-selected', filters.value);
 };
 const removeFilter = (filter: IFilter) =>
   remove(filters.value, (f) => f.key === filter.key && filter.value.value === f.value.value);
