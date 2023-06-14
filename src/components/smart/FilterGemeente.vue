@@ -14,8 +14,8 @@
     </template>
     <template #noOptions>
       <span>Geen opties beschikbaar</span>
-    </template></vl-multiselect
-  >
+    </template>
+  </vl-multiselect>
 </template>
 
 <script setup lang="ts">
