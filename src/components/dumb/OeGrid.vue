@@ -12,6 +12,16 @@ import { AgGridVue } from 'ag-grid-vue3';
 @import 'pyoes/scss/pyoes-settings';
 
 .ag-grid-vue {
+  &.ag-theme-balham {
+    -webkit-font-smoothing: antialiased;
+    background-color: #fff;
+    color: #333;
+    font-family: 'Flanders Art Sans', Arial, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: normal;
+  }
+
   .ag-overlay-wrapper {
     background-color: aliceblue;
 
@@ -31,7 +41,6 @@ import { AgGridVue } from 'ag-grid-vue3';
       .ag-header-cell-label {
         height: inherit;
         width: inherit;
-        font-weight: 700;
         color: #333;
       }
 
@@ -75,6 +84,9 @@ import { AgGridVue } from 'ag-grid-vue3';
 
     .ag-cell-focus {
       outline: none;
+      &:focus-within {
+        border-color: $primary-color;
+      }
     }
 
     .ag-cell .cell-checkbox {
