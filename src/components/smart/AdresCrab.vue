@@ -654,9 +654,6 @@ const resetFreeTextState = () => {
 
 <style lang="scss" scoped>
 .adres-crab {
-  .vl-u-spacer-right--xxsmall {
-    margin-right: 0.5rem;
-  }
   .vl-properties__label {
     max-width: 100%;
   }
