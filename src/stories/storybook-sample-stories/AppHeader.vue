@@ -25,8 +25,8 @@
 </template>
 
 <script lang="ts" setup>
-import './header.css';
 import AppButton from './AppButton.vue';
+import './header.css';
 
 defineProps<{ user: { name: string } | null }>();
 

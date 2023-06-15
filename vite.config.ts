@@ -1,3 +1,4 @@
+import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import vue from '@vitejs/plugin-vue';
 import { resolve } from 'path';
 import copy from 'rollup-plugin-copy';
@@ -6,14 +7,22 @@ import { defineConfig } from 'vite';
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
+    target: 'esnext',
     lib: {
-      entry: resolve(__dirname, 'src/components/index.ts'),
+      entry: resolve(__dirname, 'src/main.ts'),
       name: 'VueComponents',
-      fileName: `vue-components`,
+      formats: ['es', 'cjs', 'umd'],
+      fileName: (format) => `vue-components.${format}.js`,
     },
+    sourcemap: true,
     rollupOptions: {
       external: ['vue'],
       output: {
+        exports: 'named',
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name === 'style.css') return 'vue-components.css';
+          return assetInfo.name as string;
+        },
         // Provide global variables to use in the UMD build
         // Add external deps here
         globals: {
@@ -22,17 +31,17 @@ export default defineConfig({
       },
     },
   },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@import "@/scss/main.scss";`,
-      },
-    },
-  },
   plugins: [
     vue(),
+    VueI18nPlugin({
+      include: resolve(__dirname, './src/utils/i18n.json'),
+    }),
     copy({
-      targets: [{ src: 'src/scss', dest: 'dist/style' }],
+      targets: [
+        { src: 'src/scss/*', dest: 'dist/scss' },
+        { src: 'src/assets/*', dest: 'dist/assets' },
+      ],
+      hook: 'writeBundle',
     }),
   ],
   resolve: {
@@ -42,6 +51,8 @@ export default defineConfig({
       '@components': resolve(__dirname, './src/components'),
       '@services': resolve(__dirname, './src/services'),
       '@models': resolve(__dirname, './src/models'),
+      '@utils': resolve(__dirname, './src/utils'),
+      vue: 'vue/dist/vue.esm-bundler.js',
     },
   },
 });

@@ -15,7 +15,9 @@
   "rules": {
     // code quality and code style rules:
     "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-namespace": "off",
     "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
+    "@typescript-eslint/no-empty-function": "off",
     // to avoid conflicts, code formatting rules should go in .prettierrc!
     "prettier/prettier": "error"
   },

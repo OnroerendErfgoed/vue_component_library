@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
 import AppHeader from './AppHeader.vue';
+import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof AppHeader> = {
   /* 👇 The title prop is optional.
    * See https://storybook.js.org/docs/vue/configure/overview#configure-story-loading
    * to learn how to generate automatic titles
    */
-  title: 'Example/Header',
+  title: 'Example stories/Header',
   component: AppHeader,
   render: (args) => ({
     components: { AppHeader },
