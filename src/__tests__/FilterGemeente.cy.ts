@@ -12,7 +12,8 @@ describe('FilterGemeente', () => {
         const setValue = (value: IGemeente) => (gemeenteValue.value = value);
         return { gemeenteValue, setValue };
       },
-      template: '<filter-gemeente :value="gemeenteValue" @update:value="setValue"/>',
+      template:
+        '<filter-gemeente api="https://dev-geo.onroerenderfgoed.be/" :value="gemeenteValue" @update:value="setValue"/>',
     });
 
     it('fetch gemeenten, filter and assign the chosen filter to the corresponding data value', () => {

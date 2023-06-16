@@ -19,7 +19,8 @@ describe('FilterRadio', () => {
       ];
       return { radioValue, options };
     },
-    template: '<filter-radio :options="options" :value="radioValue" @update:value="$event => radioValue=$event"/>',
+    template:
+      '<filter-radio id="cy-test" :options="options" :value="radioValue" @update:value="$event => radioValue=$event"/>',
   });
 
   it('renders a radio for each option', () => {
@@ -37,15 +38,15 @@ describe('FilterRadio', () => {
   it('accepts a value prop', () => {
     cy.mount(TestComponent).then(({ component }) => {
       component.radioValue = 'ja';
-      cy.dataCy('filter-radio').find('#radio-ja').should('be.checked');
-      cy.dataCy('filter-radio').find('#radio-nee').should('not.be.checked');
+      cy.dataCy('filter-radio').find('#radio-cy-test-ja').should('be.checked');
+      cy.dataCy('filter-radio').find('#radio-cy-test-nee').should('not.be.checked');
     });
   });
 
   it('emits an update:value event', () => {
     cy.mount(TestComponent).then(({ component }) => {
       cy.dataCy('filter-radio')
-        .find('#radio-ja')
+        .find('#radio-cy-test-ja')
         .click({ force: true })
         .then(() => {
           expect(component.radioValue).to.equal('ja');
