@@ -2,9 +2,9 @@
   <div data-cy="filter-radio" class="radio-select">
     <vl-radio
       v-for="option in options"
-      :id="`radio-${option.value}`"
+      :id="`radio-${props.id}-${option.value}`"
       :key="option.value"
-      :name="`radio-${option.value}`"
+      :name="`radio-${props.id}-${option.value}`"
       :model-value="props.value"
       :value="option.value"
       @update:model-value="updateValue"
@@ -19,6 +19,7 @@ import { VlRadio } from '@govflanders/vl-ui-design-system-vue3';
 import type { IFilterInputRadioProps } from '@models/filter-input';
 
 const props = withDefaults(defineProps<IFilterInputRadioProps>(), {
+  id: '',
   value: '',
   options: () => [],
 });

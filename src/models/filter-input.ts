@@ -33,12 +33,13 @@ export interface IFilterDatepickerProps {
 }
 
 export interface IFilterInputRadioProps {
+  id: string;
   value?: string;
   options?: IOption[];
 }
 
 export interface IFilterGemeenteProps {
-  api?: string;
+  api: string;
   value?: IGemeente;
 }
 

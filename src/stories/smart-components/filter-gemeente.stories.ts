@@ -33,7 +33,7 @@ const meta: Meta<typeof FilterGemeente> = {
       description: 'Api base url',
       table: {
         type: { summary: 'string' },
-        defaultValue: { summary: 'https://dev-geo.onroerenderfgoed.be/' },
+        defaultValue: { summary: '' },
       },
     },
     'update:value': {
@@ -48,4 +48,8 @@ const meta: Meta<typeof FilterGemeente> = {
 export default meta;
 type Story = StoryObj<typeof FilterGemeente>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  args: {
+    api: 'https://dev-geo.onroerenderfgoed.be/',
+  },
+};

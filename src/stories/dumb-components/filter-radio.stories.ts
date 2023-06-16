@@ -17,6 +17,13 @@ const meta: Meta<typeof FilterRadio> = {
   },
   tags: ['autodocs'],
   argTypes: {
+    id: {
+      control: 'text',
+      description: 'Unique id',
+      table: {
+        type: { summary: 'string' },
+      },
+    },
     value: {
       control: 'text',
       description: 'Current value',
@@ -47,6 +54,7 @@ type Story = StoryObj<typeof FilterRadio>;
 
 export const Default: Story = {
   args: {
+    id: 'my-id',
     options: [
       {
         label: 'Ja',

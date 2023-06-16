@@ -27,7 +27,7 @@ import { CrabService } from '@services/crab.api-service';
 import { ref, onBeforeMount } from 'vue';
 
 const props = withDefaults(defineProps<IFilterGemeenteProps>(), {
-  api: 'https://dev-geo.onroerenderfgoed.be/',
+  api: '',
   value: undefined,
 });
 const emit = defineEmits(['update:value']);
