@@ -30,6 +30,7 @@ export interface IFilterSelectProps {
 
 export interface IFilterDatepickerProps {
   value?: string[];
+  apiFormat?: string;
 }
 
 export interface IFilterInputRadioProps {
