@@ -61,6 +61,8 @@ const close = (item: ITab) => {
   overflow-y: hidden;
 
   &__content {
+    display: flex;
+    padding: 0.9375rem;
     height: 100%;
     overflow-y: auto;
   }
