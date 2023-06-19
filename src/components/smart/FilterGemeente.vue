@@ -6,7 +6,7 @@
     :mod-multiple="false"
     :options="gemeenten"
     :preserve-search="true"
-    :value="props.value"
+    :value="gemeenteValue"
     @update:value="updateValue"
     @keydown.tab="!props.value ? $event.preventDefault() : null"
   >
@@ -24,13 +24,17 @@ import { VlMultiselect } from '@govflanders/vl-ui-design-system-vue3';
 import type { IFilterGemeenteProps } from '@models/index';
 import type { IGemeente } from '@models/locatie';
 import { CrabService } from '@services/crab.api-service';
-import { ref, onBeforeMount } from 'vue';
+import { ref, onBeforeMount, computed } from 'vue';
 
 const props = withDefaults(defineProps<IFilterGemeenteProps>(), {
   api: '',
   value: undefined,
 });
 const emit = defineEmits(['update:value']);
+
+const gemeenteValue = computed(() => {
+  return gemeenten.value.length ? gemeenten.value.find((g) => g.niscode === props.value) : undefined;
+});
 const updateValue = (value: IGemeente) => emit('update:value', value);
 
 const crabService = new CrabService(props.api);

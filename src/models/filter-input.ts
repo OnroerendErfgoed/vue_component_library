@@ -41,7 +41,7 @@ export interface IFilterInputRadioProps {
 
 export interface IFilterGemeenteProps {
   api: string;
-  value?: IGemeente;
+  value?: string;
 }
 
 export interface IOption {
