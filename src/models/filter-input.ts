@@ -35,7 +35,7 @@ export interface IFilterDatepickerProps {
 
 export interface IFilterInputRadioProps {
   id: string;
-  value?: string;
+  value?: string | boolean | number;
   options?: IOption[];
 }
 
@@ -45,6 +45,6 @@ export interface IFilterGemeenteProps {
 }
 
 export interface IOption {
-  value: string;
+  value: string | boolean | number;
   label: string;
 }
