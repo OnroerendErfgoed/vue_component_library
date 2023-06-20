@@ -47,6 +47,11 @@
     "chromatic": "npx chromatic --project-token=CHROMATIC_PROJECT_TOKEN"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/free-brands-svg-icons": "^6.4.0",
+    "@fortawesome/free-regular-svg-icons": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/vue-fontawesome": "^3.0.3",
     "@govflanders/vl-ui-design-system-style": "^1.0.0-alpha.3",
     "@govflanders/vl-ui-design-system-vue3": "^1.0.0-alpha.3",
     "@vuelidate/core": "^2.0.2",

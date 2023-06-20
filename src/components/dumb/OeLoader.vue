@@ -8,6 +8,10 @@
   </div>
 </template>
 
+<script setup lang="ts">
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+</script>
+
 <style lang="scss" scoped>
 .spinner-container div {
   z-index: 1001;
