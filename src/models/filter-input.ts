@@ -49,6 +49,11 @@ export interface IFilterProvincieProps {
   value?: string;
 }
 
+export interface IFilterAanduidingsobjectProps {
+  api: string;
+  value?: string;
+}
+
 export interface IOption {
   value: string | boolean | number;
   label: string;

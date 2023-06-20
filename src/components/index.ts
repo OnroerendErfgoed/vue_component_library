@@ -1,3 +1,4 @@
+import FilterAanduidingsobject from './smart/FilterAanduidingsobject.vue';
 import FilterDatepicker from './dumb/FilterDatepicker.vue';
 import FilterInput from './dumb/FilterInput.vue';
 import FilterRadio from './dumb/FilterRadio.vue';
@@ -15,6 +16,7 @@ import FilterProvincie from './smart/FilterProvincie.vue';
 
 export {
   AdresCrab,
+  FilterAanduidingsobject,
   FilterDatepicker,
   FilterGemeente,
   FilterProvincie,
