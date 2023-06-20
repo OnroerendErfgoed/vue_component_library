@@ -11,11 +11,13 @@ import OeLoader from './dumb/OeLoader.vue';
 import SystemFields from './dumb/SystemFields.vue';
 import AdresCrab from './smart/AdresCrab.vue';
 import FilterGemeente from './smart/FilterGemeente.vue';
+import FilterProvincie from './smart/FilterProvincie.vue';
 
 export {
   AdresCrab,
   FilterDatepicker,
   FilterGemeente,
+  FilterProvincie,
   FilterInput,
   FilterRadio,
   FilterSelect,

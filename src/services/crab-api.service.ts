@@ -1,4 +1,4 @@
-import type { IAdres, IGemeente, IGewest, ILand, IPostinfo, IStraat } from '@models/locatie';
+import type { IAdres, IGemeente, IGewest, ILand, IPostinfo, IProvincie, IStraat } from '@models/locatie';
 import { Niscode } from '@models/niscode.enum';
 import axios from 'axios';
 import { sortBy } from 'lodash';
@@ -7,7 +7,7 @@ export class CrabService {
   private API_URL: string;
 
   private landen: ILand[] = [];
-
+  private provincies: IProvincie[] = [];
   private gemeenten: IGemeente[] = [];
 
   private gemeentenVlaamsGewest: IGemeente[] = [];
@@ -31,6 +31,27 @@ export class CrabService {
         return this.landen;
       });
     }
+  }
+
+  getProvincies(): Promise<IProvincie[]> {
+    if (this.provincies?.length > 0) {
+      return Promise.resolve(this.provincies);
+    } else {
+      return Promise.all([
+        this.getProvinciesPerGewest(Niscode.VlaamsGewest),
+        this.getProvinciesPerGewest(Niscode.WaalsGewest),
+      ]).then((provincies) => {
+        if (provincies[0] && provincies[1]) {
+          this.provincies = this.provincies.concat(provincies[0], provincies[1]);
+          return sortBy(this.provincies, 'naam');
+        }
+        return [];
+      });
+    }
+  }
+
+  getProvinciesPerGewest(niscode: Niscode): Promise<IProvincie[]> {
+    return this.crabGet<IProvincie[]>(`adressenregister/gewesten/${niscode}/provincies`);
   }
 
   get vlaamseGemeenten(): IGemeente[] {

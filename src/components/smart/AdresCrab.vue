@@ -311,7 +311,7 @@ import {
 } from '@govflanders/vl-ui-design-system-vue3';
 import type { IAdresCrabProps } from '@models/adres-crab';
 import type { IAdres, IGemeente, ILand, ILocatieAdres, IPostinfo, IStraat } from '@models/locatie';
-import { CrabService } from '@services/crab.api-service';
+import { CrabService } from '@services/crab-api.service';
 import { requiredIf } from '@utils/i18n-validators';
 import { useVuelidate } from '@vuelidate/core';
 import { helpers } from '@vuelidate/validators';

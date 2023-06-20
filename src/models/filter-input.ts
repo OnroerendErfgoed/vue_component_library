@@ -44,6 +44,11 @@ export interface IFilterGemeenteProps {
   value?: string;
 }
 
+export interface IFilterProvincieProps {
+  api: string;
+  value?: string;
+}
+
 export interface IOption {
   value: string | boolean | number;
   label: string;
