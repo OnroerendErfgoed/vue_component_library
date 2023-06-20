@@ -23,7 +23,7 @@
 import { VlMultiselect } from '@govflanders/vl-ui-design-system-vue3';
 import type { IFilterProvincieProps } from '@models/index';
 import type { IProvincie } from '@models/locatie';
-import { CrabService } from '@services/crab-api.service';
+import { CrabApiService } from '@services/crab-api.service';
 import { ref, onBeforeMount, computed } from 'vue';
 
 const props = withDefaults(defineProps<IFilterProvincieProps>(), {
@@ -37,11 +37,11 @@ const provincieValue = computed(() => {
 });
 const updateValue = (value: IProvincie) => emit('update:value', value);
 
-const crabService = new CrabService(props.api);
+const crabApiService = new CrabApiService(props.api);
 const provincies = ref<IProvincie[]>([]);
 const customProvincieLabel = (option: IProvincie) => option.naam;
 
 onBeforeMount(async () => {
-  provincies.value = await crabService.getProvincies();
+  provincies.value = await crabApiService.getProvincies();
 });
 </script>

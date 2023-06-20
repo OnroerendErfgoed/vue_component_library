@@ -23,7 +23,7 @@
 import { VlMultiselect } from '@govflanders/vl-ui-design-system-vue3';
 import type { IFilterGemeenteProps } from '@models/index';
 import type { IGemeente } from '@models/locatie';
-import { CrabService } from '@services/crab-api.service';
+import { CrabApiService } from '@services/crab-api.service';
 import { ref, onBeforeMount, computed } from 'vue';
 
 const props = withDefaults(defineProps<IFilterGemeenteProps>(), {
@@ -37,11 +37,11 @@ const gemeenteValue = computed(() => {
 });
 const updateValue = (value: IGemeente) => emit('update:value', value);
 
-const crabService = new CrabService(props.api);
+const crabApiService = new CrabApiService(props.api);
 const gemeenten = ref<IGemeente[]>([]);
 const customGemeenteLabel = (option: IGemeente) => option.naam;
 
 onBeforeMount(async () => {
-  gemeenten.value = await crabService.getGemeenten();
+  gemeenten.value = await crabApiService.getGemeenten();
 });
 </script>

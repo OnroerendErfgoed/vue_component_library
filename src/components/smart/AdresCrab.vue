@@ -311,7 +311,7 @@ import {
 } from '@govflanders/vl-ui-design-system-vue3';
 import type { IAdresCrabProps } from '@models/adres-crab';
 import type { IAdres, IGemeente, ILand, ILocatieAdres, IPostinfo, IStraat } from '@models/locatie';
-import { CrabService } from '@services/crab-api.service';
+import { CrabApiService } from '@services/crab-api.service';
 import { requiredIf } from '@utils/i18n-validators';
 import { useVuelidate } from '@vuelidate/core';
 import { helpers } from '@vuelidate/validators';
@@ -362,7 +362,7 @@ const isBelgiumOrEmpty = computed(() => {
 const isBelgium = computed(() => (land.value as ILand)?.code === 'BE');
 const isVlaamseGemeente = computed(() => {
   if (isBelgium.value && gemeente.value && !!gemeenten.value.length) {
-    return crabService.vlaamseGemeenten.some((g) => g.niscode === (gemeente.value as unknown as IGemeente).niscode);
+    return crabApiService.vlaamseGemeenten.some((g) => g.niscode === (gemeente.value as unknown as IGemeente).niscode);
   }
   return false;
 });
@@ -485,7 +485,7 @@ const rules = computed(() => ({
 const v$ = useVuelidate(rules, adres, { $lazy: true });
 
 // Reference data
-const crabService = new CrabService(props.api);
+const crabApiService = new CrabApiService(props.api);
 const staticLanden: ILand[] = [
   { code: 'BE', naam: 'België' },
   { code: 'DE', naam: 'Duitsland' },
@@ -495,7 +495,7 @@ const staticLanden: ILand[] = [
   { code: 'LU', naam: 'Luxemburg' },
   { code: 'divider', naam: '─────────────────────────' },
 ];
-const apiLanden: ILand[] = await crabService.getLanden();
+const apiLanden: ILand[] = await crabApiService.getLanden();
 const landen = computed<ILand[]>(() => [...staticLanden, ...apiLanden]);
 const gemeenten = ref<IGemeente[]>([]);
 const postinfo = ref<IPostinfo[]>([]);
@@ -548,7 +548,7 @@ watch(
 watch(
   () => props.api,
   (current) => {
-    crabService.setApiUrl(current);
+    crabApiService.setApiUrl(current);
   }
 );
 
@@ -559,7 +559,7 @@ watch(land, async (selectedLand, oldValue) => {
   }
   if (isBelgium.value) {
     resetFreeTextState();
-    gemeenten.value = await crabService.getGemeenten();
+    gemeenten.value = await crabApiService.getGemeenten();
   }
 });
 
@@ -574,8 +574,8 @@ watch(gemeente, async (selectedGemeente, oldValue) => {
     resetFreeTextState();
 
     try {
-      postinfo.value = await crabService.getPostinfo((selectedGemeente as IGemeente).naam);
-      straten.value = sortBy(await crabService.getStraten((selectedGemeente as IGemeente).niscode), 'naam');
+      postinfo.value = await crabApiService.getPostinfo((selectedGemeente as IGemeente).naam);
+      straten.value = sortBy(await crabApiService.getStraten((selectedGemeente as IGemeente).niscode), 'naam');
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
         const knownError = error as AxiosError;
@@ -604,7 +604,7 @@ watch(straat, async (selectedStraat, oldValue) => {
 
     try {
       huisnummers.value = uniqBy(
-        sortBy(await crabService.getAdressen((selectedStraat as IStraat).id), (s) => parseInt(s.huisnummer, 0)),
+        sortBy(await crabApiService.getAdressen((selectedStraat as IStraat).id), (s) => parseInt(s.huisnummer, 0)),
         'huisnummer'
       );
     } catch (error: unknown) {
@@ -632,7 +632,7 @@ watch(huisnummer, async (selectedHuisnummer, oldValue) => {
 
   if (adres.value.straat && isBelgiumOrEmpty.value && selectedHuisnummer && !huisnummerFreeText.value) {
     busnummers.value = sortBy(
-      await crabService.getAdressen(adres.value.straat.id as string, (selectedHuisnummer as IAdres).huisnummer),
+      await crabApiService.getAdressen(adres.value.straat.id as string, (selectedHuisnummer as IAdres).huisnummer),
       'busnummer'
     ).filter((v) => !!v.busnummer);
 

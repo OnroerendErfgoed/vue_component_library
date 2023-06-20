@@ -3,7 +3,7 @@ import { Niscode } from '@models/niscode.enum';
 import axios from 'axios';
 import { sortBy } from 'lodash';
 
-export class CrabService {
+export class CrabApiService {
   private API_URL: string;
 
   private landen: ILand[] = [];
