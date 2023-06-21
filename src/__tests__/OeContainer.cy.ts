@@ -1,7 +1,6 @@
 /* eslint-disable vue/one-component-per-file */
 import { OeContainer } from '@components/index';
 import type { ITab } from '@models/container';
-import { last, remove } from 'lodash';
 import { defineComponent, ref } from 'vue';
 
 describe('Container', () => {
