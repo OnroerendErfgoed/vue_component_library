@@ -44,13 +44,23 @@ describe('FilterRadio', () => {
   });
 
   it('emits an update:value event', () => {
-    cy.mount(TestComponent).then(({ component }) => {
+    const onUpdateValueSpy = cy.spy().as('onUpdateValueSpy');
+
+    cy.mount(TestComponent, { props: { 'onUpdate:value': onUpdateValueSpy } }).then(({ component }) => {
       cy.dataCy('filter-radio')
         .find('#radio-cy-test-ja')
         .click({ force: true })
         .then(() => {
-          expect(component.radioValue).to.equal('ja');
+          expect(component.radioValue).to.deep.equal({
+            label: 'Ja',
+            value: 'ja',
+          });
         });
+
+      cy.get('@onUpdateValueSpy').should('always.have.been.calledWith', {
+        label: 'Ja',
+        value: 'ja',
+      });
     });
   });
 });
