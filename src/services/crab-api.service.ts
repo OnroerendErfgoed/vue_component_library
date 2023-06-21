@@ -1,7 +1,7 @@
 import type { IAdres, IGemeente, IGewest, ILand, IPostinfo, IProvincie, IStraat } from '@models/locatie';
 import { Niscode } from '@models/niscode.enum';
-import axios from 'axios';
 import { sortBy } from 'lodash';
+import { axiosInstance } from './http.service';
 
 export class CrabApiService {
   private API_URL: string;
@@ -127,6 +127,6 @@ export class CrabApiService {
   }
 
   private async crabGet<T>(endpoint: string): Promise<T> {
-    return (await axios.get(`${this.API_URL.replace(/\/?$/, '/')}${endpoint.replace(/^\/?/, '')}`)).data;
+    return (await axiosInstance.get(`${this.API_URL.replace(/\/?$/, '/')}${endpoint.replace(/^\/?/, '')}`)).data;
   }
 }

@@ -1,16 +1,11 @@
-import axios, { type AxiosInstance } from 'axios';
 import type { IAanduidingsobject } from '@models/inventaris';
+import { axiosInstance } from './http.service';
 
 export class InventarisApiService {
-  private axionsInstance: AxiosInstance;
   private API_URL: string;
 
   constructor(apiUrl: string) {
     this.API_URL = apiUrl;
-
-    this.axionsInstance = axios.create({
-      headers: { Accept: 'application/json' },
-    });
   }
 
   setApiUrl(apiUrl: string) {
@@ -30,6 +25,6 @@ export class InventarisApiService {
   }
 
   private async get<T>(endpoint: string): Promise<T> {
-    return (await this.axionsInstance.get(`${this.API_URL.replace(/\/?$/, '/')}${endpoint.replace(/^\/?/, '')}`)).data;
+    return (await axiosInstance.get(`${this.API_URL.replace(/\/?$/, '/')}${endpoint.replace(/^\/?/, '')}`)).data;
   }
 }
