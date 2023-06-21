@@ -1,5 +1,5 @@
 {
-  "name": "@OnroerendErfgoed/vue_component_library",
+  "name": "@onroerend-erfgoed/vue_component_library",
   "type": "module",
   "files": [
     "dist"
