@@ -1,5 +1,5 @@
 {
-  "name": "@onroerend-erfgoed/vue_component_library",
+  "name": "@OnroerendErfgoed/vue_component_library",
   "type": "module",
   "files": [
     "dist"
@@ -7,7 +7,7 @@
   "main": "./dist/vue-components.umd.js",
   "module": "./dist/vue-components.es.js",
   "typings": "./dist/src/main.d.ts",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "exports": {
     ".": {
       "import": "./dist/vue-components.es.js",
