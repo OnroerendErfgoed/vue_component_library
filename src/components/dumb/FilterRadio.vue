@@ -4,7 +4,7 @@
       v-for="option in options"
       :id="`radio-${props.id}-${option.value}`"
       :key="option.value"
-      :name="`radio-${props.id}-${option.value}`"
+      :name="`radio-${props.id}`"
       :model-value="props.value"
       :value="option.value"
       @update:model-value="updateValue(option)"
