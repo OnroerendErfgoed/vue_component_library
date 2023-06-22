@@ -13,7 +13,7 @@ export class InventarisApiService {
   }
 
   async getAanduidingsobjecten(): Promise<IAanduidingsobject[]> {
-    const data: IAanduidingsobject[] = await this.get('aanduidingsobjecten');
+    const data: IAanduidingsobject[] = await this.get<IAanduidingsobject[]>('aanduidingsobjecten');
     const response = data.map((aanduidingsobject: IAanduidingsobject) => {
       return {
         ...aanduidingsobject,

@@ -139,11 +139,4 @@ import { AgGridVue } from 'ag-grid-vue3';
     }
   }
 }
-
-// $foreground-color: $jet;
-// $header-foreground-color: $jet;
-// $icon-color: $jet;
-// // $font-family: $font-family-sans-serif;
-// // $font-size: 0.875rem;
-// $row-border-width: 0;
 </style>
