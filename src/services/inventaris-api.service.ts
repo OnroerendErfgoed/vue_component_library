@@ -12,8 +12,8 @@ export class InventarisApiService {
     this.API_URL = apiUrl;
   }
 
-  async getAanduidingsobjecten(): Promise<IESAanduidingsobject[]> {
-    const data: IESAanduidingsobject[] = await this.get<IESAanduidingsobject[]>('aanduidingsobjecten');
+  async getAanduidingsobjecten(searchTerm: string): Promise<IESAanduidingsobject[]> {
+    const data: IESAanduidingsobject[] = await this.get<IESAanduidingsobject[]>(`aanduidingsobjecten?tekst=${searchTerm}`);
     return data.map((aanduidingsobject: IESAanduidingsobject) => new ESAanduidingsobject(aanduidingsobject).toJSON());
   }
 

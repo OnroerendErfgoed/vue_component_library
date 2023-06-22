@@ -5,6 +5,7 @@ import FilterRadio from '../../components/dumb/FilterRadio.vue';
 import FilterSelect from '../../components/dumb/FilterSelect.vue';
 import FilterText from '../../components/dumb/FilterText.vue';
 import FilterGemeente from '../../components/smart/FilterGemeente.vue';
+import FilterAanduidingsobject from '../../components/smart/FilterAanduidingsobject.vue';
 
 import '@/scss/main.scss';
 import { type IFilterOption, type IOption } from '../../models/filter-input';
@@ -66,6 +67,7 @@ export const Default: Story = {
       FilterGemeente,
       FilterRadio,
       FilterSelect,
+      FilterAanduidingsobject,
     },
     setup() {
       const filterOptions: IFilterOption[] = [
@@ -104,6 +106,10 @@ export const Default: Story = {
         {
           label: 'Status',
           key: 'status',
+        },
+        {
+          label: 'Aanduidingsobject',
+          key: 'aanduidingsobject',
         },
       ];
       const statusOptions: IOption[] = [
@@ -146,7 +152,14 @@ export const Default: Story = {
         </optgroup>
       </filter-select>
       <filter-select v-if="selectedOption.key === 'status'" :options="statusOptions" placeholder="Status" :value="value" @update:value="setValue($event, $event)"></filter-select>
-    </filter-input>
+      <filter-aanduidingsobject
+          id="test"
+          v-if="selectedOption.key === 'aanduidingsobject'"
+          :value="value"
+          api="https://dev-inventaris.onroerenderfgoed.be/"
+          @update:value="setValue($event.value, $event.title)"
+        ></filter-aanduidingsobject>
+      </filter-input>
     `,
   }),
 };

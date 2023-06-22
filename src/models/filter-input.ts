@@ -50,7 +50,9 @@ export interface IFilterProvincieProps {
 }
 
 export interface IFilterAanduidingsobjectProps {
+  id: string;
   api: string;
+  autoselect: boolean;
   value?: string;
 }
 

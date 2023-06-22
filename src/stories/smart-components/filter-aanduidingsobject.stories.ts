@@ -25,7 +25,6 @@ const meta: Meta<typeof FilterAanduidingsobject> = {
       description: 'Current uri',
       table: {
         type: { summary: 'string' },
-        defaultValue: { summary: '' },
       },
     },
     api: {
@@ -33,7 +32,13 @@ const meta: Meta<typeof FilterAanduidingsobject> = {
       description: 'Api base url',
       table: {
         type: { summary: 'string' },
-        defaultValue: { summary: '' },
+      },
+    },
+    placeholder: {
+      control: 'text',
+      description: 'Input placeholder',
+      table: {
+        type: { summary: 'string' },
       },
     },
     'update:value': {
@@ -51,5 +56,7 @@ type Story = StoryObj<typeof FilterAanduidingsobject>;
 export const Default: Story = {
   args: {
     api: 'https://dev-inventaris.onroerenderfgoed.be/',
+    id: 'my-id',
+    placeholder: 'Placeholder',
   },
 };

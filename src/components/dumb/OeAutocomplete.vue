@@ -43,7 +43,7 @@ const props = withDefaults(defineProps<IAutocompleteProps>(), {
   id: 'id',
   autoselect: false,
   minChars: 3,
-  placeholder: '',
+  placeholder: 'Type om te zoeken...',
   callbackFn: () => Promise.resolve([]),
 });
 const emit = defineEmits(['update:value']);
