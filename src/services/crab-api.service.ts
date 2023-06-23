@@ -33,20 +33,16 @@ export class CrabApiService {
     }
   }
 
-  getProvincies(): Promise<IProvincie[]> {
+  async getProvincies(): Promise<IProvincie[]> {
     if (this.provincies?.length > 0) {
       return Promise.resolve(this.provincies);
     } else {
-      return Promise.all([
-        this.getProvinciesPerGewest(Niscode.VlaamsGewest),
-        this.getProvinciesPerGewest(Niscode.WaalsGewest),
-      ]).then((provincies) => {
-        if (provincies[0] && provincies[1]) {
-          this.provincies = this.provincies.concat(provincies[0], provincies[1]);
-          return sortBy(this.provincies, 'naam');
-        }
-        return [];
-      });
+      const provinciesVlaamsGewest = await this.getProvinciesPerGewest(Niscode.VlaamsGewest);
+      const provinciesWaalsGewest = await this.getProvinciesPerGewest(Niscode.WaalsGewest);
+
+      this.provincies = this.provincies.concat(provinciesVlaamsGewest, provinciesWaalsGewest);
+
+      return sortBy(this.provincies, 'naam');
     }
   }
 

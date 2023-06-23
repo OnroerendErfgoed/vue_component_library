@@ -1,4 +1,3 @@
-/* eslint-disable vue/one-component-per-file */
 import { defineComponent, ref } from 'vue';
 import FilterGemeente from '../components/smart/FilterGemeente.vue';
 import type { IGemeente } from '@models/locatie';
@@ -17,8 +16,10 @@ describe('FilterGemeente', () => {
     });
 
     it('fetch gemeenten, filter and assign the chosen filter to the corresponding data value', () => {
-      cy.mount(TestComponent).then(({ component }) => {
-        cy.intercept({ method: 'GET', url: 'https://dev-geo.onroerenderfgoed.be/**' }).as('dataGet');
+      const onUpdateValueSpy = cy.spy().as('onUpdateValueSpy');
+      cy.intercept({ method: 'GET', url: 'https://dev-geo.onroerenderfgoed.be/**' }).as('dataGet');
+
+      cy.mount(TestComponent, { props: { 'onUpdate:value': onUpdateValueSpy } }).then(({ component }) => {
         cy.wait('@dataGet').then(() => {
           cy.dataCy('filter-gemeente').click().find('.multiselect__input').type('Bertem');
           cy.dataCy('filter-gemeente')
@@ -33,6 +34,14 @@ describe('FilterGemeente', () => {
                 },
               });
             });
+
+          cy.get('@onUpdateValueSpy').should('always.have.been.calledWith', {
+            niscode: '24009',
+            naam: 'Bertem',
+            provincie: {
+              niscode: '20001',
+            },
+          });
         });
       });
     });

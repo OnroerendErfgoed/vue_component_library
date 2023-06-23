@@ -14,8 +14,8 @@ import { AgGridVue } from 'ag-grid-vue3';
 .ag-grid-vue {
   &.ag-theme-balham {
     -webkit-font-smoothing: antialiased;
-    background-color: #fff;
-    color: #333;
+    background-color: $white;
+    color: $jet;
     font-family: 'Flanders Art Sans', Arial, sans-serif;
     font-weight: 400;
     font-size: 14px;
@@ -41,7 +41,7 @@ import { AgGridVue } from 'ag-grid-vue3';
       .ag-header-cell-label {
         height: inherit;
         width: inherit;
-        color: #333;
+        color: $jet;
       }
 
       .ag-header-cell-sortable {
@@ -128,11 +128,11 @@ import { AgGridVue } from 'ag-grid-vue3';
         justify-content: center;
 
         i.fa.fa-check {
-          color: green;
+          color: $success-color;
           cursor: default;
         }
         i.fa.fa-times {
-          color: #960000;
+          color: $alert-color;
           cursor: default;
         }
       }
