@@ -1,4 +1,4 @@
-import type { IAanduidingsobject } from '@models/inventaris';
+import type { IAanduidingsobject } from '@models/aanduidingsobject';
 import { axiosInstance } from './http.service';
 
 export class InventarisApiService {
@@ -12,16 +12,14 @@ export class InventarisApiService {
     this.API_URL = apiUrl;
   }
 
-  async getAanduidingsobjecten(): Promise<IAanduidingsobject[]> {
+  async getAanduidingsobjecten(): Promise<Partial<IAanduidingsobject>[]> {
     const data: IAanduidingsobject[] = await this.get<IAanduidingsobject[]>('aanduidingsobjecten');
-    const response = data.map((aanduidingsobject: IAanduidingsobject) => {
+    return data.map((aanduidingsobject: IAanduidingsobject) => {
       return {
-        ...aanduidingsobject,
+        uri: aanduidingsobject.uri,
         aanduidingsobjectLabel: aanduidingsobject.naam + ' (id: ' + aanduidingsobject.id + ')',
       };
     });
-
-    return Promise.resolve(response);
   }
 
   private async get<T>(endpoint: string): Promise<T> {
