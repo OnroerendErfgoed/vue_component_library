@@ -11,8 +11,14 @@
     <div v-if="showResults && searchTerm?.length >= props.minChars" class="vl-autocomplete">
       <div class="vl-autocomplete__list-wrapper">
         <div class="vl-autocomplete__list">
+          <template v-if="loading">
+            <li class="vl-autocomplete__cta">
+              <span class="vl-autocomplete__cta__title">Resultaten worden opgehaald...</span>
+            </li>
+          </template>
           <li
             v-for="option in options"
+            v-else
             :key="option.value"
             tabindex="0"
             class="vl-autocomplete__cta"
@@ -22,7 +28,7 @@
             <span class="vl-autocomplete__cta__title">{{ option.title }}</span>
             <span v-if="option.subtitle" class="vl-autocomplete__cta__sub">{{ option.subtitle }}</span>
           </li>
-          <li v-if="options.length === 0" class="vl-autocomplete__cta">
+          <li v-if="options.length === 0 && !loading" class="vl-autocomplete__cta">
             <span class="vl-autocomplete__cta__title">Geen resultaten gevonden</span>
             <span class="vl-autocomplete__cta__sub">Doe een nieuwe zoekopdracht</span>
           </li>
@@ -44,7 +50,7 @@ const props = withDefaults(defineProps<IAutocompleteProps>(), {
   autoselect: false,
   minChars: 3,
   placeholder: 'Type om te zoeken...',
-  callbackFn: () => Promise.resolve([]),
+  callbackFn: (searchTerm: string) => Promise.resolve([{ title: searchTerm }]),
 });
 const emit = defineEmits(['update:value']);
 

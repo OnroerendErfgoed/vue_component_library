@@ -1,6 +1,6 @@
 export interface IAutocompleteProps {
   value: IAutocompleteOption;
-  id: string;
+  id?: string;
   minChars?: number;
   autoselect?: boolean;
   placeholder?: string;
