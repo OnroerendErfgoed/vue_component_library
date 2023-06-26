@@ -544,14 +544,6 @@ watch(
   }
 );
 
-// Api changes
-watch(
-  () => props.api,
-  (current) => {
-    crabApiService.setApiUrl(current);
-  }
-);
-
 // Land side-effects
 watch(land, async (selectedLand, oldValue) => {
   if (oldValue) {

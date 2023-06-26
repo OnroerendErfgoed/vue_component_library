@@ -1,25 +1,19 @@
 import { ESAanduidingsobject, type IESAanduidingsobject } from '@models/aanduidingsobject';
-import { axiosInstance } from './http.service';
+import { HttpService } from './http.service';
 
-export class InventarisApiService {
-  private API_URL: string;
-
+export class InventarisApiService extends HttpService {
   constructor(apiUrl: string) {
-    this.API_URL = apiUrl;
-  }
-
-  setApiUrl(apiUrl: string) {
-    this.API_URL = apiUrl;
+    super(apiUrl);
   }
 
   async getAanduidingsobjecten(searchTerm: string): Promise<IESAanduidingsobject[]> {
-    const data: IESAanduidingsobject[] = await this.get<IESAanduidingsobject[]>(
-      `aanduidingsobjecten?tekst=${searchTerm}`
-    );
+    const data: IESAanduidingsobject[] = (
+      await this.get<IESAanduidingsobject[]>('aanduidingsobjecten', {
+        params: {
+          tekst: searchTerm,
+        },
+      })
+    ).data;
     return data.map((aanduidingsobject: IESAanduidingsobject) => new ESAanduidingsobject(aanduidingsobject).toJSON());
-  }
-
-  private async get<T>(endpoint: string): Promise<T> {
-    return (await axiosInstance.get(`${this.API_URL.replace(/\/?$/, '/')}${endpoint.replace(/^\/?/, '')}`)).data;
   }
 }

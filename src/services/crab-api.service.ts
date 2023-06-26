@@ -1,11 +1,9 @@
 import type { IAdres, IGemeente, IGewest, ILand, IPostinfo, IProvincie, IStraat } from '@models/locatie';
 import { Niscode } from '@models/niscode.enum';
 import { sortBy } from 'lodash';
-import { axiosInstance } from './http.service';
+import { HttpService } from './http.service';
 
-export class CrabApiService {
-  private API_URL: string;
-
+export class CrabApiService extends HttpService {
   private landen: ILand[] = [];
   private provincies: IProvincie[] = [];
   private gemeenten: IGemeente[] = [];
@@ -15,18 +13,14 @@ export class CrabApiService {
   private gemeentenBHGewest: IGemeente[] = [];
 
   constructor(apiUrl: string) {
-    this.API_URL = apiUrl;
-  }
-
-  setApiUrl(apiUrl: string) {
-    this.API_URL = apiUrl;
+    super(apiUrl);
   }
 
   getLanden(): Promise<ILand[]> {
     if (this.landen?.length) {
       return Promise.resolve(this.landen);
     } else {
-      return this.crabGet<ILand[]>('adressenregister/landen').then((landen) => {
+      return this.get<ILand[]>('adressenregister/landen').then((landen) => {
         this.landen = sortBy(landen, 'naam');
         return this.landen;
       });
@@ -46,8 +40,8 @@ export class CrabApiService {
     }
   }
 
-  getProvinciesPerGewest(niscode: Niscode): Promise<IProvincie[]> {
-    return this.crabGet<IProvincie[]>(`adressenregister/gewesten/${niscode}/provincies`);
+  async getProvinciesPerGewest(niscode: Niscode): Promise<IProvincie[]> {
+    return (await this.get<IProvincie[]>(`adressenregister/gewesten/${niscode}/provincies`)).data;
   }
 
   get vlaamseGemeenten(): IGemeente[] {
@@ -66,7 +60,8 @@ export class CrabApiService {
     if (this.gemeenten?.length) {
       return Promise.resolve(this.gemeenten);
     } else {
-      return this.crabGet<IGewest[]>('adressenregister/gewesten').then((gewesten) => {
+      return this.get<IGewest[]>('adressenregister/gewesten').then((r) => {
+        const gewesten = r.data;
         let gemeentenVlaamsGewestGet;
         let gemeentenWaalsGewestGet;
         let gemeentenBHGewestGet;
@@ -103,26 +98,22 @@ export class CrabApiService {
     }
   }
 
-  getGemeentenPerGewest(niscode: Niscode): Promise<IGemeente[]> {
-    return this.crabGet<IGemeente[]>(`adressenregister/gewesten/${niscode}/gemeenten`);
+  async getGemeentenPerGewest(niscode: Niscode): Promise<IGemeente[]> {
+    return (await this.get<IGemeente[]>(`adressenregister/gewesten/${niscode}/gemeenten`)).data;
   }
 
-  getPostinfo(gemeente: string): Promise<IPostinfo[]> {
-    return this.crabGet<IPostinfo[]>(`adressenregister/gemeenten/${gemeente}/postinfo`);
+  async getPostinfo(gemeente: string): Promise<IPostinfo[]> {
+    return (await this.get<IPostinfo[]>(`adressenregister/gemeenten/${gemeente}/postinfo`)).data;
   }
 
-  getStraten(gemeente: string): Promise<IStraat[]> {
-    return this.crabGet<IStraat[]>(`adressenregister/gemeenten/${gemeente}/straten`);
+  async getStraten(gemeente: string): Promise<IStraat[]> {
+    return (await this.get<IStraat[]>(`adressenregister/gemeenten/${gemeente}/straten`)).data;
   }
 
-  getAdressen(straat: string, huisnummer?: string): Promise<IAdres[]> {
+  async getAdressen(straat: string, huisnummer?: string): Promise<IAdres[]> {
     if (huisnummer) {
-      return this.crabGet<IAdres[]>(`adressenregister/straten/${straat}/huisnummers/${huisnummer}`);
+      return (await this.get<IAdres[]>(`adressenregister/straten/${straat}/huisnummers/${huisnummer}`)).data;
     }
-    return this.crabGet<IAdres[]>(`adressenregister/straten/${straat}/adressen`);
-  }
-
-  private async crabGet<T>(endpoint: string): Promise<T> {
-    return (await axiosInstance.get(`${this.API_URL.replace(/\/?$/, '/')}${endpoint.replace(/^\/?/, '')}`)).data;
+    return (await this.get<IAdres[]>(`adressenregister/straten/${straat}/adressen`)).data;
   }
 }
