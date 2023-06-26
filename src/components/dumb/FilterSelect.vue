@@ -7,7 +7,12 @@
     @update:value="updateValue"
   >
     <slot>
-      <option v-for="option in props.options" :id="`option-${option.value}`" :key="option.value" :value="option.value">
+      <option
+        v-for="option in props.options"
+        :id="`option-${option.value}`"
+        :key="option.value.toString()"
+        :value="option.value"
+      >
         {{ option.label }}
       </option>
     </slot>

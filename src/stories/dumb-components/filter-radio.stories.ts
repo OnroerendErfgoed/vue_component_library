@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import FilterRadio from '../../components/dumb/FilterRadio.vue';
 
 import '@/scss/main.scss';
+import { ref } from 'vue';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof FilterRadio> = {
@@ -53,17 +54,26 @@ export default meta;
 type Story = StoryObj<typeof FilterRadio>;
 
 export const Default: Story = {
-  args: {
-    id: 'my-id',
-    options: [
-      {
-        label: 'Ja',
-        value: 'ja',
-      },
-      {
-        label: 'Nee',
-        value: 'nee',
-      },
-    ],
-  },
+  render: () => ({
+    components: { FilterRadio },
+    setup() {
+      const value = ref();
+      const options = [
+        {
+          label: 'Ja',
+          value: true,
+        },
+        {
+          label: 'Nee',
+          value: false,
+        },
+      ];
+      const setValue = (e) => {
+        value.value = e;
+      };
+
+      return { options, value, setValue };
+    },
+    template: `<filter-radio id="we" :value="value" @update:value="setValue($event.value)" :options="options"> </filter-radio>`,
+  }),
 };

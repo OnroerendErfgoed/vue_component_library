@@ -47,6 +47,11 @@
     "chromatic": "npx chromatic --project-token=CHROMATIC_PROJECT_TOKEN"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/free-brands-svg-icons": "^6.4.0",
+    "@fortawesome/free-regular-svg-icons": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/vue-fontawesome": "^3.0.3",
     "@govflanders/vl-ui-design-system-style": "^1.0.0-alpha.3",
     "@govflanders/vl-ui-design-system-vue3": "^1.0.0-alpha.3",
     "@vuelidate/core": "^2.0.2",
@@ -55,6 +60,7 @@
     "ag-grid-community": "^29.3.5",
     "ag-grid-vue3": "^29.3.5",
     "axios": "^1.4.0",
+    "date-fns": "^2.30.0",
     "lodash": "^4.17.21",
     "pyoes": "https://gitpkg.now.sh/OnroerendErfgoed/pyoes/npm-packages/pyoes",
     "vue": "^3.3.4",

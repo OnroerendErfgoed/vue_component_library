@@ -45,6 +45,8 @@ export interface IGewest {
 
 export interface IProvincie {
   niscode: string;
+  naam: string;
+  gewest: IGewest;
 }
 
 export interface IGemeente {

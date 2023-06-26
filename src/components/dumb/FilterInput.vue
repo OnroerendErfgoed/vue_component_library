@@ -38,8 +38,8 @@
     </template>
   </div>
   <div v-if="!!filters.length" class="vl-grid filters-selected">
-    <span data-cy="filters-label" class="vl-col--1-12">Filters:</span>
-    <vl-action-group class="vl-col--10-12">
+    <span data-cy="filters-label" class="vl-col--1-12 vl-col--2-12--l vl-col--12-12--xs">Filters:</span>
+    <vl-action-group class="vl-col--10-12 vl-col--9-12--l vl-col--12-12--xs">
       <vl-pill
         data-cy="clear-filter-button"
         class="vl-u-spacer-left--xsmall vl-u-spacer-bottom--xsmall"
@@ -121,11 +121,15 @@ const removeFilter = (filter: IFilter) =>
 
 .vl-grid {
   &.filters-input {
-    margin: 1rem 0.5rem;
+    margin-left: 0;
+
+    .vl-input-group {
+      padding-left: 0.5rem;
+    }
   }
 
   &.filters-selected {
-    margin: 2rem -2.5rem;
+    margin-top: 2rem;
 
     :deep(.vl-action-group button:last-child) {
       margin-right: -1px;

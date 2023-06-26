@@ -30,20 +30,31 @@ export interface IFilterSelectProps {
 
 export interface IFilterDatepickerProps {
   value?: string[];
+  apiFormat?: string;
 }
 
 export interface IFilterInputRadioProps {
   id: string;
-  value?: string;
+  value?: string | boolean | number;
   options?: IOption[];
 }
 
 export interface IFilterGemeenteProps {
   api: string;
-  value?: IGemeente;
+  value?: string;
+}
+
+export interface IFilterProvincieProps {
+  api: string;
+  value?: string;
+}
+
+export interface IFilterAanduidingsobjectProps {
+  api: string;
+  value?: string;
 }
 
 export interface IOption {
-  value: string;
+  value: string | boolean | number;
   label: string;
 }

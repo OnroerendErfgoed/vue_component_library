@@ -1,12 +1,12 @@
 <template>
   <vl-multiselect
-    data-cy="filter-gemeente"
-    placeholder="Gemeente"
-    :custom-label="customGemeenteLabel"
+    data-cy="filter-provincie"
+    placeholder="Provincie"
+    :custom-label="customProvincieLabel"
     :mod-multiple="false"
-    :options="gemeenten"
+    :options="provincies"
     :preserve-search="true"
-    :value="gemeenteValue"
+    :value="provincieValue"
     @update:value="updateValue"
     @keydown.tab="!props.value ? $event.preventDefault() : null"
   >
@@ -21,27 +21,27 @@
 
 <script setup lang="ts">
 import { VlMultiselect } from '@govflanders/vl-ui-design-system-vue3';
-import type { IFilterGemeenteProps } from '@models/index';
-import type { IGemeente } from '@models/locatie';
+import type { IFilterProvincieProps } from '@models/index';
+import type { IProvincie } from '@models/locatie';
 import { CrabApiService } from '@services/crab-api.service';
 import { ref, onBeforeMount, computed } from 'vue';
 
-const props = withDefaults(defineProps<IFilterGemeenteProps>(), {
+const props = withDefaults(defineProps<IFilterProvincieProps>(), {
   api: '',
   value: undefined,
 });
 const emit = defineEmits(['update:value']);
 
-const gemeenteValue = computed(() => {
-  return gemeenten.value.length ? gemeenten.value.find((g) => g.niscode === props.value) : undefined;
+const provincieValue = computed(() => {
+  return provincies.value.length ? provincies.value.find((g) => g.niscode === props.value) : undefined;
 });
-const updateValue = (value: IGemeente) => emit('update:value', value);
+const updateValue = (value: IProvincie) => emit('update:value', value);
 
 const crabApiService = new CrabApiService(props.api);
-const gemeenten = ref<IGemeente[]>([]);
-const customGemeenteLabel = (option: IGemeente) => option.naam;
+const provincies = ref<IProvincie[]>([]);
+const customProvincieLabel = (option: IProvincie) => option.naam;
 
 onBeforeMount(async () => {
-  gemeenten.value = await crabApiService.getGemeenten();
+  provincies.value = await crabApiService.getProvincies();
 });
 </script>

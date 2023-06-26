@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-import FilterGemeente from '../../components/smart/FilterGemeente.vue';
+import FilterAanduidingsobject from '../../components/smart/FilterAanduidingsobject.vue';
 
 import '@/scss/main.scss';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
-const meta: Meta<typeof FilterGemeente> = {
-  title: 'Smart components/Filter Inputs/FilterGemeente',
-  component: FilterGemeente,
+const meta: Meta<typeof FilterAanduidingsobject> = {
+  title: 'Smart components/Filter Inputs/FilterAanduidingsobject',
+  component: FilterAanduidingsobject,
   parameters: {
     docs: {
       description: {
         component:
-          'Specific filter input field to enter a gemeente - used as subcomponent of the `FilterInput` component.',
+          'Specific filter input field to enter an aanduidingsobject - used as subcomponent of the `FilterInput` component.',
       },
       story: {
         height: '400px',
@@ -22,7 +22,7 @@ const meta: Meta<typeof FilterGemeente> = {
   argTypes: {
     value: {
       control: 'text',
-      description: 'Current niscode',
+      description: 'Current uri',
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: '' },
@@ -37,19 +37,19 @@ const meta: Meta<typeof FilterGemeente> = {
       },
     },
     'update:value': {
-      description: 'Emits the selected gemeente',
+      description: 'Emits the selected aanduidingsobject',
       table: {
-        type: { summary: 'IGemeente' },
+        type: { summary: 'IAanduidingsobject' },
       },
     },
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof FilterGemeente>;
+type Story = StoryObj<typeof FilterAanduidingsobject>;
 
 export const Default: Story = {
   args: {
-    api: 'https://dev-geo.onroerenderfgoed.be/',
+    api: 'https://dev-inventaris.onroerenderfgoed.be/',
   },
 };

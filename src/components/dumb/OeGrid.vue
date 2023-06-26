@@ -8,19 +8,18 @@ import 'ag-grid-community/styles/ag-theme-balham.css';
 import { AgGridVue } from 'ag-grid-vue3';
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import 'pyoes/scss/pyoes-settings';
 
 .ag-grid-vue {
-  padding: 3rem;
-  color: #333;
-
-  .ag-cell-edit-input {
-    margin: 0;
-  }
-
-  &.error .ag-overlay-wrapper {
-    border: 1px solid red;
+  &.ag-theme-balham {
+    -webkit-font-smoothing: antialiased;
+    background-color: $white;
+    color: $jet;
+    font-family: 'Flanders Art Sans', Arial, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: normal;
   }
 
   .ag-overlay-wrapper {
@@ -30,17 +29,19 @@ import { AgGridVue } from 'ag-grid-vue3';
       padding-top: 0;
     }
   }
-
   .ag-root-wrapper {
-    border: 1px solid #ddd;
-
     .ag-header {
       background-color: #eee;
+
+      .ag-header-row {
+        border-bottom: 1px solid #ddd;
+      }
 
       .ag-cell-label-container,
       .ag-header-cell-label {
         height: inherit;
         width: inherit;
+        color: $jet;
       }
 
       .ag-header-cell-sortable {
@@ -54,11 +55,26 @@ import { AgGridVue } from 'ag-grid-vue3';
       }
     }
 
+    .ag-row.ag-row-odd {
+      background-color: $light-gray;
+    }
+
     .ag-header-cell-label,
     .ag-cell {
       display: flex;
       align-items: center;
       padding: 5px;
+      border: none;
+
+      select {
+        height: auto;
+        margin: 0;
+
+        &:disabled {
+          background: none;
+          border: none;
+        }
+      }
     }
 
     .ag-header-cell-resize {
@@ -66,18 +82,15 @@ import { AgGridVue } from 'ag-grid-vue3';
       right: 0;
     }
 
-    .ag-row,
-    .ag-header-row {
-      .ag-cell,
-      .ag-header-cell {
-        border-color: #ddd;
-        border-style: solid;
-        border-width: 0 1px 1px 0;
+    .ag-cell-focus {
+      outline: none;
+      &:focus-within {
+        border-color: $primary-color;
       }
     }
 
-    .ag-cell-focus {
-      outline: none;
+    .ag-cell .cell-checkbox {
+      color: $mid-purple;
     }
 
     .ag-body-viewport {
@@ -87,29 +100,41 @@ import { AgGridVue } from 'ag-grid-vue3';
         margin-bottom: 0;
       }
 
-      .ag-row-focus {
-        background-color: #bbb;
+      .ag-row-selected {
+        background-color: $silver;
+
+        .ag-cell .cell-checkbox:before {
+          content: '\f046';
+          font-family: 'FontAwesome';
+        }
       }
 
-      .acties-cell,
-      .icon-cell {
+      .acties-cell {
         justify-content: center;
+
+        i.fa,
+        a.fa {
+          cursor: pointer;
+          color: $dark-purple;
+
+          + .fa {
+            margin-left: 5px;
+          }
+        }
       }
 
-      i.fa,
-      a.fa {
-        cursor: pointer;
-        color: $dark-purple;
-      }
+      .icon-cell {
+        display: flex;
+        justify-content: center;
 
-      i.fa.fa-times {
-        cursor: default;
-        color: #960000;
-      }
-
-      i.fa.fa-check {
-        cursor: default;
-        color: #008000;
+        i.fa.fa-check {
+          color: $success-color;
+          cursor: default;
+        }
+        i.fa.fa-times {
+          color: $alert-color;
+          cursor: default;
+        }
       }
     }
   }

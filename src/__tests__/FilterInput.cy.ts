@@ -107,10 +107,10 @@ describe('FilterInput', () => {
 
       it('lists the added filters as pill elements', () => {
         cy.dataCy('filter-id-filtertext').should('exist').invoke('text').should('equal', 'ID / filtertext');
-        cy.dataCy('filter-datum_goedkeuring_van-16-02-1996')
+        cy.dataCy('filter-datum_goedkeuring_van-1996-02-16')
           .should('exist')
           .invoke('text')
-          .should('equal', 'Datum goedkeuring vanaf / 16-02-1996');
+          .should('equal', 'Datum goedkeuring vanaf / 1996-02-16');
       });
 
       describe('clearing filters', () => {
@@ -130,10 +130,10 @@ describe('FilterInput', () => {
           cy.dataCy('filter-id-filtertext').find('.vl-pill__close').click();
 
           cy.dataCy('filter-id-filtertext').should('not.exist');
-          cy.dataCy('filter-datum_goedkeuring_van-16-02-1996')
+          cy.dataCy('filter-datum_goedkeuring_van-1996-02-16')
             .should('exist')
             .invoke('text')
-            .should('equal', 'Datum goedkeuring vanaf / 16-02-1996');
+            .should('equal', 'Datum goedkeuring vanaf / 1996-02-16');
         });
       });
     });
