@@ -31,13 +31,13 @@ const props = withDefaults(defineProps<IFilterAanduidingsobjectProps>(), {
 });
 const emit = defineEmits(['update:value']);
 
-const aanduidingsobjectValue = computed<Partial<IAanduidingsobject> | undefined>(() =>
+const aanduidingsobjectValue = computed<IAanduidingsobject | undefined>(() =>
   aanduidingsobjecten.value?.find((g) => g.uri === props.value)
 );
 const updateValue = (value: IAanduidingsobject) => emit('update:value', value);
 
 const inventarisApiService = new InventarisApiService(props.api);
-const aanduidingsobjecten = ref<Partial<IAanduidingsobject>[]>([]);
+const aanduidingsobjecten = ref<IAanduidingsobject[]>([]);
 const customAanduidingsobjectLabel = (option: IAanduidingsobject) => option.aanduidingsobjectLabel;
 
 onBeforeMount(async () => {

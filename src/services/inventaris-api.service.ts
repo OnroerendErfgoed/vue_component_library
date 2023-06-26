@@ -12,11 +12,11 @@ export class InventarisApiService {
     this.API_URL = apiUrl;
   }
 
-  async getAanduidingsobjecten(): Promise<Partial<IAanduidingsobject>[]> {
+  async getAanduidingsobjecten(): Promise<IAanduidingsobject[]> {
     const data: IAanduidingsobject[] = await this.get<IAanduidingsobject[]>('aanduidingsobjecten');
     return data.map((aanduidingsobject: IAanduidingsobject) => {
       return {
-        uri: aanduidingsobject.uri,
+        ...aanduidingsobject,
         aanduidingsobjectLabel: aanduidingsobject.naam + ' (id: ' + aanduidingsobject.id + ')',
       };
     });
