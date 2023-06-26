@@ -1,18 +1,18 @@
 <template>
-  <div :id="`autocomplete-${props.id}`" v-click-outside="hideResults" class="js-vl-autocomplete">
+  <div :id="`autocomplete-${props.id}`" v-click-outside="hideResults" data-cy="autocomplete" class="js-vl-autocomplete">
     <vl-input-field
       v-model="searchTerm"
       :placeholder="props.placeholder"
       mod-block
       @update:model-value="handleInput"
     ></vl-input-field>
-    <span v-if="loading" class="vl-loader vl-loader--small" />
+    <span v-if="loading" class="vl-loader vl-loader--small" data-cy="loader" />
 
-    <div v-if="showResults && searchTerm?.length >= props.minChars" class="vl-autocomplete">
+    <div v-if="showResults && searchTerm?.length >= props.minChars" class="vl-autocomplete" data-cy="result">
       <div class="vl-autocomplete__list-wrapper">
         <div class="vl-autocomplete__list">
           <template v-if="loading">
-            <li class="vl-autocomplete__cta">
+            <li class="vl-autocomplete__cta" data-cy="loader-message">
               <span class="vl-autocomplete__cta__title">Resultaten worden opgehaald...</span>
             </li>
           </template>
@@ -28,7 +28,7 @@
             <span class="vl-autocomplete__cta__title">{{ option.title }}</span>
             <span v-if="option.subtitle" class="vl-autocomplete__cta__sub">{{ option.subtitle }}</span>
           </li>
-          <li v-if="options.length === 0 && !loading" class="vl-autocomplete__cta">
+          <li v-if="options.length === 0 && !loading" class="vl-autocomplete__cta" data-cy="no-results">
             <span class="vl-autocomplete__cta__title">Geen resultaten gevonden</span>
             <span class="vl-autocomplete__cta__sub">Doe een nieuwe zoekopdracht</span>
           </li>
