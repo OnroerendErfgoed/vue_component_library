@@ -48,6 +48,18 @@ describe('Autocomplete', () => {
         .should('equal', 'tes');
     });
 
+    it('closes the dropdown when clicking outside the component', () => {
+      cy.mount(TestComponent);
+
+      cy.dataCy('autocomplete').type('tes');
+      cy.dataCy('result').should('exist');
+
+      // trigger click outside event
+      cy.get('html').click(0, 100);
+
+      cy.dataCy('result').should('not.exist');
+    });
+
     it('selects an option after clicking on it and emits an event for the updated value', () => {
       const onUpdateValueSpy = cy.spy().as('onUpdateValue');
 
