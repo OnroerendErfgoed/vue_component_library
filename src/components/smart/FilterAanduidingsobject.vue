@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 import { VlMultiselect } from '@govflanders/vl-ui-design-system-vue3';
-import type { IAanduidingsobject, IFilterAanduidingsobjectProps } from '@models/index';
+import type { IESAanduidingsobject, IFilterAanduidingsobjectProps } from '@models/index';
 import { InventarisApiService } from '@services/inventaris-api.service';
 import { computed, onBeforeMount, ref } from 'vue';
 
@@ -31,14 +31,14 @@ const props = withDefaults(defineProps<IFilterAanduidingsobjectProps>(), {
 });
 const emit = defineEmits(['update:value']);
 
-const aanduidingsobjectValue = computed<IAanduidingsobject | undefined>(() =>
+const aanduidingsobjectValue = computed<IESAanduidingsobject | undefined>(() =>
   aanduidingsobjecten.value?.find((g) => g.uri === props.value)
 );
-const updateValue = (value: IAanduidingsobject) => emit('update:value', value);
+const updateValue = (value: IESAanduidingsobject) => emit('update:value', value);
 
 const inventarisApiService = new InventarisApiService(props.api);
-const aanduidingsobjecten = ref<IAanduidingsobject[]>([]);
-const customAanduidingsobjectLabel = (option: IAanduidingsobject) => option.aanduidingsobjectLabel;
+const aanduidingsobjecten = ref<IESAanduidingsobject[]>([]);
+const customAanduidingsobjectLabel = (option: IESAanduidingsobject) => option.titel;
 
 onBeforeMount(async () => {
   aanduidingsobjecten.value = await inventarisApiService.getAanduidingsobjecten();

@@ -1,4 +1,4 @@
-import type { IAanduidingsobject } from '@models/aanduidingsobject';
+import { ESAanduidingsobject, type IESAanduidingsobject } from '@models/aanduidingsobject';
 import { axiosInstance } from './http.service';
 
 export class InventarisApiService {
@@ -12,14 +12,9 @@ export class InventarisApiService {
     this.API_URL = apiUrl;
   }
 
-  async getAanduidingsobjecten(): Promise<IAanduidingsobject[]> {
-    const data: IAanduidingsobject[] = await this.get<IAanduidingsobject[]>('aanduidingsobjecten');
-    return data.map((aanduidingsobject: IAanduidingsobject) => {
-      return {
-        ...aanduidingsobject,
-        aanduidingsobjectLabel: aanduidingsobject.naam + ' (id: ' + aanduidingsobject.id + ')',
-      };
-    });
+  async getAanduidingsobjecten(): Promise<IESAanduidingsobject[]> {
+    const data: IESAanduidingsobject[] = await this.get<IESAanduidingsobject[]>('aanduidingsobjecten');
+    return data.map((aanduidingsobject: IESAanduidingsobject) => new ESAanduidingsobject(aanduidingsobject).toJSON());
   }
 
   private async get<T>(endpoint: string): Promise<T> {
