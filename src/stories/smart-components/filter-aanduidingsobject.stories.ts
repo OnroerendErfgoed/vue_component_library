@@ -11,7 +11,7 @@ const meta: Meta<typeof FilterAanduidingsobject> = {
     docs: {
       description: {
         component:
-          'Specific filter input field to enter an aanduidingsobject - used as subcomponent of the `FilterInput` component.',
+          'Specific filter input field to enter an aanduidingsobject - used as subcomponent of the `FilterInput` component.\n\n All autocomplete props can also be used.',
       },
       story: {
         height: '400px',
@@ -57,6 +57,5 @@ export const Default: Story = {
   args: {
     api: 'https://dev-inventaris.onroerenderfgoed.be/',
     id: 'my-id',
-    placeholder: 'Placeholder',
   },
 };

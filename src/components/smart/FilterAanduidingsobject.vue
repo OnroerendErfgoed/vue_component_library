@@ -2,7 +2,6 @@
   <oe-autocomplete
     :id="props.id"
     data-cy="filter-aanduidingsobject"
-    :autoselect="props.autoselect"
     :callback-fn="performAutocompleteSearch"
     :value="aanduidingsobjectValue"
     @update:value="updateValue"
@@ -19,11 +18,13 @@ import OeAutocomplete from '../dumb/OeAutocomplete.vue';
 const props = withDefaults(defineProps<IFilterAanduidingsobjectProps>(), {
   id: '',
   api: '',
-  autoselect: false,
   value: '',
 });
 const emit = defineEmits(['update:value']);
 
+const inventarisApiService = new InventarisApiService(props.api);
+
+const aanduidingsobjecten = ref<IESAanduidingsobject[]>([]);
 const aanduidingsobjectValue = computed(() => {
   const aanduidingsobject = aanduidingsobjecten?.value.find((g) => g.uri === props.value);
   const autocompleteOption: IAutocompleteOption = {
@@ -32,11 +33,8 @@ const aanduidingsobjectValue = computed(() => {
   };
   return autocompleteOption;
 });
+
 const updateValue = (value: IESAanduidingsobject) => emit('update:value', value);
-
-const inventarisApiService = new InventarisApiService(props.api);
-const aanduidingsobjecten = ref<IESAanduidingsobject[]>([]);
-
 const performAutocompleteSearch = async (searchTerm: string): Promise<IAutocompleteOption[]> => {
   try {
     aanduidingsobjecten.value = await inventarisApiService.getAanduidingsobjecten(searchTerm);
