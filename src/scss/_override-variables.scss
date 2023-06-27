@@ -39,6 +39,12 @@ $vl-error-color: $input-error-message-font-color;
   cursor: pointer;
 }
 
+//vl-pill
+.vl-pill {
+  cursor: pointer;
+  color: $primary-color;
+}
+
 // vl-link
 .vl-link {
   color: $link-color;
@@ -52,11 +58,24 @@ $vl-error-color: $input-error-message-font-color;
 
 // vl-multiselect
 .vl-multiselect {
+  flex: 1;
+
   .multiselect__element {
     &:hover {
       .multiselect__option {
         box-shadow: none;
       }
+    }
+  }
+
+  .multiselect__tags {
+    padding-top: 0;
+    display: flex;
+    align-items: center;
+
+    .multiselect__single {
+      margin-bottom: 0;
+      padding-top: 0;
     }
   }
 }
@@ -85,6 +104,25 @@ $vl-error-color: $input-error-message-font-color;
       }
     }
   }
+}
+
+// vl-backdrop
+.vl-backdrop--active {
+  z-index: 999;
+}
+
+// flatpickr - year input color
+.flatpickr-current-month input.cur-year {
+  color: $primary-color;
+}
+
+// flatpickr - today indication
+.flatpickr-calendar.mark-today .flatpickr-day.today:not(.selected) {
+  background-color: $gray;
+}
+
+.vl-u-spacer-right--xxsmall {
+  margin-right: 0.5rem;
 }
 
 /**

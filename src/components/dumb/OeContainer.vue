@@ -61,6 +61,8 @@ const close = (item: ITab) => {
   overflow-y: hidden;
 
   &__content {
+    display: flex;
+    padding: 0.9375rem;
     height: 100%;
     overflow-y: auto;
   }
@@ -73,6 +75,10 @@ const close = (item: ITab) => {
     height: 40px;
     bottom: 0;
     border-top: 1px solid $dark-purple;
+
+    .vl-action-group button:last-child {
+      margin-right: -1px;
+    }
 
     .vl-pill {
       cursor: pointer;
