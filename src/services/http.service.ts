@@ -6,10 +6,6 @@ export const axiosInstance: AxiosInstance = axios.create({
 });
 
 export class HttpService {
-  constructor(baseUrl: string) {
-    axiosInstance.defaults.baseURL = baseUrl;
-  }
-
   protected get<T>(url: string, options?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
     return axiosInstance.get(url, options);
   }

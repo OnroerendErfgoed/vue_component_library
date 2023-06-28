@@ -2,13 +2,17 @@ import { ESAanduidingsobject, type IESAanduidingsobject } from '@models/aanduidi
 import { HttpService } from './http.service';
 
 export class InventarisApiService extends HttpService {
+  private readonly API_URL: string;
+
   constructor(apiUrl: string) {
-    super(apiUrl);
+    super();
+    this.API_URL = apiUrl;
   }
 
   async getAanduidingsobjecten(searchTerm: string): Promise<IESAanduidingsobject[]> {
     const data: IESAanduidingsobject[] = (
       await this.get<IESAanduidingsobject[]>('aanduidingsobjecten', {
+        baseURL: this.API_URL,
         params: {
           tekst: searchTerm,
         },
