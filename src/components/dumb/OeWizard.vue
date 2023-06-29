@@ -1,26 +1,37 @@
 <template>
   <div class="wizard">
-    <div class="wizardbar">
+    <div class="wizard__bar vl-u-spacer--medium">
       <a
         v-for="(step, index) in steps"
         :key="index"
-        class="wizardbar__item vl-u-display-flex vl-u-flex-align-center vl-u-flex-v-center"
-        :class="{ current: index === currentStep }"
+        class="wizard__bar-item vl-u-display-flex vl-u-flex-align-center vl-u-flex-v-center"
+        :class="{ 'wizard__bar-item--current': index === currentStep }"
         @click="currentStep = index"
       >
         <vl-badge :initials="(index + 1).toString()" mod-border mod-small />
-        <span class="step-name">{{ step }}</span>
+        <span class="wizard__bar-item-name">{{ step }}</span>
       </a>
     </div>
 
-    <div v-for="(step, index) in steps" v-show="currentStep === index" :key="index">
+    <div
+      v-for="(step, index) in steps"
+      v-show="currentStep === index"
+      :key="index"
+      class="wizard__content vl-u-spacer--medium"
+    >
       <slot :step="step" :current-step="currentStep" :total-steps="totalSteps"></slot>
     </div>
-    <div class="vl-u-flex vl-u-flex-align-center">
-      <vl-button v-if="currentStep > 0" class="vl-u-spacer-right--xsmall" mod-secondary @click="previousStep"
-        >Vorige</vl-button
-      >
-      <vl-button v-if="currentStep < totalSteps - 1" @click="nextStep">Volgende</vl-button>
+
+    <div class="wizard__actions vl-u-flex vl-u-flex-align-center">
+      <vl-button v-if="currentStep > 0" class="vl-u-spacer-right--xsmall" mod-secondary @click="previousStep">
+        <font-awesome-icon :icon="['fas', 'angles-left']" />
+        Vorige
+      </vl-button>
+      <vl-button v-if="currentStep < totalSteps - 1" @click="nextStep">
+        Volgende
+        <font-awesome-icon :icon="['fas', 'angles-right']" />
+      </vl-button>
+      <vl-button v-else @click="nextStep">Verzend</vl-button>
     </div>
   </div>
 </template>
@@ -28,6 +39,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { VlBadge, VlButton } from '@govflanders/vl-ui-design-system-vue3';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 const steps = ref(['Gegevens EPC', 'Mijn gegevens', 'Bijlagen', 'Overzicht']);
 const currentStep = ref(0);
@@ -52,7 +64,7 @@ const nextStep = () => {
 .wizard {
   width: 100%;
 
-  .wizardbar {
+  .wizard__bar {
     width: 100%;
     height: 4rem;
     display: flex;
@@ -61,9 +73,8 @@ const nextStep = () => {
     justify-content: stretch;
     font-size: 18px;
     line-height: 1;
-    margin: 50px 0;
 
-    &__item {
+    .wizard__bar-item {
       flex: 1;
       display: inline-block;
       padding: 0.5rem 0.8rem;
@@ -100,7 +111,7 @@ const nextStep = () => {
         top: 0;
       }
 
-      &:not(.current):hover {
+      &:not(.wizard__bar-item--current):hover {
         background-color: $dark-purple;
         &:after {
           border-color: transparent transparent transparent $dark-purple;
@@ -136,12 +147,12 @@ const nextStep = () => {
       }
 
       @media screen and (max-width: 768px) {
-        .step-name {
+        .wizard__bar-item-name {
           display: none;
         }
       }
 
-      &.current {
+      &--current {
         background-color: $black;
         color: $white;
         cursor: default;
