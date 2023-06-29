@@ -10,6 +10,37 @@ const meta: Meta<typeof OeWizard> = {
     layout: 'fullscreen',
   },
   tags: ['autodocs'],
+  argTypes: {
+    steps: {
+      description: 'Steps to show in the wizard.',
+      table: {
+        type: { summary: 'IStep[]' },
+        defaultValue: { summary: '[]' },
+      },
+    },
+    allowBarNavigation: {
+      description: 'Allow wizard navigation by clicking on the steps in the wizard bar.',
+      table: {
+        type: { summary: 'boolean' },
+      },
+    },
+    default: {
+      description: 'Slot rendering the step content.',
+      table: {
+        type: {
+          summary: 'Exposed props',
+          detail: `
+step: current step object
+currentStep: current step index
+totalSteps: number of steps
+`,
+        },
+      },
+    },
+    submit: {
+      description: 'Emits submit event when reaching final step and submitting.',
+    },
+  },
 };
 
 export default meta;
@@ -37,5 +68,70 @@ export const Default: Story = {
       </template>
     </oe-wizard>
     `,
+  }),
+};
+
+export const BarNavigationAllowed: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Navigation by clicking on the wizard bar steps is also allowed.',
+      },
+    },
+  },
+  render: () => ({
+    components: {
+      OeWizard,
+    },
+    setup() {
+      const steps: IStep[] = [
+        { name: 'Gegevens EPC', valid: true },
+        { name: 'Mijn gegevens', valid: true },
+        { name: 'Bijlagen', valid: true },
+        { name: 'Overzicht', valid: true },
+      ];
+
+      return { steps };
+    },
+    template: `
+      <oe-wizard :steps="steps" allow-bar-navigation>
+        <template #default="{ step, currentStep, totalSteps }">
+          <h2>Stap {{ currentStep + 1 }} van {{ totalSteps }} - {{ step.name }}</h2>
+        </template>
+      </oe-wizard>
+      `,
+  }),
+};
+
+export const BlockedWhenStepInvalid: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Step 3 is indicated as invalid, so step 4 cannot be reached both with bar navigation and navigation buttons.',
+      },
+    },
+  },
+  render: () => ({
+    components: {
+      OeWizard,
+    },
+    setup() {
+      const steps: IStep[] = [
+        { name: 'Gegevens EPC', valid: true },
+        { name: 'Mijn gegevens', valid: true },
+        { name: 'Bijlagen', valid: false },
+        { name: 'Overzicht', valid: false },
+      ];
+
+      return { steps };
+    },
+    template: `
+      <oe-wizard :steps="steps" allow-bar-navigation>
+        <template #default="{ step, currentStep, totalSteps }">
+          <h2>Stap {{ currentStep + 1 }} van {{ totalSteps }} - {{ step.name }}</h2>
+        </template>
+      </oe-wizard>
+      `,
   }),
 };
