@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import type { IStep } from '../../models/wizard';
 import OeWizard from '../../components/dumb/OeWizard.vue';
+import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 
 import '@/scss/main.scss';
 const meta: Meta<typeof OeWizard> = {
@@ -133,5 +134,43 @@ export const BlockedWhenStepInvalid: Story = {
         </template>
       </oe-wizard>
       `,
+  }),
+};
+
+export const Mobile: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Consult the specific Mobile story to see the specified mobile viewport.',
+      },
+    },
+    viewport: {
+      //👇 The viewports you want to use
+      viewports: INITIAL_VIEWPORTS,
+      //👇 Your own default viewport
+      defaultViewport: 'iphonex',
+    },
+  },
+  render: () => ({
+    components: {
+      OeWizard,
+    },
+    setup() {
+      const steps: IStep[] = [
+        { name: 'Gegevens EPC', valid: true },
+        { name: 'Mijn gegevens', valid: true },
+        { name: 'Bijlagen', valid: true },
+        { name: 'Overzicht', valid: true },
+      ];
+
+      return { steps };
+    },
+    template: `
+    <oe-wizard :steps="steps">
+      <template #default="{ step, currentStep, totalSteps }">
+        <h2>Stap {{ currentStep + 1 }} van {{ totalSteps }} - {{ step.name }}</h2>
+      </template>
+    </oe-wizard>
+    `,
   }),
 };
