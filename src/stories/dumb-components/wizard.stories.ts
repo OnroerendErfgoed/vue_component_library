@@ -22,10 +22,10 @@ export const Default: Story = {
     },
     setup() {
       const steps: IStep[] = [
-        { name: 'Gegevens EPC' },
-        { name: 'Mijn gegevens' },
-        { name: 'Bijlagen' },
-        { name: 'Overzicht' },
+        { name: 'Gegevens EPC', valid: true },
+        { name: 'Mijn gegevens', valid: true },
+        { name: 'Bijlagen', valid: true },
+        { name: 'Overzicht', valid: true },
       ];
 
       return { steps };

@@ -5,8 +5,11 @@
         v-for="(step, index) in props.steps"
         :key="index"
         class="wizard__bar-item vl-u-display-flex vl-u-flex-align-center vl-u-flex-v-center"
-        :class="{ 'wizard__bar-item--current': index === currentStep }"
-        @click="currentStep = index"
+        :class="{
+          'wizard__bar-item--current': index === currentStep,
+          'wizard__bar-item--bar-navigation-allowed': props.allowBarNavigation,
+        }"
+        @click="goToStep(index)"
       >
         <vl-badge :initials="(index + 1).toString()" mod-border mod-small />
         <span class="wizard__bar-item-name">{{ step.name }}</span>
@@ -27,11 +30,11 @@
         <font-awesome-icon :icon="['fas', 'angles-left']" />
         Vorige
       </vl-button>
-      <vl-button v-if="currentStep < totalSteps - 1" @click="nextStep">
+      <vl-button v-if="currentStep < totalSteps - 1" :mod-disabled="!steps[currentStep].valid" @click="nextStep">
         Volgende
         <font-awesome-icon :icon="['fas', 'angles-right']" />
       </vl-button>
-      <vl-button v-else @click="nextStep">Verzend</vl-button>
+      <vl-button v-else :mod-disabled="!steps.every((s) => s.valid)" @click="nextStep">Verzend</vl-button>
     </div>
   </div>
 </template>
@@ -44,6 +47,7 @@ import type { IWizardProps } from '@models/wizard';
 
 const props = withDefaults(defineProps<IWizardProps>(), {
   steps: () => [],
+  allowBarNavigation: false,
 });
 
 const currentStep = ref(0);
@@ -59,6 +63,16 @@ const nextStep = () => {
   if (currentStep.value < totalSteps.value - 1) {
     currentStep.value++;
   }
+};
+
+const goToStep = (step: number) => {
+  if (props.allowBarNavigation && previousStepsAreValid(step)) {
+    currentStep.value = step;
+  }
+};
+
+const previousStepsAreValid = (step: number) => {
+  return props.steps.slice(0, step).every((s) => s.valid);
 };
 </script>
 
@@ -88,7 +102,6 @@ const nextStep = () => {
       text-align: center;
       position: relative;
       margin-right: 5px;
-      cursor: pointer;
 
       &:before {
         border-color: transparent transparent transparent white;
@@ -111,13 +124,6 @@ const nextStep = () => {
         transition: all 0.15s;
         position: absolute;
         top: 0;
-      }
-
-      &:not(.wizard__bar-item--current):hover {
-        background-color: $dark-purple;
-        &:after {
-          border-color: transparent transparent transparent $dark-purple;
-        }
       }
 
       &:first-of-type {
@@ -164,6 +170,17 @@ const nextStep = () => {
 
         .vl-badge {
           background-color: $black;
+        }
+      }
+
+      &--bar-navigation-allowed {
+        cursor: pointer;
+
+        &:not(.wizard__bar-item--current):hover {
+          background-color: $dark-purple;
+          &:after {
+            border-color: transparent transparent transparent $dark-purple;
+          }
         }
       }
     }
