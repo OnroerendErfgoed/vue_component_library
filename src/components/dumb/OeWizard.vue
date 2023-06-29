@@ -8,8 +8,8 @@
         :class="{ current: index === currentStep }"
         @click="currentStep = index"
       >
-        <vl-badge :initials="index + 1" mod-border mod-small />
-        <span>{{ step }}</span>
+        <vl-badge :initials="(index + 1).toString()" mod-border mod-small />
+        <span class="step-name">{{ step }}</span>
       </a>
     </div>
 
@@ -67,7 +67,7 @@ const nextStep = () => {
       flex: 1;
       display: inline-block;
       padding: 0.5rem 0.8rem;
-      padding-left: 1.8rem;
+      padding-left: 3rem;
       text-decoration: none;
       transition: all 0.15s;
       background-color: $primary-color;
@@ -109,12 +109,13 @@ const nextStep = () => {
 
       &:first-of-type {
         border-radius: 0.25rem 0 0 0.25rem;
-        padding-left: 1.3rem;
+        padding-left: 1.5rem;
       }
 
       &:last-of-type {
         border-radius: 0 0.25rem 0.25rem 0;
-        padding-right: 1.3rem;
+        padding-right: 1.5rem;
+        margin-right: 0;
       }
 
       &:first-of-type:before,
@@ -132,6 +133,12 @@ const nextStep = () => {
 
       :deep(.vl-badge--initials span) {
         color: $white;
+      }
+
+      @media screen and (max-width: 768px) {
+        .step-name {
+          display: none;
+        }
       }
 
       &.current {
