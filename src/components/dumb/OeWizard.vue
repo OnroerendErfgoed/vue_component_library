@@ -1,15 +1,15 @@
 <template>
   <div class="wizard">
-    <div class="wizard__bar vl-u-spacer--medium">
+    <div class="wizard__bar vl-u-spacer-top--medium vl-u-spacer--medium">
       <a
-        v-for="(step, index) in steps"
+        v-for="(step, index) in props.steps"
         :key="index"
         class="wizard__bar-item vl-u-display-flex vl-u-flex-align-center vl-u-flex-v-center"
         :class="{ 'wizard__bar-item--current': index === currentStep }"
         @click="currentStep = index"
       >
         <vl-badge :initials="(index + 1).toString()" mod-border mod-small />
-        <span class="wizard__bar-item-name">{{ step }}</span>
+        <span class="wizard__bar-item-name">{{ step.name }}</span>
       </a>
     </div>
 
@@ -40,10 +40,14 @@
 import { ref } from 'vue';
 import { VlBadge, VlButton } from '@govflanders/vl-ui-design-system-vue3';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import type { IWizardProps } from '@models/wizard';
 
-const steps = ref(['Gegevens EPC', 'Mijn gegevens', 'Bijlagen', 'Overzicht']);
+const props = withDefaults(defineProps<IWizardProps>(), {
+  steps: () => [],
+});
+
 const currentStep = ref(0);
-const totalSteps = ref(steps.value.length);
+const totalSteps = ref(props.steps.length);
 
 const previousStep = () => {
   if (currentStep.value > 0) {
@@ -77,8 +81,6 @@ const nextStep = () => {
     .wizard__bar-item {
       flex: 1;
       display: inline-block;
-      padding: 0.5rem 0.8rem;
-      padding-left: 3rem;
       text-decoration: none;
       transition: all 0.15s;
       background-color: $primary-color;
@@ -120,12 +122,10 @@ const nextStep = () => {
 
       &:first-of-type {
         border-radius: 0.25rem 0 0 0.25rem;
-        padding-left: 1.5rem;
       }
 
       &:last-of-type {
         border-radius: 0 0.25rem 0.25rem 0;
-        padding-right: 1.5rem;
         margin-right: 0;
       }
 
@@ -135,6 +135,7 @@ const nextStep = () => {
       }
       .vl-badge {
         background-color: $primary-color;
+        margin-left: 2rem;
         margin-right: 5px;
       }
 
@@ -146,7 +147,7 @@ const nextStep = () => {
         color: $white;
       }
 
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: 1024px) {
         .wizard__bar-item-name {
           display: none;
         }
