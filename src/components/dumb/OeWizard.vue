@@ -11,7 +11,7 @@
         }"
         @click="goToStep(index)"
       >
-        <vl-badge :initials="(index + 1).toString()" mod-border mod-small />
+        <vl-badge v-vl-tooltip="step.name" :initials="(index + 1).toString()" mod-border mod-small />
         <span class="wizard__bar-item-name">{{ step.name }}</span>
       </a>
     </div>
@@ -34,7 +34,7 @@
         Volgende
         <font-awesome-icon :icon="['fas', 'angles-right']" />
       </vl-button>
-      <vl-button v-else :mod-disabled="!steps.every((s) => s.valid)" @click="nextStep">Verzend</vl-button>
+      <vl-button v-else :mod-disabled="!steps.every((s) => s.valid)" @click="emit('submit')">Verzend</vl-button>
     </div>
   </div>
 </template>
@@ -45,10 +45,15 @@ import { VlBadge, VlButton } from '@govflanders/vl-ui-design-system-vue3';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import type { IWizardProps } from '@models/wizard';
 
+// Next line should be activated once VlUTooltip is properly exported
+// For now, an import of { VlUiUtil } in the implementing app also makes the tooltip available
+// import { VlUTooltip } from '@govflanders/vl-ui-design-system-vue3';
+
 const props = withDefaults(defineProps<IWizardProps>(), {
   steps: () => [],
   allowBarNavigation: false,
 });
+const emit = defineEmits(['submit']);
 
 const currentStep = ref(0);
 const totalSteps = ref(props.steps.length);
