@@ -7,7 +7,7 @@
   "main": "./dist/vue-components.umd.js",
   "module": "./dist/vue-components.es.js",
   "typings": "./dist/src/main.d.ts",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "exports": {
     ".": {
       "import": "./dist/vue-components.es.js",
@@ -52,6 +52,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/vue-fontawesome": "^3.0.3",
+    "@govflanders/vl-ui-autocomplete": "^18.1.1",
     "@govflanders/vl-ui-design-system-style": "^1.0.0-alpha.3",
     "@govflanders/vl-ui-design-system-vue3": "^1.0.0-alpha.3",
     "@vuelidate/core": "^2.0.2",
@@ -113,5 +114,5 @@
     "@govflanders/vl-ui-design-system-style": "^1.0.0-alpha.3",
     "pyoes": "https://gitpkg.now.sh/OnroerendErfgoed/pyoes/npm-packages/pyoes"
   },
-  "_id": "vue_component_library@0.2.0"
+  "_id": "vue_component_library@0.3.0"
 }

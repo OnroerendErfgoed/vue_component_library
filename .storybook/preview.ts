@@ -1,5 +1,5 @@
 import type { Preview } from '@storybook/vue3';
-
+import './main.scss';
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core';
 
