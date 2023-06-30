@@ -1,0 +1,43 @@
+[
+  {
+    "locatie_samenvatting": "Processiestraat 10 (Leuven)",
+    "systemfields": {
+      "activated_at": "2019-10-22T10:42:40.221637+02:00",
+      "activated_by": {
+        "description": "mock beheerder",
+        "uri": "https://dev-id.erfgoed.net/actoren/10032"
+      },
+      "updated_at": "2019-10-22T13:35:39.136376+02:00",
+      "updated_by": {
+        "description": "mock beheerder",
+        "uri": "https://dev-id.erfgoed.net/actoren/10032"
+      },
+      "created_at": "2019-10-22T10:42:40.221916+02:00",
+      "created_by": {
+        "description": "mock beheerder",
+        "uri": "https://dev-id.erfgoed.net/actoren/10032"
+      }
+    },
+    "geldigheid_einde": "2019-10-15",
+    "korte_beschrijving": null,
+    "geldigheid_start": "2019-10-02",
+    "dataverantwoordelijke": {
+      "uri": "https://dev-id.erfgoed.net/actoren/501"
+    },
+    "id": 10,
+    "gemeente_samenvatting": "Leuven",
+    "type": {
+      "id": 5,
+      "naam": "Beschermd varend erfgoed"
+    },
+    "naam": "Aanduidingsobject test",
+    "uri": "https://dev-id.erfgoed.net/aanduidingsobjecten/10",
+    "status": {
+      "verantwoordelijken": [],
+      "actief": true,
+      "id": 75,
+      "naam": "Actief"
+    },
+    "self": "https://dev-inventaris.onroerenderfgoed.be/aanduidingsobjecten/10"
+  }
+]
