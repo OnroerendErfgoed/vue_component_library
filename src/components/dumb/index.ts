@@ -3,6 +3,7 @@ import FilterInput from './FilterInput.vue';
 import FilterRadio from './FilterRadio.vue';
 import FilterSelect from './FilterSelect.vue';
 import FilterText from './FilterText.vue';
+import OeAutocomplete from './OeAutocomplete.vue';
 import OeButton from './OeButton.vue';
 import OeContainer from './OeContainer.vue';
 import OeGrid from './OeGrid.vue';
@@ -17,6 +18,7 @@ export {
   FilterRadio,
   FilterSelect,
   FilterText,
+  OeAutocomplete,
   OeButton,
   OeContainer,
   OeGrid,
