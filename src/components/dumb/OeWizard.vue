@@ -180,16 +180,16 @@ const previousStepsAreValid = (step: number) => {
       }
 
       &--current {
-        background-color: $black;
+        background-color: $very-dark-purple;
         color: $white;
         cursor: default;
 
         &:after {
-          border-color: transparent transparent transparent $black;
+          border-color: transparent transparent transparent $very-dark-purple;
         }
 
         .vl-badge {
-          background-color: $black;
+          background-color: $very-dark-purple;
         }
       }
 
