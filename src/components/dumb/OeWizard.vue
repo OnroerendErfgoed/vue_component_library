@@ -1,9 +1,10 @@
 <template>
   <div class="wizard">
-    <div class="wizard__bar vl-u-spacer-top--medium vl-u-spacer--medium">
+    <div class="wizard__bar vl-u-spacer-top--medium vl-u-spacer--medium" data-cy="wizard-bar">
       <a
         v-for="(step, index) in props.steps"
         :key="index"
+        :data-cy="`step-${index + 1}`"
         class="wizard__bar-item vl-u-display-flex vl-u-flex-align-center vl-u-flex-v-center"
         :class="{
           'wizard__bar-item--current': index === currentStep,
@@ -21,20 +22,34 @@
       v-show="currentStep === index"
       :key="index"
       class="wizard__content vl-u-spacer--medium"
+      :data-cy="`step-${index + 1}-content`"
     >
       <slot :step="step" :current-step="currentStep" :total-steps="totalSteps"></slot>
     </div>
 
     <div class="wizard__actions vl-u-flex vl-u-flex-align-center">
-      <vl-button v-if="currentStep > 0" class="vl-u-spacer-right--xsmall" mod-secondary @click="previousStep">
+      <vl-button
+        v-if="currentStep > 0"
+        data-cy="previous-step-button"
+        class="vl-u-spacer-right--xsmall"
+        mod-secondary
+        @click="previousStep"
+      >
         <font-awesome-icon :icon="['fas', 'angles-left']" />
         Vorige
       </vl-button>
-      <vl-button v-if="currentStep < totalSteps - 1" :mod-disabled="!steps[currentStep].valid" @click="nextStep">
+      <vl-button
+        v-if="currentStep < totalSteps - 1"
+        data-cy="next-step-button"
+        :mod-disabled="!steps[currentStep].valid"
+        @click="nextStep"
+      >
         Volgende
         <font-awesome-icon :icon="['fas', 'angles-right']" />
       </vl-button>
-      <vl-button v-else :mod-disabled="!steps.every((s) => s.valid)" @click="emit('submit')">Verzend</vl-button>
+      <vl-button v-else data-cy="submit-button" :mod-disabled="!steps.every((s) => s.valid)" @click="emit('submit')"
+        >Verzend</vl-button
+      >
     </div>
   </div>
 </template>
