@@ -1,7 +1,7 @@
 /* eslint-disable vue/one-component-per-file */
-import { defineComponent } from 'vue';
-import OeWizard from '../components/dumb/OeWizard.vue';
+import { OeWizard } from '@components/dumb';
 import type { IStep } from '@models/wizard';
+import { defineComponent } from 'vue';
 
 describe('OeWizard', () => {
   describe('default', () => {
