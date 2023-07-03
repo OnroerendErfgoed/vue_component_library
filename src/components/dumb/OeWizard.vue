@@ -31,7 +31,7 @@
       <vl-button
         v-if="currentStep > 0"
         data-cy="previous-step-button"
-        class="nav-btn vl-u-spacer-right--xsmall"
+        class="wizard__navigation-button vl-u-spacer-right--xsmall"
         mod-secondary
         @click="previousStep"
       >
@@ -40,7 +40,7 @@
       </vl-button>
       <vl-button
         v-if="currentStep < totalSteps - 1"
-        class="nav-btn"
+        class="wizard__navigation-button"
         data-cy="next-step-button"
         :mod-disabled="!steps[currentStep].valid"
         @click="nextStep"
@@ -50,7 +50,7 @@
       </vl-button>
       <vl-button
         v-else
-        class="nav-btn"
+        class="wizard__navigation-button"
         data-cy="submit-button"
         :mod-disabled="!steps.every((s) => s.valid)"
         @click="emit('submit')"
@@ -212,7 +212,7 @@ const previousStepsAreValid = (step: number) => {
     }
   }
 
-  .nav-btn {
+  :deep(.wizard__navigation-button) {
     display: flex;
     justify-content: center;
     width: 130px;
