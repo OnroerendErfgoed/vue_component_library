@@ -9,3 +9,4 @@ export * from './niscode.enum';
 export * from './status';
 export * from './system-fields';
 export * from './grid';
+export * from './wizard';
