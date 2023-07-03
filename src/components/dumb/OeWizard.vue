@@ -31,7 +31,7 @@
       <vl-button
         v-if="currentStep > 0"
         data-cy="previous-step-button"
-        class="vl-u-spacer-right--xsmall"
+        class="nav-btn vl-u-spacer-right--xsmall"
         mod-secondary
         @click="previousStep"
       >
@@ -40,6 +40,7 @@
       </vl-button>
       <vl-button
         v-if="currentStep < totalSteps - 1"
+        class="nav-btn"
         data-cy="next-step-button"
         :mod-disabled="!steps[currentStep].valid"
         @click="nextStep"
@@ -47,7 +48,12 @@
         Volgende
         <font-awesome-icon :icon="['fas', 'angles-right']" />
       </vl-button>
-      <vl-button v-else data-cy="submit-button" :mod-disabled="!steps.every((s) => s.valid)" @click="emit('submit')"
+      <vl-button
+        v-else
+        class="nav-btn"
+        data-cy="submit-button"
+        :mod-disabled="!steps.every((s) => s.valid)"
+        @click="emit('submit')"
         >Verzend</vl-button
       >
     </div>
@@ -204,6 +210,12 @@ const previousStepsAreValid = (step: number) => {
         }
       }
     }
+  }
+
+  .nav-btn {
+    display: flex;
+    justify-content: center;
+    width: 130px;
   }
 }
 </style>
