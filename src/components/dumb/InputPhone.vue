@@ -88,6 +88,10 @@ watch(countryCode, (newValue, oldValue) => {
     width: auto;
   }
 
+  :deep(.vl-multiselect .multiselect--active:not(.multiselect--above) .multiselect__tags) {
+    padding: 0px 45px 0 6px;
+  }
+
   span.flag {
     background-repeat: no-repeat;
     background-size: 25px 20px;
