@@ -1,6 +1,6 @@
 <template>
   <div class="input-phone vl-grid">
-    <div class="vl-col--1-6">
+    <div class="vl-col--1-6 vl-col--2-6--m vl-col--3-6--xs">
       <vl-multiselect
         v-model="countryCode"
         class="vl-u-spacer-right--xxsmall"
@@ -9,25 +9,25 @@
         :mod-multiple="false"
         :options="countryCodeList"
         :custom-label="(cc: ICountryCode) => cc.value"
+        @select="setPhonenumber('')"
       >
-        <template #singleLabel="props">
-          <span class="flag" :class="props.option.code.toLowerCase()">{{ props.option.value }}</span>
+        <template #singleLabel="properties">
+          <span class="flag" :class="properties.option.code.toLowerCase()">{{ properties.option.value }}</span>
         </template>
 
-        <template #option="props">
-          <span class="flag" :class="props.option.code.toLowerCase()">{{ props.option.description }}</span>
+        <template #option="properties">
+          <span class="flag" :class="properties.option.code.toLowerCase()">{{ properties.option.description }}</span>
         </template>
       </vl-multiselect>
     </div>
     <vl-input-field
-      :model-value="phonenumber"
+      v-model="phonenumberValue"
       :placeholder="phonenumberExample"
-      class="vl-col--5-6"
+      class="vl-col--5-6 vl-col--4-6--m vl-col--3-6--xs"
       type="tel"
-      @update:model-value="setPhonenumber"
       @blur="inputTouched = true"
     ></vl-input-field>
-    <vl-form-message-error v-if="inputTouched && !inputValid">
+    <vl-form-message-error v-if="inputTouched && !phonenumberParsed?.isValid()">
       Ongeldige waarde, gebruik formaat vb. {{ phonenumberExample }}
     </vl-form-message-error>
   </div>
@@ -35,17 +35,31 @@
 
 <script setup lang="ts">
 import { VlFormMessageError, VlInputField, VlMultiselect } from '@govflanders/vl-ui-design-system-vue3';
-import type { ICountryCode } from '@models/input-phone';
+import type { ICountryCode, IInputPhoneProps } from '@models/input-phone';
 import parsePhoneNumber, {
-  formatIncompletePhoneNumber,
   formatNumber,
   getExampleNumber,
   type CountryCode,
   type ParsedNumber,
+  type PhoneNumber,
 } from 'libphonenumber-js';
 import examples from 'libphonenumber-js/mobile/examples';
-import { isEqual } from 'lodash';
 import { computed, ref, watch } from 'vue';
+
+const DEFAULT_COUNTRY_CODE = 'BE';
+const props = withDefaults(defineProps<IInputPhoneProps>(), {
+  modelValue: '',
+});
+const emit = defineEmits(['update:modelValue']);
+const phonenumberValue = computed({
+  get() {
+    return parsePhoneNumber(props.modelValue, DEFAULT_COUNTRY_CODE)?.nationalNumber || '';
+  },
+  set(value) {
+    phonenumberParsed.value = parsePhoneNumber(value, countryCode.value?.code);
+    setPhonenumber(value);
+  },
+});
 
 const countryCodeList = ref<ICountryCode[]>([
   { value: '+32', description: '(+32) België', code: 'BE' },
@@ -55,11 +69,17 @@ const countryCodeList = ref<ICountryCode[]>([
   { value: '+31', description: '(+31) Nederland', code: 'NL' },
   { value: '+352', description: '(+352) Luxemburg', code: 'LU' },
 ]);
-const countryCode = ref(countryCodeList.value.find((c) => c.code === 'BE'));
+const defaultCountryCode = ref(countryCodeList.value.find((c) => c.code === DEFAULT_COUNTRY_CODE));
+const countryCode = ref(defaultCountryCode.value);
 
-const phonenumber = ref('');
-const setPhonenumber = (number: string) =>
-  (phonenumber.value = formatIncompletePhoneNumber(number, countryCode.value?.code));
+const phonenumberParsed = ref<PhoneNumber>();
+const setPhonenumber = (number: string) => {
+  if (phonenumberParsed.value?.isValid()) {
+    emit('update:modelValue', parsePhoneNumber(number, countryCode.value?.code)?.number);
+  } else if (!phonenumberParsed.value) {
+    emit('update:modelValue', '');
+  }
+};
 const phonenumberExample = computed(() => {
   const example = getExampleNumber(countryCode.value?.code as CountryCode, examples)?.number;
   // Formatter works but has typing issue
@@ -67,19 +87,18 @@ const phonenumberExample = computed(() => {
 });
 
 const inputTouched = ref(false);
-const inputValid = computed(() => {
-  if (phonenumber.value) {
-    const parsed = parsePhoneNumber(phonenumber.value, countryCode.value?.code);
-    return parsed?.isValid() || false;
-  }
-  return true;
-});
 
-watch(countryCode, (newValue, oldValue) => {
-  if (newValue && !isEqual(newValue, oldValue)) {
-    phonenumber.value = '';
-  }
-});
+watch(
+  phonenumberValue,
+  (newValue) => {
+    if (newValue) {
+      phonenumberParsed.value = parsePhoneNumber(props.modelValue, DEFAULT_COUNTRY_CODE);
+      countryCode.value =
+        countryCodeList.value.find((cc) => cc.code === phonenumberParsed.value?.country) || defaultCountryCode.value;
+    }
+  },
+  { immediate: true }
+);
 </script>
 
 <style lang="scss" scoped>
