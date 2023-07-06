@@ -22,6 +22,7 @@
     </div>
     <vl-input-field
       v-model="phonenumberValue"
+      :mod-error="inputTouched && !phonenumberParsed?.isValid()"
       :placeholder="phonenumberExample"
       class="vl-col--5-6 vl-col--4-6--m vl-col--3-6--xs"
       type="tel"
@@ -76,7 +77,7 @@ const phonenumberParsed = ref<PhoneNumber>();
 const setPhonenumber = (number: string) => {
   if (phonenumberParsed.value?.isValid()) {
     emit('update:modelValue', parsePhoneNumber(number, countryCode.value?.code)?.number);
-  } else if (!phonenumberParsed.value) {
+  } else if (!number) {
     emit('update:modelValue', '');
   }
 };
