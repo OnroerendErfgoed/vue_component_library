@@ -1,8 +1,9 @@
 <template>
-  <div class="input-phone vl-grid">
+  <div class="input-phone vl-grid" data-cy="input-phone-wrapper">
     <div class="vl-col--1-6 vl-col--2-6--m vl-col--3-6--xs">
       <vl-multiselect
         v-model="countryCode"
+        data-cy="country-code"
         class="vl-u-spacer-right--xxsmall"
         :allow-empty="false"
         :searchable="false"
@@ -22,14 +23,15 @@
     </div>
     <vl-input-field
       v-model="phonenumberValue"
+      data-cy="input-phone"
       :mod-error="inputTouched && !phonenumberParsed?.isValid()"
       :placeholder="phonenumberExample"
       class="vl-col--5-6 vl-col--4-6--m vl-col--3-6--xs"
       type="tel"
       @blur="inputTouched = true"
     ></vl-input-field>
-    <vl-form-message-error v-if="inputTouched && !phonenumberParsed?.isValid()">
-      Ongeldige waarde, gebruik formaat vb. {{ phonenumberExample }}
+    <vl-form-message-error v-if="inputTouched && !phonenumberParsed?.isValid()" data-cy="input-error"
+      >Ongeldige waarde, gebruik formaat vb. {{ phonenumberExample }}
     </vl-form-message-error>
   </div>
 </template>
