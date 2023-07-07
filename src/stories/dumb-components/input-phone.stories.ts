@@ -63,9 +63,9 @@ export const TwoWayBinding: Story = {
       return { phonenumberBE, phonenumberFR };
     },
     template: `
-      <input-phone v-model="phonenumberBE" />
+      <input-phone id="id1" v-model="phonenumberBE" />
       <p class="vl-u-spacer-top vl-u-spacer-bottom--large">Model value phonenumber BE = {{ phonenumberBE }}</p>
-      <input-phone v-model="phonenumberFR" />
+      <input-phone id="id2" v-model="phonenumberFR" />
       <p class="vl-u-spacer-top">Model value phonenumber FR = {{ phonenumberFR }}</p>
     `,
   }),
