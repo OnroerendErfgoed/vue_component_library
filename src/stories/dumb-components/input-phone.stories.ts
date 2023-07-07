@@ -17,6 +17,14 @@ const meta: Meta<typeof InputPhone> = {
   },
   tags: ['autodocs'],
   argTypes: {
+    id: {
+      description: 'Unique id to link to the input field',
+      control: 'text',
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: '' },
+      },
+    },
     modelValue: {
       description: 'Phone number in international format e.g.: +32497284188',
       control: 'text',

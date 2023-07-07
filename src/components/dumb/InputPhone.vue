@@ -22,6 +22,7 @@
       </vl-multiselect>
     </div>
     <vl-input-field
+      :id="props.id"
       v-model="phonenumberValue"
       data-cy="input-phone"
       :mod-error="inputTouched && !phonenumberParsed?.isValid()"
@@ -53,6 +54,7 @@ const DEFAULT_COUNTRY_CODE = 'BE';
 const inputTouched = ref(false);
 
 const props = withDefaults(defineProps<IInputPhoneProps>(), {
+  id: '',
   modelValue: '',
 });
 const emit = defineEmits(['update:modelValue']);

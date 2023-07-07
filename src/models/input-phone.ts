@@ -1,6 +1,7 @@
 import type { CountryCode } from 'libphonenumber-js';
 
 export interface IInputPhoneProps {
+  id: string;
   modelValue: string;
 }
 
