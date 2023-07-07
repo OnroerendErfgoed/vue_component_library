@@ -50,20 +50,14 @@ import examples from 'libphonenumber-js/mobile/examples';
 import { computed, ref, watch } from 'vue';
 
 const DEFAULT_COUNTRY_CODE = 'BE';
+const inputTouched = ref(false);
+
 const props = withDefaults(defineProps<IInputPhoneProps>(), {
   modelValue: '',
 });
 const emit = defineEmits(['update:modelValue']);
-const phonenumberValue = computed({
-  get() {
-    return parsePhoneNumber(props.modelValue, DEFAULT_COUNTRY_CODE)?.nationalNumber || '';
-  },
-  set(value) {
-    phonenumberParsed.value = parsePhoneNumber(value, countryCode.value?.code);
-    setPhonenumber(value);
-  },
-});
 
+// Country code
 const countryCodeList = ref<ICountryCode[]>([
   { value: '+32', description: '(+32) België', code: 'BE' },
   { value: '+49', description: '(+49) Duitsland', code: 'DE' },
@@ -75,7 +69,17 @@ const countryCodeList = ref<ICountryCode[]>([
 const defaultCountryCode = ref(countryCodeList.value.find((c) => c.code === DEFAULT_COUNTRY_CODE));
 const countryCode = ref(defaultCountryCode.value);
 
+// Phonenumber
 const phonenumberParsed = ref<PhoneNumber>();
+const phonenumberValue = computed({
+  get() {
+    return parsePhoneNumber(props.modelValue, DEFAULT_COUNTRY_CODE)?.nationalNumber || '';
+  },
+  set(value) {
+    phonenumberParsed.value = parsePhoneNumber(value, countryCode.value?.code);
+    setPhonenumber(value);
+  },
+});
 const setPhonenumber = (number: string) => {
   if (phonenumberParsed.value?.isValid()) {
     emit('update:modelValue', parsePhoneNumber(number, countryCode.value?.code)?.number);
@@ -88,8 +92,6 @@ const phonenumberExample = computed(() => {
   // Formatter works but has typing issue
   return formatNumber(example as unknown as ParsedNumber, 'NATIONAL');
 });
-
-const inputTouched = ref(false);
 
 watch(
   phonenumberValue,

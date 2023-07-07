@@ -1,3 +1,4 @@
+import type { CountryCode } from 'libphonenumber-js';
 import { defineComponent, ref } from 'vue';
 import InputPhone from '../components/dumb/InputPhone.vue';
 
@@ -10,10 +11,14 @@ const TestComponent = defineComponent({
   template: '<input-phone v-model="phonenumber"/>',
 });
 
-const generateTestSuiteNonDefaultCountry = (countryCode: string, phonePlaceholder: string, phonePrefix: string) => {
+const generateTestSuiteNonDefaultCountry = (
+  countryCode: CountryCode,
+  phonePlaceholder: string,
+  phonePrefix: string,
+  expectedInput: string
+) => {
   describe(countryCode, () => {
     const phoneInput = phonePlaceholder.replace(/\s/g, '');
-    const expectedInput = phoneInput.slice(1);
     const internatialFormat = `${phonePrefix}${expectedInput}`;
     const randomInput = '15484184181595599';
 
@@ -24,20 +29,21 @@ const generateTestSuiteNonDefaultCountry = (countryCode: string, phonePlaceholde
       cy.dataCy('input-phone').should('have.attr', 'placeholder', phonePlaceholder);
     });
 
-    it('accepts a phonenumber with leading 0 and formats accordingly', () => {
+    it('accepts a phonenumber without leading country code when country code is selected and formats accordingly', () => {
       cy.mount(TestComponent);
       changeCountryCode(countryCode);
 
       cy.dataCy('input-phone').type(phoneInput);
+
       checkFlagAndPrefix(countryCode, phonePrefix);
       checkPhonenumberInput(expectedInput);
     });
 
-    it('accepts a phonenumber with leading country code, sets country code and formats accordingly', () => {
+    it('accepts a phonenumber with leading country code, automatically derives country code and formats accordingly', () => {
       cy.mount(TestComponent);
-      changeCountryCode(countryCode);
 
       cy.dataCy('input-phone').type(internatialFormat);
+
       checkFlagAndPrefix(countryCode, phonePrefix);
       checkPhonenumberInput(expectedInput);
     });
@@ -162,13 +168,11 @@ describe('InputPhone', () => {
     });
   });
 
-  generateTestSuiteNonDefaultCountry('DE', '01512 3456789', '+49');
-  generateTestSuiteNonDefaultCountry('FR', '06 12 34 56 78', '+33');
-  generateTestSuiteNonDefaultCountry('GB', '07400 123456', '+44');
-  generateTestSuiteNonDefaultCountry('NL', '06 12345678', '+31');
-
-  // TODO: fix this edge case
-  // generateTestSuiteNonDefaultCountry('LU', '628 123456', '+352');
+  generateTestSuiteNonDefaultCountry('DE', '01512 3456789', '+49', '15123456789');
+  generateTestSuiteNonDefaultCountry('FR', '06 12 34 56 78', '+33', '612345678');
+  generateTestSuiteNonDefaultCountry('GB', '07400 123456', '+44', '7400123456');
+  generateTestSuiteNonDefaultCountry('NL', '06 12345678', '+31', '612345678');
+  generateTestSuiteNonDefaultCountry('LU', '628 123 456', '+352', '628123456');
 });
 
 const checkFlagAndPrefix = (countryCode: string, prefix: string) => {
