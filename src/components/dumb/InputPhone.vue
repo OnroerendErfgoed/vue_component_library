@@ -11,7 +11,7 @@
         :mod-multiple="false"
         :options="countryCodeList"
         :custom-label="(cc: ICountryCode) => cc.value"
-        @select="setPhonenumber('')"
+        @select="emit('update:modelValue', '')"
       >
         <template #singleLabel="properties">
           <span class="flag" :class="properties.option.code.toLowerCase()">{{ properties.option.value }}</span>
@@ -82,17 +82,17 @@ const phonenumberValue = computed({
     return parsePhoneNumber(props.modelValue, DEFAULT_COUNTRY_CODE)?.nationalNumber || '';
   },
   set(value) {
-    phonenumberParsed.value = parsePhoneNumber(value, countryCode.value?.code);
-    setPhonenumber(value);
+    if (value.startsWith('+') || value.startsWith('00')) {
+      phonenumberParsed.value = parsePhoneNumber(value, countryCode.value?.code);
+      if (phonenumberParsed.value?.country) {
+        emit('update:modelValue', phonenumberParsed.value?.number);
+      }
+    } else {
+      phonenumberParsed.value = parsePhoneNumber(value, countryCode.value?.code);
+      emit('update:modelValue', phonenumberParsed.value?.number);
+    }
   },
 });
-const setPhonenumber = (number: string) => {
-  if (phonenumberParsed.value?.isValid()) {
-    emit('update:modelValue', parsePhoneNumber(number, countryCode.value?.code)?.number);
-  } else if (!number) {
-    emit('update:modelValue', '');
-  }
-};
 const phonenumberExample = computed(() => {
   const example = getExampleNumber(countryCode.value?.code as CountryCode, examples)?.number;
   // Formatter works but has typing issue
@@ -104,8 +104,9 @@ watch(
   (newValue) => {
     if (newValue) {
       phonenumberParsed.value = parsePhoneNumber(props.modelValue, DEFAULT_COUNTRY_CODE);
-      countryCode.value =
-        countryCodeList.value.find((cc) => cc.code === phonenumberParsed.value?.country) || defaultCountryCode.value;
+      if (phonenumberParsed.value?.country) {
+        countryCode.value = countryCodeList.value.find((cc) => cc.code === phonenumberParsed.value?.country);
+      }
     }
   },
   { immediate: true }

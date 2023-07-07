@@ -8,7 +8,7 @@ const TestComponent = defineComponent({
     const phonenumber = ref('');
     return { phonenumber };
   },
-  template: '<input-phone v-model="phonenumber"/>',
+  template: '<input-phone id="id" v-model="phonenumber"/>',
 });
 
 const generateTestSuiteNonDefaultCountry = (
