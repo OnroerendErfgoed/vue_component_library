@@ -111,6 +111,11 @@ watch(
   },
   { immediate: true }
 );
+
+// Validation
+const isValid = computed(() => phonenumberParsed.value?.isValid());
+
+defineExpose({ isValid });
 </script>
 
 <style lang="scss" scoped>
