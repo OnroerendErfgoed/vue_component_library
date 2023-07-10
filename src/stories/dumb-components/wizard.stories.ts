@@ -64,8 +64,8 @@ export const Default: Story = {
     },
     template: `
     <oe-wizard :steps="steps">
-      <template #default="{ step, currentStep, totalSteps }">
-        <h2>Stap {{ currentStep + 1 }} van {{ totalSteps }} - {{ step.name }}</h2>
+      <template #default="{ currentStep, totalSteps }">
+        <h2>Stap {{ currentStep + 1 }} van {{ totalSteps }}</h2>
       </template>
     </oe-wizard>
     `,
@@ -96,8 +96,8 @@ export const BarNavigationAllowed: Story = {
     },
     template: `
       <oe-wizard :steps="steps" allow-bar-navigation>
-        <template #default="{ step, currentStep, totalSteps }">
-          <h2>Stap {{ currentStep + 1 }} van {{ totalSteps }} - {{ step.name }}</h2>
+        <template #default="{ currentStep, totalSteps }">
+          <h2>Stap {{ currentStep + 1 }} van {{ totalSteps }}</h2>
         </template>
       </oe-wizard>
       `,
@@ -129,8 +129,8 @@ export const BlockedWhenStepInvalid: Story = {
     },
     template: `
       <oe-wizard :steps="steps" allow-bar-navigation>
-        <template #default="{ step, currentStep, totalSteps }">
-          <h2>Stap {{ currentStep + 1 }} van {{ totalSteps }} - {{ step.name }}</h2>
+        <template #default="{ currentStep, totalSteps }">
+          <h2>Stap {{ currentStep + 1 }} van {{ totalSteps }}</h2>
         </template>
       </oe-wizard>
       `,
@@ -167,8 +167,8 @@ export const Mobile: Story = {
     },
     template: `
     <oe-wizard :steps="steps">
-      <template #default="{ step, currentStep, totalSteps }">
-        <h2>Stap {{ currentStep + 1 }} van {{ totalSteps }} - {{ step.name }}</h2>
+      <template #default="{ currentStep, totalSteps }">
+        <h2>Stap {{ currentStep + 1 }} van {{ totalSteps }}</h2>
       </template>
     </oe-wizard>
     `,

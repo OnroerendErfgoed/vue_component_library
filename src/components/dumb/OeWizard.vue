@@ -17,14 +17,8 @@
       </a>
     </div>
 
-    <div
-      v-for="(step, index) in steps"
-      v-show="currentStep === index"
-      :key="index"
-      class="wizard__content vl-u-spacer--medium"
-      :data-cy="`step-${index + 1}-content`"
-    >
-      <slot :step="step" :current-step="currentStep" :total-steps="totalSteps"></slot>
+    <div class="wizard__content vl-u-spacer--medium" :data-cy="`step-${currentStep + 1}-content`">
+      <slot :current-step="currentStep" :total-steps="totalSteps"></slot>
     </div>
 
     <div class="wizard__actions vl-u-flex vl-u-flex-align-center">
@@ -74,7 +68,7 @@ const props = withDefaults(defineProps<IWizardProps>(), {
   steps: () => [],
   allowBarNavigation: false,
 });
-const emit = defineEmits(['submit']);
+const emit = defineEmits(['submit', 'next', 'previous', 'goTo']);
 
 const currentStep = ref(0);
 const totalSteps = ref(props.steps.length);
@@ -82,18 +76,21 @@ const totalSteps = ref(props.steps.length);
 const previousStep = () => {
   if (currentStep.value > 0) {
     currentStep.value--;
+    emit('previous');
   }
 };
 
 const nextStep = () => {
   if (currentStep.value < totalSteps.value - 1) {
     currentStep.value++;
+    emit('next');
   }
 };
 
 const goToStep = (step: number) => {
   if (props.allowBarNavigation && previousStepsAreValid(step)) {
     currentStep.value = step;
+    emit('goTo', step);
   }
 };
 

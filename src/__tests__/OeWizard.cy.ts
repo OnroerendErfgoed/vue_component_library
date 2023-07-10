@@ -19,8 +19,8 @@ describe('OeWizard', () => {
       },
       template: `
       <oe-wizard :steps="steps">
-        <template #default="{ step, currentStep, totalSteps }">
-          <h2>Stap {{ currentStep + 1 }} van {{ totalSteps }} - {{ step.name }}</h2>
+        <template #default="{ currentStep, totalSteps }">
+          <h2>Stap {{ currentStep + 1 }} van {{ totalSteps }}</h2>
         </template>
       </oe-wizard>
       `,
@@ -133,16 +133,16 @@ describe('OeWizard', () => {
       });
 
       it('renders the activated step in the default slot', () => {
-        cy.dataCy('step-1-content').invoke('text').should('equal', 'Stap 1 van 4 - Algemene gegevens');
+        cy.dataCy('step-1-content').invoke('text').should('equal', 'Stap 1 van 4');
         cy.dataCy('next-step-button').click();
 
-        cy.dataCy('step-2-content').invoke('text').should('equal', 'Stap 2 van 4 - Mijn gegevens');
+        cy.dataCy('step-2-content').invoke('text').should('equal', 'Stap 2 van 4');
         cy.dataCy('next-step-button').click();
 
-        cy.dataCy('step-3-content').invoke('text').should('equal', 'Stap 3 van 4 - Bijlagen');
+        cy.dataCy('step-3-content').invoke('text').should('equal', 'Stap 3 van 4');
         cy.dataCy('next-step-button').click();
 
-        cy.dataCy('step-4-content').invoke('text').should('equal', 'Stap 4 van 4 - Overzicht');
+        cy.dataCy('step-4-content').invoke('text').should('equal', 'Stap 4 van 4');
       });
     });
   });
