@@ -4,8 +4,8 @@
       "validations": {
         "required": "Het veld {field} is verplicht.",
         "requiredIf": "Het veld {field} is verplicht.",
-        "minLength": "Het veld {property} heeft de waarde '{model}', maar het moet een minimale lengte van {min} hebben.",
-        "maxLength": "Het veld {property} heeft de waarde '{model}', maar het moet een maximale lengte van {max} hebben.",
+        "minLength": "Het veld {property} moet een minimale lengte van {min} hebben",
+        "maxLength": "Het veld {property} mag maar een maximale lengte van {max} hebben",
         "email": "Het veld {field} bevat een ongeldig e-mailadres."
       }
     }
