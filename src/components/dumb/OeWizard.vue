@@ -74,17 +74,13 @@ const previousStep = () => {
 };
 
 const nextStep = async () => {
-  if (currentStep.value < totalSteps.value - 1) {
-    if (await props.steps[currentStep.value].validate()) {
-      currentStep.value++;
-    }
+  if (currentStep.value < totalSteps.value - 1 && (await props.steps[currentStep.value].validate())) {
+    currentStep.value++;
   }
 };
 
 const goToStep = async (step: number) => {
-  if (props.allowBarNavigation && (await previousStepsAreValid(step))) {
-    currentStep.value = step;
-  }
+  if (props.allowBarNavigation && (await previousStepsAreValid(step))) currentStep.value = step;
 };
 
 const previousStepsAreValid = async (step: number) => {
