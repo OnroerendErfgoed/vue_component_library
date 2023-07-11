@@ -82,13 +82,12 @@ const phonenumberValue = computed({
     return parsePhoneNumber(props.modelValue, DEFAULT_COUNTRY_CODE)?.nationalNumber || '';
   },
   set(value) {
+    phonenumberParsed.value = parsePhoneNumber(value, countryCode.value?.code);
     if (value.startsWith('+') || value.startsWith('00')) {
-      phonenumberParsed.value = parsePhoneNumber(value, countryCode.value?.code);
       if (phonenumberParsed.value?.country) {
         emit('update:modelValue', phonenumberParsed.value?.number);
       }
     } else {
-      phonenumberParsed.value = parsePhoneNumber(value, countryCode.value?.code);
       emit('update:modelValue', phonenumberParsed.value?.number);
     }
   },

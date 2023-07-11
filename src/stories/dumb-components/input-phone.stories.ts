@@ -48,8 +48,7 @@ export const TwoWayBinding: Story = {
         height: '500px',
       },
       description: {
-        story:
-          'The input only emits a model value change when the input is valid - valid when empty or valid format according to selected country.',
+        story: 'Add a two way binding to benefit from the auto input formatting feature.',
       },
     },
   },
