@@ -25,18 +25,18 @@
     <vl-input-field
       v-bind="$attrs"
       :id="props.id"
-      v-model="phonenumberValue"
+      v-model="phoneNumberValue"
       data-cy="input-phone"
-      :mod-error="(phonenumberValue && inputTouched && !phonenumberParsed?.isValid()) || $attrs['mod-error']"
-      :placeholder="phonenumberExample"
+      :mod-error="(phoneNumberValue && inputTouched && !phoneNumberParsed?.isValid()) || $attrs['mod-error']"
+      :placeholder="phoneNumberExample"
       class="vl-col--5-6 vl-col--4-6--m vl-col--3-6--xs"
       type="tel"
       @blur="inputTouched = true"
     ></vl-input-field>
     <vl-form-message-error
-      v-if="phonenumberValue && inputTouched && !phonenumberParsed?.isValid()"
+      v-if="phoneNumberValue && inputTouched && !phoneNumberParsed?.isValid()"
       data-cy="input-error"
-      >Ongeldige waarde, gebruik formaat vb. {{ phonenumberExample }}
+      >Ongeldige waarde, gebruik formaat vb. {{ phoneNumberExample }}
     </vl-form-message-error>
   </div>
 </template>
@@ -75,36 +75,36 @@ const countryCodeList = ref<ICountryCode[]>([
 const defaultCountryCode = ref(countryCodeList.value.find((c) => c.code === DEFAULT_COUNTRY_CODE));
 const countryCode = ref(defaultCountryCode.value);
 
-// Phonenumber
-const phonenumberParsed = ref<PhoneNumber>();
-const phonenumberValue = computed({
+// Phone number
+const phoneNumberParsed = ref<PhoneNumber>();
+const phoneNumberValue = computed({
   get() {
     return parsePhoneNumber(props.modelValue, DEFAULT_COUNTRY_CODE)?.nationalNumber || '';
   },
   set(value) {
-    phonenumberParsed.value = parsePhoneNumber(value, countryCode.value?.code);
+    phoneNumberParsed.value = parsePhoneNumber(value, countryCode.value?.code);
     if (value.startsWith('+') || value.startsWith('00')) {
-      if (phonenumberParsed.value?.country) {
-        emit('update:modelValue', phonenumberParsed.value?.number);
+      if (phoneNumberParsed.value?.country) {
+        emit('update:modelValue', phoneNumberParsed.value?.number);
       }
     } else {
-      emit('update:modelValue', phonenumberParsed.value?.number);
+      emit('update:modelValue', phoneNumberParsed.value?.number);
     }
   },
 });
-const phonenumberExample = computed(() => {
+const phoneNumberExample = computed(() => {
   const example = getExampleNumber(countryCode.value?.code as CountryCode, examples)?.number;
   // Formatter works but has typing issue
   return formatNumber(example as unknown as ParsedNumber, 'NATIONAL');
 });
 
 watch(
-  phonenumberValue,
+  phoneNumberValue,
   (newValue) => {
     if (newValue) {
-      phonenumberParsed.value = parsePhoneNumber(props.modelValue, DEFAULT_COUNTRY_CODE);
-      if (phonenumberParsed.value?.country) {
-        countryCode.value = countryCodeList.value.find((cc) => cc.code === phonenumberParsed.value?.country);
+      phoneNumberParsed.value = parsePhoneNumber(props.modelValue, DEFAULT_COUNTRY_CODE);
+      if (phoneNumberParsed.value?.country) {
+        countryCode.value = countryCodeList.value.find((cc) => cc.code === phoneNumberParsed.value?.country);
       }
     }
   },
@@ -112,7 +112,7 @@ watch(
 );
 
 // Validation
-const isValid = computed(() => phonenumberParsed.value?.isValid());
+const isValid = computed(() => phoneNumberParsed.value?.isValid());
 
 defineExpose({ isValid });
 </script>

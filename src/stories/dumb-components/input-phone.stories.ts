@@ -1,4 +1,4 @@
-import InputPhone from '../../components/dumb/InputPhone.vue';
+import InputPhone from '@components/dumb/InputPhone.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import '@/scss/main.scss';
@@ -57,15 +57,15 @@ export const TwoWayBinding: Story = {
       InputPhone,
     },
     setup() {
-      const phonenumberBE = ref('+32497518852');
-      const phonenumberFR = ref('+33612345678');
-      return { phonenumberBE, phonenumberFR };
+      const phoneNumberBE = ref('+32497518852');
+      const phoneNumberFR = ref('+33612345678');
+      return { phoneNumberBE, phoneNumberFR };
     },
     template: `
-      <input-phone id="id1" v-model="phonenumberBE" />
-      <p class="vl-u-spacer-top vl-u-spacer-bottom--large">Model value phonenumber BE = {{ phonenumberBE }}</p>
-      <input-phone id="id2" v-model="phonenumberFR" />
-      <p class="vl-u-spacer-top">Model value phonenumber FR = {{ phonenumberFR }}</p>
+      <input-phone id="id1" v-model="phoneNumberBE" />
+      <p class="vl-u-spacer-top vl-u-spacer-bottom--large">Model value phone number BE = {{ phoneNumberBE }}</p>
+      <input-phone id="id2" v-model="phoneNumberFR" />
+      <p class="vl-u-spacer-top">Model value phone number FR = {{ phoneNumberFR }}</p>
     `,
   }),
 };

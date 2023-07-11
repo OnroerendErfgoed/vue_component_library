@@ -1,14 +1,14 @@
+import InputPhone from '@components/dumb/InputPhone.vue';
 import type { CountryCode } from 'libphonenumber-js';
 import { defineComponent, ref } from 'vue';
-import InputPhone from '../components/dumb/InputPhone.vue';
 
 const TestComponent = defineComponent({
   components: { InputPhone },
   setup() {
-    const phonenumber = ref('');
-    return { phonenumber };
+    const phoneNumber = ref('');
+    return { phoneNumber: phoneNumber };
   },
-  template: '<input-phone id="id" v-model="phonenumber"/>',
+  template: '<input-phone id="id" v-model="phoneNumber"/>',
 });
 
 const generateTestSuiteNonDefaultCountry = (
@@ -19,7 +19,7 @@ const generateTestSuiteNonDefaultCountry = (
 ) => {
   describe(countryCode, () => {
     const phoneInput = phonePlaceholder.replace(/\s/g, '');
-    const internatialFormat = `${phonePrefix}${expectedInput}`;
+    const internationalFormat = `${phonePrefix}${expectedInput}`;
     const randomInput = '15484184181595599';
 
     it('renders a placeholder according to selected country', () => {
@@ -29,31 +29,31 @@ const generateTestSuiteNonDefaultCountry = (
       cy.dataCy('input-phone').should('have.attr', 'placeholder', phonePlaceholder);
     });
 
-    it('accepts a phonenumber without leading country code when country code is selected and formats accordingly', () => {
+    it('accepts a phone number without leading country code when country code is selected and formats accordingly', () => {
       cy.mount(TestComponent);
       changeCountryCode(countryCode);
 
       cy.dataCy('input-phone').type(phoneInput);
 
       checkFlagAndPrefix(countryCode, phonePrefix);
-      checkPhonenumberInput(expectedInput);
+      checkPhoneNumberInput(expectedInput);
     });
 
-    it('accepts a phonenumber with leading country code, automatically derives country code and formats accordingly', () => {
+    it('accepts a phone number with leading country code, automatically derives country code and formats accordingly', () => {
       cy.mount(TestComponent);
 
-      cy.dataCy('input-phone').type(internatialFormat);
+      cy.dataCy('input-phone').type(internationalFormat);
 
       checkFlagAndPrefix(countryCode, phonePrefix);
-      checkPhonenumberInput(expectedInput);
+      checkPhoneNumberInput(expectedInput);
     });
 
-    it('accepts a value prop and sets the country code and phonenumber', () => {
+    it('accepts a value prop and sets the country code and phone number', () => {
       cy.mount(TestComponent).then(({ component }) => {
-        component.phonenumber = internatialFormat;
+        component.phoneNumber = internationalFormat;
 
         checkFlagAndPrefix(countryCode, phonePrefix);
-        checkPhonenumberInput(expectedInput);
+        checkPhoneNumberInput(expectedInput);
       });
     });
 
@@ -64,13 +64,13 @@ const generateTestSuiteNonDefaultCountry = (
         cy.dataCy('input-phone')
           .type(phoneInput)
           .then(() => {
-            expect(component.phonenumber).to.equal(internatialFormat);
-            cy.get('@onUpdateModelValueSpy').should('have.been.calledWith', internatialFormat);
+            expect(component.phoneNumber).to.equal(internationalFormat);
+            cy.get('@onUpdateModelValueSpy').should('have.been.calledWith', internationalFormat);
           });
       });
     });
 
-    it('marks the field as invalid when an invalid phonenumber is entered for the selected country code and does not emit an update:modelValue event', () => {
+    it('marks the field as invalid when an invalid phone number is entered for the selected country code and does not emit an update:modelValue event', () => {
       const onUpdateModelValueSpy = cy.spy().as('onUpdateModelValueSpy');
       cy.mount(TestComponent, { props: { 'onUpdate:modelValue': onUpdateModelValueSpy } }).then(() => {
         changeCountryCode(countryCode);
@@ -83,15 +83,15 @@ const generateTestSuiteNonDefaultCountry = (
       });
     });
 
-    it('clears the phonenumber when the country code is changed', () => {
+    it('clears the phone number when the country code is changed', () => {
       cy.mount(TestComponent).then(({ component }) => {
-        component.phonenumber = internatialFormat;
+        component.phoneNumber = internationalFormat;
 
         checkFlagAndPrefix(countryCode, phonePrefix);
-        checkPhonenumberInput(expectedInput);
+        checkPhoneNumberInput(expectedInput);
 
         changeCountryCode('be');
-        checkPhonenumberInput('');
+        checkPhoneNumberInput('');
       });
     });
   });
@@ -108,26 +108,26 @@ describe('InputPhone', () => {
       cy.dataCy('input-phone').should('have.attr', 'placeholder', '0470 12 34 56');
     });
 
-    it('accepts a phonenumber with leading 0 and formats accordingly', () => {
+    it('accepts a phone number with leading 0 and formats accordingly', () => {
       cy.mount(TestComponent);
       cy.dataCy('input-phone').type('0497668811');
       checkFlagAndPrefix('be', '+32');
-      checkPhonenumberInput('497668811');
+      checkPhoneNumberInput('497668811');
     });
 
-    it('accepts a phonenumber with leading country code, sets country code and formats accordingly', () => {
+    it('accepts a phone number with leading country code, sets country code and formats accordingly', () => {
       cy.mount(TestComponent);
       cy.dataCy('input-phone').type('+32497668811');
       checkFlagAndPrefix('be', '+32');
-      checkPhonenumberInput('497668811');
+      checkPhoneNumberInput('497668811');
     });
 
-    it('accepts a value prop and sets the country code and phonenumber', () => {
+    it('accepts a value prop and sets the country code and phone number', () => {
       cy.mount(TestComponent).then(({ component }) => {
-        component.phonenumber = '+32497668811';
+        component.phoneNumber = '+32497668811';
 
         checkFlagAndPrefix('be', '+32');
-        checkPhonenumberInput('497668811');
+        checkPhoneNumberInput('497668811');
       });
     });
 
@@ -137,13 +137,13 @@ describe('InputPhone', () => {
         cy.dataCy('input-phone')
           .type('0497668811')
           .then(() => {
-            expect(component.phonenumber).to.equal('+32497668811');
+            expect(component.phoneNumber).to.equal('+32497668811');
             cy.get('@onUpdateModelValueSpy').should('have.been.calledWith', '+32497668811');
           });
       });
     });
 
-    it('marks the field as invalid when an invalid phonenumber is entered for the selected country code and does not emit an update:modelValue event', () => {
+    it('marks the field as invalid when an invalid phone number is entered for the selected country code and does not emit an update:modelValue event', () => {
       const onUpdateModelValueSpy = cy.spy().as('onUpdateModelValueSpy');
       cy.mount(TestComponent, { props: { 'onUpdate:modelValue': onUpdateModelValueSpy } }).then(() => {
         cy.dataCy('input-phone')
@@ -155,15 +155,15 @@ describe('InputPhone', () => {
       });
     });
 
-    it('clears the phonenumber when the country code is changed', () => {
+    it('clears the phone number when the country code is changed', () => {
       cy.mount(TestComponent).then(({ component }) => {
-        component.phonenumber = '+32497668811';
+        component.phoneNumber = '+32497668811';
 
         checkFlagAndPrefix('be', '+32');
-        checkPhonenumberInput('497668811');
+        checkPhoneNumberInput('497668811');
 
         changeCountryCode('de');
-        checkPhonenumberInput('');
+        checkPhoneNumberInput('');
       });
     });
   });
@@ -184,8 +184,8 @@ const checkFlagAndPrefix = (countryCode: string, prefix: string) => {
     .should('equal', prefix);
 };
 
-const checkPhonenumberInput = (phonenumber: string) => {
-  cy.dataCy('input-phone').should('have.value', phonenumber);
+const checkPhoneNumberInput = (phoneNumber: string) => {
+  cy.dataCy('input-phone').should('have.value', phoneNumber);
 };
 
 const checkError = (expectedFormat: string) => {
