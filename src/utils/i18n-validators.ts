@@ -11,8 +11,8 @@ const withI18nMessage = createI18nMessage({
 
 // wrap each validator.
 export const required = withI18nMessage(validators.required);
-export const requiredIf = withI18nMessage(validators.requiredIf, { withArguments: true });
+export const email = withI18nMessage(validators.email);
 // validators that expect a parameter should have `{ withArguments: true }` passed as a second parameter, to annotate they should be wrapped
+export const requiredIf = withI18nMessage(validators.requiredIf, { withArguments: true });
 export const minLength = withI18nMessage(validators.minLength, { withArguments: true });
-// or you can provide the param at definition, statically
-export const maxLength = withI18nMessage(validators.maxLength(10));
+export const maxLength = withI18nMessage(validators.maxLength, { withArguments: true });
