@@ -9,10 +9,10 @@ describe('OeWizard', () => {
       components: { OeWizard },
       setup() {
         const steps: IStep[] = [
-          { name: 'Algemene gegevens', valid: true },
-          { name: 'Mijn gegevens', valid: true },
-          { name: 'Bijlagen', valid: true },
-          { name: 'Overzicht', valid: true },
+          { name: 'Algemene gegevens', validate: () => Promise.resolve(true) },
+          { name: 'Mijn gegevens', validate: () => Promise.resolve(true) },
+          { name: 'Bijlagen', validate: () => Promise.resolve(true) },
+          { name: 'Overzicht', validate: () => Promise.resolve(true) },
         ];
 
         return { steps };
@@ -152,10 +152,10 @@ describe('OeWizard', () => {
       components: { OeWizard },
       setup() {
         const steps: IStep[] = [
-          { name: 'Algemene gegevens', valid: true },
-          { name: 'Mijn gegevens', valid: true },
-          { name: 'Bijlagen', valid: true },
-          { name: 'Overzicht', valid: true },
+          { name: 'Algemene gegevens', validate: () => Promise.resolve(true) },
+          { name: 'Mijn gegevens', validate: () => Promise.resolve(true) },
+          { name: 'Bijlagen', validate: () => Promise.resolve(true) },
+          { name: 'Overzicht', validate: () => Promise.resolve(true) },
         ];
 
         return { steps };
@@ -178,10 +178,10 @@ describe('OeWizard', () => {
       components: { OeWizard },
       setup() {
         const steps: IStep[] = [
-          { name: 'Algemene gegevens', valid: true },
-          { name: 'Mijn gegevens', valid: false },
-          { name: 'Bijlagen', valid: true },
-          { name: 'Overzicht', valid: true },
+          { name: 'Algemene gegevens', validate: () => Promise.resolve(true) },
+          { name: 'Mijn gegevens', validate: () => Promise.resolve(false) },
+          { name: 'Bijlagen', validate: () => Promise.resolve(true) },
+          { name: 'Overzicht', validate: () => Promise.resolve(true) },
         ];
 
         return { steps };
@@ -191,13 +191,6 @@ describe('OeWizard', () => {
 
     beforeEach(() => {
       cy.mount(TestComponent);
-    });
-
-    it('disables the next step button when the current step is invalid', () => {
-      cy.dataCy('next-step-button').click();
-      cy.get('.wizard__bar-item--current').invoke('text').should('equal', '2Mijn gegevens');
-
-      cy.dataCy('next-step-button').should('be.disabled');
     });
 
     it('does not navigate to a step when previous step is invalid using bar navigation', () => {
@@ -217,10 +210,10 @@ describe('OeWizard', () => {
       components: { OeWizard },
       setup() {
         const steps: IStep[] = [
-          { name: 'Algemene gegevens', valid: true },
-          { name: 'Mijn gegevens', valid: false },
-          { name: 'Bijlagen', valid: true },
-          { name: 'Overzicht', valid: true },
+          { name: 'Algemene gegevens', validate: () => Promise.resolve(true) },
+          { name: 'Mijn gegevens', validate: () => Promise.resolve(false) },
+          { name: 'Bijlagen', validate: () => Promise.resolve(true) },
+          { name: 'Overzicht', validate: () => Promise.resolve(true) },
         ];
 
         return { steps };

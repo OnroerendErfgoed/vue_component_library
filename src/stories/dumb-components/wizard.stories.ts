@@ -54,10 +54,10 @@ export const Default: Story = {
     },
     setup() {
       const steps: IStep[] = [
-        { name: 'Gegevens EPC', valid: true },
-        { name: 'Mijn gegevens', valid: true },
-        { name: 'Bijlagen', valid: true },
-        { name: 'Overzicht', valid: true },
+        { name: 'Gegevens EPC', validate: () => Promise.resolve(true) },
+        { name: 'Mijn gegevens', validate: () => Promise.resolve(true) },
+        { name: 'Bijlagen', validate: () => Promise.resolve(true) },
+        { name: 'Overzicht', validate: () => Promise.resolve(true) },
       ];
 
       return { steps };
@@ -86,10 +86,10 @@ export const BarNavigationAllowed: Story = {
     },
     setup() {
       const steps: IStep[] = [
-        { name: 'Gegevens EPC', valid: true },
-        { name: 'Mijn gegevens', valid: true },
-        { name: 'Bijlagen', valid: true },
-        { name: 'Overzicht', valid: true },
+        { name: 'Gegevens EPC', validate: () => Promise.resolve(true) },
+        { name: 'Mijn gegevens', validate: () => Promise.resolve(true) },
+        { name: 'Bijlagen', validate: () => Promise.resolve(true) },
+        { name: 'Overzicht', validate: () => Promise.resolve(true) },
       ];
 
       return { steps };
@@ -119,10 +119,10 @@ export const BlockedWhenStepInvalid: Story = {
     },
     setup() {
       const steps: IStep[] = [
-        { name: 'Gegevens EPC', valid: true },
-        { name: 'Mijn gegevens', valid: true },
-        { name: 'Bijlagen', valid: false },
-        { name: 'Overzicht', valid: false },
+        { name: 'Gegevens EPC', validate: () => Promise.resolve(true) },
+        { name: 'Mijn gegevens', validate: () => Promise.resolve(true) },
+        { name: 'Bijlagen', validate: () => Promise.resolve(false) },
+        { name: 'Overzicht', validate: () => Promise.resolve(false) },
       ];
 
       return { steps };
@@ -157,10 +157,10 @@ export const Mobile: Story = {
     },
     setup() {
       const steps: IStep[] = [
-        { name: 'Gegevens EPC', valid: true },
-        { name: 'Mijn gegevens', valid: true },
-        { name: 'Bijlagen', valid: true },
-        { name: 'Overzicht', valid: true },
+        { name: 'Gegevens EPC', validate: () => Promise.resolve(true) },
+        { name: 'Mijn gegevens', validate: () => Promise.resolve(true) },
+        { name: 'Bijlagen', validate: () => Promise.resolve(true) },
+        { name: 'Overzicht', validate: () => Promise.resolve(true) },
       ];
 
       return { steps };

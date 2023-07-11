@@ -36,18 +36,12 @@
         v-if="currentStep < totalSteps - 1"
         class="wizard__navigation-button"
         data-cy="next-step-button"
-        :mod-disabled="!steps[currentStep].valid"
         @click="nextStep"
       >
         Volgende
         <font-awesome-icon :icon="['fas', 'angles-right']" />
       </vl-button>
-      <vl-button
-        v-else
-        class="wizard__navigation-button"
-        data-cy="submit-button"
-        :mod-disabled="!steps.every((s) => s.valid)"
-        @click="emit('submit')"
+      <vl-button v-else class="wizard__navigation-button" data-cy="submit-button" @click="emit('submit')"
         >Verzend</vl-button
       >
     </div>
@@ -55,10 +49,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { VlBadge, VlButton } from '@govflanders/vl-ui-design-system-vue3';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { VlBadge, VlButton } from '@govflanders/vl-ui-design-system-vue3';
 import type { IWizardProps } from '@models/wizard';
+import { ref } from 'vue';
 
 // Next line should be activated once VlUTooltip is properly exported
 // For now, an import of { VlUiUtil } in the implementing app also makes the tooltip available
@@ -68,7 +62,7 @@ const props = withDefaults(defineProps<IWizardProps>(), {
   steps: () => [],
   allowBarNavigation: false,
 });
-const emit = defineEmits(['submit', 'next', 'previous', 'goTo']);
+const emit = defineEmits(['submit']);
 
 const currentStep = ref(0);
 const totalSteps = ref(props.steps.length);
@@ -76,26 +70,28 @@ const totalSteps = ref(props.steps.length);
 const previousStep = () => {
   if (currentStep.value > 0) {
     currentStep.value--;
-    emit('previous');
   }
 };
 
-const nextStep = () => {
+const nextStep = async () => {
   if (currentStep.value < totalSteps.value - 1) {
-    currentStep.value++;
-    emit('next');
+    if (await props.steps[currentStep.value].validate()) {
+      currentStep.value++;
+    }
   }
 };
 
-const goToStep = (step: number) => {
-  if (props.allowBarNavigation && previousStepsAreValid(step)) {
+const goToStep = async (step: number) => {
+  if (props.allowBarNavigation && (await previousStepsAreValid(step))) {
     currentStep.value = step;
-    emit('goTo', step);
   }
 };
 
-const previousStepsAreValid = (step: number) => {
-  return props.steps.slice(0, step).every((s) => s.valid);
+const previousStepsAreValid = async (step: number) => {
+  const steps = props.steps.slice(0, step);
+  const validations = Promise.all(steps.map((s) => s.validate()));
+
+  return (await validations).every((v) => v);
 };
 </script>
 

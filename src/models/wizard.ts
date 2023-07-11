@@ -5,5 +5,5 @@ export interface IWizardProps {
 
 export interface IStep {
   name: string;
-  valid: boolean;
+  validate: () => Promise<boolean>;
 }
