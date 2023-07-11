@@ -89,9 +89,9 @@ const goToStep = async (step: number) => {
 
 const previousStepsAreValid = async (step: number) => {
   const steps = props.steps.slice(0, step);
-  const validations = Promise.all(steps.map((s) => s.validate()));
+  const validations = await Promise.all(steps.map((s) => s.validate()));
 
-  return (await validations).every((v) => v);
+  return validations.every((v) => v);
 };
 </script>
 
