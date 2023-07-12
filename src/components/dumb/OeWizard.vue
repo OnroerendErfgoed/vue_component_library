@@ -17,14 +17,8 @@
       </a>
     </div>
 
-    <div
-      v-for="(step, index) in steps"
-      v-show="currentStep === index"
-      :key="index"
-      class="wizard__content vl-u-spacer--medium"
-      :data-cy="`step-${index + 1}-content`"
-    >
-      <slot :step="step" :current-step="currentStep" :total-steps="totalSteps"></slot>
+    <div class="wizard__content vl-u-spacer--medium" :data-cy="`step-${currentStep + 1}-content`">
+      <slot :current-step="currentStep" :total-steps="totalSteps"></slot>
     </div>
 
     <div class="wizard__actions vl-u-flex vl-u-flex-align-center">
@@ -42,18 +36,12 @@
         v-if="currentStep < totalSteps - 1"
         class="wizard__navigation-button"
         data-cy="next-step-button"
-        :mod-disabled="!steps[currentStep].valid"
         @click="nextStep"
       >
         Volgende
         <font-awesome-icon :icon="['fas', 'angles-right']" />
       </vl-button>
-      <vl-button
-        v-else
-        class="wizard__navigation-button"
-        data-cy="submit-button"
-        :mod-disabled="!steps.every((s) => s.valid)"
-        @click="emit('submit')"
+      <vl-button v-else class="wizard__navigation-button" data-cy="submit-button" @click="emit('submit')"
         >Verzend</vl-button
       >
     </div>
@@ -61,10 +49,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { VlBadge, VlButton } from '@govflanders/vl-ui-design-system-vue3';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { VlBadge, VlButton } from '@govflanders/vl-ui-design-system-vue3';
 import type { IWizardProps } from '@models/wizard';
+import { ref } from 'vue';
 
 // Next line should be activated once VlUTooltip is properly exported
 // For now, an import of { VlUiUtil } in the implementing app also makes the tooltip available
@@ -85,20 +73,21 @@ const previousStep = () => {
   }
 };
 
-const nextStep = () => {
-  if (currentStep.value < totalSteps.value - 1) {
+const nextStep = async () => {
+  if (currentStep.value < totalSteps.value - 1 && (await props.steps[currentStep.value].validate())) {
     currentStep.value++;
   }
 };
 
-const goToStep = (step: number) => {
-  if (props.allowBarNavigation && previousStepsAreValid(step)) {
-    currentStep.value = step;
-  }
+const goToStep = async (step: number) => {
+  if (props.allowBarNavigation && (await previousStepsAreValid(step))) currentStep.value = step;
 };
 
-const previousStepsAreValid = (step: number) => {
-  return props.steps.slice(0, step).every((s) => s.valid);
+const previousStepsAreValid = async (step: number) => {
+  const steps = props.steps.slice(0, step);
+  const validations = await Promise.all(steps.map((s) => s.validate()));
+
+  return validations.every((v) => v);
 };
 </script>
 
