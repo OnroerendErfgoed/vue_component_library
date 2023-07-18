@@ -56,6 +56,27 @@ export const Default: Story = {
   }),
 };
 
+export const DefaultNoData: Story = {
+  render: () => ({
+    components: { OeGrid },
+    setup() {
+      const gridOptions: GridOptions = {
+        columnDefs: [
+          { headerName: 'Make', field: 'make' },
+          { headerName: 'Model', field: 'model' },
+          { headerName: 'Price', field: 'price' },
+        ],
+        rowData: [],
+      };
+      const firstDataRendered = (grid: FirstDataRenderedEvent) => {
+        grid.api.sizeColumnsToFit();
+      };
+      return { firstDataRendered, gridOptions };
+    },
+    template: `<oe-grid style="width: 100%; height: 300px" :grid-options="gridOptions" @first-data-rendered="firstDataRendered" />`,
+  }),
+};
+
 export const Sortable: Story = {
   render: () => ({
     components: { OeGrid },
