@@ -11,3 +11,4 @@ export * from './system-fields';
 export * from './grid';
 export * from './wizard';
 export * from './input-phone';
+export * from './tab-container';
