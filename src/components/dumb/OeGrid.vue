@@ -16,6 +16,17 @@ import { AgGridVue } from 'ag-grid-vue3';
     display: none;
   }
 
+  .ag-row,
+  .ag-header-row {
+
+    .ag-cell,
+    .ag-header-cell {
+      border-color: #DDD;
+      border-style: solid;
+      border-width: 0 1px 1px 0;
+    }
+  }
+
   &.ag-theme-balham {
     -webkit-font-smoothing: antialiased;
     background-color: $white;
