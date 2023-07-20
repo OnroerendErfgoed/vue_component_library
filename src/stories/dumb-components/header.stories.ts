@@ -78,7 +78,9 @@ export const SlotActions: Story = {
     template: `
       <oe-header v-bind="args">
         <template v-slot:actions>
-          <div v-if="args.actions" v-html="args.actions"></div>
+          <button mod-naked class="vl-button">Action1</button>
+          <button mod-naked class="vl-button">Action2</button>
+          <button mod-naked class="vl-button">Action3</button>
         </template>
       </oe-header>
     `,

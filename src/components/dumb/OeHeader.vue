@@ -1,23 +1,25 @@
 <template>
-  <div class="header">
-    <div class="header__title">
-      <h1 data-cy="application-name" class="vl-u-spacer-left--small" :title="appName">
-        <vl-link :to="appUrl" exact>{{ appName }}</vl-link>
-      </h1>
-      <a title="Navigeer naar de officiële website van Onroerend Erfgoed" :href="props.logoUrl">
-        <img
-          data-cy="logo"
-          class="header__logo vl-u-spacer-right--medium"
-          src="@/assets/oe-logo.svg"
-          alt="Logo Vlaanderen is erfgoed"
-      /></a>
+  <div class="header vl-grid">
+    <div class="header__title vl-col--9-12 vl-col--12-12--m">
+      <div class="heading vl-u-flex vl-u-flex-v-center">
+        <h1 data-cy="application-name" class="vl-u-spacer-left--small" :title="appName">
+          <vl-link :to="appUrl" exact>{{ appName }}</vl-link>
+        </h1>
+        <a title="Navigeer naar de officiële website van Onroerend Erfgoed" :href="props.logoUrl">
+          <img
+            data-cy="logo"
+            class="header__logo vl-u-spacer-right--medium"
+            src="@/assets/oe-logo.svg"
+            alt="Logo Vlaanderen is erfgoed"
+        /></a>
+      </div>
       <div class="triangle-placeholder"></div>
       <div class="header__actions" data-cy="header-actions">
         <slot name="actions"></slot>
       </div>
-    </div>
-    <div class="header__userinfo">
       <div class="triangle-placeholder triangle-placeholder--invert"></div>
+    </div>
+    <div class="header__userinfo vl-col--3-12 vl-col--12-12--m vl-u-flex-align-flex-end">
       <div v-if="user" data-cy="user" class="user vl-u-spacer-left--large vl-u-spacer-right--small">
         <vl-dropdown-navigation
           data-cy="dropdown-navigation"
@@ -80,7 +82,6 @@ const props = withDefaults(defineProps<IHeaderProps>(), {
   display: flex;
   width: 100%;
   height: 50px;
-  margin: 0;
   background-color: $primary-color;
   justify-content: space-between;
 
@@ -195,16 +196,54 @@ const props = withDefaults(defineProps<IHeaderProps>(), {
 
 .triangle-placeholder {
   width: 0;
-  border-top: 50px solid $primary-color;
+  border-top: 60px solid $primary-color;
   border-left: 20px solid rgba(0, 0, 0, 0);
 
   &--invert {
     width: 0;
     border-top: 0;
     border-left: 0;
-    border-bottom: 50px solid $primary-color;
+    border-bottom: 60px solid $primary-color;
     border-right: 20px solid rgba(0, 0, 0, 0);
     float: left;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .vl-grid {
+    margin-left: 0;
+    > * {
+      padding-left: 0;
+    }
+  }
+  .header {
+    justify-content: flex-end;
+  }
+  .header__title {
+    flex-direction: column;
+
+    .heading {
+      width: 100%;
+      justify-content: end;
+    }
+  }
+
+  .header__actions {
+    width: 100%;
+  }
+
+  .triangle-placeholder {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header__title {
+    .heading {
+      h1 {
+        font-size: 16px;
+      }
+    }
   }
 }
 </style>
