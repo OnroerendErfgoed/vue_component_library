@@ -12,6 +12,21 @@ import { AgGridVue } from 'ag-grid-vue3';
 @import 'pyoes/scss/pyoes-settings';
 
 .ag-grid-vue {
+  .ag-ltr .ag-header-cell::after {
+    display: none;
+  }
+
+  .ag-row,
+  .ag-header-row {
+
+    .ag-cell,
+    .ag-header-cell {
+      border-color: #DDD;
+      border-style: solid;
+      border-width: 0 1px 1px 0;
+    }
+  }
+
   &.ag-theme-balham {
     -webkit-font-smoothing: antialiased;
     background-color: $white;
@@ -29,6 +44,7 @@ import { AgGridVue } from 'ag-grid-vue3';
       padding-top: 0;
     }
   }
+
   .ag-root-wrapper {
     .ag-header {
       background-color: #eee;
@@ -84,6 +100,7 @@ import { AgGridVue } from 'ag-grid-vue3';
 
     .ag-cell-focus {
       outline: none;
+
       &:focus-within {
         border-color: $primary-color;
       }
@@ -117,7 +134,7 @@ import { AgGridVue } from 'ag-grid-vue3';
           cursor: pointer;
           color: $dark-purple;
 
-          + .fa {
+          +.fa {
             margin-left: 5px;
           }
         }
@@ -131,6 +148,7 @@ import { AgGridVue } from 'ag-grid-vue3';
           color: $success-color;
           cursor: default;
         }
+
         i.fa.fa-times {
           color: $alert-color;
           cursor: default;

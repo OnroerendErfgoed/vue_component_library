@@ -110,8 +110,6 @@ watch(
 
 <style lang="scss" scoped>
 @import 'pyoes/scss/pyoes-settings';
-@import '@govflanders/vl-ui-core/src/scss/core';
-@import '@govflanders/vl-ui-autocomplete/src/scss/autocomplete';
 
 .js-vl-autocomplete {
   width: 100%;
