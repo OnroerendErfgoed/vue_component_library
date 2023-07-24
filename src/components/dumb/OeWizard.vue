@@ -41,9 +41,7 @@
         Volgende
         <font-awesome-icon :icon="['fas', 'angles-right']" />
       </vl-button>
-      <vl-button v-else class="wizard__navigation-button" data-cy="submit-button" @click="emit('submit')"
-        >Verzend</vl-button
-      >
+      <vl-button v-else class="wizard__navigation-button" data-cy="submit-button" @click="submit">Verzend</vl-button>
     </div>
   </div>
 </template>
@@ -83,12 +81,22 @@ const goToStep = async (step: number) => {
   if (props.allowBarNavigation && (await previousStepsAreValid(step))) currentStep.value = step;
 };
 
+const submit = async () => {
+  if (await props.steps[currentStep.value].validate()) {
+    emit('submit');
+  }
+};
+
 const previousStepsAreValid = async (step: number) => {
   const steps = props.steps.slice(0, step);
   const validations = await Promise.all(steps.map((s) => s.validate()));
 
   return validations.every((v) => v);
 };
+
+const reset = () => (currentStep.value = 0);
+
+defineExpose({ reset });
 </script>
 
 <style lang="scss" scoped>
