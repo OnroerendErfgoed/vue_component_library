@@ -7,4 +7,5 @@ export interface ITab {
   label: string;
   id: string;
   closable?: boolean;
+  lastVisitedSubTab?: string;
 }
