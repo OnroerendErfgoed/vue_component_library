@@ -57,9 +57,9 @@ describe('Container', () => {
       components: { OeContainer },
       setup: () => {
         const tabs = ref([
-          { label: 'Menu', id: 'menu', closable: false },
-          { label: 'Tab 1', id: '1', closable: true },
-          { label: 'Tab 2', id: '2', closable: true },
+          { label: 'Menu', id: 'menu', closable: false, editMode: false },
+          { label: 'Tab 1', id: '1', closable: true, editMode: false },
+          { label: 'Tab 2', id: '2', closable: true, editMode: false },
         ]);
         const activeTab = ref<ITab>(tabs.value[0]);
 
