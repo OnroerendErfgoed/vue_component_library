@@ -6,6 +6,7 @@ export interface IContainerProps {
 export interface ITab {
   label: string;
   id: string;
+  editMode: boolean;
   closable?: boolean;
   lastVisitedSubTab?: string;
 }
