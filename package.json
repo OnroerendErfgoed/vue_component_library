@@ -64,7 +64,7 @@
     "date-fns": "^2.30.0",
     "libphonenumber-js": "^1.10.37",
     "lodash": "^4.17.21",
-    "pyoes": "https://gitpkg.now.sh/OnroerendErfgoed/pyoes/npm-packages/pyoes",
+    "pyoes": "https://gitpkg.now.sh/OnroerendErfgoed/pyoes/npm-packages/pyoes?0.16.1",
     "vue": "^3.3.4",
     "vue-i18n": "9"
   },
