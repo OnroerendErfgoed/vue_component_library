@@ -8,4 +8,5 @@ export interface ITab {
   id: string;
   editMode: boolean;
   closable?: boolean;
+  lastVisitedSubTab?: string;
 }
