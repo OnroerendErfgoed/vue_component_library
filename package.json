@@ -7,7 +7,7 @@
   "main": "./dist/vue-components.umd.js",
   "module": "./dist/vue-components.es.js",
   "typings": "./dist/src/main.d.ts",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "exports": {
     ".": {
       "import": "./dist/vue-components.es.js",
@@ -64,7 +64,7 @@
     "date-fns": "^2.30.0",
     "libphonenumber-js": "^1.10.37",
     "lodash": "^4.17.21",
-    "pyoes": "https://gitpkg.now.sh/OnroerendErfgoed/pyoes/npm-packages/pyoes",
+    "pyoes": "https://gitpkg.now.sh/OnroerendErfgoed/pyoes/npm-packages/pyoes?0.17.0",
     "vue": "^3.3.4",
     "vue-i18n": "9"
   },
