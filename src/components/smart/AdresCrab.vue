@@ -128,7 +128,7 @@
             @click="postcodeFreeText = !postcodeFreeText"
           >
             <span v-if="!postcodeFreeText">Een postcode invullen die niet tussen de suggesties staat?</span>
-            <span v-else>Terug naar suggesties</span>
+            <span v-else>Toon lijst met suggesties</span>
           </button>
 
           <vl-form-message-error
@@ -187,7 +187,7 @@
             @click="straatFreeText = !straatFreeText"
           >
             <span v-if="!straatFreeText">Een straat invullen die niet tussen de suggesties staat?</span>
-            <span v-else>Terug naar suggesties</span>
+            <span v-else>Toon lijst met suggesties</span>
           </button>
 
           <vl-form-message-error v-for="error of v$.straat.naam.$errors" :key="error.$uid" data-cy="form-error-straat">
@@ -237,13 +237,13 @@
           />
 
           <button
-            v-if="isBelgium && !straatFreeText"
+            v-if="isBelgium && !straatFreeText && huisnummers.length > 0"
             data-cy="action-huisnummer-not-found"
             class="vl-link"
             @click="huisnummerFreeText = !huisnummerFreeText"
           >
             <span v-if="!huisnummerFreeText">Een huisnummer invullen dat niet tussen de suggesties staat?</span>
-            <span v-else>Terug naar suggesties</span>
+            <span v-else>Toon lijst met suggesties</span>
           </button>
 
           <vl-form-message-error
@@ -297,13 +297,13 @@
           />
 
           <button
-            v-if="isBelgium && !huisnummerFreeText"
+            v-if="isBelgium && !huisnummerFreeText && busnummers.length > 0"
             data-cy="action-busnummer-not-found"
             class="vl-link"
             @click="busnummerFreeText = !busnummerFreeText"
           >
             <span v-if="!busnummerFreeText">Een busnummer invullen dat niet tussen de suggesties staat?</span>
-            <span v-else>Terug naar suggesties</span>
+            <span v-else>Toon lijst met suggesties</span>
           </button>
           <vl-form-message-error
             v-for="error of v$.adres.busnummer.$errors"
