@@ -91,7 +91,7 @@
         </VlPropertiesLabel>
         <VlPropertiesData>
           <VlMultiselect
-            v-if="isBelgiumOrEmpty"
+            v-if="isBelgiumOrEmpty && !postcodeFreeText"
             v-model="postcode"
             placeholder="Postcode"
             data-cy="select-postcode"
@@ -120,6 +120,17 @@
             mod-block
             placeholder="Postcode"
           />
+
+          <button
+            v-if="isBelgium && !isVlaamseGemeenteOrEmpty"
+            data-cy="action-postcode-not-found"
+            class="vl-link"
+            @click="postcodeFreeText = !postcodeFreeText"
+          >
+            <span v-if="!postcodeFreeText">Een postcode invullen die niet tussen de suggesties staat?</span>
+            <span v-else>Terug naar suggesties</span>
+          </button>
+
           <vl-form-message-error
             v-for="error of v$.postcode.nummer.$errors"
             :key="error.$uid"
@@ -168,6 +179,17 @@
             mod-block
             placeholder="Straat"
           />
+
+          <button
+            v-if="isBelgium && !isVlaamseGemeenteOrEmpty"
+            data-cy="action-straat-not-found"
+            class="vl-link"
+            @click="straatFreeText = !straatFreeText"
+          >
+            <span v-if="!straatFreeText">Een straat invullen die niet tussen de suggesties staat?</span>
+            <span v-else>Terug naar suggesties</span>
+          </button>
+
           <vl-form-message-error v-for="error of v$.straat.naam.$errors" :key="error.$uid" data-cy="form-error-straat">
             {{ error.$message }}
           </vl-form-message-error>
@@ -184,7 +206,7 @@
         </VlPropertiesLabel>
         <VlPropertiesData>
           <VlMultiselect
-            v-if="isBelgiumOrEmpty && !huisnummerFreeText"
+            v-if="isBelgiumOrEmpty && !straatFreeText && !huisnummerFreeText"
             v-model="huisnummer"
             placeholder="Huisnummer"
             data-cy="select-huisnummer"
@@ -215,13 +237,13 @@
           />
 
           <button
-            v-if="isBelgium && !straatFreeText && isVlaamseGemeente"
+            v-if="isBelgium && !straatFreeText && !isVlaamseGemeenteOrEmpty"
             data-cy="action-huisnummer-not-found"
             class="vl-link"
             @click="huisnummerFreeText = !huisnummerFreeText"
           >
-            <span v-if="!huisnummerFreeText">Huisnummer niet gevonden?</span>
-            <span v-else>Suggesties</span>
+            <span v-if="!huisnummerFreeText">Een huisnummer invullen dat niet tussen de suggesties staat?</span>
+            <span v-else>Terug naar suggesties</span>
           </button>
 
           <vl-form-message-error
@@ -244,7 +266,7 @@
         </VlPropertiesLabel>
         <VlPropertiesData>
           <VlMultiselect
-            v-if="isBelgiumOrEmpty && !huisnummerFreeText && !busnummerFreeText"
+            v-if="isBelgiumOrEmpty && !straatFreeText && !huisnummerFreeText && !busnummerFreeText"
             v-model="busnummer"
             placeholder="Busnummer"
             data-cy="select-busnummer"
@@ -275,13 +297,13 @@
           />
 
           <button
-            v-if="isBelgium && !huisnummerFreeText && isVlaamseGemeente"
+            v-if="isBelgium && !straatFreeText && !huisnummerFreeText && !isVlaamseGemeenteOrEmpty"
             data-cy="action-busnummer-not-found"
             class="vl-link"
             @click="busnummerFreeText = !busnummerFreeText"
           >
-            <span v-if="!busnummerFreeText">Busnummer niet gevonden?</span>
-            <span v-else>Suggesties</span>
+            <span v-if="!busnummerFreeText">Een busnummer invullen dat niet tussen de suggesties staat?</span>
+            <span v-else>Terug naar suggesties</span>
           </button>
           <vl-form-message-error
             v-for="error of v$.adres.busnummer.$errors"
@@ -328,7 +350,7 @@ const props = withDefaults(defineProps<IAdresCrabProps>(), {
     huisnummer: { required: false },
     busnummer: { required: false },
   }),
-  api: 'https://dev-geo.onroerenderfgoed.be/',
+  api: 'https://test-geo.onroerenderfgoed.be/',
   countryId: undefined,
   adres: undefined,
   optionsLimit: 5000,
@@ -336,6 +358,7 @@ const props = withDefaults(defineProps<IAdresCrabProps>(), {
 
 const emit = defineEmits(['update:adres']);
 
+const postcodeFreeText = ref(false);
 const straatFreeText = ref(false);
 const huisnummerFreeText = ref(false);
 const busnummerFreeText = ref(false);
@@ -360,11 +383,11 @@ const isBelgiumOrEmpty = computed(() => {
   return !land.value || (land.value as ILand)?.code === 'BE' || (land.value as ILand)?.code === '';
 });
 const isBelgium = computed(() => (land.value as ILand)?.code === 'BE');
-const isVlaamseGemeente = computed(() => {
+const isVlaamseGemeenteOrEmpty = computed(() => {
   if (isBelgium.value && gemeente.value && !!gemeenten.value.length) {
     return crabApiService.vlaamseGemeenten.some((g) => g.niscode === (gemeente.value as unknown as IGemeente).niscode);
   }
-  return false;
+  return !gemeente.value;
 });
 
 // Form binding
@@ -574,7 +597,8 @@ watch(gemeente, async (selectedGemeente, oldValue) => {
         if (knownError?.response?.status === 404) {
           straten.value = [];
 
-          if (!isVlaamseGemeente.value) {
+          if (!isVlaamseGemeenteOrEmpty.value) {
+            postcodeFreeText.value = true;
             straatFreeText.value = true;
             huisnummerFreeText.value = true;
             busnummerFreeText.value = true;
@@ -606,7 +630,7 @@ watch(straat, async (selectedStraat, oldValue) => {
           huisnummers.value = [];
           busnummers.value = [];
 
-          if (!isVlaamseGemeente.value) {
+          if (!isVlaamseGemeenteOrEmpty.value) {
             huisnummerFreeText.value = true;
             busnummerFreeText.value = true;
           }
@@ -634,6 +658,8 @@ watch(huisnummer, async (selectedHuisnummer, oldValue) => {
   }
 });
 
+watch(postcodeFreeText, () => (postcode.value = ''));
+watch(straatFreeText, () => (straat.value = ''));
 watch(huisnummerFreeText, () => (huisnummer.value = ''));
 watch(busnummerFreeText, () => (busnummer.value = ''));
 

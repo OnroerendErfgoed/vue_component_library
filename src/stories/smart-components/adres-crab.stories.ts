@@ -68,7 +68,7 @@ export const Default: Story = {};
 
 export const CustomApi: Story = {
   args: {
-    api: 'https://dev-geo.onroerenderfgoed.be/',
+    api: 'https://test-geo.onroerenderfgoed.be/',
   },
 };
 
