@@ -1,12 +1,12 @@
 import { mount } from 'cypress/vue';
 import { defineComponent } from 'vue';
-import AdresCrab from '@components/smart/AdresCrab.vue';
-import type { IAdresCrabConfig } from '@models/adres-crab';
+import AdresComponent from '@components/smart/AdresComponent.vue';
+import type { IAdresComponentConfig } from '@models/adres-component';
 
 describe('Adres CRAB', () => {
   const TestComponent = defineComponent({
-    components: { AdresCrab },
-    template: '<Suspense><AdresCrab/></Suspense>',
+    components: { AdresComponent },
+    template: '<Suspense><AdresComponent/></Suspense>',
   });
 
   it('renders', () => {
@@ -59,7 +59,7 @@ describe('Adres CRAB', () => {
       it('disables fields as long as the parent is not filled in', () => {
         // Country selection
         getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
-        cy.intercept({ method: 'GET', url: 'https://dev-geo.onroerenderfgoed.be/**' }).as('dataGet');
+        cy.intercept({ method: 'GET', url: 'https://test-geo.onroerenderfgoed.be/**' }).as('dataGet');
         cy.wait('@dataGet');
 
         getMultiSelect('gemeente').should('not.have.class', 'multiselect--disabled');
@@ -97,11 +97,11 @@ describe('Adres CRAB', () => {
       });
 
       it('fills in the form', () => {
-        fillInAdresCrabBelgium();
+        fillInAdresComponentBelgium();
       });
 
       it('clears the form when changing country', () => {
-        fillInAdresCrabBelgium();
+        fillInAdresComponentBelgium();
 
         getMultiSelect('land').select(2).select(1);
 
@@ -112,23 +112,21 @@ describe('Adres CRAB', () => {
         getMultiSelect('huisnummer').find('.multiselect__single').should('not.exist');
       });
 
-      it('resets huisnummers when street fetch throws a 404', () => {
-        fillInAdresCrabBelgium();
+      it('shows huisnummers textinput when street fetch throws a 404', () => {
+        fillInAdresComponentBelgium();
 
-        cy.intercept('GET', 'https://dev-geo.onroerenderfgoed.be/adressenregister/straten/**/adressen', {
+        cy.intercept('GET', 'https://test-geo.onroerenderfgoed.be/adressenregister/straten/**/adressen', {
           statusCode: 404,
         }).as('dataNotFound');
 
         setMultiSelectValue('gemeente', 'Aarschot');
         setMultiSelectValue('straat', 'Beekweg');
 
-        getMultiSelect('huisnummer').click();
-
-        cy.dataCy('no-options-huisnummers').should('be.visible');
+        getTextInput('huisnummer').should('exist');
       });
 
       it('triggers required validation after fields are touched and emptied', () => {
-        fillInAdresCrabBelgium();
+        fillInAdresComponentBelgium();
 
         getMultiSelect('land').select(2).select(1);
 
@@ -152,7 +150,7 @@ describe('Adres CRAB', () => {
         // Country selection
         getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
 
-        cy.intercept({ method: 'GET', url: 'https://dev-geo.onroerenderfgoed.be/**' }).as('dataGet');
+        cy.intercept({ method: 'GET', url: 'https://test-geo.onroerenderfgoed.be/**' }).as('dataGet');
         cy.wait('@dataGet');
 
         // Gemeente selection
@@ -167,7 +165,7 @@ describe('Adres CRAB', () => {
         // Country selection
         getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
 
-        cy.intercept({ method: 'GET', url: 'https://dev-geo.onroerenderfgoed.be/**' }).as('dataGet');
+        cy.intercept({ method: 'GET', url: 'https://test-geo.onroerenderfgoed.be/**' }).as('dataGet');
         cy.wait('@dataGet');
 
         // Gemeente selection
@@ -182,27 +180,57 @@ describe('Adres CRAB', () => {
         getTextInput('huisnummer').should('exist');
       });
 
-      describe('after gemeente selection', () => {
+      it('requires busnummer to be free text input when no house numbers were found', () => {
+        // Country selection
+        getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
+
+        cy.intercept({ method: 'GET', url: 'https://test-geo.onroerenderfgoed.be/**' }).as('dataGet');
+        cy.wait('@dataGet');
+
+        // Gemeente selection
+        setMultiSelectValue('gemeente', 'Aarschot');
+        getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Aarschot');
+
+        // Straat selection
+        setMultiSelectValue('straat', 'Astridlaan');
+        getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Astridlaan');
+
+        // Huisnummer selection
+        setMultiSelectValue('huisnummer', '28');
+        getMultiSelect('huisnummer').find('.multiselect__single').should('have.text', '28');
+
+        getMultiSelect('busnummer').should('not.exist');
+        getTextInput('busnummer').should('exist');
+      });
+
+      describe('after gemeente and straat selection', () => {
         beforeEach(() => {
           // Country selection
           getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
 
-          cy.intercept({ method: 'GET', url: 'https://dev-geo.onroerenderfgoed.be/**' }).as('dataGet');
+          cy.intercept({ method: 'GET', url: 'https://test-geo.onroerenderfgoed.be/**' }).as('dataGet');
           cy.wait('@dataGet');
 
           // Gemeente selection
-          setMultiSelectValue('gemeente', 'Bertem');
-          getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Bertem');
+          setMultiSelectValue('gemeente', 'Aarschot');
+          getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Aarschot');
+
+          // Straat selection
+          setMultiSelectValue('straat', 'Astridlaan');
+          getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Astridlaan');
         });
 
         it('allows to switch huisnummer to free text input and automatically convert busnummer to free text as well', () => {
           // Switch to free text input
-          getAction('huisnummer-not-found').should('have.text', 'Huisnummer niet gevonden?');
+          getAction('huisnummer-not-found').should(
+            'have.text',
+            'Een huisnummer invullen dat niet tussen de suggesties staat?'
+          );
           getAction('huisnummer-not-found').click();
 
           getMultiSelect('huisnummer').should('not.exist');
           getTextInput('huisnummer').should('exist');
-          getAction('huisnummer-not-found').should('have.text', 'Suggesties');
+          getAction('huisnummer-not-found').should('have.text', 'Toon lijst met suggesties');
 
           getMultiSelect('busnummer').should('not.exist');
           getTextInput('busnummer').should('exist');
@@ -213,35 +241,48 @@ describe('Adres CRAB', () => {
 
           getMultiSelect('huisnummer').should('exist');
           getTextInput('huisnummer').should('not.exist');
-          getAction('huisnummer-not-found').should('have.text', 'Huisnummer niet gevonden?');
+          getAction('huisnummer-not-found').should(
+            'have.text',
+            'Een huisnummer invullen dat niet tussen de suggesties staat?'
+          );
         });
 
         it('allows to switch busnummer to free text input', () => {
+          // Huisnummer selection
+          setMultiSelectValue('huisnummer', '31');
+          getMultiSelect('huisnummer').find('.multiselect__single').should('have.text', '31');
+
           // Switch to free text input
-          getAction('busnummer-not-found').should('have.text', 'Busnummer niet gevonden?');
+          getAction('busnummer-not-found').should(
+            'have.text',
+            'Een busnummer invullen dat niet tussen de suggesties staat?'
+          );
           getAction('busnummer-not-found').click();
 
           getMultiSelect('busnummer').should('not.exist');
           getTextInput('busnummer').should('exist');
-          getAction('busnummer-not-found').should('have.text', 'Suggesties');
+          getAction('busnummer-not-found').should('have.text', 'Toon lijst met suggesties');
 
           // Switch back to suggestions
           getAction('busnummer-not-found').click();
 
           getMultiSelect('busnummer').should('exist');
           getTextInput('busnummer').should('not.exist');
-          getAction('busnummer-not-found').should('have.text', 'Busnummer niet gevonden?');
+          getAction('busnummer-not-found').should(
+            'have.text',
+            'Een busnummer invullen dat niet tussen de suggesties staat?'
+          );
         });
       });
     });
 
     describe('country selection other', () => {
       it('fills in the form', () => {
-        fillInAdresCrabOther();
+        fillInAdresComponentOther();
       });
 
       it('clears the form when changing country', () => {
-        fillInAdresCrabOther();
+        fillInAdresComponentOther();
 
         getMultiSelect('land').select(3);
 
@@ -253,7 +294,7 @@ describe('Adres CRAB', () => {
       });
 
       it('triggers required validation after fields are touched and emptied', () => {
-        fillInAdresCrabOther();
+        fillInAdresComponentOther();
 
         getMultiSelect('land').select(3);
 
@@ -301,7 +342,7 @@ describe('Adres CRAB', () => {
             },
           },
         }),
-        template: '<Suspense><AdresCrab v-model:adres="adres"/></Suspense>',
+        template: '<Suspense><AdresComponent v-model:adres="adres"/></Suspense>',
       });
 
       getMultiSelect('land').find(':selected').should('have.text', 'België');
@@ -337,7 +378,7 @@ describe('Adres CRAB', () => {
             },
           },
         }),
-        template: '<Suspense><AdresCrab v-model:adres="adres"/></Suspense>',
+        template: '<Suspense><AdresComponent v-model:adres="adres"/></Suspense>',
       }).then(({ component }) => {
         getMultiSelect('gemeente').click();
         getMultiSelect('gemeente').find('.multiselect__input').type('Lummen');
@@ -371,7 +412,7 @@ describe('Adres CRAB', () => {
 
       mount(TestComponent, {
         data: () => ({ api }),
-        template: '<Suspense><AdresCrab :api="api"/></Suspense>',
+        template: '<Suspense><AdresComponent :api="api"/></Suspense>',
       }).then(() => {
         cy.wait('@dataGetLanden').then((intercept) => {
           expect(intercept.request.url).to.equal('https://test.be/adressenregister/landen');
@@ -382,7 +423,7 @@ describe('Adres CRAB', () => {
 
   describe('form - custom config', () => {
     describe('applies custom configuration to free-text fields - land and gemeente required', () => {
-      const config: IAdresCrabConfig = {
+      const config: IAdresComponentConfig = {
         land: {
           required: true,
         },
@@ -406,7 +447,7 @@ describe('Adres CRAB', () => {
       beforeEach(() => {
         mount(TestComponent, {
           data: () => ({ config }),
-          template: '<Suspense><AdresCrab :config="config"/></Suspense>',
+          template: '<Suspense><AdresComponent :config="config"/></Suspense>',
         });
       });
 
@@ -435,7 +476,7 @@ describe('Adres CRAB', () => {
       });
 
       it('triggers required validation after fields are touched and emptied', () => {
-        fillInAdresCrabOther();
+        fillInAdresComponentOther();
 
         getMultiSelect('land').select(3);
 
@@ -457,7 +498,7 @@ describe('Adres CRAB', () => {
     });
 
     describe('applies custom configuration to free-text fields - all required', () => {
-      const config: IAdresCrabConfig = {
+      const config: IAdresComponentConfig = {
         land: {
           required: true,
         },
@@ -481,7 +522,7 @@ describe('Adres CRAB', () => {
       beforeEach(() => {
         mount(TestComponent, {
           data: () => ({ config }),
-          template: '<Suspense><AdresCrab :config="config"/></Suspense>',
+          template: '<Suspense><AdresComponent :config="config"/></Suspense>',
         });
       });
 
@@ -510,7 +551,7 @@ describe('Adres CRAB', () => {
       });
 
       it('triggers required validation after fields are touched and emptied', () => {
-        fillInAdresCrabOther();
+        fillInAdresComponentOther();
 
         getMultiSelect('land').select(3);
 
@@ -532,7 +573,7 @@ describe('Adres CRAB', () => {
     });
 
     describe('applies custom configuration to multi-select fields - all required', () => {
-      const config: IAdresCrabConfig = {
+      const config: IAdresComponentConfig = {
         land: {
           required: true,
         },
@@ -556,12 +597,12 @@ describe('Adres CRAB', () => {
       beforeEach(() => {
         mount(TestComponent, {
           data: () => ({ config }),
-          template: '<Suspense><AdresCrab :config="config"/></Suspense>',
+          template: '<Suspense><AdresComponent :config="config"/></Suspense>',
         });
       });
 
       it('triggers required validation after fields are touched and emptied', () => {
-        fillInAdresCrabBelgium();
+        fillInAdresComponentBelgium();
 
         getMultiSelect('land').select(3).select(1);
 
@@ -586,7 +627,7 @@ describe('Adres CRAB', () => {
   describe('form - specific country', () => {
     beforeEach(() => {
       mount(TestComponent, {
-        template: '<Suspense><AdresCrab countryId="BE" v-model:adres="adres"/></Suspense>',
+        template: '<Suspense><AdresComponent countryId="BE" v-model:adres="adres"/></Suspense>',
       });
     });
 
@@ -605,13 +646,13 @@ describe('Adres CRAB', () => {
   describe('form - multi select options limit', () => {
     beforeEach(() => {
       mount(TestComponent, {
-        template: '<Suspense><AdresCrab :options-limit="3" v-model:adres="adres"/></Suspense>',
+        template: '<Suspense><AdresComponent :options-limit="3" v-model:adres="adres"/></Suspense>',
       });
     });
     it('sets the max amount of items at multi-select elements', () => {
       getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
 
-      cy.intercept({ method: 'GET', url: 'https://dev-geo.onroerenderfgoed.be/**' }).as('dataGet');
+      cy.intercept({ method: 'GET', url: 'https://test-geo.onroerenderfgoed.be/**' }).as('dataGet');
       cy.wait('@dataGet');
 
       getMultiSelect('gemeente').click();
@@ -636,11 +677,11 @@ const getTextInput = (field: string) => cy.dataCy(`input-${field}`);
 const getFormError = (field: string) => cy.dataCy(`form-error-${field}`);
 const getAction = (action: string) => cy.dataCy(`action-${action}`);
 
-const fillInAdresCrabBelgium = () => {
+const fillInAdresComponentBelgium = () => {
   // Country selection
   getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
 
-  cy.intercept({ method: 'GET', url: 'https://dev-geo.onroerenderfgoed.be/**' }).as('dataGet');
+  cy.intercept({ method: 'GET', url: 'https://test-geo.onroerenderfgoed.be/**' }).as('dataGet');
   cy.wait('@dataGet');
 
   // Gemeente selection
@@ -670,7 +711,7 @@ const fillInAdresCrabBelgium = () => {
   getMultiSelect('busnummer').find('.multiselect__single').should('have.text', '0101');
 };
 
-const fillInAdresCrabOther = () => {
+const fillInAdresComponentOther = () => {
   // Country selection
   getMultiSelect('land').select(2).find(':selected').should('have.text', 'Duitsland');
 
