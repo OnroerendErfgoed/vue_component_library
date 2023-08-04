@@ -206,7 +206,7 @@
         </VlPropertiesLabel>
         <VlPropertiesData>
           <VlMultiselect
-            v-if="isBelgiumOrEmpty && !straatFreeText && !huisnummerFreeText"
+            v-if="isBelgiumOrEmpty && !huisnummerFreeText"
             v-model="huisnummer"
             placeholder="Huisnummer"
             data-cy="select-huisnummer"
@@ -237,7 +237,7 @@
           />
 
           <button
-            v-if="isBelgium && !straatFreeText && !isVlaamseGemeenteOrEmpty"
+            v-if="isBelgium && !straatFreeText"
             data-cy="action-huisnummer-not-found"
             class="vl-link"
             @click="huisnummerFreeText = !huisnummerFreeText"
@@ -266,7 +266,7 @@
         </VlPropertiesLabel>
         <VlPropertiesData>
           <VlMultiselect
-            v-if="isBelgiumOrEmpty && !straatFreeText && !huisnummerFreeText && !busnummerFreeText"
+            v-if="isBelgiumOrEmpty && !huisnummerFreeText && !busnummerFreeText"
             v-model="busnummer"
             placeholder="Busnummer"
             data-cy="select-busnummer"
@@ -297,7 +297,7 @@
           />
 
           <button
-            v-if="isBelgium && !straatFreeText && !huisnummerFreeText && !isVlaamseGemeenteOrEmpty"
+            v-if="isBelgium && !huisnummerFreeText"
             data-cy="action-busnummer-not-found"
             class="vl-link"
             @click="busnummerFreeText = !busnummerFreeText"
@@ -630,10 +630,8 @@ watch(straat, async (selectedStraat, oldValue) => {
           huisnummers.value = [];
           busnummers.value = [];
 
-          if (!isVlaamseGemeenteOrEmpty.value) {
-            huisnummerFreeText.value = true;
-            busnummerFreeText.value = true;
-          }
+          huisnummerFreeText.value = true;
+          busnummerFreeText.value = true;
         }
       }
     }
@@ -646,7 +644,7 @@ watch(huisnummer, async (selectedHuisnummer, oldValue) => {
     busnummer.value = undefined;
   }
 
-  if (adres.value.straat && isBelgiumOrEmpty.value && selectedHuisnummer && !huisnummerFreeText.value) {
+  if (adres.value.straat?.id && isBelgiumOrEmpty.value && selectedHuisnummer && !huisnummerFreeText.value) {
     busnummers.value = sortBy(
       await crabApiService.getAdressen(adres.value.straat.id as string, (selectedHuisnummer as IAdres).huisnummer),
       'busnummer'
@@ -659,7 +657,11 @@ watch(huisnummer, async (selectedHuisnummer, oldValue) => {
 });
 
 watch(postcodeFreeText, () => (postcode.value = ''));
-watch(straatFreeText, () => (straat.value = ''));
+watch(straatFreeText, (selectedState) => {
+  straat.value = '';
+  huisnummerFreeText.value = selectedState;
+  busnummerFreeText.value = selectedState;
+});
 watch(huisnummerFreeText, () => (huisnummer.value = ''));
 watch(busnummerFreeText, () => (busnummer.value = ''));
 
