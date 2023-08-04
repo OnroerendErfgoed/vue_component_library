@@ -40,13 +40,13 @@
   <div v-if="!!filters.length" class="vl-grid filters-selected">
     <span data-cy="filters-label" class="vl-col--1-12 vl-col--2-12--l vl-col--12-12--xs">Filters:</span>
     <vl-action-group class="vl-col--10-12 vl-col--9-12--l vl-col--12-12--xs">
-      <vl-pill
+      <button
         data-cy="clear-filter-button"
-        class="vl-u-spacer-left--xsmall vl-u-spacer-bottom--xsmall"
-        mod-clickable
+        class="vl-button vl-u-spacer-left--xsmall vl-u-spacer-bottom--xsmall vl-u-text--small"
         @click="filters = []"
-        >Alle filters wissen</vl-pill
       >
+        Alle filters wissen
+      </button>
       <vl-pill
         v-for="filter in filters"
         :key="filter.key"
@@ -137,6 +137,12 @@ const removeFilter = (filter: IFilter) =>
 
     .vl-pill {
       cursor: pointer;
+      margin-right: 0.5rem;
+    }
+
+    .vl-button {
+      min-height: revert;
+      padding: 0.4rem 1.4rem;
       margin-right: 0.5rem;
     }
   }
