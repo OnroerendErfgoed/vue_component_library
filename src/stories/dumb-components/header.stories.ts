@@ -39,7 +39,7 @@ const meta: Meta<typeof OeHeader> = {
       name: 'Doe, John',
       role: 'Beheerder',
     },
-    appName: 'Application',
+    appName: 'Application name',
     appUrl: '/',
   },
   parameters: {
@@ -78,9 +78,7 @@ export const SlotActions: Story = {
     template: `
       <oe-header v-bind="args">
         <template v-slot:actions>
-          <button mod-naked class="vl-button">Action1</button>
-          <button mod-naked class="vl-button">Action2</button>
-          <button mod-naked class="vl-button">Action3</button>
+          <button mod-naked class="vl-button">Beheer</button>
         </template>
       </oe-header>
     `,

@@ -78,10 +78,18 @@ const props = withDefaults(defineProps<IHeaderProps>(), {
 <style lang="scss" scoped>
 @import 'pyoes/scss/pyoes-settings';
 
+.vl-grid {
+  margin-left: 0;
+  > * {
+    padding-left: 0;
+  }
+}
+
 .header {
   display: flex;
   width: 100%;
-  height: 50px;
+  height: fit-content;
+  margin: 0;
   background-color: $primary-color;
   justify-content: space-between;
 
@@ -91,11 +99,16 @@ const props = withDefaults(defineProps<IHeaderProps>(), {
   }
 
   &__title {
+    height: 50px;
     background-color: $white;
     display: flex;
     flex: 1;
     align-items: center;
     justify-content: space-between;
+
+    .heading {
+      height: 50px;
+    }
 
     a {
       display: flex;
@@ -118,6 +131,7 @@ const props = withDefaults(defineProps<IHeaderProps>(), {
   }
 
   &__logo {
+    height: 55px;
     fill: $primary-color;
     padding: 0.5rem;
   }
@@ -128,12 +142,15 @@ const props = withDefaults(defineProps<IHeaderProps>(), {
     align-items: center;
     justify-content: flex-end;
     height: 100%;
+    padding: 0 1rem;
+
     color: $white;
     background-color: $primary-color;
   }
 
   &__userinfo {
     display: flex;
+    height: 50px;
     color: $primary-color;
     margin-bottom: 0;
     background-color: $white;
@@ -196,31 +213,26 @@ const props = withDefaults(defineProps<IHeaderProps>(), {
 
 .triangle-placeholder {
   width: 0;
-  border-top: 60px solid $primary-color;
+  border-top: 50px solid $primary-color;
   border-left: 20px solid rgba(0, 0, 0, 0);
 
   &--invert {
     width: 0;
     border-top: 0;
     border-left: 0;
-    border-bottom: 60px solid $primary-color;
+    border-bottom: 50px solid $primary-color;
     border-right: 20px solid rgba(0, 0, 0, 0);
     float: left;
   }
 }
 
 @media screen and (max-width: 1023px) {
-  .vl-grid {
-    margin-left: 0;
-    > * {
-      padding-left: 0;
-    }
-  }
   .header {
     justify-content: flex-end;
   }
   .header__title {
     flex-direction: column;
+    height: auto;
 
     .heading {
       width: 100%;
@@ -229,7 +241,35 @@ const props = withDefaults(defineProps<IHeaderProps>(), {
   }
 
   .header__actions {
+    position: absolute;
+    z-index: 1;
+    top: 50px;
+    height: 50px;
     width: 100%;
+    justify-content: flex-start;
+  }
+
+  .header__userinfo {
+    color: $white;
+
+    .user {
+      z-index: 1000;
+
+      :deep(.vl-title) {
+        color: $white;
+      }
+    }
+
+    :deep(.login .vl-link),
+    :deep(.logout .vl-link) {
+      z-index: 2;
+      color: $white;
+      text-align: center;
+
+      & :visited {
+        color: $white;
+      }
+    }
   }
 
   .triangle-placeholder {
