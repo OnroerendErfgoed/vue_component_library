@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import type { ILocatieAdres } from '@models/locatie';
 
 const meta: Meta<typeof OeAdres> = {
-  title: 'Smart components/OeAdres',
+  title: 'Smart components/Adres',
   component: OeAdres,
   tags: ['autodocs'],
   render: (args) => ({
