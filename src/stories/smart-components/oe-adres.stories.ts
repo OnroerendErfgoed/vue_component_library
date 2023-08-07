@@ -1,14 +1,14 @@
 import '@/scss/main.scss';
-import AdresComponent from '@components/smart/AdresComponent.vue';
+import OeAdres from '@components/smart/OeAdres.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import type { ILocatieAdres } from '@models/locatie';
 
-const meta: Meta<typeof AdresComponent> = {
-  title: 'Smart components/AdresComponent',
-  component: AdresComponent,
+const meta: Meta<typeof OeAdres> = {
+  title: 'Smart components/OeAdres',
+  component: OeAdres,
   tags: ['autodocs'],
   render: (args) => ({
-    components: { AdresComponent },
+    components: { OeAdres },
     inheritAttrs: false,
     setup() {
       return { args };
@@ -16,7 +16,7 @@ const meta: Meta<typeof AdresComponent> = {
     template: `
       <div>
       <Suspense>
-        <AdresComponent v-bind="args" @update:adres="onUpdateAdres" />
+        <OeAdres v-bind="args" @update:adres="onUpdateAdres" />
       </Suspense>
       <h3>Adres:</h3>
       <pre>{{ eventOutput }}</pre>
@@ -58,7 +58,7 @@ const meta: Meta<typeof AdresComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof AdresComponent>;
+type Story = StoryObj<typeof OeAdres>;
 /*
  *👇 Render functions are a framework specific feature to allow you control on how the component renders.
  * See https://storybook.js.org/docs/vue/api/csf
@@ -120,7 +120,7 @@ export const TwoWayBinding: Story = {
     },
   },
   render: ({ adres }: ILocatieAdres) => ({
-    components: { AdresComponent },
+    components: { OeAdres },
     inheritAttrs: false,
     setup() {
       return { adres };
@@ -128,7 +128,7 @@ export const TwoWayBinding: Story = {
     template: `
       <div>
       <Suspense>
-        <AdresComponent v-model:adres="adres"  @update:adres="onUpdateAdres" />
+        <OeAdres v-model:adres="adres"  @update:adres="onUpdateAdres" />
       </Suspense>
       <h3>Adres:</h3>
       <pre>{{ eventOutput }}</pre>

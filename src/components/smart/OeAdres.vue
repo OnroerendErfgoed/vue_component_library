@@ -1,5 +1,5 @@
 <template>
-  <div class="adres-component">
+  <div class="oe-adres">
     <VlProperties>
       <VlPropertiesTitle data-cy="title-adres">Adres</VlPropertiesTitle>
       <VlPropertiesList>
@@ -331,7 +331,7 @@ import {
   VlPropertiesTitle,
   VlSelect,
 } from '@govflanders/vl-ui-design-system-vue3';
-import type { IAdresComponentProps } from '@models/adres-component';
+import type { IAdresProps } from '@models/adres';
 import type { IAdres, IGemeente, ILand, ILocatieAdres, IPostinfo, IStraat } from '@models/locatie';
 import { CrabApiService } from '@services/crab-api.service';
 import { requiredIf } from '@utils/i18n-validators';
@@ -341,7 +341,7 @@ import { AxiosError } from 'axios';
 import { pick, sortBy, uniqBy } from 'lodash';
 import { computed, onMounted, ref, watch } from 'vue';
 
-const props = withDefaults(defineProps<IAdresComponentProps>(), {
+const props = withDefaults(defineProps<IAdresProps>(), {
   config: () => ({
     land: { required: true },
     gemeente: { required: true },
@@ -677,7 +677,7 @@ const resetFreeTextState = () => {
 </script>
 
 <style lang="scss" scoped>
-.adres-component {
+.oe-adres {
   .vl-properties__label {
     max-width: 100%;
   }
@@ -689,3 +689,4 @@ const resetFreeTextState = () => {
   }
 }
 </style>
+@models/adres

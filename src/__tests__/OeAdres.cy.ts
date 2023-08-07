@@ -1,12 +1,12 @@
 import { mount } from 'cypress/vue';
 import { defineComponent } from 'vue';
-import AdresComponent from '@components/smart/AdresComponent.vue';
-import type { IAdresComponentConfig } from '@models/adres-component';
+import OeAdres from '@components/smart/OeAdres.vue';
+import type { IAdresConfig } from '@models/adres';
 
-describe('Adres CRAB', () => {
+describe('Adres', () => {
   const TestComponent = defineComponent({
-    components: { AdresComponent },
-    template: '<Suspense><AdresComponent/></Suspense>',
+    components: { OeAdres },
+    template: '<Suspense><OeAdres/></Suspense>',
   });
 
   it('renders', () => {
@@ -97,11 +97,11 @@ describe('Adres CRAB', () => {
       });
 
       it('fills in the form', () => {
-        fillInAdresComponentBelgium();
+        fillInOeAdresBelgium();
       });
 
       it('clears the form when changing country', () => {
-        fillInAdresComponentBelgium();
+        fillInOeAdresBelgium();
 
         getMultiSelect('land').select(2).select(1);
 
@@ -113,7 +113,7 @@ describe('Adres CRAB', () => {
       });
 
       it('shows huisnummers textinput when street fetch throws a 404', () => {
-        fillInAdresComponentBelgium();
+        fillInOeAdresBelgium();
 
         cy.intercept('GET', 'https://test-geo.onroerenderfgoed.be/adressenregister/straten/**/adressen', {
           statusCode: 404,
@@ -126,7 +126,7 @@ describe('Adres CRAB', () => {
       });
 
       it('triggers required validation after fields are touched and emptied', () => {
-        fillInAdresComponentBelgium();
+        fillInOeAdresBelgium();
 
         getMultiSelect('land').select(2).select(1);
 
@@ -278,11 +278,11 @@ describe('Adres CRAB', () => {
 
     describe('country selection other', () => {
       it('fills in the form', () => {
-        fillInAdresComponentOther();
+        fillInOeAdresOther();
       });
 
       it('clears the form when changing country', () => {
-        fillInAdresComponentOther();
+        fillInOeAdresOther();
 
         getMultiSelect('land').select(3);
 
@@ -294,7 +294,7 @@ describe('Adres CRAB', () => {
       });
 
       it('triggers required validation after fields are touched and emptied', () => {
-        fillInAdresComponentOther();
+        fillInOeAdresOther();
 
         getMultiSelect('land').select(3);
 
@@ -342,7 +342,7 @@ describe('Adres CRAB', () => {
             },
           },
         }),
-        template: '<Suspense><AdresComponent v-model:adres="adres"/></Suspense>',
+        template: '<Suspense><OeAdres v-model:adres="adres"/></Suspense>',
       });
 
       getMultiSelect('land').find(':selected').should('have.text', 'België');
@@ -378,7 +378,7 @@ describe('Adres CRAB', () => {
             },
           },
         }),
-        template: '<Suspense><AdresComponent v-model:adres="adres"/></Suspense>',
+        template: '<Suspense><OeAdres v-model:adres="adres"/></Suspense>',
       }).then(({ component }) => {
         getMultiSelect('gemeente').click();
         getMultiSelect('gemeente').find('.multiselect__input').type('Lummen');
@@ -412,7 +412,7 @@ describe('Adres CRAB', () => {
 
       mount(TestComponent, {
         data: () => ({ api }),
-        template: '<Suspense><AdresComponent :api="api"/></Suspense>',
+        template: '<Suspense><OeAdres :api="api"/></Suspense>',
       }).then(() => {
         cy.wait('@dataGetLanden').then((intercept) => {
           expect(intercept.request.url).to.equal('https://test.be/adressenregister/landen');
@@ -423,7 +423,7 @@ describe('Adres CRAB', () => {
 
   describe('form - custom config', () => {
     describe('applies custom configuration to free-text fields - land and gemeente required', () => {
-      const config: IAdresComponentConfig = {
+      const config: IAdresConfig = {
         land: {
           required: true,
         },
@@ -447,7 +447,7 @@ describe('Adres CRAB', () => {
       beforeEach(() => {
         mount(TestComponent, {
           data: () => ({ config }),
-          template: '<Suspense><AdresComponent :config="config"/></Suspense>',
+          template: '<Suspense><OeAdres :config="config"/></Suspense>',
         });
       });
 
@@ -476,7 +476,7 @@ describe('Adres CRAB', () => {
       });
 
       it('triggers required validation after fields are touched and emptied', () => {
-        fillInAdresComponentOther();
+        fillInOeAdresOther();
 
         getMultiSelect('land').select(3);
 
@@ -498,7 +498,7 @@ describe('Adres CRAB', () => {
     });
 
     describe('applies custom configuration to free-text fields - all required', () => {
-      const config: IAdresComponentConfig = {
+      const config: IAdresConfig = {
         land: {
           required: true,
         },
@@ -522,7 +522,7 @@ describe('Adres CRAB', () => {
       beforeEach(() => {
         mount(TestComponent, {
           data: () => ({ config }),
-          template: '<Suspense><AdresComponent :config="config"/></Suspense>',
+          template: '<Suspense><OeAdres :config="config"/></Suspense>',
         });
       });
 
@@ -551,7 +551,7 @@ describe('Adres CRAB', () => {
       });
 
       it('triggers required validation after fields are touched and emptied', () => {
-        fillInAdresComponentOther();
+        fillInOeAdresOther();
 
         getMultiSelect('land').select(3);
 
@@ -573,7 +573,7 @@ describe('Adres CRAB', () => {
     });
 
     describe('applies custom configuration to multi-select fields - all required', () => {
-      const config: IAdresComponentConfig = {
+      const config: IAdresConfig = {
         land: {
           required: true,
         },
@@ -597,12 +597,12 @@ describe('Adres CRAB', () => {
       beforeEach(() => {
         mount(TestComponent, {
           data: () => ({ config }),
-          template: '<Suspense><AdresComponent :config="config"/></Suspense>',
+          template: '<Suspense><OeAdres :config="config"/></Suspense>',
         });
       });
 
       it('triggers required validation after fields are touched and emptied', () => {
-        fillInAdresComponentBelgium();
+        fillInOeAdresBelgium();
 
         getMultiSelect('land').select(3).select(1);
 
@@ -627,7 +627,7 @@ describe('Adres CRAB', () => {
   describe('form - specific country', () => {
     beforeEach(() => {
       mount(TestComponent, {
-        template: '<Suspense><AdresComponent countryId="BE" v-model:adres="adres"/></Suspense>',
+        template: '<Suspense><OeAdres countryId="BE" v-model:adres="adres"/></Suspense>',
       });
     });
 
@@ -646,7 +646,7 @@ describe('Adres CRAB', () => {
   describe('form - multi select options limit', () => {
     beforeEach(() => {
       mount(TestComponent, {
-        template: '<Suspense><AdresComponent :options-limit="3" v-model:adres="adres"/></Suspense>',
+        template: '<Suspense><OeAdres :options-limit="3" v-model:adres="adres"/></Suspense>',
       });
     });
     it('sets the max amount of items at multi-select elements', () => {
@@ -677,7 +677,7 @@ const getTextInput = (field: string) => cy.dataCy(`input-${field}`);
 const getFormError = (field: string) => cy.dataCy(`form-error-${field}`);
 const getAction = (action: string) => cy.dataCy(`action-${action}`);
 
-const fillInAdresComponentBelgium = () => {
+const fillInOeAdresBelgium = () => {
   // Country selection
   getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
 
@@ -711,7 +711,7 @@ const fillInAdresComponentBelgium = () => {
   getMultiSelect('busnummer').find('.multiselect__single').should('have.text', '0101');
 };
 
-const fillInAdresComponentOther = () => {
+const fillInOeAdresOther = () => {
   // Country selection
   getMultiSelect('land').select(2).find(':selected').should('have.text', 'Duitsland');
 
