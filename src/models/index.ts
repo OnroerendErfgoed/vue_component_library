@@ -1,5 +1,5 @@
 export * from './aanduidingsobject';
-export * from './adres-crab';
+export * from './adres';
 export * from './container';
 export * from './dataverantwoordelijke';
 export * from './filter-input';

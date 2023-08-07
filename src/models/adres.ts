@@ -1,14 +1,14 @@
 import type { ILocatieAdres } from '@models/locatie';
 
-export interface IAdresCrabProps {
+export interface IAdresProps {
   api?: string;
-  config?: IAdresCrabConfig;
+  config?: IAdresConfig;
   countryId?: string;
   adres?: ILocatieAdres;
   optionsLimit?: number;
 }
 
-export interface IAdresCrabConfig {
+export interface IAdresConfig {
   land?: IConfigOption;
   gemeente?: IConfigOption;
   postcode?: IConfigOption;
