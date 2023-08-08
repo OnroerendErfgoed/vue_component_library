@@ -24,7 +24,7 @@
         <vl-dropdown-navigation
           data-cy="dropdown-navigation"
           :title="user.name"
-          class="vl-u-spacer-bottom--none vl-col--12-12"
+          class="vl-u-spacer-bottom--none vl-col--12-12 vl-u-flex-v-baseline"
           :label="user.name"
           title-size="h5"
         >
