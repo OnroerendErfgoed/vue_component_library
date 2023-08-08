@@ -50,6 +50,6 @@ type Story = StoryObj<typeof FilterProvincie>;
 
 export const Default: Story = {
   args: {
-    api: 'https://dev-geo.onroerenderfgoed.be/',
+    api: 'https://test-geo.onroerenderfgoed.be/',
   },
 };
