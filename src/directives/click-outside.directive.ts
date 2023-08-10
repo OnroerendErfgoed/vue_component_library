@@ -5,7 +5,7 @@ export const vClickOutside = {
   mounted: (el: any, binding: DirectiveBinding) => {
     el.clickOutsideEvent = (event: MouseEvent) => {
       if (!(el == event.target || el.contains(event.target))) {
-        binding.value();
+        binding.value(event.target);
       }
     };
     document.addEventListener('click', el.clickOutsideEvent);

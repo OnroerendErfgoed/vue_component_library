@@ -1,7 +1,22 @@
-import type { IAdres, IGemeente, IGewest, ILand, IPostinfo, IProvincie, IStraat } from '@models/locatie';
-import { Niscode } from '@models/niscode.enum';
-import { sortBy } from 'lodash';
 import { HttpService } from './http.service';
+import { sortBy } from 'lodash';
+import WFS from 'ol/format/WFS';
+import Intersects from 'ol/format/filter/Intersects';
+import Point from 'ol/geom/Point';
+import { Niscode } from '@models/niscode.enum';
+import type { Coordinate } from 'ol/coordinate';
+import type { UrlString } from '@/models';
+import type {
+  IAdres,
+  IGemeente,
+  IGeoLocation,
+  IGewest,
+  ILand,
+  ILocatie,
+  IPostinfo,
+  IProvincie,
+  IStraat,
+} from '@models/locatie';
 
 export class CrabApiService extends HttpService {
   private readonly API_URL: string;
@@ -19,28 +34,38 @@ export class CrabApiService extends HttpService {
     this.API_URL = apiUrl;
   }
 
-  getLanden(): Promise<ILand[]> {
+  async getLocaties(value: string): Promise<ILocatie[]> {
+    const url = `geolocation/?locatie=${value.toLowerCase()}`;
+    const response = await this.get<ILocatie[]>(url, { baseURL: this.API_URL });
+    return response.data;
+  }
+
+  async geoLocate(locationId: string): Promise<IGeoLocation> {
+    const url = `geolocation/${locationId}`;
+    const response = await this.get<IGeoLocation>(url, { baseURL: this.API_URL });
+    return response.data;
+  }
+
+  async getLanden(): Promise<ILand[]> {
     if (this.landen?.length) {
-      return Promise.resolve(this.landen);
-    } else {
-      return this.get<ILand[]>('adressenregister/landen', { baseURL: this.API_URL }).then(({ data }) => {
-        this.landen = sortBy(data, 'naam');
-        return this.landen;
-      });
+      return this.landen;
     }
+    const response = await this.get<ILand[]>('adressenregister/landen', { baseURL: this.API_URL });
+    const { data } = response;
+    this.landen = sortBy(data, 'naam');
+    return this.landen;
   }
 
   async getProvincies(): Promise<IProvincie[]> {
     if (this.provincies?.length > 0) {
-      return Promise.resolve(this.provincies);
-    } else {
-      const provinciesVlaamsGewest = await this.getProvinciesPerGewest(Niscode.VlaamsGewest);
-      const provinciesWaalsGewest = await this.getProvinciesPerGewest(Niscode.WaalsGewest);
-
-      this.provincies = this.provincies.concat(provinciesVlaamsGewest, provinciesWaalsGewest);
-
-      return sortBy(this.provincies, 'naam');
+      return this.provincies;
     }
+    const provinciesVlaamsGewest = await this.getProvinciesPerGewest(Niscode.VlaamsGewest);
+    const provinciesWaalsGewest = await this.getProvinciesPerGewest(Niscode.WaalsGewest);
+
+    this.provincies = this.provincies.concat(provinciesVlaamsGewest, provinciesWaalsGewest);
+
+    return sortBy(this.provincies, 'naam');
   }
 
   async getProvinciesPerGewest(niscode: Niscode): Promise<IProvincie[]> {
@@ -60,46 +85,39 @@ export class CrabApiService extends HttpService {
     return this.gemeentenBHGewest;
   }
 
-  getGemeenten(): Promise<IGemeente[]> {
+  async getGemeenten(): Promise<IGemeente[]> {
     if (this.gemeenten?.length) {
-      return Promise.resolve(this.gemeenten);
-    } else {
-      return this.get<IGewest[]>('adressenregister/gewesten', { baseURL: this.API_URL }).then((r) => {
-        const gewesten = r.data;
-        let gemeentenVlaamsGewestGet;
-        let gemeentenWaalsGewestGet;
-        let gemeentenBHGewestGet;
-
-        gewesten.forEach((gewest) => {
-          if (gewest.niscode === Niscode.VlaamsGewest) {
-            gemeentenVlaamsGewestGet = this.getGemeentenPerGewest(Niscode.VlaamsGewest);
-          }
-          if (gewest.niscode === Niscode.WaalsGewest) {
-            gemeentenWaalsGewestGet = this.getGemeentenPerGewest(Niscode.WaalsGewest);
-          }
-          if (gewest.niscode === Niscode.BrusselsHoofdstedelijkGewest) {
-            gemeentenBHGewestGet = this.getGemeentenPerGewest(Niscode.BrusselsHoofdstedelijkGewest);
-          }
-        });
-
-        return Promise.all([gemeentenVlaamsGewestGet, gemeentenWaalsGewestGet, gemeentenBHGewestGet]).then(
-          (gemeenten) => {
-            if (gemeenten[0] && gemeenten[1] && gemeenten[2]) {
-              this.gemeentenVlaamsGewest = gemeenten[0];
-              this.gemeentenWaalsGewest = gemeenten[1];
-              this.gemeentenBHGewest = gemeenten[2];
-              this.gemeenten = this.gemeenten.concat(
-                this.gemeentenVlaamsGewest,
-                this.gemeentenWaalsGewest,
-                this.gemeentenBHGewest
-              );
-              return sortBy(this.gemeenten, 'naam');
-            }
-            return [];
-          }
-        );
-      });
+      return this.gemeenten;
     }
+    const r = await this.get<IGewest[]>('adressenregister/gewesten', { baseURL: this.API_URL });
+    const gewesten = r.data;
+    let gemeentenVlaamsGewestGet;
+    let gemeentenWaalsGewestGet;
+    let gemeentenBHGewestGet;
+    gewesten.forEach((gewest) => {
+      if (gewest.niscode === Niscode.VlaamsGewest) {
+        gemeentenVlaamsGewestGet = this.getGemeentenPerGewest(Niscode.VlaamsGewest);
+      }
+      if (gewest.niscode === Niscode.WaalsGewest) {
+        gemeentenWaalsGewestGet = this.getGemeentenPerGewest(Niscode.WaalsGewest);
+      }
+      if (gewest.niscode === Niscode.BrusselsHoofdstedelijkGewest) {
+        gemeentenBHGewestGet = this.getGemeentenPerGewest(Niscode.BrusselsHoofdstedelijkGewest);
+      }
+    });
+    const gemeenten = await Promise.all([gemeentenVlaamsGewestGet, gemeentenWaalsGewestGet, gemeentenBHGewestGet]);
+    if (gemeenten[0] && gemeenten[1] && gemeenten[2]) {
+      this.gemeentenVlaamsGewest = gemeenten[0];
+      this.gemeentenWaalsGewest = gemeenten[1];
+      this.gemeentenBHGewest = gemeenten[2];
+      this.gemeenten = this.gemeenten.concat(
+        this.gemeentenVlaamsGewest,
+        this.gemeentenWaalsGewest,
+        this.gemeentenBHGewest
+      );
+      return sortBy(this.gemeenten, 'naam');
+    }
+    return [];
   }
 
   async getGemeentenPerGewest(niscode: Niscode): Promise<IGemeente[]> {
@@ -126,5 +144,23 @@ export class CrabApiService extends HttpService {
       ).data;
     }
     return (await this.get<IAdres[]>(`adressenregister/straten/${straat}/adressen`, { baseURL: this.API_URL })).data;
+  }
+
+  public async searchPerceel(coordinate: Coordinate, srsName: string, agivGrbUrl: UrlString) {
+    const filter = new Intersects('SHAPE', new Point(coordinate, 'XY'), 'urn:x-ogc:def:crs:EPSG:31370');
+
+    const featureRequest = new WFS().writeGetFeature({
+      srsName,
+      filter,
+      featureNS: 'https://geo.api.vlaanderen.be/GRB',
+      featurePrefix: 'GRB',
+      featureTypes: ['ADP'],
+      outputFormat: 'application/json',
+    });
+
+    const data = new XMLSerializer().serializeToString(featureRequest);
+    const headers = { 'Content-Type': 'application/xml', Accept: 'application/json' };
+    const response = await this.post<ArrayBuffer, string>(agivGrbUrl, data, { headers });
+    return response.data;
   }
 }
