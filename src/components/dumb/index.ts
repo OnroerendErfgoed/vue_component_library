@@ -1,3 +1,4 @@
+import ClipboardCopy from './ClipboardCopy.vue';
 import FilterDatepicker from './FilterDatepicker.vue';
 import FilterInput from './FilterInput.vue';
 import FilterRadio from './FilterRadio.vue';
@@ -14,6 +15,7 @@ import OeWizard from './OeWizard.vue';
 import SystemFields from './SystemFields.vue';
 
 export {
+  ClipboardCopy,
   FilterDatepicker,
   FilterInput,
   FilterRadio,
