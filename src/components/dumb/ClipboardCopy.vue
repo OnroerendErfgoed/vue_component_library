@@ -1,7 +1,7 @@
 <template>
-  <div class="clipboard-copy-container">
+  <div class="vl-u-display-inline-block">
     <font-awesome-icon v-if="!showCheck" class="clipboard" :icon="['fa-solid', 'clipboard']" @click="clipboardClick" />
-    <font-awesome-icon v-if="showCheck" class="check" :icon="['fa-solid', 'check']" />
+    <font-awesome-icon v-else class="check" :icon="['fa-solid', 'check']" />
   </div>
 </template>
 
@@ -23,16 +23,14 @@ const clipboardClick = () => {
 </script>
 
 <style lang="scss" scoped>
+@import 'pyoes/scss/pyoes-settings';
+
 .clipboard {
-  color: #944ea1;
+  color: $primary-color;
   cursor: pointer;
 }
 
 .check {
-  color: #43ac6a;
-}
-
-.clipboard-copy-container {
-  display: inline-block;
+  color: $success-color;
 }
 </style>
