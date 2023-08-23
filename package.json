@@ -7,7 +7,7 @@
   "main": "./dist/vue-components.umd.js",
   "module": "./dist/vue-components.es.js",
   "typings": "./dist/src/main.d.ts",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "exports": {
     ".": {
       "import": "./dist/vue-components.es.js",
@@ -55,6 +55,7 @@
     "@govflanders/vl-ui-autocomplete": "^18.1.1",
     "@govflanders/vl-ui-design-system-style": "^1.0.0-alpha.3",
     "@govflanders/vl-ui-design-system-vue3": "^1.0.0-alpha.3",
+    "@soerenmartius/vue3-clipboard": "^0.1.2",
     "@vuelidate/core": "^2.0.2",
     "@vuelidate/validators": "^2.0.2",
     "@vueuse/core": "^10.1.2",

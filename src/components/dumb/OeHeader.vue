@@ -30,13 +30,13 @@
         >
           <vl-link-list data-cy="navigation-list" mod-border>
             <vl-link-list-item data-cy="navigation-profile" title="Ga naar mijn gegevens">
-              <vl-link :to="props.profileUrl" mod-block mod-bold>Mijn profiel</vl-link>
+              <vl-link :href="props.profileUrl" mod-block mod-bold>Mijn profiel</vl-link>
             </vl-link-list-item>
             <vl-link-list-item data-cy="navigation-change" title="Wissel van profiel">
-              <vl-link :to="props.changeUrl" mod-block mod-bold>Wisselen</vl-link>
+              <vl-link :href="props.changeUrl" mod-block mod-bold>Wisselen</vl-link>
             </vl-link-list-item>
             <vl-link-list-item data-cy="navigation-logout" title="Meld je af">
-              <vl-link :to="props.logoutUrl" mod-block mod-bold mod-button>Afmelden</vl-link>
+              <vl-link :href="props.logoutUrl" mod-block mod-bold mod-button>Afmelden</vl-link>
             </vl-link-list-item>
           </vl-link-list>
         </vl-dropdown-navigation>
@@ -47,12 +47,12 @@
           data-cy="login"
           class="vl-u-spacer-left--medium vl-u-spacer-right--medium"
           title="Aanmelden"
-          :to="props.loginUrl"
+          :href="props.loginUrl"
           >Aanmelden</vl-link
         >
       </div>
       <div v-if="user && showLogoutShortcut" data-cy="logout-shortcut" class="logout">
-        <vl-link title="Afmelden" :to="props.logoutUrl" mod-icon-only icon="logout"></vl-link>
+        <vl-link title="Afmelden" :href="props.logoutUrl" mod-icon-only icon="logout"></vl-link>
       </div>
     </div>
   </div>
