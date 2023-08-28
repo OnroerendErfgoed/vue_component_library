@@ -1,6 +1,7 @@
 export interface IWizardProps {
   steps: IStep[];
   allowBarNavigation?: boolean;
+  disableSubmitWhenInvalid?: boolean;
 }
 
 export interface IStep {

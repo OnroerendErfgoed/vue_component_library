@@ -41,7 +41,14 @@
         Volgende
         <font-awesome-icon :icon="['fas', 'angles-right']" />
       </vl-button>
-      <vl-button v-else class="wizard__navigation-button" data-cy="submit-button" @click="submit">Verzend</vl-button>
+      <vl-button
+        v-else
+        :mod-disabled="submitDisabled"
+        class="wizard__navigation-button"
+        data-cy="submit-button"
+        @click="submit"
+        >Verzend</vl-button
+      >
     </div>
   </div>
 </template>
@@ -50,6 +57,7 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { VlBadge, VlButton } from '@govflanders/vl-ui-design-system-vue3';
 import type { IWizardProps } from '@models/wizard';
+import { computedAsync } from '@vueuse/core';
 import { ref } from 'vue';
 
 // Next line should be activated once VlUTooltip is properly exported
@@ -59,11 +67,17 @@ import { ref } from 'vue';
 const props = withDefaults(defineProps<IWizardProps>(), {
   steps: () => [],
   allowBarNavigation: false,
+  disableSubmitWhenInvalid: false,
 });
 const emit = defineEmits(['submit']);
 
 const currentStep = ref(0);
 const totalSteps = ref(props.steps.length);
+
+const submitDisabled = computedAsync(
+  async () => props.disableSubmitWhenInvalid && !(await props.steps[totalSteps.value - 1].validate()),
+  true
+);
 
 const previousStep = () => {
   if (currentStep.value > 0) {
