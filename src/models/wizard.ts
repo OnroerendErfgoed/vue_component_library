@@ -7,4 +7,5 @@ export interface IWizardProps {
 export interface IStep {
   name: string;
   validate: () => Promise<boolean>;
+  nextStepDisabled?: boolean;
 }

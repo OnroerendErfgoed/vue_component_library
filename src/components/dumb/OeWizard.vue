@@ -34,6 +34,7 @@
       </vl-button>
       <vl-button
         v-if="currentStep < totalSteps - 1"
+        :mod-disabled="steps[currentStep].nextStepDisabled"
         class="wizard__navigation-button"
         data-cy="next-step-button"
         @click="nextStep"

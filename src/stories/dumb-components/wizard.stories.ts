@@ -199,3 +199,28 @@ export const SubmitDisabledLastStepInvalid: Story = {
     `,
   }),
 };
+
+export const DisableNextStepButton: Story = {
+  render: () => ({
+    components: {
+      OeWizard,
+    },
+    setup() {
+      const steps: IStep[] = [
+        { name: 'Gegevens EPC', validate: () => Promise.resolve(true) },
+        { name: 'Mijn gegevens', validate: () => Promise.resolve(true), nextStepDisabled: true },
+        { name: 'Bijlagen', validate: () => Promise.resolve(true) },
+        { name: 'Overzicht', validate: () => Promise.resolve(false) },
+      ];
+
+      return { steps };
+    },
+    template: `
+    <oe-wizard :steps="steps" disable-submit-when-invalid>
+      <template #default="{ currentStep, totalSteps }">
+        <h2>Stap {{ currentStep + 1 }} van {{ totalSteps }}</h2>
+      </template>
+    </oe-wizard>
+    `,
+  }),
+};

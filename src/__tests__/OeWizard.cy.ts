@@ -243,9 +243,7 @@ describe('OeWizard', () => {
           { name: 'Overzicht', validate: () => Promise.resolve(props.lastStepValid) },
         ];
 
-        const setLastStepValidity = (valid: boolean) => (steps[3].validate = () => Promise.resolve(valid));
-
-        return { steps, setLastStepValidity };
+        return { steps };
       },
       template: `
       <oe-wizard :steps="steps" disable-submit-when-invalid>
@@ -277,6 +275,39 @@ describe('OeWizard', () => {
       cy.dataCy('next-step-button').click();
 
       cy.dataCy('submit-button').should('not.be.disabled');
+    });
+  });
+
+  describe('disable next step', () => {
+    const TestComponent = defineComponent({
+      components: { OeWizard },
+      setup() {
+        const steps: IStep[] = [
+          { name: 'Algemene gegevens', validate: () => Promise.resolve(true) },
+          { name: 'Mijn gegevens', validate: () => Promise.resolve(true), nextStepDisabled: true },
+          { name: 'Bijlagen', validate: () => Promise.resolve(true) },
+          { name: 'Overzicht', validate: () => Promise.resolve(true) },
+        ];
+
+        return { steps };
+      },
+      template: `
+      <oe-wizard :steps="steps" disable-submit-when-invalid>
+        <template #default="{ currentStep, totalSteps }">
+          <h2>Stap {{ currentStep + 1 }} van {{ totalSteps }}</h2>
+        </template>
+      </oe-wizard>
+      `,
+    });
+
+    beforeEach(() => {
+      cy.viewport('macbook-16');
+    });
+
+    it('disables the next step button when nextStepDisabled is true', () => {
+      cy.mount(TestComponent);
+      cy.dataCy('next-step-button').click();
+      cy.dataCy('next-step-button').should('be.disabled');
     });
   });
 });
