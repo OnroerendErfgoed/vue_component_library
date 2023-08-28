@@ -230,4 +230,53 @@ describe('OeWizard', () => {
       cy.dataCy('wizard-bar').find('.wizard__bar-item-name').first().should('not.be.visible');
     });
   });
+
+  describe('disable submit', () => {
+    const TestComponent = defineComponent({
+      components: { OeWizard },
+      props: ['lastStepValid'],
+      setup(props) {
+        const steps: IStep[] = [
+          { name: 'Algemene gegevens', validate: () => Promise.resolve(true) },
+          { name: 'Mijn gegevens', validate: () => Promise.resolve(true) },
+          { name: 'Bijlagen', validate: () => Promise.resolve(true) },
+          { name: 'Overzicht', validate: () => Promise.resolve(props.lastStepValid) },
+        ];
+
+        const setLastStepValidity = (valid: boolean) => (steps[3].validate = () => Promise.resolve(valid));
+
+        return { steps, setLastStepValidity };
+      },
+      template: `
+      <oe-wizard :steps="steps" disable-submit-when-invalid>
+        <template #default="{ currentStep, totalSteps }">
+          <h2>Stap {{ currentStep + 1 }} van {{ totalSteps }}</h2>
+        </template>
+      </oe-wizard>
+      `,
+    });
+
+    beforeEach(() => {
+      cy.viewport('macbook-16');
+    });
+
+    it('disables the submit button when last step is invalid', () => {
+      cy.mount(TestComponent, { props: { lastStepValid: false } });
+
+      cy.dataCy('next-step-button').click();
+      cy.dataCy('next-step-button').click();
+      cy.dataCy('next-step-button').click();
+
+      cy.dataCy('submit-button').should('be.disabled');
+    });
+
+    it('does not disable the submit button when last step is valid', () => {
+      cy.mount(TestComponent, { props: { lastStepValid: true } });
+      cy.dataCy('next-step-button').click();
+      cy.dataCy('next-step-button').click();
+      cy.dataCy('next-step-button').click();
+
+      cy.dataCy('submit-button').should('not.be.disabled');
+    });
+  });
 });
