@@ -75,8 +75,14 @@ const currentStep = ref(0);
 const totalSteps = ref(props.steps.length);
 
 const submitDisabled = computedAsync(
-  async () => props.disableSubmitWhenInvalid && !(await props.steps[totalSteps.value - 1].validate()),
-  true
+  async () => {
+    if (props.disableSubmitWhenInvalid) {
+      return !(await props.steps[totalSteps.value - 1].validate());
+    }
+    return false;
+  },
+  false,
+  { lazy: true }
 );
 
 const previousStep = () => {
