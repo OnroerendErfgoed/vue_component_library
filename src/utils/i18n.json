@@ -6,7 +6,9 @@
         "requiredIf": "Het veld {field} is verplicht.",
         "minLength": "Het veld {property} moet een minimale lengte van {min} hebben",
         "maxLength": "Het veld {property} mag maar een maximale lengte van {max} hebben",
-        "email": "Het veld {field} bevat een ongeldig e-mailadres."
+        "email": "Het veld {field} bevat een ongeldig e-mailadres.",
+        "kbo": "Het KBO nummer is niet geldig",
+        "rrn": "Het rijksregisternummer is niet geldig."
       }
     }
   }

@@ -1,6 +1,7 @@
 import i18n from './i18n.json';
 import * as validators from '@vuelidate/validators';
 import { createI18n } from 'vue-i18n';
+import { kboValidator, rrnValidator } from './custom-validators';
 
 const { createI18nMessage } = validators;
 
@@ -12,6 +13,8 @@ const withI18nMessage = createI18nMessage({
 // wrap each validator.
 export const required = withI18nMessage(validators.required);
 export const email = withI18nMessage(validators.email);
+export const kbo = withI18nMessage(kboValidator);
+export const rrn = withI18nMessage(rrnValidator);
 // validators that expect a parameter should have `{ withArguments: true }` passed as a second parameter, to annotate they should be wrapped
 export const requiredIf = withI18nMessage(validators.requiredIf, { withArguments: true });
 export const minLength = withI18nMessage(validators.minLength, { withArguments: true });
