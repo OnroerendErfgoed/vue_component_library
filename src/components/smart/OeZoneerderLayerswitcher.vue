@@ -1,7 +1,13 @@
 <template>
-  <div ref="layerswitcherPanelRef" v-click-outside="hidePanel" class="panel" :class="{ closed: !panelVisible }">
+  <div
+    data-cy="layerswitcherPanel"
+    ref="layerswitcherPanelRef"
+    v-click-outside="hidePanel"
+    class="panel"
+    :class="{ closed: !panelVisible }"
+  >
     <div ref="elementRef" class="layerswitcher oe-ol-control ol-control ol-unselectable">
-      <button ref="buttonRef" @click="togglePanel">
+      <button ref="buttonRef" @click="togglePanel" title="Verander kaartlagen">
         <font-awesome-icon :icon="['fas', 'layer-group']" style="pointer-events: none" />
       </button>
     </div>

@@ -1,7 +1,7 @@
 <template>
-  <div ref="zonePanelRef" :class="{ closed: !panelOpen }" class="panel">
+  <div ref="zonePanelRef" :class="{ closed: !panelOpen || !props.drawPanelEnabled }" class="panel">
     <div ref="elementRef" class="zone-panel oe-ol-control ol-control ol-unselectable">
-      <button @click="togglePanel"><font-awesome-icon :icon="['fas', 'bars']" /></button>
+      <button data-cy="zonePanelControl" @click="togglePanel"><font-awesome-icon :icon="['fas', 'bars']" /></button>
     </div>
 
     <vl-title class="panelHeader" tag-name="h4">
@@ -37,10 +37,19 @@
           >
             <font-awesome-icon icon="map-marker-alt" />
           </vl-button>
-          <vl-button vl-button mod-narrow mod-secondary title="WKT string" @click="showWktInput()">WKT</vl-button>
+          <vl-button
+            data-cy="showWKTInput"
+            vl-button
+            mod-narrow
+            mod-secondary
+            title="WKT string"
+            @click="showWktInput()"
+            >WKT</vl-button
+          >
         </template>
         <template v-else>
           <vl-input-field
+            data-cy="WKTInput"
             id="map-address"
             name="map-address"
             placeholder="WKT string (Lambert72)"
@@ -48,7 +57,7 @@
             :model-value="WKTString"
             @update:model-value="updateWKTString"
           />
-          <vl-button vl-button mod-narrow mod-secondary @click="drawWKTZone()">Plaats</vl-button>
+          <vl-button data-cy="plaatsWKT" vl-button mod-narrow mod-secondary @click="drawWKTZone()">Plaats</vl-button>
         </template>
         <vl-button title="annuleren" vl-button mod-narrow mod-secondary @click="toggleDrawZone(false)">
           <font-awesome-icon icon="cancel" />
@@ -56,7 +65,7 @@
       </vl-input-group>
 
       <p><strong>Toegevoegde zones</strong></p>
-      <ul class="geometryObjectList">
+      <ul data-cy="geometryObjectList" class="geometryObjectList">
         <li v-for="(item, index) in geometryObjectList" :key="index">
           <span>{{ item }}</span>
           <vl-link class="iconLink" @click="removeGeometryObject(item)"> <vl-icon icon="trash" /> </vl-link>
@@ -89,6 +98,7 @@ import type { Contour, IDrawGeomType } from '@models/oe-openlayers';
 
 const props = defineProps<{
   zone?: Contour;
+  drawPanelEnabled?: boolean;
 }>();
 const zone = ref<Contour | undefined>(props.zone);
 const elementRef = ref<HTMLElement>();
@@ -126,6 +136,15 @@ map.addLayer(drawLayer);
 addZoneToDrawLayer();
 
 watch(zone, (newZone) => emit('update:zone', newZone));
+watch(
+  () => props.drawPanelEnabled,
+  (isEnabled) => {
+    if (!isEnabled) {
+      resetSelect();
+      toggleDrawZone(false);
+    }
+  }
+);
 
 onMounted(() => {
   emit('zone-panel:mounted', elementRef.value);
@@ -340,16 +359,6 @@ function addZoneToDrawLayer() {
     drawSource.addFeature(new Feature({ name, geometry }));
     geometryObjectList.value.push(name);
   }
-  // coordinates.forEach((coords: Coordinate[][]) => {
-  //   const feature = new Feature({
-  //     name: 'Zone',
-  //     geometry: new Polygon(coords),
-  //   });
-  //   drawSource?.addFeature(feature);
-  // });
-  // if (geometryObjectList.value.indexOf('Zone') === -1) {
-  //   geometryObjectList.value.push('Zone');
-  // }
   zoomToExtent(geoJsonFormatter.readGeometry(zone.value).getExtent());
 }
 </script>

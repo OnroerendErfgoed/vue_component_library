@@ -56,10 +56,34 @@ const meta: Meta<typeof OeZoneerder> = {
         type: { summary: 'string' },
       },
     },
+    agivGrbUrl: {
+      description: 'agiv Grb Url',
+      table: {
+        type: { summary: 'string' },
+      },
+    },
+    drawPanelEnabled: {
+      description: 'Set true to show the drawPanel on the map',
+      table: {
+        type: { summary: 'boolean' },
+      },
+    },
+    zone: {
+      description: 'Emits the created openlayers map',
+      table: {
+        type: { summary: 'Contour' },
+      },
+    },
     'map:created': {
       description: 'Emits the created openlayers map',
       table: {
-        type: { summary: 'object' },
+        type: { summary: 'Map' },
+      },
+    },
+    'update:zone': {
+      description: 'Emits the created openlayers map',
+      table: {
+        type: { summary: 'Contour' },
       },
     },
   },
@@ -71,7 +95,7 @@ type Story = StoryObj<typeof OeZoneerder>;
 export const Default: Story = {};
 
 export const DrawZone: Story = {
-  render: () => ({
+  render: (args: OeZoneerderProps) => ({
     components: { OeZoneerder },
     setup() {
       return {
@@ -210,10 +234,23 @@ export const DrawZone: Story = {
     },
     template: `<oe-zoneerder v-model:zone="zone" :draw-panel-enabled="drawPanelEnabled" style="height: 500px"></oe-zoneerder>`,
   }),
-  parameters: {
-    // More on how to position stories at: https://storybook.js.org/docs/react/configure/story-layout
-    layout: 'fullscreen',
-  },
-  // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/vue/writing-docs/autodocs
-  tags: ['autodocs'],
+};
+
+export const AllControls: Story = {
+  render: (args: OeZoneerderProps) => ({
+    components: { OeZoneerder },
+    setup() {
+      return {
+        controlConfig: {
+          fullscreen: true,
+          zoomInOut: true,
+          zoomFullExtent: true,
+          zoomGeoLocation: true,
+          rotate: true,
+          zoomSwitcher: true,
+        },
+      };
+    },
+    template: `<oe-zoneerder :control-config="controlConfig" style="height: 500px"></oe-zoneerder>`,
+  }),
 };
