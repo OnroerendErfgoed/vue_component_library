@@ -1,5 +1,5 @@
-import { type ILocatie, LayerType } from '@/models';
-import type { UrlString } from '@/models';
+import { LayerType } from '@/models';
+import type { ILocatie, UrlString } from '@/models';
 import type { Contour } from '@models/oe-openlayers';
 
 export interface ControlConfig {
@@ -14,10 +14,10 @@ export interface ControlConfig {
 export const defaultControlConfig: ControlConfig = {
   fullscreen: true,
   zoomInOut: true,
-  zoomFullExtent: true, //TODO false
-  zoomGeoLocation: true, //TODO false
-  rotate: true, //TODO false
-  zoomSwitcher: true, //TODO false
+  zoomFullExtent: false,
+  zoomGeoLocation: false,
+  rotate: false,
+  zoomSwitcher: false,
 };
 
 interface BaseLayerOptions {

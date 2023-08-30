@@ -1,33 +1,60 @@
 <template>
-  <div ref="zonePanelRef" :class="{ hidden: !panelOpen }" class="panel">
+  <div ref="zonePanelRef" :class="{ closed: !panelOpen }" class="panel">
+    <div ref="elementRef" class="zone-panel oe-ol-control ol-control ol-unselectable">
+      <button @click="togglePanel"><font-awesome-icon :icon="['fas', 'bars']" /></button>
+    </div>
+
     <vl-title class="panelHeader" tag-name="h4">
       <font-awesome-icon class="pointer" :icon="['fas', 'bars']" @click="togglePanel" />
       <span v-if="panelOpen" class="titleText">&nbsp;Zone samenstellen</span>
     </vl-title>
 
     <div v-if="panelOpen" class="panelBody">
-      <vl-link v-if="isDrawing || selectPerceel" mod-link @click="toggleDrawZone(false)">
-        <vl-icon icon="ban" /> Annuleren</vl-link
-      >
-      <template v-else>
-        <vl-link @click="toggleDrawZone(true)"> <vl-icon icon="pencil" /> Teken polygoon</vl-link><br />
-        <vl-link @click="toggleDrawZone(true, 'Circle')"> <vl-icon icon="pencil" /> Teken cirkel</vl-link><br />
-        <vl-link @click="startPerceelSelect()"> <vl-icon icon="cursor-finger-up" /> Selecteer perceel</vl-link>
-      </template>
-      <br />
-      <br />
-      <vl-input-group>
-        <vl-input-field
-          id="map-address"
-          name="map-address"
-          placeholder="WKT string (Lambert72)"
-          mod-block
-          :model-value="WKTString"
-          @update:model-value="updateWKTString"
-        />
-        <vl-input-addon tag-name="button" type="button" tooltip="WKT " text="Plaats" @click="drawWKTZone()" />
+      <vl-input-group class="zone-input-group">
+        <template v-if="!addingWKT">
+          <vl-button
+            mod-narrow
+            :mod-secondary="!(activeDrawType === 'Polygon')"
+            title="teken polygoon"
+            @click="toggleDrawZone(true)"
+          >
+            <font-awesome-icon icon="draw-polygon" />
+          </vl-button>
+          <vl-button
+            mod-narrow
+            :mod-secondary="!(activeDrawType === 'Circle')"
+            title="teken cirkel"
+            @click="toggleDrawZone(true, 'Circle')"
+          >
+            <font-awesome-icon :icon="['far', 'circle']" />
+          </vl-button>
+          <vl-button
+            vl-button
+            mod-narrow
+            :mod-secondary="!selectPerceel"
+            title="selecteer perceel"
+            @click="startPerceelSelect()"
+          >
+            <font-awesome-icon icon="map-marker-alt" />
+          </vl-button>
+          <vl-button vl-button mod-narrow mod-secondary title="WKT string" @click="showWktInput()">WKT</vl-button>
+        </template>
+        <template v-else>
+          <vl-input-field
+            id="map-address"
+            name="map-address"
+            placeholder="WKT string (Lambert72)"
+            mod-block
+            :model-value="WKTString"
+            @update:model-value="updateWKTString"
+          />
+          <vl-button vl-button mod-narrow mod-secondary @click="drawWKTZone()">Plaats</vl-button>
+        </template>
+        <vl-button title="annuleren" vl-button mod-narrow mod-secondary @click="toggleDrawZone(false)">
+          <font-awesome-icon icon="cancel" />
+        </vl-button>
       </vl-input-group>
-      <hr />
+
       <p><strong>Toegevoegde zones</strong></p>
       <ul class="geometryObjectList">
         <li v-for="(item, index) in geometryObjectList" :key="index">
@@ -42,14 +69,7 @@
 <script setup lang="ts">
 import 'ol/ol.css';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import {
-  VlIcon,
-  VlInputAddon,
-  VlInputField,
-  VlInputGroup,
-  VlLink,
-  VlTitle,
-} from '@govflanders/vl-ui-design-system-vue3';
+import { VlButton, VlIcon, VlInputField, VlInputGroup, VlLink, VlTitle } from '@govflanders/vl-ui-design-system-vue3';
 import { Feature, Map, MapBrowserEvent } from 'ol';
 import { GeoJSON, WKT } from 'ol/format';
 import { Circle, Geometry, MultiPolygon, Polygon } from 'ol/geom';
@@ -58,22 +78,21 @@ import { Draw } from 'ol/interaction';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Fill, Text as OlText, Stroke, Style } from 'ol/style';
-import { inject, ref, watch } from 'vue';
-import { CrabApiService } from '@/services';
-import { Contour } from '@models/oe-openlayers';
+import { inject, onMounted, onUnmounted, ref, watch } from 'vue';
 import type { FeatureLike } from 'ol/Feature';
 import type { ColorLike } from 'ol/colorlike';
 import type { Listener } from 'ol/events';
 import type { Extent } from 'ol/extent';
 import type { UrlString } from '@/models';
-import type { IDrawGeomType } from '@models/oe-openlayers';
+import type { CrabApiService } from '@/services';
+import type { Contour, IDrawGeomType } from '@models/oe-openlayers';
 
 const props = defineProps<{
   zone?: Contour;
 }>();
 const zone = ref<Contour | undefined>(props.zone);
-const emit = defineEmits(['update:zone']);
-watch(zone, (newZone) => emit('update:zone', newZone));
+const elementRef = ref<HTMLElement>();
+const emit = defineEmits(['update:zone', 'zone-panel:mounted']);
 
 const map = inject('map') as Map;
 const zoomToExtent = inject('zoomToExtent') as (extent: Extent) => void;
@@ -86,11 +105,15 @@ const mapProjection = map.getView().getProjection();
 const zonePanelRef = ref<HTMLElement>();
 const panelOpen = ref(false);
 const selectPerceel = ref(false);
-const isDrawing = ref(false);
+const activeDrawType = ref<IDrawGeomType>();
 const geometryObjectList = ref<string[]>([]);
-
+const addingWKT = ref(false);
 let circleIndex = 0;
 let polygonIndex = 0;
+const geoJsonFormatter = new GeoJSON({
+  dataProjection: mapProjection,
+  featureProjection: mapProjection,
+});
 const drawLayer = _createVectorLayer({
   color: 'rgb(39, 146, 195)',
   fill: 'rgba(39, 146, 195, 0.3)',
@@ -100,10 +123,22 @@ drawLayer.getSource()?.on('addfeature', () => {
   drawLayerToZone();
 });
 map.addLayer(drawLayer);
-const geoJsonFormatter = new GeoJSON({
-  dataProjection: mapProjection,
-  featureProjection: mapProjection,
+addZoneToDrawLayer();
+
+watch(zone, (newZone) => emit('update:zone', newZone));
+
+onMounted(() => {
+  emit('zone-panel:mounted', elementRef.value);
 });
+
+onUnmounted(() => {
+  map
+    .getControls()
+    .getArray()
+    .filter((control) => control['element'].classList.contains('zone-panel'))
+    .forEach((control) => map.removeControl(control));
+});
+
 const perceelSelectCallback = (evt: MapBrowserEvent<UIEvent>) => {
   crabService.searchPerceel(evt.coordinate, mapProjection.getCode(), agivGrbUrl).then((result) => {
     geoJsonFormatter.readFeatures(result).forEach((perceel) => {
@@ -150,8 +185,9 @@ function _createVectorLayer(options: { color: ColorLike; fill: ColorLike; title:
 
 function toggleDrawZone(drawZoneEnabled = false, type: IDrawGeomType = 'Polygon') {
   resetSelect();
+  addingWKT.value = false;
   map.getInteractions().pop();
-  isDrawing.value = drawZoneEnabled;
+  activeDrawType.value = drawZoneEnabled ? type : undefined;
   for (const [drawType, interaction] of Object.entries(drawInteractions)) {
     if (drawType === type) {
       interaction.setActive(drawZoneEnabled);
@@ -191,6 +227,11 @@ function zoomToFeatures() {
   if (!extent) return;
 
   zoomToExtent(extent);
+}
+
+function showWktInput() {
+  toggleDrawZone(false);
+  addingWKT.value = true;
 }
 
 function startPerceelSelect() {
@@ -262,24 +303,54 @@ function drawLayerToZone() {
   });
 
   const contour = formatGeoJson(multiPolygon);
-  zone.value = new Contour(contour);
+  if (!zone.value) {
+    zone.value = contour;
+  } else {
+    zone.value.coordinates = contour.coordinates;
+  }
 }
 
 function formatGeoJson(feature: Geometry) {
-  const geojson = geoJsonFormatter.writeGeometryObject(feature);
+  const geojson = geoJsonFormatter.writeGeometryObject(feature) as Contour;
   // hack to add crs. todo: remove when https://github.com/openlayers/ol3/issues/2078 is fixed
-  Object.defineProperty(geojson, 'crs', {
-    enumerable: true,
-    configurable: true,
-    writable: true,
-    value: {
-      type: 'name',
-      properties: {
-        name: 'urn:ogc:def:crs:EPSG::31370',
-      },
+  geojson.crs = {
+    type: 'name',
+    properties: {
+      name: 'urn:ogc:def:crs:EPSG::31370',
     },
-  });
+  };
   return geojson as Contour;
+}
+
+function addZoneToDrawLayer() {
+  if (!drawLayer) return;
+
+  const drawSource = drawLayer.getSource() as VectorSource<Geometry>;
+  drawSource.getFeatures().forEach((feature) => {
+    drawSource.removeFeature(feature);
+  });
+  geometryObjectList.value = [];
+
+  if (!zone.value) return;
+  const coordinates = zone.value.type === 'Polygon' ? [zone.value.coordinates] : zone.value.coordinates;
+
+  for (const [index, coords] of coordinates.entries()) {
+    const name = coordinates.length > 1 ? `Zone feature ${index + 1}` : 'Zone';
+    const geometry = new Polygon(coords);
+    drawSource.addFeature(new Feature({ name, geometry }));
+    geometryObjectList.value.push(name);
+  }
+  // coordinates.forEach((coords: Coordinate[][]) => {
+  //   const feature = new Feature({
+  //     name: 'Zone',
+  //     geometry: new Polygon(coords),
+  //   });
+  //   drawSource?.addFeature(feature);
+  // });
+  // if (geometryObjectList.value.indexOf('Zone') === -1) {
+  //   geometryObjectList.value.push('Zone');
+  // }
+  zoomToExtent(geoJsonFormatter.readGeometry(zone.value).getExtent());
 }
 </script>
 
@@ -299,6 +370,10 @@ function formatGeoJson(feature: Geometry) {
   border: solid 2px var(--ol-subtle-foreground-color);
   border-radius: 2px;
 
+  .oe-ol-control {
+    display: none;
+  }
+
   .pointer {
     cursor: pointer;
   }
@@ -317,10 +392,8 @@ function formatGeoJson(feature: Geometry) {
     padding: 10px;
   }
 
-  &.hidden {
-    width: auto;
-    height: auto;
-    border: none;
+  &.closed {
+    display: None;
   }
 
   .geometryObjectList {
@@ -333,6 +406,27 @@ function formatGeoJson(feature: Geometry) {
       .iconLink {
         color: var(--ol-subtle-foreground-color);
       }
+    }
+  }
+}
+
+.vl-input-group.zone-input-group {
+  margin-top: 0.2em;
+  margin-bottom: 0.5em;
+  .vl-button {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    &:not(:first-child):not(:last-child) {
+      border-radius: 0;
+      margin-left: 0;
+      border-right: 0;
+    }
+    &:last-child {
+      flex: 0;
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
+      margin-left: 0;
     }
   }
 }

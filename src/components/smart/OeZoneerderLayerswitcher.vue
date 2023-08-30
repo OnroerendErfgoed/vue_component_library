@@ -1,9 +1,11 @@
 <template>
-  <div ref="elementRef" class="layerswitcher oe-ol-control ol-control ol-unselectable">
-    <button ref="buttonRef" class="layerswitcherButton" @click="togglePanel"></button>
-  </div>
+  <div ref="layerswitcherPanelRef" v-click-outside="hidePanel" class="panel" :class="{ closed: !panelVisible }">
+    <div ref="elementRef" class="layerswitcher oe-ol-control ol-control ol-unselectable">
+      <button ref="buttonRef" @click="togglePanel">
+        <font-awesome-icon :icon="['fas', 'layer-group']" style="pointer-events: none" />
+      </button>
+    </div>
 
-  <div ref="layerswitcherPanelRef" v-click-outside="hidePanel" class="panel hidden">
     <vl-title class="panelHeader" tag-name="h4">Legende</vl-title>
     <div class="panelBody">
       <template v-for="(layer, index) in overlayLayersRef" :key="layer.get('id') + layer.get('visible')">
@@ -42,6 +44,7 @@
 
 <script setup lang="ts">
 import 'ol/ol.css';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { VlCheckbox, VlRadio, VlTitle } from '@govflanders/vl-ui-design-system-vue3';
 import { Group } from 'ol/layer';
 import { inject, onMounted, onUnmounted, ref, watch } from 'vue';
@@ -55,6 +58,8 @@ const elementRef = ref<HTMLElement>();
 const layerswitcherPanelRef = ref<HTMLElement>();
 const achtergrondLayersRef = ref<BaseLayer[]>([]) as Ref<BaseLayer[]>;
 const overlayLayersRef = ref<BaseLayer[]>([]) as Ref<BaseLayer[]>;
+const panelVisible = ref(false);
+
 const selectedAchtergrondLayerRef = ref<string>();
 const achtergrondTitleRef = ref('Achtergrond');
 const map = inject('map') as Map;
@@ -102,17 +107,14 @@ function toggleVisibility(layer: BaseLayer, isAchtergrondLayer = false) {
 
 function hidePanel(target?: HTMLElement) {
   if (target === buttonRef.value) return;
-  layerswitcherPanelRef.value?.classList.add('hidden');
+  panelVisible.value = false;
 }
 
 function togglePanel() {
-  const classList = layerswitcherPanelRef.value?.classList;
-  if (classList?.contains('hidden')) {
+  if (!panelVisible.value) {
     setupPanel();
-    classList?.remove('hidden');
-  } else {
-    classList?.add('hidden');
   }
+  panelVisible.value = !panelVisible.value;
 }
 
 function getLeafLayers(parent: Map | Group | undefined): BaseLayer[] {
@@ -127,10 +129,6 @@ function getLeafLayers(parent: Map | Group | undefined): BaseLayer[] {
 </script>
 
 <style lang="scss" scoped>
-.layerswitcherButton {
-  background-image: url('data:image/svg+xml,<svg fill="%23944EA1" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M264.5 5.2c14.9-6.9 32.1-6.9 47 0l218.6 101c8.5 3.9 13.9 12.4 13.9 21.8s-5.4 17.9-13.9 21.8l-218.6 101c-14.9 6.9-32.1 6.9-47 0L45.9 149.8C37.4 145.8 32 137.3 32 128s5.4-17.9 13.9-21.8L264.5 5.2zM476.9 209.6l53.2 24.6c8.5 3.9 13.9 12.4 13.9 21.8s-5.4 17.9-13.9 21.8l-218.6 101c-14.9 6.9-32.1 6.9-47 0L45.9 277.8C37.4 273.8 32 265.3 32 256s5.4-17.9 13.9-21.8l53.2-24.6 152 70.2c23.4 10.8 50.4 10.8 73.8 0l152-70.2zm-152 198.2l152-70.2 53.2 24.6c8.5 3.9 13.9 12.4 13.9 21.8s-5.4 17.9-13.9 21.8l-218.6 101c-14.9 6.9-32.1 6.9-47 0L45.9 405.8C37.4 401.8 32 393.3 32 384s5.4-17.9 13.9-21.8l53.2-24.6 152 70.2c23.4 10.8 50.4 10.8 73.8 0z"/></svg>');
-}
-
 .panel {
   margin: 0.5em;
   max-height: calc(100% - 1em);
@@ -145,6 +143,10 @@ function getLeafLayers(parent: Map | Group | undefined): BaseLayer[] {
   background-color: rgba(white, 0.9);
   border: solid 2px var(--ol-subtle-foreground-color);
   border-radius: 2px;
+
+  .oe-ol-control {
+    display: none;
+  }
 
   .panelHeader {
     flex: 0;
@@ -171,7 +173,7 @@ function getLeafLayers(parent: Map | Group | undefined): BaseLayer[] {
     }
   }
 
-  &.hidden {
+  &.closed {
     display: none;
   }
 }

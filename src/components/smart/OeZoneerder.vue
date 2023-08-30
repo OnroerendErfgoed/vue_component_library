@@ -7,20 +7,33 @@
       class="zone-search"
       @update:value="onAutocompleteFinished"
     ></oe-autocomplete>
-    <div ref="leftControlsContainerRef" class="controlsContainer left"></div>
-    <div ref="rightControlsContainerRef" class="controlsContainer right"></div>
+    <div class="controlsContainer left">
+      <div ref="leftControlsContainerRef"></div>
+      <div v-if="true" class="zoom-switcher oe-ol-control ol-unselectable ol-control">
+        <button class="zoomButton" title="Ga naar het Geoportaal" @click="zoomButtonClick">
+          <font-awesome-icon :icon="['fas', 'fa-globe']" />
+        </button>
+      </div>
+    </div>
+    <div
+      ref="rightControlsContainerRef"
+      class="controlsContainer right"
+      :class="{ hideZonePanelControl: !props.drawPanelEnabled }"
+    ></div>
     <layerswitcher @layerswitcher:mounted="addLayerswitcherControl"></layerswitcher>
-    <draw-panel v-if="props.drawPanelEnabled" v-model:zone="zone"></draw-panel>
+    <draw-panel v-model:zone="zone" @zone-panel:mounted="addZonePanelControl"></draw-panel>
   </div>
 </template>
 
 <!--suppress CommaExpressionJS -->
 <script setup lang="ts">
 import 'ol/ol.css';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import { Attribution, Control, FullScreen, Rotate, ScaleLine, Zoom, ZoomToExtent } from 'ol/control';
 import { getCenter, getTopLeft, getWidth } from 'ol/extent';
+import Point from 'ol/geom/Point';
 import { Group, Layer, Tile } from 'ol/layer';
 import { type ProjectionLike, get as getOlProj, transformExtent } from 'ol/proj';
 import { register } from 'ol/proj/proj4';
@@ -48,7 +61,7 @@ const props = withDefaults(defineProps<OeZoneerderProps>(), {
   beschermingenWmsUrl: 'https://geo.onroerenderfgoed.be/geoserver/wms',
   agivGrbUrl: 'https://geo.api.vlaanderen.be/GRB/wfs',
   api: 'https://geo.onroerenderfgoed.be/',
-  drawPanelEnabled: true,
+  drawPanelEnabled: false,
   zone: undefined,
 });
 const zone = ref<Contour | undefined>(props.zone);
@@ -100,15 +113,30 @@ watch(
     }
   }
 );
-watch(zone, (newZone) => emit('update:zone', newZone));
+watch(zone, (newZone) => emit('update:zone', newZone), { deep: true });
 
 function zoomToExtent(extent: Extent) {
   map?.updateSize();
   map?.getView().fit(extent, { maxZoom: 15 });
 }
 
+function zoomButtonClick() {
+  const view = map?.getView() as View;
+  const center = view.getCenter() as Coordinate;
+  const zoom = view.getZoom() as number;
+  const coordinates = transformLambert72ToWebMercator(center);
+
+  //Zoom * 2 is some kind of hack so the zoom levels somewhat align with the zoom levels on crabpyUrl.
+  // Change if a better solution is found.
+  window.open(props.api + '/#zoom=' + zoom * 2 + '&lat=' + coordinates[1] + '&lon=' + coordinates[0]);
+}
+
 function addLayerswitcherControl(element: HTMLElement) {
   setTimeout(() => map?.addControl(new Control({ element, target: leftControlsContainerRef.value })));
+}
+
+function addZonePanelControl(element: HTMLElement) {
+  setTimeout(() => map?.addControl(new Control({ element, target: rightControlsContainerRef.value })));
 }
 
 async function performAutocompleteSearch(searchValue: string): Promise<IAutocompleteOption<string>[]> {
@@ -143,6 +171,13 @@ function transformBoundingboxToMapExtent(
     boundingbox.upperright.lat,
   ];
   return transformExtent(extent, sourceCrs, targetCrs);
+}
+
+function transformLambert72ToWebMercator(center: Coordinate): Coordinate {
+  const point: Point = new Point([center[0], center[1]]);
+  const transFormedPoint = point.transform('EPSG:31370', 'EPSG:3857') as Point;
+
+  return transFormedPoint.getCoordinates();
 }
 
 function setupProjection() {
@@ -337,6 +372,10 @@ function addControls(leftControlsContainer?: HTMLElement, rightControlsContainer
   position: relative;
 }
 
+.hideZonePanelControl .oe-ol-control.zone-panel {
+  display: none;
+}
+
 .zone-search {
   position: absolute !important;
   width: 300px !important;
@@ -399,9 +438,5 @@ function addControls(leftControlsContainer?: HTMLElement, rightControlsContainer
 
 .oe-ol-geolocate button {
   background-image: url('data:image/svg+xml,<svg fill="%23944EA1" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M256 0c17.7 0 32 14.3 32 32V66.7C368.4 80.1 431.9 143.6 445.3 224H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H445.3C431.9 368.4 368.4 431.9 288 445.3V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V445.3C143.6 431.9 80.1 368.4 66.7 288H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H66.7C80.1 143.6 143.6 80.1 224 66.7V32c0-17.7 14.3-32 32-32zM128 256a128 128 0 1 0 256 0 128 128 0 1 0 -256 0zm128-80a80 80 0 1 1 0 160 80 80 0 1 1 0-160z"/></svg>');
-}
-
-.oe-ol-layerswitcher button.open-button {
-  background-image: url('data:image/svg+xml,<svg fill="%23944EA1" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M264.5 5.2c14.9-6.9 32.1-6.9 47 0l218.6 101c8.5 3.9 13.9 12.4 13.9 21.8s-5.4 17.9-13.9 21.8l-218.6 101c-14.9 6.9-32.1 6.9-47 0L45.9 149.8C37.4 145.8 32 137.3 32 128s5.4-17.9 13.9-21.8L264.5 5.2zM476.9 209.6l53.2 24.6c8.5 3.9 13.9 12.4 13.9 21.8s-5.4 17.9-13.9 21.8l-218.6 101c-14.9 6.9-32.1 6.9-47 0L45.9 277.8C37.4 273.8 32 265.3 32 256s5.4-17.9 13.9-21.8l53.2-24.6 152 70.2c23.4 10.8 50.4 10.8 73.8 0l152-70.2zm-152 198.2l152-70.2 53.2 24.6c8.5 3.9 13.9 12.4 13.9 21.8s-5.4 17.9-13.9 21.8l-218.6 101c-14.9 6.9-32.1 6.9-47 0L45.9 405.8C37.4 401.8 32 393.3 32 384s5.4-17.9 13.9-21.8l53.2-24.6 152 70.2c23.4 10.8 50.4 10.8 73.8 0z"/></svg>');
 }
 </style>
