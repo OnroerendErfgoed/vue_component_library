@@ -35,10 +35,10 @@
       </p>
       <vl-radio
         v-for="(layer, index) in achtergrondLayersRef"
-        :id="'radio-achtergrondLayer-' + index"
+        :id="layerSwitcherId + 'radio-achtergrondLayer-' + index"
         :key="index"
         v-model="selectedAchtergrondLayerRef"
-        :name="'radio-achtergrondLayer-' + index"
+        :name="layerSwitcherId + 'radio-achtergrondLayer-' + index"
         :value="layer.get('id')"
         mod-block
       >
@@ -53,6 +53,7 @@ import 'ol/ol.css';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { VlCheckbox, VlRadio, VlTitle } from '@govflanders/vl-ui-design-system-vue3';
 import { Group } from 'ol/layer';
+import { v4 as uuidv4 } from 'uuid';
 import { inject, onMounted, onUnmounted, ref, watch } from 'vue';
 import { vClickOutside } from '@directives/click-outside.directive';
 import type Map from 'ol/Map';
@@ -65,6 +66,7 @@ const layerswitcherPanelRef = ref<HTMLElement>();
 const achtergrondLayersRef = ref<BaseLayer[]>([]) as Ref<BaseLayer[]>;
 const overlayLayersRef = ref<BaseLayer[]>([]) as Ref<BaseLayer[]>;
 const panelVisible = ref(false);
+const layerSwitcherId = ref(uuidv4());
 
 const selectedAchtergrondLayerRef = ref<string>();
 const achtergrondTitleRef = ref('Achtergrond');
