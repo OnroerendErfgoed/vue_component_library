@@ -1,7 +1,28 @@
 import '@/scss/main.scss';
 import { OeZoneerder } from '@/components';
+import { defaultLayerConfig } from '@/models';
 import type { Meta, StoryObj } from '@storybook/vue3';
-import type { OeZoneerderProps } from '@/models';
+import type { LayerConfig, OeZoneerderProps } from '@/models';
+
+const beschermingenWmsUrl = 'https://test-geo.onroerenderfgoed.be/geoserver/wms';
+const legendParams = `?service=WMS&request=GetLegendGraphic&format=image%2Fpng&width=20&height=20&layer=`;
+const legendBaseUrl = `${beschermingenWmsUrl}${legendParams}`;
+const layerConfig: LayerConfig = {
+  ...defaultLayerConfig,
+  overlays: {
+    ...defaultLayerConfig.overlays,
+    bes: {
+      ...defaultLayerConfig.overlays.bes,
+      legendImages: [
+        { title: 'cultuurhistorische landschappen', url: legendBaseUrl + 'vioe_geoportaal:bes_landschap' },
+        { title: 'stads- en dorpsgezichten', url: legendBaseUrl + 'vioe_geoportaal:bes_sd_gezicht' },
+        { title: 'archeologische sites', url: legendBaseUrl + 'vioe_geoportaal:bes_arch_site' },
+        { title: 'monumenten', url: legendBaseUrl + 'vioe_geoportaal:bes_monument' },
+        { title: 'overgangszones', url: legendBaseUrl + 'vioe_geoportaal:bes_overgangszone' },
+      ],
+    },
+  },
+};
 
 const meta: Meta<typeof OeZoneerder> = {
   /* 👇 The title prop is optional.
@@ -13,7 +34,13 @@ const meta: Meta<typeof OeZoneerder> = {
   render: (args: OeZoneerderProps) => ({
     components: { OeZoneerder },
     setup() {
-      return { args };
+      console.log(layerConfig);
+      return {
+        args: {
+          beschermingenWmsUrl,
+          layerConfig,
+        },
+      };
     },
     template: '<oe-zoneerder v-bind="args" style="height: 500px"/>',
   }),
@@ -96,10 +123,14 @@ type Story = StoryObj<typeof OeZoneerder>;
 export const Default: Story = {};
 
 export const DrawZone: Story = {
-  render: (args: OeZoneerderProps) => ({
+  render: () => ({
     components: { OeZoneerder },
     setup() {
       return {
+        args: {
+          beschermingenWmsUrl,
+          layerConfig,
+        },
         drawPanelEnabled: true,
         zone: {
           type: 'MultiPolygon',
@@ -233,7 +264,7 @@ export const DrawZone: Story = {
         },
       };
     },
-    template: `<oe-zoneerder v-model:zone="zone" :draw-panel-enabled="drawPanelEnabled" style="height: 500px"></oe-zoneerder>`,
+    template: `<oe-zoneerder v-bind="args" v-model:zone="zone" :draw-panel-enabled="drawPanelEnabled" style="height: 500px"></oe-zoneerder>`,
   }),
 };
 
@@ -242,6 +273,10 @@ export const AllControls: Story = {
     components: { OeZoneerder },
     setup() {
       return {
+        args: {
+          layerConfig,
+          beschermingenWmsUrl,
+        },
         controlConfig: {
           fullscreen: true,
           zoomInOut: true,
@@ -252,6 +287,6 @@ export const AllControls: Story = {
         },
       };
     },
-    template: `<oe-zoneerder :control-config="controlConfig" style="height: 500px"></oe-zoneerder>`,
+    template: `<oe-zoneerder v-bind="args" :control-config="controlConfig" style="height: 500px"></oe-zoneerder>`,
   }),
 };
