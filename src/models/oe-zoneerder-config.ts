@@ -16,7 +16,7 @@ export const defaultControlConfig: ControlConfig = {
   zoomInOut: true,
   zoomFullExtent: false,
   zoomGeoLocation: false,
-  rotate: false,
+  rotate: true,
   zoomSwitcher: false,
 };
 

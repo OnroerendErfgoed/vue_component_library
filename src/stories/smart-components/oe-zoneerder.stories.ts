@@ -70,7 +70,7 @@ const meta: Meta<typeof OeZoneerder> = {
       },
     },
     zone: {
-      description: 'Emits the created openlayers map',
+      description: 'The zoneerder zone object',
       table: {
         type: { summary: 'Contour' },
       },
@@ -82,7 +82,7 @@ const meta: Meta<typeof OeZoneerder> = {
       },
     },
     'update:zone': {
-      description: 'Emits the created openlayers map',
+      description: 'Emits the edited zone',
       table: {
         type: { summary: 'Contour' },
       },

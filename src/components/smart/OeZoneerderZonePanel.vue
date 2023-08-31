@@ -1,12 +1,14 @@
 <template>
   <div ref="zonePanelRef" :class="{ closed: !panelOpen || !props.drawPanelEnabled }" class="panel">
     <div ref="elementRef" class="zone-panel oe-ol-control ol-control ol-unselectable">
-      <button data-cy="zonePanelControl" @click="togglePanel"><font-awesome-icon :icon="['fas', 'bars']" /></button>
+      <button data-cy="zonePanelControl" @click="togglePanel">
+        <font-awesome-icon icon="pencil" title="Zone samenstellen" />
+      </button>
     </div>
 
     <vl-title class="panelHeader" tag-name="h4">
-      <font-awesome-icon class="pointer" :icon="['fas', 'bars']" @click="togglePanel" />
       <span v-if="panelOpen" class="titleText">&nbsp;Zone samenstellen</span>
+      <font-awesome-icon class="pointer" :icon="['fas', 'close']" @click="togglePanel" />
     </vl-title>
 
     <div v-if="panelOpen" class="panelBody">
@@ -98,11 +100,12 @@ import type { Contour, IDrawGeomType } from '@models/oe-openlayers';
 
 const props = defineProps<{
   zone?: Contour;
+  selectPerceel?: boolean;
   drawPanelEnabled?: boolean;
 }>();
 const zone = ref<Contour | undefined>(props.zone);
 const elementRef = ref<HTMLElement>();
-const emit = defineEmits(['update:zone', 'zone-panel:mounted']);
+const emit = defineEmits(['update:zone', 'update:select-perceel', 'zone-panel:mounted']);
 
 const map = inject('map') as Map;
 const zoomToExtent = inject('zoomToExtent') as (extent: Extent) => void;
@@ -114,7 +117,7 @@ const WKTString = ref('');
 const mapProjection = map.getView().getProjection();
 const zonePanelRef = ref<HTMLElement>();
 const panelOpen = ref(false);
-const selectPerceel = ref(false);
+const selectPerceel = ref(props.selectPerceel);
 const activeDrawType = ref<IDrawGeomType>();
 const geometryObjectList = ref<string[]>([]);
 const addingWKT = ref(false);
@@ -136,6 +139,7 @@ map.addLayer(drawLayer);
 addZoneToDrawLayer();
 
 watch(zone, (newZone) => emit('update:zone', newZone));
+watch(selectPerceel, (newSelectPerceel) => emit('update:select-perceel', newSelectPerceel));
 watch(
   () => props.drawPanelEnabled,
   (isEnabled) => {
@@ -395,6 +399,9 @@ function addZoneToDrawLayer() {
     margin: 0;
     padding: 0.25em 0.5em;
     background-color: $primary-color;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .panelBody {
