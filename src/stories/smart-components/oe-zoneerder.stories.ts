@@ -1,3 +1,4 @@
+import '@/scss/main.scss';
 import { OeZoneerder } from '@/components';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import type { OeZoneerderProps } from '@/models';
