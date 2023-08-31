@@ -56,6 +56,7 @@
             name="map-address"
             placeholder="WKT string (Lambert72)"
             mod-block
+            :mod-error="invalidWKT"
             :model-value="WKTString"
             @update:model-value="updateWKTString"
           />
@@ -121,6 +122,7 @@ const selectPerceel = ref(props.selectPerceel);
 const activeDrawType = ref<IDrawGeomType>();
 const geometryObjectList = ref<string[]>([]);
 const addingWKT = ref(false);
+const invalidWKT = ref(false);
 let circleIndex = 0;
 let polygonIndex = 0;
 const geoJsonFormatter = new GeoJSON({
@@ -177,6 +179,7 @@ function togglePanel() {
 }
 
 function updateWKTString(value: string) {
+  invalidWKT.value = false;
   WKTString.value = value;
 }
 
@@ -231,6 +234,7 @@ function resetSelect() {
 function drawWKTZone() {
   const wktParser = new WKT();
   try {
+    invalidWKT.value = false;
     const featureFromWKT = wktParser.readFeature(WKTString.value);
     const name = `Polygoon ${polygonIndex++}`;
     featureFromWKT.setProperties({
@@ -241,6 +245,7 @@ function drawWKTZone() {
     zoomToFeatures();
     WKTString.value = '';
   } catch (error) {
+    invalidWKT.value = true;
     console.error(error, 'Dit is een ongeldige WKT geometrie.');
   }
 }
@@ -255,6 +260,7 @@ function zoomToFeatures() {
 function showWktInput() {
   toggleDrawZone(false);
   addingWKT.value = true;
+  invalidWKT.value = false;
 }
 
 function startPerceelSelect() {
