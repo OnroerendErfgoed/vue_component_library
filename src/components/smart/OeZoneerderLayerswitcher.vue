@@ -135,6 +135,8 @@ function getLeafLayers(parent: Map | Group | undefined): BaseLayer[] {
 </script>
 
 <style lang="scss" scoped>
+@import 'pyoes/scss/base-variables';
+
 .panel {
   margin: 0.5em;
   max-height: calc(100% - 1em);
@@ -147,7 +149,7 @@ function getLeafLayers(parent: Map | Group | undefined): BaseLayer[] {
   left: 2em;
   overflow: hidden;
   background-color: rgba(white, 0.9);
-  border: solid 2px var(--ol-subtle-foreground-color);
+  border: solid 2px $primary-color;
   border-radius: 2px;
 
   .oe-ol-control {
@@ -159,7 +161,7 @@ function getLeafLayers(parent: Map | Group | undefined): BaseLayer[] {
     color: white;
     margin: 0;
     padding: 0.25em 0.5em;
-    background-color: var(--ol-subtle-foreground-color);
+    background-color: $primary-color;
   }
 
   .panelBody {

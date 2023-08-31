@@ -368,6 +368,9 @@ function addControls(leftControlsContainer?: HTMLElement, rightControlsContainer
 </script>
 
 <style lang="scss">
+@import 'pyoes/scss/base-variables';
+//@import '../../scss/override-variables';
+
 .map {
   height: 100%;
   width: 100%;

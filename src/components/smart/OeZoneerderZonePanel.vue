@@ -364,6 +364,8 @@ function addZoneToDrawLayer() {
 </script>
 
 <style lang="scss" scoped>
+@import 'pyoes/scss/base-variables';
+
 .panel {
   margin: 0.5em;
   height: calc(100% - 1em);
@@ -376,7 +378,7 @@ function addZoneToDrawLayer() {
   right: 0;
   overflow: hidden;
   background-color: rgba(white, 0.9);
-  border: solid 2px var(--ol-subtle-foreground-color);
+  border: solid 2px $primary-color;
   border-radius: 2px;
 
   .oe-ol-control {
@@ -392,7 +394,7 @@ function addZoneToDrawLayer() {
     color: white;
     margin: 0;
     padding: 0.25em 0.5em;
-    background-color: var(--ol-subtle-foreground-color);
+    background-color: $primary-color;
   }
 
   .panelBody {
@@ -413,7 +415,7 @@ function addZoneToDrawLayer() {
         flex: 1;
       }
       .iconLink {
-        color: var(--ol-subtle-foreground-color);
+        color: $primary-color;
       }
     }
   }
