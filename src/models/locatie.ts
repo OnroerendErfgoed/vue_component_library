@@ -68,3 +68,20 @@ export interface IStraat {
   status: string;
   uri: string;
 }
+
+export interface ILocatie {
+  id: string;
+  locatie: string;
+}
+
+export interface IBoundingBox {
+  lowerleft: { lat: number; lon: number };
+  upperright: { lat: number; lon: number };
+}
+
+export interface IGeoLocation {
+  boundingbox: IBoundingBox;
+  id: string;
+  locatie: string;
+  type: string;
+}

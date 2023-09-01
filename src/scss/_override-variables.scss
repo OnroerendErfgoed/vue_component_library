@@ -132,6 +132,14 @@ $vl-icon-font-location: '@govflanders/vl-ui-design-system-style/assets/font/icon
   margin-right: 0.5rem;
 }
 
+//ol variables
+:root,
+:host {
+  --ol-foreground-color: #{$vl-action-hover-color};
+  --ol-subtle-foreground-color: #{$vl-action-color};
+  --ol-hover-border-color: #{$vl-input-hover-border-color};
+}
+
 /**
 -------------------------------
  End override specific styles
