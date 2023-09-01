@@ -50,7 +50,7 @@ const close = (item: ITab) => {
 </script>
 
 <style lang="scss">
-@import 'pyoes/scss/pyoes-settings';
+@import 'pyoes/scss/base-variables';
 
 .container {
   background-color: $white;

@@ -1,0 +1,7 @@
+{
+  // Undoes exclusion of the src/stories folder.
+  // Allows the IDE to resolve path aliases defined
+  // in the main tsconfig.json in this excluded folder.
+  "extends": "../../tsconfig.json",
+  "exclude": []
+}

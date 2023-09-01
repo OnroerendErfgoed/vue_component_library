@@ -76,7 +76,7 @@ const props = withDefaults(defineProps<IHeaderProps>(), {
 </script>
 
 <style lang="scss" scoped>
-@import 'pyoes/scss/pyoes-settings';
+@import 'pyoes/scss/base-variables';
 
 .vl-grid {
   margin-left: 0;

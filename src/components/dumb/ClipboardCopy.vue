@@ -7,8 +7,8 @@
 
 <script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { ref } from 'vue';
 import { toClipboard } from '@soerenmartius/vue3-clipboard';
+import { ref } from 'vue';
 
 const props = defineProps<{ value: string }>();
 const showCheck = ref(false);
@@ -23,7 +23,7 @@ const clipboardClick = () => {
 </script>
 
 <style lang="scss" scoped>
-@import 'pyoes/scss/pyoes-settings';
+@import 'pyoes/scss/base-variables';
 
 .clipboard {
   color: $primary-color;

@@ -18,7 +18,7 @@ $vl-action-active-color: darken($primary-color, 10);
 $vl-input-hover-background-color: rgba($primary-color, 0.1) !default;
 $vl-input-hover-border-color: rgba($primary-color, 0.65) !default;
 
-$vl-error-color: $input-error-message-font-color;
+$vl-error-color: $alert-color;
 
 // Fonts
 $vl-font-location: '@govflanders/vl-ui-design-system-style/assets/font/flanders/';
@@ -35,7 +35,6 @@ $vl-icon-font-location: '@govflanders/vl-ui-design-system-style/assets/font/icon
 @import '@govflanders/vl-ui-autocomplete/src/scss/autocomplete';
 
 @import '@govflanders/vl-ui-design-system-style/scss';
-
 /**
 -------------------------------
  Start override specific styles
@@ -103,7 +102,7 @@ $vl-icon-font-location: '@govflanders/vl-ui-design-system-style/assets/font/icon
 // vl-tabs
 .vl-tabs {
   .vl-tab {
-    color: $tabs-navigation-bg-color;
+    color: $mid-purple;
     outline: none;
 
     &--active {
@@ -131,6 +130,14 @@ $vl-icon-font-location: '@govflanders/vl-ui-design-system-style/assets/font/icon
 
 .vl-u-spacer-right--xxsmall {
   margin-right: 0.5rem;
+}
+
+//ol variables
+:root,
+:host {
+  --ol-foreground-color: #{$vl-action-hover-color};
+  --ol-subtle-foreground-color: #{$vl-action-color};
+  --ol-hover-border-color: #{$vl-input-hover-border-color};
 }
 
 /**
