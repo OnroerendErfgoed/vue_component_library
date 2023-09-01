@@ -147,7 +147,7 @@ export class CrabApiService extends HttpService {
 
   public async searchPerceel(coordinate: Coordinate, srsName: string) {
     const agivGrbUrl = `https://geo.api.vlaanderen.be/GRB`;
-    const agivGrbWfsUrl = `${agivGrbUrl}GRB/wfs`;
+    const agivGrbWfsUrl = `${agivGrbUrl}/wfs`;
 
     const filter = new Intersects('SHAPE', new Point(coordinate, 'XY'), 'urn:x-ogc:def:crs:EPSG:31370');
 
