@@ -9,7 +9,7 @@ import { AgGridVue } from 'ag-grid-vue3';
 </script>
 
 <style lang="scss">
-@import 'pyoes/scss/pyoes-settings';
+@import 'pyoes/scss/base-variables';
 
 .ag-grid-vue {
   .ag-ltr .ag-header-cell::after {
@@ -18,10 +18,9 @@ import { AgGridVue } from 'ag-grid-vue3';
 
   .ag-row,
   .ag-header-row {
-
     .ag-cell,
     .ag-header-cell {
-      border-color: #DDD;
+      border-color: #ddd;
       border-style: solid;
       border-width: 0 1px 1px 0;
     }
@@ -134,7 +133,7 @@ import { AgGridVue } from 'ag-grid-vue3';
           cursor: pointer;
           color: $dark-purple;
 
-          +.fa {
+          + .fa {
             margin-left: 5px;
           }
         }

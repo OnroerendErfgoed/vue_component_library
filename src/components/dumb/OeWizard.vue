@@ -121,7 +121,7 @@ defineExpose({ reset });
 </script>
 
 <style lang="scss" scoped>
-@import 'pyoes/scss/pyoes-settings';
+@import 'pyoes/scss/base-variables';
 
 .wizard {
   width: 100%;

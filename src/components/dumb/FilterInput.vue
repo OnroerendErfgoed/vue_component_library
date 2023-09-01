@@ -117,7 +117,7 @@ const removeFilter = (filter: IFilter) =>
 </script>
 
 <style lang="scss" scoped>
-@import 'pyoes/scss/pyoes-settings';
+@import 'pyoes/scss/base-variables';
 
 .vl-grid {
   &.filters-input {

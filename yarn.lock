@@ -8849,9 +8849,9 @@ puppeteer-core@^2.1.1:
     rimraf "^2.6.1"
     ws "^6.1.0"
 
-"pyoes@https://gitpkg.now.sh/OnroerendErfgoed/pyoes/npm-packages/pyoes?0.17.0":
-  version "0.17.0"
-  resolved "https://gitpkg.now.sh/OnroerendErfgoed/pyoes/npm-packages/pyoes?0.17.0#2b36ccc2cce08b132e61ebff1828ad357e9d58a4"
+"pyoes@https://gitpkg.now.sh/OnroerendErfgoed/pyoes/npm-packages/pyoes?0.18.0":
+  version "0.18.0"
+  resolved "https://gitpkg.now.sh/OnroerendErfgoed/pyoes/npm-packages/pyoes?0.18.0#00e90e61b4329874cbfa28646e54812881218bb6"
   dependencies:
     font-awesome "^4.7.0"
     foundation-sites "^5.5.3"
