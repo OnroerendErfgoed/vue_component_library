@@ -24,12 +24,11 @@ interface BaseLayerOptions {
   type: LayerType;
   title: string;
   visible?: boolean;
-  legendImages?: legendImage[];
 }
 
-interface legendImage {
+interface LegendImage {
   title: string;
-  url: string;
+  path: string;
 }
 
 interface GrbOrNgiLayerOptions extends BaseLayerOptions {
@@ -46,6 +45,7 @@ export interface GrbWmsLayerOptions extends WmsLayerOptions {
 
 export interface ErfgoedWmsLayerOptions extends WmsLayerOptions {
   type: LayerType.ErfgoedWms;
+  legendImages?: LegendImage[];
 }
 
 export interface DHMVLayerOptions extends BaseLayerOptions {
@@ -72,8 +72,7 @@ export interface LayerConfig {
   overlays: { [layerId: string]: LayerOptions };
 }
 
-const legendParams = `?service=WMS&request=GetLegendGraphic&format=image%2Fpng&width=20&height=20&layer=`;
-const legendBaseUrl = `https://geo.onroerenderfgoed.be/geoserver/wms${legendParams}`;
+const legendPath = `geoserver/wms?service=WMS&request=GetLegendGraphic&format=image%2Fpng&width=20&height=20&layer=`;
 export const defaultLayerConfig: LayerConfig = {
   baseLayers: {
     omwrgbmrvl: { type: LayerType.OMWRGBMRVL, title: 'Ortho', visible: false },
@@ -98,11 +97,11 @@ export const defaultLayerConfig: LayerConfig = {
         'vioe_geoportaal:erfgoedls',
       title: 'Beschermd Onroerend Erfgoed',
       legendImages: [
-        { title: 'cultuurhistorische landschappen', url: legendBaseUrl + 'vioe_geoportaal:bes_landschap' },
-        { title: 'stads- en dorpsgezichten', url: legendBaseUrl + 'vioe_geoportaal:bes_sd_gezicht' },
-        { title: 'archeologische sites', url: legendBaseUrl + 'vioe_geoportaal:bes_arch_site' },
-        { title: 'monumenten', url: legendBaseUrl + 'vioe_geoportaal:bes_monument' },
-        { title: 'overgangszones', url: legendBaseUrl + 'vioe_geoportaal:bes_overgangszone' },
+        { title: 'cultuurhistorische landschappen', path: legendPath + 'vioe_geoportaal:bes_landschap' },
+        { title: 'stads- en dorpsgezichten', path: legendPath + 'vioe_geoportaal:bes_sd_gezicht' },
+        { title: 'archeologische sites', path: legendPath + 'vioe_geoportaal:bes_arch_site' },
+        { title: 'monumenten', path: legendPath + 'vioe_geoportaal:bes_monument' },
+        { title: 'overgangszones', path: legendPath + 'vioe_geoportaal:bes_overgangszone' },
       ],
     },
     gga: {
@@ -130,8 +129,6 @@ export interface OeZoneerderProps {
   api?: UrlString;
   controlConfig?: ControlConfig;
   layerConfig?: LayerConfig;
-  beschermingenWmsUrl?: UrlString;
-  agivGrbUrl?: UrlString;
   locatie?: ILocatie;
   drawPanelEnabled?: boolean;
 }

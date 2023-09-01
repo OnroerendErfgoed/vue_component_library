@@ -5,7 +5,6 @@ import Intersects from 'ol/format/filter/Intersects';
 import Point from 'ol/geom/Point';
 import { Niscode } from '@models/niscode.enum';
 import type { Coordinate } from 'ol/coordinate';
-import type { UrlString } from '@/models';
 import type {
   IAdres,
   IGemeente,
@@ -19,7 +18,7 @@ import type {
 } from '@models/locatie';
 
 export class CrabApiService extends HttpService {
-  private readonly API_URL: string;
+  readonly API_URL: string;
 
   private landen: ILand[] = [];
   private provincies: IProvincie[] = [];
@@ -31,7 +30,7 @@ export class CrabApiService extends HttpService {
 
   constructor(apiUrl: string) {
     super();
-    this.API_URL = apiUrl;
+    this.API_URL = apiUrl.endsWith('/') ? apiUrl : `${apiUrl}/`;
   }
 
   async getLocaties(value: string): Promise<ILocatie[]> {
@@ -146,13 +145,16 @@ export class CrabApiService extends HttpService {
     return (await this.get<IAdres[]>(`adressenregister/straten/${straat}/adressen`, { baseURL: this.API_URL })).data;
   }
 
-  public async searchPerceel(coordinate: Coordinate, srsName: string, agivGrbUrl: UrlString) {
+  public async searchPerceel(coordinate: Coordinate, srsName: string) {
+    const agivGrbUrl = `https://geo.api.vlaanderen.be/GRB`;
+    const agivGrbWfsUrl = `${this.API_URL}GRB/wfs`;
+
     const filter = new Intersects('SHAPE', new Point(coordinate, 'XY'), 'urn:x-ogc:def:crs:EPSG:31370');
 
     const featureRequest = new WFS().writeGetFeature({
       srsName,
       filter,
-      featureNS: 'https://geo.api.vlaanderen.be/GRB',
+      featureNS: agivGrbUrl,
       featurePrefix: 'GRB',
       featureTypes: ['ADP'],
       outputFormat: 'application/json',
@@ -160,7 +162,7 @@ export class CrabApiService extends HttpService {
 
     const data = new XMLSerializer().serializeToString(featureRequest);
     const headers = { 'Content-Type': 'application/xml', Accept: 'application/json' };
-    const response = await this.post<ArrayBuffer, string>(agivGrbUrl, data, { headers });
+    const response = await this.post<ArrayBuffer, string>(agivGrbWfsUrl, data, { headers });
     return response.data;
   }
 }

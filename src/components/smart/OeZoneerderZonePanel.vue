@@ -51,8 +51,8 @@
         </template>
         <template v-else>
           <vl-input-field
-            data-cy="WKTInput"
             id="map-address"
+            data-cy="WKTInput"
             name="map-address"
             placeholder="WKT string (Lambert72)"
             mod-block
@@ -95,7 +95,6 @@ import type { FeatureLike } from 'ol/Feature';
 import type { ColorLike } from 'ol/colorlike';
 import type { Listener } from 'ol/events';
 import type { Extent } from 'ol/extent';
-import type { UrlString } from '@/models';
 import type { CrabApiService } from '@/services';
 import type { Contour, IDrawGeomType } from '@models/oe-openlayers';
 
@@ -110,7 +109,6 @@ const emit = defineEmits(['update:zone', 'update:select-perceel', 'zone-panel:mo
 
 const map = inject('map') as Map;
 const zoomToExtent = inject('zoomToExtent') as (extent: Extent) => void;
-const agivGrbUrl = inject('agivGrbUrl') as UrlString;
 const crabService = inject('crabService') as CrabApiService;
 
 const WKTString = ref('');
@@ -165,7 +163,7 @@ onUnmounted(() => {
 });
 
 const perceelSelectCallback = (evt: MapBrowserEvent<UIEvent>) => {
-  crabService.searchPerceel(evt.coordinate, mapProjection.getCode(), agivGrbUrl).then((result) => {
+  crabService.searchPerceel(evt.coordinate, mapProjection.getCode()).then((result) => {
     geoJsonFormatter.readFeatures(result).forEach((perceel) => {
       drawPerceel(perceel);
     });

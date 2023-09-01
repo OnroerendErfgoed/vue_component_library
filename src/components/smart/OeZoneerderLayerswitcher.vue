@@ -1,13 +1,13 @@
 <template>
   <div
-    data-cy="layerswitcherPanel"
     ref="layerswitcherPanelRef"
     v-click-outside="hidePanel"
+    data-cy="layerswitcherPanel"
     class="panel"
     :class="{ closed: !panelVisible }"
   >
     <div ref="elementRef" class="layerswitcher oe-ol-control ol-control ol-unselectable">
-      <button ref="buttonRef" @click="togglePanel" title="Verander kaartlagen">
+      <button ref="buttonRef" title="Verander kaartlagen" @click="togglePanel">
         <font-awesome-icon :icon="['fas', 'layer-group']" style="pointer-events: none" />
       </button>
     </div>
@@ -25,7 +25,7 @@
         </vl-checkbox>
         <ul v-if="layer.getVisible() && layer.get('legendImages')">
           <li v-for="(legendImage, index2) in layer.get('legendImages')" :key="index2" class="legendImage">
-            <img :src="legendImage.url" :alt="legendImage.title" />
+            <img :src="crabService.API_URL + legendImage.path" :alt="legendImage.title" />
             <div class="vl-checkbox__label">&nbsp;{{ legendImage.title }}</div>
           </li>
         </ul>
@@ -55,6 +55,7 @@ import { VlCheckbox, VlRadio, VlTitle } from '@govflanders/vl-ui-design-system-v
 import { Group } from 'ol/layer';
 import { v4 as uuidv4 } from 'uuid';
 import { inject, onMounted, onUnmounted, ref, watch } from 'vue';
+import { CrabApiService } from '@/services';
 import { vClickOutside } from '@directives/click-outside.directive';
 import type Map from 'ol/Map';
 import type BaseLayer from 'ol/layer/Base';
@@ -71,6 +72,7 @@ const layerSwitcherId = ref(uuidv4());
 const selectedAchtergrondLayerRef = ref<string>();
 const achtergrondTitleRef = ref('Achtergrond');
 const map = inject('map') as Map;
+const crabService = inject('crabService') as CrabApiService;
 let layers: BaseLayer[] = [];
 const emit = defineEmits(['layerswitcher:mounted']);
 

@@ -1,5 +1,5 @@
 <template>
-  <div data-cy="olMap" ref="mapRef" class="map" :class="{ selectPerceel: selectPerceel }">
+  <div ref="mapRef" data-cy="olMap" class="map" :class="{ selectPerceel: selectPerceel }">
     <oe-autocomplete
       data-cy="locationSearchInput"
       :callback-fn="performAutocompleteSearch"
@@ -63,8 +63,6 @@ import type { Contour } from '@models/oe-openlayers';
 const props = withDefaults(defineProps<OeZoneerderProps>(), {
   controlConfig: () => defaultControlConfig,
   layerConfig: () => defaultLayerConfig,
-  beschermingenWmsUrl: 'https://geo.onroerenderfgoed.be/geoserver/wms',
-  agivGrbUrl: 'https://geo.api.vlaanderen.be/GRB/wfs',
   api: 'https://geo.onroerenderfgoed.be/',
   drawPanelEnabled: false,
   zone: undefined,
@@ -82,7 +80,8 @@ const emit = defineEmits(['map:created', 'update:zone']);
 const extentVlaanderen: Extent = [9928.0, 66928.0, 272072.0, 329072.0];
 const mapProjection = setupProjection();
 
-const crabService = new CrabApiService(props.api);
+const apiUrl = props.api.endsWith('/') ? props.api : `${props.api}/`;
+const crabService = new CrabApiService(apiUrl);
 let map: Map | undefined = new Map({
   view: new View({
     center: getCenter(extentVlaanderen),
@@ -97,7 +96,6 @@ let map: Map | undefined = new Map({
 
 emit('map:created', map);
 provide('map', map);
-provide('agivGrbUrl', props.agivGrbUrl);
 provide('crabService', crabService);
 provide('zoomToExtent', zoomToExtent);
 
@@ -134,7 +132,7 @@ function zoomButtonClick() {
 
   //Zoom * 2 is some kind of hack so the zoom levels somewhat align with the zoom levels on crabpyUrl.
   // Change if a better solution is found.
-  window.open(props.api + '/#zoom=' + zoom * 2 + '&lat=' + coordinates[1] + '&lon=' + coordinates[0]);
+  window.open(props.api + '#zoom=' + zoom * 2 + '&lat=' + coordinates[1] + '&lon=' + coordinates[0]);
 }
 
 function addLayerswitcherControl(element: HTMLElement) {
@@ -245,7 +243,9 @@ function _createLayer(id: string, layerOptions: LayerOptions, isBaseLayer: boole
 
   layer.set('title', layerOptions.title);
   layer.set('type', isBaseLayer ? 'base' : 'overlay');
-  layer.set('legendImages', layerOptions.legendImages || []);
+  if (layerOptions.type === LayerType.ErfgoedWms) {
+    layer.set('legendImages', layerOptions.legendImages || []);
+  }
   layer.setVisible(!!layerOptions.visible);
 
   return layer;
@@ -322,7 +322,7 @@ function _createErfgoedWMSLayer(wmsLayers: string) {
   return new Tile({
     extent: mapProjection.getExtent(),
     source: new TileWMS({
-      url: props.beschermingenWmsUrl,
+      url: `${props.api}geoserver/wms`,
       params: { LAYERS: wmsLayers, TILED: true },
       serverType: 'geoserver',
       attributions: '© <a href="https://www.onroerenderfgoed.be">Onroerend Erfgoed</a>',

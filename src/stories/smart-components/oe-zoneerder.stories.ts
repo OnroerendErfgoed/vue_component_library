@@ -1,28 +1,8 @@
 import '@/scss/main.scss';
 import { OeZoneerder } from '@/components';
-import { defaultLayerConfig } from '@/models';
 import type { Meta, StoryObj } from '@storybook/vue3';
-import type { LayerConfig, OeZoneerderProps } from '@/models';
 
-const beschermingenWmsUrl = 'https://test-geo.onroerenderfgoed.be/geoserver/wms';
-const legendParams = `?service=WMS&request=GetLegendGraphic&format=image%2Fpng&width=20&height=20&layer=`;
-const legendBaseUrl = `${beschermingenWmsUrl}${legendParams}`;
-const layerConfig: LayerConfig = {
-  ...defaultLayerConfig,
-  overlays: {
-    ...defaultLayerConfig.overlays,
-    bes: {
-      ...defaultLayerConfig.overlays.bes,
-      legendImages: [
-        { title: 'cultuurhistorische landschappen', url: legendBaseUrl + 'vioe_geoportaal:bes_landschap' },
-        { title: 'stads- en dorpsgezichten', url: legendBaseUrl + 'vioe_geoportaal:bes_sd_gezicht' },
-        { title: 'archeologische sites', url: legendBaseUrl + 'vioe_geoportaal:bes_arch_site' },
-        { title: 'monumenten', url: legendBaseUrl + 'vioe_geoportaal:bes_monument' },
-        { title: 'overgangszones', url: legendBaseUrl + 'vioe_geoportaal:bes_overgangszone' },
-      ],
-    },
-  },
-};
+const api = 'https://test-geo.onroerenderfgoed.be/';
 
 const meta: Meta<typeof OeZoneerder> = {
   /* 👇 The title prop is optional.
@@ -31,18 +11,12 @@ const meta: Meta<typeof OeZoneerder> = {
    */
   title: 'Smart components/OeZoneerder',
   component: OeZoneerder,
-  render: (args: OeZoneerderProps) => ({
-    components: { OeZoneerder },
-    setup() {
-      console.log(layerConfig);
-      return {
-        args: {
-          beschermingenWmsUrl,
-          layerConfig,
-        },
-      };
+  render: () => ({
+    setup: () => {
+      return { api };
     },
-    template: '<oe-zoneerder v-bind="args" style="height: 500px"/>',
+    components: { OeZoneerder },
+    template: '<oe-zoneerder :api="api" style="height: 500px"/>',
   }),
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/react/configure/story-layout
@@ -72,20 +46,8 @@ const meta: Meta<typeof OeZoneerder> = {
         type: { summary: 'layerConfig' },
       },
     },
-    beschermingenWmsUrl: {
-      description: 'Beschermingen WMS Service URL',
-      table: {
-        type: { summary: 'string' },
-      },
-    },
     api: {
       description: 'API base URL',
-      table: {
-        type: { summary: 'string' },
-      },
-    },
-    agivGrbUrl: {
-      description: 'agiv Grb Url',
       table: {
         type: { summary: 'string' },
       },
@@ -127,10 +89,7 @@ export const DrawZone: Story = {
     components: { OeZoneerder },
     setup() {
       return {
-        args: {
-          beschermingenWmsUrl,
-          layerConfig,
-        },
+        api,
         drawPanelEnabled: true,
         zone: {
           type: 'MultiPolygon',
@@ -264,19 +223,16 @@ export const DrawZone: Story = {
         },
       };
     },
-    template: `<oe-zoneerder v-bind="args" v-model:zone="zone" :draw-panel-enabled="drawPanelEnabled" style="height: 500px"></oe-zoneerder>`,
+    template: `<oe-zoneerder :api="api" v-model:zone="zone" :draw-panel-enabled="drawPanelEnabled" style="height: 500px"></oe-zoneerder>`,
   }),
 };
 
 export const AllControls: Story = {
-  render: (args: OeZoneerderProps) => ({
+  render: () => ({
     components: { OeZoneerder },
     setup() {
       return {
-        args: {
-          layerConfig,
-          beschermingenWmsUrl,
-        },
+        api,
         controlConfig: {
           fullscreen: true,
           zoomInOut: true,
@@ -287,6 +243,6 @@ export const AllControls: Story = {
         },
       };
     },
-    template: `<oe-zoneerder v-bind="args" :control-config="controlConfig" style="height: 500px"></oe-zoneerder>`,
+    template: `<oe-zoneerder :api="api" :control-config="controlConfig" style="height: 500px"></oe-zoneerder>`,
   }),
 };
