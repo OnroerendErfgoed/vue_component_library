@@ -13,7 +13,9 @@ import OeHeader from './OeHeader.vue';
 import OeLoader from './OeLoader.vue';
 import OeWizard from './OeWizard.vue';
 import SystemFields from './SystemFields.vue';
-
+import EnvelopeIcon from './EnvelopeIcon.vue';
+import NumberIcon from './NumberIcon.vue';
+import LockIcon from './LockIcon.vue';
 export {
   ClipboardCopy,
   FilterDatepicker,
@@ -30,4 +32,7 @@ export {
   OeLoader,
   OeWizard,
   SystemFields,
+  EnvelopeIcon,
+  NumberIcon,
+  LockIcon,
 };
