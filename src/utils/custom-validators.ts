@@ -17,7 +17,7 @@ export const rrnValidator = (value: string) => {
     if (value.length < 11) {
       return false;
     }
-    const checkDigit = parseInt(value.substr(value.length - 2, 2), 10);
+    const checkDigit = parseInt(value.substring(value.length - 2), 10);
     const modFunction = (nr: number) => 97 - (nr % 97);
     let nrToCheck = parseInt(value.substring(0, 9), 10);
     if (modFunction(nrToCheck) === checkDigit) {
