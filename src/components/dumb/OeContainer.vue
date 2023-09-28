@@ -89,6 +89,7 @@ const close = (item: ITab) => {
       height: 2.4rem;
 
       &.is-active {
+        border-top: none;
         margin-left: 0.5rem;
         margin-right: 1rem;
 
@@ -97,6 +98,7 @@ const close = (item: ITab) => {
         color: $white;
         .vl-pill__close {
           color: $white;
+          border-top: none;
           &:hover:not([disabled]) {
             color: $dark-purple;
           }
