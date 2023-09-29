@@ -30,7 +30,7 @@ export const Default: Story = {
       return { data };
     },
     template: `
-    <oe-tiny-mce :value="data" @update:value="data = $event" />
+    <oe-tiny-mce v-model="data" />
     <h3>Output:</h3>
     <pre>{{ data }}</pre>
     `,

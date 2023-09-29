@@ -19,7 +19,7 @@ import Editor from '@tinymce/tinymce-vue';
 import { ref, watch } from 'vue';
 
 interface IOETinyMCEProps {
-  value: string;
+  modelValue: string;
   disabled?: boolean;
   height?: number;
   menubar?: boolean;
@@ -29,7 +29,7 @@ interface IOETinyMCEProps {
 }
 
 const props = withDefaults(defineProps<IOETinyMCEProps>(), {
-  value: '',
+  modelValue: '',
   disabled: false,
   height: 500,
   menubar: false,
@@ -44,17 +44,17 @@ const props = withDefaults(defineProps<IOETinyMCEProps>(), {
           bullist numlist outdent indent | removeformat | help',
   modelEvents: 'change keydown blur focus paste',
 });
-const editorValue = ref(props.value);
-const emit = defineEmits(['update:value']);
+const editorValue = ref(props.modelValue);
+const emit = defineEmits(['update:modelValue']);
 
 const updateValue = () => {
-  emit('update:value', editorValue.value);
+  emit('update:modelValue', editorValue.value);
 };
 
 watch(
-  () => props.value,
+  () => props.modelValue,
   () => {
-    editorValue.value = props.value;
+    editorValue.value = props.modelValue;
   }
 );
 </script>
