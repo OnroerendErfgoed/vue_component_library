@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { VlPill, VlActionGroup } from '@govflanders/vl-ui-design-system-vue3';
+import { VlActionGroup, VlPill } from '@govflanders/vl-ui-design-system-vue3';
 import type { IContainerProps, ITab } from '@models/container';
 
 const props = withDefaults(defineProps<IContainerProps>(), {
@@ -70,30 +70,38 @@ const close = (item: ITab) => {
   .bottom-tabs {
     position: relative;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     background: #f3f3f3;
     height: 40px;
-    bottom: 0;
     border-top: 1px solid $dark-purple;
 
     .vl-action-group button:last-child {
       margin-right: -1px;
     }
+    .vl-pill__close {
+      border-radius: 0 0 0.4rem 0;
+    }
 
     .vl-pill {
       cursor: pointer;
       margin-right: 0.5rem;
+      border-radius: 0 0 0.4rem 0.4rem;
+      height: 2.4rem;
 
       &.is-active {
+        border-top: none;
         margin-left: 0.5rem;
         margin-right: 1rem;
 
         scale: 1.1;
         background-color: $primary-color;
         color: $white;
-
         .vl-pill__close {
-          background-color: $white;
+          color: $white;
+          border-top: none;
+          &:hover:not([disabled]) {
+            color: $dark-purple;
+          }
         }
       }
     }
