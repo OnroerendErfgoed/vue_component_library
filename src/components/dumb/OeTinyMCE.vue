@@ -1,8 +1,7 @@
 <template>
   <div>
     <editor
-      ref="editorRef"
-      v-model="test"
+      v-model="editorValue"
       api-key="no-api-key"
       :init="{
         height: 500,
@@ -18,7 +17,7 @@
             bullist numlist outdent indent | removeformat | help',
       }"
       model-events="change keydown blur focus paste"
-      @change="handlerFunction"
+      @change="updateValue"
     />
   </div>
 </template>
@@ -27,11 +26,18 @@
 import Editor from '@tinymce/tinymce-vue';
 import { ref } from 'vue';
 
-const editorRef = ref();
-const test = ref('<p>test</p>');
+interface IOETinyMCEProps {
+  value: string;
+}
 
-const handlerFunction = (e: any) => {
-  console.log(test.value);
+const props = withDefaults(defineProps<IOETinyMCEProps>(), {
+  value: '',
+});
+const editorValue = ref(props.value);
+const emit = defineEmits(['update:value']);
+
+const updateValue = () => {
+  emit('update:value', editorValue.value);
 };
 </script>
 
