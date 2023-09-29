@@ -1,7 +1,7 @@
 import '@/scss/main.scss';
 import OeTinyMce from '../../components/dumb/OeTinyMCE.vue';
-import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
+import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof OeTinyMce> = {
@@ -10,8 +10,7 @@ const meta: Meta<typeof OeTinyMce> = {
   parameters: {
     docs: {
       description: {
-        component:
-          'Generic filter input field to enter a date input - used as subcomponent of the `FilterInput` component.',
+        component: 'Rich text editor wrapper',
       },
     },
   },
@@ -27,13 +26,13 @@ export const Default: Story = {
       OeTinyMce,
     },
     setup() {
-      const test = ref('<p>xxxx</p>');
-
-      return { test };
+      const data = ref('<p>xxxx</p>');
+      return { data };
     },
     template: `
-    <oe-tiny-mce :value="test" @update:value="test = $event" />
-    {{ test }}
+    <oe-tiny-mce :value="data" @update:value="data = $event" />
+    <h3>Output:</h3>
+    <pre>{{ data }}</pre>
     `,
   }),
 };
