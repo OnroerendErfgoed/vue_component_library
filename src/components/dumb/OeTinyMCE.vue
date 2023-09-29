@@ -1,6 +1,7 @@
 <template>
   <editor
     v-model="editorValue"
+    data-cy="editor"
     api-key="no-api-key"
     :disabled="props.disabled"
     :init="{

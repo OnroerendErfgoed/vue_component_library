@@ -10,7 +10,7 @@ const meta: Meta<typeof OeTinyMce> = {
   parameters: {
     docs: {
       description: {
-        component: 'Rich text editor wrapper',
+        component: `Rich text editor wrapper. To remove warning label, make sure tinymce is imported in a script tag in the template file.`,
       },
     },
   },
@@ -26,7 +26,10 @@ export const Default: Story = {
       OeTinyMce,
     },
     setup() {
-      const data = ref('<p>xxxx</p>');
+      const data = ref(`
+        <h1>This is a header</h1>
+        <p>This is a paragraph</p>
+      `);
       return { data };
     },
     template: `
