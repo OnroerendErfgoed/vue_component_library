@@ -80,9 +80,7 @@ const selectedOption = ref<IFilterOption>(props.options[0]);
 // Filter input
 const filterInputValue = ref<{ value?: TFilterInput; label?: string }>();
 const filterValuesAreEmpty = computed(() => isEmpty(filterInputValue.value));
-const setFilterInputValue = (value: TFilterInput, label: string) => {
-  filterInputValue.value = { value, label };
-};
+const setFilterInputValue = (value: TFilterInput, label: string) => (filterInputValue.value = { value, label });
 const clearInputs = () => (filterInputValue.value = {});
 
 // Filters
