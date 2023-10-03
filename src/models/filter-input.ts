@@ -1,3 +1,4 @@
+import type { IActor } from './actor';
 import type { IGemeente } from './locatie';
 
 export type TFilterInput = string | IGemeente;
@@ -41,6 +42,13 @@ export interface IFilterInputRadioProps {
 
 export interface IFilterGemeenteProps {
   api: string;
+  value?: string;
+}
+
+export interface IFilterActorProps {
+  api: string;
+  actoren?: IActor[];
+  getSsoToken: () => Promise<string>;
   value?: string;
 }
 
