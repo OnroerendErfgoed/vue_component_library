@@ -331,15 +331,15 @@ import {
   VlPropertiesTitle,
   VlSelect,
 } from '@govflanders/vl-ui-design-system-vue3';
-import type { IAdresProps } from '@models/adres';
-import type { IAdres, IGemeente, ILand, ILocatieAdres, IPostinfo, IStraat } from '@models/locatie';
-import { CrabApiService } from '@services/crab-api.service';
-import { requiredIf } from '@utils/i18n-validators';
 import { useVuelidate } from '@vuelidate/core';
 import { helpers } from '@vuelidate/validators';
 import { AxiosError } from 'axios';
 import { pick, sortBy, uniqBy } from 'lodash';
 import { computed, onMounted, ref, watch } from 'vue';
+import { CrabApiService } from '@services/crab-api.service';
+import { requiredIf } from '@utils/i18n-validators';
+import type { IAdresProps } from '@models/adres';
+import type { IAdres, IGemeente, ILand, ILocatieAdres, IPostinfo, IStraat } from '@models/locatie';
 
 const props = withDefaults(defineProps<IAdresProps>(), {
   config: () => ({

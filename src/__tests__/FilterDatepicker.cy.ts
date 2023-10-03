@@ -1,6 +1,6 @@
 /* eslint-disable vue/one-component-per-file */
-import { defineComponent, ref } from 'vue';
 import FilterDatepicker from '../components/dumb/FilterDatepicker.vue';
+import { defineComponent, ref } from 'vue';
 
 describe('FilterDatepicker', () => {
   describe('default', () => {

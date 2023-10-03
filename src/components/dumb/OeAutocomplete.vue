@@ -39,10 +39,10 @@
 </template>
 
 <script setup lang="ts">
-import { vClickOutside } from '@directives/click-outside.directive';
 import { VlInputField } from '@govflanders/vl-ui-design-system-vue3';
-import type { IAutocompleteOption, IAutocompleteProps } from '@models/autocomplete';
 import { ref, watch } from 'vue';
+import { vClickOutside } from '@directives/click-outside.directive';
+import type { IAutocompleteOption, IAutocompleteProps } from '@models/autocomplete';
 
 const props = withDefaults(defineProps<IAutocompleteProps>(), {
   value: undefined,

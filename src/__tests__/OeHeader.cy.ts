@@ -1,6 +1,6 @@
 /* eslint-disable vue/one-component-per-file */
-import OeHeader from '@components/dumb/OeHeader.vue';
 import { defineComponent } from 'vue';
+import OeHeader from '@components/dumb/OeHeader.vue';
 
 describe('Header', () => {
   describe('Logged in', () => {

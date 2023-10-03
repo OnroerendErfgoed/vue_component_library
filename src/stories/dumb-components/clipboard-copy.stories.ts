@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
 import ClipboardCopy from '../../components/dumb/ClipboardCopy.vue';
+import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof ClipboardCopy> = {
   title: 'Dumb components/ClipboardCopy',

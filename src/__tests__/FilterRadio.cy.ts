@@ -1,5 +1,5 @@
-import { defineComponent, ref } from 'vue';
 import FilterRadio from '../components/dumb/FilterRadio.vue';
+import { defineComponent, ref } from 'vue';
 import type { IOption } from '@models/filter-input';
 
 describe('FilterRadio', () => {

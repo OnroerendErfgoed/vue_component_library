@@ -1,5 +1,5 @@
-import { defineComponent, ref } from 'vue';
 import FilterProvincie from '../components/smart/FilterProvincie.vue';
+import { defineComponent, ref } from 'vue';
 import type { IProvincie } from '@models/locatie';
 
 describe('FilterProvincie', () => {

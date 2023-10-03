@@ -1,7 +1,7 @@
 /* eslint-disable vue/one-component-per-file */
+import { defineComponent } from 'vue';
 import { OeAutocomplete } from '@components/index';
 import type { IAutocompleteOption } from '@models/autocomplete';
-import { defineComponent } from 'vue';
 
 describe('Autocomplete', () => {
   describe('default', () => {

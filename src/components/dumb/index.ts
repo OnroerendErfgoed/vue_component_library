@@ -11,6 +11,7 @@ import OeContainer from './OeContainer.vue';
 import OeGrid from './OeGrid.vue';
 import OeHeader from './OeHeader.vue';
 import OeLoader from './OeLoader.vue';
+import OeTinyMce from './OeTinyMCE.vue';
 import OeWizard from './OeWizard.vue';
 import SystemFields from './SystemFields.vue';
 
@@ -28,6 +29,7 @@ export {
   OeGrid,
   OeHeader,
   OeLoader,
+  OeTinyMce,
   OeWizard,
   SystemFields,
 };

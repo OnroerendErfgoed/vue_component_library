@@ -10,9 +10,9 @@
 
 <script setup lang="ts">
 import { VlDatepicker } from '@govflanders/vl-ui-design-system-vue3';
-import type { IFilterDatepickerProps } from '@models/filter-input';
 import { format, parse } from 'date-fns';
 import { computed } from 'vue';
+import type { IFilterDatepickerProps } from '@models/filter-input';
 
 const props = withDefaults(defineProps<IFilterDatepickerProps>(), {
   value: () => [],

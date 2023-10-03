@@ -1,5 +1,5 @@
 import AppPage from './AppPage.vue';
-import { within, userEvent } from '@storybook/testing-library';
+import { userEvent, within } from '@storybook/testing-library';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof AppPage> = {

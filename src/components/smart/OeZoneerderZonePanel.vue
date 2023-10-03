@@ -121,8 +121,8 @@ const activeDrawType = ref<IDrawGeomType>();
 const geometryObjectList = ref<string[]>([]);
 const addingWKT = ref(false);
 const invalidWKT = ref(false);
-let circleIndex = 0;
-let polygonIndex = 0;
+let circleIndex = 1;
+let polygonIndex = 1;
 const geoJsonFormatter = new GeoJSON({
   dataProjection: mapProjection,
   featureProjection: mapProjection,

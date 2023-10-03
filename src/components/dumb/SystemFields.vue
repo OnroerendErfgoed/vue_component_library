@@ -12,8 +12,8 @@
 </template>
 
 <script setup lang="ts">
-import type { ISystemFieldsProps } from '@models/system-fields';
 import { computed } from 'vue';
+import type { ISystemFieldsProps } from '@models/system-fields';
 
 const props = defineProps<ISystemFieldsProps>();
 const createdAt = computed(() => (props.createdAt ? formatDate(props.createdAt) : '-'));
