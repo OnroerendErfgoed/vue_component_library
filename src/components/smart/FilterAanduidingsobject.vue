@@ -9,11 +9,11 @@
 </template>
 
 <script setup lang="ts">
+import OeAutocomplete from '../dumb/OeAutocomplete.vue';
+import { computed, ref } from 'vue';
+import { InventarisApiService } from '@services/inventaris-api.service';
 import type { IAutocompleteOption } from '@models/autocomplete';
 import type { IESAanduidingsobject, IFilterAanduidingsobjectProps } from '@models/index';
-import { InventarisApiService } from '@services/inventaris-api.service';
-import { computed, ref } from 'vue';
-import OeAutocomplete from '../dumb/OeAutocomplete.vue';
 
 const props = withDefaults(defineProps<IFilterAanduidingsobjectProps>(), {
   id: '',

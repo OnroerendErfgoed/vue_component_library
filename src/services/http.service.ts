@@ -1,5 +1,5 @@
-import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 import axios, { type AxiosInstance } from 'axios';
+import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export const axiosInstance: AxiosInstance = axios.create({
   headers: { Accept: 'application/json' },

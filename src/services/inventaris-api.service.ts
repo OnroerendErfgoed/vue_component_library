@@ -1,5 +1,5 @@
-import { ESAanduidingsobject, type IESAanduidingsobject } from '@models/aanduidingsobject';
 import { HttpService } from './http.service';
+import { ESAanduidingsobject, type IESAanduidingsobject } from '@models/aanduidingsobject';
 
 export class InventarisApiService extends HttpService {
   private readonly API_URL: string;

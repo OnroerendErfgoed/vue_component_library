@@ -1,8 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
-import FilterRadio from '../../components/dumb/FilterRadio.vue';
-
 import '@/scss/main.scss';
+import FilterRadio from '../../components/dumb/FilterRadio.vue';
 import { ref } from 'vue';
+import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof FilterRadio> = {

@@ -62,10 +62,10 @@
 </template>
 
 <script setup lang="ts">
-import { VlInputGroup, VlInputAddon, VlActionGroup, VlSelect, VlPill } from '@govflanders/vl-ui-design-system-vue3';
-import type { TFilterInput, IFilter, IFilterInputProps, IFilterOption } from '@models/filter-input';
+import { VlActionGroup, VlInputAddon, VlInputGroup, VlPill, VlSelect } from '@govflanders/vl-ui-design-system-vue3';
 import { isEmpty, remove } from 'lodash';
 import { computed, ref, watch } from 'vue';
+import type { IFilter, IFilterInputProps, IFilterOption, TFilterInput } from '@models/filter-input';
 
 const props = withDefaults(defineProps<IFilterInputProps>(), {
   options: () => [],

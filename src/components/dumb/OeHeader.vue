@@ -59,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import { VlDropdownNavigation, VlLinkList, VlLinkListItem, VlLink } from '@govflanders/vl-ui-design-system-vue3';
+import { VlDropdownNavigation, VlLink, VlLinkList, VlLinkListItem } from '@govflanders/vl-ui-design-system-vue3';
 import type { IHeaderProps } from '@models/header';
 
 const props = withDefaults(defineProps<IHeaderProps>(), {

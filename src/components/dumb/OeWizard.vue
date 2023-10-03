@@ -57,9 +57,9 @@
 <script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { VlBadge, VlButton } from '@govflanders/vl-ui-design-system-vue3';
-import type { IWizardProps } from '@models/wizard';
 import { computedAsync } from '@vueuse/core';
 import { ref } from 'vue';
+import type { IWizardProps } from '@models/wizard';
 
 // Next line should be activated once VlUTooltip is properly exported
 // For now, an import of { VlUiUtil } in the implementing app also makes the tooltip available

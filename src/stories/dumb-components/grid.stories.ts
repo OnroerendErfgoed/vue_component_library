@@ -1,7 +1,6 @@
+import '@/scss/main.scss';
 import OeGrid from '@components/dumb/OeGrid.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
-
-import '@/scss/main.scss';
 import type {
   FirstDataRenderedEvent,
   GridOptions,

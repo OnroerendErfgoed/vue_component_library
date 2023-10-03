@@ -43,16 +43,16 @@
 
 <script setup lang="ts">
 import { VlFormMessageError, VlInputField, VlMultiselect } from '@govflanders/vl-ui-design-system-vue3';
-import type { ICountryCode, IInputPhoneProps } from '@models/input-phone';
 import parsePhoneNumber, {
-  formatNumber,
-  getExampleNumber,
   type CountryCode,
   type ParsedNumber,
   type PhoneNumber,
+  formatNumber,
+  getExampleNumber,
 } from 'libphonenumber-js';
 import examples from 'libphonenumber-js/mobile/examples';
 import { computed, ref, watch } from 'vue';
+import type { ICountryCode, IInputPhoneProps } from '@models/input-phone';
 
 const DEFAULT_COUNTRY_CODE = 'BE';
 const inputTouched = ref(false);

@@ -50,8 +50,8 @@
 </template>
 
 <script lang="ts" setup>
-import AppHeader from './AppHeader.vue';
 import './page.css';
+import AppHeader from './AppHeader.vue';
 import { ref } from 'vue';
 
 const user = ref<{ name: string } | null>(null);

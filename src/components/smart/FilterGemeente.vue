@@ -21,10 +21,10 @@
 
 <script setup lang="ts">
 import { VlMultiselect } from '@govflanders/vl-ui-design-system-vue3';
+import { computed, onBeforeMount, ref } from 'vue';
+import { CrabApiService } from '@services/crab-api.service';
 import type { IFilterGemeenteProps } from '@models/index';
 import type { IGemeente } from '@models/locatie';
-import { CrabApiService } from '@services/crab-api.service';
-import { ref, onBeforeMount, computed } from 'vue';
 
 const props = withDefaults(defineProps<IFilterGemeenteProps>(), {
   api: '',

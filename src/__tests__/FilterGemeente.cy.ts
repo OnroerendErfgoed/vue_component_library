@@ -1,5 +1,5 @@
-import { defineComponent, ref } from 'vue';
 import FilterGemeente from '../components/smart/FilterGemeente.vue';
+import { defineComponent, ref } from 'vue';
 import type { IGemeente } from '@models/locatie';
 
 describe('FilterGemeente', () => {
