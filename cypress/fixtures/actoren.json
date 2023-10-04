@@ -1,0 +1,33 @@
+[{
+    "id": 12564,
+    "uri": "https://dev-id.erfgoed.net/actoren/12564",
+    "self": "https://dev-actoren.onroerenderfgoed.be/actoren/12564",
+    "type": {
+        "id": 1,
+        "naam": "persoon",
+        "uri": "foaf:Person"
+    },
+    "zichtbaarheid": {
+        "id": 1,
+        "naam": "privaat"
+    },
+    "omschrijving": "Van Humbeeck, Astrid",
+    "naam": "Van Humbeeck",
+    "voornaam": "Astrid",
+    "status": {
+        "id": 75,
+        "status": "Actief"
+    },
+    "systemfields": {
+        "created_at": "2020-10-16T14:03:24.911936+02:00",
+        "created_by": {
+            "uri": "https://dev-id.erfgoed.net/actoren/12495",
+            "description": "Toelatingen Beschermd Erfgoed Aanvragen"
+        },
+        "updated_at": "2023-05-05T13:12:06.836065+02:00",
+        "updated_by": {
+            "uri": "https://dev-id.erfgoed.net/actoren/12564",
+            "description": "Van Humbeeck, Astrid"
+        }
+    }
+}]
