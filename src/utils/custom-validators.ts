@@ -12,15 +12,17 @@ export const kboValidator = (value: string) => {
 
 // Rijksregisternummer
 export const rrnValidator = (value: string) => {
-  let valid = true;
+  let valid = false;
   if (value) {
-    if (value.length < 11) {
+    value = value.replace(/\.|-/g, '').trim();
+    if (value.length !== 11) {
       return false;
     }
-    const checkDigit = parseInt(value.substring(value.length - 2), 10);
     const modFunction = (nr: number) => 97 - (nr % 97);
+    const checkDigit = parseInt(value.substring(value.length - 2, value.length), 10);
     let nrToCheck = parseInt(value.substring(0, 9), 10);
-    if (modFunction(nrToCheck) === checkDigit) {
+    const modFunctionNumber = modFunction(nrToCheck);
+    if (modFunctionNumber === checkDigit) {
       return true;
     }
     nrToCheck = parseInt('2' + value.substring(0, 9), 10);
