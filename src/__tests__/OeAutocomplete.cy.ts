@@ -85,6 +85,9 @@ describe('Autocomplete', () => {
                   {
                     title: 'dummy',
                   },
+                  {
+                    title: 'random',
+                  },
                 ].filter((item) => item.title.includes(searchTerm))
               );
             }, 1000);
@@ -125,6 +128,26 @@ describe('Autocomplete', () => {
         .should('exist')
         .invoke('text')
         .should('equal', 'Doe een nieuwe zoekopdracht');
+    });
+
+    it('uses the callback again after selecting an option', () => {
+      cy.mount(TestComponent);
+
+      cy.dataCy('autocomplete').type('dummy').wait(1000).find('.vl-autocomplete__cta').click();
+      cy.dataCy('autocomplete-input').clear();
+
+      cy.dataCy('autocomplete')
+        .type('rand')
+        .wait(1000)
+        .find('.vl-autocomplete__list-wrapper')
+        .should('exist')
+        .find('.vl-autocomplete__list')
+        .should('exist')
+        .find('.vl-autocomplete__cta')
+        .should('exist')
+        .should('have.length', 1)
+        .invoke('text')
+        .should('equal', 'random');
     });
   });
 

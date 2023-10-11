@@ -2,6 +2,7 @@
   <div :id="`autocomplete-${props.id}`" v-click-outside="hideResults" data-cy="autocomplete" class="js-vl-autocomplete">
     <vl-input-field
       v-model="searchTerm"
+      data-cy="autocomplete-input"
       :placeholder="props.placeholder"
       mod-block
       @update:model-value="handleInput"
@@ -84,7 +85,7 @@ const fetchData = async (searchTerm: string) => {
 };
 
 watch(searchTerm, async () => {
-  if (searchTerm.value?.length >= props.minChars && !selectedOption.value) {
+  if (searchTerm.value?.length >= props.minChars) {
     loading.value = true;
     const data = await fetchData(searchTerm.value);
     options.value = data;
