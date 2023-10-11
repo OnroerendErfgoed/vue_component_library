@@ -46,10 +46,10 @@ export interface IFilterGemeenteProps {
 }
 
 export interface IFilterActorProps {
+  id: string;
   api: string;
-  actoren?: IActor[];
-  getSsoToken: () => Promise<string>;
   value?: string;
+  getSsoToken: () => Promise<string>;
 }
 
 export interface IFilterProvincieProps {

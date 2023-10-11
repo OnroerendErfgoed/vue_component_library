@@ -12,13 +12,16 @@ export class ActorService extends HttpService {
     this.getSsoToken = getSsoToken;
   }
 
-  async getAOEActoren(): Promise<IActor[]> {
+  async getAOEActoren(searchTerm: string): Promise<IActor[]> {
     if (this.actoren?.length) {
       return this.actoren;
     }
     const ssoToken = await this.getSsoToken();
     return (
-      await this.get<IActor[]>(`${this.API_URL}/actoren/wij`, { headers: { Authorization: 'Bearer ' + ssoToken } })
+      await this.get<IActor[]>(`${this.API_URL}/actoren/wij`, {
+        headers: { Authorization: 'Bearer ' + ssoToken },
+        params: { omschrijving: `${searchTerm}*` },
+      })
     ).data;
   }
 }
