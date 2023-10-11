@@ -1,55 +1,56 @@
 <template>
-  <vl-multiselect
+  <oe-autocomplete
+    :id="props.id"
     data-cy="filter-actor"
-    placeholder="Actor"
-    :mod-multiple="false"
-    :options="actoren"
-    :preserve-search="true"
+    :callback-fn="performAutocompleteSearch"
     :value="actorValue"
     @update:value="updateValue"
-    :custom-label="customActorLabel"
-    @keydown.tab="!props.value ? $event.preventDefault() : null"
-  >
-    <template #noResult>
-      <span>Geen actoren gevonden...</span>
-    </template>
-    <template #noOptions>
-      <span>Geen opties beschikbaar</span>
-    </template>
-  </vl-multiselect>
+  ></oe-autocomplete>
 </template>
 
 <script setup lang="ts">
-import { VlMultiselect } from '@govflanders/vl-ui-design-system-vue3';
-import { sortBy } from 'lodash';
-import { computed, onBeforeMount, ref } from 'vue';
+import OeAutocomplete from '../dumb/OeAutocomplete.vue';
+import { computed, ref } from 'vue';
 import { ActorService } from '@services/actor.service';
 import type { IActor } from '@models/actor';
+import type { IAutocompleteOption } from '@models/autocomplete';
 import type { IFilterActorProps } from '@models/index';
 
 const props = withDefaults(defineProps<IFilterActorProps>(), {
+  id: '',
   api: '',
-  actoren: undefined,
+  value: '',
   getSsoToken: undefined,
-  value: undefined,
 });
 const emit = defineEmits(['update:value']);
 
-const actorValue = computed(() => {
-  return actoren.value.length ? actoren.value.find((actor) => actor.uri === props.value) : undefined;
-});
-const updateValue = (value: IActor) => emit('update:value', value);
-
 const actorService = new ActorService(props.api, props.getSsoToken);
-const actoren = ref<IActor[]>([]);
-const customActorLabel = (option: IActor) => option.omschrijving;
 
-onBeforeMount(async () => {
-  if (props.actoren) {
-    actoren.value = sortBy(props.actoren, 'omschrijving');
-  } else {
-    const apiActoren = await actorService.getAOEActoren();
-    actoren.value = sortBy(apiActoren, 'omschrijving');
-  }
+const actoren = ref<IActor[]>([]);
+const actorValue = computed(() => {
+  const actor = actoren?.value.find((g) => g.uri === props.value);
+  const autocompleteOption: IAutocompleteOption = {
+    title: actor?.omschrijving as string,
+    value: actor,
+  };
+  return autocompleteOption;
 });
+
+const updateValue = (value: IActor) => emit('update:value', value);
+const performAutocompleteSearch = async (searchTerm: string): Promise<IAutocompleteOption[]> => {
+  try {
+    actoren.value = await actorService.getAOEActoren(searchTerm);
+    const autocompleteData: IAutocompleteOption[] = actoren.value.map((actor) => {
+      return {
+        title: actor.omschrijving,
+        value: actor.uri,
+      };
+    });
+
+    return autocompleteData;
+  } catch (error) {
+    console.error('Error fetching autocomplete data:', error);
+    return Promise.resolve([]);
+  }
+};
 </script>
