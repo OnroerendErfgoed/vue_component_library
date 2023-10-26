@@ -1,7 +1,9 @@
 import '@/scss/main.scss';
 import OeSelect from '../../components/dumb/OeSelect.vue';
+import { ref } from 'vue';
 // import type { IAutocompleteOption } from '../../models/autocomplete';
 import type { Meta, StoryObj } from '@storybook/vue3';
+import type { ISelectOption } from '@models/select';
 
 const meta: Meta<typeof OeSelect> = {
   title: 'Dumb components/Select',
@@ -15,101 +17,58 @@ const meta: Meta<typeof OeSelect> = {
     },
   },
   argTypes: {
-    // id: {
-    //   control: 'text',
-    //   description: 'Unique id for this autocomplete instance',
-    // },
-    // value: {
-    //   control: 'object',
-    //   description: 'Selected option',
-    //   table: {
-    //     type: { summary: 'IAutocompleteOption' },
-    //     defaultValue: { summary: 'undefined' },
-    //   },
-    // },
-    // autoselect: {
-    //   control: 'boolean',
-    //   description: 'Whether to autoselect the option if only 1 result is left',
-    // },
-    // minChars: {
-    //   control: 'number',
-    //   description: 'Number of characters needed before callbackFn is triggered',
-    // },
-    // placeholder: {
-    //   control: 'text',
-    //   description: 'Placeholder text',
-    // },
-    // callbackFn: {
-    //   control: 'function',
-    //   description: 'Callback function that provides the options',
-    //   table: {
-    //     type: { summary: 'Should return IAutocompleteOption[]' },
-    //   },
-    // },
+    model: {
+      control: 'object',
+      description: 'Selected option',
+      table: {
+        type: { summary: 'ISelectOption' },
+        defaultValue: { summary: 'undefined' },
+      },
+    },
+    options: {
+      control: 'object',
+      description: 'options array',
+      table: {
+        type: { summary: 'ISelectOption Array' },
+        defaultValue: { summary: 'undefined' },
+      },
+    },
+    'update:model-value': {
+      description: 'Emits the selected value',
+      table: {
+        type: { summary: 'string' },
+      },
+    },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof OeSelect>;
 
-export const Default: Story = {};
-
-// export const CustomCallbackFunction: Story = {
-//   render: () => ({
-//     components: {
-//       OeSelect,
-//     },
-//     setup() {
-//       const callback = (s: string): Promise<IAutocompleteOption[]> => {
-//         return new Promise(function (resolve) {
-//           // Fake delay to show the loader
-//           setTimeout(function () {
-//             resolve([
-//               {
-//                 title: s,
-//               },
-//               {
-//                 title: 'dummy',
-//               },
-//             ]);
-//           }, 3000);
-//         });
-//       };
-
-//       return { callback };
-//     },
-//     template: `<oe-autocomplete :callbackFn="callback"></oe-autocomplete>`,
-//   }),
-// };
-
-export const Autoselect: Story = {
+export const Default: Story = {
   render: () => ({
     components: {
       OeSelect,
     },
-    // setup() {
-    //   const callback = (): Promise<IAutocompleteOption[]> => {
-    //     return new Promise(function (resolve) {
-    //       // Fake delay to show the loader
-    //       setTimeout(function () {
-    //         resolve([
-    //           {
-    //             title: 'dummy',
-    //           },
-    //         ]);
-    //       }, 3000);
-    //     });
-    //   };
+    setup() {
+      const options = [
+        { label: 'België', value: 'België' },
+        { label: 'Frankrijk', value: 'Frankrijk' },
+        {
+          label:
+            'Duitsland - Land in Centraal-Europa. Het heeft een grondgebied van 357.022 km² en grenst in het noorden aan de Oostzee.',
+          value: 'Duitsland',
+        },
+      ] as ISelectOption[];
 
-    //   return { callback };
-    // },
-    template: `<oe-select></oe-select>`,
+      const model = ref<ISelectOption>({ label: 'Frankrijk', value: 'Frankrijk' });
+      const customLabel = (option: ISelectOption) => option?.label;
+      const setValue = (e: ISelectOption) => {
+        model.value = e;
+      };
+
+      return { options, model, customLabel, setValue };
+    },
+    template: `<oe-select @update:model-value="setValue($event)" :custom-label="customLabel" :model="model" :options="options"></oe-select>`,
   }),
-  //   parameters: {
-  //     docs: {
-  //       description: {
-  //         story: 'Search for "dum" to have 1 result.',
-  //       },
-  //     },
-  //   },
 };
