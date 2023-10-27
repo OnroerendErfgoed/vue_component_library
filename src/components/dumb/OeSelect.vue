@@ -13,9 +13,9 @@
       <div class="vl-select__list" dir="ltr" role="listbox">
         <template v-for="option in options">
           <div class="vl-select__item vl-select__item--choice vl-select__item--selectable"
-            :class="{ 'is-highlighted': option.selected, '': !option.selected }" data-select-text="Press to select"
-            :data-id="option" :data-value="option" data-choice-selectable="" role="treeitem"
-            @click="selectOption(option)">
+            :class="{ 'is-highlighted': _.isEqual(selectedOption, option), '': !(_.isEqual(selectedOption, option)) }"
+            data-select-text="Press to select" :data-id="option" :data-value="option" data-choice-selectable=""
+            role="treeitem" @click="selectOption(option)">
             <div>
               {{ props.customLabel(option) }}
             </div>
@@ -47,14 +47,8 @@ const selectedOption = ref(options.find((option) => _.isEqual(option, props.mode
 const selectOptionLabel = ref<string>(props.customLabel(selectedOption?.value) as string);
 const showPlaceholder = ref(true);
 
-if (selectedOption.value) {
-  selectedOption.value.selected = true;
-}
-
 const selectOption = (option: any) => {
   selectedOption.value = option;
-  options.forEach((option) => (option.selected = false));
-  selectedOption.value.selected = true;
   selectOptionLabel.value = props.customLabel(selectedOption.value) as string;
   emit('update:modelValue', selectedOption.value);
 };
