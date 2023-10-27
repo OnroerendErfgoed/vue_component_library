@@ -13,7 +13,7 @@
       <div class="vl-select__list" dir="ltr" role="listbox">
         <template v-for="option in options">
           <div class="vl-select__item vl-select__item--choice vl-select__item--selectable"
-            :class="{ 'is-highlighted': _.isEqual(selectedOption, option), '': !(_.isEqual(selectedOption, option)) }"
+            :class="{ 'is-highlighted': _.isEqual(selectedOption, option), '': !_.isEqual(selectedOption, option) }"
             data-select-text="Press to select" :data-id="option" :data-value="option" data-choice-selectable=""
             role="treeitem" @click="selectOption(option)">
             <div>
@@ -26,18 +26,17 @@
   </div>
 </template>
 <script lang="ts" setup>
+import _ from 'lodash';
 import { ref } from 'vue';
 import { vClickOutside } from '@directives/click-outside.directive';
 import type { ISelectProps } from '@models/select';
-import _ from 'lodash';
 
 const showResults = ref<boolean>(false);
 
 const props = withDefaults(defineProps<ISelectProps>(), {
   model: undefined,
   options: undefined,
-  customLabel: (option: any) => Promise.resolve(),
-  placeholderText: 'selecteer een optie...'
+  customLabel: (option: any) => Promise.resolve()
 });
 
 const emit = defineEmits(['update:modelValue']);
