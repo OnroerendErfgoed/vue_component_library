@@ -1,7 +1,7 @@
-export interface ISelectProps {
-  model: any;
-  options: any[];
-  customLabel: (option: any) => {};
+export interface ISelectProps<T> {
+  modelValue: T;
+  options: T[];
+  customLabel: (option: T) => T;
 }
 
 export interface ISelectOption {

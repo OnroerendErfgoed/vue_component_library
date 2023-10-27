@@ -1,7 +1,6 @@
 import '@/scss/main.scss';
 import OeSelect from '../../components/dumb/OeSelect.vue';
 import { ref } from 'vue';
-// import type { IAutocompleteOption } from '../../models/autocomplete';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import type { ISelectOption } from '@models/select';
 
@@ -17,7 +16,7 @@ const meta: Meta<typeof OeSelect> = {
     },
   },
   argTypes: {
-    model: {
+    modelValue: {
       control: 'object',
       description: 'Selected option',
       table: {
@@ -61,14 +60,14 @@ export const Default: Story = {
         },
       ] as ISelectOption[];
 
-      const model = ref<ISelectOption>({ label: 'Frankrijk', value: 'Frankrijk' });
+      const modelValue = ref<ISelectOption>({ label: 'Frankrijk', value: 'Frankrijk' });
       const customLabel = (option: ISelectOption) => option?.label;
       const setValue = (e: ISelectOption) => {
-        model.value = e;
+        modelValue.value = e;
       };
 
-      return { options, model, customLabel, setValue };
+      return { options, modelValue, customLabel, setValue };
     },
-    template: `<oe-select @update:model-value="setValue($event)" :custom-label="customLabel" :model="model" :options="options"></oe-select>`,
+    template: `<oe-select :custom-label="customLabel" v-model="modelValue" :options="options"></oe-select>`,
   }),
 };
