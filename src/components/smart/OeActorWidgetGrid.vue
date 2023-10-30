@@ -1,29 +1,31 @@
 <template>
-  <div class="vl-grid">
-    <div class="vl-col--12-12 vl-u-flex vl-u-flex-align-space-between">
-      <span class="vl-u-mark--info vl-u-text--small">{{ rowCountText }}</span>
-      <vl-button class="refresh-button" icon="synchronize" mod-icon-before mod-naked @click="search"
-        >Vernieuwen</vl-button
-      >
+  <div class="vl-layout vl-u-flex vl-u-flex-direction-column">
+    <div class="vl-grid">
+      <div class="vl-col--12-12 vl-u-flex vl-u-flex-align-space-between">
+        <span class="vl-u-mark--info vl-u-text--small">{{ rowCountText }}</span>
+        <vl-button class="refresh-button" icon="synchronize" mod-icon-before mod-naked @click="search"
+          >Vernieuwen</vl-button
+        >
+      </div>
     </div>
-  </div>
-  <div class="vl-grid table">
-    <div class="vl-col--12-12 vl-u-flex oe-flex-1">
-      <oe-grid
-        style="width: 100%; height: 500px"
-        :grid-options="gridOptions"
-        @grid-ready="onGridReady"
-        @first-data-rendered="firstDataRendered"
-        @row-clicked="gridOptions?.onRowClicked"
-      />
+    <div class="vl-grid table">
+      <div class="vl-col--12-12 vl-u-flex oe-flex-1">
+        <oe-grid
+          style="width: 100%; height: 500px"
+          :grid-options="gridOptions"
+          @grid-ready="onGridReady"
+          @first-data-rendered="firstDataRendered"
+          @row-clicked="gridOptions?.onRowClicked"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import OeGrid from '../dumb/OeGrid.vue';
+import OeActorWidgetGridActies from './OeActorWidgetGridActies.vue';
 import { VlButton } from '@govflanders/vl-ui-design-system-vue3';
-// import { NoRowsOverlayComponent } from 'ag-grid-community/dist/lib/rendering/overlays/noRowsOverlayComponent';
 import { computed, getCurrentInstance, ref } from 'vue';
 import type { ColDef, FirstDataRenderedEvent, GridOptions, IGetRowsParams, RowClickedEvent } from 'ag-grid-community';
 import type { ActorService } from '@services/actor.service';
@@ -35,6 +37,9 @@ interface IOeActorWidgetGridProps {
 const props = withDefaults(defineProps<IOeActorWidgetGridProps>(), {
   service: undefined,
 });
+const emit = defineEmits<{
+  setStateDetail: [void];
+}>();
 const rowCount = ref(0);
 
 const getColumnDefinitions = (): ColDef[] => {
@@ -47,6 +52,11 @@ const getColumnDefinitions = (): ColDef[] => {
       headerName: 'Acties',
       width: 55,
       cellClass: 'acties-cell',
+      cellRenderer: OeActorWidgetGridActies,
+      cellRendererParams: {
+        setStateDetail: () => emit('setStateDetail'),
+        actorenUrl: props.service.API_URL,
+      },
       sortable: false,
     },
   ];
