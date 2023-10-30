@@ -24,8 +24,14 @@ export const Default: Story = {
     components: {
       OeActorWidget,
     },
+    setup() {
+      const id = '1';
+      const api = 'https://dev-actoren.onroerenderfgoed.be';
+      const getSsoToken = async () => 1;
+      return { id, api, getSsoToken };
+    },
     template: `
-    <oe-actor-widget id="1" :open="true" />
+    <oe-actor-widget :id="id" :api="api" :get-sso-token="getSsoToken" />
     `,
   }),
 };

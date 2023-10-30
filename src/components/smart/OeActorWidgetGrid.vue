@@ -1,25 +1,54 @@
 <template>
-  <oe-grid
-    style="width: 100%; height: 100%"
-    :grid-options="gridOptions"
-    @grid-ready="onGridReady"
-    @first-data-rendered="firstDataRendered"
-    @row-clicked="gridOptions?.onRowClicked"
-  />
+  <div class="vl-grid">
+    <div class="vl-col--12-12 vl-u-flex vl-u-flex-align-space-between">
+      <span class="vl-u-mark--info vl-u-text--small">{{ rowCountText }}</span>
+      <vl-button class="refresh-button" icon="synchronize" mod-icon-before mod-naked @click="search"
+        >Vernieuwen</vl-button
+      >
+    </div>
+  </div>
+  <div class="vl-grid table">
+    <div class="vl-col--12-12 vl-u-flex oe-flex-1">
+      <oe-grid
+        style="width: 100%; height: 500px"
+        :grid-options="gridOptions"
+        @grid-ready="onGridReady"
+        @first-data-rendered="firstDataRendered"
+        @row-clicked="gridOptions?.onRowClicked"
+      />
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
 import OeGrid from '../dumb/OeGrid.vue';
+import { VlButton } from '@govflanders/vl-ui-design-system-vue3';
 // import { NoRowsOverlayComponent } from 'ag-grid-community/dist/lib/rendering/overlays/noRowsOverlayComponent';
-import { getCurrentInstance, ref } from 'vue';
-import type { ColDef, FirstDataRenderedEvent, GridOptions, RowClickedEvent } from 'ag-grid-community';
+import { computed, getCurrentInstance, ref } from 'vue';
+import type { ColDef, FirstDataRenderedEvent, GridOptions, IGetRowsParams, RowClickedEvent } from 'ag-grid-community';
+import type { ActorService } from '@services/actor.service';
+
+interface IOeActorWidgetGridProps {
+  service: ActorService;
+}
+
+const props = withDefaults(defineProps<IOeActorWidgetGridProps>(), {
+  service: undefined,
+});
+const rowCount = ref(0);
 
 const getColumnDefinitions = (): ColDef[] => {
   return [
-    { headerName: 'ID', field: 'id', width: 75, sort: 'desc' },
-    { headerName: 'Onderwerp', field: 'onderwerp', width: 150 },
-    { headerName: 'ID aanvraag', field: 'energieadvies.id', width: 75 },
-    { headerName: 'Adres', field: 'adres', width: 150 },
+    { headerName: '#', field: 'id', sort: 'desc', width: 50 },
+    { headerName: 'Naam', field: 'naam', width: 200 },
+    { headerName: 'Voornaam', field: 'voornaam', width: 200 },
+    { headerName: 'Type', field: 'type.naam', colId: 'type', width: 200 },
+    {
+      headerName: 'Acties',
+      width: 55,
+      cellClass: 'acties-cell',
+      sortable: false,
+    },
   ];
 };
 
@@ -45,16 +74,20 @@ const gridOptions = ref<GridOptions>({
 const onGridReady = () => {
   setRowData();
 };
+const search = () => gridOptions.value.api?.purgeInfiniteCache();
 const firstDataRendered = (grid: FirstDataRenderedEvent) => grid.api.sizeColumnsToFit();
+const onGridSizeChanged = () => gridOptions.value.api?.sizeColumnsToFit();
+const rowCountText = computed(() =>
+  rowCount.value === 1 ? `Er is 1 resultaat gevonden` : `Er zijn ${rowCount?.value || 'geen'} resultaten gevonden`
+);
 const setRowData = () => {
-  /*const dataSource = {
+  const dataSource = {
     getRows: (params: IGetRowsParams) => {
-      const query = setQueryParameters(params);
-      sharedStore.startLoading('get-dossiers');
+      console.log('start loader');
 
-      apiService
-        .getDossiers(params.startRow, params.endRow, query)
-        .then((data: IResponse<IDossierOverzichtItem>) => {
+      props.service
+        .getDossiers(params.startRow, params.endRow, {})
+        .then((data) => {
           const content = data.content;
           rowCount.value = +data.lastRow;
           if (data.lastRow === 0) {
@@ -70,11 +103,18 @@ const setRowData = () => {
           params.failCallback();
         })
         .catch(() => params.failCallback())
-        .finally(() => sharedStore.stopLoading('get-dossiers'));
+        .finally(() => console.log('stop loader'));
     },
   };
-  gridOptions.value.api?.setDatasource(dataSource); */
+  gridOptions.value.api?.setDatasource(dataSource);
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+.table {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0.9375rem 0;
+}
+</style>
