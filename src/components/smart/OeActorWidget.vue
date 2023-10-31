@@ -1,11 +1,13 @@
 <template>
   <!--<vl-modal :id="props.id" closable mod-large title="Actor toevoegen">-->
   <div class="content">
+    <oe-loader v-show="loading" />
     <grid
       v-if="state === ActorWidgetState.Grid"
       :service="actorService"
       @set-state-detail="setStateDetail($event)"
       @select-actor="selectActor"
+      @toggle-loader="loading = !loading"
     />
     <Detail
       v-if="state === ActorWidgetState.Detail"
@@ -22,6 +24,7 @@
 <script setup lang="ts">
 import { VlButton, VlModal } from '@govflanders/vl-ui-design-system-vue3';
 import { ref } from 'vue';
+import OeLoader from '@components/dumb/OeLoader.vue';
 import Detail from '@components/smart/OeActorWidgetDetail.vue';
 import Grid from '@components/smart/OeActorWidgetGrid.vue';
 import { ActorService } from '@services/actor.service';
@@ -49,20 +52,21 @@ const emit = defineEmits<{
 const state = ref<ActorWidgetState>(ActorWidgetState.Grid);
 const actorService = new ActorService(props.api, props.getSsoToken);
 const selectedActor = ref<IActor>();
+const loading = ref(false);
 
 const selectActor = (actor: IActor) => {
   selectedActor.value = actor;
 };
 
 const setStateDetail = async (id: number) => {
-  console.log('start loader');
+  loading.value = true;
   try {
     selectedActor.value = await actorService.getActorById(id);
     state.value = ActorWidgetState.Detail;
   } catch (e) {
     console.debug(e);
   }
-  console.log('stop loader');
+  loading.value = false;
 };
 
 const close = () => {
