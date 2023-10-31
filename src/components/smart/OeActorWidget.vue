@@ -1,16 +1,16 @@
 <template>
   <!--<vl-modal :id="props.id" closable mod-large title="Actor toevoegen">-->
   <div class="content">
-    <div class="vl-u-flex vl-u-flex-align-center">
-      <vl-button class="vl-u-spacer-right--small" mod-primary @click="state = ActorWidgetState.Table">
-        Overzicht
-      </vl-button>
-      <vl-button mod-primary @click="state = ActorWidgetState.Filters"> Uitgebreid zoeken </vl-button>
-    </div>
-    <oe-actor-widget-grid
-      v-if="state === ActorWidgetState.Table"
+    <grid
+      v-if="state === ActorWidgetState.Grid"
       :service="actorService"
-      @set-state-detail="state = ActorWidgetState.Detail"
+      @set-state-detail="setStateDetail($event)"
+      @select-actor="selectActor"
+    />
+    <Detail
+      v-if="state === ActorWidgetState.Detail"
+      :actor="selectedActor"
+      @set-state-grid="state = ActorWidgetState.Grid"
     />
     <div class="vl-u-flex vl-u-flex-align-center">
       <vl-button class="vl-u-spacer-right--small" mod-secondary @click="close">Sluiten</vl-button>
@@ -22,8 +22,10 @@
 <script setup lang="ts">
 import { VlButton, VlModal } from '@govflanders/vl-ui-design-system-vue3';
 import { ref } from 'vue';
-import OeActorWidgetGrid from '@components/smart/OeActorWidgetGrid.vue';
+import Detail from '@components/smart/OeActorWidgetDetail.vue';
+import Grid from '@components/smart/OeActorWidgetGrid.vue';
 import { ActorService } from '@services/actor.service';
+import type { IActor } from '@models/actor';
 
 interface IOeActorWidgetProps {
   id: string;
@@ -32,9 +34,8 @@ interface IOeActorWidgetProps {
 }
 
 enum ActorWidgetState {
-  Table = 'table',
-  Filters = 'filters',
-  Detail = 'detail',
+  Grid,
+  Detail,
 }
 
 const props = withDefaults(defineProps<IOeActorWidgetProps>(), {
@@ -45,8 +46,24 @@ const props = withDefaults(defineProps<IOeActorWidgetProps>(), {
 const emit = defineEmits<{
   close: [void];
 }>();
-const state = ref<ActorWidgetState>(ActorWidgetState.Table);
+const state = ref<ActorWidgetState>(ActorWidgetState.Grid);
 const actorService = new ActorService(props.api, props.getSsoToken);
+const selectedActor = ref<IActor>();
+
+const selectActor = (actor: IActor) => {
+  selectedActor.value = actor;
+};
+
+const setStateDetail = async (id: number) => {
+  console.log('start loader');
+  try {
+    selectedActor.value = await actorService.getActorById(id);
+    state.value = ActorWidgetState.Detail;
+  } catch (e) {
+    console.debug(e);
+  }
+  console.log('stop loader');
+};
 
 const close = () => {
   emit('close');

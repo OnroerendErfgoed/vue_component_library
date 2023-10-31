@@ -26,7 +26,7 @@ export class ActorService extends HttpService {
     ).data;
   }
 
-  async getDossiers(rangeStart: number, rangeEnd: number, query: any): Promise<IResponse<IActor>> {
+  async getActoren(rangeStart: number, rangeEnd: number, query: any): Promise<IResponse<IActor>> {
     const contentRange = `items=${rangeStart}-${rangeEnd}`;
     const { data, headers } = await this.get<IActor[]>(`${this.API_URL}/actoren`, {
       headers: {
@@ -43,5 +43,16 @@ export class ActorService extends HttpService {
       lastRow = resCR.substr(resCR.indexOf('/') + 1);
     }
     return { content: data, lastRow };
+  }
+
+  async getActorById(id: number): Promise<IActor> {
+    return (
+      await this.get<IActor>(`${this.API_URL}/actoren/${id.toString()}?adressenregister`, {
+        headers: {
+          Accept: 'application/json',
+          Authorization: 'Bearer ' + (await this.getSsoToken()),
+        },
+      })
+    ).data;
   }
 }

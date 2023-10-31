@@ -28,6 +28,7 @@ import OeActorWidgetGridActies from './OeActorWidgetGridActies.vue';
 import { VlButton } from '@govflanders/vl-ui-design-system-vue3';
 import { computed, getCurrentInstance, ref } from 'vue';
 import type { ColDef, FirstDataRenderedEvent, GridOptions, IGetRowsParams, RowClickedEvent } from 'ag-grid-community';
+import type { IActor } from '@models/actor';
 import type { ActorService } from '@services/actor.service';
 
 interface IOeActorWidgetGridProps {
@@ -38,7 +39,8 @@ const props = withDefaults(defineProps<IOeActorWidgetGridProps>(), {
   service: undefined,
 });
 const emit = defineEmits<{
-  setStateDetail: [void];
+  selectActor: [IActor];
+  setStateDetail: [number];
 }>();
 const rowCount = ref(0);
 
@@ -54,7 +56,7 @@ const getColumnDefinitions = (): ColDef[] => {
       cellClass: 'acties-cell',
       cellRenderer: OeActorWidgetGridActies,
       cellRendererParams: {
-        setStateDetail: () => emit('setStateDetail'),
+        setStateDetail: (id: number) => emit('setStateDetail', id),
         actorenUrl: props.service.API_URL,
       },
       sortable: false,
@@ -76,8 +78,7 @@ const gridOptions = ref<GridOptions>({
   enableBrowserTooltips: true,
   columnDefs: getColumnDefinitions(),
   onRowClicked: (event: RowClickedEvent) => {
-    console.log(event);
-    // Select actor
+    emit('selectActor', event.data);
   },
 });
 
@@ -96,7 +97,7 @@ const setRowData = () => {
       console.log('start loader');
 
       props.service
-        .getDossiers(params.startRow, params.endRow, {})
+        .getActoren(params.startRow, params.endRow, {})
         .then((data) => {
           const content = data.content;
           rowCount.value = +data.lastRow;

@@ -4,7 +4,7 @@
       title="Details van de actor bekijken"
       class="icon vl-u-spacer-right--xxsmall"
       :icon="['fas', 'eye']"
-      @click="props.params.setStateDetail()"
+      @click="props.params.setStateDetail(params.data?.id as number)"
     />
     <a :href="`${props.params.actorenUrl}/beheer#/${params.data?.id}`" target="_blank" title="Bewerk actor">
       <font-awesome-icon class="icon" :icon="['fas', 'pencil']" />
@@ -18,7 +18,7 @@ import type { ICellRendererParams } from 'ag-grid-community';
 import type { IActor } from '@models/actor';
 
 interface IOeActorWidgetGridActiesProps<T> extends ICellRendererParams<T> {
-  setStateDetail: () => void;
+  setStateDetail: (id: number) => void;
   actorenUrl: string;
 }
 const props = defineProps<{ params: IOeActorWidgetGridActiesProps<IActor> }>();

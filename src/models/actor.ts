@@ -20,7 +20,7 @@ export interface IActor {
   type: IType;
   types: string[];
   uri: string;
-  urls: string[];
+  urls: IUrl[];
   voornaam: string;
   zichtbaarheid: IType;
 }
@@ -31,6 +31,11 @@ interface IActorAdres {
   postcode: IPostcode;
   straat: IStraat;
   adres: IAdresregisterAdres;
+  omschrijving: string;
+  adrestype: {
+    naam: string;
+    id: number;
+  };
 }
 
 interface ILand {
@@ -139,4 +144,12 @@ interface ITelefoon {
   nummer: string;
   type: IType;
   volledig_nummer: string;
+}
+
+interface IUrl {
+  url: string;
+  type: {
+    naam: string;
+    id: number;
+  };
 }
