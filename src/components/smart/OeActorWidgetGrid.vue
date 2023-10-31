@@ -44,7 +44,7 @@ import { isEmpty, omitBy } from 'lodash';
 import { computed, getCurrentInstance, ref } from 'vue';
 import type { ColDef, FirstDataRenderedEvent, GridOptions, IGetRowsParams, RowClickedEvent } from 'ag-grid-community';
 import type { IActor } from '@models/actor';
-import type { ActorService } from '@services/actor.service';
+import type { ActorService, IActorenQuery } from '@services/actor.service';
 
 interface IOeActorWidgetGridProps {
   service: ActorService;
@@ -119,8 +119,8 @@ const onGridSizeChanged = () => gridOptions.value.api?.sizeColumnsToFit();
 const rowCountText = computed(() =>
   rowCount.value === 1 ? `Er is 1 resultaat gevonden` : `Er zijn ${rowCount?.value || 'geen'} resultaten gevonden`
 );
-const setQueryParameters = (params: IGetRowsParams): any => {
-  const paramsObj: any = {
+const setQueryParameters = (params: IGetRowsParams): IActorenQuery => {
+  const paramsObj: IActorenQuery = {
     tekst: zoekterm?.value,
     sort: undefined,
   };

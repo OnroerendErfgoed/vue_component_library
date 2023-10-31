@@ -2,6 +2,11 @@ import { HttpService } from './http.service';
 import type { IActor } from '@models/actor';
 import type { IResponse } from '@models/grid';
 
+export interface IActorenQuery {
+  tekst?: string | undefined;
+  sort?: string | undefined;
+}
+
 export class ActorService extends HttpService {
   readonly API_URL: string;
 
@@ -26,7 +31,7 @@ export class ActorService extends HttpService {
     ).data;
   }
 
-  async getActoren(rangeStart: number, rangeEnd: number, query: any): Promise<IResponse<IActor>> {
+  async getActoren(rangeStart: number, rangeEnd: number, query: IActorenQuery): Promise<IResponse<IActor>> {
     const contentRange = `items=${rangeStart}-${rangeEnd}`;
     const { data, headers } = await this.get<IActor[]>(`${this.API_URL}/actoren`, {
       headers: {

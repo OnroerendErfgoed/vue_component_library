@@ -31,7 +31,11 @@ export const Default: Story = {
       return { id, api, getSsoToken };
     },
     template: `
-    <oe-actor-widget :id="id" :api="api" :get-sso-token="getSsoToken" />
+    <oe-actor-widget :id="id" :api="api" :get-sso-token="getSsoToken">
+      <template v-slot:dropdown>
+        <div class="dropdown"></div>
+      </template>
+    </oe-actor-widget>
     `,
   }),
 };

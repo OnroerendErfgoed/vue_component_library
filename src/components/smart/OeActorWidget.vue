@@ -9,13 +9,22 @@
       @select-actor="selectActor"
       @toggle-loader="loading = !loading"
     />
-    <Detail
+    <detail
       v-if="state === ActorWidgetState.Detail"
       :actor="selectedActor"
       @set-state-grid="state = ActorWidgetState.Grid"
     />
+    <slot name="dropdown"></slot>
     <div class="vl-u-flex vl-u-flex-align-center">
-      <vl-button class="vl-u-spacer-right--small" mod-secondary @click="close">Sluiten</vl-button>
+      <vl-button
+        class="vl-u-spacer-right--small"
+        mod-primary
+        :mod-disabled="!selectedActor"
+        @click="emit('add', selectedActor as IActor)"
+      >
+        Toevoegen
+      </vl-button>
+      <vl-button class="vl-u-spacer-right--small" mod-secondary @click="emit('close')">Sluiten</vl-button>
     </div>
   </div>
   <!--</vl-modal>-->
@@ -47,6 +56,7 @@ const props = withDefaults(defineProps<IOeActorWidgetProps>(), {
   getSsoToken: undefined,
 });
 const emit = defineEmits<{
+  add: [IActor];
   close: [void];
 }>();
 const state = ref<ActorWidgetState>(ActorWidgetState.Grid);
@@ -67,10 +77,6 @@ const setStateDetail = async (id: number) => {
     console.debug(e);
   }
   loading.value = false;
-};
-
-const close = () => {
-  emit('close');
 };
 </script>
 
