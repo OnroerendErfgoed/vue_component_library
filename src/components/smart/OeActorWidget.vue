@@ -1,33 +1,33 @@
 <template>
-  <!--<vl-modal :id="props.id" closable mod-large title="Actor toevoegen">-->
-  <div class="content">
-    <oe-loader v-show="loading" />
-    <grid
-      v-if="state === ActorWidgetState.Grid"
-      :service="actorService"
-      @set-state-detail="setStateDetail($event)"
-      @select-actor="selectActor"
-      @toggle-loader="loading = !loading"
-    />
-    <detail
-      v-if="state === ActorWidgetState.Detail"
-      :actor="selectedActor"
-      @set-state-grid="state = ActorWidgetState.Grid"
-    />
-    <slot name="dropdown"></slot>
-    <div class="vl-u-flex vl-u-flex-align-center">
-      <vl-button
-        class="vl-u-spacer-right--small"
-        mod-primary
-        :mod-disabled="!selectedActor"
-        @click="emit('add', selectedActor as IActor)"
-      >
-        Toevoegen
-      </vl-button>
-      <vl-button class="vl-u-spacer-right--small" mod-secondary @click="emit('close')">Sluiten</vl-button>
+  <vl-modal :id="props.id" closable mod-large title="Actor toevoegen">
+    <div class="content">
+      <oe-loader v-show="loading" />
+      <grid
+        v-if="state === ActorWidgetState.Grid"
+        :service="actorService"
+        @set-state-detail="setStateDetail($event)"
+        @select-actor="selectActor"
+        @toggle-loader="loading = !loading"
+      />
+      <detail
+        v-if="state === ActorWidgetState.Detail"
+        :actor="selectedActor"
+        @set-state-grid="state = ActorWidgetState.Grid"
+      />
+      <slot name="dropdown"></slot>
+      <div class="vl-u-flex vl-u-flex-align-center">
+        <vl-button
+          class="vl-u-spacer-right--small"
+          mod-primary
+          :mod-disabled="!selectedActor"
+          @click="emit('add', selectedActor as IActor)"
+        >
+          Toevoegen
+        </vl-button>
+        <vl-button class="vl-u-spacer-right--small" mod-secondary @click="emit('close')">Sluiten</vl-button>
+      </div>
     </div>
-  </div>
-  <!--</vl-modal>-->
+  </vl-modal>
 </template>
 
 <script setup lang="ts">
