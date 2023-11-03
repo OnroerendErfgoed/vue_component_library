@@ -9,7 +9,7 @@ const meta: Meta<typeof OeActorWidget> = {
   parameters: {
     docs: {
       description: {
-        component: `Blabla actor widget.`,
+        component: `Modal to find and select an actor.`,
       },
     },
   },
@@ -31,11 +31,13 @@ export const Default: Story = {
       return { id, api, getSsoToken };
     },
     template: `
-    <oe-actor-widget :id="id" :api="api" :get-sso-token="getSsoToken" :open="true">
-      <template v-slot:dropdown>
-        <div class="dropdown"></div>
-      </template>
-    </oe-actor-widget>
+    <div style="zoom: 0.9">
+      <oe-actor-widget :id="id" :api="api" :get-sso-token="getSsoToken" :open="true">
+        <template v-slot:dropdown>
+          <div class="dropdown"></div>
+        </template>
+      </oe-actor-widget>
+    </div>
     `,
   }),
 };

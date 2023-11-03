@@ -1,5 +1,5 @@
 <template>
-  <div class="vl-layout vl-u-flex vl-u-flex-direction-column">
+  <div class="vl-u-flex vl-u-flex-direction-column">
     <div class="vl-grid">
       <div class="vl-col--1-1 vl-u-flex vl-u-flex-align-flex-end">
         <vl-search
@@ -79,9 +79,9 @@ const rowCount = ref(0);
 const getColumnDefinitions = (): ColDef[] => {
   return [
     { headerName: '#', field: 'id', sort: 'desc', width: 50 },
-    { headerName: 'Naam', field: 'naam', width: 200 },
-    { headerName: 'Voornaam', field: 'voornaam', width: 200 },
-    { headerName: 'Type', field: 'type.naam', colId: 'type', width: 200 },
+    { headerName: 'Naam', field: 'naam', flex: 1 },
+    { headerName: 'Voornaam', field: 'voornaam', flex: 1 },
+    { headerName: 'Type', field: 'type.naam', colId: 'type', flex: 1 },
     {
       headerName: 'Acties',
       width: 55,
