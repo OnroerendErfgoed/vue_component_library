@@ -7,6 +7,7 @@ const meta: Meta<typeof OeActorWidget> = {
   title: 'Smart components/OeActorWidget',
   component: OeActorWidget,
   parameters: {
+    layout: 'fullscreen',
     docs: {
       description: {
         component: `Modal to find and select an actor.`,
@@ -31,7 +32,7 @@ export const Default: Story = {
       return { id, api, getSsoToken };
     },
     template: `
-    <div style="zoom: 0.9">
+    <div style="zoom: .95">
       <oe-actor-widget :id="id" :api="api" :get-sso-token="getSsoToken" :open="true">
         <template v-slot:dropdown>
           <div class="dropdown"></div>

@@ -84,7 +84,7 @@ const getColumnDefinitions = (): ColDef[] => {
     { headerName: 'Type', field: 'type.naam', colId: 'type', flex: 1 },
     {
       headerName: 'Acties',
-      width: 55,
+      width: 60,
       cellClass: 'acties-cell',
       cellRenderer: OeActorWidgetGridActies,
       cellRendererParams: {
