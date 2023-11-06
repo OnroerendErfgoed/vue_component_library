@@ -25,10 +25,10 @@
         </div>
       </div>
     </div>
-    <div class="vl-grid table">
-      <div class="vl-col--1-1 vl-u-flex oe-flex-1">
+    <div class="vl-grid">
+      <div class="vl-col--1-1">
         <oe-grid
-          style="width: 100%; height: 500px"
+          class="table"
           :grid-options="gridOptions"
           @grid-ready="onGridReady"
           @first-data-rendered="firstDataRendered"
@@ -160,9 +160,7 @@ const setRowData = () => {
 
 <style lang="scss" scoped>
 .table {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  height: 400px;
   padding: 0.9375rem 0;
 }
 </style>
