@@ -10,47 +10,25 @@
   >
     <div class="vl-select__inner">
       <div class="vl-input-field">
-        <div
-          v-if="selectedOption"
-          class="vl-select__item vl-select__item--selectable"
-          :data-id="selectOptionLabel"
-          :data-value="selectedOption"
-        >
+        <div v-if="selectedOption" class="vl-select__item vl-select__item--selectable">
           {{ selectOptionLabel }}
         </div>
-        <div
-          v-else
-          class="vl-select__item vl-select__item--selectable item--placeholder"
-          :data-id="selectOptionLabel"
-          :data-value="selectedOption"
-        >
+        <div v-else class="vl-select__item vl-select__item--selectable item--placeholder">
           {{ $props.placeholder }}
         </div>
       </div>
     </div>
     <div v-if="showResults" class="vl-select__list vl-select__list--dropdown">
       <div class="vl-select__list" dir="ltr" role="listbox">
-        <template v-for="(option, index) in options" :key="'select-' + index">
-          <div
-            v-if="index === 0"
-            class="vl-select__item vl-select__item--choice is-placeholder"
-            :data-select-text="$props.placeholder"
-            :data-id="option"
-            :data-value="option"
-            data-choice-selectable=""
-            role="treeitem"
-          >
-            <div>
-              {{ $props.placeholder }}
-            </div>
+        <div class="vl-select__item vl-select__item--choice is-placeholder" role="treeitem">
+          <div>
+            {{ $props.placeholder }}
           </div>
+        </div>
+        <template v-for="option in options" :key="'select-' + index">
           <div
             class="vl-select__item vl-select__item--choice vl-select__item--selectable"
             :class="{ 'is-highlighted': isEqual(selectedOption, option), '': !isEqual(selectedOption, option) }"
-            data-select-text="Press to select"
-            :data-id="option"
-            :data-value="option"
-            data-choice-selectable=""
             role="treeitem"
             @click="selectOption(option)"
           >
