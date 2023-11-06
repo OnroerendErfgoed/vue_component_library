@@ -25,7 +25,7 @@
         </div>
       </div>
     </div>
-    <div class="vl-grid">
+    <div class="vl-grid vl-u-spacer-top--xsmall">
       <div class="vl-col--1-1">
         <oe-grid
           class="table"
@@ -161,6 +161,5 @@ const setRowData = () => {
 <style lang="scss" scoped>
 .table {
   height: 400px;
-  padding: 0.9375rem 0;
 }
 </style>

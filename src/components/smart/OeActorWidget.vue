@@ -1,6 +1,6 @@
 <template>
-  <vl-modal :id="props.id" closable mod-large title="Actor toevoegen">
-    <div class="content">
+  <vl-modal :id="props.id" mod-large title="Actor toevoegen">
+    <template #modal-content>
       <oe-loader v-show="loading" />
       <grid
         v-if="state === ActorWidgetState.Grid"
@@ -15,6 +15,8 @@
         @set-state-grid="state = ActorWidgetState.Grid"
       />
       <slot name="dropdown"></slot>
+    </template>
+    <template #modal-footer>
       <div class="vl-u-flex vl-u-flex-align-center">
         <vl-button
           data-cy="actor-widget-add-btn"
@@ -27,7 +29,7 @@
         </vl-button>
         <vl-button class="vl-u-spacer-right--small" mod-secondary @click="close()">Sluiten</vl-button>
       </div>
-    </div>
+    </template>
   </vl-modal>
 </template>
 
