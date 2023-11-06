@@ -1665,6 +1665,17 @@
     "@govflanders/vl-ui-link" "^18.1.1"
     "@govflanders/vl-ui-util" "^18.1.1"
 
+"@govflanders/vl-ui-action-group@^20.0.10":
+  version "20.0.10"
+  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-action-group/-/vl-ui-action-group-20.0.10.tgz#711fb08825e90f5e3d576eb6916cd36e9b569a3a"
+  integrity sha512-pBHDAOblvVZb25C3NxhSp6ZiLX3e6mvfCz2Q/L31OXHPMW5s0xDEarxcXcB+Ok00j9Tt7mAKqyLxjHdTHgB88A==
+  dependencies:
+    "@govflanders/vl-ui-button" "^20.0.10"
+    "@govflanders/vl-ui-core" "^21.0.10"
+    "@govflanders/vl-ui-icon" "^20.0.10"
+    "@govflanders/vl-ui-link" "^20.0.10"
+    "@govflanders/vl-ui-util" "^20.0.10"
+
 "@govflanders/vl-ui-autocomplete@^18.1.1":
   version "18.1.1"
   resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-autocomplete/-/vl-ui-autocomplete-18.1.1.tgz#188479f9961fef3d4a89af79c0741248f46e79f6"
@@ -1687,12 +1698,35 @@
     "@govflanders/vl-ui-link" "^18.1.1"
     "@govflanders/vl-ui-util" "^18.1.1"
 
+"@govflanders/vl-ui-button@^20.0.10":
+  version "20.0.10"
+  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-button/-/vl-ui-button-20.0.10.tgz#fae18827bf4afe535578e0834d35077d193dc2d5"
+  integrity sha512-yYAlrZxHmuDGWr2p9VITglIrTj7vQX+BZCLV9bSnAXI5Qt6LEJjB7resTuy5farznxwxTfXvqILAIFYR2WKXsA==
+  dependencies:
+    "@govflanders/vl-ui-core" "^21.0.10"
+    "@govflanders/vl-ui-icon" "^20.0.10"
+    "@govflanders/vl-ui-link" "^20.0.10"
+    "@govflanders/vl-ui-util" "^20.0.10"
+
 "@govflanders/vl-ui-core@^19.1.1":
   version "19.1.1"
   resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-core/-/vl-ui-core-19.1.1.tgz#286b4b7d31a366d45cb7feed387ba05155b1e581"
   integrity sha512-f+E2SgU+xxgBxywF2pAznacgmpPBB2Vq4TzEdV33VSXuQfA2J7Eo0feSr/9UzG4wSHqI1Qp5hnP2WF7yPXzX6Q==
   dependencies:
     "@govflanders/vl-ui-util" "^18.1.1"
+    classlist-polyfill "^1.2.0"
+    css-vars-ponyfill "^1.15.1"
+    icon-font-generator "^2.1.10"
+    intersection-observer "^0.5.0"
+    lodash "^4.17.15"
+    promise-polyfill "7.0.0"
+
+"@govflanders/vl-ui-core@^21.0.10":
+  version "21.0.10"
+  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-core/-/vl-ui-core-21.0.10.tgz#ebd06f0e68346f530b7a1ef271562d6bb90c696c"
+  integrity sha512-XaH+tn/om95QZgYpusLZul4OcLVIT+8h0MKqGswD9isxmkL6H8eFSMmrRqR3D5dQKKvisIWdvzIVJQMzG0l3rg==
+  dependencies:
+    "@govflanders/vl-ui-util" "^20.0.10"
     classlist-polyfill "^1.2.0"
     css-vars-ponyfill "^1.15.1"
     icon-font-generator "^2.1.10"
@@ -1718,6 +1752,14 @@
     "@govflanders/vl-ui-core" "^19.1.1"
     "@govflanders/vl-ui-util" "^18.1.1"
 
+"@govflanders/vl-ui-form-message@^20.0.10":
+  version "20.0.10"
+  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-form-message/-/vl-ui-form-message-20.0.10.tgz#5baa1a9b79deae863062b876433e452d3dbf473a"
+  integrity sha512-OigO4aBFyeAmp9AU0xw4IfXeRkk8tBnUOErHlZqGI/QzIisS76EW/vM+QUnm/F9nAGJv7JlKZUh766C9Q/zntQ==
+  dependencies:
+    "@govflanders/vl-ui-core" "^21.0.10"
+    "@govflanders/vl-ui-util" "^20.0.10"
+
 "@govflanders/vl-ui-form-structure@^18.1.1":
   version "18.1.1"
   resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-form-structure/-/vl-ui-form-structure-18.1.1.tgz#9a5d196dfacea5dc79db1f8f51a8fc865207cd8f"
@@ -1731,6 +1773,19 @@
     "@govflanders/vl-ui-link" "^18.1.1"
     "@govflanders/vl-ui-util" "^18.1.1"
 
+"@govflanders/vl-ui-form-structure@^20.0.10":
+  version "20.0.10"
+  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-form-structure/-/vl-ui-form-structure-20.0.10.tgz#e5826808a03d5812e36bad4df0c05097f3eac449"
+  integrity sha512-iJG3l+JHZxZscTgKnIEQBzNkOKkRNG8blkljLFy8t5KINw3nxoqpPCyaiBZkKa8E7B1pnhuV+fkhragMEEXMgA==
+  dependencies:
+    "@govflanders/vl-ui-action-group" "^20.0.10"
+    "@govflanders/vl-ui-button" "^20.0.10"
+    "@govflanders/vl-ui-core" "^21.0.10"
+    "@govflanders/vl-ui-form-message" "^20.0.10"
+    "@govflanders/vl-ui-input-field" "^20.0.10"
+    "@govflanders/vl-ui-link" "^20.0.10"
+    "@govflanders/vl-ui-util" "^20.0.10"
+
 "@govflanders/vl-ui-icon@^18.1.1":
   version "18.1.1"
   resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-icon/-/vl-ui-icon-18.1.1.tgz#4274ec4db0deeaec4cb471ab4229cbc524df6933"
@@ -1738,6 +1793,14 @@
   dependencies:
     "@govflanders/vl-ui-core" "^19.1.1"
     "@govflanders/vl-ui-util" "^18.1.1"
+
+"@govflanders/vl-ui-icon@^20.0.10":
+  version "20.0.10"
+  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-icon/-/vl-ui-icon-20.0.10.tgz#1947743be1e950f59c0bedc8886ad20fc9fb29cd"
+  integrity sha512-WjWwtRpbbTtiWcli9sr0DSpkHWstY690U3MKmD4wiHC7Ti7sYWCw+YCcDCTghN63JN42WmlehJoTR0SuJsqSfA==
+  dependencies:
+    "@govflanders/vl-ui-core" "^21.0.10"
+    "@govflanders/vl-ui-util" "^20.0.10"
 
 "@govflanders/vl-ui-input-field@^18.1.1":
   version "18.1.1"
@@ -1749,6 +1812,16 @@
     "@govflanders/vl-ui-form-message" "^18.1.1"
     "@govflanders/vl-ui-util" "^18.1.1"
 
+"@govflanders/vl-ui-input-field@^20.0.10":
+  version "20.0.10"
+  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-input-field/-/vl-ui-input-field-20.0.10.tgz#399916c4d7ac773998399dd6b8edabd5fa8034c6"
+  integrity sha512-OyPrx7qUWxx5vXoKxEbxY7DZc7jReUB0XBW3tFCyRzXL73fon2J+kcU+Pmn8+sLpKwMe5znd5mW/iCJEgzvf8w==
+  dependencies:
+    "@govflanders/vl-ui-button" "^20.0.10"
+    "@govflanders/vl-ui-core" "^21.0.10"
+    "@govflanders/vl-ui-form-message" "^20.0.10"
+    "@govflanders/vl-ui-util" "^20.0.10"
+
 "@govflanders/vl-ui-link@^18.1.1":
   version "18.1.1"
   resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-link/-/vl-ui-link-18.1.1.tgz#f159c142e8fa5a3c55ce58927ea66c15a8816ed1"
@@ -1759,12 +1832,44 @@
     "@govflanders/vl-ui-icon" "^18.1.1"
     "@govflanders/vl-ui-util" "^18.1.1"
 
+"@govflanders/vl-ui-link@^20.0.10":
+  version "20.0.10"
+  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-link/-/vl-ui-link-20.0.10.tgz#87a6b3012652bcfe93c3ae31bcecaf917ef7364c"
+  integrity sha512-WFFsUMXXLC2AkaZIaQWT/VVaSQEIFMwFSJeR74E9arJ7f7LmdMP3KGMvLb5HgRBAvwu49+pKXp2pi8dQGD0yjw==
+  dependencies:
+    "@govflanders/vl-ui-button" "^20.0.10"
+    "@govflanders/vl-ui-core" "^21.0.10"
+    "@govflanders/vl-ui-icon" "^20.0.10"
+    "@govflanders/vl-ui-util" "^20.0.10"
+
+"@govflanders/vl-ui-select@^20.0.10":
+  version "20.0.10"
+  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-select/-/vl-ui-select-20.0.10.tgz#8725191d2ba66076a109c4b2ae822d127668e3e5"
+  integrity sha512-HwB40tpQ2Ks2gnugVSmzHcJKWPkeE/JGiaZ92drCOwLlFCwP6SYp0ZdaDMv7Ja1/2v6RD9gPwkm7EVMD6fa1TQ==
+  dependencies:
+    "@govflanders/vl-ui-core" "^21.0.10"
+    "@govflanders/vl-ui-form-structure" "^20.0.10"
+    "@govflanders/vl-ui-input-field" "^20.0.10"
+    "@govflanders/vl-ui-util" "^20.0.10"
+    choices.js "3.0.3"
+
 "@govflanders/vl-ui-util@^18.1.1":
   version "18.1.1"
   resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-util/-/vl-ui-util-18.1.1.tgz#d23b0b568bd95d1056e74c91a00eb1e1072a14ff"
   integrity sha512-y3ROBIWUA3dtniAMuP7TF+NM7JgZ4NiOWls7tsoZCxxkoqhjOLkq0K2MXLDNI9iYi0y5omLzDb390QYwxJTebg==
   dependencies:
     "@govflanders/vl-ui-core" "^19.1.1"
+    lodash "^4.17.10"
+    multi-clamp "^2.0.2"
+    textfit "^2.3.1"
+    vue "^2.5.16"
+
+"@govflanders/vl-ui-util@^20.0.10":
+  version "20.0.10"
+  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-util/-/vl-ui-util-20.0.10.tgz#7f89cf65a7819fdc6a5c2c11b01a696b2caf680f"
+  integrity sha512-8bPMOVAmzKgZgXNW+MkQ7DQPSEK+pgdjgix4OkGgu3peDf/MDG0CJI5yIxrcVOxWyVF61kxNWDYsLu6aOh+QbA==
+  dependencies:
+    "@govflanders/vl-ui-core" "^21.0.10"
     lodash "^4.17.10"
     multi-clamp "^2.0.2"
     textfit "^2.3.1"
@@ -4684,6 +4789,16 @@ check-more-types@2.24.0, check-more-types@^2.24.0:
   resolved "https://registry.yarnpkg.com/check-more-types/-/check-more-types-2.24.0.tgz#1420ffb10fd444dcfc79b43891bbfffd32a84600"
   integrity sha512-Pj779qHxV2tuapviy1bSZNEL1maXr13bPYpsvSDB68HlYcYuhlDrmGd63i0JHMCLKzc7rUSNIrpdJlhVlNwrxA==
 
+choices.js@3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/choices.js/-/choices.js-3.0.3.tgz#28aa0e96328c22ae074be5fe6e9eda5384e54b45"
+  integrity sha512-kR6fR7mkYK+fEZo/6zfkVOiuxyAKUbRsx4tI3pWnIw6bYCgPRt2kunsE5DdkIDtwMvIz9+rB7itNCgiqxMDngg==
+  dependencies:
+    classnames "^2.2.5"
+    fuse.js "^2.2.2"
+    opn "^5.1.0"
+    redux "^3.3.1"
+
 chokidar@3.5.3, "chokidar@>=3.0.0 <4.0.0", chokidar@^3.5.3:
   version "3.5.3"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-3.5.3.tgz#1cf37c8707b932bd1af1ae22c0432e2acd1903bd"
@@ -4733,6 +4848,11 @@ classlist-polyfill@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/classlist-polyfill/-/classlist-polyfill-1.2.0.tgz#935bc2dfd9458a876b279617514638bcaa964a2e"
   integrity sha512-GzIjNdcEtH4ieA2S8NmrSxv7DfEV5fmixQeyTmqmRmRJPGpRBaSnA2a0VrCjyT8iW8JjEdMbKzDotAJf+ajgaQ==
+
+classnames@^2.2.5:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.2.tgz#351d813bf0137fcc6a76a16b88208d2560a0d924"
+  integrity sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==
 
 clean-stack@^2.0.0:
   version "2.2.0"
@@ -6347,6 +6467,11 @@ functions-have-names@^1.2.2, functions-have-names@^1.2.3:
   resolved "https://registry.yarnpkg.com/functions-have-names/-/functions-have-names-1.2.3.tgz#0404fe4ee2ba2f607f0e0ec3c80bae994133b834"
   integrity sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==
 
+fuse.js@^2.2.2:
+  version "2.7.4"
+  resolved "https://registry.yarnpkg.com/fuse.js/-/fuse.js-2.7.4.tgz#96e420fde7ef011ac49c258a621314fe576536f9"
+  integrity sha512-sgGP+haQC8FRwuxQkVeNSUViyO4rXUZ/0S2n8zafzmeUHPGSVf6zM7WHhc4IUm7xIarCdm0Jy4dTGK77BtdSvA==
+
 fuse.js@^3.2.0:
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/fuse.js/-/fuse.js-3.6.1.tgz#7de85fdd6e1b3377c23ce010892656385fd9b10c"
@@ -7216,6 +7341,11 @@ is-weakset@^2.0.1:
     call-bind "^1.0.2"
     get-intrinsic "^1.1.1"
 
+is-wsl@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/is-wsl/-/is-wsl-1.1.0.tgz#1f16e4aa22b04d1336b66188a66af3c600c3a66d"
+  integrity sha512-gfygJYZ2gLTDlmbWMI0CE2MwnFzSN/2SZfkMlItC4K/JBlsWVDB0bO6XhqcY13YXE7iMcAJnzTCJjPiTeJJ0Mw==
+
 is-wsl@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/is-wsl/-/is-wsl-2.2.0.tgz#74a4c76e77ca9fd3f932f290c17ea326cd157271"
@@ -7669,6 +7799,11 @@ locate-path@^6.0.0:
   dependencies:
     p-locate "^5.0.0"
 
+lodash-es@^4.2.1:
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
+  integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
+
 lodash.clone@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.clone/-/lodash.clone-4.5.0.tgz#195870450f5a13192478df4bc3d23d2dea1907b6"
@@ -7779,7 +7914,7 @@ lodash.values@^4.3.0:
   resolved "https://registry.yarnpkg.com/lodash.values/-/lodash.values-4.3.0.tgz#a3a6c2b0ebecc5c2cba1c17e6e620fe81b53d347"
   integrity sha512-r0RwvdCv8id9TUblb/O7rYPwVy6lerCbcawrfdo9iC/1t1wsNMJknO79WNBgwkH0hIeJ08jmvvESbFpNb4jH0Q==
 
-lodash@^4.17.10, lodash@^4.17.15, lodash@^4.17.20, lodash@^4.17.21:
+lodash@^4.17.10, lodash@^4.17.15, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.2.1:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -8448,6 +8583,13 @@ open@^9.1.0:
     define-lazy-prop "^3.0.0"
     is-inside-container "^1.0.0"
     is-wsl "^2.2.0"
+
+opn@^5.1.0:
+  version "5.5.0"
+  resolved "https://registry.yarnpkg.com/opn/-/opn-5.5.0.tgz#fc7164fab56d235904c51c3b27da6758ca3b9bfc"
+  integrity sha512-PqHpggC9bLV0VeWcdKhkpxY+3JTzetLSqTCWL/z/tFIbI6G8JCjondXklT1JinczLz2Xib62sSp0T/gKT4KksA==
+  dependencies:
+    is-wsl "^1.1.0"
 
 optionator@^0.8.1:
   version "0.8.3"
@@ -9370,6 +9512,16 @@ recast@^0.23.1:
     source-map "~0.6.1"
     tslib "^2.0.1"
 
+redux@^3.3.1:
+  version "3.7.2"
+  resolved "https://registry.yarnpkg.com/redux/-/redux-3.7.2.tgz#06b73123215901d25d065be342eb026bc1c8537b"
+  integrity sha512-pNqnf9q1hI5HHZRBkj3bAngGZW/JMCmexDlOxw4XagXY2o1327nHH54LoTjiPJ0gizoqPDRqWyX/00g0hD6w+A==
+  dependencies:
+    lodash "^4.2.1"
+    lodash-es "^4.2.1"
+    loose-envify "^1.1.0"
+    symbol-observable "^1.0.3"
+
 regenerate-unicode-properties@^10.1.0:
   version "10.1.0"
   resolved "https://registry.yarnpkg.com/regenerate-unicode-properties/-/regenerate-unicode-properties-10.1.0.tgz#7c3192cab6dd24e21cb4461e5ddd7dd24fa8374c"
@@ -10242,6 +10394,11 @@ svgpath@^2.1.5:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/svgpath/-/svgpath-2.6.0.tgz#5b160ef3d742b7dfd2d721bf90588d3450d7a90d"
   integrity sha512-OIWR6bKzXvdXYyO4DK/UWa1VA1JeKq8E+0ug2DG98Y/vOmMpfZNj+TIG988HjfYSqtcy/hFOtZq/n/j5GSESNg==
+
+symbol-observable@^1.0.3:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
+  integrity sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==
 
 synchronous-promise@^2.0.15:
   version "2.0.17"
