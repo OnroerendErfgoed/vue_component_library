@@ -45,7 +45,7 @@ export class ActorService extends HttpService {
     const resCR = headers['content-range'];
     let lastRow = 0;
     if (resCR) {
-      lastRow = resCR.substr(resCR.indexOf('/') + 1);
+      lastRow = resCR.substring(resCR.indexOf('/') + 1);
     }
     return { content: data, lastRow };
   }
