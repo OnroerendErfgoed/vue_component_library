@@ -84,11 +84,16 @@ const setStateDetail = async (id: number) => {
 
 const addActor = () => {
   emit('add', selectedActor.value as IActor);
-  selectedActor.value = undefined;
+  resetWidget();
 };
 
 const close = () => {
   emit('close');
+  resetWidget();
+};
+
+const resetWidget = () => {
+  state.value = ActorWidgetState.Grid;
   selectedActor.value = undefined;
 };
 </script>

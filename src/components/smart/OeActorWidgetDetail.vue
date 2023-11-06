@@ -1,5 +1,5 @@
 <template>
-  <vl-properties class="vl-grid">
+  <vl-properties class="vl-grid" mod-collapsed>
     <div class="vl-col--1-1 vl-u-flex vl-u-flex-align-flex-end">
       <vl-button icon="arrow-left" mod-icon-before mod-naked @click="emit('setStateGrid')">Terug</vl-button>
     </div>
@@ -31,6 +31,8 @@
     </div>
     <div class="vl-col--2-4">
       <vl-properties-list>
+        <vl-properties-label>Actortype</vl-properties-label>
+        <vl-properties-data>{{ actor?.type.naam }}</vl-properties-data>
         <vl-properties-label>Adressen</vl-properties-label>
         <vl-properties-data>
           <ul>
