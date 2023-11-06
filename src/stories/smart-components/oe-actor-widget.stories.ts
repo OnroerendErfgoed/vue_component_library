@@ -33,7 +33,7 @@ export const Default: Story = {
     },
     template: `
     <div style="zoom: .95">
-      <oe-actor-widget :id="id" :api="api" :get-sso-token="getSsoToken" :open="true" @add="console.log">
+      <oe-actor-widget :id="id" :api="api" :get-sso-token="getSsoToken" :open="true" @add="console.log" @close="console.log">
         <template v-slot:dropdown>
           <div class="dropdown"></div>
         </template>

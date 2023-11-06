@@ -1,9 +1,7 @@
 <template>
   <vl-properties class="vl-grid">
-    <div class="vl-col--1-1">
-      <a @click="emit('setStateGrid')">
-        <font-awesome-icon class="icon" :icon="['fas', 'pencil']" />
-      </a>
+    <div class="vl-col--1-1 vl-u-flex vl-u-flex-align-flex-end">
+      <vl-button icon="arrow-left" mod-icon-before mod-naked @click="emit('setStateGrid')">Terug</vl-button>
     </div>
     <div class="vl-col--2-4">
       <vl-properties-list>
@@ -55,8 +53,8 @@
 </template>
 
 <script setup lang="ts">
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import {
+  VlButton,
   VlProperties,
   VlPropertiesData,
   VlPropertiesLabel,
@@ -71,3 +69,10 @@ const emit = defineEmits<{
   setStateGrid: [void];
 }>();
 </script>
+
+<style lang="scss" scoped>
+@import 'pyoes/scss/base-variables';
+.vl-button {
+  color: $primary-color;
+}
+</style>
