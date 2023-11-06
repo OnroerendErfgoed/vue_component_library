@@ -17,7 +17,7 @@
     <div class="vl-grid vl-u-spacer-top--xsmall">
       <div class="vl-col--1-1">
         <span class="vl-u-mark--info vl-u-text--small">{{ rowCountText }}</span>
-        <div class="vl-u-float-right">
+        <div class="menu-controls vl-u-float-right">
           <a :href="`${service?.API_URL}/beheer#/actoren/aanmaken`" target="_blank">
             <vl-button icon="plus" mod-icon-before mod-naked> Actor aanmaken </vl-button>
           </a>
@@ -159,7 +159,11 @@ const setRowData = () => {
 </script>
 
 <style lang="scss" scoped>
+@import 'pyoes/scss/base-variables';
 .table {
   height: 400px;
+}
+.menu-controls * {
+  color: $primary-color;
 }
 </style>
