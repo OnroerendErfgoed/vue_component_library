@@ -17,14 +17,15 @@
       <slot name="dropdown"></slot>
       <div class="vl-u-flex vl-u-flex-align-center">
         <vl-button
+          data-cy="actor-widget-add-btn"
           class="vl-u-spacer-right--small"
           mod-primary
           :mod-disabled="!selectedActor"
-          @click="emit('add', selectedActor as IActor)"
+          @click="addActor()"
         >
           Toevoegen
         </vl-button>
-        <vl-button class="vl-u-spacer-right--small" mod-secondary @click="emit('close')">Sluiten</vl-button>
+        <vl-button class="vl-u-spacer-right--small" mod-secondary @click="close()">Sluiten</vl-button>
       </div>
     </div>
   </vl-modal>
@@ -77,6 +78,16 @@ const setStateDetail = async (id: number) => {
     console.debug(e);
   }
   loading.value = false;
+};
+
+const addActor = () => {
+  emit('add', selectedActor.value as IActor);
+  selectedActor.value = undefined;
+};
+
+const close = () => {
+  emit('close');
+  selectedActor.value = undefined;
 };
 </script>
 

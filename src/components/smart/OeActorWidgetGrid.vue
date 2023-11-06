@@ -14,12 +14,15 @@
         />
       </div>
     </div>
-    <div class="vl-grid">
-      <div class="vl-col--1-1 vl-u-flex vl-u-flex-align-space-between">
+    <div class="vl-grid vl-u-spacer-top--xsmall">
+      <div class="vl-col--1-1">
         <span class="vl-u-mark--info vl-u-text--small">{{ rowCountText }}</span>
-        <vl-button class="refresh-button" icon="synchronize" mod-icon-before mod-naked @click="search"
-          >Vernieuwen</vl-button
-        >
+        <div class="vl-u-float-right">
+          <a :href="`${service?.API_URL}/beheer#/actoren/aanmaken`" target="_blank">
+            <vl-button icon="plus" mod-icon-before mod-naked> Actor aanmaken </vl-button>
+          </a>
+          <vl-button icon="synchronize" mod-icon-before mod-naked @click="search">Vernieuwen</vl-button>
+        </div>
       </div>
     </div>
     <div class="vl-grid table">

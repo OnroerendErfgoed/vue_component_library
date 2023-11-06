@@ -20,10 +20,28 @@ describe('OeActorWidget', () => {
       `,
     });
 
-    it('fetches actoren and shows a grid on startup', () => {
-      cy.intercept('GET', 'https://dev-actoren.onroerenderfgoed.be/**', { fixture: 'actoren.json' }).as('dataGet');
+    beforeEach(() => {
+      cy.intercept('GET', 'https://dev-actoren.onroerenderfgoed.be/**', {
+        fixture: 'actoren.json',
+        headers: {
+          'Content-Range': 'items 0-50/1',
+        },
+      }).as('dataGet');
+    });
 
-      cy.mount(TestComponent);
+    it('fetches actoren and shows a grid on startup', () => {
+      cy.mount(TestComponent).then(() => {
+        cy.wait('@dataGet');
+        cy.dataCy('ag-grid-vue').find('.ag-center-cols-container').children().should('have.length', 1);
+      });
+    });
+
+    it('enables the add button when a row is clicked', () => {
+      cy.mount(TestComponent).then(() => {
+        cy.wait('@dataGet');
+        cy.dataCy('ag-grid-vue').find('.ag-center-cols-container').children().first().click();
+        cy.dataCy('actor-widget-add-btn').should('be.enabled');
+      });
     });
   });
 });
