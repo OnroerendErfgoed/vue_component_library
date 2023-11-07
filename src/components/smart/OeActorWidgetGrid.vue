@@ -115,6 +115,8 @@ const gridOptions = ref<GridOptions>({
   defaultColDef: { sortable: true, resizable: true },
   suppressMovableColumns: false,
   suppressClickEdit: true,
+  suppressCellFocus: true,
+  rowSelection: 'single',
   headerHeight: 45,
   rowHeight: 40,
   rowModelType: 'infinite',
@@ -174,6 +176,13 @@ const setRowData = () => {
 @import 'pyoes/scss/base-variables';
 .table {
   height: 400px;
+
+  :deep(.ag-row-selected) {
+    background-color: transparent !important;
+    &::before {
+      background: $info-color !important;
+    }
+  }
 }
 .menu-controls * {
   color: $primary-color;
