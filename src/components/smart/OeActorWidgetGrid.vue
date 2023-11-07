@@ -3,8 +3,8 @@
     <div class="vl-grid">
       <div class="vl-col--1-1 vl-u-flex vl-u-flex-align-flex-end">
         <vl-search
-          id="menu-search"
-          name="menu-search"
+          id="actor-widget-menu-search"
+          name="actor-widget-menu-search"
           mod-inline
           mod-alt
           placeholder="Geef een zoekterm in"
@@ -18,10 +18,10 @@
       <div class="vl-col--1-1">
         <span class="vl-u-mark--info vl-u-text--small">{{ rowCountText }}</span>
         <div class="menu-controls vl-u-float-right">
-          <a :href="`${service?.API_URL}/beheer#/actoren/aanmaken`" target="_blank">
+          <a :href="`${props.api}/beheer#/actoren/aanmaken`" target="_blank">
             <vl-button icon="plus" mod-icon-before mod-naked> Actor aanmaken </vl-button>
           </a>
-          <vl-button icon="synchronize" mod-icon-before mod-naked @click="search">Vernieuwen</vl-button>
+          <vl-button icon="synchronize" mod-icon-before mod-naked @click="refresh()">Vernieuwen</vl-button>
         </div>
       </div>
     </div>
@@ -45,22 +45,26 @@ import OeActorWidgetGridActies from './OeActorWidgetGridActies.vue';
 import { VlButton, VlSearch } from '@govflanders/vl-ui-design-system-vue3';
 import { isEmpty, omitBy } from 'lodash';
 import { computed, getCurrentInstance, ref } from 'vue';
+import { ActorService, type IActorenQuery } from '@services/actor.service';
 import type { ColDef, FirstDataRenderedEvent, GridOptions, IGetRowsParams, RowClickedEvent } from 'ag-grid-community';
 import type { IActor } from '@models/actor';
-import type { ActorService, IActorenQuery } from '@services/actor.service';
 
 interface IOeActorWidgetGridProps {
-  service: ActorService;
+  api: string;
+  getSsoToken: () => Promise<string>;
 }
 
 const props = withDefaults(defineProps<IOeActorWidgetGridProps>(), {
-  service: undefined,
+  api: '',
+  getSsoToken: undefined,
 });
 const emit = defineEmits<{
   selectActor: [IActor];
   setStateDetail: [number];
   toggleLoader: [void];
 }>();
+
+const actorService = new ActorService(props.api, props.getSsoToken);
 
 // Search
 const zoekterm = ref('');
@@ -75,6 +79,14 @@ const handleSearchClick = (event: Event) => {
     zoekterm.value = '';
     search();
   }
+};
+const refresh = () => {
+  // reset sort values
+  gridOptions.value.columnApi?.resetColumnState();
+  // reset zoekterm values
+  zoekterm.value = '';
+  (document.querySelector('#actor-widget-menu-search') as HTMLInputElement).value = '';
+  search();
 };
 
 // Grid
@@ -92,7 +104,7 @@ const getColumnDefinitions = (): ColDef[] => {
       cellRenderer: OeActorWidgetGridActies,
       cellRendererParams: {
         setStateDetail: (id: number) => emit('setStateDetail', id),
-        actorenUrl: props.service.API_URL,
+        actorenUrl: props.api,
       },
       sortable: false,
     },
@@ -124,7 +136,7 @@ const rowCountText = computed(() =>
 );
 const setQueryParameters = (params: IGetRowsParams): IActorenQuery => {
   const paramsObj: IActorenQuery = {
-    tekst: zoekterm?.value,
+    tekst: zoekterm.value ? `${zoekterm.value}*` : undefined,
     sort: undefined,
   };
 
@@ -142,7 +154,7 @@ const setRowData = () => {
       const query = setQueryParameters(params);
       emit('toggleLoader');
 
-      props.service
+      actorService
         .getActoren(params.startRow, params.endRow, query)
         .then((data) => {
           const content = data.content;

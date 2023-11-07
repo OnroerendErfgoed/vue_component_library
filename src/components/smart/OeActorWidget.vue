@@ -1,10 +1,11 @@
 <template>
-  <vl-modal :id="props.id" mod-large title="Actor toevoegen">
+  <vl-modal :id="props.id" mod-large title="Actor toevoegen" class="actor-widget">
     <template #modal-content>
       <oe-loader v-show="loading" />
       <grid
         v-if="state === ActorWidgetState.Grid"
-        :service="actorService"
+        :api="props.api"
+        :get-sso-token="props.getSsoToken"
         @set-state-detail="setStateDetail($event)"
         @select-actor="selectActor"
         @toggle-loader="loading = !loading"
@@ -98,4 +99,11 @@ const resetWidget = () => {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import 'pyoes/scss/base-variables';
+.actor-widget {
+  :deep(h2.vl-title) {
+    color: $primary-color;
+  }
+}
+</style>
