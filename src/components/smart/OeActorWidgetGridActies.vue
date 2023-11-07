@@ -23,5 +23,3 @@ interface IOeActorWidgetGridActiesProps<T> extends ICellRendererParams<T> {
 }
 const props = defineProps<{ params: IOeActorWidgetGridActiesProps<IActor> }>();
 </script>
-
-<style lang="scss" scoped></style>
