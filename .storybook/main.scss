@@ -1,3 +1,14 @@
 .sb-story {
   padding: 20px;
+
+  .vl-modal {
+    > dialog {
+      position: sticky;
+      transform: none;
+    }
+  }
+}
+
+.vl-modal-backdrop {
+  display: none;
 }
