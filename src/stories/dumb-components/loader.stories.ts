@@ -11,7 +11,6 @@ const meta: Meta<typeof OeLoader> = {
     docs: {
       description: {
         component:
-          'The default loader will show for 2 seconds in this story and then disappears to not block the story.\n\n' +
           'Make sure to add font-awesome to your project and to add the custom icon component (https://fontawesome.com/docs/web/use-with/vue/)',
       },
     },
@@ -27,14 +26,7 @@ export const Default: Story = {
       OeLoader,
       VlButton,
     },
-    setup() {
-      const loading = ref(true);
-      setTimeout(() => {
-        loading.value = false;
-      }, 2000);
-      return { loading };
-    },
-    template: `<oe-loader v-if="loading"/>`,
+    template: `<oe-loader />`,
   }),
 };
 
@@ -57,6 +49,27 @@ export const FullPageLoader: Story = {
     template: `
       <vl-button @click="showLoader">Show loader for 5 seconds</vl-button>
       <oe-loader v-if="loading"/>
+    `,
+  }),
+};
+
+export const InlineLoader: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Size modifiers only work for inline loaders.',
+      },
+    },
+  },
+  render: () => ({
+    components: {
+      OeLoader,
+    },
+    template: `
+      Small <oe-loader mod-inline mod-small/>
+      Default <oe-loader mod-inline/>
+      Large <oe-loader mod-inline mod-large/>
+      X Large <oe-loader mod-inline mod-x-large/>
     `,
   }),
 };
