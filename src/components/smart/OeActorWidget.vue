@@ -1,7 +1,7 @@
 <template>
   <vl-modal :id="props.id" mod-large title="Actor toevoegen" class="actor-widget">
+    <oe-loader v-if="loading" />
     <template #modal-content>
-      <oe-loader v-show="loading" />
       <grid
         v-if="state === ActorWidgetState.Grid"
         :api="props.api"
