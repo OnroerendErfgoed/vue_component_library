@@ -4,6 +4,7 @@
     data-cy="filter-aanduidingsobject"
     :callback-fn="performAutocompleteSearch"
     :value="aanduidingsobjectValue"
+    :min-chars="2"
     placeholder="geef naam of id in"
     @update:value="updateValue"
   ></oe-autocomplete>
