@@ -38,7 +38,7 @@ const aanduidingsobjectValue = computed(() => {
 const updateValue = (value: IESAanduidingsobject) => emit('update:value', value);
 const performAutocompleteSearch = async (searchTerm: string): Promise<IAutocompleteOption[]> => {
   try {
-    aanduidingsobjecten.value = await inventarisApiService.getAanduidingsobjecten(searchTerm);
+    aanduidingsobjecten.value = await inventarisApiService.getAanduidingsobjecten(`${searchTerm}*`);
     const autocompleteData: IAutocompleteOption[] = aanduidingsobjecten.value.map((ao) => {
       return {
         title: ao.titel,
