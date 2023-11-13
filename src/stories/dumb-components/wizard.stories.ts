@@ -54,10 +54,10 @@ export const Default: Story = {
     },
     setup() {
       const steps: IStep[] = [
-        { name: 'Gegevens EPC', validate: () => Promise.resolve(true) },
-        { name: 'Mijn gegevens', validate: () => Promise.resolve(true) },
-        { name: 'Bijlagen', validate: () => Promise.resolve(true) },
-        { name: 'Overzicht', validate: () => Promise.resolve(true) },
+        { name: 'Gegevens EPC', validate: () => Promise.resolve({ valid: true }) },
+        { name: 'Mijn gegevens', validate: () => Promise.resolve({ valid: true }) },
+        { name: 'Bijlagen', validate: () => Promise.resolve({ valid: true }) },
+        { name: 'Overzicht', validate: () => Promise.resolve({ valid: true }) },
       ];
 
       return { steps };
@@ -86,10 +86,10 @@ export const BarNavigationAllowed: Story = {
     },
     setup() {
       const steps: IStep[] = [
-        { name: 'Gegevens EPC', validate: () => Promise.resolve(true) },
-        { name: 'Mijn gegevens', validate: () => Promise.resolve(true) },
-        { name: 'Bijlagen', validate: () => Promise.resolve(true) },
-        { name: 'Overzicht', validate: () => Promise.resolve(true) },
+        { name: 'Gegevens EPC', validate: () => Promise.resolve({ valid: true }) },
+        { name: 'Mijn gegevens', validate: () => Promise.resolve({ valid: true }) },
+        { name: 'Bijlagen', validate: () => Promise.resolve({ valid: true }) },
+        { name: 'Overzicht', validate: () => Promise.resolve({ valid: true }) },
       ];
 
       return { steps };
@@ -119,10 +119,29 @@ export const BlockedWhenStepInvalid: Story = {
     },
     setup() {
       const steps: IStep[] = [
-        { name: 'Gegevens EPC', validate: () => Promise.resolve(true) },
-        { name: 'Mijn gegevens', validate: () => Promise.resolve(true) },
-        { name: 'Bijlagen', validate: () => Promise.resolve(false) },
-        { name: 'Overzicht', validate: () => Promise.resolve(false) },
+        { name: 'Gegevens EPC', validate: () => Promise.resolve({ valid: true }) },
+        { name: 'Mijn gegevens', validate: () => Promise.resolve({ valid: true }) },
+        {
+          name: 'Bijlagen',
+          validate: () =>
+            Promise.resolve({
+              valid: false,
+              error: { id: '1', type: 'error', title: 'Er is een fout opgetreden.', content: 'Fout bij de bijlagen.' },
+            }),
+        },
+        {
+          name: 'Overzicht',
+          validate: () =>
+            Promise.resolve({
+              valid: false,
+              error: {
+                id: '2',
+                type: 'error',
+                title: 'Er is een fout opgetreden.',
+                content: 'Fout bij het overzicht.',
+              },
+            }),
+        },
       ];
 
       return { steps };
@@ -157,10 +176,10 @@ export const Mobile: Story = {
     },
     setup() {
       const steps: IStep[] = [
-        { name: 'Gegevens EPC', validate: () => Promise.resolve(true) },
-        { name: 'Mijn gegevens', validate: () => Promise.resolve(true) },
-        { name: 'Bijlagen', validate: () => Promise.resolve(true) },
-        { name: 'Overzicht', validate: () => Promise.resolve(true) },
+        { name: 'Gegevens EPC', validate: () => Promise.resolve({ valid: true }) },
+        { name: 'Mijn gegevens', validate: () => Promise.resolve({ valid: true }) },
+        { name: 'Bijlagen', validate: () => Promise.resolve({ valid: true }) },
+        { name: 'Overzicht', validate: () => Promise.resolve({ valid: true }) },
       ];
 
       return { steps };
@@ -182,10 +201,22 @@ export const SubmitDisabledLastStepInvalid: Story = {
     },
     setup() {
       const steps: IStep[] = [
-        { name: 'Gegevens EPC', validate: () => Promise.resolve(true) },
-        { name: 'Mijn gegevens', validate: () => Promise.resolve(true) },
-        { name: 'Bijlagen', validate: () => Promise.resolve(true) },
-        { name: 'Overzicht', validate: () => Promise.resolve(false) },
+        { name: 'Gegevens EPC', validate: () => Promise.resolve({ valid: true }) },
+        { name: 'Mijn gegevens', validate: () => Promise.resolve({ valid: true }) },
+        { name: 'Bijlagen', validate: () => Promise.resolve({ valid: true }) },
+        {
+          name: 'Overzicht',
+          validate: () =>
+            Promise.resolve({
+              valid: false,
+              error: {
+                id: '2',
+                type: 'error',
+                title: 'Er is een fout opgetreden.',
+                content: 'Fout bij het overzicht.',
+              },
+            }),
+        },
       ];
 
       return { steps };
@@ -207,10 +238,22 @@ export const DisableNextStepButton: Story = {
     },
     setup() {
       const steps: IStep[] = [
-        { name: 'Gegevens EPC', validate: () => Promise.resolve(true) },
-        { name: 'Mijn gegevens', validate: () => Promise.resolve(true), nextStepDisabled: true },
-        { name: 'Bijlagen', validate: () => Promise.resolve(true) },
-        { name: 'Overzicht', validate: () => Promise.resolve(false) },
+        { name: 'Gegevens EPC', validate: () => Promise.resolve({ valid: true }) },
+        { name: 'Mijn gegevens', validate: () => Promise.resolve({ valid: true }), nextStepDisabled: true },
+        { name: 'Bijlagen', validate: () => Promise.resolve({ valid: true }) },
+        {
+          name: 'Overzicht',
+          validate: () =>
+            Promise.resolve({
+              valid: false,
+              error: {
+                id: '2',
+                type: 'error',
+                title: 'Er is een fout opgetreden.',
+                content: 'Fout bij het overzicht.',
+              },
+            }),
+        },
       ];
 
       return { steps };
