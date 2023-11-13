@@ -25,7 +25,7 @@
             {{ $props.placeholder }}
           </div>
         </div>
-        <template v-for="option in options" :key="'select-' + index">
+        <template v-for="(option, index) in options" :key="'select-' + index">
           <div
             class="vl-select__item vl-select__item--choice vl-select__item--selectable"
             :class="{ 'is-highlighted': isEqual(selectedOption, option), '': !isEqual(selectedOption, option) }"
