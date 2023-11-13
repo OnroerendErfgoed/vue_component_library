@@ -1,5 +1,6 @@
 import '@/scss/main.scss';
 import FilterProvincie from '../../components/smart/FilterProvincie.vue';
+import type { IProvincie } from '../../models';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
@@ -42,6 +43,25 @@ const meta: Meta<typeof FilterProvincie> = {
       },
     },
   },
+  render: (args) => ({
+    components: { FilterProvincie },
+    inheritAttrs: false,
+    setup() {
+      return { args };
+    },
+    template: `
+      <div>
+      <Suspense>
+        <FilterProvincie v-bind="args" @update:value="onUpdateProvincie" />
+      </Suspense>
+      </div>
+    `,
+    methods: {
+      onUpdateProvincie(payload: IProvincie) {
+        args.value = payload.niscode;
+      },
+    },
+  }),
 };
 
 export default meta;
