@@ -4,6 +4,7 @@
     data-cy="filter-aanduidingsobject"
     :callback-fn="performAutocompleteSearch"
     :value="aanduidingsobjectValue"
+    placeholder="Geef naam of id in"
     @update:value="updateValue"
   ></oe-autocomplete>
 </template>
@@ -43,7 +44,7 @@ const updateValue = (value: IAutocompleteOption<IESAanduidingsobject>) => {
 };
 const performAutocompleteSearch = async (searchTerm: string): Promise<IAutocompleteOption[]> => {
   try {
-    aanduidingsobjecten.value = await inventarisApiService.getAanduidingsobjecten(searchTerm);
+    aanduidingsobjecten.value = await inventarisApiService.getAanduidingsobjecten(`${searchTerm}*`);
     const autocompleteData: IAutocompleteOption[] = aanduidingsobjecten.value.map((ao) => {
       return {
         title: ao.titel,
