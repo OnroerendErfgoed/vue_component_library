@@ -3,7 +3,7 @@
     <div class="header__title vl-col--9-12 vl-col--12-12--m">
       <div class="heading vl-u-flex vl-u-flex-v-center">
         <h1 data-cy="application-name" class="vl-u-spacer-left--small" :title="appName">
-          <vl-link :to="appUrl" exact>{{ appName }}</vl-link>
+          <vl-link :href="appUrl" exact>{{ appName }}</vl-link>
         </h1>
         <a title="Navigeer naar de officiële website van Onroerend Erfgoed" :href="props.logoUrl">
           <img
