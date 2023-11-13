@@ -101,7 +101,6 @@ watch(searchTerm, async () => {
 watch(
   () => props.value,
   () => {
-    console.log('oeautocomplete props.value changed', props.value);
     if (selectedOption.value && !props.value?.value) {
       searchTerm.value = '';
       selectedOption.value = undefined;
