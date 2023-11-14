@@ -78,7 +78,7 @@ const totalSteps = ref(props.steps.length);
 const submitDisabled = computedAsync(
   async () => {
     if (props.disableSubmitWhenInvalid) {
-      return !(await props.steps[totalSteps.value - 1].validate());
+      return !(await props.steps[totalSteps.value - 1].validate()).valid;
     }
     return false;
   },
@@ -112,7 +112,7 @@ const previousStepsAreValid = async (step: number) => {
   const steps = props.steps.slice(0, step);
   const validations = await Promise.all(steps.map((s) => s.validate()));
 
-  return validations.every((v) => v);
+  return validations.every((v) => v.valid);
 };
 
 const reset = () => (currentStep.value = 0);
