@@ -9,7 +9,7 @@
     ></vl-input-field>
     <span v-if="loading" class="vl-loader vl-loader--small" data-cy="loader" />
 
-    <div v-if="showResults && searchTerm?.length >= props.minChars" class="vl-autocomplete" data-cy="result">
+    <div v-if="showResults && searchTerm?.length >= minChars" class="vl-autocomplete" data-cy="result">
       <div class="vl-autocomplete__list-wrapper">
         <div class="vl-autocomplete__list">
           <template v-if="loading">
@@ -41,7 +41,7 @@
 
 <script setup lang="ts">
 import { VlInputField } from '@govflanders/vl-ui-design-system-vue3';
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { vClickOutside } from '@directives/click-outside.directive';
 import type { IAutocompleteOption, IAutocompleteProps } from '@models/autocomplete';
 
@@ -60,6 +60,8 @@ const searchTerm = ref('');
 const loading = ref(false);
 const options = ref<IAutocompleteOption[]>([]);
 const showResults = ref(false);
+
+const minChars = computed(() => (isNaN(parseInt(searchTerm.value, 10)) ? props.minChars : 1));
 
 const handleInput = (value: string) => {
   searchTerm.value = value;
@@ -85,7 +87,7 @@ const fetchData = async (searchTerm: string) => {
 };
 
 watch(searchTerm, async () => {
-  if (searchTerm.value?.length >= props.minChars) {
+  if (searchTerm.value?.length >= minChars.value) {
     loading.value = true;
     const data = await fetchData(searchTerm.value);
     options.value = data;
@@ -105,7 +107,8 @@ watch(
     } else if (props.value?.title) {
       searchTerm.value = props.value?.title;
     }
-  }
+  },
+  { deep: true }
 );
 </script>
 

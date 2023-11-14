@@ -1,5 +1,6 @@
 import '@/scss/main.scss';
 import FilterGemeente from '../../components/smart/FilterGemeente.vue';
+import type { IGemeente } from '../../models';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
@@ -42,6 +43,25 @@ const meta: Meta<typeof FilterGemeente> = {
       },
     },
   },
+  render: (args) => ({
+    components: { FilterGemeente },
+    inheritAttrs: false,
+    setup() {
+      return { args };
+    },
+    template: `
+      <div>
+      <Suspense>
+        <FilterGemeente v-bind="args" @update:value="onUpdateGemeente" />
+      </Suspense>
+      </div>
+    `,
+    methods: {
+      onUpdateGemeente(payload: IGemeente) {
+        args.value = payload.niscode;
+      },
+    },
+  }),
 };
 
 export default meta;

@@ -64,4 +64,19 @@ export const Default: Story = {
     api: 'https://dev-actoren.onroerenderfgoed.be',
     id: 'my-id',
   },
+  render: () => ({
+    components: {
+      FilterAOEActor,
+    },
+    setup() {
+      const api = 'https://dev-actoren.onroerenderfgoed.be';
+      const getSsoToken = async () => 'vul hier bearer token in';
+      return { api, getSsoToken };
+    },
+    template: `
+    <div>
+      <filter-a-o-e-actor :api="api" :get-sso-token="getSsoToken" />
+    </div>
+    `,
+  }),
 };
