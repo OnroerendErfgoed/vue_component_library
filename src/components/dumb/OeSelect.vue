@@ -1,12 +1,12 @@
 <template>
   <div
     v-click-outside="hideResults"
-    @click="showResults = !showResults"
     class="js-vl-select"
     role="listbox"
     data-type="select-one"
     tabindex="0"
     dir="ltr"
+    @click="showResults = !showResults"
   >
     <div class="vl-select__inner">
       <div class="vl-input-field">
@@ -49,7 +49,7 @@ import type { ISelectProps } from '@models/select';
 
 const showResults = ref<boolean>(false);
 
-const props = withDefaults(defineProps<ISelectProps<any>>(), {
+const props = withDefaults(defineProps<ISelectProps<unknown>>(), {
   modelValue: undefined,
   options: undefined,
   placeholder: 'Selecteer een optie',
@@ -62,7 +62,7 @@ const options = props.options || [];
 const selectedOption = ref(options.find((option) => isEqual(option, props.modelValue)));
 const selectOptionLabel = ref<string>(props.customLabel(selectedOption?.value) as string);
 
-const selectOption = (option: any) => {
+const selectOption = (option: unknown) => {
   selectedOption.value = option;
   selectOptionLabel.value = props.customLabel(selectedOption.value) as string;
   emit('update:modelValue', selectedOption.value);

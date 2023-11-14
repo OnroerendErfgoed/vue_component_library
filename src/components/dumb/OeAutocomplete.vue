@@ -20,7 +20,7 @@
           <li
             v-for="option in options"
             v-else
-            :key="option.value"
+            :key="(option.value as string | number)"
             tabindex="0"
             class="vl-autocomplete__cta"
             @keyup.enter="selectResult(option)"

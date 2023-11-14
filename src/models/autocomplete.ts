@@ -7,7 +7,7 @@ export interface IAutocompleteProps {
   callbackFn?: (searchTerm: string) => Promise<IAutocompleteOption[]>;
 }
 
-export interface IAutocompleteOption<T = any> {
+export interface IAutocompleteOption<T = unknown> {
   title: string;
   subtitle?: string;
   value?: T;
