@@ -101,15 +101,21 @@ $vl-icon-font-location: '@govflanders/vl-ui-design-system-style/assets/font/icon
 }
 
 // vl-tabs
+.vl-tabs__wrapper {
+  width: fit-content;
+  margin: 0 auto;
+}
+.vl-tab__pane {
+  outline: none;
+  overflow-x: hidden;
+}
 .vl-tabs {
   .vl-tab {
     color: $mid-purple;
     outline: none;
 
     &--active {
-      &:visited {
-        color: $black;
-      }
+      color: $dark-purple;
     }
   }
 }
