@@ -179,7 +179,7 @@ describe('OeWizard', () => {
       setup() {
         const steps: IStep[] = [
           { name: 'Algemene gegevens', validate: () => Promise.resolve({ valid: true }) },
-          { name: 'Mijn gegevens', validate: () => Promise.resolve({ valid: true }) },
+          { name: 'Mijn gegevens', validate: () => Promise.resolve({ valid: false }) },
           { name: 'Bijlagen', validate: () => Promise.resolve({ valid: true }) },
           { name: 'Overzicht', validate: () => Promise.resolve({ valid: true }) },
         ];
@@ -249,10 +249,10 @@ describe('OeWizard', () => {
       },
       setup(props) {
         const steps: IStep[] = [
-          { name: 'Algemene gegevens', validate: () => Promise.resolve(true) },
-          { name: 'Mijn gegevens', validate: () => Promise.resolve(true) },
-          { name: 'Bijlagen', validate: () => Promise.resolve(true) },
-          { name: 'Overzicht', validate: () => Promise.resolve(props.lastStepValid) },
+          { name: 'Algemene gegevens', validate: () => Promise.resolve({ valid: true }) },
+          { name: 'Mijn gegevens', validate: () => Promise.resolve({ valid: true }) },
+          { name: 'Bijlagen', validate: () => Promise.resolve({ valid: true }) },
+          { name: 'Overzicht', validate: () => Promise.resolve({ valid: props.lastStepValid }) },
         ];
 
         return { steps };
