@@ -132,7 +132,7 @@ function zoomButtonClick() {
 
   //Zoom * 2 is some kind of hack so the zoom levels somewhat align with the zoom levels on crabpyUrl.
   // Change if a better solution is found.
-  window.open(props.api + '#zoom=' + zoom * 2 + '&lat=' + coordinates[1] + '&lon=' + coordinates[0]);
+  window.open(apiUrl + '#zoom=' + zoom * 2 + '&lat=' + coordinates[1] + '&lon=' + coordinates[0]);
 }
 
 function addLayerswitcherControl(element: HTMLElement) {
@@ -322,7 +322,7 @@ function _createErfgoedWMSLayer(wmsLayers: string) {
   return new Tile({
     extent: mapProjection.getExtent(),
     source: new TileWMS({
-      url: `${props.api}geoserver/wms`,
+      url: `${apiUrl}geoserver/wms`,
       params: { LAYERS: wmsLayers, TILED: true },
       serverType: 'geoserver',
       attributions: '© <a href="https://www.onroerenderfgoed.be">Onroerend Erfgoed</a>',
