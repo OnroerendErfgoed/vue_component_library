@@ -82,7 +82,6 @@
     "@storybook/addon-essentials": "^7.5.3",
     "@storybook/addon-interactions": "^7.5.3",
     "@storybook/addon-links": "^7.5.3",
-    "@storybook/addon-mdx-gfm": "^7.5.3",
     "@storybook/addon-viewport": "^7.5.3",
     "@storybook/blocks": "^7.5.3",
     "@storybook/builder-vite": "^7.5.3",
