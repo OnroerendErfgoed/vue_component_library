@@ -234,7 +234,12 @@ describe('OeWizard', () => {
   describe('disable submit', () => {
     const TestComponent = defineComponent({
       components: { OeWizard },
-      props: ['lastStepValid'],
+      props: {
+        lastStepValid: {
+          type: Boolean,
+          required: true,
+        },
+      },
       setup(props) {
         const steps: IStep[] = [
           { name: 'Algemene gegevens', validate: () => Promise.resolve(true) },
