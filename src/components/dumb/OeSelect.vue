@@ -25,18 +25,18 @@
             {{ $props.placeholder }}
           </div>
         </div>
-        <template v-for="(option, index) in options" :key="'select-' + index">
-          <div
-            class="vl-select__item vl-select__item--choice vl-select__item--selectable"
-            :class="{ 'is-highlighted': isEqual(selectedOption, option), '': !isEqual(selectedOption, option) }"
-            role="treeitem"
-            @click="selectOption(option)"
-          >
-            <div>
-              {{ props.customLabel(option) }}
-            </div>
+        <div
+          v-for="(option, index) in options"
+          :key="'select-' + index"
+          class="vl-select__item vl-select__item--choice vl-select__item--selectable"
+          :class="{ 'is-highlighted': isEqual(selectedOption, option), '': !isEqual(selectedOption, option) }"
+          role="treeitem"
+          @click="selectOption(option)"
+        >
+          <div>
+            {{ props.customLabel(option) }}
           </div>
-        </template>
+        </div>
       </div>
     </div>
   </div>
