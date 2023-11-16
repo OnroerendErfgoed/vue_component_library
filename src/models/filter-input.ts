@@ -1,4 +1,3 @@
-import type { IActor } from './actor';
 import type { IGemeente } from './locatie';
 
 export type TFilterInput = string | IGemeente;

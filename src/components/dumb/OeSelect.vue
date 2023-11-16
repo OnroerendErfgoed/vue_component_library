@@ -1,12 +1,12 @@
 <template>
   <div
     v-click-outside="hideResults"
-    @click="showResults = !showResults"
     class="js-vl-select"
     role="listbox"
     data-type="select-one"
     tabindex="0"
     dir="ltr"
+    @click="showResults = !showResults"
   >
     <div class="vl-select__inner">
       <div class="vl-input-field">
@@ -25,18 +25,18 @@
             {{ $props.placeholder }}
           </div>
         </div>
-        <template v-for="option in options" :key="'select-' + index">
-          <div
-            class="vl-select__item vl-select__item--choice vl-select__item--selectable"
-            :class="{ 'is-highlighted': isEqual(selectedOption, option), '': !isEqual(selectedOption, option) }"
-            role="treeitem"
-            @click="selectOption(option)"
-          >
-            <div>
-              {{ props.customLabel(option) }}
-            </div>
+        <div
+          v-for="(option, index) in options"
+          :key="'select-' + index"
+          class="vl-select__item vl-select__item--choice vl-select__item--selectable"
+          :class="{ 'is-highlighted': isEqual(selectedOption, option), '': !isEqual(selectedOption, option) }"
+          role="treeitem"
+          @click="selectOption(option)"
+        >
+          <div>
+            {{ props.customLabel(option) }}
           </div>
-        </template>
+        </div>
       </div>
     </div>
   </div>
@@ -49,7 +49,7 @@ import type { ISelectProps } from '@models/select';
 
 const showResults = ref<boolean>(false);
 
-const props = withDefaults(defineProps<ISelectProps<any>>(), {
+const props = withDefaults(defineProps<ISelectProps<unknown>>(), {
   modelValue: undefined,
   options: undefined,
   placeholder: 'Selecteer een optie',
@@ -62,7 +62,7 @@ const options = props.options || [];
 const selectedOption = ref(options.find((option) => isEqual(option, props.modelValue)));
 const selectOptionLabel = ref<string>(props.customLabel(selectedOption?.value) as string);
 
-const selectOption = (option: any) => {
+const selectOption = (option: unknown) => {
   selectedOption.value = option;
   selectOptionLabel.value = props.customLabel(selectedOption.value) as string;
   emit('update:modelValue', selectedOption.value);

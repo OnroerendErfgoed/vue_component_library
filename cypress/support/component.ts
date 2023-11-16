@@ -12,14 +12,10 @@
 // You can read more here:
 // https://on.cypress.io/configuration
 // ***********************************************************
-
 // Import commands.js using ES2015 syntax:
-import './commands';
-
 import '@/scss/main.scss';
-
+import './commands';
 // Alternatively you can use CommonJS syntax:
-
 import { mount } from 'cypress/vue';
 
 // Augment the Cypress namespace to include type definitions for

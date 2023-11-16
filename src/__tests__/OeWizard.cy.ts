@@ -9,10 +9,10 @@ describe('OeWizard', () => {
       components: { OeWizard },
       setup() {
         const steps: IStep[] = [
-          { name: 'Algemene gegevens', validate: () => Promise.resolve(true) },
-          { name: 'Mijn gegevens', validate: () => Promise.resolve(true) },
-          { name: 'Bijlagen', validate: () => Promise.resolve(true) },
-          { name: 'Overzicht', validate: () => Promise.resolve(true) },
+          { name: 'Algemene gegevens', validate: () => Promise.resolve({ valid: true }) },
+          { name: 'Mijn gegevens', validate: () => Promise.resolve({ valid: true }) },
+          { name: 'Bijlagen', validate: () => Promise.resolve({ valid: true }) },
+          { name: 'Overzicht', validate: () => Promise.resolve({ valid: true }) },
         ];
 
         return { steps };
@@ -152,10 +152,10 @@ describe('OeWizard', () => {
       components: { OeWizard },
       setup() {
         const steps: IStep[] = [
-          { name: 'Algemene gegevens', validate: () => Promise.resolve(true) },
-          { name: 'Mijn gegevens', validate: () => Promise.resolve(true) },
-          { name: 'Bijlagen', validate: () => Promise.resolve(true) },
-          { name: 'Overzicht', validate: () => Promise.resolve(true) },
+          { name: 'Algemene gegevens', validate: () => Promise.resolve({ valid: true }) },
+          { name: 'Mijn gegevens', validate: () => Promise.resolve({ valid: true }) },
+          { name: 'Bijlagen', validate: () => Promise.resolve({ valid: true }) },
+          { name: 'Overzicht', validate: () => Promise.resolve({ valid: true }) },
         ];
 
         return { steps };
@@ -178,10 +178,10 @@ describe('OeWizard', () => {
       components: { OeWizard },
       setup() {
         const steps: IStep[] = [
-          { name: 'Algemene gegevens', validate: () => Promise.resolve(true) },
-          { name: 'Mijn gegevens', validate: () => Promise.resolve(false) },
-          { name: 'Bijlagen', validate: () => Promise.resolve(true) },
-          { name: 'Overzicht', validate: () => Promise.resolve(true) },
+          { name: 'Algemene gegevens', validate: () => Promise.resolve({ valid: true }) },
+          { name: 'Mijn gegevens', validate: () => Promise.resolve({ valid: false }) },
+          { name: 'Bijlagen', validate: () => Promise.resolve({ valid: true }) },
+          { name: 'Overzicht', validate: () => Promise.resolve({ valid: true }) },
         ];
 
         return { steps };
@@ -210,10 +210,17 @@ describe('OeWizard', () => {
       components: { OeWizard },
       setup() {
         const steps: IStep[] = [
-          { name: 'Algemene gegevens', validate: () => Promise.resolve(true) },
-          { name: 'Mijn gegevens', validate: () => Promise.resolve(false) },
-          { name: 'Bijlagen', validate: () => Promise.resolve(true) },
-          { name: 'Overzicht', validate: () => Promise.resolve(true) },
+          { name: 'Algemene gegevens', validate: () => Promise.resolve({ valid: true }) },
+          {
+            name: 'Mijn gegevens',
+            validate: () =>
+              Promise.resolve({
+                valid: false,
+                error: { id: '1', title: 'Error titel', content: 'Er heeft zich een error voorgedaan', type: 'error' },
+              }),
+          },
+          { name: 'Bijlagen', validate: () => Promise.resolve({ valid: true }) },
+          { name: 'Overzicht', validate: () => Promise.resolve({ valid: true }) },
         ];
 
         return { steps };
@@ -234,13 +241,18 @@ describe('OeWizard', () => {
   describe('disable submit', () => {
     const TestComponent = defineComponent({
       components: { OeWizard },
-      props: ['lastStepValid'],
+      props: {
+        lastStepValid: {
+          type: Boolean,
+          required: true,
+        },
+      },
       setup(props) {
         const steps: IStep[] = [
-          { name: 'Algemene gegevens', validate: () => Promise.resolve(true) },
-          { name: 'Mijn gegevens', validate: () => Promise.resolve(true) },
-          { name: 'Bijlagen', validate: () => Promise.resolve(true) },
-          { name: 'Overzicht', validate: () => Promise.resolve(props.lastStepValid) },
+          { name: 'Algemene gegevens', validate: () => Promise.resolve({ valid: true }) },
+          { name: 'Mijn gegevens', validate: () => Promise.resolve({ valid: true }) },
+          { name: 'Bijlagen', validate: () => Promise.resolve({ valid: true }) },
+          { name: 'Overzicht', validate: () => Promise.resolve({ valid: props.lastStepValid }) },
         ];
 
         return { steps };
@@ -283,10 +295,10 @@ describe('OeWizard', () => {
       components: { OeWizard },
       setup() {
         const steps: IStep[] = [
-          { name: 'Algemene gegevens', validate: () => Promise.resolve(true) },
-          { name: 'Mijn gegevens', validate: () => Promise.resolve(true), nextStepDisabled: true },
-          { name: 'Bijlagen', validate: () => Promise.resolve(true) },
-          { name: 'Overzicht', validate: () => Promise.resolve(true) },
+          { name: 'Algemene gegevens', validate: () => Promise.resolve({ valid: true }) },
+          { name: 'Mijn gegevens', validate: () => Promise.resolve({ valid: true }), nextStepDisabled: true },
+          { name: 'Bijlagen', validate: () => Promise.resolve({ valid: true }) },
+          { name: 'Overzicht', validate: () => Promise.resolve({ valid: true }) },
         ];
 
         return { steps };
