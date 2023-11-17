@@ -103,7 +103,7 @@ const goToStep = async (step: number) => {
 };
 
 const submit = async () => {
-  if (await props.steps[currentStep.value].validate()) {
+  if ((await props.steps[totalSteps.value - 1].validate()).valid) {
     emit('submit');
   }
 };

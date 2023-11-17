@@ -147,6 +147,49 @@ describe('OeWizard', () => {
     });
   });
 
+  describe('last step invalid', () => {
+    const TestComponent = defineComponent({
+      components: { OeWizard },
+      setup() {
+        const steps: IStep[] = [
+          { name: 'Algemene gegevens', validate: () => Promise.resolve({ valid: true }) },
+          { name: 'Mijn gegevens', validate: () => Promise.resolve({ valid: true }) },
+          { name: 'Bijlagen', validate: () => Promise.resolve({ valid: true }) },
+          { name: 'Overzicht', validate: () => Promise.resolve({ valid: false }) },
+        ];
+
+        return { steps };
+      },
+      template: `
+      <oe-wizard :steps="steps">
+        <template #default="{ currentStep, totalSteps }">
+          <h2>Stap {{ currentStep + 1 }} van {{ totalSteps }}</h2>
+        </template>
+      </oe-wizard>
+      `,
+    });
+
+    beforeEach(() => {
+      cy.viewport('macbook-16');
+    });
+
+    it('does not submit the wizard when clicking on submit in the latest step when the step is invalid', () => {
+      const onSubmitSpy = cy.spy().as('onSubmitSpy');
+
+      cy.mount(TestComponent, { props: { onSubmit: onSubmitSpy } }).then(() => {
+        cy.dataCy('next-step-button').click();
+        cy.dataCy('next-step-button').click();
+        cy.dataCy('next-step-button').click();
+
+        cy.get('.wizard__bar-item--current').invoke('text').should('equal', '4Overzicht');
+
+        cy.dataCy('submit-button').should('exist').click();
+
+        cy.get('@onSubmitSpy').should('not.have.been.called');
+      });
+    });
+  });
+
   describe('bar navigation allowed', () => {
     const TestComponent = defineComponent({
       components: { OeWizard },
