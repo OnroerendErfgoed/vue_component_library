@@ -93,7 +93,7 @@ const previousStep = () => {
 };
 
 const nextStep = async () => {
-  if (currentStep.value < totalSteps.value - 1 && (await props.steps[currentStep.value].validate())) {
+  if (currentStep.value < totalSteps.value - 1 && (await props.steps[currentStep.value].validate()).valid) {
     currentStep.value++;
   }
 };

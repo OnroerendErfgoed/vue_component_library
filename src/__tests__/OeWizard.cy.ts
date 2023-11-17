@@ -203,6 +203,13 @@ describe('OeWizard', () => {
       cy.dataCy('step-2').click();
       cy.get('.wizard__bar-item--current').invoke('text').should('equal', '2Mijn gegevens');
     });
+
+    it('does not navigate to the next step when current step is invalid using next step buttons', () => {
+      cy.dataCy('next-step-button').click();
+      cy.get('.wizard__bar-item--current').invoke('text').should('equal', '2Mijn gegevens');
+      cy.dataCy('next-step-button').click();
+      cy.get('.wizard__bar-item--current').invoke('text').should('equal', '2Mijn gegevens');
+    });
   });
 
   describe('mobile view', () => {
