@@ -49,7 +49,8 @@ import type { ISelectProps } from '@models/select';
 
 const showResults = ref<boolean>(false);
 
-const props = withDefaults(defineProps<ISelectProps<unknown>>(), {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const props = withDefaults(defineProps<ISelectProps<any>>(), {
   modelValue: undefined,
   options: undefined,
   placeholder: 'Selecteer een optie',
@@ -62,7 +63,8 @@ const options = props.options || [];
 const selectedOption = ref(options.find((option) => isEqual(option, props.modelValue)));
 const selectOptionLabel = ref<string>(props.customLabel(selectedOption?.value) as string);
 
-const selectOption = (option: unknown) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const selectOption = (option: any) => {
   selectedOption.value = option;
   selectOptionLabel.value = props.customLabel(selectedOption.value) as string;
   emit('update:modelValue', selectedOption.value);
