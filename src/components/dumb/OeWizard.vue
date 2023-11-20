@@ -58,7 +58,7 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { VlBadge, VlButton } from '@govflanders/vl-ui-design-system-vue3';
 import { computedAsync } from '@vueuse/core';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import type { IWizardProps } from '@models/wizard';
 
 // Next line should be activated once VlUTooltip is properly exported
@@ -70,7 +70,7 @@ const props = withDefaults(defineProps<IWizardProps>(), {
   allowBarNavigation: false,
   disableSubmitWhenInvalid: false,
 });
-const emit = defineEmits(['submit']);
+const emit = defineEmits(['step-changed', 'submit']);
 
 const currentStep = ref(0);
 const totalSteps = ref(props.steps.length);
@@ -118,6 +118,11 @@ const previousStepsAreValid = async (step: number) => {
 };
 
 const reset = () => (currentStep.value = 0);
+
+watch(
+  () => currentStep.value,
+  () => emit('step-changed', currentStep.value)
+);
 
 defineExpose({ reset });
 </script>
