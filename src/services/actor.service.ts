@@ -26,7 +26,7 @@ export class ActorService extends HttpService {
     return (
       await this.get<IActor[]>(`${this.API_URL}/actoren/wij`, {
         headers: { Authorization: 'Bearer ' + ssoToken },
-        params: { omschrijving: `${searchTerm}*` },
+        params: { omschrijving: `${searchTerm}` },
       })
     ).data;
   }
