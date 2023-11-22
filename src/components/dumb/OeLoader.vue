@@ -1,23 +1,25 @@
 <template>
-  <DefineTemplate>
-    <div
-      class="spinner-content"
-      :class="{
-        'spinner-content--inline': props.modInline,
-        'spinner-content--small': props.modInline && props.modSmall,
-        'spinner-content--large': props.modInline && props.modLarge,
-        'spinner-content--xlarge': props.modInline && props.modXLarge,
-      }"
-    >
-      <font-awesome-icon class="spinner" :icon="['fas', 'spinner']" spin-pulse />
-    </div>
-  </DefineTemplate>
+  <div>
+    <DefineTemplate>
+      <div
+        class="spinner-content"
+        :class="{
+          'spinner-content--inline': props.modInline,
+          'spinner-content--small': props.modInline && props.modSmall,
+          'spinner-content--large': props.modInline && props.modLarge,
+          'spinner-content--xlarge': props.modInline && props.modXLarge,
+        }"
+      >
+        <font-awesome-icon class="spinner" :icon="['fas', 'spinner']" spin-pulse />
+      </div>
+    </DefineTemplate>
 
-  <ReuseTemplate v-if="props.modInline" />
+    <ReuseTemplate v-if="props.modInline" />
 
-  <div v-else class="spinner-container">
-    <div class="spinner-overlay">
-      <ReuseTemplate />
+    <div v-else class="spinner-container">
+      <div class="spinner-overlay">
+        <ReuseTemplate />
+      </div>
     </div>
   </div>
 </template>
