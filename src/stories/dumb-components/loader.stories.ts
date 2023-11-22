@@ -26,7 +26,7 @@ export const Default: Story = {
       OeLoader,
       VlButton,
     },
-    template: `<oe-loader />`,
+    template: `<oe-loader title="Gegevens opvragen" sub-title="een moment geduld alstublieft"/>`,
   }),
 };
 
