@@ -26,7 +26,24 @@ export const Default: Story = {
       OeLoader,
       VlButton,
     },
-    template: `<oe-loader />`,
+    template: `<oe-loader/>`,
+  }),
+};
+
+export const LoaderWithMessage: Story = {
+  parameters: {
+    docs: {
+      story: {
+        height: '400px',
+      },
+    },
+  },
+  render: () => ({
+    components: {
+      OeLoader,
+      VlButton,
+    },
+    template: `<oe-loader title="Gegevens opvragen" sub-title="een moment geduld alstublieft"/>`,
   }),
 };
 

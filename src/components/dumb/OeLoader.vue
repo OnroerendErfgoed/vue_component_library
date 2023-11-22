@@ -19,6 +19,12 @@
     <div v-else class="spinner-container">
       <div class="spinner-overlay">
         <ReuseTemplate />
+        <div v-if="props.title" class="title">
+          {{ props.title }}
+          <div v-if="props.subTitle" class="title__sub">
+            {{ props.subTitle }}
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -29,10 +35,19 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { createReusableTemplate } from '@vueuse/core';
 
 const [DefineTemplate, ReuseTemplate] = createReusableTemplate();
-const props = defineProps<{ modInline?: boolean; modSmall?: boolean; modLarge?: boolean; modXLarge?: boolean }>();
+const props = defineProps<{
+  modInline?: boolean;
+  modSmall?: boolean;
+  modLarge?: boolean;
+  modXLarge?: boolean;
+  title?: string;
+  subTitle?: string;
+}>();
 </script>
 
 <style lang="scss" scoped>
+@import 'pyoes/scss/base-variables';
+
 .spinner-container div {
   z-index: 1001;
 }
@@ -53,7 +68,7 @@ const props = defineProps<{ modInline?: boolean; modSmall?: boolean; modLarge?: 
   width: 100px;
   height: 100px;
   margin: auto;
-  background: rgb(117, 63, 127);
+  background: $dark-purple;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -74,7 +89,7 @@ const props = defineProps<{ modInline?: boolean; modSmall?: boolean; modLarge?: 
     box-shadow: none;
     width: 18px;
     height: 18px;
-    background: rgb(117, 63, 127);
+    background: $dark-purple;
     position: relative;
     display: inline-block;
     top: 0;
@@ -116,6 +131,22 @@ const props = defineProps<{ modInline?: boolean; modSmall?: boolean; modLarge?: 
     .spinner {
       font-size: 24px;
     }
+  }
+}
+
+.title {
+  margin-top: 100px;
+  text-align: center;
+  color: $dark-purple;
+  font-weight: 600;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: fixed;
+
+  .title__sub {
+    font-weight: 400;
+    position: relative;
   }
 }
 </style>
