@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <div data-cy="container-content" class="container__content">
+  <div class="oe-container">
+    <div data-cy="oe-container-content" class="oe-container__content">
       <slot></slot>
     </div>
     <div v-if="props.tabs.length" class="bottom-tabs" data-cy="bottom-tabs">
@@ -52,7 +52,7 @@ const close = (item: ITab) => {
 <style lang="scss">
 @import 'pyoes/scss/base-variables';
 
-.container {
+.oe-container {
   background-color: $white;
   margin: 20px 20px 10px 20px;
   display: flex;
@@ -78,6 +78,7 @@ const close = (item: ITab) => {
     .vl-action-group button:last-child {
       margin-right: -1px;
     }
+
     .vl-pill__close {
       border-radius: 0 0 0.4rem 0;
     }
@@ -96,9 +97,11 @@ const close = (item: ITab) => {
         scale: 1.1;
         background-color: $primary-color;
         color: $white;
+
         .vl-pill__close {
           color: $white;
           border-top: none;
+
           &:hover:not([disabled]) {
             color: $dark-purple;
           }
