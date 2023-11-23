@@ -12,7 +12,7 @@ describe('Container', () => {
       });
       cy.mount(TestComponent);
 
-      cy.dataCy('container-content').invoke('text').should('equal', 'Container content');
+      cy.dataCy('oe-container-content').invoke('text').should('equal', 'Container content');
     });
 
     it('renders the given slot content with html', () => {
@@ -22,7 +22,7 @@ describe('Container', () => {
       });
       cy.mount(TestComponentHtml);
 
-      cy.dataCy('container-content').invoke('html').should('equal', '<button>My button</button>');
+      cy.dataCy('oe-container-content').invoke('html').should('equal', '<button>My button</button>');
     });
 
     it("doesn't render tabs", () => {
@@ -47,7 +47,7 @@ describe('Container', () => {
 
     it('renders the content in a scrollable container', () => {
       cy.dataCy('hidden-content').should('not.be.visible');
-      cy.dataCy('container-content').scrollTo('bottom');
+      cy.dataCy('oe-container-content').scrollTo('bottom');
       cy.dataCy('hidden-content').should('be.visible');
     });
   });
