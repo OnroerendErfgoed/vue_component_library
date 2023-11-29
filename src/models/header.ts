@@ -1,5 +1,5 @@
 export interface IHeaderProps {
-  user: IUser;
+  user: IHeaderUser;
   appName: string;
   appUrl: string;
   profileUrl?: string;
@@ -10,7 +10,7 @@ export interface IHeaderProps {
   showLogoutShortcut?: boolean;
 }
 
-export interface IUser {
+export interface IHeaderUser {
   name?: string;
   role?: string;
 }
