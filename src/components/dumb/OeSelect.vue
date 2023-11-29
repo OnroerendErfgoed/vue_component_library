@@ -1,6 +1,7 @@
 <template>
   <div
     v-click-outside="hideResults"
+    data-cy="oe-select"
     class="js-vl-select"
     role="listbox"
     data-type="select-one"
