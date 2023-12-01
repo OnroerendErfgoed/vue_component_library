@@ -93,7 +93,7 @@ const refresh = () => {
 const rowCount = ref(0);
 const getColumnDefinitions = (): ColDef[] => {
   return [
-    { headerName: '#', field: 'id', sort: 'desc', width: 50 },
+    { headerName: '#', field: 'id', width: 50 },
     { headerName: 'Naam', field: 'naam', flex: 1 },
     { headerName: 'Voornaam', field: 'voornaam', flex: 1 },
     { headerName: 'Type', field: 'type.naam', colId: 'type', flex: 1 },
