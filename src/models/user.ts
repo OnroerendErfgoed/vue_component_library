@@ -4,7 +4,7 @@ export class User {
   public organisatie: IOrganisatie;
   public personid: string;
   public persoonsgegevens: IPersoonsgegevens;
-  public sso_token: string;
+  public ssoToken: string;
   public userid: string;
 
   constructor(user: IUser) {
@@ -13,7 +13,7 @@ export class User {
     this.organisatie = user.organisatie;
     this.personid = user.personid;
     this.persoonsgegevens = user.persoonsgegevens;
-    this.sso_token = user.sso_token;
+    this.ssoToken = user.sso_token;
     this.userid = user.userid;
   }
 
