@@ -16,4 +16,5 @@ export * from './oe-zoneerder-config';
 export * from './status';
 export * from './system-fields';
 export * from './toast';
+export * from './user';
 export * from './wizard';
