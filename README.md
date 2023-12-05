@@ -79,21 +79,18 @@ yarn storybook
 yarn build:watch
 ```
 
-#### Symlink
-
-A symlink can be created between the library and implementing applications.
+#### Yalc - for sharing locally developed packages across your local environment. - https://github.com/wclr/yalc
 
 ```sh
-yarn link
+Yalc publish
 ```
-
 Afterwards link the package in the desired implementing application.
 
 ```sh
-yarn link "vue-components"
+yalc add @OnroerendErfgoed/vue_component_library@0.16.0
+yalc update
+yarn
 ```
-
-Whilst running the `build:watch` command, changes in the library will automatically be reflected in linked applications.
 
 ### Type-Check, Compile and Minify for Production
 

@@ -1,6 +1,7 @@
 <template>
   <div
     v-click-outside="hideResults"
+    data-cy="oe-select"
     class="js-vl-select"
     role="listbox"
     data-type="select-one"
@@ -43,7 +44,7 @@
 </template>
 <script lang="ts" setup>
 import { isEqual } from 'lodash';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { vClickOutside } from '@directives/click-outside.directive';
 import type { ISelectProps } from '@models/select';
 
@@ -60,8 +61,8 @@ const props = withDefaults(defineProps<ISelectProps<any>>(), {
 const emit = defineEmits(['update:modelValue']);
 
 const options = props.options || [];
-const selectedOption = ref(options.find((option) => isEqual(option, props.modelValue)));
-const selectOptionLabel = ref<string>(props.customLabel(selectedOption?.value) as string);
+const selectedOption = ref(null);
+const selectOptionLabel = ref('');
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const selectOption = (option: any) => {
@@ -71,6 +72,15 @@ const selectOption = (option: any) => {
 };
 
 const hideResults = () => (showResults.value = false);
+
+watch(
+  () => props.modelValue,
+  () => {
+    selectedOption.value = options.find((option) => isEqual(option, props.modelValue));
+    selectOptionLabel.value = props.customLabel(selectedOption.value) as string;
+  },
+  { immediate: true }
+);
 </script>
 
 <style lang="scss" scoped>
