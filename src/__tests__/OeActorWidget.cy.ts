@@ -14,7 +14,7 @@ describe('OeActorWidget', () => {
       template: `
       <oe-actor-widget :id="id" :api="api" :get-sso-token="getSsoToken" :open="true">
         <template v-slot:dropdown>
-          <div class="dropdown"></div>
+          <div data-cy="actor-widget-slot-dropdown">Test</div>
         </template>
       </oe-actor-widget>
       `,
@@ -41,6 +41,13 @@ describe('OeActorWidget', () => {
         cy.wait('@dataGet');
         cy.dataCy('ag-grid-vue').find('.ag-center-cols-container').children().first().click();
         cy.dataCy('actor-widget-add-btn').should('be.enabled');
+      });
+    });
+
+    it('shows the provided dropdown slot template', () => {
+      cy.mount(TestComponent).then(() => {
+        cy.wait('@dataGet');
+        cy.dataCy('actor-widget-slot-dropdown').should('have.text', 'Test');
       });
     });
   });
