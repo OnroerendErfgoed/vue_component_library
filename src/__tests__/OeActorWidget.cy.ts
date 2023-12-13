@@ -21,12 +21,16 @@ describe('OeActorWidget', () => {
     });
 
     beforeEach(() => {
-      cy.intercept('GET', 'https://dev-actoren.onroerenderfgoed.be/**', {
+      cy.intercept('GET', 'https://dev-actoren.onroerenderfgoed.be/actoren*', {
         fixture: 'actoren.json',
         headers: {
           'Content-Range': 'items 0-50/1',
         },
       }).as('dataGet');
+      cy.intercept('GET', 'https://dev-actoren.onroerenderfgoed.be/actoren/**', {
+        fixture: 'actor.json',
+      }).as('dataSingleGet');
+
       cy.mount(TestComponent);
       cy.wait('@dataGet');
     });
@@ -44,8 +48,13 @@ describe('OeActorWidget', () => {
       cy.dataCy('actor-widget-slot-dropdown').should('have.text', 'Test');
     });
 
-    it('opens the detail view on eye click', () => {
-      cy.dataCy('actor-widget-detail-btn').should('exist');
+    it('opens the detail view after click on eye-icon and closes again after click on back btn', () => {
+      cy.dataCy('actor-widget-detail-btn').click();
+      cy.wait('@dataSingleGet');
+      cy.dataCy('actor-widget-detail').should('exist');
+      cy.dataCy('actor-widget-detail-back-btn').click();
+      cy.wait('@dataGet');
+      cy.dataCy('actor-widget-grid').should('exist');
     });
   });
 });
