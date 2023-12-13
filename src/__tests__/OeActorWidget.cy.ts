@@ -27,35 +27,25 @@ describe('OeActorWidget', () => {
           'Content-Range': 'items 0-50/1',
         },
       }).as('dataGet');
+      cy.mount(TestComponent);
+      cy.wait('@dataGet');
     });
 
     it('fetches actoren and shows a grid on startup', () => {
-      cy.mount(TestComponent).then(() => {
-        cy.wait('@dataGet');
-        cy.dataCy('ag-grid-vue').find('.ag-center-cols-container').children().should('have.length', 1);
-      });
+      cy.dataCy('ag-grid-vue').find('.ag-center-cols-container').children().should('have.length', 1);
     });
 
     it('enables the add button when a row is clicked', () => {
-      cy.mount(TestComponent).then(() => {
-        cy.wait('@dataGet');
-        cy.dataCy('ag-grid-vue').find('.ag-center-cols-container').children().first().click();
-        cy.dataCy('actor-widget-add-btn').should('be.enabled');
-      });
+      cy.dataCy('ag-grid-vue').find('.ag-center-cols-container').children().first().click();
+      cy.dataCy('actor-widget-add-btn').should('be.enabled');
     });
 
     it('shows the provided dropdown slot template', () => {
-      cy.mount(TestComponent).then(() => {
-        cy.wait('@dataGet');
-        cy.dataCy('actor-widget-slot-dropdown').should('have.text', 'Test');
-      });
+      cy.dataCy('actor-widget-slot-dropdown').should('have.text', 'Test');
     });
 
     it('opens the detail view on eye click', () => {
-      cy.mount(TestComponent).then(() => {
-        cy.wait('@dataGet');
-        cy.dataCy('actor-widget-detail-btn').should('exist');
-      });
+      cy.dataCy('actor-widget-detail-btn').should('exist');
     });
   });
 });
