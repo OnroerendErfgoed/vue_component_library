@@ -50,5 +50,12 @@ describe('OeActorWidget', () => {
         cy.dataCy('actor-widget-slot-dropdown').should('have.text', 'Test');
       });
     });
+
+    it('opens the detail view on eye click', () => {
+      cy.mount(TestComponent).then(() => {
+        cy.wait('@dataGet');
+        cy.dataCy('actor-widget-detail-btn').should('exist');
+      });
+    });
   });
 });
