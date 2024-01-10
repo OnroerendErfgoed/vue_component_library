@@ -15,6 +15,32 @@ const meta: Meta<typeof OeActorWidget> = {
     },
   },
   tags: ['autodocs'],
+  argTypes: {
+    id: {
+      description: 'Modal ID property',
+      table: {
+        type: { summary: 'string' },
+      },
+    },
+    api: {
+      description: 'API base URL',
+      table: {
+        type: { summary: 'string' },
+      },
+    },
+    getSsoToken: {
+      description: 'Method that gets authentication token',
+      table: {
+        type: { summary: 'getSsoToken' },
+      },
+    },
+    dropdown: {
+      description: 'Slot to add a role dropdown to assign to selection',
+      table: {
+        type: { summary: '<template #dropdown></template>' },
+      },
+    },
+  },
 };
 
 export default meta;

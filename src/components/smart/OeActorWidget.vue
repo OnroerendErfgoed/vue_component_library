@@ -6,6 +6,7 @@
         v-if="state === ActorWidgetState.Grid"
         :api="props.api"
         :get-sso-token="props.getSsoToken"
+        data-cy="actor-widget-grid"
         @set-state-detail="setStateDetail($event)"
         @select-actor="selectActor"
         @toggle-loader="loading = !loading"
@@ -13,6 +14,7 @@
       <detail
         v-if="state === ActorWidgetState.Detail"
         :actor="selectedActor"
+        data-cy="actor-widget-detail"
         @set-state-grid="state = ActorWidgetState.Grid"
       />
       <slot name="dropdown"></slot>
