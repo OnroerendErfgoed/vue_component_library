@@ -1,6 +1,6 @@
 <template>
   <ul data-cy="systemfield-ul">
-    <li data-cy="systemfield-status"><span>Status:</span> {{ props.status || '-' }}</li>
+    <li v-if="props.status" data-cy="systemfield-status"><span>Status:</span> {{ props.status || '-' }}</li>
     <li data-cy="systemfield-aangemaakt-door">
       <span>Aangemaakt door:</span> {{ props.createdBy || '-' }} op {{ createdAt }}
     </li>
