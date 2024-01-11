@@ -19,23 +19,12 @@ const meta: Meta<typeof SystemFields> = {
     updatedBy: 'Miss. Foo',
     updatedAt: '2023-05-24T13:45:03.497579+02:00',
   },
-  render: (args) => ({
-    setup() {
-      return { args };
-    },
-    template: `<SystemFields></SystemFields>`,
-  }),
 };
 
 export default meta;
 type Story = StoryObj<typeof SystemFields>;
 
-export const Default: Story = {
-  render: () => ({
-    components: { SystemFields },
-    template: `<SystemFields></SystemFields>`,
-  }),
-};
+export const Default: Story = {};
 
 export const Slot: Story = {
   render: (args) => ({
