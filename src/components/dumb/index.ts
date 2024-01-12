@@ -5,6 +5,7 @@ import FilterRadio from './FilterRadio.vue';
 import FilterSelect from './FilterSelect.vue';
 import FilterText from './FilterText.vue';
 import InputPhone from './InputPhone.vue';
+import NoRowsOverlay from './NoRowsOverlay.vue';
 import OeAutocomplete from './OeAutocomplete.vue';
 import OeButton from './OeButton.vue';
 import OeContainer from './OeContainer.vue';
@@ -24,6 +25,7 @@ export {
   FilterSelect,
   FilterText,
   InputPhone,
+  NoRowsOverlay,
   OeAutocomplete,
   OeButton,
   OeContainer,
