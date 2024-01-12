@@ -8,5 +8,5 @@
 <script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-const props = defineProps<{ params: { noRowsMessage?: string } }>();
+const props = defineProps<{ params: { noRowsMessage: string } }>();
 </script>
