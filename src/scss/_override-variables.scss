@@ -156,6 +156,59 @@ $vl-icon-font-location: '@govflanders/vl-ui-design-system-style/assets/font/icon
   --ol-hover-border-color: #{$vl-input-hover-border-color};
 }
 
+.vl-title {
+  color: $primary-color;
+}
+
+.vl-form__group {
+  background-color: transparent;
+}
+
+.vl-annotation {
+  color: $primary-color;
+}
+
+.text-primary {
+  color: $primary-color;
+}
+
+.icon {
+  cursor: pointer;
+  color: $primary-color;
+}
+
+// mod-button met vl-button-tertiary neemt niet goed alle sass kleuren over. Volgens mij een bug in webuniversum,
+// daarom deze css
+a {
+  &.vl-button--tertiary {
+    color: $primary-color !important;
+    &:hover {
+      border-color: $primary-color !important;
+    }
+  }
+}
+
+// General app stylings
+html,
+body {
+  height: 100%;
+}
+
+#app {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  background-color: #f3f3f3;
+
+  .vl-tab__pane:focus-visible {
+    outline: none;
+  }
+}
+
+.oe-flex-1 {
+  flex: 1;
+}
+
 /**
 -------------------------------
  End override specific styles
