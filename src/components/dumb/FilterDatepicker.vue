@@ -5,16 +5,15 @@
     :value="dateValue"
     visual-format="d-m-Y"
     @input="updateValue"
-  />
+  ></vl-datepicker>
 </template>
 
 <script setup lang="ts">
-import { format, parse } from 'date-fns';
 import { VlDatepicker } from '@govflanders/vl-ui-design-system-vue3';
+import { format, parse } from 'date-fns';
+import { computed } from 'vue';
 import type { IFilterDatepickerProps } from '@models/filter-input';
-import { computed, ref } from 'vue';
 
-const jef = ref(true);
 const props = withDefaults(defineProps<IFilterDatepickerProps>(), {
   value: () => [],
   apiFormat: 'yyyy-MM-dd',

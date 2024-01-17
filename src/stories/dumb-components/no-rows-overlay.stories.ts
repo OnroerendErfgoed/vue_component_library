@@ -1,5 +1,5 @@
-import NoRowsOverlay from '@components/dumb/NoRowsOverlay.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
+import NoRowsOverlay from '@components/dumb/NoRowsOverlay.vue';
 
 const meta: Meta<typeof NoRowsOverlay> = {
   title: 'Dumb components/NoRowsOverlay',

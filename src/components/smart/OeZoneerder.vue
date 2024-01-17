@@ -11,7 +11,7 @@
     <div ref="leftControlsContainerRef" class="controlsContainer left">
       <div v-if="props.controlConfig.zoomSwitcher" class="zoom-switcher oe-ol-control ol-unselectable ol-control">
         <button class="zoomButton" title="Ga naar het Geoportaal" @click="zoomButtonClick">
-          <font-awesome-icon :icon="['fas', 'fa-globe']" />
+          <font-awesome-icon :icon="['fas', 'fa-globe']"></font-awesome-icon>
         </button>
       </div>
     </div>
@@ -37,28 +37,28 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import { Attribution, Control, FullScreen, Rotate, ScaleLine, Zoom, ZoomToExtent } from 'ol/control';
+import type { Coordinate } from 'ol/coordinate';
 import { getCenter, getTopLeft, getWidth } from 'ol/extent';
+import type { Extent } from 'ol/extent';
 import Point from 'ol/geom/Point';
 import { Group, Layer, Tile } from 'ol/layer';
 import { type ProjectionLike, get as getOlProj, transformExtent } from 'ol/proj';
+import type { Projection } from 'ol/proj';
 import { register } from 'ol/proj/proj4';
 import { TileWMS, WMTS } from 'ol/source';
 import WMTSTileGrid from 'ol/tilegrid/WMTS';
 import proj4 from 'proj4';
 import { onMounted, onUnmounted, provide, ref, watch } from 'vue';
+import type { Ref } from 'vue';
 import { LayerType, defaultControlConfig, defaultLayerConfig } from '@/models';
+import type { IBoundingBox, LayerOptions, OeZoneerderProps } from '@/models';
 import { CrabApiService } from '@/services';
 import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
 import Layerswitcher from '@components/smart/OeZoneerderLayerswitcher.vue';
 import ZonePanel from '@components/smart/OeZoneerderZonePanel.vue';
-import { Geolocate } from '@utils/openlayers/oe-ol-geolocate';
-import type { Coordinate } from 'ol/coordinate';
-import type { Extent } from 'ol/extent';
-import type { Projection } from 'ol/proj';
-import type { Ref } from 'vue';
-import type { IBoundingBox, LayerOptions, OeZoneerderProps } from '@/models';
 import type { IAutocompleteOption } from '@models/autocomplete';
 import type { Contour } from '@models/oe-openlayers';
+import { Geolocate } from '@utils/openlayers/oe-ol-geolocate';
 
 const props = withDefaults(defineProps<OeZoneerderProps>(), {
   controlConfig: () => defaultControlConfig,

@@ -1,8 +1,8 @@
 /* eslint-disable vue/one-component-per-file */
 import { defineComponent } from 'vue';
 import { LayerType } from '@/models';
-import { OeZoneerder } from '@components/smart';
 import type { OeZoneerderProps } from '@/models';
+import { OeZoneerder } from '@components/smart';
 
 describe('OeZoneerder', () => {
   describe('default', () => {
