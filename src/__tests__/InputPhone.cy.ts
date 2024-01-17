@@ -1,6 +1,6 @@
+import type { CountryCode } from 'libphonenumber-js';
 import { defineComponent, ref } from 'vue';
 import InputPhone from '@components/dumb/InputPhone.vue';
-import type { CountryCode } from 'libphonenumber-js';
 
 const TestComponent = defineComponent({
   components: { InputPhone },

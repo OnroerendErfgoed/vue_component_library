@@ -7,7 +7,7 @@
     "src/**/*.ts",
     "src/**/*.json",
     "cypress/support/component.*",
-    "cypress/support/commands.ts"
+    "cypress/support/commands.ts",
   ],
   "exclude": ["src/stories/**"],
   "compilerOptions": {
@@ -19,7 +19,7 @@
       "@services/*": ["./src/services/*"],
       "@models/*": ["./src/models/*"],
       "@utils/*": ["./src/utils/*"],
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
     },
     "types": ["@intlify/unplugin-vue-i18n/messages", "vite/client"],
     "esModuleInterop": true,
@@ -31,6 +31,6 @@
     "moduleResolution": "node",
     "target": "ESNext",
     "module": "ESNext",
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
-  }
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+  },
 }

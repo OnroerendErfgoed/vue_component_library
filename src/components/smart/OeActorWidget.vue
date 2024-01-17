@@ -1,6 +1,6 @@
 <template>
   <vl-modal :id="props.id" mod-large title="Actor toevoegen" class="actor-widget">
-    <oe-loader v-if="loading" />
+    <oe-loader v-if="loading"></oe-loader>
     <template #modal-content>
       <grid
         v-if="state === ActorWidgetState.Grid"
@@ -10,13 +10,13 @@
         @set-state-detail="setStateDetail($event)"
         @select-actor="selectActor"
         @toggle-loader="loading = !loading"
-      />
+      ></grid>
       <detail
         v-if="state === ActorWidgetState.Detail"
         :actor="selectedActor"
         data-cy="actor-widget-detail"
         @set-state-grid="state = ActorWidgetState.Grid"
-      />
+      ></detail>
       <slot name="dropdown"></slot>
     </template>
     <template #modal-footer>
@@ -42,8 +42,8 @@ import { ref } from 'vue';
 import OeLoader from '@components/dumb/OeLoader.vue';
 import Detail from '@components/smart/OeActorWidgetDetail.vue';
 import Grid from '@components/smart/OeActorWidgetGrid.vue';
-import { ActorService } from '@services/actor.service';
 import type { IActor } from '@models/actor';
+import { ActorService } from '@services/actor.service';
 
 interface IOeActorWidgetProps {
   id: string;

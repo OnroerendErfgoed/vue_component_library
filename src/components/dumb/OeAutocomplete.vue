@@ -7,7 +7,7 @@
       mod-block
       @update:model-value="handleInput"
     ></vl-input-field>
-    <span v-if="loading" class="vl-loader vl-loader--small" data-cy="loader" />
+    <span v-if="loading" class="vl-loader vl-loader--small" data-cy="loader"></span>
 
     <div v-if="showResults && searchTerm?.length >= minChars" class="vl-autocomplete" data-cy="result">
       <div class="vl-autocomplete__list-wrapper">
@@ -20,7 +20,7 @@
           <li
             v-for="option in options"
             v-else
-            :key="(option.value as string | number)"
+            :key="option.value as string"
             tabindex="0"
             class="vl-autocomplete__cta"
             @keyup.enter="selectResult(option)"
