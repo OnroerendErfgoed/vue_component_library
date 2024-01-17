@@ -5,7 +5,7 @@
     :value="dateValue"
     visual-format="d-m-Y"
     @input="updateValue"
-  />
+  ></vl-datepicker>
 </template>
 
 <script setup lang="ts">

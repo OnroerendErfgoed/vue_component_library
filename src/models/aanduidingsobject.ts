@@ -1,5 +1,5 @@
-import { Serializable } from './serializable';
 import type { IDataverantwoordelijke } from './dataverantwoordelijke';
+import { Serializable } from './serializable';
 import type { IStatus } from './status';
 import type { ISystemFields } from './system-fields';
 

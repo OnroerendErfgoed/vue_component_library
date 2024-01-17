@@ -1,8 +1,8 @@
 import '@/scss/main.scss';
 import OeLoader from '../../components/dumb/OeLoader.vue';
 import { VlButton } from '@govflanders/vl-ui-design-system-vue3';
-import { ref } from 'vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
+import { ref } from 'vue';
 
 const meta: Meta<typeof OeLoader> = {
   title: 'Dumb components/Loader',

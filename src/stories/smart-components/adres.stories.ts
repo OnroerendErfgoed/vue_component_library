@@ -1,6 +1,6 @@
 import '@/scss/main.scss';
-import OeAdres from '@components/smart/OeAdres.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
+import OeAdres from '@components/smart/OeAdres.vue';
 import type { ILocatieAdres } from '@models/locatie';
 
 const meta: Meta<typeof OeAdres> = {

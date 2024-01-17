@@ -2,13 +2,13 @@
   <div ref="zonePanelRef" :class="{ closed: !panelOpen || !props.drawPanelEnabled }" class="panel">
     <div ref="elementRef" class="zone-panel oe-ol-control ol-control ol-unselectable">
       <button data-cy="zonePanelControl" @click="togglePanel">
-        <font-awesome-icon icon="pencil" title="Zone samenstellen" />
+        <font-awesome-icon icon="pencil" title="Zone samenstellen"></font-awesome-icon>
       </button>
     </div>
 
     <vl-title class="panelHeader" tag-name="h4">
       <span v-if="panelOpen" class="titleText">&nbsp;Zone samenstellen</span>
-      <font-awesome-icon class="pointer" :icon="['fas', 'close']" @click="togglePanel" />
+      <font-awesome-icon class="pointer" :icon="['fas', 'close']" @click="togglePanel"></font-awesome-icon>
     </vl-title>
 
     <div v-if="panelOpen" class="panelBody">
@@ -20,7 +20,7 @@
             title="teken polygoon"
             @click="toggleDrawZone(true)"
           >
-            <font-awesome-icon icon="draw-polygon" />
+            <font-awesome-icon icon="draw-polygon"></font-awesome-icon>
           </vl-button>
           <vl-button
             mod-narrow
@@ -28,7 +28,7 @@
             title="teken cirkel"
             @click="toggleDrawZone(true, 'Circle')"
           >
-            <font-awesome-icon :icon="['far', 'circle']" />
+            <font-awesome-icon :icon="['far', 'circle']"></font-awesome-icon>
           </vl-button>
           <vl-button
             vl-button
@@ -37,7 +37,7 @@
             title="selecteer perceel"
             @click="startPerceelSelect()"
           >
-            <font-awesome-icon icon="map-marker-alt" />
+            <font-awesome-icon icon="map-marker-alt"></font-awesome-icon>
           </vl-button>
           <vl-button
             data-cy="showWKTInput"
@@ -59,11 +59,11 @@
             :mod-error="invalidWKT"
             :model-value="WKTString"
             @update:model-value="updateWKTString"
-          />
+          ></vl-input-field>
           <vl-button data-cy="plaatsWKT" vl-button mod-narrow mod-secondary @click="drawWKTZone()">Plaats</vl-button>
         </template>
         <vl-button title="annuleren" vl-button mod-narrow mod-secondary @click="toggleDrawZone(false)">
-          <font-awesome-icon icon="cancel" />
+          <font-awesome-icon icon="cancel"></font-awesome-icon>
         </vl-button>
       </vl-input-group>
 
@@ -71,7 +71,7 @@
       <ul data-cy="geometryObjectList" class="geometryObjectList">
         <li v-for="(item, index) in geometryObjectList" :key="index">
           <span>{{ item }}</span>
-          <vl-link class="iconLink" @click="removeGeometryObject(item)"> <vl-icon icon="trash" /> </vl-link>
+          <vl-link class="iconLink" @click="removeGeometryObject(item)"> <vl-icon icon="trash"></vl-icon> </vl-link>
         </li>
       </ul>
     </div>
@@ -83,6 +83,10 @@ import 'ol/ol.css';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { VlButton, VlIcon, VlInputField, VlInputGroup, VlLink, VlTitle } from '@govflanders/vl-ui-design-system-vue3';
 import { Feature, Map, MapBrowserEvent } from 'ol';
+import type { FeatureLike } from 'ol/Feature';
+import type { ColorLike } from 'ol/colorlike';
+import type { Listener } from 'ol/events';
+import type { Extent } from 'ol/extent';
 import { GeoJSON, WKT } from 'ol/format';
 import { Circle, Geometry, MultiPolygon, Polygon } from 'ol/geom';
 import { fromCircle } from 'ol/geom/Polygon';
@@ -91,10 +95,6 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Fill, Text as OlText, Stroke, Style } from 'ol/style';
 import { inject, onMounted, onUnmounted, ref, watch } from 'vue';
-import type { FeatureLike } from 'ol/Feature';
-import type { ColorLike } from 'ol/colorlike';
-import type { Listener } from 'ol/events';
-import type { Extent } from 'ol/extent';
 import type { CrabApiService } from '@/services';
 import type { Contour, IDrawGeomType } from '@models/oe-openlayers';
 

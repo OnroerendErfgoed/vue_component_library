@@ -1,5 +1,5 @@
 export interface ISystemFieldsProps {
-  status: string;
+  status?: string;
   createdBy: string;
   createdAt: string;
   updatedBy: string;

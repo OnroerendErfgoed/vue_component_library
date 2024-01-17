@@ -3,326 +3,326 @@
   "uri": "https://dev-id.erfgoed.net/actoren/12564",
   "self": "https://dev-actoren.onroerenderfgoed.be/actoren/12564",
   "type": {
-      "id": 1,
-      "naam": "persoon",
-      "uri": "foaf:Person"
+    "id": 1,
+    "naam": "persoon",
+    "uri": "foaf:Person"
   },
   "types": [
-      "http://xmlns.com/foaf/0.1/Person",
-      "foaf:Person",
-      "https://www.w3.org/ns/prov#Person",
-      "prov:Person",
-      "https://id.erfgoed.net/vocab/ontology#ErkendArcheoloog",
-      "oe:ErkendArcheoloog",
-      "https://id.erfgoed.net/vocab/ontology#ErkendArcheoloog",
-      "oe:ErkendArcheoloog"
+    "http://xmlns.com/foaf/0.1/Person",
+    "foaf:Person",
+    "https://www.w3.org/ns/prov#Person",
+    "prov:Person",
+    "https://id.erfgoed.net/vocab/ontology#ErkendArcheoloog",
+    "oe:ErkendArcheoloog",
+    "https://id.erfgoed.net/vocab/ontology#ErkendArcheoloog",
+    "oe:ErkendArcheoloog"
   ],
   "zichtbaarheid": {
-      "id": 1,
-      "naam": "privaat"
+    "id": 1,
+    "naam": "privaat"
   },
   "omschrijving": "Van Humbeeck, Astrid",
   "naam": "Van Humbeeck",
   "voornaam": "Astrid",
   "afkorting": "",
   "adressen": [
-      {
-          "id": 2326,
-          "land": {
-              "code": "BE",
-              "naam": "Belgi\u00eb"
-          },
-          "postcode": {
-              "nummer": "3360",
-              "uri": "https://data.vlaanderen.be/id/postinfo/3360"
-          },
-          "gemeente": {
-              "naam": "Bierbeek",
-              "niscode": "24011"
-          },
-          "straat": {
-              "naam": "Krijkelberg",
-              "id": "32284",
-              "uri": "https://data.vlaanderen.be/id/straatnaam/32284"
-          },
-          "adres": {
-              "huisnummer": "18",
-              "busnummer": "",
-              "id": "3509600",
-              "uri": "https://data.vlaanderen.be/id/adres/3509600"
-          },
-          "adrestype": {
-              "id": 2,
-              "naam": "Extra"
-          },
-          "omschrijving": "Krijkelberg 18, 3360 Bierbeek",
-          "beschrijving": null,
-          "startdatum": "2023-04-17",
-          "einddatum": null
-      },
-      {
-          "id": 2251,
-          "land": {
-              "code": "BE",
-              "naam": "Belgi\u00eb"
-          },
-          "postcode": {
-              "nummer": "3770",
-              "uri": "https://data.vlaanderen.be/id/postinfo/3770"
-          },
-          "gemeente": {
-              "naam": "Riemst",
-              "niscode": "73066"
-          },
-          "straat": {
-              "naam": "Achterhofname",
-              "id": "122648",
-              "uri": "https://data.vlaanderen.be/id/straatnaam/122648"
-          },
-          "adres": {
-              "huisnummer": "3",
-              "busnummer": "",
-              "id": "1021993",
-              "uri": "https://data.vlaanderen.be/id/adres/1021993"
-          },
-          "adrestype": {
-              "id": 1,
-              "naam": "Primair"
-          },
-          "omschrijving": "Achterhofname 3, 3770 Riemst",
-          "beschrijving": null,
-          "startdatum": "2020-10-14",
-          "einddatum": null
-      },
-      {
-          "id": 2255,
-          "land": {
-              "code": "BE",
-              "naam": "Belgi\u00eb"
-          },
-          "postcode": {
-              "nummer": "1790",
-              "uri": "https://data.vlaanderen.be/id/postinfo/1790"
-          },
-          "gemeente": {
-              "naam": "Affligem",
-              "niscode": "23105"
-          },
-          "straat": {
-              "naam": "Boonhof",
-              "id": "31373",
-              "uri": "https://data.vlaanderen.be/id/straatnaam/31373"
-          },
-          "adres": {
-              "huisnummer": "66",
-              "busnummer": "",
-              "id": "701663",
-              "uri": "https://data.vlaanderen.be/id/adres/701663"
-          },
-          "adrestype": {
-              "id": 2,
-              "naam": "Extra"
-          },
-          "omschrijving": "Boonhof 66, 1790 Affligem",
-          "beschrijving": null,
-          "startdatum": "2020-10-27",
-          "einddatum": null
-      }
-  ],
-  "info": [
-      {
-          "id": 1,
-          "naam": "Aanvaardt opdracht als archeoloog"
-      }
-  ],
-  "urls": [],
-  "telefoons": [],
-  "emails": [
-      {
-          "email": "astrid.vanhumbeeck@vlaanderen.be",
-          "type": {
-              "id": 2,
-              "naam": "werk"
-          }
-      }
-  ],
-  "relaties": [
-      {
-          "id": 15676,
-          "type": {
-              "id": 1,
-              "naam": "is deel van"
-          },
-          "naar_id": 10082,
-          "naar_omschrijving": "Agentschap Onroerend Erfgoed",
-          "startdatum": null,
-          "einddatum": null
-      },
-      {
-          "id": 15805,
-          "type": {
-              "id": 3,
-              "naam": "is sleutelgebruiker"
-          },
-          "naar_id": 501,
-          "naar_omschrijving": "Agentschap Onroerend Erfgoed",
-          "startdatum": null,
-          "einddatum": null
-      },
-      {
-          "id": 15678,
-          "type": {
-              "id": 3,
-              "naam": "is sleutelgebruiker"
-          },
-          "naar_id": 12557,
-          "naar_omschrijving": "Verdugt NV",
-          "startdatum": "2021-03-01",
-          "einddatum": null
-      }
-  ],
-  "adres": {
-      "id": 2251,
+    {
+      "id": 2326,
       "land": {
-          "code": "BE",
-          "naam": "Belgi\u00eb"
+        "code": "BE",
+        "naam": "Belgi\u00eb"
       },
       "postcode": {
-          "nummer": "3770",
-          "uri": "https://data.vlaanderen.be/id/postinfo/3770"
+        "nummer": "3360",
+        "uri": "https://data.vlaanderen.be/id/postinfo/3360"
       },
       "gemeente": {
-          "naam": "Riemst",
-          "niscode": "73066"
+        "naam": "Bierbeek",
+        "niscode": "24011"
       },
       "straat": {
-          "naam": "Achterhofname",
-          "id": "122648",
-          "uri": "https://data.vlaanderen.be/id/straatnaam/122648"
+        "naam": "Krijkelberg",
+        "id": "32284",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/32284"
       },
       "adres": {
-          "huisnummer": "3",
-          "busnummer": "",
-          "id": "1021993",
-          "uri": "https://data.vlaanderen.be/id/adres/1021993"
+        "huisnummer": "18",
+        "busnummer": "",
+        "id": "3509600",
+        "uri": "https://data.vlaanderen.be/id/adres/3509600"
       },
       "adrestype": {
-          "id": 1,
-          "naam": "Primair"
+        "id": 2,
+        "naam": "Extra"
+      },
+      "omschrijving": "Krijkelberg 18, 3360 Bierbeek",
+      "beschrijving": null,
+      "startdatum": "2023-04-17",
+      "einddatum": null
+    },
+    {
+      "id": 2251,
+      "land": {
+        "code": "BE",
+        "naam": "Belgi\u00eb"
+      },
+      "postcode": {
+        "nummer": "3770",
+        "uri": "https://data.vlaanderen.be/id/postinfo/3770"
+      },
+      "gemeente": {
+        "naam": "Riemst",
+        "niscode": "73066"
+      },
+      "straat": {
+        "naam": "Achterhofname",
+        "id": "122648",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/122648"
+      },
+      "adres": {
+        "huisnummer": "3",
+        "busnummer": "",
+        "id": "1021993",
+        "uri": "https://data.vlaanderen.be/id/adres/1021993"
+      },
+      "adrestype": {
+        "id": 1,
+        "naam": "Primair"
       },
       "omschrijving": "Achterhofname 3, 3770 Riemst",
       "beschrijving": null,
       "startdatum": "2020-10-14",
       "einddatum": null
+    },
+    {
+      "id": 2255,
+      "land": {
+        "code": "BE",
+        "naam": "Belgi\u00eb"
+      },
+      "postcode": {
+        "nummer": "1790",
+        "uri": "https://data.vlaanderen.be/id/postinfo/1790"
+      },
+      "gemeente": {
+        "naam": "Affligem",
+        "niscode": "23105"
+      },
+      "straat": {
+        "naam": "Boonhof",
+        "id": "31373",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/31373"
+      },
+      "adres": {
+        "huisnummer": "66",
+        "busnummer": "",
+        "id": "701663",
+        "uri": "https://data.vlaanderen.be/id/adres/701663"
+      },
+      "adrestype": {
+        "id": 2,
+        "naam": "Extra"
+      },
+      "omschrijving": "Boonhof 66, 1790 Affligem",
+      "beschrijving": null,
+      "startdatum": "2020-10-27",
+      "einddatum": null
+    }
+  ],
+  "info": [
+    {
+      "id": 1,
+      "naam": "Aanvaardt opdracht als archeoloog"
+    }
+  ],
+  "urls": [],
+  "telefoons": [],
+  "emails": [
+    {
+      "email": "astrid.vanhumbeeck@vlaanderen.be",
+      "type": {
+        "id": 2,
+        "naam": "werk"
+      }
+    }
+  ],
+  "relaties": [
+    {
+      "id": 15676,
+      "type": {
+        "id": 1,
+        "naam": "is deel van"
+      },
+      "naar_id": 10082,
+      "naar_omschrijving": "Agentschap Onroerend Erfgoed",
+      "startdatum": null,
+      "einddatum": null
+    },
+    {
+      "id": 15805,
+      "type": {
+        "id": 3,
+        "naam": "is sleutelgebruiker"
+      },
+      "naar_id": 501,
+      "naar_omschrijving": "Agentschap Onroerend Erfgoed",
+      "startdatum": null,
+      "einddatum": null
+    },
+    {
+      "id": 15678,
+      "type": {
+        "id": 3,
+        "naam": "is sleutelgebruiker"
+      },
+      "naar_id": 12557,
+      "naar_omschrijving": "Verdugt NV",
+      "startdatum": "2021-03-01",
+      "einddatum": null
+    }
+  ],
+  "adres": {
+    "id": 2251,
+    "land": {
+      "code": "BE",
+      "naam": "Belgi\u00eb"
+    },
+    "postcode": {
+      "nummer": "3770",
+      "uri": "https://data.vlaanderen.be/id/postinfo/3770"
+    },
+    "gemeente": {
+      "naam": "Riemst",
+      "niscode": "73066"
+    },
+    "straat": {
+      "naam": "Achterhofname",
+      "id": "122648",
+      "uri": "https://data.vlaanderen.be/id/straatnaam/122648"
+    },
+    "adres": {
+      "huisnummer": "3",
+      "busnummer": "",
+      "id": "1021993",
+      "uri": "https://data.vlaanderen.be/id/adres/1021993"
+    },
+    "adrestype": {
+      "id": 1,
+      "naam": "Primair"
+    },
+    "omschrijving": "Achterhofname 3, 3770 Riemst",
+    "beschrijving": null,
+    "startdatum": "2020-10-14",
+    "einddatum": null
   },
   "erkenningen": [
-      {
-          "erkenningsnummer": "OE/ERK/Archeoloog/2020/00015",
-          "id": 55,
-          "type": "natuurlijk persoon",
-          "uri": "https://dev-id.erfgoed.net/actoren/12564",
-          "omschrijving": "Van Humbeeck, Astrid",
-          "erkend_voor": "Archeologie type 1",
-          "erkend_als": "Archeoloog type 1",
-          "type_erkenning_id": 1,
-          "reden_erkenning": {
-              "id": 2,
-              "reden_erkenning": "Van rechtswege erkend"
-          },
-          "geldigheid": "Vanaf 01-12-2020"
+    {
+      "erkenningsnummer": "OE/ERK/Archeoloog/2020/00015",
+      "id": 55,
+      "type": "natuurlijk persoon",
+      "uri": "https://dev-id.erfgoed.net/actoren/12564",
+      "omschrijving": "Van Humbeeck, Astrid",
+      "erkend_voor": "Archeologie type 1",
+      "erkend_als": "Archeoloog type 1",
+      "type_erkenning_id": 1,
+      "reden_erkenning": {
+        "id": 2,
+        "reden_erkenning": "Van rechtswege erkend"
       },
-      {
-          "erkenningsnummer": "OE/ERK/Archeoloog/2018/00018",
-          "id": 9,
-          "type": "rechtspersoon",
-          "uri": "https://dev-id.erfgoed.net/actoren/501",
-          "omschrijving": "Agentschap Onroerend Erfgoed",
-          "erkend_voor": "Archeologie type 1",
-          "erkend_als": "Archeoloog type 1",
-          "type_erkenning_id": 1,
-          "reden_erkenning": {
-              "id": 2,
-              "reden_erkenning": "Van rechtswege erkend"
-          },
-          "geldigheid": "Vanaf 01-06-2018 tot 30-06-2030"
+      "geldigheid": "Vanaf 01-12-2020"
+    },
+    {
+      "erkenningsnummer": "OE/ERK/Archeoloog/2018/00018",
+      "id": 9,
+      "type": "rechtspersoon",
+      "uri": "https://dev-id.erfgoed.net/actoren/501",
+      "omschrijving": "Agentschap Onroerend Erfgoed",
+      "erkend_voor": "Archeologie type 1",
+      "erkend_als": "Archeoloog type 1",
+      "type_erkenning_id": 1,
+      "reden_erkenning": {
+        "id": 2,
+        "reden_erkenning": "Van rechtswege erkend"
       },
-      {
-          "erkenningsnummer": "OE/ERK/Archeoloog/2021/00001",
-          "id": 59,
-          "type": "rechtspersoon",
-          "uri": "https://dev-id.erfgoed.net/actoren/12557",
-          "omschrijving": "Verdugt NV",
-          "erkend_voor": "Archeologie type 1",
-          "erkend_als": "Archeoloog type 1",
-          "type_erkenning_id": 1,
-          "reden_erkenning": {
-              "id": 1,
-              "reden_erkenning": "Erkend door Onroerend Erfgoed"
-          },
-          "geldigheid": "Vanaf 01-03-2021"
-      }
+      "geldigheid": "Vanaf 01-06-2018 tot 30-06-2030"
+    },
+    {
+      "erkenningsnummer": "OE/ERK/Archeoloog/2021/00001",
+      "id": 59,
+      "type": "rechtspersoon",
+      "uri": "https://dev-id.erfgoed.net/actoren/12557",
+      "omschrijving": "Verdugt NV",
+      "erkend_voor": "Archeologie type 1",
+      "erkend_als": "Archeoloog type 1",
+      "type_erkenning_id": 1,
+      "reden_erkenning": {
+        "id": 1,
+        "reden_erkenning": "Erkend door Onroerend Erfgoed"
+      },
+      "geldigheid": "Vanaf 01-03-2021"
+    }
   ],
   "overeenkomsten": [],
   "systemfields": {
-      "created_at": "2020-10-16T14:03:24.911936+02:00",
-      "created_by": {
-          "uri": "https://dev-id.erfgoed.net/actoren/12495",
-          "description": "Toelatingen Beschermd Erfgoed Aanvragen"
-      },
-      "updated_at": "2023-11-06T11:11:22.308101+01:00",
-      "updated_by": {
-          "uri": "https://dev-id.erfgoed.net/actoren/12564",
-          "description": "Van Humbeeck, Astrid"
-      }
+    "created_at": "2020-10-16T14:03:24.911936+02:00",
+    "created_by": {
+      "uri": "https://dev-id.erfgoed.net/actoren/12495",
+      "description": "Toelatingen Beschermd Erfgoed Aanvragen"
+    },
+    "updated_at": "2023-11-06T11:11:22.308101+01:00",
+    "updated_by": {
+      "uri": "https://dev-id.erfgoed.net/actoren/12564",
+      "description": "Van Humbeeck, Astrid"
+    }
   },
   "status": {
-      "status": {
-          "id": 75,
-          "status": "Actief"
-      },
-      "datum": "2020-12-02T09:24:38.485558+01:00",
-      "gebruiker": {
-          "uri": "https://dev-id.erfgoed.net/actoren/12564",
-          "omschrijving": "Van Humbeeck, Astrid"
-      },
-      "opmerkingen": ""
+    "status": {
+      "id": 75,
+      "status": "Actief"
+    },
+    "datum": "2020-12-02T09:24:38.485558+01:00",
+    "gebruiker": {
+      "uri": "https://dev-id.erfgoed.net/actoren/12564",
+      "omschrijving": "Van Humbeeck, Astrid"
+    },
+    "opmerkingen": ""
   },
   "ids": [
-      {
-          "type": {
-              "id": 4,
-              "naam": "rrn"
-          },
-          "extra_id": "90042818619"
+    {
+      "type": {
+        "id": 4,
+        "naam": "rrn"
       },
-      {
-          "type": {
-              "id": 5,
-              "naam": "persid"
-          },
-          "extra_id": "-DrDAN0sRG4tJMJ0Zl34mQ"
+      "extra_id": "90042818619"
+    },
+    {
+      "type": {
+        "id": 5,
+        "naam": "persid"
       },
-      {
-          "type": {
-              "id": 7,
-              "naam": "uid"
-          },
-          "extra_id": "vanhumas"
+      "extra_id": "-DrDAN0sRG4tJMJ0Zl34mQ"
+    },
+    {
+      "type": {
+        "id": 7,
+        "naam": "uid"
       },
-      {
-          "type": {
-              "id": 12,
-              "naam": "orcid"
-          },
-          "extra_id": "https://orcid.org/0000-0002-1825-0097"
+      "extra_id": "vanhumas"
+    },
+    {
+      "type": {
+        "id": 12,
+        "naam": "orcid"
       },
-      {
-          "type": {
-              "id": 15,
-              "naam": "persoonid"
-          },
-          "extra_id": "34d27418799f0f148485bacb457f7490e4350928a1169095e4501f69c633b21e"
-      }
+      "extra_id": "https://orcid.org/0000-0002-1825-0097"
+    },
+    {
+      "type": {
+        "id": 15,
+        "naam": "persoonid"
+      },
+      "extra_id": "34d27418799f0f148485bacb457f7490e4350928a1169095e4501f69c633b21e"
+    }
   ],
   "opmerkingen": ""
 }

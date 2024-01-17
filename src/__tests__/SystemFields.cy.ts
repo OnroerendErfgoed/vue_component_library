@@ -18,9 +18,9 @@ describe('SystemFields - no data', () => {
     mount(TestComponent);
   });
 
-  it('has an empty status field', () => {
+  it('hides the status field when empty', () => {
     mount(TestComponent);
-    cy.dataCy('systemfield-status').should('have.text', 'Status: -');
+    cy.dataCy('systemfield-status').should('not.exist');
   });
 
   it('has an empty aangemaakt door field', () => {

@@ -70,7 +70,7 @@
             :mod-error="!!v$.gemeente.naam.$errors.length"
             mod-block
             placeholder="Gemeente"
-          />
+          ></VlInputField>
           <vl-form-message-error
             v-for="error of v$.gemeente.naam.$errors"
             :key="error.$uid"
@@ -119,7 +119,7 @@
             :mod-error="!!v$.postcode.nummer.$errors.length"
             mod-block
             placeholder="Postcode"
-          />
+          ></VlInputField>
 
           <button
             v-if="isBelgium && !isVlaamseGemeenteOrEmpty"
@@ -178,7 +178,7 @@
             :mod-error="!!v$.straat.naam.$errors.length"
             mod-block
             placeholder="Straat"
-          />
+          ></VlInputField>
 
           <button
             v-if="isBelgium && !isVlaamseGemeenteOrEmpty"
@@ -234,7 +234,7 @@
             mod-block
             placeholder="Huisnummer"
             :mod-error="!!v$.adres.huisnummer.$errors.length"
-          />
+          ></VlInputField>
 
           <button
             v-if="isBelgium && !straatFreeText && huisnummers.length > 0"
@@ -294,7 +294,7 @@
             mod-block
             placeholder="Busnummer"
             :mod-error="!!v$.adres.busnummer.$errors.length"
-          />
+          ></VlInputField>
 
           <button
             v-if="isBelgium && !huisnummerFreeText && busnummers.length > 0"
@@ -336,10 +336,10 @@ import { helpers } from '@vuelidate/validators';
 import { AxiosError } from 'axios';
 import { pick, sortBy, uniqBy } from 'lodash';
 import { computed, onMounted, ref, watch } from 'vue';
-import { CrabApiService } from '@services/crab-api.service';
-import { requiredIf } from '@utils/i18n-validators';
 import type { IAdresProps } from '@models/adres';
 import type { IAdres, IGemeente, ILand, ILocatieAdres, IPostinfo, IStraat } from '@models/locatie';
+import { CrabApiService } from '@services/crab-api.service';
+import { requiredIf } from '@utils/i18n-validators';
 
 const props = withDefaults(defineProps<IAdresProps>(), {
   config: () => ({
