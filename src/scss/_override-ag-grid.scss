@@ -1,0 +1,50 @@
+.ag-grid-vue {
+  .ag-full-width-container {
+    .ag-full-width-row {
+      position: absolute;
+      z-index: -1;
+
+      .group-row {
+        position: relative;
+        z-index: -1;
+        padding-left: 35px;
+        background-color: $silver;
+        box-sizing: border-box;
+        height: 100%;
+        white-space: normal;
+      }
+    }
+  }
+
+  .cell-spacing {
+    margin: 0 1rem;
+  }
+
+  .cell-renderer-acties {
+    width: 100%;
+  }
+
+  .ag-row {
+    z-index: 0;
+    &.ag-row-focus {
+      z-index: 1;
+    }
+    .ag-cell-value {
+      &.edit-mode {
+        overflow: visible !important;
+        white-space: break-spaces !important;
+        .vl-select__list--dropdown {
+          width: 30vw;
+        }
+      }
+      &.read-mode {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        padding: 0;
+        top: 20%;
+        display: block;
+      }
+    }
+  }
+}
