@@ -1,12 +1,16 @@
 import { mount } from 'cypress/vue';
-import { defineComponent } from 'vue';
+import { defineComponent, useAttrs } from 'vue';
 import OeAdres from '@components/smart/OeAdres.vue';
 import type { IAdresConfig } from '@models/adres';
 
 describe('Adres', () => {
   const TestComponent = defineComponent({
     components: { OeAdres },
-    template: '<Suspense><OeAdres/></Suspense>',
+    setup() {
+      const attrs = useAttrs();
+      return { attrs };
+    },
+    template: '<Suspense><OeAdres v-bind="attrs"/></Suspense>',
   });
 
   it('renders', () => {
@@ -23,20 +27,20 @@ describe('Adres', () => {
       mount(TestComponent);
     });
 
-    it('has an input label land - required', () => {
-      getLabel('land').should('have.text', 'Land(verplicht)');
+    it('has an input label land', () => {
+      getLabel('land').should('have.text', 'Land');
     });
 
-    it('has an input label gemeente - required', () => {
-      getLabel('gemeente').should('have.text', 'Gemeente(verplicht)');
+    it('has an input label gemeente', () => {
+      getLabel('gemeente').should('have.text', 'Gemeente');
     });
 
-    it('has an input label postcode - required', () => {
-      getLabel('postcode').should('have.text', 'Postcode(verplicht)');
+    it('has an input label postcode', () => {
+      getLabel('postcode').should('have.text', 'Postcode');
     });
 
-    it('has an input label straat - required', () => {
-      getLabel('straat').should('have.text', 'Straat(verplicht)');
+    it('has an input label straat', () => {
+      getLabel('straat').should('have.text', 'Straat');
     });
 
     it('has an input label huisnummer', () => {
@@ -139,8 +143,8 @@ describe('Adres', () => {
         getMultiSelect('straat').parent().should('have.class', 'vl-multiselect--error');
         getFormError('straat').should('have.text', 'Het veld straat is verplicht.');
 
-        getMultiSelect('huisnummer').parent().should('not.have.class', 'vl-multiselect--error');
-        getFormError('huisnummer').should('not.exist');
+        getMultiSelect('huisnummer').parent().should('have.class', 'vl-multiselect--error');
+        getFormError('huisnummer').should('have.text', 'Het veld huisnummer is verplicht.');
 
         getMultiSelect('busnummer').parent().should('not.have.class', 'vl-multiselect--error');
         getFormError('busnummer').should('not.exist');
@@ -307,12 +311,42 @@ describe('Adres', () => {
         getTextInput('straat').should('have.class', 'vl-input-field--error');
         getFormError('straat').should('have.text', 'Het veld straat is verplicht.');
 
-        getTextInput('huisnummer').should('not.have.class', 'vl-input-field--error');
-        getFormError('huisnummer').should('not.exist');
+        getTextInput('huisnummer').should('have.class', 'vl-input-field--error');
+        getFormError('huisnummer').should('have.text', 'Het veld huisnummer is verplicht.');
 
         getTextInput('busnummer').should('not.have.class', 'vl-input-field--error');
         getFormError('busnummer').should('not.exist');
       });
+    });
+  });
+
+  describe('form - show required annotation per field', () => {
+    beforeEach(() => {
+      mount(TestComponent, { props: { showRequiredPerField: true } });
+    });
+
+    it('has an input label land', () => {
+      getLabel('land').should('have.text', 'LandVERPLICHT');
+    });
+
+    it('has an input label gemeente', () => {
+      getLabel('gemeente').should('have.text', 'GemeenteVERPLICHT');
+    });
+
+    it('has an input label postcode', () => {
+      getLabel('postcode').should('have.text', 'PostcodeVERPLICHT');
+    });
+
+    it('has an input label straat', () => {
+      getLabel('straat').should('have.text', 'StraatVERPLICHT');
+    });
+
+    it('has an input label huisnummer', () => {
+      getLabel('huisnummer').should('have.text', 'HuisnummerVERPLICHT');
+    });
+
+    it('has an input label busnummer', () => {
+      getLabel('busnummer').should('have.text', 'Busnummer');
     });
   });
 
@@ -451,12 +485,12 @@ describe('Adres', () => {
         });
       });
 
-      it('has an input label land - required', () => {
-        getLabel('land').should('have.text', 'Land(verplicht)');
+      it('has an input label land', () => {
+        getLabel('land').should('have.text', 'Land');
       });
 
-      it('has an input label gemeente - required', () => {
-        getLabel('gemeente').should('have.text', 'Gemeente(verplicht)');
+      it('has an input label gemeente', () => {
+        getLabel('gemeente').should('have.text', 'Gemeente');
       });
 
       it('has an input label postcode', () => {
@@ -526,28 +560,28 @@ describe('Adres', () => {
         });
       });
 
-      it('has an input label land - required', () => {
-        getLabel('land').should('have.text', 'Land(verplicht)');
+      it('has an input label land', () => {
+        getLabel('land').should('have.text', 'Land');
       });
 
-      it('has an input label gemeente - required', () => {
-        getLabel('gemeente').should('have.text', 'Gemeente(verplicht)');
+      it('has an input label gemeente', () => {
+        getLabel('gemeente').should('have.text', 'Gemeente');
       });
 
       it('has an input label postcode', () => {
-        getLabel('postcode').should('have.text', 'Postcode(verplicht)');
+        getLabel('postcode').should('have.text', 'Postcode');
       });
 
       it('has an input label straat', () => {
-        getLabel('straat').should('have.text', 'Straat(verplicht)');
+        getLabel('straat').should('have.text', 'Straat');
       });
 
       it('has an input label huisnummer', () => {
-        getLabel('huisnummer').should('have.text', 'Huisnummer(verplicht)');
+        getLabel('huisnummer').should('have.text', 'Huisnummer');
       });
 
       it('has an input label busnummer', () => {
-        getLabel('busnummer').should('have.text', 'Busnummer(verplicht)');
+        getLabel('busnummer').should('have.text', 'Busnummer');
       });
 
       it('triggers required validation after fields are touched and emptied', () => {

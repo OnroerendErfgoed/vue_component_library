@@ -1,16 +1,16 @@
 <template>
   <div class="oe-adres">
     <VlProperties>
-      <VlPropertiesTitle data-cy="title-adres">Adres</VlPropertiesTitle>
+      <VlPropertiesTitle v-if="!hideTitle" data-cy="title-adres">Adres</VlPropertiesTitle>
       <VlPropertiesList>
         <!-- Land -->
         <template v-if="!props.countryId">
           <VlPropertiesLabel>
             <vl-form-message-label data-cy="label-land">
               <span class="vl-u-spacer-right--xxsmall">Land</span>
-              <span v-if="$props.config?.land?.required" class="vl-form__annotation">
-                {{ '(verplicht)' }}
-              </span>
+              <span v-if="props.showRequiredPerField && $props.config?.land?.required" class="vl-form__annotation"
+                >VERPLICHT</span
+              >
             </vl-form-message-label>
           </VlPropertiesLabel>
           <VlPropertiesData>
@@ -35,9 +35,9 @@
         <VlPropertiesLabel>
           <vl-form-message-label data-cy="label-gemeente">
             <span class="vl-u-spacer-right--xxsmall">Gemeente</span>
-            <span v-if="$props.config?.gemeente?.required" class="vl-form__annotation">
-              {{ '(verplicht)' }}
-            </span>
+            <span v-if="props.showRequiredPerField && $props.config?.gemeente?.required" class="vl-form__annotation"
+              >VERPLICHT</span
+            >
           </vl-form-message-label>
         </VlPropertiesLabel>
         <VlPropertiesData>
@@ -84,9 +84,9 @@
         <VlPropertiesLabel>
           <vl-form-message-label data-cy="label-postcode">
             <span class="vl-u-spacer-right--xxsmall">Postcode</span>
-            <span v-if="$props.config?.postcode?.required" class="vl-form__annotation">
-              {{ '(verplicht)' }}
-            </span>
+            <span v-if="props.showRequiredPerField && $props.config?.postcode?.required" class="vl-form__annotation"
+              >VERPLICHT</span
+            >
           </vl-form-message-label>
         </VlPropertiesLabel>
         <VlPropertiesData>
@@ -144,9 +144,9 @@
         <VlPropertiesLabel>
           <vl-form-message-label data-cy="label-straat">
             <span class="vl-u-spacer-right--xxsmall">Straat</span>
-            <span v-if="$props.config?.straat?.required" class="vl-form__annotation">
-              {{ '(verplicht)' }}
-            </span>
+            <span v-if="props.showRequiredPerField && $props.config?.straat?.required" class="vl-form__annotation"
+              >VERPLICHT</span
+            >
           </vl-form-message-label>
         </VlPropertiesLabel>
         <VlPropertiesData>
@@ -199,9 +199,9 @@
         <VlPropertiesLabel>
           <vl-form-message-label data-cy="label-huisnummer">
             <span class="vl-u-spacer-right--xxsmall">Huisnummer</span>
-            <span v-if="$props.config?.huisnummer?.required" class="vl-form__annotation">
-              {{ '(verplicht)' }}
-            </span>
+            <span v-if="props.showRequiredPerField && $props.config?.huisnummer?.required" class="vl-form__annotation"
+              >VERPLICHT</span
+            >
           </vl-form-message-label>
         </VlPropertiesLabel>
         <VlPropertiesData>
@@ -259,9 +259,9 @@
         <VlPropertiesLabel>
           <vl-form-message-label data-cy="label-busnummer">
             <span class="vl-u-spacer-right--xxsmall">Busnummer</span>
-            <span v-if="$props.config?.busnummer?.required" class="vl-form__annotation">
-              {{ '(verplicht)' }}
-            </span>
+            <span v-if="props.showRequiredPerField && $props.config?.busnummer?.required" class="vl-form__annotation"
+              >VERPLICHT</span
+            >
           </vl-form-message-label>
         </VlPropertiesLabel>
         <VlPropertiesData>
@@ -342,12 +342,14 @@ import { CrabApiService } from '@services/crab-api.service';
 import { requiredIf } from '@utils/i18n-validators';
 
 const props = withDefaults(defineProps<IAdresProps>(), {
+  hideTitle: false,
+  showRequiredPerField: false,
   config: () => ({
     land: { required: true },
     gemeente: { required: true },
     postcode: { required: true },
     straat: { required: true },
-    huisnummer: { required: false },
+    huisnummer: { required: true },
     busnummer: { required: false },
   }),
   api: 'https://test-geo.onroerenderfgoed.be/',
@@ -506,6 +508,7 @@ const rules = computed(() => ({
 
 // Init validation instance
 const v$ = useVuelidate(rules, adres, { $lazy: true });
+defineExpose({ validate: () => v$.value.$validate() });
 
 // Reference data
 const crabApiService = new CrabApiService(props.api);
