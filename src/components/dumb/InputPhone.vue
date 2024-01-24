@@ -1,6 +1,6 @@
 <template>
   <div class="input-phone vl-grid" data-cy="input-phone-wrapper">
-    <div class="vl-col--1-6 vl-col--2-6--m vl-col--3-6--xs">
+    <div :class="prefixClass" data-cy="prefix">
       <vl-multiselect
         v-bind="$attrs"
         v-model="countryCode"
@@ -29,7 +29,7 @@
       data-cy="input-phone"
       :mod-error="(phoneNumberValue && inputTouched && !phoneNumberParsed?.isValid()) || $attrs['mod-error']"
       :placeholder="phoneNumberExample"
-      class="vl-col--5-6 vl-col--4-6--m vl-col--3-6--xs"
+      :class="inputFieldClass"
       type="tel"
       @blur="inputTouched = true"
     ></vl-input-field>
@@ -62,6 +62,14 @@ const props = withDefaults(defineProps<IInputPhoneProps>(), {
   modelValue: '',
 });
 const emit = defineEmits(['update:modelValue']);
+
+// Classes
+const prefixClass = computed(() =>
+  props.prefixClass ? props.prefixClass : 'vl-col--1-6 vl-col--2-6--m vl-col--3-6--xs'
+);
+const inputFieldClass = computed(() =>
+  props.inputFieldClass ? props.inputFieldClass : 'vl-col--5-6 vl-col--4-6--m vl-col--3-6--xs'
+);
 
 // Country code
 const countryCodeList = ref<ICountryCode[]>([
