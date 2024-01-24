@@ -7,6 +7,7 @@ export interface IAdresProps {
   countryId?: string;
   adres?: ILocatieAdres;
   optionsLimit?: number;
+  showRequiredPerField?: boolean;
 }
 
 export interface IAdresConfig {
