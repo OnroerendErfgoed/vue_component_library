@@ -102,6 +102,34 @@ describe('InputPhone', () => {
     cy.mount(TestComponent);
   });
 
+  it('sets default prefix classes', () => {
+    cy.mount(TestComponent);
+    cy.dataCy('prefix').should('have.class', 'vl-col--1-6 vl-col--2-6--m vl-col--3-6--xs');
+  });
+
+  it('sets default input field classes', () => {
+    cy.mount(TestComponent);
+    cy.dataCy('input-phone').should('have.class', 'vl-col--5-6 vl-col--4-6--m vl-col--3-6--xs');
+  });
+
+  it('sets configured prefix classes', () => {
+    cy.mount(TestComponent, {
+      props: {
+        prefixClass: 'test',
+      },
+    });
+    cy.dataCy('prefix').should('have.class', 'test');
+  });
+
+  it('sets configured input field classes', () => {
+    cy.mount(TestComponent, {
+      props: {
+        inputFieldClass: 'test',
+      },
+    });
+    cy.dataCy('input-phone').should('have.class', 'test');
+  });
+
   describe('BE', () => {
     it('renders a placeholder according to selected country', () => {
       cy.mount(TestComponent);
