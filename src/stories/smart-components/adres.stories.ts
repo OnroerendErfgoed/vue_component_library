@@ -66,6 +66,12 @@ type Story = StoryObj<typeof OeAdres>;
  */
 export const Default: Story = {};
 
+export const ShowRequiredAnnotationPerField: Story = {
+  args: {
+    showRequiredPerField: true,
+  },
+};
+
 export const CustomApi: Story = {
   args: {
     api: 'https://test-geo.onroerenderfgoed.be/',
