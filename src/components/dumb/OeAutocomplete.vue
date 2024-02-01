@@ -1,6 +1,7 @@
 <template>
   <div :id="`autocomplete-${props.id}`" v-click-outside="hideResults" data-cy="autocomplete" class="js-vl-autocomplete">
     <vl-input-field
+      v-bind="attrs"
       v-model="searchTerm"
       data-cy="autocomplete-input"
       :placeholder="props.placeholder"
@@ -29,7 +30,11 @@
             <span class="vl-autocomplete__cta__title">{{ option.title }}</span>
             <span v-if="option.subtitle" class="vl-autocomplete__cta__sub">{{ option.subtitle }}</span>
           </li>
-          <li v-if="options.length === 0 && !loading" class="vl-autocomplete__cta" data-cy="no-results">
+          <li
+            v-if="!props.allowFreeText && options.length === 0 && !loading"
+            class="vl-autocomplete__cta"
+            data-cy="no-results"
+          >
             <span class="vl-autocomplete__cta__title">Geen resultaten gevonden</span>
             <span class="vl-autocomplete__cta__sub">Doe een nieuwe zoekopdracht</span>
           </li>
@@ -41,10 +46,11 @@
 
 <script setup lang="ts">
 import { VlInputField } from '@govflanders/vl-ui-design-system-vue3';
-import { computed, ref, watch } from 'vue';
+import { computed, ref, useAttrs, watch } from 'vue';
 import { vClickOutside } from '@directives/click-outside.directive';
 import type { IAutocompleteOption, IAutocompleteProps } from '@models/autocomplete';
 
+const attrs = useAttrs();
 const props = withDefaults(defineProps<IAutocompleteProps>(), {
   value: undefined,
   id: 'id',
@@ -52,6 +58,7 @@ const props = withDefaults(defineProps<IAutocompleteProps>(), {
   minChars: 3,
   placeholder: 'Type om te zoeken...',
   callbackFn: (searchTerm: string) => Promise.resolve([{ title: searchTerm }]),
+  allowFreeText: true,
 });
 const emit = defineEmits(['update:value']);
 
@@ -91,17 +98,23 @@ watch(searchTerm, async () => {
     loading.value = true;
     const data = await fetchData(searchTerm.value);
     options.value = data;
+
     if (props.autoselect && data.length === 1) {
       selectResult(data[0]);
     }
     loading.value = false;
+
+    if (options.value.length === 0 && props.allowFreeText && searchTerm.value !== props.value?.title) {
+      showResults.value = false;
+      selectResult({ title: searchTerm.value, value: searchTerm.value });
+    }
   }
 });
 
 watch(
   () => props.value,
   () => {
-    if (selectedOption.value && !props.value?.value) {
+    if (!props.value?.value) {
       searchTerm.value = '';
       selectedOption.value = undefined;
     } else if (props.value?.title) {
