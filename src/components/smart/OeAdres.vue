@@ -206,7 +206,11 @@
         </VlPropertiesLabel>
         <VlPropertiesData>
           <oe-autocomplete
+            v-if="isBelgiumOrEmpty && !huisnummerFreeText"
+            data-cy="autocomplete-huisnummer"
             autoselect
+            allow-free-text
+            :mod-error="!!v$.adres.huisnummer.$errors.length"
             :min-chars="1"
             :mod-disabled="!straat"
             :value="huisnummerAutocompleteOption"
@@ -214,6 +218,15 @@
             placeholder="Huisnummer"
             @update:value="updateHuisnummer"
           ></oe-autocomplete>
+
+          <VlInputField
+            v-else
+            v-model="huisnummer"
+            data-cy="input-huisnummer"
+            mod-block
+            placeholder="Huisnummer"
+            :mod-error="!!v$.adres.huisnummer.$errors.length"
+          ></VlInputField>
 
           <vl-form-message-error
             v-for="error of v$.adres.huisnummer.$errors"
@@ -235,14 +248,27 @@
         </VlPropertiesLabel>
         <VlPropertiesData>
           <oe-autocomplete
-            autoselect
+            v-if="isBelgiumOrEmpty && !huisnummerFreeText && !busnummerFreeText"
+            data-cy="autocomplete-busnummer"
+            allow-free-text
+            :mod-error="!!v$.adres.busnummer.$errors.length"
             :min-chars="1"
-            :mod-disabled="!straat"
+            :mod-disabled="!huisnummer"
             :value="busnummerAutocompleteOption"
             :callback-fn="performAutocompleteSearchBusnummers"
             placeholder="Busnummer"
             @update:value="updateBusnummer"
           ></oe-autocomplete>
+
+          <VlInputField
+            v-else
+            v-model="busnummer"
+            data-cy="input-busnummer"
+            mod-block
+            placeholder="Busnummer"
+            :mod-error="!!v$.adres.busnummer.$errors.length"
+          ></VlInputField>
+
           <vl-form-message-error
             v-for="error of v$.adres.busnummer.$errors"
             :key="error.$uid"
@@ -302,6 +328,8 @@ const emit = defineEmits(['update:adres']);
 
 const postcodeFreeText = ref(false);
 const straatFreeText = ref(false);
+const huisnummerFreeText = ref(false);
+const busnummerFreeText = ref(false);
 
 // Custom multiselect labels
 const customGemeenteLabel = (option: IGemeente) => option.naam;
@@ -552,6 +580,8 @@ watch(gemeente, async (selectedGemeente, oldValue) => {
           if (!isVlaamseGemeenteOrEmpty.value) {
             postcodeFreeText.value = true;
             straatFreeText.value = true;
+            huisnummerFreeText.value = true;
+            busnummerFreeText.value = true;
           }
         }
       }
@@ -579,6 +609,8 @@ watch(straat, async (selectedStraat, oldValue) => {
         if (knownError?.response?.status === 404) {
           huisnummers.value = [];
           busnummers.value = [];
+          huisnummerFreeText.value = true;
+          busnummerFreeText.value = true;
         }
       }
     }
@@ -591,7 +623,7 @@ watch(huisnummer, async (selectedHuisnummer, oldValue) => {
     busnummer.value = undefined;
   }
 
-  if (adres.value.straat?.id && isBelgiumOrEmpty.value && selectedHuisnummer) {
+  if (adres.value.straat?.id && isBelgiumOrEmpty.value && selectedHuisnummer && !huisnummerFreeText.value) {
     busnummers.value = sortBy(
       await crabApiService.getAdressen(adres.value.straat.id as string, (selectedHuisnummer as IAdres).huisnummer),
       'busnummer'
@@ -600,11 +632,17 @@ watch(huisnummer, async (selectedHuisnummer, oldValue) => {
     if (busnummers.value.length === 1) {
       busnummer.value = (busnummers.value.at(0) as IAdres)?.busnummer;
     }
+
+    if (busnummers.value.length === 0) {
+      busnummerFreeText.value = true;
+    }
   }
 });
 
 watch(postcodeFreeText, () => (postcode.value = ''));
 watch(straatFreeText, () => (straat.value = ''));
+watch(huisnummerFreeText, () => (huisnummer.value = ''));
+watch(busnummerFreeText, () => (busnummer.value = ''));
 
 const resetFreeTextState = () => (straatFreeText.value = false);
 const performAutocompleteSearchHuisnummers = (searchTerm: string): Promise<IAutocompleteOption[]> => {
