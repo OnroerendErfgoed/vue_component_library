@@ -58,7 +58,7 @@ const props = withDefaults(defineProps<IAutocompleteProps>(), {
   minChars: 3,
   placeholder: 'Type om te zoeken...',
   callbackFn: (searchTerm: string) => Promise.resolve([{ title: searchTerm }]),
-  allowFreeText: true,
+  allowFreeText: false,
 });
 const emit = defineEmits(['update:value']);
 

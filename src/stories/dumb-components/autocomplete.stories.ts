@@ -2,6 +2,7 @@ import '@/scss/main.scss';
 import OeAutocomplete from '../../components/dumb/OeAutocomplete.vue';
 import type { IAutocompleteOption } from '../../models/autocomplete';
 import type { Meta, StoryObj } from '@storybook/vue3';
+import { ref } from 'vue';
 
 const meta: Meta<typeof OeAutocomplete> = {
   title: 'Dumb components/Autocomplete',
@@ -45,6 +46,10 @@ const meta: Meta<typeof OeAutocomplete> = {
       table: {
         type: { summary: 'Should return IAutocompleteOption[]' },
       },
+    },
+    allowFreeText: {
+      control: 'boolean',
+      description: 'Allow free text input when no matching results are found',
     },
   },
 };
@@ -131,4 +136,37 @@ export const CustomPlaceholder: Story = {
   args: {
     placeholder: 'My custom placeholder',
   },
+};
+
+export const AllowFreeText: Story = {
+  render: () => ({
+    components: {
+      OeAutocomplete,
+    },
+    setup() {
+      const selectedValue = ref('');
+      const callback = (searchTerm: string): Promise<IAutocompleteOption[]> => {
+        return new Promise(function (resolve) {
+          // Fake delay to show the loader
+          setTimeout(function () {
+            resolve(
+              [
+                {
+                  title: 'dummy',
+                },
+              ].filter((s) => s.title.includes(searchTerm))
+            );
+          }, 3000);
+        });
+      };
+
+      return { callback, selectedValue };
+    },
+    template: `
+    <oe-autocomplete :callbackFn="callback" allow-free-text @update:value="selectedValue = $event"></oe-autocomplete>
+    <br/>
+    <p>Selected value:</p>
+    <pre>{{selectedValue}}</pre>
+     `,
+  }),
 };

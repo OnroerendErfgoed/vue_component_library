@@ -7,7 +7,7 @@ describe('Autocomplete', () => {
   describe('default', () => {
     const TestComponent = defineComponent({
       components: { OeAutocomplete },
-      template: '<OeAutocomplete id="test" />',
+      template: '<OeAutocomplete id="test" custom-attr/>',
     });
 
     it('renders an input field with placeholder', () => {
@@ -69,6 +69,11 @@ describe('Autocomplete', () => {
       cy.dataCy('autocomplete').find('.vl-autocomplete__list-wrapper').should('not.exist');
 
       cy.get('@onUpdateValue').should('have.been.calledWith', { title: 'tes' });
+    });
+
+    it('applies fallthrough attributes to the input element', () => {
+      cy.mount(TestComponent);
+      cy.dataCy('autocomplete-input').should('have.attr', 'custom-attr');
     });
   });
 
@@ -210,6 +215,38 @@ describe('Autocomplete', () => {
 
       cy.dataCy('autocomplete').type('im');
       cy.dataCy('result').should('be.exist');
+    });
+  });
+
+  describe('Allow free text', () => {
+    const TestComponent = defineComponent({
+      components: { OeAutocomplete },
+      setup() {
+        const callback = (searchTerm: string): Promise<IAutocompleteOption[]> => {
+          return Promise.resolve(
+            [
+              {
+                title: 'minimal5chars',
+              },
+            ].filter((item) => item.title.includes(searchTerm))
+          );
+        };
+        return {
+          callback,
+        };
+      },
+      template: '<OeAutocomplete id="test" :callbackFn="callback" :min-chars="3" allow-free-text/>',
+    });
+
+    it('selects the freetext input when no options were found', () => {
+      const onUpdateValueSpy = cy.spy().as('onUpdateValueSpy');
+
+      cy.mount(TestComponent, { props: { 'onUpdate:value': onUpdateValueSpy } }).then(() => {
+        cy.dataCy('autocomplete').type('freetext');
+        cy.dataCy('result').should('not.exist');
+
+        cy.get('@onUpdateValueSpy').should('have.been.calledWith', { title: 'freetext', value: 'freetext' });
+      });
     });
   });
 });
