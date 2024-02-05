@@ -15,7 +15,7 @@
           </VlPropertiesLabel>
           <VlPropertiesData>
             <VlSelect
-              v-model:value="land"
+              v-model="land"
               data-cy="select-land"
               :mod-error="!!v$.land.$errors.length"
               mod-block
@@ -301,11 +301,11 @@ import { AxiosError } from 'axios';
 import { pick, sortBy, uniqBy } from 'lodash';
 import { computed, onMounted, ref, watch } from 'vue';
 import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
+import { CrabApiService } from '@services/crab-api.service';
+import { requiredIf } from '@utils/i18n-validators';
 import type { IAdresProps } from '@models/adres';
 import type { IAutocompleteOption } from '@models/autocomplete';
 import type { IAdres, IGemeente, ILand, ILocatieAdres, IPostinfo, IStraat } from '@models/locatie';
-import { CrabApiService } from '@services/crab-api.service';
-import { requiredIf } from '@utils/i18n-validators';
 
 const props = withDefaults(defineProps<IAdresProps>(), {
   hideTitle: false,

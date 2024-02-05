@@ -3,8 +3,8 @@
     data-cy="filter-select"
     :placeholder-text="props.placeholder"
     mod-block
-    :value="props.value"
-    @update:value="updateValue"
+    :model-value="props.value"
+    @update:model-value="updateValue"
   >
     <slot>
       <option
