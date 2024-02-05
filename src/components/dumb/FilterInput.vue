@@ -10,7 +10,7 @@
         class="vl-col--5-12"
         mod-block
         mod-inline
-        @update:value="clearInputs"
+        @update:model-value="clearInputs"
       >
         <option v-for="option in props.options" :key="option.key" :value="option">
           {{ option.label }}
