@@ -8,13 +8,19 @@
           <VlPropertiesLabel>
             <vl-form-message-label data-cy="label-land">
               <span class="vl-u-spacer-right--xxsmall">Land</span>
-              <span v-if="props.showRequiredPerField && $props.config?.land?.required"
-                class="vl-form__annotation">VERPLICHT</span>
+              <span v-if="props.showRequiredPerField && $props.config?.land?.required" class="vl-form__annotation"
+                >VERPLICHT</span
+              >
             </vl-form-message-label>
           </VlPropertiesLabel>
           <VlPropertiesData>
-            <VlSelect v-model="land" data-cy="select-land" :mod-error="!!v$.land.$errors.length" mod-block
-              placeholder-text="Land">
+            <VlSelect
+              v-model="land"
+              data-cy="select-land"
+              :mod-error="!!v$.land.$errors.length"
+              mod-block
+              placeholder-text="Land"
+            >
               <option v-for="item in landen" :key="item.code" :value="item" :disabled="item.code === 'divider'">
                 {{ item.naam }}
               </option>
@@ -29,15 +35,26 @@
         <VlPropertiesLabel>
           <vl-form-message-label data-cy="label-gemeente">
             <span class="vl-u-spacer-right--xxsmall">Gemeente</span>
-            <span v-if="props.showRequiredPerField && $props.config?.gemeente?.required"
-              class="vl-form__annotation">VERPLICHT</span>
+            <span v-if="props.showRequiredPerField && $props.config?.gemeente?.required" class="vl-form__annotation"
+              >VERPLICHT</span
+            >
           </vl-form-message-label>
         </VlPropertiesLabel>
         <VlPropertiesData>
-          <VlMultiselect v-if="isBelgiumOrEmpty" v-model="gemeente" placeholder="Gemeente" data-cy="select-gemeente"
-            :mod-error="!!v$.gemeente.naam.$errors.length" :custom-label="customGemeenteLabel" :disabled="!land"
-            :mod-multiple="false" :options="gemeenten" :options-limit="optionsLimit" :preserve-search="true"
-            @keydown.tab="!gemeente ? $event.preventDefault() : null">
+          <VlMultiselect
+            v-if="isBelgiumOrEmpty"
+            v-model="gemeente"
+            placeholder="Gemeente"
+            data-cy="select-gemeente"
+            :mod-error="!!v$.gemeente.naam.$errors.length"
+            :custom-label="customGemeenteLabel"
+            :disabled="!land"
+            :mod-multiple="false"
+            :options="gemeenten"
+            :options-limit="optionsLimit"
+            :preserve-search="true"
+            @keydown.tab="!gemeente ? $event.preventDefault() : null"
+          >
             <template #noResult>
               <span>Geen resultaten gevonden...</span>
             </template>
@@ -46,10 +63,19 @@
             </template>
           </VlMultiselect>
 
-          <VlInputField v-else v-model="gemeente" data-cy="input-gemeente" :mod-error="!!v$.gemeente.naam.$errors.length"
-            mod-block placeholder="Gemeente"></VlInputField>
-          <vl-form-message-error v-for="error of v$.gemeente.naam.$errors" :key="error.$uid"
-            data-cy="form-error-gemeente">
+          <VlInputField
+            v-else
+            v-model="gemeente"
+            data-cy="input-gemeente"
+            :mod-error="!!v$.gemeente.naam.$errors.length"
+            mod-block
+            placeholder="Gemeente"
+          ></VlInputField>
+          <vl-form-message-error
+            v-for="error of v$.gemeente.naam.$errors"
+            :key="error.$uid"
+            data-cy="form-error-gemeente"
+          >
             {{ error.$message }}
           </vl-form-message-error>
         </VlPropertiesData>
@@ -58,16 +84,26 @@
         <VlPropertiesLabel>
           <vl-form-message-label data-cy="label-postcode">
             <span class="vl-u-spacer-right--xxsmall">Postcode</span>
-            <span v-if="props.showRequiredPerField && $props.config?.postcode?.required"
-              class="vl-form__annotation">VERPLICHT</span>
+            <span v-if="props.showRequiredPerField && $props.config?.postcode?.required" class="vl-form__annotation"
+              >VERPLICHT</span
+            >
           </vl-form-message-label>
         </VlPropertiesLabel>
         <VlPropertiesData>
-          <VlMultiselect v-if="isBelgiumOrEmpty && !postcodeFreeText" v-model="postcode" placeholder="Postcode"
-            data-cy="select-postcode" :custom-label="customPostcodeLabel" :disabled="!gemeente"
-            :mod-error="!!v$.postcode.nummer.$errors.length" :mod-multiple="false" :options="postinfo"
-            :options-limit="optionsLimit" :preserve-search="true"
-            @keydown.tab="!postcode ? $event.preventDefault() : null">
+          <VlMultiselect
+            v-if="isBelgiumOrEmpty && !postcodeFreeText"
+            v-model="postcode"
+            placeholder="Postcode"
+            data-cy="select-postcode"
+            :custom-label="customPostcodeLabel"
+            :disabled="!gemeente"
+            :mod-error="!!v$.postcode.nummer.$errors.length"
+            :mod-multiple="false"
+            :options="postinfo"
+            :options-limit="optionsLimit"
+            :preserve-search="true"
+            @keydown.tab="!postcode ? $event.preventDefault() : null"
+          >
             <template #noResult>
               <span>Geen resultaten gevonden...</span>
             </template>
@@ -76,17 +112,30 @@
             </template>
           </VlMultiselect>
 
-          <VlInputField v-else v-model="postcode" data-cy="input-postcode"
-            :mod-error="!!v$.postcode.nummer.$errors.length" mod-block placeholder="Postcode"></VlInputField>
+          <VlInputField
+            v-else
+            v-model="postcode"
+            data-cy="input-postcode"
+            :mod-error="!!v$.postcode.nummer.$errors.length"
+            mod-block
+            placeholder="Postcode"
+          ></VlInputField>
 
-          <button v-if="isBelgium && !isVlaamseGemeenteOrEmpty" data-cy="action-postcode-not-found" class="vl-link"
-            @click="postcodeFreeText = !postcodeFreeText">
+          <button
+            v-if="isBelgium && !isVlaamseGemeenteOrEmpty"
+            data-cy="action-postcode-not-found"
+            class="vl-link"
+            @click="postcodeFreeText = !postcodeFreeText"
+          >
             <span v-if="!postcodeFreeText">Een postcode invullen die niet tussen de suggesties staat?</span>
             <span v-else>Toon lijst met suggesties</span>
           </button>
 
-          <vl-form-message-error v-for="error of v$.postcode.nummer.$errors" :key="error.$uid"
-            data-cy="form-error-postcode">
+          <vl-form-message-error
+            v-for="error of v$.postcode.nummer.$errors"
+            :key="error.$uid"
+            data-cy="form-error-postcode"
+          >
             {{ error.$message }}
           </vl-form-message-error>
         </VlPropertiesData>
@@ -95,15 +144,26 @@
         <VlPropertiesLabel>
           <vl-form-message-label data-cy="label-straat">
             <span class="vl-u-spacer-right--xxsmall">Straat</span>
-            <span v-if="props.showRequiredPerField && $props.config?.straat?.required"
-              class="vl-form__annotation">VERPLICHT</span>
+            <span v-if="props.showRequiredPerField && $props.config?.straat?.required" class="vl-form__annotation"
+              >VERPLICHT</span
+            >
           </vl-form-message-label>
         </VlPropertiesLabel>
         <VlPropertiesData>
-          <VlMultiselect v-if="isBelgiumOrEmpty && !straatFreeText" v-model="straat" placeholder="Straat"
-            data-cy="select-straat" :custom-label="customStraatLabel" :disabled="!gemeente" :mod-multiple="false"
-            :mod-error="!!v$.straat.naam.$errors.length" :options="straten" :options-limit="optionsLimit"
-            :preserve-search="true" @keydown.tab="!straat ? $event.preventDefault() : null">
+          <VlMultiselect
+            v-if="isBelgiumOrEmpty && !straatFreeText"
+            v-model="straat"
+            placeholder="Straat"
+            data-cy="select-straat"
+            :custom-label="customStraatLabel"
+            :disabled="!gemeente"
+            :mod-multiple="false"
+            :mod-error="!!v$.straat.naam.$errors.length"
+            :options="straten"
+            :options-limit="optionsLimit"
+            :preserve-search="true"
+            @keydown.tab="!straat ? $event.preventDefault() : null"
+          >
             <template #noResult>
               <span>Geen resultaten gevonden...</span>
             </template>
@@ -111,11 +171,21 @@
               <span>Geen opties beschikbaar</span>
             </template>
           </VlMultiselect>
-          <VlInputField v-else v-model="straat" data-cy="input-straat" :mod-error="!!v$.straat.naam.$errors.length"
-            mod-block placeholder="Straat"></VlInputField>
+          <VlInputField
+            v-else
+            v-model="straat"
+            data-cy="input-straat"
+            :mod-error="!!v$.straat.naam.$errors.length"
+            mod-block
+            placeholder="Straat"
+          ></VlInputField>
 
-          <button v-if="isBelgium && !isVlaamseGemeenteOrEmpty" data-cy="action-straat-not-found" class="vl-link"
-            @click="straatFreeText = !straatFreeText">
+          <button
+            v-if="isBelgium && !isVlaamseGemeenteOrEmpty"
+            data-cy="action-straat-not-found"
+            class="vl-link"
+            @click="straatFreeText = !straatFreeText"
+          >
             <span v-if="!straatFreeText">Een straat invullen die niet tussen de suggesties staat?</span>
             <span v-else>Toon lijst met suggesties</span>
           </button>
@@ -129,15 +199,26 @@
         <VlPropertiesLabel>
           <vl-form-message-label data-cy="label-huisnummer">
             <span class="vl-u-spacer-right--xxsmall">Huisnummer</span>
-            <span v-if="props.showRequiredPerField && $props.config?.huisnummer?.required"
-              class="vl-form__annotation">VERPLICHT</span>
+            <span v-if="props.showRequiredPerField && $props.config?.huisnummer?.required" class="vl-form__annotation"
+              >VERPLICHT</span
+            >
           </vl-form-message-label>
         </VlPropertiesLabel>
         <VlPropertiesData>
-          <VlMultiselect v-if="isBelgiumOrEmpty && !huisnummerFreeText" v-model="huisnummer" placeholder="Huisnummer"
-            data-cy="select-huisnummer" :custom-label="customHuisnummerLabel" :disabled="!straat" :mod-multiple="false"
-            :mod-error="!!v$.adres.huisnummer.$errors.length" :options="huisnummers" :options-limit="optionsLimit"
-            :preserve-search="true" @keydown.tab="!huisnummer ? $event.preventDefault() : null">
+          <VlMultiselect
+            v-if="isBelgiumOrEmpty && !huisnummerFreeText"
+            v-model="huisnummer"
+            placeholder="Huisnummer"
+            data-cy="select-huisnummer"
+            :custom-label="customHuisnummerLabel"
+            :disabled="!straat"
+            :mod-multiple="false"
+            :mod-error="!!v$.adres.huisnummer.$errors.length"
+            :options="huisnummers"
+            :options-limit="optionsLimit"
+            :preserve-search="true"
+            @keydown.tab="!huisnummer ? $event.preventDefault() : null"
+          >
             <template #noResult>
               <span>Geen resultaten gevonden...</span>
             </template>
@@ -146,17 +227,30 @@
             </template>
           </VlMultiselect>
 
-          <VlInputField v-else v-model="huisnummer" data-cy="input-huisnummer" mod-block placeholder="Huisnummer"
-            :mod-error="!!v$.adres.huisnummer.$errors.length"></VlInputField>
+          <VlInputField
+            v-else
+            v-model="huisnummer"
+            data-cy="input-huisnummer"
+            mod-block
+            placeholder="Huisnummer"
+            :mod-error="!!v$.adres.huisnummer.$errors.length"
+          ></VlInputField>
 
-          <button v-if="isBelgium && !straatFreeText && huisnummers.length > 0" data-cy="action-huisnummer-not-found"
-            class="vl-link" @click="huisnummerFreeText = !huisnummerFreeText">
+          <button
+            v-if="isBelgium && !straatFreeText && huisnummers.length > 0"
+            data-cy="action-huisnummer-not-found"
+            class="vl-link"
+            @click="huisnummerFreeText = !huisnummerFreeText"
+          >
             <span v-if="!huisnummerFreeText">Een huisnummer invullen dat niet tussen de suggesties staat?</span>
             <span v-else>Toon lijst met suggesties</span>
           </button>
 
-          <vl-form-message-error v-for="error of v$.adres.huisnummer.$errors" :key="error.$uid"
-            data-cy="form-error-huisnummer">
+          <vl-form-message-error
+            v-for="error of v$.adres.huisnummer.$errors"
+            :key="error.$uid"
+            data-cy="form-error-huisnummer"
+          >
             {{ error.$message }}
           </vl-form-message-error>
         </VlPropertiesData>
@@ -165,16 +259,26 @@
         <VlPropertiesLabel>
           <vl-form-message-label data-cy="label-busnummer">
             <span class="vl-u-spacer-right--xxsmall">Busnummer</span>
-            <span v-if="props.showRequiredPerField && $props.config?.busnummer?.required"
-              class="vl-form__annotation">VERPLICHT</span>
+            <span v-if="props.showRequiredPerField && $props.config?.busnummer?.required" class="vl-form__annotation"
+              >VERPLICHT</span
+            >
           </vl-form-message-label>
         </VlPropertiesLabel>
         <VlPropertiesData>
-          <VlMultiselect v-if="isBelgiumOrEmpty && !huisnummerFreeText && !busnummerFreeText" v-model="busnummer"
-            placeholder="Busnummer" data-cy="select-busnummer" :custom-label="customBusnummerLabel"
-            :disabled="!huisnummer" :mod-multiple="false" :mod-error="!!v$.adres.busnummer.$errors.length"
-            :options="busnummers" :options-limit="optionsLimit" :preserve-search="true"
-            @keydown.tab="!busnummer ? $event.preventDefault() : null">
+          <VlMultiselect
+            v-if="isBelgiumOrEmpty && !huisnummerFreeText && !busnummerFreeText"
+            v-model="busnummer"
+            placeholder="Busnummer"
+            data-cy="select-busnummer"
+            :custom-label="customBusnummerLabel"
+            :disabled="!huisnummer"
+            :mod-multiple="false"
+            :mod-error="!!v$.adres.busnummer.$errors.length"
+            :options="busnummers"
+            :options-limit="optionsLimit"
+            :preserve-search="true"
+            @keydown.tab="!busnummer ? $event.preventDefault() : null"
+          >
             <template #noResult>
               <span>Geen resultaten gevonden...</span>
             </template>
@@ -183,16 +287,29 @@
             </template>
           </VlMultiselect>
 
-          <VlInputField v-else v-model="busnummer" data-cy="input-busnummer" mod-block placeholder="Busnummer"
-            :mod-error="!!v$.adres.busnummer.$errors.length"></VlInputField>
+          <VlInputField
+            v-else
+            v-model="busnummer"
+            data-cy="input-busnummer"
+            mod-block
+            placeholder="Busnummer"
+            :mod-error="!!v$.adres.busnummer.$errors.length"
+          ></VlInputField>
 
-          <button v-if="isBelgium && !huisnummerFreeText && busnummers.length > 0" data-cy="action-busnummer-not-found"
-            class="vl-link" @click="busnummerFreeText = !busnummerFreeText">
+          <button
+            v-if="isBelgium && !huisnummerFreeText && busnummers.length > 0"
+            data-cy="action-busnummer-not-found"
+            class="vl-link"
+            @click="busnummerFreeText = !busnummerFreeText"
+          >
             <span v-if="!busnummerFreeText">Een busnummer invullen dat niet tussen de suggesties staat?</span>
             <span v-else>Toon lijst met suggesties</span>
           </button>
-          <vl-form-message-error v-for="error of v$.adres.busnummer.$errors" :key="error.$uid"
-            data-cy="form-error-busnummer">
+          <vl-form-message-error
+            v-for="error of v$.adres.busnummer.$errors"
+            :key="error.$uid"
+            data-cy="form-error-busnummer"
+          >
             {{ error.$message }}
           </vl-form-message-error>
         </VlPropertiesData>
@@ -219,10 +336,10 @@ import { helpers } from '@vuelidate/validators';
 import { AxiosError } from 'axios';
 import { pick, sortBy, uniqBy } from 'lodash';
 import { computed, onMounted, ref, watch } from 'vue';
-import type { IAdresProps } from '@models/adres';
-import type { IAdres, IGemeente, ILand, ILocatieAdres, IPostinfo, IStraat } from '@models/locatie';
 import { CrabApiService } from '@services/crab-api.service';
 import { requiredIf } from '@utils/i18n-validators';
+import type { IAdresProps } from '@models/adres';
+import type { IAdres, IGemeente, ILand, ILocatieAdres, IPostinfo, IStraat } from '@models/locatie';
 
 const props = withDefaults(defineProps<IAdresProps>(), {
   hideTitle: false,
