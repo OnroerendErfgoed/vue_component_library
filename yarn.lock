@@ -1822,15 +1822,15 @@
     lodash "^4.17.15"
     promise-polyfill "7.0.0"
 
-"@govflanders/vl-ui-design-system-style@^1.0.0-alpha.3":
-  version "1.0.0-alpha.3"
-  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-design-system-style/-/vl-ui-design-system-style-1.0.0-alpha.3.tgz#257e27fd4912b4259842b3421c3ca561edab4134"
-  integrity sha512-q43D1mwZa+oj/1ktZT0P/K366kIRooAT0FOcnsuWgB9EKZDLRRM585wMjYpBaENCVE3XZ8urtSSIJy6bLvQlmg==
+"@govflanders/vl-ui-design-system-style@^1.0.1-alpha.0":
+  version "1.0.1-alpha.0"
+  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-design-system-style/-/vl-ui-design-system-style-1.0.1-alpha.0.tgz#c10d2f93b426a14b0f603687e6906a2c375e601b"
+  integrity sha512-jqHpappRsZwM49ITq76fPwfJua3LA3kPSkawyvvbUQVLodBocViSBQhKcCySL6lbFQ4aKlG06+aB5qcf4tvCyQ==
 
-"@govflanders/vl-ui-design-system-vue3@^1.0.0-alpha.3":
-  version "1.0.0-alpha.3"
-  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-design-system-vue3/-/vl-ui-design-system-vue3-1.0.0-alpha.3.tgz#82c4a141dd4ca56f8f7545f004fe67eea3eb7703"
-  integrity sha512-xm4656D8OMYKCKTWv1k9V5AYZevWe/k5Fjl8FxI8pQ0Q3j0TJY7yaPsyMfmfzfrDk8qHc2Vk0MherfNtrdTgGw==
+"@govflanders/vl-ui-design-system-vue3@^1.0.2-alpha.0":
+  version "1.0.2-alpha.0"
+  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-design-system-vue3/-/vl-ui-design-system-vue3-1.0.2-alpha.0.tgz#ab6f459e6c2b8e6e91ae73f93ff8bed556c57e49"
+  integrity sha512-zbr6ja/pqS+iMsqWZ8GuDDgwkZuEDt+q/8UOI9vpFPkJ3wZ7FzWyuW5PiMA/D32aJ3mxUdqmsKspCC9V1k/Mtg==
 
 "@govflanders/vl-ui-form-message@^18.1.1":
   version "18.1.1"

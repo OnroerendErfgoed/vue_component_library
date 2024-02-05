@@ -1,18 +1,9 @@
 <template>
-  <vl-select
-    data-cy="filter-select"
-    :placeholder-text="props.placeholder"
-    mod-block
-    :value="props.value"
-    @update:value="updateValue"
-  >
+  <vl-select data-cy="filter-select" :placeholder-text="props.placeholder" mod-block :model-value="props.value"
+    @update:model-value="updateValue">
     <slot>
-      <option
-        v-for="option in props.options"
-        :id="`option-${option.value}`"
-        :key="option.value.toString()"
-        :value="option.value"
-      >
+      <option v-for="option in props.options" :id="`option-${option.value}`" :key="option.value.toString()"
+        :value="option.value">
         {{ option.label }}
       </option>
     </slot>
