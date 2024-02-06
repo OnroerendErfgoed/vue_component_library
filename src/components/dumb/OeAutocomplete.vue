@@ -114,7 +114,7 @@ watch(searchTerm, async () => {
 watch(
   () => props.value,
   () => {
-    if (!props.value?.value) {
+    if (selectedOption.value && !props.value?.value) {
       searchTerm.value = '';
       selectedOption.value = undefined;
     } else if (props.value?.title) {
