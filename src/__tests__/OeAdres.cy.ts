@@ -655,7 +655,6 @@ const fillInOeAdresBelgium = () => {
 
   // Busnummer selection
   setAutocompleteValue('busnummer', '010');
-  cy.wait(100);
   getAutocomplete('busnummer').should('have.value', '0101');
 };
 
