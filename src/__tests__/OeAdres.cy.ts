@@ -648,14 +648,16 @@ const fillInOeAdresBelgium = () => {
   cy.wait('@dataGet');
 
   // Huisnummer with multiple busnummers
-  setAutocompleteValue('huisnummer', '416');
-  getAutocomplete('huisnummer').should('have.value', '416');
+  setAutocompleteValue('huisnummer', '416').then(() => {
+    getAutocomplete('huisnummer').should('have.value', '416');
+  });
 
   cy.wait('@dataGet');
 
   // Busnummer selection
-  setAutocompleteValue('busnummer', '010');
-  getAutocomplete('busnummer').should('have.value', '0101');
+  setAutocompleteValue('busnummer', '010').then(() => {
+    getAutocomplete('busnummer').should('have.value', '0101');
+  });
 };
 
 const fillInOeAdresOther = () => {
@@ -678,5 +680,5 @@ const setMultiSelectValue = (field: string, value: string) => {
 
 const setAutocompleteValue = (field: string, value: string) => {
   getAutocomplete(field).click();
-  getAutocomplete(field).type(value);
+  return getAutocomplete(field).type(value);
 };
