@@ -251,6 +251,7 @@
             v-if="isBelgiumOrEmpty && !huisnummerFreeText && !busnummerFreeText"
             data-cy="autocomplete-busnummer"
             allow-free-text
+            autoselect
             :mod-error="!!v$.adres.busnummer.$errors.length"
             :min-chars="1"
             :mod-disabled="!huisnummer"

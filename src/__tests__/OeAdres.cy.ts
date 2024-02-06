@@ -548,8 +548,7 @@ describe('Adres', () => {
         });
       });
 
-      //TODO fix
-      xit('triggers required validation after fields are touched and emptied', () => {
+      it('triggers required validation after fields are touched and emptied', () => {
         fillInOeAdresBelgium();
 
         getMultiSelect('land').select(3).select(1);
@@ -655,7 +654,7 @@ const fillInOeAdresBelgium = () => {
   cy.wait('@dataGet');
 
   // Busnummer selection
-  setAutocompleteValue('busnummer', '0101');
+  setAutocompleteValue('busnummer', '010');
   getAutocomplete('busnummer').should('have.value', '0101');
 };
 
