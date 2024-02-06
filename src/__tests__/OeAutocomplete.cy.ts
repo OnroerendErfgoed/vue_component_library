@@ -71,6 +71,18 @@ describe('Autocomplete', () => {
       cy.get('@onUpdateValue').should('have.been.calledWith', { title: 'tes' });
     });
 
+    it('clears an option after clearing the entire field and emits an event for the updated value', () => {
+      const onUpdateValueSpy = cy.spy().as('onUpdateValue');
+
+      cy.mount(TestComponent, { props: { 'onUpdate:value': onUpdateValueSpy } });
+
+      cy.dataCy('autocomplete').type('tes').find('.vl-autocomplete__cta').click();
+      cy.dataCy('autocomplete').find('.vl-autocomplete__list-wrapper').should('not.exist');
+      cy.dataCy('autocomplete').find('input').clear();
+
+      cy.get('@onUpdateValue').should('have.been.calledWith', { title: '', value: '' });
+    });
+
     it('applies fallthrough attributes to the input element', () => {
       cy.mount(TestComponent);
       cy.dataCy('autocomplete-input').should('have.attr', 'custom-attr');
@@ -184,6 +196,18 @@ describe('Autocomplete', () => {
       cy.dataCy('autocomplete').type('dum');
 
       cy.get('@onUpdateValue').should('have.been.calledWith', { title: 'dummy' });
+    });
+
+    it('does not select the option automatically when there is only 1 result and backspace is used', () => {
+      const onUpdateValueSpy = cy.spy().as('onUpdateValue');
+
+      cy.mount(TestComponent, { props: { 'onUpdate:value': onUpdateValueSpy } });
+
+      cy.dataCy('autocomplete').type('dum');
+      cy.get('@onUpdateValue').should('have.been.calledWith', { title: 'dummy' });
+
+      cy.dataCy('autocomplete').type('{backspace}');
+      cy.dataCy('autocomplete').find('input').should('have.value', 'dumm');
     });
   });
 

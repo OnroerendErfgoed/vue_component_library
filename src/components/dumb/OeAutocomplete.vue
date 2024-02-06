@@ -71,8 +71,14 @@ const showResults = ref(false);
 const minChars = computed(() => (isNaN(parseInt(searchTerm.value, 10)) ? props.minChars : 1));
 
 const handleInput = (value: string) => {
-  searchTerm.value = value;
-  showResults.value = true;
+  if (!value) {
+    showResults.value = false;
+    selectedOption.value = { title: '', value: '' };
+    emit('update:value', selectedOption.value);
+  } else {
+    searchTerm.value = value;
+    showResults.value = true;
+  }
 };
 
 const selectResult = (result: IAutocompleteOption) => {
@@ -93,13 +99,13 @@ const fetchData = async (searchTerm: string) => {
   }
 };
 
-watch(searchTerm, async () => {
+watch(searchTerm, async (newValue, previousValue) => {
   if (searchTerm.value?.length >= minChars.value) {
     loading.value = true;
     const data = await fetchData(searchTerm.value);
     options.value = data;
 
-    if (props.autoselect && data.length === 1) {
+    if (props.autoselect && newValue.length > previousValue.length && data.length === 1) {
       selectResult(data[0]);
     }
     loading.value = false;
