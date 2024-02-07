@@ -56,8 +56,8 @@ describe('Adres', () => {
         getMultiSelect('gemeente').should('have.class', 'multiselect--disabled');
         getMultiSelect('postcode').should('have.class', 'multiselect--disabled');
         getMultiSelect('straat').should('have.class', 'multiselect--disabled');
-        getAutocomplete('huisnummer').should('have.class', 'vl-input-field--disabled');
-        getAutocomplete('busnummer').should('have.class', 'vl-input-field--disabled');
+        getAutocompleteInput('huisnummer').should('have.class', 'vl-input-field--disabled');
+        getAutocompleteInput('busnummer').should('have.class', 'vl-input-field--disabled');
       });
 
       it('disables fields as long as the parent is not filled in', () => {
@@ -69,8 +69,8 @@ describe('Adres', () => {
         getMultiSelect('gemeente').should('not.have.class', 'multiselect--disabled');
         getMultiSelect('postcode').should('have.class', 'multiselect--disabled');
         getMultiSelect('straat').should('have.class', 'multiselect--disabled');
-        getAutocomplete('huisnummer').should('have.class', 'vl-input-field--disabled');
-        getAutocomplete('busnummer').should('have.class', 'vl-input-field--disabled');
+        getAutocompleteInput('huisnummer').should('have.class', 'vl-input-field--disabled');
+        getAutocompleteInput('busnummer').should('have.class', 'vl-input-field--disabled');
 
         // Gemeente selection
         setMultiSelectValue('gemeente', 'Bertem');
@@ -78,8 +78,8 @@ describe('Adres', () => {
         getMultiSelect('gemeente').should('not.have.class', 'multiselect--disabled');
         getMultiSelect('postcode').should('not.have.class', 'multiselect--disabled');
         getMultiSelect('straat').should('not.have.class', 'multiselect--disabled');
-        getAutocomplete('huisnummer').should('have.class', 'vl-input-field--disabled');
-        getAutocomplete('busnummer').should('have.class', 'vl-input-field--disabled');
+        getAutocompleteInput('huisnummer').should('have.class', 'vl-input-field--disabled');
+        getAutocompleteInput('busnummer').should('have.class', 'vl-input-field--disabled');
 
         // Straat selection
         setMultiSelectValue('straat', 'Dorpstraat');
@@ -87,8 +87,8 @@ describe('Adres', () => {
         getMultiSelect('gemeente').should('not.have.class', 'multiselect--disabled');
         getMultiSelect('postcode').should('not.have.class', 'multiselect--disabled');
         getMultiSelect('straat').should('not.have.class', 'multiselect--disabled');
-        getAutocomplete('huisnummer').should('not.have.class', 'vl-input-field--disabled');
-        getAutocomplete('busnummer').should('have.class', 'vl-input-field--disabled');
+        getAutocompleteInput('huisnummer').should('not.have.class', 'vl-input-field--disabled');
+        getAutocompleteInput('busnummer').should('have.class', 'vl-input-field--disabled');
 
         // Huisnummer selection
         setAutocompleteValue('huisnummer', '416');
@@ -96,8 +96,8 @@ describe('Adres', () => {
         getMultiSelect('gemeente').should('not.have.class', 'multiselect--disabled');
         getMultiSelect('postcode').should('not.have.class', 'multiselect--disabled');
         getMultiSelect('straat').should('not.have.class', 'multiselect--disabled');
-        getAutocomplete('huisnummer').should('not.have.class', 'vl-input-field--disabled');
-        getAutocomplete('busnummer').should('not.have.class', 'vl-input-field--disabled');
+        getAutocompleteInput('huisnummer').should('not.have.class', 'vl-input-field--disabled');
+        getAutocompleteInput('busnummer').should('not.have.class', 'vl-input-field--disabled');
       });
 
       it('fills in the form', () => {
@@ -112,8 +112,8 @@ describe('Adres', () => {
         getMultiSelect('gemeente').find('.multiselect__single').should('not.exist');
         getMultiSelect('postcode').find('.multiselect__single').should('not.exist');
         getMultiSelect('straat').find('.multiselect__single').should('not.exist');
-        getAutocomplete('huisnummer').find('.multiselect__single').should('not.exist');
-        getAutocomplete('huisnummer').find('.multiselect__single').should('not.exist');
+        getAutocompleteInput('huisnummer').should('have.value', '');
+        getAutocompleteInput('busnummer').should('have.value', '');
       });
 
       it('triggers required validation after fields are touched and emptied', () => {
@@ -130,10 +130,10 @@ describe('Adres', () => {
         getMultiSelect('straat').parent().should('have.class', 'vl-multiselect--error');
         getFormError('straat').should('have.text', 'Het veld straat is verplicht.');
 
-        getAutocomplete('huisnummer').should('have.class', 'vl-input-field--error');
+        getAutocompleteInput('huisnummer').should('have.class', 'vl-input-field--error');
         getFormError('huisnummer').should('have.text', 'Het veld huisnummer is verplicht.');
 
-        getAutocomplete('busnummer').should('not.have.class', 'vl-input-field--error');
+        getAutocompleteInput('busnummer').should('not.have.class', 'vl-input-field--error');
         getFormError('busnummer').should('not.exist');
       });
 
@@ -187,7 +187,7 @@ describe('Adres', () => {
 
         // Huisnummer selection
         setAutocompleteValue('huisnummer', '28');
-        getAutocomplete('huisnummer').should('have.value', '28');
+        getAutocompleteInput('huisnummer').should('have.value', '28');
 
         getTextInput('busnummer').should('exist');
       });
@@ -296,8 +296,8 @@ describe('Adres', () => {
       getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Bertem');
       getMultiSelect('postcode').find('.multiselect__single').should('have.text', '3060');
       getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Dorpstraat');
-      getAutocomplete('huisnummer').should('have.value', '416');
-      getAutocomplete('busnummer').should('have.value', '0101');
+      getAutocompleteInput('huisnummer').should('have.value', '416');
+      getAutocompleteInput('busnummer').should('have.value', '0101');
     });
 
     it('updates the model binding on value change', () => {
@@ -562,10 +562,10 @@ describe('Adres', () => {
         getMultiSelect('straat').parent().should('have.class', 'vl-multiselect--error');
         getFormError('straat').should('have.text', 'Het veld straat is verplicht.');
 
-        getAutocomplete('huisnummer').should('have.class', 'vl-input-field--error');
+        getAutocompleteInput('huisnummer').should('have.class', 'vl-input-field--error');
         getFormError('huisnummer').should('have.text', 'Het veld huisnummer is verplicht.');
 
-        getAutocomplete('busnummer').should('have.class', 'vl-input-field--error');
+        getAutocompleteInput('busnummer').should('have.class', 'vl-input-field--error');
         getFormError('busnummer').should('have.text', 'Het veld busnummer is verplicht.');
       });
     });
@@ -585,8 +585,8 @@ describe('Adres', () => {
       getMultiSelect('gemeente').should('exist');
       getMultiSelect('postcode').should('exist');
       getMultiSelect('straat').should('exist');
-      getAutocomplete('huisnummer').should('exist');
-      getAutocomplete('busnummer').should('exist');
+      getAutocompleteInput('huisnummer').should('exist');
+      getAutocompleteInput('busnummer').should('exist');
     });
   });
 
@@ -620,7 +620,8 @@ describe('Adres', () => {
 
 const getLabel = (field: string) => cy.dataCy(`label-${field}`);
 const getMultiSelect = (field: string) => cy.dataCy(`select-${field}`);
-const getAutocomplete = (field: string) => cy.dataCy(`autocomplete-${field}`).children().first();
+const getAutocompleteRootElement = (field: string) => cy.dataCy(`autocomplete-${field}`);
+const getAutocompleteInput = (field: string) => getAutocompleteRootElement(field).children().first();
 const getTextInput = (field: string) => cy.dataCy(`input-${field}`);
 const getFormError = (field: string) => cy.dataCy(`form-error-${field}`);
 
@@ -648,16 +649,14 @@ const fillInOeAdresBelgium = () => {
   cy.wait('@dataGet');
 
   // Huisnummer with multiple busnummers
-  setAutocompleteValue('huisnummer', '416').then(() => {
-    getAutocomplete('huisnummer').should('have.value', '416');
-  });
+  setAutocompleteValue('huisnummer', '416');
+  getAutocompleteInput('huisnummer').should('have.value', '416');
 
   cy.wait('@dataGet');
 
   // Busnummer selection
-  setAutocompleteValue('busnummer', '010').then(() => {
-    getAutocomplete('busnummer').should('have.value', '0101');
-  });
+  setAutocompleteValue('busnummer', '010');
+  getAutocompleteInput('busnummer').should('have.value', '0101');
 };
 
 const fillInOeAdresOther = () => {
@@ -679,6 +678,6 @@ const setMultiSelectValue = (field: string, value: string) => {
 };
 
 const setAutocompleteValue = (field: string, value: string) => {
-  getAutocomplete(field).click();
-  return getAutocomplete(field).type(value);
+  getAutocompleteInput(field).click();
+  getAutocompleteInput(field).type(value);
 };
