@@ -248,7 +248,7 @@
         </VlPropertiesLabel>
         <VlPropertiesData>
           <oe-autocomplete
-            v-if="isBelgiumOrEmpty && !huisnummerFreeText && !busnummerFreeText"
+            v-if="typeof huisnummer !== 'string' && isBelgiumOrEmpty && !huisnummerFreeText && !busnummerFreeText"
             data-cy="autocomplete-busnummer"
             allow-free-text
             autoselect
@@ -625,11 +625,8 @@ watch(huisnummer, async (selectedHuisnummer, oldValue) => {
   }
 
   if (adres.value.straat?.id && isBelgiumOrEmpty.value && selectedHuisnummer && !huisnummerFreeText.value) {
-    const huisnr =
-      typeof selectedHuisnummer === 'string' ? selectedHuisnummer : (selectedHuisnummer as IAdres)?.huisnummer;
-
     busnummers.value = sortBy(
-      await crabApiService.getAdressen(adres.value.straat.id as string, huisnr),
+      await crabApiService.getAdressen(adres.value.straat.id as string, (selectedHuisnummer as IAdres).huisnummer),
       'busnummer'
     ).filter((v) => !!v.busnummer);
 
