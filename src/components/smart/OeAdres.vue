@@ -639,6 +639,8 @@ watch(huisnummer, async (selectedHuisnummer, oldValue) => {
 
     if (busnummers.value.length === 0) {
       busnummerFreeText.value = true;
+    } else {
+      busnummerFreeText.value = false;
     }
   }
 });
