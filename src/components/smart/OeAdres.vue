@@ -1,7 +1,7 @@
 <template>
   <div class="oe-adres">
     <VlProperties>
-      <VlPropertiesTitle v-if="!hideTitle" data-cy="title-adres">Adres</VlPropertiesTitle>
+      <VlPropertiesTitle v-if="!props.hideTitle" data-cy="title-adres">Adres</VlPropertiesTitle>
       <VlPropertiesList>
         <!-- Land -->
         <template v-if="!props.countryId">
@@ -205,27 +205,19 @@
           </vl-form-message-label>
         </VlPropertiesLabel>
         <VlPropertiesData>
-          <VlMultiselect
+          <oe-autocomplete
             v-if="isBelgiumOrEmpty && !huisnummerFreeText"
-            v-model="huisnummer"
-            placeholder="Huisnummer"
-            data-cy="select-huisnummer"
-            :custom-label="customHuisnummerLabel"
-            :disabled="!straat"
-            :mod-multiple="false"
+            data-cy="autocomplete-huisnummer"
+            autoselect
+            allow-free-text
             :mod-error="!!v$.adres.huisnummer.$errors.length"
-            :options="huisnummers"
-            :options-limit="optionsLimit"
-            :preserve-search="true"
-            @keydown.tab="!huisnummer ? $event.preventDefault() : null"
-          >
-            <template #noResult>
-              <span>Geen resultaten gevonden...</span>
-            </template>
-            <template #noOptions>
-              <span data-cy="no-options-huisnummers">Geen opties beschikbaar</span>
-            </template>
-          </VlMultiselect>
+            :min-chars="1"
+            :mod-disabled="!straat"
+            :value="huisnummerAutocompleteOption"
+            :callback-fn="performAutocompleteSearchHuisnummers"
+            placeholder="Huisnummer"
+            @update:value="updateHuisnummer"
+          ></oe-autocomplete>
 
           <VlInputField
             v-else
@@ -235,16 +227,6 @@
             placeholder="Huisnummer"
             :mod-error="!!v$.adres.huisnummer.$errors.length"
           ></VlInputField>
-
-          <button
-            v-if="isBelgium && !straatFreeText && huisnummers.length > 0"
-            data-cy="action-huisnummer-not-found"
-            class="vl-link"
-            @click="huisnummerFreeText = !huisnummerFreeText"
-          >
-            <span v-if="!huisnummerFreeText">Een huisnummer invullen dat niet tussen de suggesties staat?</span>
-            <span v-else>Toon lijst met suggesties</span>
-          </button>
 
           <vl-form-message-error
             v-for="error of v$.adres.huisnummer.$errors"
@@ -265,27 +247,19 @@
           </vl-form-message-label>
         </VlPropertiesLabel>
         <VlPropertiesData>
-          <VlMultiselect
-            v-if="isBelgiumOrEmpty && !huisnummerFreeText && !busnummerFreeText"
-            v-model="busnummer"
-            placeholder="Busnummer"
-            data-cy="select-busnummer"
-            :custom-label="customBusnummerLabel"
-            :disabled="!huisnummer"
-            :mod-multiple="false"
+          <oe-autocomplete
+            v-if="typeof huisnummer !== 'string' && isBelgiumOrEmpty && !huisnummerFreeText && !busnummerFreeText"
+            data-cy="autocomplete-busnummer"
+            allow-free-text
+            autoselect
             :mod-error="!!v$.adres.busnummer.$errors.length"
-            :options="busnummers"
-            :options-limit="optionsLimit"
-            :preserve-search="true"
-            @keydown.tab="!busnummer ? $event.preventDefault() : null"
-          >
-            <template #noResult>
-              <span>Geen resultaten gevonden...</span>
-            </template>
-            <template #noOptions>
-              <span>Geen opties beschikbaar</span>
-            </template>
-          </VlMultiselect>
+            :min-chars="1"
+            :mod-disabled="!huisnummer"
+            :value="busnummerAutocompleteOption"
+            :callback-fn="performAutocompleteSearchBusnummers"
+            placeholder="Busnummer"
+            @update:value="updateBusnummer"
+          ></oe-autocomplete>
 
           <VlInputField
             v-else
@@ -296,15 +270,6 @@
             :mod-error="!!v$.adres.busnummer.$errors.length"
           ></VlInputField>
 
-          <button
-            v-if="isBelgium && !huisnummerFreeText && busnummers.length > 0"
-            data-cy="action-busnummer-not-found"
-            class="vl-link"
-            @click="busnummerFreeText = !busnummerFreeText"
-          >
-            <span v-if="!busnummerFreeText">Een busnummer invullen dat niet tussen de suggesties staat?</span>
-            <span v-else>Toon lijst met suggesties</span>
-          </button>
           <vl-form-message-error
             v-for="error of v$.adres.busnummer.$errors"
             :key="error.$uid"
@@ -336,9 +301,11 @@ import { helpers } from '@vuelidate/validators';
 import { AxiosError } from 'axios';
 import { pick, sortBy, uniqBy } from 'lodash';
 import { computed, onMounted, ref, watch } from 'vue';
+import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
 import { CrabApiService } from '@services/crab-api.service';
 import { requiredIf } from '@utils/i18n-validators';
 import type { IAdresProps } from '@models/adres';
+import type { IAutocompleteOption } from '@models/autocomplete';
 import type { IAdres, IGemeente, ILand, ILocatieAdres, IPostinfo, IStraat } from '@models/locatie';
 
 const props = withDefaults(defineProps<IAdresProps>(), {
@@ -369,8 +336,6 @@ const busnummerFreeText = ref(false);
 const customGemeenteLabel = (option: IGemeente) => option.naam;
 const customPostcodeLabel = (option: IPostinfo) => option.postcode;
 const customStraatLabel = (option: IStraat) => option.naam;
-const customHuisnummerLabel = (option: IAdres) => option.huisnummer;
-const customBusnummerLabel = (option: IAdres) => option.busnummer;
 
 // Form values
 const land = ref<string | ILand>(''); // string is nodig om de placeholder te kunnen tonen
@@ -379,6 +344,19 @@ const postcode = ref<string | IPostinfo>();
 const straat = ref<string | IStraat>();
 const huisnummer = ref<string | IAdres>();
 const busnummer = ref<string | IAdres>();
+
+const huisnummerAutocompleteOption = computed<IAutocompleteOption<string | IAdres>>(() => {
+  return {
+    title: typeof huisnummer.value !== 'string' ? (huisnummer.value as IAdres)?.huisnummer : huisnummer.value,
+    value: huisnummer.value,
+  };
+});
+const busnummerAutocompleteOption = computed<IAutocompleteOption<string | IAdres>>(() => {
+  return {
+    title: typeof busnummer.value !== 'string' ? (busnummer.value as IAdres)?.busnummer : busnummer.value,
+    value: busnummer.value,
+  };
+});
 
 // Conditionals
 const isBelgiumOrEmpty = computed(() => {
@@ -632,7 +610,6 @@ watch(straat, async (selectedStraat, oldValue) => {
         if (knownError?.response?.status === 404) {
           huisnummers.value = [];
           busnummers.value = [];
-
           huisnummerFreeText.value = true;
           busnummerFreeText.value = true;
         }
@@ -659,24 +636,45 @@ watch(huisnummer, async (selectedHuisnummer, oldValue) => {
 
     if (busnummers.value.length === 0) {
       busnummerFreeText.value = true;
+    } else {
+      busnummerFreeText.value = false;
     }
   }
 });
 
 watch(postcodeFreeText, () => (postcode.value = ''));
-watch(straatFreeText, (selectedState) => {
-  straat.value = '';
-  huisnummerFreeText.value = selectedState;
-  busnummerFreeText.value = selectedState;
-});
+watch(straatFreeText, () => (straat.value = ''));
 watch(huisnummerFreeText, () => (huisnummer.value = ''));
 watch(busnummerFreeText, () => (busnummer.value = ''));
 
-const resetFreeTextState = () => {
-  straatFreeText.value = false;
-  huisnummerFreeText.value = false;
-  busnummerFreeText.value = false;
+const resetFreeTextState = () => (straatFreeText.value = false);
+const performAutocompleteSearchHuisnummers = (searchTerm: string): Promise<IAutocompleteOption[]> => {
+  return Promise.resolve(
+    huisnummers.value
+      .filter((h) => h.huisnummer.includes(searchTerm))
+      .map((h) => {
+        return {
+          title: h.huisnummer,
+          value: h,
+        };
+      })
+  );
 };
+const performAutocompleteSearchBusnummers = (searchTerm: string): Promise<IAutocompleteOption[]> => {
+  return Promise.resolve(
+    busnummers.value
+      .filter((b) => b.busnummer.includes(searchTerm))
+      .map((b) => {
+        return {
+          title: b.busnummer,
+          value: b,
+        };
+      })
+  );
+};
+
+const updateHuisnummer = (value: IAutocompleteOption<IAdres>) => (huisnummer.value = value.value);
+const updateBusnummer = (value: IAutocompleteOption<IAdres>) => (busnummer.value = value.value);
 </script>
 
 <style lang="scss" scoped>

@@ -24,7 +24,11 @@ describe('Adres', () => {
 
   describe('form - default', () => {
     beforeEach(() => {
+      cy.intercept({ method: 'GET', url: 'https://test-geo.onroerenderfgoed.be/adressenregister/landen' }).as(
+        'dataGetLanden'
+      );
       mount(TestComponent);
+      cy.wait('@dataGetLanden');
     });
 
     it('has an input label land', () => {
@@ -56,8 +60,8 @@ describe('Adres', () => {
         getMultiSelect('gemeente').should('have.class', 'multiselect--disabled');
         getMultiSelect('postcode').should('have.class', 'multiselect--disabled');
         getMultiSelect('straat').should('have.class', 'multiselect--disabled');
-        getMultiSelect('huisnummer').should('have.class', 'multiselect--disabled');
-        getMultiSelect('busnummer').should('have.class', 'multiselect--disabled');
+        getAutocompleteInput('huisnummer').should('have.class', 'vl-input-field--disabled');
+        getAutocompleteInput('busnummer').should('have.class', 'vl-input-field--disabled');
       });
 
       it('disables fields as long as the parent is not filled in', () => {
@@ -69,8 +73,8 @@ describe('Adres', () => {
         getMultiSelect('gemeente').should('not.have.class', 'multiselect--disabled');
         getMultiSelect('postcode').should('have.class', 'multiselect--disabled');
         getMultiSelect('straat').should('have.class', 'multiselect--disabled');
-        getMultiSelect('huisnummer').should('have.class', 'multiselect--disabled');
-        getMultiSelect('busnummer').should('have.class', 'multiselect--disabled');
+        getAutocompleteInput('huisnummer').should('have.class', 'vl-input-field--disabled');
+        getAutocompleteInput('busnummer').should('have.class', 'vl-input-field--disabled');
 
         // Gemeente selection
         setMultiSelectValue('gemeente', 'Bertem');
@@ -78,8 +82,8 @@ describe('Adres', () => {
         getMultiSelect('gemeente').should('not.have.class', 'multiselect--disabled');
         getMultiSelect('postcode').should('not.have.class', 'multiselect--disabled');
         getMultiSelect('straat').should('not.have.class', 'multiselect--disabled');
-        getMultiSelect('huisnummer').should('have.class', 'multiselect--disabled');
-        getMultiSelect('busnummer').should('have.class', 'multiselect--disabled');
+        getAutocompleteInput('huisnummer').should('have.class', 'vl-input-field--disabled');
+        getAutocompleteInput('busnummer').should('have.class', 'vl-input-field--disabled');
 
         // Straat selection
         setMultiSelectValue('straat', 'Dorpstraat');
@@ -87,17 +91,17 @@ describe('Adres', () => {
         getMultiSelect('gemeente').should('not.have.class', 'multiselect--disabled');
         getMultiSelect('postcode').should('not.have.class', 'multiselect--disabled');
         getMultiSelect('straat').should('not.have.class', 'multiselect--disabled');
-        getMultiSelect('huisnummer').should('not.have.class', 'multiselect--disabled');
-        getMultiSelect('busnummer').should('have.class', 'multiselect--disabled');
+        getAutocompleteInput('huisnummer').should('not.have.class', 'vl-input-field--disabled');
+        getAutocompleteInput('busnummer').should('have.class', 'vl-input-field--disabled');
 
         // Huisnummer selection
-        setMultiSelectValue('huisnummer', '416');
+        setAutocompleteValue('huisnummer', '416');
 
         getMultiSelect('gemeente').should('not.have.class', 'multiselect--disabled');
         getMultiSelect('postcode').should('not.have.class', 'multiselect--disabled');
         getMultiSelect('straat').should('not.have.class', 'multiselect--disabled');
-        getMultiSelect('huisnummer').should('not.have.class', 'multiselect--disabled');
-        getMultiSelect('busnummer').should('not.have.class', 'multiselect--disabled');
+        getAutocompleteInput('huisnummer').should('not.have.class', 'vl-input-field--disabled');
+        getAutocompleteInput('busnummer').should('not.have.class', 'vl-input-field--disabled');
       });
 
       it('fills in the form', () => {
@@ -112,21 +116,8 @@ describe('Adres', () => {
         getMultiSelect('gemeente').find('.multiselect__single').should('not.exist');
         getMultiSelect('postcode').find('.multiselect__single').should('not.exist');
         getMultiSelect('straat').find('.multiselect__single').should('not.exist');
-        getMultiSelect('huisnummer').find('.multiselect__single').should('not.exist');
-        getMultiSelect('huisnummer').find('.multiselect__single').should('not.exist');
-      });
-
-      it('shows huisnummers textinput when street fetch throws a 404', () => {
-        fillInOeAdresBelgium();
-
-        cy.intercept('GET', 'https://test-geo.onroerenderfgoed.be/adressenregister/straten/**/adressen', {
-          statusCode: 404,
-        }).as('dataNotFound');
-
-        setMultiSelectValue('gemeente', 'Aarschot');
-        setMultiSelectValue('straat', 'Beekweg');
-
-        getTextInput('huisnummer').should('exist');
+        getAutocompleteInput('huisnummer').should('have.value', '');
+        getAutocompleteInput('busnummer').should('have.value', '');
       });
 
       it('triggers required validation after fields are touched and emptied', () => {
@@ -143,10 +134,10 @@ describe('Adres', () => {
         getMultiSelect('straat').parent().should('have.class', 'vl-multiselect--error');
         getFormError('straat').should('have.text', 'Het veld straat is verplicht.');
 
-        getMultiSelect('huisnummer').parent().should('have.class', 'vl-multiselect--error');
+        getAutocompleteInput('huisnummer').should('have.class', 'vl-input-field--error');
         getFormError('huisnummer').should('have.text', 'Het veld huisnummer is verplicht.');
 
-        getMultiSelect('busnummer').parent().should('not.have.class', 'vl-multiselect--error');
+        getAutocompleteInput('busnummer').should('not.have.class', 'vl-input-field--error');
         getFormError('busnummer').should('not.exist');
       });
 
@@ -165,7 +156,7 @@ describe('Adres', () => {
         getTextInput('straat').should('exist');
       });
 
-      it('requires huisnummer to be free text input when no house numbers were found', () => {
+      it('allows huisnummer to be free text input when no house numbers were found', () => {
         // Country selection
         getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
 
@@ -180,7 +171,6 @@ describe('Adres', () => {
         setMultiSelectValue('straat', 'Champoutre');
         getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Champoutre');
 
-        getMultiSelect('huisnummer').should('not.exist');
         getTextInput('huisnummer').should('exist');
       });
 
@@ -200,83 +190,10 @@ describe('Adres', () => {
         getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Astridlaan');
 
         // Huisnummer selection
-        setMultiSelectValue('huisnummer', '28');
-        getMultiSelect('huisnummer').find('.multiselect__single').should('have.text', '28');
+        setAutocompleteValue('huisnummer', '28');
+        getAutocompleteInput('huisnummer').should('have.value', '28');
 
-        getMultiSelect('busnummer').should('not.exist');
         getTextInput('busnummer').should('exist');
-      });
-
-      describe('after gemeente and straat selection', () => {
-        beforeEach(() => {
-          // Country selection
-          getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
-
-          cy.intercept({ method: 'GET', url: 'https://test-geo.onroerenderfgoed.be/**' }).as('dataGet');
-          cy.wait('@dataGet');
-
-          // Gemeente selection
-          setMultiSelectValue('gemeente', 'Aarschot');
-          getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Aarschot');
-
-          // Straat selection
-          setMultiSelectValue('straat', 'Astridlaan');
-          getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Astridlaan');
-        });
-
-        it('allows to switch huisnummer to free text input and automatically convert busnummer to free text as well', () => {
-          // Switch to free text input
-          getAction('huisnummer-not-found').should(
-            'have.text',
-            'Een huisnummer invullen dat niet tussen de suggesties staat?'
-          );
-          getAction('huisnummer-not-found').click();
-
-          getMultiSelect('huisnummer').should('not.exist');
-          getTextInput('huisnummer').should('exist');
-          getAction('huisnummer-not-found').should('have.text', 'Toon lijst met suggesties');
-
-          getMultiSelect('busnummer').should('not.exist');
-          getTextInput('busnummer').should('exist');
-          getAction('busnummer-not-found').should('not.exist');
-
-          // Switch back to suggestions
-          getAction('huisnummer-not-found').click();
-
-          getMultiSelect('huisnummer').should('exist');
-          getTextInput('huisnummer').should('not.exist');
-          getAction('huisnummer-not-found').should(
-            'have.text',
-            'Een huisnummer invullen dat niet tussen de suggesties staat?'
-          );
-        });
-
-        it('allows to switch busnummer to free text input', () => {
-          // Huisnummer selection
-          setMultiSelectValue('huisnummer', '31');
-          getMultiSelect('huisnummer').find('.multiselect__single').should('have.text', '31');
-
-          // Switch to free text input
-          getAction('busnummer-not-found').should(
-            'have.text',
-            'Een busnummer invullen dat niet tussen de suggesties staat?'
-          );
-          getAction('busnummer-not-found').click();
-
-          getMultiSelect('busnummer').should('not.exist');
-          getTextInput('busnummer').should('exist');
-          getAction('busnummer-not-found').should('have.text', 'Toon lijst met suggesties');
-
-          // Switch back to suggestions
-          getAction('busnummer-not-found').click();
-
-          getMultiSelect('busnummer').should('exist');
-          getTextInput('busnummer').should('not.exist');
-          getAction('busnummer-not-found').should(
-            'have.text',
-            'Een busnummer invullen dat niet tussen de suggesties staat?'
-          );
-        });
       });
     });
 
@@ -383,8 +300,8 @@ describe('Adres', () => {
       getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Bertem');
       getMultiSelect('postcode').find('.multiselect__single').should('have.text', '3060');
       getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Dorpstraat');
-      getMultiSelect('huisnummer').find('.multiselect__single').should('have.text', '416');
-      getMultiSelect('busnummer').find('.multiselect__single').should('have.text', '0101');
+      getAutocompleteInput('huisnummer').should('have.value', '416');
+      getAutocompleteInput('busnummer').should('have.value', '0101');
     });
 
     it('updates the model binding on value change', () => {
@@ -649,10 +566,10 @@ describe('Adres', () => {
         getMultiSelect('straat').parent().should('have.class', 'vl-multiselect--error');
         getFormError('straat').should('have.text', 'Het veld straat is verplicht.');
 
-        getMultiSelect('huisnummer').parent().should('have.class', 'vl-multiselect--error');
+        getAutocompleteInput('huisnummer').should('have.class', 'vl-input-field--error');
         getFormError('huisnummer').should('have.text', 'Het veld huisnummer is verplicht.');
 
-        getMultiSelect('busnummer').parent().should('have.class', 'vl-multiselect--error');
+        getAutocompleteInput('busnummer').should('have.class', 'vl-input-field--error');
         getFormError('busnummer').should('have.text', 'Het veld busnummer is verplicht.');
       });
     });
@@ -672,8 +589,8 @@ describe('Adres', () => {
       getMultiSelect('gemeente').should('exist');
       getMultiSelect('postcode').should('exist');
       getMultiSelect('straat').should('exist');
-      getMultiSelect('huisnummer').should('exist');
-      getMultiSelect('busnummer').should('exist');
+      getAutocompleteInput('huisnummer').should('exist');
+      getAutocompleteInput('busnummer').should('exist');
     });
   });
 
@@ -707,42 +624,65 @@ describe('Adres', () => {
 
 const getLabel = (field: string) => cy.dataCy(`label-${field}`);
 const getMultiSelect = (field: string) => cy.dataCy(`select-${field}`);
+const getAutocompleteRootElement = (field: string) => cy.dataCy(`autocomplete-${field}`);
+const getAutocompleteInput = (field: string) => getAutocompleteRootElement(field).children().first();
 const getTextInput = (field: string) => cy.dataCy(`input-${field}`);
 const getFormError = (field: string) => cy.dataCy(`form-error-${field}`);
-const getAction = (action: string) => cy.dataCy(`action-${action}`);
 
 const fillInOeAdresBelgium = () => {
   // Country selection
   getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
 
-  cy.intercept({ method: 'GET', url: 'https://test-geo.onroerenderfgoed.be/**' }).as('dataGet');
-  cy.wait('@dataGet');
+  cy.intercept({
+    method: 'GET',
+    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/gewesten/**/gemeenten',
+  }).as('dataGetGemeenten');
+
+  cy.intercept({
+    method: 'GET',
+    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/gemeenten/**/postinfo',
+  }).as('dataGetPostinfo');
+
+  cy.intercept({
+    method: 'GET',
+    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/gemeenten/**/straten',
+  }).as('dataGetStraten');
+
+  cy.intercept({
+    method: 'GET',
+    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/straten/**/adressen',
+  }).as('dataGetAdressen');
+
+  cy.intercept({
+    method: 'GET',
+    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/straten/**/huisnummers/416',
+  }).as('dataGetHuisnummer');
 
   // Gemeente selection
+  cy.wait('@dataGetGemeenten');
   setMultiSelectValue('gemeente', 'Bertem');
   getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Bertem');
 
   // Postcode selection
+  cy.wait('@dataGetPostinfo');
+
   setMultiSelectValue('postcode', '3060');
   getMultiSelect('postcode').find('.multiselect__single').should('have.text', '3060');
 
-  cy.wait('@dataGet');
-
   // Straat selection
+  cy.wait('@dataGetStraten');
   setMultiSelectValue('straat', 'Dorpstraat');
   getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Dorpstraat');
 
-  cy.wait('@dataGet');
-
   // Huisnummer with multiple busnummers
-  setMultiSelectValue('huisnummer', '416');
-  getMultiSelect('huisnummer').find('.multiselect__single').should('have.text', '416');
-
-  cy.wait('@dataGet');
+  cy.wait('@dataGetAdressen');
+  setAutocompleteValue('huisnummer', '416');
+  getAutocompleteInput('huisnummer').should('have.value', '416');
 
   // Busnummer selection
-  setMultiSelectValue('busnummer', '0101');
-  getMultiSelect('busnummer').find('.multiselect__single').should('have.text', '0101');
+  cy.wait('@dataGetHuisnummer');
+  setAutocompleteValue('busnummer', '010');
+  getAutocompleteInput('busnummer').should('have.value', '0101');
 };
 
 const fillInOeAdresOther = () => {
@@ -761,4 +701,10 @@ const setMultiSelectValue = (field: string, value: string) => {
   getMultiSelect(field).click();
   getMultiSelect(field).find('.multiselect__input').type(value);
   getMultiSelect(field).find('.multiselect__element').click();
+};
+
+const setAutocompleteValue = (field: string, value: string) => {
+  getAutocompleteInput(field).click();
+  cy.wait(2000);
+  getAutocompleteInput(field).type(value);
 };
