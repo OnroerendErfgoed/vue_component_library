@@ -24,7 +24,11 @@ describe('Adres', () => {
 
   describe('form - default', () => {
     beforeEach(() => {
+      cy.intercept({ method: 'GET', url: 'https://test-geo.onroerenderfgoed.be/adressenregister/landen' }).as(
+        'dataGetLanden'
+      );
       mount(TestComponent);
+      cy.wait('@dataGetLanden');
     });
 
     it('has an input label land', () => {
@@ -629,32 +633,54 @@ const fillInOeAdresBelgium = () => {
   // Country selection
   getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
 
-  cy.intercept({ method: 'GET', url: 'https://test-geo.onroerenderfgoed.be/**' }).as('dataGet');
-  cy.wait('@dataGet');
+  cy.intercept({
+    method: 'GET',
+    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/gewesten/**/gemeenten',
+  }).as('dataGetGemeenten');
+
+  cy.intercept({
+    method: 'GET',
+    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/gemeenten/**/postinfo',
+  }).as('dataGetPostinfo');
+
+  cy.intercept({
+    method: 'GET',
+    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/gemeenten/**/straten',
+  }).as('dataGetStraten');
+
+  cy.intercept({
+    method: 'GET',
+    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/straten/**/adressen',
+  }).as('dataGetAdressen');
+
+  cy.intercept({
+    method: 'GET',
+    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/straten/**/huisnummers/416',
+  }).as('dataGetHuisnummer');
 
   // Gemeente selection
+  cy.wait('@dataGetGemeenten');
   setMultiSelectValue('gemeente', 'Bertem');
   getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Bertem');
 
   // Postcode selection
+  cy.wait('@dataGetPostinfo');
+
   setMultiSelectValue('postcode', '3060');
   getMultiSelect('postcode').find('.multiselect__single').should('have.text', '3060');
 
-  cy.wait('@dataGet');
-
   // Straat selection
+  cy.wait('@dataGetStraten');
   setMultiSelectValue('straat', 'Dorpstraat');
   getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Dorpstraat');
 
-  cy.wait('@dataGet');
-
   // Huisnummer with multiple busnummers
+  cy.wait('@dataGetAdressen');
   setAutocompleteValue('huisnummer', '416');
   getAutocompleteInput('huisnummer').should('have.value', '416');
 
-  cy.wait('@dataGet');
-
   // Busnummer selection
+  cy.wait('@dataGetHuisnummer');
   setAutocompleteValue('busnummer', '010');
   getAutocompleteInput('busnummer').should('have.value', '0101');
 };
@@ -680,4 +706,5 @@ const setMultiSelectValue = (field: string, value: string) => {
 const setAutocompleteValue = (field: string, value: string) => {
   getAutocompleteInput(field).click();
   getAutocompleteInput(field).type(value);
+  cy.wait(2000);
 };

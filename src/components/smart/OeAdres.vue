@@ -1,7 +1,7 @@
 <template>
   <div class="oe-adres">
     <VlProperties>
-      <VlPropertiesTitle v-if="!hideTitle" data-cy="title-adres">Adres</VlPropertiesTitle>
+      <VlPropertiesTitle v-if="!props.hideTitle" data-cy="title-adres">Adres</VlPropertiesTitle>
       <VlPropertiesList>
         <!-- Land -->
         <template v-if="!props.countryId">
