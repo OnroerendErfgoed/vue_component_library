@@ -705,6 +705,6 @@ const setMultiSelectValue = (field: string, value: string) => {
 
 const setAutocompleteValue = (field: string, value: string) => {
   getAutocompleteInput(field).click();
-  getAutocompleteInput(field).type(value);
   cy.wait(2000);
+  getAutocompleteInput(field).type(value);
 };
