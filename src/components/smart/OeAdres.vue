@@ -625,8 +625,11 @@ watch(huisnummer, async (selectedHuisnummer, oldValue) => {
   }
 
   if (adres.value.straat?.id && isBelgiumOrEmpty.value && selectedHuisnummer && !huisnummerFreeText.value) {
+    const huisnr =
+      typeof selectedHuisnummer === 'string' ? selectedHuisnummer : (selectedHuisnummer as IAdres)?.huisnummer;
+
     busnummers.value = sortBy(
-      await crabApiService.getAdressen(adres.value.straat.id as string, (selectedHuisnummer as IAdres).huisnummer),
+      await crabApiService.getAdressen(adres.value.straat.id as string, huisnr),
       'busnummer'
     ).filter((v) => !!v.busnummer);
 
