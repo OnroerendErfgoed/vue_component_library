@@ -21,7 +21,8 @@ describe('FilterSelect', () => {
         ];
         return { selectValue, options };
       },
-      template: '<filter-select :options="options" :value="selectValue" @update:value="$event => selectValue=$event"/>',
+      template:
+        '<filter-select :options="options" :value="selectValue" @update:model-value="$event => selectValue=$event"/>',
     });
 
     it('renders a select option for each option', () => {
@@ -71,7 +72,7 @@ describe('FilterSelect', () => {
         const selectValue = ref('');
         return { selectValue };
       },
-      template: `<filter-select :value="selectValue" @update:value="$event => selectValue=$event">
+      template: `<filter-select :model-value="selectValue" @update:model-value="$event => selectValue=$event">
                   <optgroup label="Niet Actief">
                     <option value="klad">Klad</option>
                     <option id="option-kladzonderfoto" value="kladzonderfoto">Klad zonder foto</option>

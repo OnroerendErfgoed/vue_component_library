@@ -5,6 +5,7 @@ export interface IAutocompleteProps {
   autoselect?: boolean;
   placeholder?: string;
   callbackFn?: (searchTerm: string) => Promise<IAutocompleteOption[]>;
+  allowFreeText?: boolean;
 }
 
 export interface IAutocompleteOption<T = unknown> {
