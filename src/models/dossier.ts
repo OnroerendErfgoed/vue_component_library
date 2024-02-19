@@ -10,3 +10,20 @@ export interface IDossierQuery {
   state?: number | string;
   dringend?: number;
 }
+
+export interface IDossierTabs {
+  [k: string]: IDossierTab;
+}
+
+export interface IDossierTab {
+  index: number;
+  label: string;
+  id: string;
+  invalid: boolean;
+  class?: string;
+}
+
+export interface IEnumType {
+  naam: string;
+  id: number;
+}
