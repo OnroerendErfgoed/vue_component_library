@@ -21,7 +21,7 @@ const TestComponent = defineComponent({
   template: '<OeInventarisLink v-bind="attrs"></OeInventarisLink>',
 });
 
-describe('OEInventarisLink - no data', () => {
+describe('OeInventarisLink - no data', () => {
   const getSsoToken = async () => 1;
   it('renders', () => {
     mount(TestComponent, { props: { links: undefined, getSsoToken: getSsoToken } });

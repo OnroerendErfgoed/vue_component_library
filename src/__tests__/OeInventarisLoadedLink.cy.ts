@@ -11,7 +11,7 @@ const TestComponent = defineComponent({
   template: '<OeInventarisLoadedLink v-bind="attrs"></OeInventarisLoadedLink>',
 });
 
-describe('OEInventarisLoadedLink - no data', () => {
+describe('OeInventarisLoadedLink - no data', () => {
   it('renders', () => {
     mount(TestComponent, { props: { gebeurtenissen: undefined, waarnemingen: undefined } });
   });
