@@ -9,6 +9,7 @@ export interface IDossierQuery {
   eigenaar?: string;
   state?: number | string;
   dringend?: number;
+  tekst?: string;
 }
 
 export interface IDossierTabs {
