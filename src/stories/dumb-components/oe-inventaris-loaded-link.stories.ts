@@ -1,12 +1,12 @@
 import '@/scss/main.scss';
-import OEInventarisLoadedLink from '@components/dumb/OeInventarisLoadedLink.vue';
+import OeInventarisLoadedLink from '@components/dumb/OeInventarisLoadedLink.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import type { IInventarisLinkGebeurtenis, IInventarisLinkWaarneming } from '@models/links';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
-const meta: Meta<typeof OEInventarisLoadedLink> = {
+const meta: Meta<typeof OeInventarisLoadedLink> = {
   title: 'Dumb components/OeInventarisLoadedLink',
-  component: OEInventarisLoadedLink,
+  component: OeInventarisLoadedLink,
   parameters: {
     docs: {
       description: {
@@ -32,12 +32,12 @@ const meta: Meta<typeof OEInventarisLoadedLink> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof OEInventarisLoadedLink>;
+type Story = StoryObj<typeof OeInventarisLoadedLink>;
 
 export const Default: Story = {
   render: () => ({
     components: {
-      OEInventarisLoadedLink,
+      OeInventarisLoadedLink,
     },
     setup() {
       const gebeurtenissen: IInventarisLinkGebeurtenis[] = [];
@@ -46,7 +46,7 @@ export const Default: Story = {
     },
     template: `
     <div>
-    <OEInventarisLoadedLink :gebeurtenissen=gebeurtenissen :waarnemingen="waarnemingen"></OEInventarisLoadedLink>
+    <OeInventarisLoadedLink :gebeurtenissen=gebeurtenissen :waarnemingen="waarnemingen"></OeInventarisLoadedLink>
     </div>
     `,
   }),
