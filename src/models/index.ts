@@ -9,6 +9,7 @@ export * from './grid';
 export * from './header';
 export * from './input-phone';
 export * from './layerType.enum';
+export * from './links';
 export * from './locatie';
 export * from './niscode.enum';
 export * from './oe-openlayers';
