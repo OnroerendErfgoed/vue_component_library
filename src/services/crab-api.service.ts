@@ -1,9 +1,10 @@
 import { HttpService } from './http.service';
 import { sortBy } from 'lodash';
-import type { Coordinate } from 'ol/coordinate';
 import WFS from 'ol/format/WFS';
 import Intersects from 'ol/format/filter/Intersects';
 import Point from 'ol/geom/Point';
+import { Niscode } from '@models/niscode.enum';
+import type { Coordinate } from 'ol/coordinate';
 import type {
   IAdres,
   IGemeente,
@@ -15,7 +16,6 @@ import type {
   IProvincie,
   IStraat,
 } from '@models/locatie';
-import { Niscode } from '@models/niscode.enum';
 
 export class CrabApiService extends HttpService {
   readonly API_URL: string;

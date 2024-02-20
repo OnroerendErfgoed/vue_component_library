@@ -16,7 +16,7 @@ export default defineConfig({
     },
     sourcemap: true,
     rollupOptions: {
-      external: ['vue'],
+      external: ['vue', 'pinia'],
       output: {
         exports: 'named',
         assetFileNames: (assetInfo) => {

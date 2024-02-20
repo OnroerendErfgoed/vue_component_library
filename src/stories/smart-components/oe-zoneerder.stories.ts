@@ -1,6 +1,6 @@
 import '@/scss/main.scss';
-import type { Meta, StoryObj } from '@storybook/vue3';
 import { OeZoneerder } from '@/components';
+import type { Meta, StoryObj } from '@storybook/vue3';
 
 const api = 'https://test-geo.onroerenderfgoed.be/';
 

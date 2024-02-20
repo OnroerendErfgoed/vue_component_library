@@ -5,6 +5,7 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { VlUiCore, VlUiUtil } from '@govflanders/vl-ui-design-system-vue3';
 import { setup } from '@storybook/vue3';
+import { createPinia } from 'pinia';
 import type { Preview } from '@storybook/vue3';
 
 library.add(fas);
@@ -14,6 +15,7 @@ library.add(fab);
 setup((app) => {
   app.use(VlUiCore);
   app.use(VlUiUtil);
+  app.use(createPinia());
 });
 
 const preview: Preview = {

@@ -1,7 +1,7 @@
 import '@/scss/main.scss';
-import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
 import InputPhone from '@components/dumb/InputPhone.vue';
+import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof InputPhone> = {

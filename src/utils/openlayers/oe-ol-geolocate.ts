@@ -1,14 +1,14 @@
 import Feature from 'ol/Feature';
-import type Map from 'ol/Map';
-import type View from 'ol/View';
 import { Control } from 'ol/control';
-import type { Options as ControlOptions } from 'ol/control/Control';
 import { Point } from 'ol/geom';
-import type { Geometry } from 'ol/geom';
 import VectorLayer from 'ol/layer/Vector';
 import { transform } from 'ol/proj';
 import VectorSource from 'ol/source/Vector';
 import { Circle, Fill, Stroke, Style } from 'ol/style';
+import type Map from 'ol/Map';
+import type View from 'ol/View';
+import type { Options as ControlOptions } from 'ol/control/Control';
+import type { Geometry } from 'ol/geom';
 
 export interface GeolocateOptions extends ControlOptions {
   tipLabel?: string;

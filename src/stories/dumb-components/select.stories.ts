@@ -1,7 +1,7 @@
 import '@/scss/main.scss';
 import OeSelect from '../../components/dumb/OeSelect.vue';
-import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
+import type { Meta, StoryObj } from '@storybook/vue3';
 import type { ISelectOption } from '@models/select';
 
 const meta: Meta<typeof OeSelect> = {

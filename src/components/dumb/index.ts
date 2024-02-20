@@ -11,9 +11,11 @@ import OeButton from './OeButton.vue';
 import OeContainer from './OeContainer.vue';
 import OeGrid from './OeGrid.vue';
 import OeHeader from './OeHeader.vue';
+import OeInventarisLoadedLink from './OeInventarisLoadedLink.vue';
 import OeLoader from './OeLoader.vue';
 import OeSelect from './OeSelect.vue';
 import OeTinyMce from './OeTinyMCE.vue';
+import OeToaster from './OeToaster.vue';
 import OeWizard from './OeWizard.vue';
 import SystemFields from './SystemFields.vue';
 
@@ -31,9 +33,11 @@ export {
   OeContainer,
   OeGrid,
   OeHeader,
+  OeInventarisLoadedLink,
   OeLoader,
   OeSelect,
   OeTinyMce,
+  OeToaster,
   OeWizard,
   SystemFields,
 };
