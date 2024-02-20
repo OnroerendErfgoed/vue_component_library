@@ -1,8 +1,8 @@
 import '@/scss/main.scss';
 import OeAutocomplete from '../../components/dumb/OeAutocomplete.vue';
+import { ref } from 'vue';
 import type { IAutocompleteOption } from '../../models/autocomplete';
 import type { Meta, StoryObj } from '@storybook/vue3';
-import { ref } from 'vue';
 
 const meta: Meta<typeof OeAutocomplete> = {
   title: 'Dumb components/Autocomplete',

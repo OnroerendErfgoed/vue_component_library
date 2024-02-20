@@ -42,8 +42,8 @@ import { ref } from 'vue';
 import OeLoader from '@components/dumb/OeLoader.vue';
 import Detail from '@components/smart/OeActorWidgetDetail.vue';
 import Grid from '@components/smart/OeActorWidgetGrid.vue';
-import type { IActor } from '@models/actor';
 import { ActorService } from '@services/actor.service';
+import type { IActor } from '@models/actor';
 
 interface IOeActorWidgetProps {
   id: string;

@@ -52,14 +52,14 @@
 import 'ol/ol.css';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { VlCheckbox, VlRadio, VlTitle } from '@govflanders/vl-ui-design-system-vue3';
-import type Map from 'ol/Map';
 import { Group } from 'ol/layer';
-import type BaseLayer from 'ol/layer/Base';
 import { v4 as uuidv4 } from 'uuid';
 import { inject, onMounted, onUnmounted, ref, watch } from 'vue';
+import { vClickOutside } from '@directives/click-outside.directive';
+import type Map from 'ol/Map';
+import type BaseLayer from 'ol/layer/Base';
 import type { Ref } from 'vue';
 import type { CrabApiService } from '@/services';
-import { vClickOutside } from '@directives/click-outside.directive';
 
 const buttonRef = ref<HTMLElement>();
 const elementRef = ref<HTMLElement>();

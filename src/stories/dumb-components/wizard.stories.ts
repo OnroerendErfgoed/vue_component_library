@@ -1,7 +1,7 @@
 import '@/scss/main.scss';
 import OeWizard from '../../components/dumb/OeWizard.vue';
-import type { IStep } from '../../models/wizard';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+import type { IStep } from '../../models/wizard';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof OeWizard> = {
