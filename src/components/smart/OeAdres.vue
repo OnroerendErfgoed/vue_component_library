@@ -15,7 +15,7 @@
           </VlPropertiesLabel>
           <VlPropertiesData>
             <VlSelect
-              v-model="land"
+              v-model:model-value="land"
               data-cy="select-land"
               :mod-error="!!v$.land.$errors.length"
               mod-block
