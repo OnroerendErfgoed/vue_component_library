@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
 import SystemFields from '@components/dumb/SystemFields.vue';
+import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof SystemFields> = {
   title: 'Dumb components/SystemFields',
