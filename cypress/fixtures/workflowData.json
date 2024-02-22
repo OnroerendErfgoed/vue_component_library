@@ -1,0 +1,272 @@
+
+[{
+  "id": 0,
+  "tag": "nieuw",
+  "description": "Nieuw in te schrijven dossier",
+  "dossierdashboard": true,
+  "qualifiers": [],
+  "next_states": [
+    {
+      "id": 1
+    },
+    {
+      "id": 2,
+      "qualifiers": [
+        {
+          "id": 1
+        },
+        {
+          "id": 2
+        },
+        {
+          "id": 4
+        }
+      ]
+    }
+  ]
+},
+{
+  "id": 1,
+  "tag": "in_behandeling",
+  "description": "Dossier in behandeling",
+  "dossierdashboard": true,
+  "qualifiers": [
+    {
+      "id": 1,
+      "tag": "beoordeling_op_te_maken",
+      "description": "1e beoordeling op te maken",
+      "next_states": [
+        {
+          "id": 0,
+          "principals": ["vioe-proces-energieadvies:beheerder"]
+        },
+        {
+          "id": 1,
+          "qualifiers": [
+            {
+              "id": 2
+            },
+            {
+              "id": 3
+            },
+            {
+              "id": 4
+            },
+            {
+              "id": 5
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "qualifiers": [
+            {
+              "id": 1
+            },
+            {
+              "id": 2
+            },
+            {
+              "id": 3
+            },
+            {
+              "id": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "tag": "plaatsbezoek_plannen",
+      "description": "Plaatsbezoek in te plannen",
+      "next_states": [
+        {
+          "id": 1,
+          "qualifiers": [
+            {
+              "id": 1,
+              "principals": ["vioe-proces-energieadvies:beheerder"]
+            },
+            {
+              "id": 3
+            },
+            {
+              "id": 4
+            },
+            {
+              "id": 5
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "qualifiers": [
+            {
+              "id": 1
+            },
+            {
+              "id": 2
+            },
+            {
+              "id": 3
+            },
+            {
+              "id": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "tag": "plaatsbezoek_ingepland",
+      "description": "Plaatsbezoek ingepland",
+      "next_states": [
+        {
+          "id": 1,
+          "qualifiers": [
+            {
+              "id": 1,
+              "principals": ["vioe-proces-energieadvies:beheerder"]
+            },
+            {
+              "id": 2,
+              "principals": ["vioe-proces-energieadvies:beheerder"]
+            },
+            {
+              "id": 4
+            },
+            {
+              "id": 5
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "qualifiers": [
+            {
+              "id": 1
+            },
+            {
+              "id": 2
+            },
+            {
+              "id": 3
+            },
+            {
+              "id": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "tag": "energieadvies_op_te_maken",
+      "description": "Energieadvies op te maken",
+      "next_states": [
+        {
+          "id": 1,
+          "qualifiers": [
+            {
+              "id": 1,
+              "principals": ["vioe-proces-energieadvies:beheerder"]
+            },
+            {
+              "id": 2,
+              "principals": ["vioe-proces-energieadvies:beheerder"]
+            },
+            {
+              "id": 3,
+              "principals": ["vioe-proces-energieadvies:beheerder"]
+            },
+            {
+              "id": 5
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "qualifiers": [
+            {
+              "id": 1
+            },
+            {
+              "id": 2
+            },
+            {
+              "id": 3
+            },
+            {
+              "id": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "tag": "energieadvies_opgemaakt",
+      "description": "Energieadvies te verzenden",
+      "next_states": [
+        {
+          "id": 2,
+          "qualifiers": [
+            {
+              "id": 1,
+              "principals": ["vioe-proces-energieadvies:beheerder"]
+            },
+            {
+              "id": 2,
+              "principals": ["vioe-proces-energieadvies:beheerder"]
+            },
+            {
+              "id": 3,
+              "principals": ["vioe-proces-energieadvies:beheerder"]
+            },
+            {
+              "id": 4,
+              "principals": ["vioe-proces-energieadvies:beheerder"]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "next_states": []
+},
+{
+  "id": 2,
+  "tag": "afgesloten",
+  "description": "Dossier is afgesloten",
+  "dossierdashboard": false,
+  "qualifiers": [
+    {
+      "id": 1,
+      "tag": "geen_EOE_vereist",
+      "description": "Geen EOE vereist."
+    },
+    {
+      "id": 2,
+      "tag": "geen_EOE_mogelijk",
+      "description": "Geen EOE mogelijk."
+    },
+    {
+      "id": 3,
+      "tag": "EOE_verzonden",
+      "description": "EOE verzonden."
+    },
+    {
+      "id": 4,
+      "tag": "ingetrokken",
+      "description": "Ingetrokken"
+    }
+  ],
+  "next_states": [
+    {
+      "id": 2
+    }
+  ]
+}
+]
