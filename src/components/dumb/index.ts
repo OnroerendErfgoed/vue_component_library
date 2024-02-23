@@ -4,6 +4,7 @@ import FilterInput from './FilterInput.vue';
 import FilterRadio from './FilterRadio.vue';
 import FilterSelect from './FilterSelect.vue';
 import FilterText from './FilterText.vue';
+import GridWorkflow from './GridWorkflow.vue';
 import InputPhone from './InputPhone.vue';
 import NoRowsOverlay from './NoRowsOverlay.vue';
 import OeAutocomplete from './OeAutocomplete.vue';
@@ -26,6 +27,7 @@ export {
   FilterRadio,
   FilterSelect,
   FilterText,
+  GridWorkflow,
   InputPhone,
   NoRowsOverlay,
   OeAutocomplete,
