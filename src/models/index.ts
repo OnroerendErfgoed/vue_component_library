@@ -20,3 +20,4 @@ export * from './toast';
 export * from './user';
 export * from './wizard';
 export * from './dossier';
+export * from './workflow';

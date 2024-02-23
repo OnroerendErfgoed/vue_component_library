@@ -19,43 +19,7 @@ import type {
   ICellRendererParams,
   ValueFormatterParams,
 } from 'ag-grid-community';
-
-interface TabWorkflowProps {
-  data: IWorkflow[];
-  schema: ISaveState[];
-}
-
-interface ISaveState {
-  description: string;
-  id: number;
-  next_states: INextState[];
-  qualifiers: ISaveState[];
-  tag: string;
-}
-
-interface INextState {
-  id: number;
-  qualifiers: { id: number }[];
-}
-
-interface IWorkflowOwner {
-  id: string;
-  type: string;
-  omschrijving: string;
-}
-
-interface IWorkflowState {
-  id: number;
-  comment?: string;
-}
-
-interface IWorkflow {
-  actor: string;
-  datum: string;
-  state: IWorkflowState;
-  owners: IWorkflowOwner[];
-  actor_omschrijving: string;
-}
+import type { IWorkflow, IWorkflowOwner, IWorkflowState, TabWorkflowProps } from '@models/workflow';
 
 const props = defineProps<TabWorkflowProps>();
 
