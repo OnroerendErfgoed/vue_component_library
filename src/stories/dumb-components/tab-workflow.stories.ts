@@ -1,14 +1,8 @@
 import '@/scss/main.scss';
-import workflow from '../../../cypress/fixtures/workflowData.json';
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
+import schema from '../../../cypress/fixtures/workflowSchema.json';
 import TabWorkflow from '@components/dumb/TabWorkflow.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-const DOSSIER_API = 'https://dev-dossiers.onroerenderfgoed.be/dossiers/158235';
-const mock = new MockAdapter(axios);
-const workflowUri = DOSSIER_API;
-const noDataWorkflowUri = 'https://dev-dossiers.onroerenderfgoed.be/dossiers/1';
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof TabWorkflow> = {
   title: 'Dumb components/TabWorkflow',
@@ -22,22 +16,15 @@ const meta: Meta<typeof TabWorkflow> = {
   },
   tags: ['autodocs'],
   argTypes: {
-    workflowUri: {
-      control: 'text',
-      description: 'Uri that gets the workflow data.',
-    },
-    workflowSchema: {
+    data: {
       control: 'array',
-      description: 'List of workflows to map the data against',
+      description: 'Workflow data',
+    },
+    schema: {
+      control: 'array',
+      description: 'Schemas for the dossier',
       table: {
         type: { summary: 'Array of workflows' },
-      },
-    },
-    getSsoToken: {
-      control: 'text',
-      description: 'function to get the sso Token from the parent',
-      table: {
-        type: { summary: 'string' },
       },
     },
   },
@@ -52,7 +39,7 @@ export const Default: Story = {
       TabWorkflow,
     },
     setup() {
-      mock.onGet(DOSSIER_API).reply(200, [
+      const data = [
         {
           actor: 'https://dev-id.erfgoed.net/actoren/12653',
           datum: '2024-01-09T10:39:15.996776+01:00',
@@ -85,14 +72,11 @@ export const Default: Story = {
           ],
           actor_omschrijving: 'Adriaens, Wouter',
         },
-      ]);
-      const getSsoToken = async () => 1;
-      return { workflowUri, workflow, getSsoToken };
+      ];
+      return { data, schema };
     },
     template: `
-    <div style="width: 100%; height: 300px">
-    <TabWorkflow :workflow-uri="workflowUri" :workflow-schema="workflow" :get-sso-token="getSsoToken"></TabWorkflow>
-    </div>
+    <TabWorkflow :data="data" :schema="schema"></TabWorkflow>
     `,
   }),
 };
@@ -103,25 +87,21 @@ export const NoData: Story = {
       TabWorkflow,
     },
     setup() {
-      mock.onGet(noDataWorkflowUri).reply(200, []);
-      const getSsoToken = async () => '1';
-      return { workflowUri: noDataWorkflowUri, workflow, getSsoToken };
+      return { data: [], schema };
     },
     template: `
-    <div style="width: 100%; height: 300px">
-    <TabWorkflow :workflow-uri="workflowUri" :workflow-schema="workflow" :get-sso-token="getSsoToken"></TabWorkflow>
-    </div>
+    <TabWorkflow data:="data" :schema="schema"></TabWorkflow>
     `,
   }),
 };
 
-export const NoWorkflowSchema: Story = {
+export const NoSchema: Story = {
   render: () => ({
     components: {
       TabWorkflow,
     },
     setup() {
-      mock.onGet(DOSSIER_API).reply(200, [
+      const data = [
         {
           actor: 'https://dev-id.erfgoed.net/actoren/12653',
           datum: '2024-01-09T10:39:15.996776+01:00',
@@ -154,14 +134,11 @@ export const NoWorkflowSchema: Story = {
           ],
           actor_omschrijving: 'Adriaens, Wouter',
         },
-      ]);
-      const getSsoToken = async () => 1;
-      return { workflowUri, workflow: [], getSsoToken };
+      ];
+      return { data: data, schema: [] };
     },
     template: `
-    <div style="width: 100%; height: 300px">
-    <TabWorkflow :workflow-uri="workflowUri" :workflow-schema="workflow" :get-sso-token="getSsoToken"></TabWorkflow>
-    </div>
+    <TabWorkflow :data="data" :schema="schema"></TabWorkflow>
     `,
   }),
 };

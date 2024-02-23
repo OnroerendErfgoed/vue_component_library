@@ -2,21 +2,13 @@
   <div class="vl-properties__column">
     <h4 class="vl-title vl-title--h4">Workflow</h4>
   </div>
-  <div class="vl-grid table vl-u-flex oe-flex-1">
-    <div class="vl-col--12-12">
-      <oe-grid
-        style="width: 100%; height: 100%"
-        :grid-options="gridOptions"
-        @grid-ready="onGridReady"
-        @first-data-rendered="firstDataRendered"
-      />
-    </div>
+  <div class="vl-col--12-12">
+    <oe-grid :grid-options="gridOptions" @first-data-rendered="firstDataRendered" @grid-ready="onGridReady" />
   </div>
 </template>
 <script setup lang="ts">
 import { NoRowsOverlay } from '.';
 import OeGrid from '../dumb/OeGrid.vue';
-import axios from 'axios';
 import { format } from 'date-fns';
 import { getCurrentInstance, ref } from 'vue';
 import type {
@@ -25,14 +17,12 @@ import type {
   GridOptions,
   GridReadyEvent,
   ICellRendererParams,
-  IGetRowsParams,
   ValueFormatterParams,
 } from 'ag-grid-community';
 
 interface TabWorkflowProps {
-  workflowUri: string;
-  workflowSchema: ISaveState[];
-  getSsoToken: () => Promise<string>;
+  data: IWorkflow[];
+  schema: ISaveState[];
 }
 
 interface ISaveState {
@@ -84,7 +74,7 @@ const getColumnDefinitions = (): ColDef[] => {
 
 const statusCellRenderer = (params: ICellRendererParams<number>) => {
   if (params.value || params.value === 0) {
-    const state = props.workflowSchema.find((s) => s.id === params.value);
+    const state = props.schema.find((s) => s.id === params.value);
     if (state) {
       return state.description;
     }
@@ -98,12 +88,15 @@ const statusCellRenderer = (params: ICellRendererParams<number>) => {
 
 const qualifierCellRenderer = (params: ICellRendererParams<IWorkflow, number>) => {
   if (params.value || params.value === 0) {
-    const state = props.workflowSchema.find((s) => s.id === params.data?.state.id);
+    const state = props.schema.find((s) => s.id === params.data?.state.id);
     if (state) {
       const qualifier = state.qualifiers.find((q) => q.id === params.value);
       return qualifier?.description || '';
     }
-    return '<em>foute state ID: ' + params.data?.state.id + '</em>';
+    const errorElement = document.createElement('i');
+    errorElement.innerHTML = `Foute state ID: ${params.value}`;
+    errorElement.classList.add('invalid-status');
+    return errorElement;
   }
   return '';
 };
@@ -135,73 +128,34 @@ const gridOptions = ref<GridOptions>({
   suppressClickEdit: true,
   headerHeight: 45,
   rowHeight: 40,
-  rowModelType: 'infinite',
-  rowData: null,
+  rowModelType: 'clientSide',
+  rowData: [],
   enableBrowserTooltips: true,
   columnDefs: getColumnDefinitions(),
   noRowsOverlayComponent: NoRowsOverlay,
   noRowsOverlayComponentParams: {
     noRowsMessage: 'Er zijn nog geen workflows beschikbaar',
   },
+  suppressBrowserResizeObserver: true,
+  domLayout: 'autoHeight',
 });
 
 const onGridReady = (gridReadyEvent: GridReadyEvent) => {
   gridApi.value = gridReadyEvent.api;
-  setRowData();
+  gridApi.value?.setRowData(props.data);
 };
 
-const firstDataRendered = () => resizeColumns();
-
-const setRowData = () => {
-  const dataSource = {
-    getRows: async (params: IGetRowsParams) => {
-      const options = {
-        headers: {
-          Accept: 'Application/json',
-          Authorization: `Bearer ${await props.getSsoToken()}`,
-        },
-      };
-
-      try {
-        const data = (await axios.get<IWorkflow[]>(props.workflowUri, options)).data;
-        const content = data;
-        if (content.length === 0) {
-          params.successCallback([], 0);
-          gridOptions.value.api?.showNoRowsOverlay();
-        } else {
-          content.sort((a, b) => {
-            if (a.datum && b.datum) {
-              return new Date(b.datum).getTime() - new Date(a.datum).getTime();
-            }
-            return 0;
-          });
-          params.successCallback(content, +data.length);
-          onGridSizeChanged();
-        }
-      } catch (error) {
-        params.failCallback();
-      }
-    },
-  };
-  gridOptions.value.api?.setDatasource(dataSource);
+const firstDataRendered = () => {
+  resizeColumns();
+  gridApi.value?.setRowData(props.data);
 };
-
-const onGridSizeChanged = () => resizeColumns();
 
 const resizeColumns = async () => {
   gridApi.value?.sizeColumnsToFit();
 };
 </script>
 <style lang="scss">
-.table {
-  height: calc(100% - 48px);
-}
-
 .invalid-status {
   font-style: italic !important;
-}
-
-.oe-flex-1 {
-  flex: 1;
 }
 </style>
