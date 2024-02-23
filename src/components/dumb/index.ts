@@ -4,6 +4,7 @@ import FilterInput from './FilterInput.vue';
 import FilterRadio from './FilterRadio.vue';
 import FilterSelect from './FilterSelect.vue';
 import FilterText from './FilterText.vue';
+import GridWorkflow from './GridWorkflow.vue';
 import InputPhone from './InputPhone.vue';
 import NoRowsOverlay from './NoRowsOverlay.vue';
 import OeAutocomplete from './OeAutocomplete.vue';
@@ -18,7 +19,6 @@ import OeTinyMce from './OeTinyMCE.vue';
 import OeToaster from './OeToaster.vue';
 import OeWizard from './OeWizard.vue';
 import SystemFields from './SystemFields.vue';
-import TabWorkflow from './TabWorkflow.vue';
 
 export {
   ClipboardCopy,
@@ -27,6 +27,7 @@ export {
   FilterRadio,
   FilterSelect,
   FilterText,
+  GridWorkflow,
   InputPhone,
   NoRowsOverlay,
   OeAutocomplete,
@@ -41,5 +42,4 @@ export {
   OeToaster,
   OeWizard,
   SystemFields,
-  TabWorkflow,
 };

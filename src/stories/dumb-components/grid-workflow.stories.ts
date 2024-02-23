@@ -1,16 +1,16 @@
 import '@/scss/main.scss';
 import schema from '../../../cypress/fixtures/workflowSchema.json';
-import TabWorkflow from '@components/dumb/TabWorkflow.vue';
+import GridWorkflow from '@components/dumb/GridWorkflow.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
-const meta: Meta<typeof TabWorkflow> = {
-  title: 'Dumb components/TabWorkflow',
-  component: TabWorkflow,
+const meta: Meta<typeof GridWorkflow> = {
+  title: 'Dumb components/GridWorkflow',
+  component: GridWorkflow,
   parameters: {
     docs: {
       description: {
-        component: `Component that shows the workflow tabs used in our process applications`,
+        component: `Component that shows the workflow grid used in our process applications`,
       },
     },
   },
@@ -31,12 +31,12 @@ const meta: Meta<typeof TabWorkflow> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof TabWorkflow>;
+type Story = StoryObj<typeof GridWorkflow>;
 
 export const Default: Story = {
   render: () => ({
     components: {
-      TabWorkflow,
+      GridWorkflow,
     },
     setup() {
       const data = [
@@ -76,7 +76,7 @@ export const Default: Story = {
       return { data, schema };
     },
     template: `
-    <TabWorkflow :data="data" :schema="schema"></TabWorkflow>
+    <GridWorkflow :data="data" :schema="schema"></GridWorkflow>
     `,
   }),
 };
@@ -84,13 +84,13 @@ export const Default: Story = {
 export const NoData: Story = {
   render: () => ({
     components: {
-      TabWorkflow,
+      GridWorkflow,
     },
     setup() {
       return { data: [], schema };
     },
     template: `
-    <TabWorkflow data:="data" :schema="schema"></TabWorkflow>
+    <GridWorkflow data:="data" :schema="schema"></GridWorkflow>
     `,
   }),
 };
@@ -98,7 +98,7 @@ export const NoData: Story = {
 export const NoSchema: Story = {
   render: () => ({
     components: {
-      TabWorkflow,
+      GridWorkflow,
     },
     setup() {
       const data = [
@@ -138,7 +138,7 @@ export const NoSchema: Story = {
       return { data: data, schema: [] };
     },
     template: `
-    <TabWorkflow :data="data" :schema="schema"></TabWorkflow>
+    <GridWorkflow :data="data" :schema="schema"></GridWorkflow>
     `,
   }),
 };

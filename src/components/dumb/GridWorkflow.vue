@@ -19,9 +19,9 @@ import type {
   ICellRendererParams,
   ValueFormatterParams,
 } from 'ag-grid-community';
-import type { IWorkflow, IWorkflowOwner, IWorkflowState, TabWorkflowProps } from '@models/workflow';
+import type { GridWorkflowProps, IWorkflow, IWorkflowOwner, IWorkflowState } from '@models/workflow';
 
-const props = defineProps<TabWorkflowProps>();
+const props = defineProps<GridWorkflowProps>();
 
 // Grid
 const gridApi = ref<GridApi>();
@@ -87,7 +87,7 @@ const dateFormatter = (params: ValueFormatterParams) => {
 
 const gridOptions = ref<GridOptions>({
   context: getCurrentInstance(),
-  defaultColDef: { sortable: false, resizable: true },
+  defaultColDef: { sortable: true, resizable: true },
   suppressMovableColumns: true,
   suppressClickEdit: true,
   headerHeight: 45,
@@ -98,7 +98,7 @@ const gridOptions = ref<GridOptions>({
   columnDefs: getColumnDefinitions(),
   noRowsOverlayComponent: NoRowsOverlay,
   noRowsOverlayComponentParams: {
-    noRowsMessage: 'Er zijn nog geen workflows beschikbaar',
+    noRowsMessage: 'Er zijn nog geen workflow gegevens beschikbaar',
   },
   suppressBrowserResizeObserver: true,
   domLayout: 'autoHeight',

@@ -1,7 +1,7 @@
 import schema from '../../cypress/fixtures/workflowSchema.json';
 import { mount } from 'cypress/vue';
 import { defineComponent, useAttrs } from 'vue';
-import TabWorkflow from '@components/dumb/TabWorkflow.vue';
+import GridWorkflow from '@components/dumb/GridWorkflow.vue';
 
 const data = [
   {
@@ -39,28 +39,28 @@ const data = [
 ];
 
 const TestComponent = defineComponent({
-  components: { TabWorkflow },
+  components: { GridWorkflow },
   setup() {
     const attrs = useAttrs();
     return { attrs };
   },
   template: `<div style="width: 100%; height: 300px">
-  <TabWorkflow v-bind="attrs"></TabWorkflow>
+  <GridWorkflow v-bind="attrs"></GridWorkflow>
   </div>`,
 });
 
-describe('TabWorkflow - no data', () => {
+describe('GridWorkflow - no data', () => {
   it('renders', () => {
     mount(TestComponent, { props: { data: [], schema: [] } });
   });
 
   it('shows the correct no rows melding', () => {
     mount(TestComponent, { props: { data: [], schema: [] } });
-    cy.dataCy('ag-overlay').invoke('text').should('contain', 'Er zijn nog geen workflows beschikbaar');
+    cy.dataCy('ag-overlay').invoke('text').should('contain', 'Er zijn nog geen workflow gegevens beschikbaar');
   });
 });
 
-describe('TabWorkflow - data', () => {
+describe('GridWorkflow - data', () => {
   it('renders', () => {
     mount(TestComponent, {
       props: { data: data, schema: schema },

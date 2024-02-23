@@ -6,7 +6,7 @@ export interface IWorkflow {
   actor_omschrijving: string;
 }
 
-export interface TabWorkflowProps {
+export interface GridWorkflowProps {
   data: IWorkflow[];
   schema: ISaveState[];
 }
