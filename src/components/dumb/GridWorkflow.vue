@@ -30,7 +30,7 @@ const getColumnDefinitions = (): ColDef[] => {
     { headerName: 'Status', field: 'state.id', flex: 1, cellRenderer: statusCellRenderer },
     { headerName: 'Qualifier', field: 'state.state_qualifier', cellRenderer: qualifierCellRenderer, flex: 1 },
     { headerName: 'Toegewezen aan', field: 'owners', valueFormatter: ownerValueFormatter, flex: 1 },
-    { headerName: 'Datum aanpassing', field: 'datum', valueFormatter: dateFormatter, flex: 1 },
+    { headerName: 'Datum aanpassing', field: 'datum', valueFormatter: dateFormatter, flex: 1, sort: 'desc' },
     { headerName: 'Aangepast door', field: 'actor_omschrijving', flex: 1 },
     { headerName: 'Opmerkingen', field: 'state', valueFormatter: remarkValueFormatter, flex: 1 },
   ];
