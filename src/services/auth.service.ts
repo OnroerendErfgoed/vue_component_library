@@ -2,10 +2,10 @@ import { HttpService } from './http.service';
 import type { IUser, User } from '@models/user';
 
 export class AuthService extends HttpService {
-  private readonly API_URL: string;
-  private readonly ROLE_PREFIX: string;
-  private _user!: User;
-  private refreshToken = true;
+  protected readonly API_URL: string;
+  protected readonly ROLE_PREFIX: string;
+  protected _user!: User;
+  protected refreshToken = true;
 
   constructor(apiUrl: string, user: User, rolePrefix: string) {
     super();
