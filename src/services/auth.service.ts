@@ -64,7 +64,7 @@ export class AuthService extends HttpService {
     if (this.isLezer()) {
       return 'Lezer';
     }
-    return 'Ongekende rol';
+    return 'Gebruiker';
   }
 
   canEdit() {
