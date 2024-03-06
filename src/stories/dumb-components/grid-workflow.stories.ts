@@ -42,7 +42,7 @@ export const Default: Story = {
       const data = [
         {
           actor: 'https://dev-id.erfgoed.net/actoren/12653',
-          datum: '2024-01-09T10:39:15.996776+01:00',
+          datum: '2024-01-10T10:39:15.996776+01:00',
           state: {
             id: 0,
           },
