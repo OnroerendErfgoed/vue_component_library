@@ -137,11 +137,11 @@ export const Default: Story = {
     template: `
     <filter-input v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" @filters-selected="$event => filters = $event">
       <filter-text v-if="selectedOption.key === 'id'" :value="value" @update:value="setValue($event, $event)" placeholder="ID" @keyup.enter="addFilter"></filter-text>
-      <filter-text v-if="selectedOption.key === 'onderwerp'" :value="value" @update:value="setValue($event, $event)" placeholder="Onderwerp"></filter-text>
+      <filter-text v-if="selectedOption.key === 'onderwerp'" :value="value" @update:value="setValue($event, $event)" placeholder="Onderwerp" @keyup.enter="addFilter"></filter-text>
       <filter-datepicker v-if="selectedOption.key === 'datum_goedkeuring_van' || selectedOption.key === 'datum_goedkeuring_tot'" :value="value" @update:value="setValue($event, $event[0])"></filter-datepicker>
       <filter-gemeente v-if="selectedOption.key === 'gemeente'" api="https://test-geo.onroerenderfgoed.be/" :value="value" @update:value="setValue($event.niscode, $event.naam)"></filter-gemeente>
       <filter-radio v-if="selectedOption.key === 'beheerscommissie' || selectedOption.key === 'beheersplan_verlopen'" :options="radioOptions" :value="value" @update:value="setValue($event.value, $event.label)"></filter-radio>
-      <filter-select v-if="selectedOption.key === 'plantype'" placeholder="Type plan" :value="value" @update:value="setValue($event, $event)">
+      <filter-select v-if="selectedOption.key === 'plantype'" placeholder="Type plan" :value="value" @update:value="setValue($event, $event)" @keyup.enter="addFilter">
         <optgroup label="Niet Actief">
           <option value="klad">Klad</option>
           <option value="kladzonderfoto">Klad zonder foto</option>
@@ -150,7 +150,7 @@ export const Default: Story = {
           <option value="actief">Actief</option>
         </optgroup>
       </filter-select>
-      <filter-select v-if="selectedOption.key === 'status'" :options="statusOptions" placeholder="Status" :value="value" @update:value="setValue($event, $event)"></filter-select>
+      <filter-select v-if="selectedOption.key === 'status'" :options="statusOptions" placeholder="Status" :value="value" @update:value="setValue($event, $event)" @keyup.enter="addFilter"></filter-select>
       <filter-aanduidingsobject
           id="test"
           v-if="selectedOption.key === 'aanduidingsobject'"
