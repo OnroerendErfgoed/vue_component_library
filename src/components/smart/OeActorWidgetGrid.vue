@@ -138,7 +138,7 @@ const rowCountText = computed(() =>
 );
 const setQueryParameters = (params: IGetRowsParams): IActorenQuery => {
   const paramsObj: IActorenQuery = {
-    tekst: zoekterm.value ? `${zoekterm.value}*` : undefined,
+    omschrijving: zoekterm.value,
     sort: undefined,
   };
 
