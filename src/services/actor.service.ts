@@ -3,8 +3,8 @@ import type { IActor } from '@models/actor';
 import type { IResponse } from '@models/grid';
 
 export interface IActorenQuery {
-  tekst?: string | undefined;
-  sort?: string | undefined;
+  omschrijving?: string;
+  sort?: string;
 }
 
 export class ActorService extends HttpService {

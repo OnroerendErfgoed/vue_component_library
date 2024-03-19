@@ -21,6 +21,7 @@
           :value="filterInputValue?.value"
           :set-value="setFilterInputValue"
           :selected-option="selectedOption"
+          :add-filter="addFilter"
         ></slot>
 
         <vl-input-addon
