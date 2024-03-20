@@ -1,10 +1,11 @@
 import { HttpService } from './http.service';
-import type { IActor } from '@models/actor';
+import type { ActorType, IActor } from '@models/actor';
 import type { IResponse } from '@models/grid';
 
 export interface IActorenQuery {
   omschrijving?: string;
   sort?: string;
+  type?: ActorType;
 }
 
 export class ActorService extends HttpService {

@@ -1,5 +1,11 @@
 import type { ISystemFields } from './system-fields';
 
+export enum ActorType {
+  PERSOON = 'foaf:Person',
+  ORGANISATIE = 'foaf:Organization',
+  SOFTWARE_AGENT = 'prov:SoftwareAgent',
+}
+
 export interface IActor {
   adres: IActorAdres;
   adressen: IActorAdres[];
