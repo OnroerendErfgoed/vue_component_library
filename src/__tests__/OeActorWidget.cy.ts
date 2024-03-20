@@ -1,5 +1,8 @@
+/* eslint-disable vue/one-component-per-file */
 import OeActorWidget from '../components/smart/OeActorWidget.vue';
 import { defineComponent } from 'vue';
+import { ActorType } from '@models/actor';
+import type { Interception } from 'cypress/types/net-stubbing';
 
 describe('OeActorWidget', () => {
   describe('default', () => {
@@ -55,6 +58,44 @@ describe('OeActorWidget', () => {
       cy.dataCy('actor-widget-detail-back-btn').click();
       cy.wait('@dataGet');
       cy.dataCy('actor-widget-grid').should('exist');
+    });
+  });
+
+  describe('filter by actor type', () => {
+    const TestComponent = defineComponent({
+      components: { OeActorWidget },
+      setup() {
+        const actorType = ActorType.ORGANISATIE;
+        const id = '1';
+        const api = 'https://dev-actoren.onroerenderfgoed.be';
+        const getSsoToken = async () => 1;
+        return { id, api, getSsoToken, actorType };
+      },
+      template: `
+      <oe-actor-widget :id="id" :api="api" :get-sso-token="getSsoToken" :open="true" :actor-type="actorType">
+        <template v-slot:dropdown>
+          <div data-cy="actor-widget-slot-dropdown">Test</div>
+        </template>
+      </oe-actor-widget>
+      `,
+    });
+
+    beforeEach(() => {
+      cy.intercept('GET', 'https://dev-actoren.onroerenderfgoed.be/actoren*', {
+        fixture: 'actoren.json',
+        headers: {
+          'Content-Range': 'items 0-50/1',
+        },
+      }).as('dataGet');
+
+      cy.mount(TestComponent);
+      cy.wait('@dataGet');
+    });
+
+    it('adds a type queryparam to the get request', () => {
+      cy.get('@dataGet').then((interception) => {
+        expect((interception as unknown as Interception).request.query).to.deep.equal({ type: 'foaf:Organization' });
+      });
     });
   });
 });

@@ -47,16 +47,18 @@ import { isEmpty, omitBy } from 'lodash';
 import { computed, getCurrentInstance, ref } from 'vue';
 import { ActorService, type IActorenQuery } from '@services/actor.service';
 import type { ColDef, FirstDataRenderedEvent, GridOptions, IGetRowsParams, RowClickedEvent } from 'ag-grid-community';
-import type { IActor } from '@models/actor';
+import type { ActorType, IActor } from '@models/actor';
 
 interface IOeActorWidgetGridProps {
   api: string;
   getSsoToken: () => Promise<string>;
+  actorType?: ActorType;
 }
 
 const props = withDefaults(defineProps<IOeActorWidgetGridProps>(), {
   api: '',
   getSsoToken: undefined,
+  actorType: undefined,
 });
 const emit = defineEmits<{
   selectActor: [IActor];
@@ -140,6 +142,7 @@ const setQueryParameters = (params: IGetRowsParams): IActorenQuery => {
   const paramsObj: IActorenQuery = {
     omschrijving: zoekterm.value,
     sort: undefined,
+    type: props.actorType,
   };
 
   if (params.sortModel.length) {
