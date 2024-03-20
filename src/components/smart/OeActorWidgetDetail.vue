@@ -40,13 +40,9 @@
       <vl-properties-list>
         <vl-properties-label>Actortype</vl-properties-label>
         <vl-properties-data>{{ actor?.type.naam }}</vl-properties-data>
-        <vl-properties-label>Adressen</vl-properties-label>
+        <vl-properties-label>Adres</vl-properties-label>
         <vl-properties-data>
-          <ul>
-            <li v-for="(adres, index) in props.actor.adressen" :key="index">
-              <small>{{ adres.omschrijving }} ({{ adres.adrestype?.naam }})</small>
-            </li>
-          </ul>
+          <small>{{ props.actor?.adres?.omschrijving }}</small>
         </vl-properties-data>
         <vl-properties-label>URL's</vl-properties-label>
         <vl-properties-data>

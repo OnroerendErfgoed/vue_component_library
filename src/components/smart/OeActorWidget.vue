@@ -7,6 +7,7 @@
         :api="props.api"
         :get-sso-token="props.getSsoToken"
         data-cy="actor-widget-grid"
+        :actor-type="props.actorType"
         @set-state-detail="setStateDetail($event)"
         @select-actor="selectActor"
         @toggle-loader="loading = !loading"
@@ -43,12 +44,13 @@ import OeLoader from '@components/dumb/OeLoader.vue';
 import Detail from '@components/smart/OeActorWidgetDetail.vue';
 import Grid from '@components/smart/OeActorWidgetGrid.vue';
 import { ActorService } from '@services/actor.service';
-import type { IActor } from '@models/actor';
+import type { ActorType, IActor } from '@models/actor';
 
 interface IOeActorWidgetProps {
   id: string;
   api: string;
   getSsoToken: () => Promise<string>;
+  actorType?: ActorType;
 }
 
 enum ActorWidgetState {
@@ -60,6 +62,7 @@ const props = withDefaults(defineProps<IOeActorWidgetProps>(), {
   id: '',
   api: '',
   getSsoToken: undefined,
+  actorType: undefined,
 });
 const emit = defineEmits<{
   add: [IActor];

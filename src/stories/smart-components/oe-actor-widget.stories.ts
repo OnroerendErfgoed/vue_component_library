@@ -1,5 +1,6 @@
 import '@/scss/main.scss';
 import { OeActorWidget } from '@/components';
+import { ActorType } from '@models/actor';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
@@ -52,14 +53,15 @@ export const Default: Story = {
       OeActorWidget,
     },
     setup() {
+      const actorType = ActorType.PERSOON;
       const id = '1';
       const api = 'https://dev-actoren.onroerenderfgoed.be';
       const getSsoToken = async () => 1;
-      return { id, api, getSsoToken };
+      return { id, api, getSsoToken, actorType };
     },
     template: `
     <div style="zoom: .95">
-      <oe-actor-widget :id="id" :api="api" :get-sso-token="getSsoToken" :open="true" @add="console.log" @close="console.log">
+      <oe-actor-widget :id="id" :api="api" :get-sso-token="getSsoToken" :open="true" @add="console.log" @close="console.log" :actor-type="actorType">
         <template v-slot:dropdown>
           <div class="dropdown"></div>
         </template>
