@@ -67,11 +67,6 @@ export class AuthService extends HttpService {
     return 'Gebruiker';
   }
 
-  canEdit() {
-    if (this.isBeheerder()) return true;
-    return false;
-  }
-
   async getSsoToken(hardRefresh = false) {
     if (this.refreshToken || hardRefresh) {
       await this.refreshSession();
