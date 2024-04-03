@@ -1,5 +1,5 @@
 import '@/scss/main.scss';
-import FilterAanduidingsobject from '../../components/smart/FilterAanduidingsobject.vue';
+import FilterAanduidingsobject from '@components/smart/FilterAanduidingsobject.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction

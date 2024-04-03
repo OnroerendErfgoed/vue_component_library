@@ -40,11 +40,11 @@
 </template>
 
 <script setup lang="ts">
-import OeGrid from '../dumb/OeGrid.vue';
-import OeActorWidgetGridActies from './OeActorWidgetGridActies.vue';
 import { VlButton, VlSearch } from '@govflanders/vl-ui-design-system-vue3';
 import { isEmpty, omitBy } from 'lodash';
 import { computed, getCurrentInstance, ref } from 'vue';
+import OeGrid from '@components/dumb/OeGrid.vue';
+import OeActorWidgetGridActies from '@components/smart/OeActorWidgetGridActies.vue';
 import { ActorService, type IActorenQuery } from '@services/actor.service';
 import type { ColDef, FirstDataRenderedEvent, GridOptions, IGetRowsParams, RowClickedEvent } from 'ag-grid-community';
 import type { ActorType, IActor } from '@models/actor';

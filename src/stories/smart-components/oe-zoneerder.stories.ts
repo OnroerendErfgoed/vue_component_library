@@ -1,5 +1,5 @@
 import '@/scss/main.scss';
-import { OeZoneerder } from '@/components';
+import { OeZoneerder } from '@components/smart';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const api = 'https://test-geo.onroerenderfgoed.be/';

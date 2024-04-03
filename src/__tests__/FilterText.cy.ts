@@ -1,5 +1,5 @@
-import FilterText from '../components/dumb/FilterText.vue';
 import { defineComponent, ref } from 'vue';
+import FilterText from '@components/dumb/FilterText.vue';
 
 describe('FilterText', () => {
   const TestComponent = defineComponent({
