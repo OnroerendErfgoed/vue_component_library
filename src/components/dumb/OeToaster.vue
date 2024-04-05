@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-v-html -->
 <template>
   <vl-toaster mod-top-right>
     <vl-alert
@@ -14,16 +15,12 @@
       :title="toast.title"
       @close="store.removeToast(toast?.id as string)"
     >
-      <template v-if="typeof toast.content === 'string'">
-        {{ toast.content }}
-      </template>
-      <template v-else>
-        <ul>
-          <li v-for="message in toast.content" :key="message">
-            {{ message }}
-          </li>
-        </ul>
-      </template>
+      <ul v-if="Array.isArray(toast.content)">
+        <li v-for="message in toast.content" :key="message">
+          {{ message }}
+        </li>
+      </ul>
+      <div v-else v-html="toast.content" />
     </vl-alert>
   </vl-toaster>
 </template>
