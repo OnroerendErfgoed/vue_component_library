@@ -322,14 +322,16 @@ function drawLayerToZone() {
 
   features?.forEach((feature) => {
     const geom = feature.getGeometry();
-    const shouldMerge = features.find(
+    const featureToMerge = features.find(
       (f) =>
         !isEqual(geom, f.getGeometry()) &&
+        geom?.getType() === 'Polygon' &&
+        geom?.getType() === f.getGeometry()?.getType() &&
         booleanOverlap(formatGeoJson(geom as Polygon), formatGeoJson(f.getGeometry() as Polygon))
     );
 
-    if (shouldMerge) {
-      const merged = union(formatGeoJson(geom as Polygon), formatGeoJson(shouldMerge.getGeometry() as Polygon));
+    if (featureToMerge) {
+      const merged = union(formatGeoJson(geom as Polygon), formatGeoJson(featureToMerge.getGeometry() as Polygon));
       const mergedPolygon = new Polygon(merged?.geometry.coordinates as Coordinate[][]);
 
       if (

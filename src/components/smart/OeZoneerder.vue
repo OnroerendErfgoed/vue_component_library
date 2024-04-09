@@ -120,8 +120,6 @@ watch(
 watch(
   zone,
   (newZone) => {
-    console.log(newZone);
-
     emit('update:zone', newZone);
   },
   { deep: true }
