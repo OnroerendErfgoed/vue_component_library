@@ -82,7 +82,8 @@
 import 'ol/ol.css';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { VlButton, VlIcon, VlInputField, VlInputGroup, VlLink, VlTitle } from '@govflanders/vl-ui-design-system-vue3';
-import { intersect, union } from '@turf/turf';
+import { booleanOverlap, intersect, union } from '@turf/turf';
+import { isEqual } from 'lodash';
 import { Feature, Map, MapBrowserEvent } from 'ol';
 import { GeoJSON, WKT } from 'ol/format';
 import { Circle, Geometry, MultiPolygon, Polygon } from 'ol/geom';
@@ -318,45 +319,25 @@ function removeGeometryObject(name: string) {
 function drawLayerToZone() {
   const multiPolygon = new MultiPolygon([], 'XY');
   const features = drawLayer.getSource()?.getFeatures();
-  // console.log(features);
-  if (features && features[0] && features[1]) {
-    const one = features[0].getGeometry();
-    const two = features[1].getGeometry();
-    // console.log('truf;, ', intersect(formatGeoJson(one as Polygon), formatGeoJson(two as Polygon)));
-    if (intersect(formatGeoJson(one as Polygon), formatGeoJson(two as Polygon))) {
-      const merged = union(formatGeoJson(one as Polygon), formatGeoJson(two as Polygon));
-      console.log('union', merged?.geometry, new Polygon(merged?.geometry.coordinates as Coordinate[][]));
-      multiPolygon.appendPolygon(new Polygon(merged?.geometry.coordinates as Coordinate[][]));
+
+  features?.forEach((feature) => {
+    const geom = feature.getGeometry();
+    const shouldMerge = features.find(
+      (f) =>
+        !isEqual(geom, f.getGeometry()) &&
+        booleanOverlap(formatGeoJson(geom as Polygon), formatGeoJson(f.getGeometry() as Polygon))
+    );
+
+    if (shouldMerge) {
+      const merged = union(formatGeoJson(geom as Polygon), formatGeoJson(shouldMerge.getGeometry() as Polygon));
+      const mergedPolygon = new Polygon(merged?.geometry.coordinates as Coordinate[][]);
+
+      if (
+        !multiPolygon.getPolygons().some((polygon) => intersect(formatGeoJson(polygon), formatGeoJson(mergedPolygon)))
+      ) {
+        multiPolygon.appendPolygon(mergedPolygon);
+      }
     } else {
-      features?.forEach((feature) => {
-        const geom = feature.getGeometry();
-        console.log('geommeke', geom);
-
-        if (geom instanceof Polygon) {
-          multiPolygon.appendPolygon(geom as Polygon);
-        } else if (geom instanceof MultiPolygon) {
-          geom.getPolygons().forEach((polygon: Polygon) => {
-            multiPolygon.appendPolygon(polygon);
-          });
-        } else if (geom instanceof Circle) {
-          multiPolygon.appendPolygon(fromCircle(geom));
-        }
-      });
-    }
-    // two.getCoordinates()[0].forEach((c) => {
-    //   console.log('overlpa', one?.intersectsCoordinate(c));
-    //   if (one?.intersectsCoordinate(c)) {
-    //     const ftr = new Feature({ geometry: new GeometryCollection([one, two]), name: 'new ploy' });
-    //     console.log('merge pls', ftr);
-    //   }
-    // });
-  } else {
-    console.log('else blokc');
-
-    features?.forEach((feature) => {
-      const geom = feature.getGeometry();
-      console.log('geommeke', geom);
-
       if (geom instanceof Polygon) {
         multiPolygon.appendPolygon(geom as Polygon);
       } else if (geom instanceof MultiPolygon) {
@@ -366,9 +347,8 @@ function drawLayerToZone() {
       } else if (geom instanceof Circle) {
         multiPolygon.appendPolygon(fromCircle(geom));
       }
-    });
-  }
-  // }
+    }
+  });
 
   const contour = formatGeoJson(multiPolygon);
   if (!zone.value) {
