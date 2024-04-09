@@ -82,7 +82,9 @@
 import 'ol/ol.css';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { VlButton, VlIcon, VlInputField, VlInputGroup, VlLink, VlTitle } from '@govflanders/vl-ui-design-system-vue3';
-import { booleanOverlap, intersect, union } from '@turf/turf';
+import booleanOverlap from '@turf/boolean-overlap';
+import intersect from '@turf/intersect';
+import union from '@turf/union';
 import { isEqual } from 'lodash';
 import { Feature, Map, MapBrowserEvent } from 'ol';
 import { GeoJSON, WKT } from 'ol/format';
