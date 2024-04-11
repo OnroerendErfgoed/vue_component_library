@@ -4,6 +4,7 @@ export type TFilterInput = string | IGemeente;
 
 export interface IFilterInputProps {
   options: IFilterOption[];
+  defaultFilters?: IFilter[];
 }
 
 export interface IFilter {

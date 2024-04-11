@@ -45,6 +45,12 @@ setValue: function to apply the entered filter value from the custom filter fiel
         type: { summary: 'IFilterOption[]' },
       },
     },
+    defaultFilters: {
+      description: 'List of default filters',
+      table: {
+        type: { summary: 'IFilter[]' },
+      },
+    },
     'filters-selected': {
       description: 'Emits the currently active filters on each filter change',
       table: {
@@ -131,11 +137,21 @@ export const Default: Story = {
           value: 'nee',
         },
       ];
+      const defaultFilters = [
+        {
+          key: 'test1',
+          label: 'test2',
+          value: {
+            label: 'test3',
+            value: 'test4',
+          },
+        },
+      ];
 
-      return { filterOptions, statusOptions, radioOptions };
+      return { filterOptions, statusOptions, radioOptions, defaultFilters };
     },
     template: `
-    <filter-input v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" @filters-selected="$event => filters = $event">
+    <filter-input v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="defaultFilters" @filters-selected="$event => filters = $event">
       <filter-text v-if="selectedOption.key === 'id'" :value="value" @update:value="setValue($event, $event)" placeholder="ID" @keyup.enter="addFilter"></filter-text>
       <filter-text v-if="selectedOption.key === 'onderwerp'" :value="value" @update:value="setValue($event, $event)" placeholder="Onderwerp" @keyup.enter="addFilter"></filter-text>
       <filter-datepicker v-if="selectedOption.key === 'datum_goedkeuring_van' || selectedOption.key === 'datum_goedkeuring_tot'" :value="value" @update:value="setValue($event, $event[0])"></filter-datepicker>
