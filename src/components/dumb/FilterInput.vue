@@ -70,6 +70,7 @@ import type { IFilter, IFilterInputProps, IFilterOption, TFilterInput } from '@m
 
 const props = withDefaults(defineProps<IFilterInputProps>(), {
   options: () => [],
+  defaultFilters: () => [],
 });
 const emit = defineEmits<{
   (e: 'filters-selected', filters: IFilter[]): void;
@@ -85,7 +86,7 @@ const setFilterInputValue = (value: TFilterInput, label: string) => (filterInput
 const clearInputs = () => (filterInputValue.value = {});
 
 // Filters
-const filters = ref<IFilter[]>([]);
+const filters = ref<IFilter[]>([...props.defaultFilters]);
 watch(
   filters,
   () => {
@@ -96,7 +97,7 @@ watch(
 
 // Filter helper methods
 const addFilter = () => {
-  const filter: IFilter = {
+  const filter = {
     key: selectedOption.value.key,
     label: selectedOption.value.label,
     value: {

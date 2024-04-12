@@ -9,8 +9,8 @@
 </template>
 
 <script setup lang="ts">
-import OeAutocomplete from '../dumb/OeAutocomplete.vue';
 import { computed, ref } from 'vue';
+import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
 import { ActorService } from '@services/actor.service';
 import type { IActor } from '@models/actor';
 import type { IAutocompleteOption } from '@models/autocomplete';

@@ -10,9 +10,9 @@
 </template>
 
 <script setup lang="ts">
-import OeAutocomplete from '../dumb/OeAutocomplete.vue';
 import { toRef } from '@vueuse/core';
 import { ref, watch } from 'vue';
+import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
 import { InventarisApiService } from '@services/inventaris-api.service';
 import type { IAutocompleteOption } from '@models/autocomplete';
 import type { IESAanduidingsobject, IFilterAanduidingsobjectProps } from '@models/index';

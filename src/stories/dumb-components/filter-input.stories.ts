@@ -1,13 +1,13 @@
 import '@/scss/main.scss';
-import FilterDatepicker from '../../components/dumb/FilterDatepicker.vue';
-import FilterInput from '../../components/dumb/FilterInput.vue';
-import FilterRadio from '../../components/dumb/FilterRadio.vue';
-import FilterSelect from '../../components/dumb/FilterSelect.vue';
-import FilterText from '../../components/dumb/FilterText.vue';
-import FilterAanduidingsobject from '../../components/smart/FilterAanduidingsobject.vue';
-import FilterGemeente from '../../components/smart/FilterGemeente.vue';
-import { type IFilterOption, type IOption } from '../../models/filter-input';
+import FilterDatepicker from '@components/dumb/FilterDatepicker.vue';
+import FilterInput from '@components/dumb/FilterInput.vue';
+import FilterRadio from '@components/dumb/FilterRadio.vue';
+import FilterSelect from '@components/dumb/FilterSelect.vue';
+import FilterText from '@components/dumb/FilterText.vue';
+import FilterAanduidingsobject from '@components/smart/FilterAanduidingsobject.vue';
+import FilterGemeente from '@components/smart/FilterGemeente.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
+import type { IFilterOption, IOption } from '@models/filter-input';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof FilterInput> = {
@@ -43,6 +43,12 @@ setValue: function to apply the entered filter value from the custom filter fiel
       description: 'List of filter options to populate the select input',
       table: {
         type: { summary: 'IFilterOption[]' },
+      },
+    },
+    defaultFilters: {
+      description: 'List of default filters',
+      table: {
+        type: { summary: 'IFilter[]' },
       },
     },
     'filters-selected': {
@@ -131,11 +137,21 @@ export const Default: Story = {
           value: 'nee',
         },
       ];
+      const defaultFilters = [
+        {
+          key: 'test1',
+          label: 'test2',
+          value: {
+            label: 'test3',
+            value: 'test4',
+          },
+        },
+      ];
 
-      return { filterOptions, statusOptions, radioOptions };
+      return { filterOptions, statusOptions, radioOptions, defaultFilters };
     },
     template: `
-    <filter-input v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" @filters-selected="$event => filters = $event">
+    <filter-input v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="defaultFilters" @filters-selected="$event => filters = $event">
       <filter-text v-if="selectedOption.key === 'id'" :value="value" @update:value="setValue($event, $event)" placeholder="ID" @keyup.enter="addFilter"></filter-text>
       <filter-text v-if="selectedOption.key === 'onderwerp'" :value="value" @update:value="setValue($event, $event)" placeholder="Onderwerp" @keyup.enter="addFilter"></filter-text>
       <filter-datepicker v-if="selectedOption.key === 'datum_goedkeuring_van' || selectedOption.key === 'datum_goedkeuring_tot'" :value="value" @update:value="setValue($event, $event[0])"></filter-datepicker>

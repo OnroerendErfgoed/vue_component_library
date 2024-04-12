@@ -1,7 +1,7 @@
 import '@/scss/main.scss';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { OeInventarisLink } from '@/components';
+import { OeInventarisLink } from '@components/smart';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import type { IInventarisLinkGebeurtenis, IInventarisLinkWaarneming, ILinks } from '@models/links';
 

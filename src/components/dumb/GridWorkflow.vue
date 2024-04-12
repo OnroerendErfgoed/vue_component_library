@@ -8,9 +8,9 @@
 </template>
 <script setup lang="ts">
 import { NoRowsOverlay } from '.';
-import OeGrid from '../dumb/OeGrid.vue';
 import { format } from 'date-fns';
 import { getCurrentInstance, ref } from 'vue';
+import OeGrid from '@components/dumb/OeGrid.vue';
 import type {
   ColDef,
   GridApi,
