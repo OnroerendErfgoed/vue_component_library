@@ -7,7 +7,7 @@
   "main": "./dist/vue-components.umd.js",
   "module": "./dist/vue-components.es.js",
   "typings": "./dist/src/main.d.ts",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "exports": {
     ".": {
       "import": "./dist/vue-components.es.js",
