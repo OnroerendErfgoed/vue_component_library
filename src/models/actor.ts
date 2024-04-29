@@ -31,7 +31,11 @@ export interface IActor {
   zichtbaarheid: IType;
 }
 
-interface IActorAdres {
+export interface IActorAdres {
+  beschrijving?: string;
+  id?: number;
+  startdatum?: string;
+  einddatum?: string;
   gemeente: IGemeente;
   land: ILand;
   postcode: IPostcode;

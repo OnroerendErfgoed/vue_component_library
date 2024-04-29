@@ -225,6 +225,7 @@
             data-cy="input-huisnummer"
             mod-block
             placeholder="Huisnummer"
+            :mod-disabled="!straat"
             :mod-error="!!v$.adres.huisnummer.$errors.length"
           ></VlInputField>
 
@@ -267,6 +268,7 @@
             data-cy="input-busnummer"
             mod-block
             placeholder="Busnummer"
+            :mod-disabled="!huisnummer"
             :mod-error="!!v$.adres.busnummer.$errors.length"
           ></VlInputField>
 
@@ -604,6 +606,7 @@ watch(straat, async (selectedStraat, oldValue) => {
         sortBy(await crabApiService.getAdressen((selectedStraat as IStraat).id), (s) => parseInt(s.huisnummer, 0)),
         'huisnummer'
       );
+      huisnummerFreeText.value = !huisnummers.value.length;
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
         const knownError = error as AxiosError;
