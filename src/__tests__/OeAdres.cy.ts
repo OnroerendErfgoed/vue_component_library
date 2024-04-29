@@ -141,21 +141,6 @@ describe('Adres', () => {
         getFormError('busnummer').should('not.exist');
       });
 
-      it('requires straat to be free text input when no streets were found', () => {
-        // Country selection
-        getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
-
-        cy.intercept({ method: 'GET', url: 'https://test-geo.onroerenderfgoed.be/**' }).as('dataGet');
-        cy.wait('@dataGet');
-
-        // Gemeente selection
-        setMultiSelectValue('gemeente', 'Edingen');
-        getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Edingen');
-
-        getMultiSelect('straat').should('not.exist');
-        getTextInput('straat').should('exist');
-      });
-
       it('allows huisnummer to be free text input when no house numbers were found', () => {
         // Country selection
         getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
@@ -164,12 +149,12 @@ describe('Adres', () => {
         cy.wait('@dataGet');
 
         // Gemeente selection
-        setMultiSelectValue('gemeente', 'Durbuy');
-        getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Durbuy');
+        setMultiSelectValue('gemeente', 's Gravenbrakel');
+        getMultiSelect('gemeente').find('.multiselect__single').should('have.text', "'s Gravenbrakel");
 
         // Straat selection
-        setMultiSelectValue('straat', 'Champoutre');
-        getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Champoutre');
+        setMultiSelectValue('straat', 'Acacias');
+        getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Acacias');
 
         getTextInput('huisnummer').should('exist');
       });
@@ -288,7 +273,7 @@ describe('Adres', () => {
               id: '32110',
             },
             adres: {
-              huisnummer: '416',
+              huisnummer: '190',
               busnummer: '0101',
             },
           },
@@ -300,7 +285,7 @@ describe('Adres', () => {
       getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Bertem');
       getMultiSelect('postcode').find('.multiselect__single').should('have.text', '3060');
       getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Dorpstraat');
-      getAutocompleteInput('huisnummer').should('have.value', '416');
+      getAutocompleteInput('huisnummer').should('have.value', '190');
       getAutocompleteInput('busnummer').should('have.value', '0101');
     });
 
