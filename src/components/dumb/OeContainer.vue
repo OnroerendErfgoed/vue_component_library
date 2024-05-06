@@ -65,6 +65,55 @@ const close = (item: ITab) => {
     padding: 0.9375rem;
     height: 100%;
     overflow-y: auto;
+
+    .vl-layout {
+      &.overview {
+        max-width: 1800px;
+        flex: 1;
+        height: 100%;
+
+        .vl-u-mark--info {
+          height: fit-content;
+        }
+
+        .refresh-button {
+          color: $primary-color;
+        }
+
+        .table {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          padding: 0.9375rem 0;
+
+          :deep(.ag-grid-vue) {
+            .status-cell {
+              justify-content: center;
+            }
+          }
+        }
+      }
+
+      &.detail {
+        max-width: 1400px;
+        flex: 1;
+
+        .title-container {
+          h3,
+          h5 {
+            margin: 0;
+            color: $dark-purple !important;
+          }
+          h5 {
+            font-weight: 100;
+          }
+        }
+
+        .vl-tab__pane {
+          outline: none;
+        }
+      }
+    }
   }
 
   .bottom-tabs {
