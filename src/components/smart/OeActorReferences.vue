@@ -13,7 +13,7 @@
       <span class="vl-u-mark--info vl-u-text">
         Er werden <span class="vl-u-text--bold">{{ references.count }}</span> referenties gevonden.</span
       >
-      <p class="vl-u-text--small">(Max. 5 referenties per applicatie getoond)</p>
+      <p class="vl-u-text--small">(Er worden max. 5 referenties per applicatie getoond)</p>
       <vl-accordion-list mod-bordered>
         <vl-accordion-list-item v-for="(application, index) in applications" :key="index" ref="accordions">
           <vl-accordion mod-xsmall mod-icon-right>
