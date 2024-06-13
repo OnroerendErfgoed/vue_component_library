@@ -4,6 +4,7 @@
       <div class="vl-col--1-1 vl-u-flex vl-u-flex-align-flex-end">
         <vl-search
           id="actor-widget-menu-search"
+          v-model="zoekterm"
           name="actor-widget-menu-search"
           mod-inline
           mod-alt
@@ -40,11 +41,11 @@
 </template>
 
 <script setup lang="ts">
+import { OeActorWidgetGridActies } from './index';
 import { VlButton, VlSearch } from '@govflanders/vl-ui-design-system-vue3';
 import { isEmpty, omitBy } from 'lodash';
-import { computed, getCurrentInstance, ref } from 'vue';
+import { computed, getCurrentInstance, ref, watch } from 'vue';
 import OeGrid from '@components/dumb/OeGrid.vue';
-import OeActorWidgetGridActies from '@components/smart/OeActorWidgetGridActies.vue';
 import { ActorService, type IActorenQuery } from '@services/actor.service';
 import type { ColDef, FirstDataRenderedEvent, GridOptions, IGetRowsParams, RowClickedEvent } from 'ag-grid-community';
 import type { ActorType, IActor } from '@models/actor';
@@ -53,12 +54,14 @@ interface IOeActorWidgetGridProps {
   api: string;
   getSsoToken: () => Promise<string>;
   actorType?: ActorType;
+  searchActor?: string;
 }
 
 const props = withDefaults(defineProps<IOeActorWidgetGridProps>(), {
   api: '',
   getSsoToken: undefined,
   actorType: undefined,
+  searchActor: '',
 });
 const emit = defineEmits<{
   selectActor: [IActor];
@@ -85,12 +88,15 @@ const handleSearchClick = (event: Event) => {
 const refresh = () => {
   // reset sort values
   gridOptions.value.columnApi?.resetColumnState();
-  // reset zoekterm values
-  zoekterm.value = '';
-  (document.querySelector('#actor-widget-menu-search') as HTMLInputElement).value = '';
   search();
 };
-
+watch(
+  () => props.searchActor,
+  () => {
+    zoekterm.value = props.searchActor;
+  },
+  { immediate: true }
+);
 // Grid
 const rowCount = ref(0);
 const getColumnDefinitions = (): ColDef[] => {
