@@ -56,6 +56,29 @@ export const Default: Story = {
       const actorType = ActorType.PERSOON;
       const id = '1';
       const api = 'http://local.onroerenderfgoed.be:6543/';
+      return { id, api, actorType };
+    },
+    template: `
+    <div style="zoom: .95">
+      <oe-actor-widget search-actor="sois" :id="id" :api="api" :open="true" @add="console.log" @close="console.log" :actor-type="actorType">
+        <template v-slot:dropdown>
+          <div class="dropdown"></div>
+        </template>
+      </oe-actor-widget>
+    </div>
+    `,
+  }),
+};
+
+export const WithSsoTokenCallback: Story = {
+  render: () => ({
+    components: {
+      OeActorWidget,
+    },
+    setup() {
+      const actorType = ActorType.PERSOON;
+      const id = '1';
+      const api = 'http://local.onroerenderfgoed.be:6543/';
       const getSsoToken = async () => 1;
       return { id, api, getSsoToken, actorType };
     },

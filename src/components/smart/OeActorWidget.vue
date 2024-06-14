@@ -42,15 +42,15 @@
 import { VlButton, VlModal } from '@govflanders/vl-ui-design-system-vue3';
 import { ref } from 'vue';
 import Detail from '@components/dumb/OeActorWidgetDetail.vue';
-import Grid from '@components/dumb/OeActorWidgetGrid.vue';
 import OeLoader from '@components/dumb/OeLoader.vue';
+import Grid from '@components/smart/OeActorWidgetGrid.vue';
 import { ActorService } from '@services/actor.service';
 import type { ActorType, IActor } from '@models/actor';
 
 interface IOeActorWidgetProps {
   id: string;
   api: string;
-  getSsoToken: () => Promise<string>;
+  getSsoToken?: () => Promise<string>;
   actorType?: ActorType;
   searchActor?: string;
 }

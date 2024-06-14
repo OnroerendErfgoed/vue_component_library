@@ -41,10 +41,10 @@
 </template>
 
 <script setup lang="ts">
-import { OeActorWidgetGridActies } from './index';
 import { VlButton, VlSearch } from '@govflanders/vl-ui-design-system-vue3';
 import { isEmpty, omitBy } from 'lodash';
 import { computed, getCurrentInstance, ref, watch } from 'vue';
+import { OeActorWidgetGridActies } from '@components/dumb';
 import OeGrid from '@components/dumb/OeGrid.vue';
 import { ActorService, type IActorenQuery } from '@services/actor.service';
 import type { ColDef, FirstDataRenderedEvent, GridOptions, IGetRowsParams, RowClickedEvent } from 'ag-grid-community';
@@ -52,7 +52,7 @@ import type { ActorType, IActor } from '@models/actor';
 
 interface IOeActorWidgetGridProps {
   api: string;
-  getSsoToken: () => Promise<string>;
+  getSsoToken?: () => Promise<string>;
   actorType?: ActorType;
   searchActor?: string;
 }

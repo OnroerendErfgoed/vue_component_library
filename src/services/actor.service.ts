@@ -1,4 +1,5 @@
 import { HttpService } from './http.service';
+import type { AxiosError } from 'axios';
 import type { ActorType, IActor } from '@models/actor';
 import type { IResponse } from '@models/grid';
 
@@ -12,21 +13,24 @@ export class ActorService extends HttpService {
   readonly API_URL: string;
 
   private actoren: IActor[] = [];
-  private getSsoToken: () => Promise<string>;
-  constructor(apiUrl: string, getSsoToken: () => Promise<string>) {
+  private getSsoToken: () => Promise<string | void>;
+
+  constructor(apiUrl: string, getSsoToken?: () => Promise<string>) {
     super();
     this.API_URL = apiUrl;
-    this.getSsoToken = getSsoToken;
+    this.getSsoToken = (getSsoToken as () => Promise<string>) || (() => Promise.resolve());
   }
 
   async getAOEActoren(searchTerm: string): Promise<IActor[]> {
     if (this.actoren?.length) {
       return this.actoren;
     }
-    const ssoToken = await this.getSsoToken();
+
     return (
       await this.get<IActor[]>(`${this.API_URL}/actoren/wij`, {
-        headers: { Authorization: 'Bearer ' + ssoToken },
+        headers: {
+          ...((await this.getSsoToken()) && { Authorization: 'Bearer ' + (await this.getSsoToken()) }),
+        },
         params: { omschrijving: `${searchTerm}` },
       })
     ).data;
@@ -38,7 +42,7 @@ export class ActorService extends HttpService {
       headers: {
         Range: contentRange,
         Accept: 'application/json',
-        Authorization: 'Bearer ' + (await this.getSsoToken()),
+        ...((await this.getSsoToken()) && { Authorization: 'Bearer ' + (await this.getSsoToken()) }),
       },
       params: query,
     });
@@ -52,13 +56,23 @@ export class ActorService extends HttpService {
   }
 
   async getActorById(id: number): Promise<IActor> {
-    return (
-      await this.get<IActor>(`${this.API_URL}/actoren/${id.toString()}?adressenregister`, {
-        headers: {
-          Accept: 'application/json',
-          Authorization: 'Bearer ' + (await this.getSsoToken()),
-        },
-      })
-    ).data;
+    try {
+      return (
+        await this.get<IActor>(`${this.API_URL}/actoren/${id.toString()}?adressenregister`, {
+          headers: {
+            Accept: 'application/json',
+            ...((await this.getSsoToken()) && { Authorization: 'Bearer ' + (await this.getSsoToken()) }),
+          },
+        })
+      ).data;
+    } catch (error) {
+      const e = error as AxiosError;
+      if (e.response?.status) {
+        console.error('Gelieve een gelding token te voorzien via de [getSsoToken] callback');
+      } else {
+        console.error(e);
+      }
+      return Promise.reject();
+    }
   }
 }

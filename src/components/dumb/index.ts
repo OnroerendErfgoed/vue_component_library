@@ -8,7 +8,6 @@ import GridWorkflow from './GridWorkflow.vue';
 import InputPhone from './InputPhone.vue';
 import NoRowsOverlay from './NoRowsOverlay.vue';
 import OeActorWidgetDetail from './OeActorWidgetDetail.vue';
-import OeActorWidgetGrid from './OeActorWidgetGrid.vue';
 import OeActorWidgetGridActies from './OeActorWidgetGridActies.vue';
 import OeAutocomplete from './OeAutocomplete.vue';
 import OeButton from './OeButton.vue';
@@ -43,7 +42,6 @@ export {
   OeSelect,
   OeTinyMce,
   OeToaster,
-  OeActorWidgetGrid,
   OeActorWidgetGridActies,
   OeActorWidgetDetail,
   OeWizard,
