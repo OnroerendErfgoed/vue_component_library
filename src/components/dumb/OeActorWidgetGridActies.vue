@@ -7,7 +7,7 @@
       icon="eye"
       @click="props.params.setStateDetail(params.data?.id as number)"
     />
-    <a :href="`${props.params.actorenUrl}/beheer#/${params.data?.id}`" target="_blank" title="Bewerk actor">
+    <a :href="`${props.params.actorenUrl}beheer/${params.data?.id}`" target="_blank" title="Bewerk actor">
       <font-awesome-icon class="icon" icon="pencil" />
     </a>
   </div>
