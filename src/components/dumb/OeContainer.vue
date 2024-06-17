@@ -1,5 +1,11 @@
 <template>
   <div class="oe-container">
+    <OeModalConfirmCancelChanges
+      v-if="!props.disableConfirmCloseTab"
+      :open="confirmCancelChangesOpen"
+      @close="confirmCancelChangesOpen = false"
+      @confirm="closeTab(confirmTab as ITab, true)"
+    />
     <div data-cy="oe-container-content" class="oe-container__content">
       <slot></slot>
     </div>
@@ -13,7 +19,7 @@
           :close-label="`Sluit tab ${item.label}`"
           mod-clickable
           @click="(event: Event) => select(event, item)"
-          @close="close(item)"
+          @close="closeTab(item)"
         >
           {{ item.label }}
         </vl-pill>
@@ -24,11 +30,14 @@
 
 <script setup lang="ts">
 import { VlActionGroup, VlPill } from '@govflanders/vl-ui-design-system-vue3';
+import { ref } from 'vue';
+import { OeModalConfirmCancelChanges } from '@components/dumb';
 import type { IContainerProps, ITab } from '@models/container';
 
 const props = withDefaults(defineProps<IContainerProps>(), {
   tabs: () => [],
   activeTab: undefined,
+  disableConfirmCloseTab: false,
 });
 const emit = defineEmits<{
   (e: 'tab-selected', tab: ITab): void;
@@ -44,8 +53,17 @@ const select = (event: Event, item: ITab) => {
   }
 };
 
-const close = (item: ITab) => {
-  emit('tab-closed', item);
+// Confirm cancel modal
+const confirmCancelChangesOpen = ref(false);
+const confirmTab = ref<ITab>();
+const closeTab = (item: ITab, confirm = false) => {
+  if (confirm || props.disableConfirmCloseTab) {
+    confirmCancelChangesOpen.value = false;
+    emit('tab-closed', item);
+  } else {
+    confirmTab.value = item;
+    confirmCancelChangesOpen.value = true;
+  }
 };
 </script>
 
