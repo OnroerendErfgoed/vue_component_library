@@ -134,17 +134,47 @@ describe('Container', () => {
       });
     });
 
-    it('emits a tab-closed event with the selected tab on close', () => {
+    it('emits a tab-closed event with the selected tab on close after confirmation', () => {
       const onTabClosedSpy = cy.spy().as('onTabClosedSpy');
 
       cy.mount(TestComponent, { props: { onTabClosed: onTabClosedSpy } }).then(({ component }) => {
         cy.dataCy('bottom-tabs').find('.tab-1 .vl-pill__close').click();
+        cy.dataCy('confirm-button').click();
 
         cy.get('@onTabClosedSpy').should(
           'have.been.calledWith',
           component.tabs.find((t) => t.id === '1')
         );
       });
+    });
+
+    it('does not emit a tab-closed event with the selected tab on close after confirmation cancellation', () => {
+      const onTabClosedSpy = cy.spy().as('onTabClosedSpy');
+
+      cy.mount(TestComponent, { props: { onTabClosed: onTabClosedSpy } }).then(({ component }) => {
+        cy.dataCy('bottom-tabs').find('.tab-1 .vl-pill__close').click();
+        cy.dataCy('cancel-button').click();
+
+        cy.get('@onTabClosedSpy').should(
+          'not.have.been.calledWith',
+          component.tabs.find((t) => t.id === '1')
+        );
+      });
+    });
+
+    it('emits a tab-closed event with the selected tab on close when confirmation is disabled', () => {
+      const onTabClosedSpy = cy.spy().as('onTabClosedSpy');
+
+      cy.mount(TestComponent, { props: { onTabClosed: onTabClosedSpy, disableConfirmCloseTab: true } }).then(
+        ({ component }) => {
+          cy.dataCy('bottom-tabs').find('.tab-1 .vl-pill__close').click();
+
+          cy.get('@onTabClosedSpy').should(
+            'have.been.calledWith',
+            component.tabs.find((t) => t.id === '1')
+          );
+        }
+      );
     });
   });
 });
