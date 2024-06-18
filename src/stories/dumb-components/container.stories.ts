@@ -111,13 +111,14 @@ export const Tabs: Story = {
       VlButton,
     },
     setup: () => {
-      const tabs = ref([{ label: 'Menu', id: 'menu', closable: false }]);
+      const tabs = ref([{ label: 'Menu', id: 'menu', closable: false, editMode: false }]);
       const activeTab = ref<ITab>(tabs.value[0]);
       const addTab = () => {
         tabs.value.push({
           label: `Tab ${tabs.value.length.toString()}`,
           id: tabs.value.length.toString(),
           closable: true,
+          editMode: false,
         });
         activeTab.value = last(tabs.value) as ITab;
       };
@@ -126,8 +127,11 @@ export const Tabs: Story = {
         remove(tabs.value, (item) => item.id === tab.id);
         activeTab.value = tabs.value[0];
       };
+      const setEditMode = () => {
+        tabs.value[1].editMode = true;
+      };
 
-      return { tabs, activeTab, addTab, setActiveTab, closeTab };
+      return { tabs, activeTab, addTab, setActiveTab, closeTab, setEditMode };
     },
     template: `
      <oe-container :tabs="tabs" :active-tab="activeTab" @tab-selected="setActiveTab" @tab-closed="closeTab">
@@ -139,7 +143,11 @@ export const Tabs: Story = {
         <vl-button @click="addTab">Open new tab</vl-button>
       </div>
        <div v-else>
-        Actieve tab - {{ activeTab.label }}
+        <vl-button @click="addTab">Open new tab</vl-button>
+        <vl-button @click="setEditMode">Set edit mode tab 1</vl-button>
+
+        Actieve tab - {{ activeTab }}
+        <pre>{{tabs}}</pre>
         <p class="vl-u-spacer-bottom--small">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Orci phasellus egestas tellus rutrum tellus pellentesque. Euismod quis viverra nibh cras pulvinar. Id leo in vitae turpis. Pretium lectus quam id leo. Dis parturient montes nascetur ridiculus mus. Enim facilisis gravida neque convallis a cras. Eget gravida cum sociis natoque penatibus et magnis. Nec nam aliquam sem et tortor consequat id porta. Non diam phasellus vestibulum lorem sed risus ultricies. Massa massa ultricies mi quis hendrerit dolor magna eget est. Eu nisl nunc mi ipsum faucibus vitae.</p> <br>
         <p>Viverra nibh cras pulvinar mattis nunc sed. Adipiscing elit pellentesque habitant morbi tristique senectus et netus. Nulla facilisi etiam dignissim diam quis enim. Ipsum consequat nisl vel pretium lectus. Eget nulla facilisi etiam dignissim diam quis enim lobortis scelerisque. Elit ut aliquam purus sit amet luctus venenatis lectus magna. Ultrices tincidunt arcu non sodales neque. Enim eu turpis egestas pretium aenean. Sit amet nisl purus in mollis nunc sed. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim. At tellus at urna condimentum mattis. Cum sociis natoque penatibus et. Lorem ipsum dolor sit amet consectetur adipiscing elit.</p>
        </div>

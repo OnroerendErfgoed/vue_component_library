@@ -57,7 +57,7 @@ const select = (event: Event, item: ITab) => {
 const confirmCancelChangesOpen = ref(false);
 const confirmTab = ref<ITab>();
 const closeTab = (item: ITab, confirm = false) => {
-  if (confirm || props.disableConfirmCloseTab) {
+  if (confirm || props.disableConfirmCloseTab || !item.editMode) {
     confirmCancelChangesOpen.value = false;
     emit('tab-closed', item);
   } else {
