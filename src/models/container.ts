@@ -1,6 +1,7 @@
 export interface IContainerProps {
   activeTab?: ITab;
   tabs?: ITab[];
+  disableConfirmCloseTab?: boolean;
 }
 
 export interface ITab {
