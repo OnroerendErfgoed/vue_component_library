@@ -4,6 +4,7 @@
     <template #modal-content>
       <grid
         v-if="state === ActorWidgetState.Grid"
+        :search-actor="props.searchActor"
         :api="props.api"
         :get-sso-token="props.getSsoToken"
         data-cy="actor-widget-grid"
@@ -40,8 +41,8 @@
 <script setup lang="ts">
 import { VlButton, VlModal } from '@govflanders/vl-ui-design-system-vue3';
 import { ref } from 'vue';
+import Detail from '@components/dumb/OeActorWidgetDetail.vue';
 import OeLoader from '@components/dumb/OeLoader.vue';
-import Detail from '@components/smart/OeActorWidgetDetail.vue';
 import Grid from '@components/smart/OeActorWidgetGrid.vue';
 import { ActorService } from '@services/actor.service';
 import type { ActorType, IActor } from '@models/actor';
@@ -49,8 +50,9 @@ import type { ActorType, IActor } from '@models/actor';
 interface IOeActorWidgetProps {
   id: string;
   api: string;
-  getSsoToken: () => Promise<string>;
+  getSsoToken?: () => Promise<string>;
   actorType?: ActorType;
+  searchActor?: string;
 }
 
 enum ActorWidgetState {
@@ -63,7 +65,9 @@ const props = withDefaults(defineProps<IOeActorWidgetProps>(), {
   api: '',
   getSsoToken: undefined,
   actorType: undefined,
+  searchActor: '',
 });
+
 const emit = defineEmits<{
   add: [IActor];
   close: [void];

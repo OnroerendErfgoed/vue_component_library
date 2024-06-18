@@ -55,13 +55,36 @@ export const Default: Story = {
     setup() {
       const actorType = ActorType.PERSOON;
       const id = '1';
-      const api = 'https://dev-actoren.onroerenderfgoed.be';
+      const api = 'https://dev-actoren.onroerenderfgoed.be/';
+      return { id, api, actorType };
+    },
+    template: `
+    <div style="zoom: .95">
+      <oe-actor-widget search-actor="van hum" :id="id" :api="api" :open="true" @add="console.log" @close="console.log" :actor-type="actorType">
+        <template v-slot:dropdown>
+          <div class="dropdown"></div>
+        </template>
+      </oe-actor-widget>
+    </div>
+    `,
+  }),
+};
+
+export const WithSsoTokenCallback: Story = {
+  render: () => ({
+    components: {
+      OeActorWidget,
+    },
+    setup() {
+      const actorType = ActorType.PERSOON;
+      const id = '1';
+      const api = 'http://local.onroerenderfgoed.be:6543/';
       const getSsoToken = async () => 1;
       return { id, api, getSsoToken, actorType };
     },
     template: `
     <div style="zoom: .95">
-      <oe-actor-widget :id="id" :api="api" :get-sso-token="getSsoToken" :open="true" @add="console.log" @close="console.log" :actor-type="actorType">
+      <oe-actor-widget search-actor="sois" :id="id" :api="api" :get-sso-token="getSsoToken" :open="true" @add="console.log" @close="console.log" :actor-type="actorType">
         <template v-slot:dropdown>
           <div class="dropdown"></div>
         </template>

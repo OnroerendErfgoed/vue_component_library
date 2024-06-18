@@ -7,6 +7,8 @@ import FilterText from './FilterText.vue';
 import GridWorkflow from './GridWorkflow.vue';
 import InputPhone from './InputPhone.vue';
 import NoRowsOverlay from './NoRowsOverlay.vue';
+import OeActorWidgetDetail from './OeActorWidgetDetail.vue';
+import OeActorWidgetGridActies from './OeActorWidgetGridActies.vue';
 import OeAutocomplete from './OeAutocomplete.vue';
 import OeButton from './OeButton.vue';
 import OeContainer from './OeContainer.vue';
@@ -14,6 +16,7 @@ import OeGrid from './OeGrid.vue';
 import OeHeader from './OeHeader.vue';
 import OeInventarisLoadedLink from './OeInventarisLoadedLink.vue';
 import OeLoader from './OeLoader.vue';
+import OeModalConfirmCancelChanges from './OeModalConfirmCancelChanges.vue';
 import OeSelect from './OeSelect.vue';
 import OeTinyMce from './OeTinyMCE.vue';
 import OeToaster from './OeToaster.vue';
@@ -40,6 +43,9 @@ export {
   OeSelect,
   OeTinyMce,
   OeToaster,
+  OeActorWidgetGridActies,
+  OeActorWidgetDetail,
   OeWizard,
   SystemFields,
+  OeModalConfirmCancelChanges,
 };
