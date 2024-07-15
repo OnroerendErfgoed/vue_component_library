@@ -28,7 +28,7 @@ const actorService = new ActorService(props.api, props.getSsoToken);
 
 const actoren = ref<IActor[]>([]);
 const actorValue = computed(() => {
-  const actor = actoren?.value.find((g) => g.uri === props.value);
+  const actor = actoren?.value.find((g) => g.uri === props.value || g.omschrijving === props.value);
   const autocompleteOption: IAutocompleteOption = {
     title: actor?.omschrijving as string,
     value: actor,
