@@ -33,7 +33,9 @@ const props = withDefaults(defineProps<IFilterProvincieProps>(), {
 const emit = defineEmits(['update:value']);
 
 const provincieValue = computed(() => {
-  return provincies.value.length ? provincies.value.find((g) => g.niscode === props.value) : undefined;
+  return provincies.value.length
+    ? provincies.value.find((g) => g.niscode === props.value || g.naam === props.value)
+    : undefined;
 });
 const updateValue = (value: IProvincie) => emit('update:value', value);
 
