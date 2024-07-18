@@ -20,6 +20,7 @@
               :mod-error="!!v$.land.$errors.length"
               mod-block
               placeholder-text="Land"
+              :mod-disabled="props.modDisabled"
             >
               <option v-for="item in landen" :key="item.code" :value="item" :disabled="item.code === 'divider'">
                 {{ item.naam }}
@@ -48,7 +49,7 @@
             data-cy="select-gemeente"
             :mod-error="!!v$.gemeente.naam.$errors.length"
             :custom-label="customGemeenteLabel"
-            :disabled="!land"
+            :disabled="!land || props.modDisabled"
             :mod-multiple="false"
             :options="gemeenten"
             :options-limit="optionsLimit"
@@ -68,6 +69,7 @@
             v-model="gemeente"
             data-cy="input-gemeente"
             :mod-error="!!v$.gemeente.naam.$errors.length"
+            :mod-disabled="props.modDisabled"
             mod-block
             placeholder="Gemeente"
           ></VlInputField>
@@ -96,7 +98,7 @@
             placeholder="Postcode"
             data-cy="select-postcode"
             :custom-label="customPostcodeLabel"
-            :disabled="!gemeente"
+            :disabled="!gemeente || props.modDisabled"
             :mod-error="!!v$.postcode.nummer.$errors.length"
             :mod-multiple="false"
             :options="postinfo"
@@ -117,6 +119,7 @@
             v-model="postcode"
             data-cy="input-postcode"
             :mod-error="!!v$.postcode.nummer.$errors.length"
+            :mod-disabled="props.modDisabled"
             mod-block
             placeholder="Postcode"
           ></VlInputField>
@@ -156,7 +159,7 @@
             placeholder="Straat"
             data-cy="select-straat"
             :custom-label="customStraatLabel"
-            :disabled="!gemeente"
+            :disabled="!gemeente || props.modDisabled"
             :mod-multiple="false"
             :mod-error="!!v$.straat.naam.$errors.length"
             :options="straten"
@@ -176,6 +179,7 @@
             v-model="straat"
             data-cy="input-straat"
             :mod-error="!!v$.straat.naam.$errors.length"
+            :mod-disabled="props.modDisabled"
             mod-block
             placeholder="Straat"
           ></VlInputField>
@@ -212,7 +216,7 @@
             allow-free-text
             :mod-error="!!v$.adres.huisnummer.$errors.length"
             :min-chars="1"
-            :mod-disabled="!straat"
+            :mod-disabled="!straat || props.modDisabled"
             :value="huisnummerAutocompleteOption"
             :callback-fn="performAutocompleteSearchHuisnummers"
             placeholder="Huisnummer"
@@ -225,7 +229,7 @@
             data-cy="input-huisnummer"
             mod-block
             placeholder="Huisnummer"
-            :mod-disabled="!straat"
+            :mod-disabled="!straat || props.modDisabled"
             :mod-error="!!v$.adres.huisnummer.$errors.length"
           ></VlInputField>
 
@@ -255,7 +259,7 @@
             autoselect
             :mod-error="!!v$.adres.busnummer.$errors.length"
             :min-chars="1"
-            :mod-disabled="!huisnummer"
+            :mod-disabled="!huisnummer || props.modDisabled"
             :value="busnummerAutocompleteOption"
             :callback-fn="performAutocompleteSearchBusnummers"
             placeholder="Busnummer"
@@ -268,7 +272,7 @@
             data-cy="input-busnummer"
             mod-block
             placeholder="Busnummer"
-            :mod-disabled="!huisnummer"
+            :mod-disabled="!huisnummer || props.modDisabled"
             :mod-error="!!v$.adres.busnummer.$errors.length"
           ></VlInputField>
 
@@ -311,6 +315,7 @@ import type { IAutocompleteOption } from '@models/autocomplete';
 import type { IAdres, IGemeente, ILand, ILocatieAdres, IPostinfo, IStraat } from '@models/locatie';
 
 const props = withDefaults(defineProps<IAdresProps>(), {
+  modDisabled: false,
   hideTitle: false,
   showRequiredPerField: false,
   config: () => ({
