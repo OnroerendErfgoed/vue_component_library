@@ -155,4 +155,8 @@ watch(
     }
   }
 }
+
+.vl-input-field--disabled {
+  opacity: 0.6;
+}
 </style>
