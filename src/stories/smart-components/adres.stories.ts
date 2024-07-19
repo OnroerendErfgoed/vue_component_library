@@ -72,6 +72,12 @@ export const ShowRequiredAnnotationPerField: Story = {
   },
 };
 
+export const DisabledState: Story = {
+  args: {
+    modDisabled: true,
+  },
+};
+
 export const CustomApi: Story = {
   args: {
     api: 'https://test-geo.onroerenderfgoed.be/',
