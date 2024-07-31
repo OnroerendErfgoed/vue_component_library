@@ -19,7 +19,6 @@ const meta: Meta<typeof OeDatepicker> = {
   argTypes: {
     modelValue: {
       description: 'Date in API format (yyyy-MM-dd)',
-      control: 'text',
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: null },
