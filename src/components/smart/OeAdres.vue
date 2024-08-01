@@ -267,7 +267,7 @@
           ></oe-autocomplete>
 
           <VlInputField
-            v-else
+            v-else-if="typeof busnummer === 'string' || !busnummer"
             v-model="busnummer"
             data-cy="input-busnummer"
             mod-block
@@ -628,7 +628,11 @@ watch(straat, async (selectedStraat, oldValue) => {
 
 // Huisnummer side-effects
 watch(huisnummer, async (selectedHuisnummer, oldValue) => {
-  if (oldValue) {
+  if (
+    oldValue &&
+    (selectedHuisnummer !== (oldValue as IAdres)?.huisnummer ||
+      (typeof oldValue === 'string' && selectedHuisnummer !== oldValue))
+  ) {
     busnummer.value = undefined;
   }
 
@@ -652,8 +656,8 @@ watch(huisnummer, async (selectedHuisnummer, oldValue) => {
 
 watch(postcodeFreeText, () => (postcode.value = ''));
 watch(straatFreeText, () => (straat.value = ''));
-watch(huisnummerFreeText, () => (huisnummer.value = ''));
-watch(busnummerFreeText, () => (busnummer.value = ''));
+watch(huisnummerFreeText, () => (huisnummer.value = (huisnummer.value as IAdres)?.huisnummer || ''));
+watch(busnummerFreeText, () => (busnummer.value = (busnummer.value as IAdres)?.busnummer || ''));
 
 const resetFreeTextState = () => (straatFreeText.value = false);
 const performAutocompleteSearchHuisnummers = (searchTerm: string): Promise<IAutocompleteOption[]> => {
