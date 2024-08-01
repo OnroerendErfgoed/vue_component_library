@@ -253,7 +253,7 @@ describe('Adres', () => {
   });
 
   describe('form - 2-way binding', () => {
-    it('fills in the predefined values', () => {
+    it('fills in the predefined values - case 1 - no freetext', () => {
       mount(TestComponent, {
         data: () => ({
           adres: {
@@ -287,6 +287,87 @@ describe('Adres', () => {
       getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Dorpstraat');
       getAutocompleteInput('huisnummer').should('have.value', '190');
       getAutocompleteInput('busnummer').should('have.value', '0101');
+    });
+
+    it('fills in the predefined values - case 2 - huis- and busnummer freetext', () => {
+      mount(TestComponent, {
+        data: () => ({
+          adres: {
+            land: {
+              code: 'BE',
+              naam: 'België',
+            },
+            adres: {
+              huisnummer: '4',
+              busnummer: 'B',
+            },
+            straat: {
+              id: '19887',
+              uri: 'https://data.vlaanderen.be/id/straatnaam/19887',
+              naam: 'Havenlaan',
+            },
+            gemeente: {
+              naam: 'Brussel',
+              niscode: '21004',
+            },
+            postcode: {
+              uri: 'https://data.vlaanderen.be/id/postinfo/1000',
+              nummer: '1000',
+            },
+          },
+        }),
+        template: '<Suspense><OeAdres v-model:adres="adres"/></Suspense>',
+      });
+
+      getMultiSelect('land').find(':selected').should('have.text', 'België');
+      getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Brussel');
+      getMultiSelect('postcode').find('.multiselect__single').should('have.text', '1000');
+      getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Havenlaan');
+      getTextInput('huisnummer').should('have.value', '4');
+      getTextInput('busnummer').should('have.value', 'B');
+    });
+
+    it('fills in the predefined values - case 3 - huisnummer autocomplete - busnummer freetext', () => {
+      mount(TestComponent, {
+        data: () => ({
+          adres: {
+            land: {
+              code: 'BE',
+              naam: 'België',
+            },
+            adres: {
+              busnummer: 'B',
+              huisnummer: '5',
+            },
+            straat: {
+              id: '32284',
+              uri: 'https://data.vlaanderen.be/id/straatnaam/32284',
+              naam: 'Krijkelberg',
+            },
+            gemeente: {
+              naam: 'Bierbeek',
+              niscode: '24011',
+            },
+            postcode: {
+              uri: 'https://data.vlaanderen.be/id/postinfo/3360',
+              nummer: '3360',
+            },
+            provincie: {
+              naam: 'Vlaams-Brabant',
+              niscode: '20001',
+            },
+            deelgemeente: {},
+          },
+        }),
+        template: '<Suspense><OeAdres v-model:adres="adres"/></Suspense>',
+      });
+
+      getMultiSelect('land').find(':selected').should('have.text', 'België');
+      getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Bierbeek');
+      getMultiSelect('postcode').find('.multiselect__single').should('have.text', '3360');
+      getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Krijkelberg');
+      getAutocompleteInput('huisnummer').should('have.value', '5');
+      getTextInput('busnummer').should('have.value', 'B');
     });
 
     it('updates the model binding on value change', () => {
