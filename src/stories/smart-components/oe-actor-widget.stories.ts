@@ -55,7 +55,7 @@ export const Default: Story = {
     setup() {
       const actorType = ActorType.PERSOON;
       const id = '1';
-      const api = 'https://dev-actoren.onroerenderfgoed.be/';
+      const api = 'https://dev-actoren.onroerenderfgoed.be';
       return { id, api, actorType };
     },
     template: `
@@ -78,7 +78,7 @@ export const WithSsoTokenCallback: Story = {
     setup() {
       const actorType = ActorType.PERSOON;
       const id = '1';
-      const api = 'http://local.onroerenderfgoed.be:6543/';
+      const api = 'http://local.onroerenderfgoed.be:6543';
       const getSsoToken = async () => 1;
       return { id, api, getSsoToken, actorType };
     },
