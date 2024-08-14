@@ -18,8 +18,8 @@
     <div class="vl-grid vl-u-spacer-top--xsmall">
       <div class="vl-col--1-1">
         <span class="vl-u-mark--info vl-u-text--small">{{ rowCountText }}</span>
-        <div class="menu-controls vl-u-float-right">
-          <a :href="`${props.api}/beheer#/actoren/aanmaken`" target="_blank">
+        <div class="vl-u-float-right">
+          <a :href="`${props.api}/beheer/0`" target="_blank">
             <vl-button icon="plus" mod-icon-before mod-naked> Actor aanmaken </vl-button>
           </a>
           <vl-button icon="synchronize" mod-icon-before mod-naked @click="refresh()">Vernieuwen</vl-button>
