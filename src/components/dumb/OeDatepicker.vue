@@ -38,14 +38,17 @@ const parseDate = (date: string) => {
   return parsed;
 };
 
-const setDate = (date: string[]) => {
+const setDate = (date: string[] | Event) => {
+  if (date instanceof Event) {
+    return;
+  }
+
   if (!date || !date.length) {
     modelValue.value = null;
     return;
   }
-  if (Array.isArray(date)) {
-    hasFormatError.value = false;
-    modelValue.value = date ? format(new Date(date[0]), datumApiFormat) : null;
-  }
+
+  hasFormatError.value = false;
+  modelValue.value = date ? format(new Date(date[0]), datumApiFormat) : null;
 };
 </script>
