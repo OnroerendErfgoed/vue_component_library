@@ -26,9 +26,25 @@
 
   .ag-row {
     z-index: 0;
+
     &.ag-row-focus {
       z-index: 1;
     }
+
+    &.ag-row-warning {
+      background-color: #fceddd !important;
+
+      .ag-cell {
+        color: red;
+
+        &[col-id='id']::before {
+          font-family: FontAwesome;
+          content: '\f06a';
+          margin-right: 5px;
+        }
+      }
+    }
+
     .ag-cell-value {
       &.edit-mode {
         overflow: visible !important;
