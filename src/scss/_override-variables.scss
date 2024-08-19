@@ -47,6 +47,16 @@ $vl-icon-font-location: '@govflanders/vl-ui-design-system-style/assets/font/icon
   cursor: pointer;
 }
 
+.vl-button--naked {
+  color: $primary-color;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: var(--vl-theme-action-hover-color, $vl-action-hover-color);
+  }
+}
+
 //vl-pill
 .vl-pill {
   cursor: pointer;

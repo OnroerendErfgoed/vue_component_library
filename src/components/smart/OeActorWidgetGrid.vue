@@ -193,7 +193,4 @@ const setRowData = () => {
     }
   }
 }
-.menu-controls * {
-  color: $primary-color;
-}
 </style>
