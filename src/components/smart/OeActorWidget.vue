@@ -11,7 +11,7 @@
         :actor-type="props.actorType"
         @set-state-detail="setStateDetail($event)"
         @select-actor="selectActor"
-        @toggle-loader="loading = !loading"
+        @set-loading="setLoading"
       ></grid>
       <detail
         v-if="state === ActorWidgetState.Detail"
@@ -79,6 +79,10 @@ const loading = ref(false);
 
 const selectActor = (actor: IActor) => {
   selectedActor.value = actor;
+};
+
+const setLoading = (bool: boolean) => {
+  loading.value = bool;
 };
 
 const setStateDetail = async (id: number) => {
