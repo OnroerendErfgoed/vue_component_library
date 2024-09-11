@@ -66,7 +66,7 @@ const props = withDefaults(defineProps<IOeActorWidgetGridProps>(), {
 const emit = defineEmits<{
   selectActor: [IActor];
   setStateDetail: [number];
-  toggleLoader: [void];
+  setLoading: [boolean];
 }>();
 
 const actorService = new ActorService(props.api, props.getSsoToken);
@@ -163,7 +163,7 @@ const setRowData = () => {
   const dataSource = {
     getRows: (params: IGetRowsParams) => {
       const query = setQueryParameters(params);
-      emit('toggleLoader');
+      emit('setLoading', true);
 
       actorService
         .getActoren(params.startRow, params.endRow, query)
@@ -174,7 +174,7 @@ const setRowData = () => {
           onGridSizeChanged();
         })
         .catch(() => params.failCallback())
-        .finally(() => emit('toggleLoader'));
+        .finally(() => emit('setLoading', false));
     },
   };
   gridOptions.value.api?.setDatasource(dataSource);
