@@ -40,6 +40,7 @@ export default defineConfig({
       targets: [
         { src: 'src/scss/*', dest: 'dist/scss' },
         { src: 'src/assets/*', dest: 'dist/assets' },
+        { src: 'src/.eslintrc.json', dest: 'dist/eslintrc.json' },
       ],
       hook: 'writeBundle',
     }),
