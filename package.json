@@ -7,7 +7,7 @@
   "main": "./dist/vue-components.umd.js",
   "module": "./dist/vue-components.es.js",
   "typings": "./dist/src/main.d.ts",
-  "version": "1.17.1",
+  "version": "1.17.2",
   "exports": {
     ".": {
       "import": "./dist/vue-components.es.js",
@@ -133,5 +133,5 @@
     "@govflanders/vl-ui-design-system-style": "^1.0.0-alpha.3",
     "pyoes": "https://gitpkg.now.sh/OnroerendErfgoed/pyoes/npm-packages/pyoes"
   },
-  "_id": "vue_component_library@0.3.0"
+  "_id": "vue_component_library@1.17.2"
 }
