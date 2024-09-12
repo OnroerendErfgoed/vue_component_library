@@ -1,8 +1,8 @@
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import vue from '@vitejs/plugin-vue';
 import { resolve } from 'path';
-import copy from 'rollup-plugin-copy';
 import { defineConfig } from 'vite';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -36,13 +36,12 @@ export default defineConfig({
     VueI18nPlugin({
       include: resolve(__dirname, './src/utils/i18n.json'),
     }),
-    copy({
+    viteStaticCopy({
       targets: [
-        { src: 'src/scss/*', dest: 'dist/scss' },
-        { src: 'src/assets/*', dest: 'dist/assets' },
-        { src: 'src/.eslintrc.json', dest: 'dist/eslintrc.json' },
+        { src: 'src/scss/*', dest: 'scss' },
+        { src: 'src/assets/*', dest: 'assets' },
+        { src: '.eslintrc.json', dest: '' },
       ],
-      hook: 'writeBundle',
     }),
   ],
   resolve: {
