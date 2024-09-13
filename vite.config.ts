@@ -40,7 +40,7 @@ export default defineConfig({
       targets: [
         { src: 'src/scss/*', dest: 'scss' },
         { src: 'src/assets/*', dest: 'assets' },
-        { src: '.eslintrc.json', dest: '' },
+        { src: 'public', dest: '' },
       ],
     }),
   ],
