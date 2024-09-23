@@ -56,8 +56,15 @@ describe('OeActorWidget', () => {
       cy.wait('@dataSingleGet');
       cy.dataCy('actor-widget-detail').should('exist');
       cy.dataCy('actor-widget-detail-back-btn').click();
-      cy.wait('@dataGet');
       cy.dataCy('actor-widget-grid').should('exist');
+    });
+
+    it('opens the detail view after click on eye-icon and preserves search after click on back btn', () => {
+      cy.dataCy('actor-widget-menu-search').type('astrid').type('{enter}');
+      cy.dataCy('actor-widget-detail-btn').click();
+      cy.wait('@dataSingleGet');
+      cy.dataCy('actor-widget-detail-back-btn').click();
+      cy.dataCy('actor-widget-menu-search').find('input').should('have.value', 'astrid');
     });
   });
 

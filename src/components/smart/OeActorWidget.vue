@@ -3,7 +3,7 @@
     <oe-loader v-if="loading"></oe-loader>
     <template #modal-content>
       <grid
-        v-if="state === ActorWidgetState.Grid"
+        v-show="state === ActorWidgetState.Grid"
         :search-actor="props.searchActor"
         :api="props.api"
         :get-sso-token="props.getSsoToken"
@@ -118,5 +118,11 @@ const resetWidget = () => {
   :deep(h2.vl-title) {
     color: $primary-color;
   }
+}
+
+// Fix voor issue v-show - display: none wordt overschreven door vl-u-flex doordat deze !important gebruikt
+// Ref. https://github.com/vuejs/vue/issues/3761#issuecomment-251545116
+*[style*='display: none'] {
+  display: none !important;
 }
 </style>
