@@ -5,6 +5,7 @@
         <vl-search
           id="actor-widget-menu-search"
           v-model="zoekterm"
+          data-cy="actor-widget-menu-search"
           name="actor-widget-menu-search"
           mod-inline
           mod-alt
