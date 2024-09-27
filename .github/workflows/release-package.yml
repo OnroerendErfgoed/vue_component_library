@@ -9,20 +9,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           always-auth: true
-          node-version: '18.x'
+          node-version: 20
           registry-url: https://registry.npmjs.org
       - run: yarn ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GOVFLANDERS_NPM_TOKEN}}
       - run: yarn build
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: dist
           path: dist/
+          include-hidden-files: true
 
   publish-gpr:
     needs: build
@@ -31,18 +32,18 @@ jobs:
       packages: write
       contents: read
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/download-artifact@v3
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist/
       - name: Display folder structure
         run: ls -R
       - name: Build and publish
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           always-auth: true
-          node-version: 16
+          node-version: 20
           registry-url: https://npm.pkg.github.com/
       - run: |
           echo @OnroerendErfgoed:registry=https://npm.pkg.github.com/ > ~/.npmrc
