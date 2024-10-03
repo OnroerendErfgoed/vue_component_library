@@ -8930,6 +8930,11 @@ quill-html-edit-button@^3.0.0:
   resolved "https://registry.yarnpkg.com/quill-html-edit-button/-/quill-html-edit-button-3.0.0.tgz#b632ae6a5d473ce42f1ad3223e91aff02fe13464"
   integrity sha512-ZUV3rYjEvXz+v/7f8N0Mkp2+0D8VGDj6yCYPfagSLmyshczeMawS7vZJzaJ18dJp35IfjiPnzqyVk3KCI8qN1w==
 
+quill-toggle-fullscreen-button@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/quill-toggle-fullscreen-button/-/quill-toggle-fullscreen-button-0.1.3.tgz#ee8c6d0e43a94115228dd2a694bcf82cd33702b1"
+  integrity sha512-ViRGh3pRxSSe4uNZZpy0LI23A9wAAeCuTmUwz22E/f1dSDmDGvroObomg56HpwbednDCyTvEyWb0gakY2ml7oQ==
+
 quill@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/quill/-/quill-2.0.2.tgz#5b26bc10a74e9f7fdcfdb5156b3133a3ebf0a814"
