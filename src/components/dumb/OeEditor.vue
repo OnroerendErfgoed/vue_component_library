@@ -54,11 +54,6 @@
       :options="options"
       @blur="model = quill?.getSemanticHTML()"
     />
-
-    <br />
-    <h5>Output</h5>
-    <br />
-    <pre>{{ model }}</pre>
   </div>
 </template>
 
@@ -118,7 +113,7 @@ const options = {
 };
 
 // Model
-const model = ref('<p>Hello Quilly!</p>');
+const model = defineModel({ type: String });
 
 onMounted(() => {
   quill = editor.value?.initialize(Quill) as Quill;
