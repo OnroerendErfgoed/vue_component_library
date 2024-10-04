@@ -1,6 +1,7 @@
 import '@/scss/main.scss';
 import { ref } from 'vue';
 import OeEditor from '@components/dumb/OeEditor.vue';
+import { type OeEditorToolbarConfig } from '@models/editor';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
@@ -54,6 +55,44 @@ export const Default: Story = {
       <br />
       <h5>Output</h5>
       <p class="vl-u-spacer-top vl-u-spacer-bottom--large">{{ model }}</p>
+    `,
+  }),
+};
+
+export const FulloptionToolbar: Story = {
+  parameters: {
+    docs: {
+      story: {
+        height: '500px',
+      },
+    },
+  },
+  render: () => ({
+    components: {
+      OeEditor,
+    },
+    setup() {
+      const model = ref('');
+      const toolbar = ref<OeEditorToolbarConfig>({
+        undo: true,
+        redo: true,
+        bold: true,
+        italic: true,
+        bullist: true,
+        numlist: true,
+        fullscreen: true,
+        indent: true,
+        outdent: true,
+        code: true,
+        private: true,
+        header: true,
+        removeformat: true,
+        biblio: true,
+      });
+      return { model, toolbar };
+    },
+    template: `
+      <oe-editor id="editor-2" v-model="model" :toolbar="toolbar" />
     `,
   }),
 };

@@ -1,18 +1,18 @@
 <template>
-  <div>
-    <div id="toolbar">
+  <div :id="props.id">
+    <div :id="`${props.id}-toolbar`">
       <div class="toolbar-group">
-        <button class="ql-undo" title="Undo">
+        <button v-if="props.toolbar.undo" class="ql-undo" title="Undo">
           <font-awesome-icon :icon="['fas', 'rotate-left']" />
         </button>
-        <button class="ql-redo" title="Redo">
+        <button v-if="props.toolbar.redo" class="ql-redo" title="Redo">
           <font-awesome-icon :icon="['fas', 'rotate-right']" />
         </button>
 
-        <span class="ql-stroke" />
+        <span v-if="props.toolbar.undo || props.toolbar.redo" class="ql-stroke" />
 
         <!-- Add headings dropdown -->
-        <select class="ql-header">
+        <select v-if="props.toolbar.header" class="ql-header">
           <option value="">Paragraph</option>
           <option value="1">Heading 1</option>
           <option value="2">Heading 2</option>
@@ -22,26 +22,33 @@
           <option value="6">Heading 6</option>
         </select>
 
-        <span class="ql-stroke" />
+        <span v-if="props.toolbar.header" class="ql-stroke" />
 
         <!-- Add a bold button -->
-        <button class="ql-bold"></button>
-        <button class="ql-italic"></button>
+        <button v-if="props.toolbar.bold" class="ql-bold"></button>
+        <button v-if="props.toolbar.italic" class="ql-italic"></button>
 
-        <span class="ql-stroke" />
+        <span v-if="props.toolbar.bold || props.toolbar.italic" class="ql-stroke" />
 
-        <button class="ql-list" value="ordered"></button>
-        <button class="ql-list" value="bullet"></button>
-        <button class="ql-indent" value="-1"></button>
-        <button class="ql-indent" value="+1"></button>
+        <button v-if="props.toolbar.numlist" class="ql-list" value="ordered"></button>
+        <button v-if="props.toolbar.bullist" class="ql-list" value="bullet"></button>
+        <button v-if="props.toolbar.outdent" class="ql-indent" value="-1"></button>
+        <button v-if="props.toolbar.indent" class="ql-indent" value="+1"></button>
 
-        <span class="ql-stroke" />
+        <span
+          v-if="props.toolbar.numlist || props.toolbar.bullist || props.toolbar.outdent || props.toolbar.indent"
+          class="ql-stroke"
+        />
 
-        <button class="ql-clean"></button>
+        <button v-if="props.toolbar.removeformat" class="ql-clean"></button>
 
-        <span class="ql-stroke" />
+        <span v-if="props.toolbar.removeformat" class="ql-stroke" />
 
-        <button class="ql-private" title="Prive">
+        <button v-if="props.toolbar.biblio" class="ql-biblio" title="Bibliografie">
+          <font-awesome-icon :icon="['fas', 'bookmark']" />
+        </button>
+
+        <button v-if="props.toolbar.private" class="ql-private" title="Prive">
           <font-awesome-icon :icon="['fas', 'lock']" />
         </button>
       </div>
@@ -50,7 +57,7 @@
     <QuillyEditor
       ref="editor"
       v-model="model"
-      style="height: 400px"
+      :style="{ height: `${props.height}px` }"
       :options="options"
       @blur="model = quill?.getSemanticHTML()"
     />
@@ -63,33 +70,72 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import Quill from 'quill';
 import { htmlEditButton } from 'quill-html-edit-button';
 import QuillToggleFullscreenButton from 'quill-toggle-fullscreen-button';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { QuillyEditor } from 'vue-quilly';
-import { PrivateBlock } from '@models/editor';
+import { BibliografieBlock, type OeEditorProps, PrivateBlock } from '@models/editor';
+
+const props = withDefaults(defineProps<OeEditorProps>(), {
+  height: 400,
+  modDisabled: false,
+  toolbar: () => ({
+    undo: true,
+    redo: true,
+    header: true,
+    bold: true,
+    italic: true,
+    bullist: true,
+    numlist: true,
+    indent: true,
+    outdent: true,
+    removeformat: true,
+    biblio: false,
+    private: false,
+    code: false,
+    fullscreen: false,
+  }),
+});
 
 // Register custom blocks and modules
 Quill.register(PrivateBlock, true);
-Quill.register('modules/htmlEditButton', htmlEditButton);
-Quill.register('modules/toggleFullscreen', QuillToggleFullscreenButton);
+Quill.register(BibliografieBlock, true);
+
+if (props.toolbar.code) {
+  Quill.register('modules/htmlEditButton', htmlEditButton);
+}
+
+if (props.toolbar.fullscreen) {
+  Quill.register('modules/toggleFullscreen', QuillToggleFullscreenButton);
+}
 
 // Quill config
 let quill: Quill;
 
 const editor = ref<InstanceType<typeof QuillyEditor>>();
-const options = {
+const options = computed(() => ({
   theme: 'snow',
   modules: {
     toolbar: {
-      container: '#toolbar',
+      container: `#${props.id}-toolbar`,
       handlers: {
         private: (checked: boolean) => {
-          quill?.format('private', checked);
+          if (quill.isEnabled()) {
+            quill?.format('private', checked);
+          }
+        },
+        biblio: (checked: boolean) => {
+          if (quill.isEnabled()) {
+            quill?.format('biblio', checked);
+          }
         },
         undo: () => {
-          return quill?.history.undo();
+          if (quill.isEnabled()) {
+            return quill?.history.undo();
+          }
         },
         redo: () => {
-          return quill?.history.redo();
+          if (quill.isEnabled()) {
+            return quill?.history.redo();
+          }
         },
       },
     },
@@ -98,19 +144,24 @@ const options = {
       maxStack: 500,
       userOnly: true,
     },
-    htmlEditButton: {
-      buttonTitle: 'Source code',
-      msg: 'Source code',
-      okText: 'Opslaan',
-      cancelText: 'Annuleren',
-    },
-    toggleFullscreen: {
-      buttonTitle: 'Fullscreen',
-    },
+    ...(props.toolbar.code && {
+      htmlEditButton: {
+        prependSelector: `#${props.id}`,
+        buttonTitle: 'Source code',
+        msg: 'Source code',
+        okText: 'Opslaan',
+        cancelText: 'Annuleren',
+      },
+    }),
+    ...(props.toolbar.fullscreen && {
+      toggleFullscreen: {
+        buttonTitle: 'Fullscreen',
+      },
+    }),
   },
-  placeholder: 'Compose an epic...',
-  readOnly: false,
-};
+  placeholder: '',
+  readOnly: props.modDisabled,
+}));
 
 // Model
 const model = defineModel({ type: String });
@@ -118,6 +169,17 @@ const model = defineModel({ type: String });
 onMounted(() => {
   quill = editor.value?.initialize(Quill) as Quill;
 });
+
+watch(
+  () => props.modDisabled,
+  () => {
+    if (props.modDisabled) {
+      quill.disable();
+    } else {
+      quill.enable();
+    }
+  }
+);
 </script>
 
 <style lang="scss" scoped>
