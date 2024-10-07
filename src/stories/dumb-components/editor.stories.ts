@@ -97,6 +97,10 @@ export const FulloptionToolbar: Story = {
         header: true,
         removeformat: true,
         biblio: true,
+        formula: true,
+        image: true,
+        link: true,
+        video: true,
       });
       return { model, toolbar };
     },

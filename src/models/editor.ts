@@ -43,4 +43,8 @@ export interface OeEditorToolbarConfig {
   biblio?: boolean;
   code?: boolean;
   fullscreen?: boolean;
+  link?: boolean;
+  image?: boolean;
+  video?: boolean;
+  formula?: boolean;
 }

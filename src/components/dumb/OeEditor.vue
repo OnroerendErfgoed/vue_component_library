@@ -56,11 +56,11 @@
           <select v-if="toolbar.align" class="ql-align"></select>
         </div>
 
-        <div class="toolbar-group">
-          <button class="ql-link"></button>
-          <button class="ql-image"></button>
-          <button class="ql-video"></button>
-          <button class="ql-formula"></button>
+        <div v-if="toolbar.link || toolbar.image || toolbar.video || toolbar.formula" class="toolbar-group">
+          <button v-if="toolbar.link" class="ql-link"></button>
+          <button v-if="toolbar.image" class="ql-image"></button>
+          <button v-if="toolbar.video" class="ql-video"></button>
+          <button v-if="toolbar.formula" class="ql-formula"></button>
         </div>
 
         <div v-if="toolbar.removeformat" class="toolbar-group">
