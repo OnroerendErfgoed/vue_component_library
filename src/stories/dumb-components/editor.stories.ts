@@ -96,3 +96,18 @@ export const FulloptionToolbar: Story = {
     `,
   }),
 };
+
+export const DisabledState: Story = {
+  render: () => ({
+    components: {
+      OeEditor,
+    },
+    setup() {
+      const model = ref('');
+      return { model };
+    },
+    template: `
+      <oe-editor mod-disabled id="editor-3" v-model="model" />
+    `,
+  }),
+};

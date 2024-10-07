@@ -1,6 +1,6 @@
 <template>
   <div :id="props.id">
-    <div :id="`${props.id}-toolbar`">
+    <div :id="`${props.id}-toolbar`" :class="{ 'ql-toolbar--disabled': props.modDisabled }">
       <div class="toolbar-group">
         <button v-if="props.toolbar.undo" class="ql-undo" title="Undo">
           <font-awesome-icon :icon="['fas', 'rotate-left']" />
@@ -189,6 +189,15 @@ watch(
 
   :deep(.ql-formats) {
     margin-right: 0;
+  }
+
+  &--disabled {
+    cursor: not-allowed;
+
+    * {
+      cursor: not-allowed;
+      pointer-events: none;
+    }
   }
 
   .toolbar-group {
