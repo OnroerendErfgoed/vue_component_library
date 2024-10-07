@@ -23,16 +23,44 @@
           </select>
         </div>
 
-        <div v-if="toolbar.bold || toolbar.italic" class="toolbar-group">
-          <button v-if="toolbar.bold" class="ql-bold"></button>
-          <button v-if="toolbar.italic" class="ql-italic"></button>
+        <div v-if="toolbar.blockquote || toolbar.codeblock" class="toolbar-group">
+          <button v-if="toolbar.blockquote" class="ql-blockquote"></button>
+          <button v-if="toolbar.codeblock" class="ql-code-block"></button>
         </div>
 
-        <div v-if="toolbar.numlist || toolbar.bullist || toolbar.indent || toolbar.outdent" class="toolbar-group">
+        <div v-if="toolbar.bold || toolbar.italic || toolbar.underline || toolbar.strike" class="toolbar-group">
+          <button v-if="toolbar.bold" class="ql-bold"></button>
+          <button v-if="toolbar.italic" class="ql-italic"></button>
+          <button v-if="toolbar.underline" class="ql-underline"></button>
+          <button v-if="toolbar.strike" class="ql-strike"></button>
+        </div>
+
+        <div v-if="toolbar.color || toolbar.background" class="toolbar-group">
+          <select v-if="toolbar.color" class="ql-color"></select>
+          <select v-if="toolbar.background" class="ql-background"></select>
+        </div>
+
+        <div v-if="toolbar.sub || toolbar.super" class="toolbar-group">
+          <button v-if="toolbar.sub" class="ql-script" value="sub"></button>
+          <button v-if="toolbar.super" class="ql-script" value="super"></button>
+        </div>
+
+        <div
+          v-if="toolbar.numlist || toolbar.bullist || toolbar.indent || toolbar.outdent || toolbar.align"
+          class="toolbar-group"
+        >
           <button v-if="toolbar.numlist" class="ql-list" value="ordered"></button>
           <button v-if="toolbar.bullist" class="ql-list" value="bullet"></button>
           <button v-if="toolbar.outdent" class="ql-indent" value="-1"></button>
           <button v-if="toolbar.indent" class="ql-indent" value="+1"></button>
+          <select v-if="toolbar.align" class="ql-align"></select>
+        </div>
+
+        <div class="toolbar-group">
+          <button class="ql-link"></button>
+          <button class="ql-image"></button>
+          <button class="ql-video"></button>
+          <button class="ql-formula"></button>
         </div>
 
         <div v-if="toolbar.removeformat" class="toolbar-group">
@@ -78,12 +106,21 @@ const props = withDefaults(defineProps<OeEditorProps>(), {
     undo: true,
     redo: true,
     header: true,
+    blockquote: false,
+    codeblock: false,
     bold: true,
     italic: true,
+    strike: false,
+    underline: false,
+    color: false,
+    background: false,
+    sub: false,
+    super: false,
     bullist: true,
     numlist: true,
     indent: true,
     outdent: true,
+    align: false,
     removeformat: true,
     biblio: false,
     private: false,
@@ -185,6 +222,7 @@ watch(
 .ql-toolbar {
   display: flex;
   justify-content: space-between;
+  padding: 8px 2px;
 
   :deep(.ql-formats) {
     margin-right: 0;
@@ -205,7 +243,7 @@ watch(
 
     .toolbar-group {
       position: relative;
-      padding: 0 8px;
+      padding: 0 2px;
 
       &::after {
         content: '';
