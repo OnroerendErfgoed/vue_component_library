@@ -1,56 +1,53 @@
 <template>
   <div :id="props.id">
     <div :id="`${props.id}-toolbar`" :class="{ 'ql-toolbar--disabled': props.modDisabled }">
-      <div class="toolbar-group">
-        <button v-if="props.toolbar.undo" class="ql-undo" title="Undo">
-          <font-awesome-icon :icon="['fas', 'rotate-left']" />
-        </button>
-        <button v-if="props.toolbar.redo" class="ql-redo" title="Redo">
-          <font-awesome-icon :icon="['fas', 'rotate-right']" />
-        </button>
+      <div class="toolbar-container">
+        <div v-if="toolbar.undo || toolbar.redo" class="toolbar-group">
+          <button v-if="toolbar.undo" class="ql-undo" title="Undo">
+            <font-awesome-icon :icon="['fas', 'rotate-left']" />
+          </button>
+          <button v-if="toolbar.redo" class="ql-redo" title="Redo">
+            <font-awesome-icon :icon="['fas', 'rotate-right']" />
+          </button>
+        </div>
 
-        <span v-if="props.toolbar.undo || props.toolbar.redo" class="ql-stroke" />
+        <div v-if="toolbar.header" class="toolbar-group">
+          <select class="ql-header">
+            <option value="">Paragraph</option>
+            <option value="1">Heading 1</option>
+            <option value="2">Heading 2</option>
+            <option value="3">Heading 3</option>
+            <option value="4">Heading 4</option>
+            <option value="5">Heading 5</option>
+            <option value="6">Heading 6</option>
+          </select>
+        </div>
 
-        <!-- Add headings dropdown -->
-        <select v-if="props.toolbar.header" class="ql-header">
-          <option value="">Paragraph</option>
-          <option value="1">Heading 1</option>
-          <option value="2">Heading 2</option>
-          <option value="3">Heading 3</option>
-          <option value="4">Heading 4</option>
-          <option value="5">Heading 5</option>
-          <option value="6">Heading 6</option>
-        </select>
+        <div v-if="toolbar.bold || toolbar.italic" class="toolbar-group">
+          <button v-if="toolbar.bold" class="ql-bold"></button>
+          <button v-if="toolbar.italic" class="ql-italic"></button>
+        </div>
 
-        <span v-if="props.toolbar.header" class="ql-stroke" />
+        <div v-if="toolbar.numlist || toolbar.bullist || toolbar.indent || toolbar.outdent" class="toolbar-group">
+          <button v-if="toolbar.numlist" class="ql-list" value="ordered"></button>
+          <button v-if="toolbar.bullist" class="ql-list" value="bullet"></button>
+          <button v-if="toolbar.outdent" class="ql-indent" value="-1"></button>
+          <button v-if="toolbar.indent" class="ql-indent" value="+1"></button>
+        </div>
 
-        <!-- Add a bold button -->
-        <button v-if="props.toolbar.bold" class="ql-bold"></button>
-        <button v-if="props.toolbar.italic" class="ql-italic"></button>
+        <div v-if="toolbar.removeformat" class="toolbar-group">
+          <button v-if="toolbar.removeformat" class="ql-clean"></button>
+        </div>
 
-        <span v-if="props.toolbar.bold || props.toolbar.italic" class="ql-stroke" />
+        <div v-if="toolbar.biblio || toolbar.private" class="toolbar-group">
+          <button v-if="toolbar.biblio" class="ql-biblio" title="Bibliografie">
+            <font-awesome-icon :icon="['fas', 'bookmark']" />
+          </button>
 
-        <button v-if="props.toolbar.numlist" class="ql-list" value="ordered"></button>
-        <button v-if="props.toolbar.bullist" class="ql-list" value="bullet"></button>
-        <button v-if="props.toolbar.outdent" class="ql-indent" value="-1"></button>
-        <button v-if="props.toolbar.indent" class="ql-indent" value="+1"></button>
-
-        <span
-          v-if="props.toolbar.numlist || props.toolbar.bullist || props.toolbar.outdent || props.toolbar.indent"
-          class="ql-stroke"
-        />
-
-        <button v-if="props.toolbar.removeformat" class="ql-clean"></button>
-
-        <span v-if="props.toolbar.removeformat" class="ql-stroke" />
-
-        <button v-if="props.toolbar.biblio" class="ql-biblio" title="Bibliografie">
-          <font-awesome-icon :icon="['fas', 'bookmark']" />
-        </button>
-
-        <button v-if="props.toolbar.private" class="ql-private" title="Prive">
-          <font-awesome-icon :icon="['fas', 'lock']" />
-        </button>
+          <button v-if="toolbar.private" class="ql-private" title="Prive">
+            <font-awesome-icon :icon="['fas', 'lock']" />
+          </button>
+        </div>
       </div>
     </div>
 
@@ -94,6 +91,8 @@ const props = withDefaults(defineProps<OeEditorProps>(), {
     fullscreen: false,
   }),
 });
+
+const toolbar = computed(() => props.toolbar);
 
 // Register custom blocks and modules
 Quill.register(PrivateBlock, true);
@@ -200,15 +199,23 @@ watch(
     }
   }
 
-  .toolbar-group {
+  .toolbar-container {
     display: flex;
     width: 100%;
 
-    .ql-stroke {
-      margin: -8px 8px;
-      width: 1px; /* Line thickness */
-      display: inline-block;
-      background-color: #ccc; /* Line color */
+    .toolbar-group {
+      position: relative;
+      padding: 0 8px;
+
+      &::after {
+        content: '';
+        background-color: #ccc;
+        position: absolute;
+        bottom: -8px;
+        right: 0;
+        height: calc(100% + 16px);
+        width: 1.5px;
+      }
     }
   }
 }
