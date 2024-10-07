@@ -23,8 +23,8 @@ export interface OeEditorToolbarConfig {
   undo?: boolean;
   redo?: boolean;
   header?: boolean;
-  blockquote: boolean;
-  codeblock: boolean;
+  blockquote?: boolean;
+  codeblock?: boolean;
   bold?: boolean;
   italic?: boolean;
   underline?: boolean;

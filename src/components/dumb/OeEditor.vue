@@ -1,6 +1,6 @@
 <template>
-  <div :id="props.id">
-    <div :id="`${props.id}-toolbar`" :class="{ 'ql-toolbar--disabled': props.modDisabled }">
+  <div :id="props.id" :class="{ 'editor-disabled': props.modDisabled }">
+    <div :id="`${props.id}-toolbar`">
       <div class="toolbar-container">
         <div v-if="toolbar.undo || toolbar.redo" class="toolbar-group">
           <button v-if="toolbar.undo" class="ql-undo" title="Undo">
@@ -219,6 +219,17 @@ watch(
 </script>
 
 <style lang="scss" scoped>
+.editor-disabled {
+  .ql-toolbar {
+    cursor: not-allowed;
+
+    * {
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  }
+}
+
 .ql-toolbar {
   display: flex;
   justify-content: space-between;
@@ -226,15 +237,6 @@ watch(
 
   :deep(.ql-formats) {
     margin-right: 0;
-  }
-
-  &--disabled {
-    cursor: not-allowed;
-
-    * {
-      cursor: not-allowed;
-      pointer-events: none;
-    }
   }
 
   .toolbar-container {
