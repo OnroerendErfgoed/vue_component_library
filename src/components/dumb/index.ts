@@ -13,6 +13,7 @@ import OeAutocomplete from './OeAutocomplete.vue';
 import OeButton from './OeButton.vue';
 import OeContainer from './OeContainer.vue';
 import OeDatepicker from './OeDatepicker.vue';
+import OeEditor from './OeEditor.vue';
 import OeGrid from './OeGrid.vue';
 import OeHeader from './OeHeader.vue';
 import OeInventarisLoadedLink from './OeInventarisLoadedLink.vue';
@@ -40,6 +41,7 @@ export {
   OeButton,
   OeContainer,
   OeDatepicker,
+  OeEditor,
   OeGrid,
   OeHeader,
   OeInventarisLoadedLink,

@@ -12,3 +12,8 @@
 .vl-modal-backdrop {
   display: none;
 }
+
+// Skip showing de default story a second time because an editor with duplicate id's will break
+#stories + #anchor--dumb-components-editor--default {
+  display: none;
+}
