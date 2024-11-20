@@ -20,13 +20,12 @@
 <script setup lang="ts">
 import { VlDatepicker, VlFormMessageError } from '@govflanders/vl-ui-design-system-vue3';
 import { format, isValid, parse } from 'date-fns';
-import { has } from 'lodash';
 import { computed, ref, useAttrs } from 'vue';
 
 const attrs = useAttrs();
 const modelValue = defineModel<string | null>();
 const hasFormatError = ref(false);
-const hasError = computed(() => hasFormatError.value || has(attrs, 'mod-error'));
+const hasError = computed(() => hasFormatError.value || attrs['mod-error']);
 
 const datumApiFormat = 'yyyy-MM-dd';
 const datumDisplayFormat = 'dd-MM-yyyy';
