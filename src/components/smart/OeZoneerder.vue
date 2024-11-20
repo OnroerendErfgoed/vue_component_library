@@ -71,7 +71,7 @@ const zone = ref<Contour | undefined>(props.zone);
 
 const leftControlsContainerRef = ref<HTMLElement>() as Ref<HTMLElement>;
 const rightControlsContainerRef = ref<HTMLElement>() as Ref<HTMLElement>;
-const mapRef = ref<string | HTMLElement | undefined>(undefined);
+const mapRef = ref<HTMLElement>();
 const autoCompleteValueRef = ref<IAutocompleteOption>();
 const selectPerceel = ref(false);
 
