@@ -120,29 +120,42 @@ export class CrabApiService extends HttpService {
   }
 
   async getGemeentenPerGewest(niscode: Niscode): Promise<IGemeente[]> {
-    return (await this.get<IGemeente[]>(`adressenregister/gewesten/${niscode}/gemeenten`, { baseURL: this.API_URL }))
-      .data;
+    return (
+      await this.get<IGemeente[]>(`adressenregister/gewesten/${niscode}/gemeenten?status=inGebruik`, {
+        baseURL: this.API_URL,
+      })
+    ).data;
   }
 
   async getPostinfo(gemeente: string): Promise<IPostinfo[]> {
-    return (await this.get<IPostinfo[]>(`adressenregister/gemeenten/${gemeente}/postinfo`, { baseURL: this.API_URL }))
-      .data;
+    return (
+      await this.get<IPostinfo[]>(`adressenregister/gemeenten/${gemeente}/postinfo?status=inGebruik`, {
+        baseURL: this.API_URL,
+      })
+    ).data;
   }
 
   async getStraten(gemeente: string): Promise<IStraat[]> {
-    return (await this.get<IStraat[]>(`adressenregister/gemeenten/${gemeente}/straten`, { baseURL: this.API_URL }))
-      .data;
+    return (
+      await this.get<IStraat[]>(`adressenregister/gemeenten/${gemeente}/straten?status=inGebruik`, {
+        baseURL: this.API_URL,
+      })
+    ).data;
   }
 
   async getAdressen(straat: string, huisnummer?: string): Promise<IAdres[]> {
     if (huisnummer) {
       return (
-        await this.get<IAdres[]>(`adressenregister/straten/${straat}/huisnummers/${huisnummer}`, {
+        await this.get<IAdres[]>(`adressenregister/straten/${straat}/huisnummers/${huisnummer}?status=inGebruik`, {
           baseURL: this.API_URL,
         })
       ).data;
     }
-    return (await this.get<IAdres[]>(`adressenregister/straten/${straat}/adressen`, { baseURL: this.API_URL })).data;
+    return (
+      await this.get<IAdres[]>(`adressenregister/straten/${straat}/adressen?status=inGebruik`, {
+        baseURL: this.API_URL,
+      })
+    ).data;
   }
 
   public async searchPerceel(coordinate: Coordinate, srsName: string) {
