@@ -159,6 +159,56 @@ export const TwoWayBinding: Story = {
   }),
 };
 
+export const OldAddresses: Story = {
+  args: {
+    adres: {
+      land: {
+        code: 'BE',
+        naam: 'België',
+      },
+      gemeente: {
+        naam: 'Herzele',
+        niscode: '41027',
+      },
+      postcode: {
+        nummer: '9550',
+        uri: 'https://data.vlaanderen.be/id/postinfo/9550',
+      },
+      straat: {
+        naam: 'Provincieweg',
+        id: '229270',
+        uri: 'https://data.vlaanderen.be/doc/straatnaam/229270',
+      },
+    },
+  },
+  render: ({ adres }: ILocatieAdres) => ({
+    components: { OeAdres },
+    inheritAttrs: false,
+    setup() {
+      return { adres };
+    },
+    template: `
+      <div>
+      <Suspense>
+        <OeAdres v-model:adres="adres"  @update:adres="onUpdateAdres" />
+      </Suspense>
+      <h3>Adres:</h3>
+      <pre>{{ eventOutput }}</pre>
+      </div>
+    `,
+    data() {
+      return {
+        eventOutput: '' as string,
+      };
+    },
+    methods: {
+      onUpdateAdres(payload: ILocatieAdres) {
+        this.eventOutput = payload;
+      },
+    },
+  }),
+};
+
 export const MultiSelectOptionsLimit: Story = {
   args: {
     optionsLimit: 5000,

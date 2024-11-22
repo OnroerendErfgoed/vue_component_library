@@ -120,18 +120,36 @@ export class CrabApiService extends HttpService {
   }
 
   async getGemeentenPerGewest(niscode: Niscode): Promise<IGemeente[]> {
-    return (await this.get<IGemeente[]>(`adressenregister/gewesten/${niscode}/gemeenten`, { baseURL: this.API_URL }))
-      .data;
+    return (
+      await this.get<IGemeente[]>(`adressenregister/gewesten/${niscode}/gemeenten`, {
+        baseURL: this.API_URL,
+        params: {
+          status: 'inGebruik',
+        },
+      })
+    ).data;
   }
 
   async getPostinfo(gemeente: string): Promise<IPostinfo[]> {
-    return (await this.get<IPostinfo[]>(`adressenregister/gemeenten/${gemeente}/postinfo`, { baseURL: this.API_URL }))
-      .data;
+    return (
+      await this.get<IPostinfo[]>(`adressenregister/gemeenten/${gemeente}/postinfo`, {
+        baseURL: this.API_URL,
+        params: {
+          status: 'inGebruik',
+        },
+      })
+    ).data;
   }
 
   async getStraten(gemeente: string): Promise<IStraat[]> {
-    return (await this.get<IStraat[]>(`adressenregister/gemeenten/${gemeente}/straten`, { baseURL: this.API_URL }))
-      .data;
+    return (
+      await this.get<IStraat[]>(`adressenregister/gemeenten/${gemeente}/straten`, {
+        baseURL: this.API_URL,
+        params: {
+          status: 'inGebruik',
+        },
+      })
+    ).data;
   }
 
   async getAdressen(straat: string, huisnummer?: string): Promise<IAdres[]> {
@@ -139,10 +157,20 @@ export class CrabApiService extends HttpService {
       return (
         await this.get<IAdres[]>(`adressenregister/straten/${straat}/huisnummers/${huisnummer}`, {
           baseURL: this.API_URL,
+          params: {
+            status: 'inGebruik',
+          },
         })
       ).data;
     }
-    return (await this.get<IAdres[]>(`adressenregister/straten/${straat}/adressen`, { baseURL: this.API_URL })).data;
+    return (
+      await this.get<IAdres[]>(`adressenregister/straten/${straat}/adressen`, {
+        baseURL: this.API_URL,
+        params: {
+          status: 'inGebruik',
+        },
+      })
+    ).data;
   }
 
   public async searchPerceel(coordinate: Coordinate, srsName: string) {
