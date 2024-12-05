@@ -1,5 +1,6 @@
 <template>
-  <div class="oe-adres">
+  <oe-loader v-if="isLoading" />
+  <div class="oe-adres" v-else>
     <VlProperties>
       <VlPropertiesTitle v-if="!props.hideTitle" data-cy="title-adres">Adres</VlPropertiesTitle>
       <VlPropertiesList>
@@ -338,6 +339,7 @@ const postcodeFreeText = ref(false);
 const straatFreeText = ref(false);
 const huisnummerFreeText = ref(false);
 const busnummerFreeText = ref(false);
+const isLoading = ref(false);
 
 // Custom multiselect labels
 const customGemeenteLabel = (option: IGemeente) => option.naam;
@@ -562,7 +564,9 @@ watch(land, async (selectedLand, oldValue) => {
   }
   if (isBelgium.value) {
     resetFreeTextState();
+    isLoading.value = true;
     gemeenten.value = await crabApiService.getGemeenten();
+    isLoading.value = false;
   }
 });
 
@@ -577,8 +581,10 @@ watch(gemeente, async (selectedGemeente, oldValue) => {
     resetFreeTextState();
 
     try {
+      isLoading.value = true;
       postinfo.value = await crabApiService.getPostinfo((selectedGemeente as IGemeente).naam);
       straten.value = sortBy(await crabApiService.getStraten((selectedGemeente as IGemeente).niscode), 'naam');
+      isLoading.value = false;
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
         const knownError = error as AxiosError;
