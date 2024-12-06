@@ -309,6 +309,7 @@ import { AxiosError } from 'axios';
 import { pick, sortBy, uniqBy } from 'lodash';
 import { computed, onMounted, ref, watch } from 'vue';
 import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
+import OeLoader from '@components/dumb/OeLoader.vue';
 import { CrabApiService } from '@services/crab-api.service';
 import { requiredIf } from '@utils/i18n-validators';
 import type { IAdresProps } from '@models/adres';
@@ -564,8 +565,8 @@ watch(land, async (selectedLand, oldValue) => {
   }
   if (isBelgium.value) {
     resetFreeTextState();
-    isLoading.value = true;
     gemeenten.value = await crabApiService.getGemeenten();
+  } else {
     isLoading.value = false;
   }
 });
@@ -581,7 +582,6 @@ watch(gemeente, async (selectedGemeente, oldValue) => {
     resetFreeTextState();
 
     try {
-      isLoading.value = true;
       postinfo.value = await crabApiService.getPostinfo((selectedGemeente as IGemeente).naam);
       straten.value = sortBy(await crabApiService.getStraten((selectedGemeente as IGemeente).niscode), 'naam');
     } catch (error: unknown) {
@@ -601,6 +601,8 @@ watch(gemeente, async (selectedGemeente, oldValue) => {
     } finally {
       isLoading.value = false;
     }
+  } else {
+    isLoading.value = false;
   }
 });
 
