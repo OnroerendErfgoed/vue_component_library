@@ -1,6 +1,6 @@
 <template>
   <oe-loader v-if="isLoading" />
-  <div class="oe-adres" v-else>
+  <div v-else class="oe-adres">
     <VlProperties>
       <VlPropertiesTitle v-if="!props.hideTitle" data-cy="title-adres">Adres</VlPropertiesTitle>
       <VlPropertiesList>
