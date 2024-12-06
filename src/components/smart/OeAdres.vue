@@ -584,7 +584,6 @@ watch(gemeente, async (selectedGemeente, oldValue) => {
       isLoading.value = true;
       postinfo.value = await crabApiService.getPostinfo((selectedGemeente as IGemeente).naam);
       straten.value = sortBy(await crabApiService.getStraten((selectedGemeente as IGemeente).niscode), 'naam');
-      isLoading.value = false;
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
         const knownError = error as AxiosError;
@@ -599,6 +598,8 @@ watch(gemeente, async (selectedGemeente, oldValue) => {
           }
         }
       }
+    } finally {
+      isLoading.value = false;
     }
   }
 });
