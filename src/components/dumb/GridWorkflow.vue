@@ -80,7 +80,7 @@ const remarkValueFormatter = (params: ValueFormatterParams<IWorkflowState, IWork
 
 const dateFormatter = (params: ValueFormatterParams) => {
   if (params.value) {
-    return format(new Date(params.value || ''), 'dd-MM-yyyy');
+    return format(new Date(params.value || ''), 'dd-MM-yyyy HH:mm');
   }
   return '';
 };
