@@ -150,7 +150,6 @@ const setQueryParameters = (params: IGetRowsParams): IActorenQuery => {
     omschrijving: zoekterm.value,
     sort: undefined,
     type: props.actorType,
-    geldige_actor: 'true',
   };
 
   if (params.sortModel.length) {
