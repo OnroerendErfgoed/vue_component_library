@@ -701,27 +701,27 @@ const fillInOeAdresBelgium = () => {
 
   cy.intercept({
     method: 'GET',
-    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/gewesten/**/gemeenten',
+    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/gewesten/**/gemeenten?status=inGebruik',
   }).as('dataGetGemeenten');
 
   cy.intercept({
     method: 'GET',
-    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/gemeenten/**/postinfo',
+    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/gemeenten/**/postinfo?status=inGebruik',
   }).as('dataGetPostinfo');
 
   cy.intercept({
     method: 'GET',
-    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/gemeenten/**/straten',
+    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/gemeenten/**/straten?status=inGebruik',
   }).as('dataGetStraten');
 
   cy.intercept({
     method: 'GET',
-    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/straten/**/adressen',
+    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/straten/**/adressen?status=inGebruik',
   }).as('dataGetAdressen');
 
   cy.intercept({
     method: 'GET',
-    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/straten/**/huisnummers/416',
+    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/straten/**/huisnummers/416?status=inGebruik',
   }).as('dataGetHuisnummer');
 
   // Gemeente selection

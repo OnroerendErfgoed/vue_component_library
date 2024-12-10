@@ -1,5 +1,6 @@
 <template>
-  <div class="oe-adres">
+  <oe-loader v-if="isLoading" />
+  <div v-else class="oe-adres">
     <VlProperties>
       <VlPropertiesTitle v-if="!props.hideTitle" data-cy="title-adres">Adres</VlPropertiesTitle>
       <VlPropertiesList>
@@ -308,6 +309,7 @@ import { AxiosError } from 'axios';
 import { pick, sortBy, uniqBy } from 'lodash';
 import { computed, onMounted, ref, watch } from 'vue';
 import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
+import OeLoader from '@components/dumb/OeLoader.vue';
 import { CrabApiService } from '@services/crab-api.service';
 import { requiredIf } from '@utils/i18n-validators';
 import type { IAdresProps } from '@models/adres';
@@ -338,6 +340,7 @@ const postcodeFreeText = ref(false);
 const straatFreeText = ref(false);
 const huisnummerFreeText = ref(false);
 const busnummerFreeText = ref(false);
+const isLoading = ref(false);
 
 // Custom multiselect labels
 const customGemeenteLabel = (option: IGemeente) => option.naam;
@@ -563,6 +566,8 @@ watch(land, async (selectedLand, oldValue) => {
   if (isBelgium.value) {
     resetFreeTextState();
     gemeenten.value = await crabApiService.getGemeenten();
+  } else {
+    isLoading.value = false;
   }
 });
 
@@ -593,7 +598,11 @@ watch(gemeente, async (selectedGemeente, oldValue) => {
           }
         }
       }
+    } finally {
+      isLoading.value = false;
     }
+  } else {
+    isLoading.value = false;
   }
 });
 
