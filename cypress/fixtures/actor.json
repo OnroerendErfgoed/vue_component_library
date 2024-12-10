@@ -15,7 +15,9 @@
     "https://id.erfgoed.net/vocab/ontology#ErkendArcheoloog",
     "oe:ErkendArcheoloog",
     "https://id.erfgoed.net/vocab/ontology#ErkendArcheoloog",
-    "oe:ErkendArcheoloog"
+    "oe:ErkendArcheoloog",
+    "https://id.erfgoed.net/vocab/ontology#MetaalDetectorist",
+    "oe:MetaalDetectorist"
   ],
   "zichtbaarheid": {
     "id": 1,
@@ -25,46 +27,14 @@
   "naam": "Van Humbeeck",
   "voornaam": "Astrid",
   "afkorting": "",
+  "startdatum_geldigheid": null,
+  "einddatum_geldigheid": null,
   "adressen": [
-    {
-      "id": 2326,
-      "land": {
-        "code": "BE",
-        "naam": "Belgi\u00eb"
-      },
-      "postcode": {
-        "nummer": "3360",
-        "uri": "https://data.vlaanderen.be/id/postinfo/3360"
-      },
-      "gemeente": {
-        "naam": "Bierbeek",
-        "niscode": "24011"
-      },
-      "straat": {
-        "naam": "Krijkelberg",
-        "id": "32284",
-        "uri": "https://data.vlaanderen.be/id/straatnaam/32284"
-      },
-      "adres": {
-        "huisnummer": "18",
-        "busnummer": "",
-        "id": "3509600",
-        "uri": "https://data.vlaanderen.be/id/adres/3509600"
-      },
-      "adrestype": {
-        "id": 2,
-        "naam": "Extra"
-      },
-      "omschrijving": "Krijkelberg 18, 3360 Bierbeek",
-      "beschrijving": null,
-      "startdatum": "2023-04-17",
-      "einddatum": null
-    },
     {
       "id": 2251,
       "land": {
         "code": "BE",
-        "naam": "Belgi\u00eb"
+        "naam": "België"
       },
       "postcode": {
         "nummer": "3770",
@@ -95,10 +65,316 @@
       "einddatum": null
     },
     {
+      "id": 2448,
+      "land": {
+        "code": "BE",
+        "naam": "België"
+      },
+      "postcode": {
+        "nummer": "3360",
+        "uri": "https://data.vlaanderen.be/id/postinfo/3360"
+      },
+      "gemeente": {
+        "naam": "Bierbeek",
+        "niscode": "24011"
+      },
+      "straat": {
+        "naam": "Bergstraat",
+        "id": "32228",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/32228"
+      },
+      "adres": {
+        "huisnummer": "2",
+        "busnummer": "",
+        "id": "699800",
+        "uri": "https://data.vlaanderen.be/id/adres/699800"
+      },
+      "adrestype": {
+        "id": 2,
+        "naam": "Extra"
+      },
+      "omschrijving": "Bergstraat 2, 3360 Bierbeek",
+      "beschrijving": "",
+      "startdatum": "2024-02-05",
+      "einddatum": null
+    },
+    {
+      "id": 2443,
+      "land": {
+        "code": "BE",
+        "naam": "België"
+      },
+      "postcode": {
+        "nummer": "3360",
+        "uri": "https://data.vlaanderen.be/id/postinfo/3360"
+      },
+      "gemeente": {
+        "naam": "Bierbeek",
+        "niscode": "24011"
+      },
+      "straat": {
+        "naam": "Krijkelberg",
+        "id": "32284",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/32284"
+      },
+      "adres": {
+        "huisnummer": "1",
+        "busnummer": "",
+        "id": "1213725",
+        "uri": "https://data.vlaanderen.be/id/adres/1213725"
+      },
+      "adrestype": {
+        "id": 2,
+        "naam": "Extra"
+      },
+      "omschrijving": "Krijkelberg 1, 3360 Bierbeek",
+      "beschrijving": "",
+      "startdatum": "2024-01-30",
+      "einddatum": null
+    },
+    {
+      "id": 2450,
+      "land": {
+        "code": "BE",
+        "naam": "België"
+      },
+      "postcode": {
+        "nummer": "3360",
+        "uri": "https://data.vlaanderen.be/id/postinfo/3360"
+      },
+      "gemeente": {
+        "naam": "Bierbeek",
+        "niscode": "24011"
+      },
+      "straat": {
+        "naam": "Krijkelberg",
+        "id": "32284",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/32284"
+      },
+      "adres": {
+        "huisnummer": "1",
+        "busnummer": "",
+        "id": "1213725",
+        "uri": "https://data.vlaanderen.be/id/adres/1213725"
+      },
+      "adrestype": {
+        "id": 2,
+        "naam": "Extra"
+      },
+      "omschrijving": "Krijkelberg 1, 3360 Bierbeek",
+      "beschrijving": "",
+      "startdatum": "2024-02-07",
+      "einddatum": null
+    },
+    {
+      "id": 2456,
+      "land": {
+        "code": "BE",
+        "naam": "België"
+      },
+      "postcode": {
+        "nummer": "3360",
+        "uri": "https://data.vlaanderen.be/id/postinfo/3360"
+      },
+      "gemeente": {
+        "naam": "Bierbeek",
+        "niscode": "24011"
+      },
+      "straat": {
+        "naam": "Krijkelberg",
+        "id": "32284",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/32284"
+      },
+      "adres": {
+        "huisnummer": "1",
+        "busnummer": "",
+        "id": "1213725",
+        "uri": "https://data.vlaanderen.be/id/adres/1213725"
+      },
+      "adrestype": {
+        "id": 2,
+        "naam": "Extra"
+      },
+      "omschrijving": "Krijkelberg 1, 3360 Bierbeek",
+      "beschrijving": "",
+      "startdatum": "2024-02-08",
+      "einddatum": null
+    },
+    {
+      "id": 2457,
+      "land": {
+        "code": "BE",
+        "naam": "België"
+      },
+      "postcode": {
+        "nummer": "3360",
+        "uri": "https://data.vlaanderen.be/id/postinfo/3360"
+      },
+      "gemeente": {
+        "naam": "Bierbeek",
+        "niscode": "24011"
+      },
+      "straat": {
+        "naam": "Krijkelberg",
+        "id": "32284",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/32284"
+      },
+      "adres": {
+        "huisnummer": "1",
+        "busnummer": "",
+        "id": "1213725",
+        "uri": "https://data.vlaanderen.be/id/adres/1213725"
+      },
+      "adrestype": {
+        "id": 2,
+        "naam": "Extra"
+      },
+      "omschrijving": "Krijkelberg 1, 3360 Bierbeek",
+      "beschrijving": "",
+      "startdatum": "2024-02-08",
+      "einddatum": null
+    },
+    {
+      "id": 2459,
+      "land": {
+        "code": "BE",
+        "naam": "België"
+      },
+      "postcode": {
+        "nummer": "3360",
+        "uri": "https://data.vlaanderen.be/id/postinfo/3360"
+      },
+      "gemeente": {
+        "naam": "Bierbeek",
+        "niscode": "24011"
+      },
+      "straat": {
+        "naam": "Krijkelberg",
+        "id": "32284",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/32284"
+      },
+      "adres": {
+        "huisnummer": "1",
+        "busnummer": "",
+        "id": "1213725",
+        "uri": "https://data.vlaanderen.be/id/adres/1213725"
+      },
+      "adrestype": {
+        "id": 2,
+        "naam": "Extra"
+      },
+      "omschrijving": "Krijkelberg 1, 3360 Bierbeek",
+      "beschrijving": "",
+      "startdatum": "2024-02-08",
+      "einddatum": null
+    },
+    {
+      "id": 2460,
+      "land": {
+        "code": "BE",
+        "naam": "België"
+      },
+      "postcode": {
+        "nummer": "3360",
+        "uri": "https://data.vlaanderen.be/id/postinfo/3360"
+      },
+      "gemeente": {
+        "naam": "Bierbeek",
+        "niscode": "24011"
+      },
+      "straat": {
+        "naam": "Krijkelberg",
+        "id": "32284",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/32284"
+      },
+      "adres": {
+        "huisnummer": "1",
+        "busnummer": "",
+        "id": "1213725",
+        "uri": "https://data.vlaanderen.be/id/adres/1213725"
+      },
+      "adrestype": {
+        "id": 2,
+        "naam": "Extra"
+      },
+      "omschrijving": "Krijkelberg 1, 3360 Bierbeek",
+      "beschrijving": "",
+      "startdatum": "2024-02-08",
+      "einddatum": null
+    },
+    {
+      "id": 2466,
+      "land": {
+        "code": "BE",
+        "naam": "België"
+      },
+      "postcode": {
+        "nummer": "9300",
+        "uri": "https://data.vlaanderen.be/id/postinfo/9300"
+      },
+      "gemeente": {
+        "naam": "Aalst",
+        "niscode": "41002"
+      },
+      "straat": {
+        "naam": "'t Klein Eeckhout",
+        "id": "62184",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/62184"
+      },
+      "adres": {
+        "huisnummer": "1",
+        "busnummer": "",
+        "id": "3500226",
+        "uri": "https://data.vlaanderen.be/id/adres/3500226"
+      },
+      "adrestype": {
+        "id": 2,
+        "naam": "Extra"
+      },
+      "omschrijving": "'t Klein Eeckhout 1, 9300 Aalst",
+      "beschrijving": "",
+      "startdatum": "2024-02-19",
+      "einddatum": null
+    },
+    {
+      "id": 2467,
+      "land": {
+        "code": "BE",
+        "naam": "België"
+      },
+      "postcode": {
+        "nummer": "9910",
+        "uri": "https://data.vlaanderen.be/id/postinfo/9910"
+      },
+      "gemeente": {
+        "naam": "Aalter",
+        "niscode": "44084"
+      },
+      "straat": {
+        "naam": "Aalterseweg",
+        "id": "203267",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/203267"
+      },
+      "adres": {
+        "huisnummer": "18",
+        "busnummer": "",
+        "id": "20346590",
+        "uri": "https://data.vlaanderen.be/id/adres/20346590"
+      },
+      "adrestype": {
+        "id": 2,
+        "naam": "Extra"
+      },
+      "omschrijving": "Aalterseweg 18, 9910 Aalter",
+      "beschrijving": "",
+      "startdatum": "2024-02-19",
+      "einddatum": null
+    },
+    {
       "id": 2255,
       "land": {
         "code": "BE",
-        "naam": "Belgi\u00eb"
+        "naam": "België"
       },
       "postcode": {
         "nummer": "1790",
@@ -126,7 +402,41 @@
       "omschrijving": "Boonhof 66, 1790 Affligem",
       "beschrijving": null,
       "startdatum": "2020-10-27",
-      "einddatum": null
+      "einddatum": "2024-01-30"
+    },
+    {
+      "id": 2326,
+      "land": {
+        "code": "BE",
+        "naam": "België"
+      },
+      "postcode": {
+        "nummer": "3360",
+        "uri": "https://data.vlaanderen.be/id/postinfo/3360"
+      },
+      "gemeente": {
+        "naam": "Bierbeek",
+        "niscode": "24011"
+      },
+      "straat": {
+        "naam": "Krijkelberg",
+        "id": "32284",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/32284"
+      },
+      "adres": {
+        "huisnummer": "18",
+        "busnummer": "",
+        "id": "3509600",
+        "uri": "https://data.vlaanderen.be/id/adres/3509600"
+      },
+      "adrestype": {
+        "id": 2,
+        "naam": "Extra"
+      },
+      "omschrijving": "Krijkelberg 18, 3360 Bierbeek",
+      "beschrijving": null,
+      "startdatum": "2023-04-17",
+      "einddatum": "2024-01-30"
     }
   ],
   "info": [
@@ -135,9 +445,45 @@
       "naam": "Aanvaardt opdracht als archeoloog"
     }
   ],
-  "urls": [],
-  "telefoons": [],
+  "urls": [
+  ],
+  "telefoons": [
+    {
+      "landcode": "+32",
+      "nummer": "49500000",
+      "type": {
+        "id": 2,
+        "naam": "werk"
+      },
+      "volledig_nummer": "+3249500000"
+    },
+    {
+      "landcode": "+32",
+      "nummer": "495000000",
+      "type": {
+        "id": 1,
+        "naam": "thuis"
+      },
+      "volledig_nummer": "+32495000000"
+    },
+    {
+      "landcode": "+44",
+      "nummer": "7400123456",
+      "type": {
+        "id": 1,
+        "naam": "thuis"
+      },
+      "volledig_nummer": "+447400123456"
+    }
+  ],
   "emails": [
+    {
+      "email": "astrid.vanhumbeeck@thuis.be",
+      "type": {
+        "id": 1,
+        "naam": "thuis"
+      }
+    },
     {
       "email": "astrid.vanhumbeeck@vlaanderen.be",
       "type": {
@@ -148,36 +494,47 @@
   ],
   "relaties": [
     {
-      "id": 15676,
+      "id": 18358,
       "type": {
         "id": 1,
         "naam": "is deel van"
       },
-      "naar_id": 10082,
-      "naar_omschrijving": "Agentschap Onroerend Erfgoed",
-      "startdatum": null,
-      "einddatum": null
-    },
-    {
-      "id": 15805,
-      "type": {
-        "id": 3,
-        "naam": "is sleutelgebruiker"
-      },
       "naar_id": 501,
       "naar_omschrijving": "Agentschap Onroerend Erfgoed",
-      "startdatum": null,
+      "startdatum": "2017-01-01",
       "einddatum": null
     },
     {
-      "id": 15678,
+      "id": 18614,
       "type": {
         "id": 3,
         "naam": "is sleutelgebruiker"
       },
-      "naar_id": 12557,
-      "naar_omschrijving": "Verdugt NV",
-      "startdatum": "2021-03-01",
+      "naar_id": 12760,
+      "naar_omschrijving": "De zwarte doos",
+      "startdatum": "2024-11-18",
+      "einddatum": null
+    },
+    {
+      "id": 18609,
+      "type": {
+        "id": 3,
+        "naam": "is sleutelgebruiker"
+      },
+      "naar_id": 12619,
+      "naar_omschrijving": "Gemeente Bierbeek",
+      "startdatum": null,
+      "einddatum": null
+    },
+    {
+      "id": 18603,
+      "type": {
+        "id": 3,
+        "naam": "is sleutelgebruiker"
+      },
+      "naar_id": 10083,
+      "naar_omschrijving": "Studiebureau Archeologie",
+      "startdatum": "2024-08-26",
       "einddatum": null
     }
   ],
@@ -185,7 +542,7 @@
     "id": 2251,
     "land": {
       "code": "BE",
-      "naam": "Belgi\u00eb"
+      "naam": "België"
     },
     "postcode": {
       "nummer": "3770",
@@ -229,14 +586,35 @@
         "id": 2,
         "reden_erkenning": "Van rechtswege erkend"
       },
-      "geldigheid": "Vanaf 01-12-2020"
+      "geldigheid": "Vanaf 01-12-2020",
+      "startdatum_erkenning": "2020-12-01",
+      "einddatum_erkenning": null,
+      "opmerkingen": ""
     },
     {
-      "erkenningsnummer": "OE/ERK/Archeoloog/2018/00018",
-      "id": 9,
+      "erkenningsnummer": "OE/ERK/Metaaldetectorist/2024/00126",
+      "id": 254,
+      "type": "natuurlijk persoon",
+      "uri": "https://dev-id.erfgoed.net/actoren/12564",
+      "omschrijving": "Van Humbeeck, Astrid",
+      "erkend_voor": "Metaaldetectievondsten",
+      "erkend_als": "Metaaldetectorist",
+      "type_erkenning_id": 2,
+      "reden_erkenning": {
+        "id": 1,
+        "reden_erkenning": "Erkend door Onroerend Erfgoed"
+      },
+      "geldigheid": "Vanaf 30-09-2024",
+      "startdatum_erkenning": "2024-09-30",
+      "einddatum_erkenning": null,
+      "opmerkingen": null
+    },
+    {
+      "erkenningsnummer": "OE/ERK/Archeoloog/2024/00057",
+      "id": 256,
       "type": "rechtspersoon",
-      "uri": "https://dev-id.erfgoed.net/actoren/501",
-      "omschrijving": "Agentschap Onroerend Erfgoed",
+      "uri": "https://dev-id.erfgoed.net/actoren/12760",
+      "omschrijving": "De zwarte doos",
       "erkend_voor": "Archeologie type 1",
       "erkend_als": "Archeoloog type 1",
       "type_erkenning_id": 1,
@@ -244,35 +622,42 @@
         "id": 2,
         "reden_erkenning": "Van rechtswege erkend"
       },
-      "geldigheid": "Vanaf 01-06-2018 tot 30-06-2030"
+      "geldigheid": "Vanaf 18-11-2024",
+      "startdatum_erkenning": "2024-11-18",
+      "einddatum_erkenning": null,
+      "opmerkingen": null
     },
     {
-      "erkenningsnummer": "OE/ERK/Archeoloog/2021/00001",
-      "id": 59,
+      "erkenningsnummer": "OE/ERK/Archeoloog/2021/00010",
+      "id": 71,
       "type": "rechtspersoon",
-      "uri": "https://dev-id.erfgoed.net/actoren/12557",
-      "omschrijving": "Verdugt NV",
-      "erkend_voor": "Archeologie type 1",
-      "erkend_als": "Archeoloog type 1",
-      "type_erkenning_id": 1,
+      "uri": "https://dev-id.erfgoed.net/actoren/10083",
+      "omschrijving": "Studiebureau Archeologie",
+      "erkend_voor": "Archeologie type 2",
+      "erkend_als": "Archeoloog type 2",
+      "type_erkenning_id": 4,
       "reden_erkenning": {
-        "id": 1,
-        "reden_erkenning": "Erkend door Onroerend Erfgoed"
+        "id": 2,
+        "reden_erkenning": "Van rechtswege erkend"
       },
-      "geldigheid": "Vanaf 01-03-2021"
+      "geldigheid": "Vanaf 01-04-2021",
+      "startdatum_erkenning": "2021-04-01",
+      "einddatum_erkenning": null,
+      "opmerkingen": null
     }
   ],
-  "overeenkomsten": [],
+  "overeenkomsten": [
+  ],
   "systemfields": {
     "created_at": "2020-10-16T14:03:24.911936+02:00",
     "created_by": {
       "uri": "https://dev-id.erfgoed.net/actoren/12495",
       "description": "Toelatingen Beschermd Erfgoed Aanvragen"
     },
-    "updated_at": "2023-11-06T11:11:22.308101+01:00",
+    "updated_at": "2024-11-19T17:30:27.183079+01:00",
     "updated_by": {
-      "uri": "https://dev-id.erfgoed.net/actoren/12564",
-      "description": "Van Humbeeck, Astrid"
+      "uri": "https://dev-id.erfgoed.net/actoren/12618",
+      "description": "Adriaens, Wouter"
     }
   },
   "status": {
@@ -287,6 +672,32 @@
     },
     "opmerkingen": ""
   },
+  "statussen": [
+    {
+      "status": {
+        "id": 75,
+        "status": "Actief"
+      },
+      "datum": "2020-12-02T09:24:38.485558+01:00",
+      "gebruiker": {
+        "uri": "https://dev-id.erfgoed.net/actoren/12564",
+        "omschrijving": "Van Humbeeck, Astrid"
+      },
+      "opmerkingen": ""
+    },
+    {
+      "status": {
+        "id": 10,
+        "status": "Klad"
+      },
+      "datum": "2020-10-16T14:03:24.911936+02:00",
+      "gebruiker": {
+        "uri": "https://dev-id.erfgoed.net/actoren/12495",
+        "omschrijving": "Toelatingen Beschermd Erfgoed Aanvragen"
+      },
+      "opmerkingen": null
+    }
+  ],
   "ids": [
     {
       "type": {
@@ -294,13 +705,6 @@
         "naam": "rrn"
       },
       "extra_id": "90042818619"
-    },
-    {
-      "type": {
-        "id": 5,
-        "naam": "persid"
-      },
-      "extra_id": "-DrDAN0sRG4tJMJ0Zl34mQ"
     },
     {
       "type": {
