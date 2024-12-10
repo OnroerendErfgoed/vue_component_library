@@ -7,6 +7,7 @@ export interface IActorenQuery {
   omschrijving?: string;
   sort?: string;
   type?: ActorType;
+  geldige_actor?: string;
 }
 
 export class ActorService extends HttpService {
