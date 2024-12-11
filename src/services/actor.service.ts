@@ -39,7 +39,6 @@ export class ActorService extends HttpService {
 
   async getActoren(rangeStart: number, rangeEnd: number, query: IActorenQuery): Promise<IResponse<IActor>> {
     const contentRange = `items=${rangeStart}-${rangeEnd}`;
-    console.debug('query.geldige_actor', query.geldige_actor);
     if (query.geldige_actor === undefined) {
       query.geldige_actor = true;
     }
