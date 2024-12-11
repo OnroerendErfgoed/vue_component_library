@@ -101,7 +101,10 @@ describe('OeActorWidget', () => {
 
     it('adds a type queryparam to the get request', () => {
       cy.get('@dataGet').then((interception) => {
-        expect((interception as unknown as Interception).request.query).to.deep.equal({ type: 'foaf:Organization' });
+        expect((interception as unknown as Interception).request.query).to.deep.equal({
+          type: 'foaf:Organization',
+          geldige_actor: 'true',
+        });
       });
     });
   });
