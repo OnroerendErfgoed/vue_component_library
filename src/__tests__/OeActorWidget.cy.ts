@@ -103,7 +103,7 @@ describe('OeActorWidget', () => {
       cy.get('@dataGet').then((interception) => {
         expect((interception as unknown as Interception).request.query).to.deep.equal({
           type: 'foaf:Organization',
-          geldige_actor: true,
+          geldige_actor: 'true',
         });
       });
     });
