@@ -40,14 +40,12 @@ const updateValue = (value: IActor) => emit('update:value', value);
 const performAutocompleteSearch = async (searchTerm: string): Promise<IAutocompleteOption[]> => {
   try {
     actoren.value = await actorService.getAOEActoren(searchTerm);
-    const autocompleteData: IAutocompleteOption[] = actoren.value.map((actor) => {
+    return actoren.value.map((actor) => {
       return {
         title: actor.omschrijving,
         value: actor.uri,
       };
     });
-
-    return autocompleteData;
   } catch (error) {
     console.error('Error fetching autocomplete data:', error);
     return Promise.resolve([]);
