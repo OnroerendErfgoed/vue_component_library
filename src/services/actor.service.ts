@@ -7,7 +7,7 @@ export interface IActorenQuery {
   omschrijving?: string;
   sort?: string;
   type?: ActorType;
-  geldige_actor?: string;
+  geldige_actor?: boolean;
 }
 
 export class ActorService extends HttpService {
@@ -39,8 +39,9 @@ export class ActorService extends HttpService {
 
   async getActoren(rangeStart: number, rangeEnd: number, query: IActorenQuery): Promise<IResponse<IActor>> {
     const contentRange = `items=${rangeStart}-${rangeEnd}`;
+    console.debug('query.geldige_actor', query.geldige_actor);
     if (query.geldige_actor === undefined) {
-      query.geldige_actor = 'true';
+      query.geldige_actor = true;
     }
     const { data, headers } = await this.get<IActor[]>(`${this.API_URL}/actoren`, {
       headers: {
