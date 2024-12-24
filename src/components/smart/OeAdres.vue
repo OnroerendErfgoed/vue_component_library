@@ -306,12 +306,13 @@ import {
 import { useVuelidate } from '@vuelidate/core';
 import { helpers } from '@vuelidate/validators';
 import { AxiosError } from 'axios';
-import { pick, sortBy, uniqBy } from 'lodash';
+import { cloneDeep, pick, sortBy, uniqBy } from 'lodash';
 import { computed, onMounted, ref, watch } from 'vue';
 import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
 import OeLoader from '@components/dumb/OeLoader.vue';
 import { CrabApiService } from '@services/crab-api.service';
 import { requiredIf } from '@utils/i18n-validators';
+import { removeEmptyValues } from '@utils/object';
 import type { IAdresProps } from '@models/adres';
 import type { IAutocompleteOption } from '@models/autocomplete';
 import type { IAdres, IGemeente, ILand, ILocatieAdres, IPostinfo, IStraat } from '@models/locatie';
@@ -451,7 +452,6 @@ const adres = computed<ILocatieAdres>(() => {
       };
     }
   }
-
   return {
     land: landValue,
     gemeente: gemeenteValue,
@@ -518,20 +518,22 @@ onMounted(() => {
   }
 
   if (props.adres) {
-    land.value = props.adres.land as ILand;
+    const adres = cloneDeep(props.adres);
+    removeEmptyValues(adres);
+
+    land.value = adres.land as ILand;
     if (isBelgium.value) {
-      props.adres.gemeente && (gemeente.value = props.adres.gemeente as IGemeente);
-      props.adres.postcode &&
-        (postcode.value = { postcode: props.adres.postcode.nummer, uri: props.adres.postcode.uri } as IPostinfo);
-      props.adres.straat && (straat.value = props.adres.straat as IStraat);
-      props.adres.adres && (huisnummer.value = props.adres.adres as IAdres);
-      props.adres.adres && (busnummer.value = props.adres.adres as IAdres);
+      adres.gemeente && (gemeente.value = adres.gemeente as IGemeente);
+      adres.postcode && (postcode.value = { postcode: adres.postcode.nummer, uri: adres.postcode.uri } as IPostinfo);
+      adres.straat && (straat.value = adres.straat as IStraat);
+      adres.adres && (huisnummer.value = adres.adres as IAdres);
+      adres.adres && (busnummer.value = adres.adres as IAdres);
     } else {
-      gemeente.value = props.adres.gemeente?.naam;
-      postcode.value = props.adres.postcode?.nummer;
-      straat.value = props.adres.straat?.naam;
-      huisnummer.value = props.adres.adres?.huisnummer;
-      busnummer.value = props.adres.adres?.busnummer;
+      gemeente.value = adres.gemeente?.naam;
+      postcode.value = adres.postcode?.nummer;
+      straat.value = adres.straat?.naam;
+      huisnummer.value = adres.adres?.huisnummer;
+      busnummer.value = adres.adres?.busnummer;
     }
   }
 });
