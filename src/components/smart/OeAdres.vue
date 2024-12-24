@@ -467,35 +467,30 @@ const rules = computed(() => ({
   gemeente: {
     naam: {
       requiredIf: helpers.withParams({ field: 'gemeente' }, requiredIf(!!props.config.gemeente?.required)),
-      $autoDirty: true,
     },
   },
   postcode: {
     nummer: {
       requiredIf: helpers.withParams({ field: 'postcode' }, requiredIf(!!props.config.postcode?.required)),
-      $autoDirty: true,
     },
   },
   straat: {
     naam: {
       requiredIf: helpers.withParams({ field: 'straat' }, requiredIf(!!props.config.straat?.required)),
-      $autoDirty: true,
     },
   },
   adres: {
     huisnummer: {
       requiredIf: helpers.withParams({ field: 'huisnummer' }, requiredIf(!!props.config.huisnummer?.required)),
-      $autoDirty: true,
     },
     busnummer: {
       requiredIf: helpers.withParams({ field: 'busnummer' }, requiredIf(!!props.config.busnummer?.required)),
-      $autoDirty: true,
     },
   },
 }));
 
 // Init validation instance
-const v$ = useVuelidate(rules, adres, { $lazy: true });
+const v$ = useVuelidate(rules, adres);
 defineExpose({ validate: () => v$.value.$validate() });
 
 // Reference data
