@@ -98,7 +98,7 @@ describe('FilterInput', () => {
       });
 
       it('clears the input field after filter was added', () => {
-        cy.get('.vl-input-field ').should('have.value', '');
+        cy.get('.vl-input-field ').last().should('have.value', '');
       });
 
       it('disables the filter add button if the input field is empty', () => {
