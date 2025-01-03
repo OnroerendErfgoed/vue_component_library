@@ -1267,10 +1267,10 @@
   resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-design-system-style/-/vl-ui-design-system-style-1.0.17.tgz#8d520914882874fe171c22acb4ac2fc459346203"
   integrity sha512-WcegOdpPtx0DNF7pnmZgK4LuoNSp4IhEDuYZGBuMNdi+v6aGIvTZz+84z9V6d8kgNz08+dykFZGDKZCIYwRpHQ==
 
-"@govflanders/vl-ui-design-system-vue3@^3.0.7":
-  version "3.0.7"
-  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-design-system-vue3/-/vl-ui-design-system-vue3-3.0.7.tgz#58559edcd6cfd87ce8fa2e1636da0c7aa6addd2b"
-  integrity sha512-Ys/jUIM2PQnYZiH8S4R/fJu1ephYCFytslIfWi8XYS1xGyh5Kk8dUcMQ1PHbMNwXJY3J2/NxUmhfT6E5c+mzkQ==
+"@govflanders/vl-ui-design-system-vue3@3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-design-system-vue3/-/vl-ui-design-system-vue3-3.0.2.tgz#642383298f39f3643379e8107f9f76fb577e377f"
+  integrity sha512-IWhJ5YtV0avKf23H3sOw76NPLK1D7ogL2MU7IWmjGQmXgOkgF7v0TEhGaZJojAZkHSv+YuVfHMk8lT+VNCJflA==
 
 "@govflanders/vl-ui-form-message@^18.1.4":
   version "18.1.4"
