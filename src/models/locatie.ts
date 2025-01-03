@@ -53,6 +53,7 @@ export interface IGemeente {
   naam: string;
   niscode: string;
   provincie: IProvincie;
+  status?: string;
 }
 
 export interface IPostinfo {

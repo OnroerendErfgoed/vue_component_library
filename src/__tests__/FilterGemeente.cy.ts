@@ -32,6 +32,7 @@ describe('FilterGemeente', () => {
                 provincie: {
                   niscode: '20001',
                 },
+                status: 'inGebruik',
               });
             });
 
@@ -41,6 +42,7 @@ describe('FilterGemeente', () => {
             provincie: {
               niscode: '20001',
             },
+            status: 'inGebruik',
           });
         });
       });
