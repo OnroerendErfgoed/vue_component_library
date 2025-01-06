@@ -1,6 +1,6 @@
 import { isEmpty, keys } from 'lodash';
 
-// eslint-disable @typescript-eslint/no-explicit-any
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const removeEmptyValues = (obj: Record<string, any>) => {
   keys(obj).forEach((key) => {
     if (isEmpty(obj[key])) {
