@@ -1,0 +1,154 @@
+[
+  {
+      "niscode": "21001",
+      "naam": "Anderlecht",
+      "provincie": {
+          "niscode": null
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "21002",
+      "naam": "Oudergem",
+      "provincie": {
+          "niscode": null
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "21003",
+      "naam": "Sint-Agatha-Berchem",
+      "provincie": {
+          "niscode": null
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "21004",
+      "naam": "Brussel",
+      "provincie": {
+          "niscode": null
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "21005",
+      "naam": "Etterbeek",
+      "provincie": {
+          "niscode": null
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "21006",
+      "naam": "Evere",
+      "provincie": {
+          "niscode": null
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "21007",
+      "naam": "Vorst",
+      "provincie": {
+          "niscode": null
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "21008",
+      "naam": "Ganshoren",
+      "provincie": {
+          "niscode": null
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "21009",
+      "naam": "Elsene",
+      "provincie": {
+          "niscode": null
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "21010",
+      "naam": "Jette",
+      "provincie": {
+          "niscode": null
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "21011",
+      "naam": "Koekelberg",
+      "provincie": {
+          "niscode": null
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "21012",
+      "naam": "Sint-Jans-Molenbeek",
+      "provincie": {
+          "niscode": null
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "21013",
+      "naam": "Sint-Gillis",
+      "provincie": {
+          "niscode": null
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "21014",
+      "naam": "Sint-Joost-ten-Node",
+      "provincie": {
+          "niscode": null
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "21015",
+      "naam": "Schaarbeek",
+      "provincie": {
+          "niscode": null
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "21016",
+      "naam": "Ukkel",
+      "provincie": {
+          "niscode": null
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "21017",
+      "naam": "Watermaal-Bosvoorde",
+      "provincie": {
+          "niscode": null
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "21018",
+      "naam": "Sint-Lambrechts-Woluwe",
+      "provincie": {
+          "niscode": null
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "21019",
+      "naam": "Sint-Pieters-Woluwe",
+      "provincie": {
+          "niscode": null
+      },
+      "status": "inGebruik"
+  }
+]

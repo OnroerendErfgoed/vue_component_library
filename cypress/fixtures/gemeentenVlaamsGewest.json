@@ -1,0 +1,2282 @@
+[
+  {
+      "niscode": "11001",
+      "naam": "Aartselaar",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "11002",
+      "naam": "Antwerpen",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "11004",
+      "naam": "Boechout",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "11005",
+      "naam": "Boom",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "11008",
+      "naam": "Brasschaat",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "11009",
+      "naam": "Brecht",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "11013",
+      "naam": "Edegem",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "11016",
+      "naam": "Essen",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "11018",
+      "naam": "Hemiksem",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "11021",
+      "naam": "Hove",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "11022",
+      "naam": "Kalmthout",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "11023",
+      "naam": "Kapellen",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "11024",
+      "naam": "Kontich",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "11025",
+      "naam": "Lint",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "11057",
+      "naam": "Malle",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "11029",
+      "naam": "Mortsel",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "11030",
+      "naam": "Niel",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "11035",
+      "naam": "Ranst",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "11037",
+      "naam": "Rumst",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "11038",
+      "naam": "Schelle",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "11039",
+      "naam": "Schilde",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "11040",
+      "naam": "Schoten",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "11044",
+      "naam": "Stabroek",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "11050",
+      "naam": "Wijnegem",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "11052",
+      "naam": "Wommelgem",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "11053",
+      "naam": "Wuustwezel",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "11054",
+      "naam": "Zandhoven",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "11055",
+      "naam": "Zoersel",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "12002",
+      "naam": "Berlaar",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "12005",
+      "naam": "Bonheiden",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "12007",
+      "naam": "Bornem",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "12009",
+      "naam": "Duffel",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "12014",
+      "naam": "Heist-op-den-Berg",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "12021",
+      "naam": "Lier",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "12025",
+      "naam": "Mechelen",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "12026",
+      "naam": "Nijlen",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "12029",
+      "naam": "Putte",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "12041",
+      "naam": "Puurs-Sint-Amands",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "12035",
+      "naam": "Sint-Katelijne-Waver",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "12040",
+      "naam": "Willebroek",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "13001",
+      "naam": "Arendonk",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "13002",
+      "naam": "Baarle-Hertog",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "13003",
+      "naam": "Balen",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "13004",
+      "naam": "Beerse",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "13006",
+      "naam": "Dessel",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "13008",
+      "naam": "Geel",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "13010",
+      "naam": "Grobbendonk",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "13011",
+      "naam": "Herentals",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "13012",
+      "naam": "Herenthout",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "13013",
+      "naam": "Herselt",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "13014",
+      "naam": "Hoogstraten",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "13016",
+      "naam": "Hulshout",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "13017",
+      "naam": "Kasterlee",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "13053",
+      "naam": "Laakdal",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "13019",
+      "naam": "Lille",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "13021",
+      "naam": "Meerhout",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "13023",
+      "naam": "Merksplas",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "13025",
+      "naam": "Mol",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "13029",
+      "naam": "Olen",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "13031",
+      "naam": "Oud-Turnhout",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "13035",
+      "naam": "Ravels",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "13036",
+      "naam": "Retie",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "13037",
+      "naam": "Rijkevorsel",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "13040",
+      "naam": "Turnhout",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "13044",
+      "naam": "Vorselaar",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "13046",
+      "naam": "Vosselaar",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "13049",
+      "naam": "Westerlo",
+      "provincie": {
+          "niscode": "10000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23105",
+      "naam": "Affligem",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23002",
+      "naam": "Asse",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23003",
+      "naam": "Beersel",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23009",
+      "naam": "Bever",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23016",
+      "naam": "Dilbeek",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23098",
+      "naam": "Drogenbos",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23025",
+      "naam": "Grimbergen",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23027",
+      "naam": "Halle",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23033",
+      "naam": "Hoeilaart",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23038",
+      "naam": "Kampenhout",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23039",
+      "naam": "Kapelle-op-den-Bos",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23099",
+      "naam": "Kraainem",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23104",
+      "naam": "Lennik",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23044",
+      "naam": "Liedekerke",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23100",
+      "naam": "Linkebeek",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23045",
+      "naam": "Londerzeel",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23047",
+      "naam": "Machelen",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23050",
+      "naam": "Meise",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23052",
+      "naam": "Merchtem",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23060",
+      "naam": "Opwijk",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23062",
+      "naam": "Overijse",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23064",
+      "naam": "Pepingen",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23101",
+      "naam": "Sint-Genesius-Rode",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23097",
+      "naam": "Roosdaal",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23077",
+      "naam": "Sint-Pieters-Leeuw",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23081",
+      "naam": "Steenokkerzeel",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23086",
+      "naam": "Ternat",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23088",
+      "naam": "Vilvoorde",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23102",
+      "naam": "Wemmel",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23103",
+      "naam": "Wezembeek-Oppem",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23094",
+      "naam": "Zaventem",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23096",
+      "naam": "Zemst",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24001",
+      "naam": "Aarschot",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24007",
+      "naam": "Begijnendijk",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24008",
+      "naam": "Bekkevoort",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24009",
+      "naam": "Bertem",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24011",
+      "naam": "Bierbeek",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24014",
+      "naam": "Boortmeerbeek",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24016",
+      "naam": "Boutersem",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24020",
+      "naam": "Diest",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24028",
+      "naam": "Geetbets",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24137",
+      "naam": "Glabbeek",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24033",
+      "naam": "Haacht",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24038",
+      "naam": "Herent",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24041",
+      "naam": "Hoegaarden",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24043",
+      "naam": "Holsbeek",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24045",
+      "naam": "Huldenberg",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24048",
+      "naam": "Keerbergen",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24054",
+      "naam": "Kortenaken",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24055",
+      "naam": "Kortenberg",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24059",
+      "naam": "Landen",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24130",
+      "naam": "Zoutleeuw",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24133",
+      "naam": "Linter",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24062",
+      "naam": "Leuven",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24066",
+      "naam": "Lubbeek",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24134",
+      "naam": "Scherpenheuvel-Zichem",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24086",
+      "naam": "Oud-Heverlee",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24094",
+      "naam": "Rotselaar",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24104",
+      "naam": "Tervuren",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24135",
+      "naam": "Tielt-Winge",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24107",
+      "naam": "Tienen",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "24109",
+      "naam": "Tremelo",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "31003",
+      "naam": "Beernem",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "31004",
+      "naam": "Blankenberge",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "31005",
+      "naam": "Brugge",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "31006",
+      "naam": "Damme",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "31012",
+      "naam": "Jabbeke",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "31043",
+      "naam": "Knokke-Heist",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "31022",
+      "naam": "Oostkamp",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "31033",
+      "naam": "Torhout",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "31040",
+      "naam": "Zedelgem",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "31042",
+      "naam": "Zuienkerke",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "34002",
+      "naam": "Anzegem",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "34003",
+      "naam": "Avelgem",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "34022",
+      "naam": "Kortrijk",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "34009",
+      "naam": "Deerlijk",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "34043",
+      "naam": "Spiere-Helkijn",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "34013",
+      "naam": "Harelbeke",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "34023",
+      "naam": "Kuurne",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "34025",
+      "naam": "Lendelede",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "34027",
+      "naam": "Menen",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "34040",
+      "naam": "Waregem",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "34041",
+      "naam": "Wevelgem",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "34042",
+      "naam": "Zwevegem",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "32003",
+      "naam": "Diksmuide",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "32006",
+      "naam": "Houthulst",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "32010",
+      "naam": "Koekelare",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "32011",
+      "naam": "Kortemark",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "32030",
+      "naam": "Lo-Reninge",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "38002",
+      "naam": "Alveringem",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "38025",
+      "naam": "Veurne",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "38014",
+      "naam": "Koksijde",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "38008",
+      "naam": "De Panne",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "38016",
+      "naam": "Nieuwpoort",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "35002",
+      "naam": "Bredene",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "35029",
+      "naam": "De Haan",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "35005",
+      "naam": "Gistel",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "35006",
+      "naam": "Ichtegem",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "35011",
+      "naam": "Middelkerke",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "35013",
+      "naam": "Oostende",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "35014",
+      "naam": "Oudenburg",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "36006",
+      "naam": "Hooglede",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "36007",
+      "naam": "Ingelmunster",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "36008",
+      "naam": "Izegem",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "36010",
+      "naam": "Ledegem",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "36011",
+      "naam": "Lichtervelde",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "36012",
+      "naam": "Moorslede",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "36015",
+      "naam": "Roeselare",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "36019",
+      "naam": "Staden",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "37020",
+      "naam": "Ardooie",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "37002",
+      "naam": "Dentergem",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "37010",
+      "naam": "Oostrozebeke",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "37011",
+      "naam": "Pittem",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "37017",
+      "naam": "Wielsbeke",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "33039",
+      "naam": "Heuvelland",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "33040",
+      "naam": "Langemark-Poelkapelle",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "33016",
+      "naam": "Mesen",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "33021",
+      "naam": "Poperinge",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "33041",
+      "naam": "Vleteren",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "33029",
+      "naam": "Wervik",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "33011",
+      "naam": "Ieper",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "33037",
+      "naam": "Zonnebeke",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "41002",
+      "naam": "Aalst",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "41011",
+      "naam": "Denderleeuw",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "41082",
+      "naam": "Erpe-Mere",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "41018",
+      "naam": "Geraardsbergen",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "41024",
+      "naam": "Haaltert",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "41027",
+      "naam": "Herzele",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "41034",
+      "naam": "Lede",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "41048",
+      "naam": "Ninove",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "41063",
+      "naam": "Sint-Lievens-Houtem",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "41081",
+      "naam": "Zottegem",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "45035",
+      "naam": "Oudenaarde",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "45059",
+      "naam": "Brakel",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "45062",
+      "naam": "Horebeke",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "45060",
+      "naam": "Kluisbergen",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "45068",
+      "naam": "Kruisem",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "45063",
+      "naam": "Lierde",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "45064",
+      "naam": "Maarkedal",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "45041",
+      "naam": "Ronse",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "45061",
+      "naam": "Wortegem-Petegem",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "45065",
+      "naam": "Zwalm",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "43002",
+      "naam": "Assenede",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "43005",
+      "naam": "Eeklo",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "43007",
+      "naam": "Kaprijke",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "43010",
+      "naam": "Maldegem",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "43014",
+      "naam": "Sint-Laureins",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "43018",
+      "naam": "Zelzate",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "44084",
+      "naam": "Aalter",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "44083",
+      "naam": "Deinze",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "44013",
+      "naam": "Destelbergen",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "44019",
+      "naam": "Evergem",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "44021",
+      "naam": "Gent",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "44020",
+      "naam": "Gavere",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "44085",
+      "naam": "Lievegem",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "44052",
+      "naam": "Oosterzele",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "44064",
+      "naam": "Sint-Martens-Latem",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "44081",
+      "naam": "Zulte",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "46021",
+      "naam": "Sint-Niklaas",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "46020",
+      "naam": "Sint-Gillis-Waas",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "46024",
+      "naam": "Stekene",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "46025",
+      "naam": "Temse",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "42003",
+      "naam": "Berlare",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "42004",
+      "naam": "Buggenhout",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "42008",
+      "naam": "Hamme",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "42010",
+      "naam": "Laarne",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "42011",
+      "naam": "Lebbeke",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "42006",
+      "naam": "Dendermonde",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "42023",
+      "naam": "Waasmunster",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "42025",
+      "naam": "Wetteren",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "42026",
+      "naam": "Wichelen",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "42028",
+      "naam": "Zele",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "71002",
+      "naam": "As",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "71004",
+      "naam": "Beringen",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "71034",
+      "naam": "Leopoldsburg",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "71011",
+      "naam": "Diepenbeek",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "71016",
+      "naam": "Genk",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "71017",
+      "naam": "Gingelom",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "71020",
+      "naam": "Halen",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "71024",
+      "naam": "Herk-de-Stad",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "71070",
+      "naam": "Heusden-Zolder",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "71037",
+      "naam": "Lummen",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "71045",
+      "naam": "Nieuwerkerken",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "71053",
+      "naam": "Sint-Truiden",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "71066",
+      "naam": "Zonhoven",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "71067",
+      "naam": "Zutendaal",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "72003",
+      "naam": "Bocholt",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "72004",
+      "naam": "Bree",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "72041",
+      "naam": "Dilsen-Stokkem",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "72037",
+      "naam": "Hamont-Achel",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "72038",
+      "naam": "Hechtel-Eksel",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "72039",
+      "naam": "Houthalen-Helchteren",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "72018",
+      "naam": "Kinrooi",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "72020",
+      "naam": "Lommel",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "72021",
+      "naam": "Maaseik",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "72042",
+      "naam": "Oudsbergen",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "72030",
+      "naam": "Peer",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "72043",
+      "naam": "Pelt",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "73001",
+      "naam": "Alken",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "73109",
+      "naam": "Voeren",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "73022",
+      "naam": "Heers",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "73028",
+      "naam": "Herstappe",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "73042",
+      "naam": "Lanaken",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "73107",
+      "naam": "Maasmechelen",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "73066",
+      "naam": "Riemst",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "73098",
+      "naam": "Wellen",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "46030",
+      "naam": "Beveren-Kruibeke-Zwijndrecht",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "73110",
+      "naam": "Bilzen-Hoeselt",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "73111",
+      "naam": "Tongeren-Borgloon",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "44086",
+      "naam": "Nazareth-De Pinte",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "71072",
+      "naam": "Hasselt",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "71071",
+      "naam": "Tessenderlo-Ham",
+      "provincie": {
+          "niscode": "70000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "37022",
+      "naam": "Tielt",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "44087",
+      "naam": "Lochristi",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "37021",
+      "naam": "Wingene",
+      "provincie": {
+          "niscode": "30000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "44088",
+      "naam": "Merelbeke-Melle",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "46029",
+      "naam": "Lokeren",
+      "provincie": {
+          "niscode": "40000"
+      },
+      "status": "inGebruik"
+  },
+  {
+      "niscode": "23106",
+      "naam": "Pajottegem",
+      "provincie": {
+          "niscode": "20001"
+      },
+      "status": "inGebruik"
+  }
+]

@@ -12,15 +12,16 @@ describe('FilterGemeente', () => {
         return { gemeenteValue, setValue };
       },
       template:
-        '<filter-gemeente api="https://dev-geo.onroerenderfgoed.be/" :value="gemeenteValue" @update:value="setValue"/>',
+        '<filter-gemeente api="https://test-geo.onroerenderfgoed.be/" :value="gemeenteValue" @update:value="setValue"/>',
     });
+
+    beforeEach(() => cy.mockAdressenregister());
 
     it('fetch gemeenten, filter and assign the chosen filter to the corresponding data value', () => {
       const onUpdateValueSpy = cy.spy().as('onUpdateValueSpy');
-      cy.intercept({ method: 'GET', url: 'https://dev-geo.onroerenderfgoed.be/**' }).as('dataGet');
 
       cy.mount(TestComponent, { props: { 'onUpdate:value': onUpdateValueSpy } }).then(({ component }) => {
-        cy.wait('@dataGet').then(() => {
+        cy.wait('@dataGetGemeentenVlaamsGewest').then(() => {
           cy.dataCy('filter-gemeente').click().find('.multiselect__input').type('Bertem');
           cy.dataCy('filter-gemeente')
             .find('.multiselect__element')

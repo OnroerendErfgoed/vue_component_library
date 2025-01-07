@@ -1,0 +1,37 @@
+[
+  {
+      "niscode": "10000",
+      "naam": "Antwerpen",
+      "gewest": {
+          "niscode": "2000"
+      }
+  },
+  {
+      "niscode": "20001",
+      "naam": "Vlaams-Brabant",
+      "gewest": {
+          "niscode": "2000"
+      }
+  },
+  {
+      "niscode": "30000",
+      "naam": "West-Vlaanderen",
+      "gewest": {
+          "niscode": "2000"
+      }
+  },
+  {
+      "niscode": "40000",
+      "naam": "Oost-Vlaanderen",
+      "gewest": {
+          "niscode": "2000"
+      }
+  },
+  {
+      "niscode": "70000",
+      "naam": "Limburg",
+      "gewest": {
+          "niscode": "2000"
+      }
+  }
+]

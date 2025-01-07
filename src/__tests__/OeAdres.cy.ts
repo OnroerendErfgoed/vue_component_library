@@ -15,6 +15,8 @@ describe('Adres', () => {
     template: '<Suspense><OeAdres ref="adresComponent" v-bind="attrs"/></Suspense>',
   });
 
+  beforeEach(() => cy.mockAdressenregister());
+
   it('renders', () => {
     mount(TestComponent);
   });
@@ -28,9 +30,6 @@ describe('Adres', () => {
     let adresComponent: Cypress.Chainable;
 
     beforeEach(() => {
-      cy.intercept({ method: 'GET', url: 'https://test-geo.onroerenderfgoed.be/adressenregister/landen' }).as(
-        'dataGetLanden'
-      );
       mount(TestComponent).then(({ component }) => {
         cy.wait('@dataGetLanden');
         cy.wrap(component.$nextTick()).then(() => {
@@ -729,9 +728,9 @@ describe('Adres', () => {
       });
     });
     it('sets the max amount of items at multi-select elements', () => {
+      cy.intercept({ method: 'GET', url: 'https://test-geo.onroerenderfgoed.be/**' }).as('dataGet');
       getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
 
-      cy.intercept({ method: 'GET', url: 'https://test-geo.onroerenderfgoed.be/**' }).as('dataGet');
       cy.wait('@dataGet');
 
       getMultiSelect('gemeente').click();
@@ -761,54 +760,29 @@ const fillInOeAdresBelgium = () => {
   // Country selection
   getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
 
-  cy.intercept({
-    method: 'GET',
-    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/gewesten/**/gemeenten?status=inGebruik',
-  }).as('dataGetGemeenten');
-
-  cy.intercept({
-    method: 'GET',
-    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/gemeenten/**/postinfo?status=inGebruik',
-  }).as('dataGetPostinfo');
-
-  cy.intercept({
-    method: 'GET',
-    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/gemeenten/**/straten?status=inGebruik',
-  }).as('dataGetStraten');
-
-  cy.intercept({
-    method: 'GET',
-    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/straten/**/adressen?status=inGebruik',
-  }).as('dataGetAdressen');
-
-  cy.intercept({
-    method: 'GET',
-    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/straten/**/huisnummers/416?status=inGebruik',
-  }).as('dataGetHuisnummer');
-
   // Gemeente selection
-  cy.wait('@dataGetGemeenten');
+  cy.wait('@dataGetGemeentenVlaamsGewest');
   setMultiSelectValue('gemeente', 'Bertem');
   getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Bertem');
 
   // Postcode selection
-  cy.wait('@dataGetPostinfo');
+  cy.wait('@dataGetPostinfoBertem');
 
   setMultiSelectValue('postcode', '3060');
   getMultiSelect('postcode').find('.multiselect__single').should('have.text', '3060');
 
   // Straat selection
-  cy.wait('@dataGetStraten');
+  cy.wait('@dataGetStratenBertem');
   setMultiSelectValue('straat', 'Dorpstraat');
   getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Dorpstraat');
 
   // Huisnummer with multiple busnummers
-  cy.wait('@dataGetAdressen');
+  cy.wait('@dataGetAdressenDorpstraatBertem');
   setAutocompleteValue('huisnummer', '416');
   getAutocompleteInput('huisnummer').should('have.value', '416');
 
   // Busnummer selection
-  cy.wait('@dataGetHuisnummer');
+  cy.wait('@dataGetHuisnummersDorpstraatBertem');
   setAutocompleteValue('busnummer', '010');
   getAutocompleteInput('busnummer').should('have.value', '0101');
 };
@@ -833,6 +807,5 @@ const setMultiSelectValue = (field: string, value: string) => {
 
 const setAutocompleteValue = (field: string, value: string) => {
   getAutocompleteInput(field).click();
-  cy.wait(2000);
   getAutocompleteInput(field).type(value);
 };
