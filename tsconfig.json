@@ -1,5 +1,4 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.web.json",
   "include": [
     "env.d.ts",
     "src/**/*",
@@ -7,7 +6,7 @@
     "src/**/*.ts",
     "src/**/*.json",
     "cypress/support/component.*",
-    "cypress/support/commands.ts",
+    "cypress/support/commands.ts"
   ],
   "exclude": ["src/stories/**"],
   "compilerOptions": {
@@ -19,18 +18,28 @@
       "@services/*": ["./src/services/*"],
       "@models/*": ["./src/models/*"],
       "@utils/*": ["./src/utils/*"],
-      "@/*": ["./src/*"],
+      "@/*": ["./src/*"]
     },
     "types": ["@intlify/unplugin-vue-i18n/messages", "vite/client"],
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "declaration": true,
+    "emitDeclarationOnly": true,
     "sourceMap": true,
     "isolatedModules": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "target": "ESNext",
     "module": "ESNext",
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
-  },
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true
+  }
 }

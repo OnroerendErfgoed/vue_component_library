@@ -1,34 +1,41 @@
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import vue from '@vitejs/plugin-vue';
+import { builtinModules } from 'module';
 import { resolve } from 'path';
+import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
-    target: 'esnext',
+    outDir: 'dist',
     lib: {
       entry: resolve(__dirname, 'src/main.ts'),
       name: 'VueComponents',
-      formats: ['es', 'cjs', 'umd'],
+      formats: ['es'],
       fileName: (format) => `vue-components.${format}.js`,
     },
     sourcemap: true,
     rollupOptions: {
-      external: ['vue', 'pinia'],
+      external: (id) => {
+        const externalModules = ['vue', 'pinia'];
+        // Exclude specific external modules, all node_modules, and built-in modules
+        return externalModules.includes(id) || id.includes('node_modules') || builtinModules.includes(id);
+      },
       output: {
         exports: 'named',
         assetFileNames: (assetInfo) => {
           if (assetInfo.name === 'style.css') return 'vue-components.css';
           return assetInfo.name as string;
         },
-        // Provide global variables to use in the UMD build
-        // Add external deps here
-        globals: {
-          vue: 'Vue',
-        },
       },
+      plugins: [
+        visualizer({
+          filename: 'dist/stats.html',
+          open: true,
+        }),
+      ],
     },
   },
   plugins: [

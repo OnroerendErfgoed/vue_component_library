@@ -1,0 +1,34 @@
+[
+  {
+      "id": "993686",
+      "uri": "https://data.vlaanderen.be/id/adres/993686",
+      "label": "Dorpstraat 416, 3061 Bertem",
+      "huisnummer": "416",
+      "busnummer": "",
+      "status": "inGebruik"
+  },
+  {
+      "id": "4409041",
+      "uri": "https://data.vlaanderen.be/id/adres/4409041",
+      "label": "Dorpstraat 416 bus 0101, 3061 Bertem",
+      "huisnummer": "416",
+      "busnummer": "0101",
+      "status": "inGebruik"
+  },
+  {
+      "id": "4627351",
+      "uri": "https://data.vlaanderen.be/id/adres/4627351",
+      "label": "Dorpstraat 416 bus 0201, 3061 Bertem",
+      "huisnummer": "416",
+      "busnummer": "0201",
+      "status": "inGebruik"
+  },
+  {
+      "id": "4704353",
+      "uri": "https://data.vlaanderen.be/id/adres/4704353",
+      "label": "Dorpstraat 416 bus 0001, 3061 Bertem",
+      "huisnummer": "416",
+      "busnummer": "0001",
+      "status": "inGebruik"
+  }
+]
