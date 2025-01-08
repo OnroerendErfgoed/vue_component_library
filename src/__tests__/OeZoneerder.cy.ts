@@ -1,4 +1,3 @@
-/* eslint-disable vue/one-component-per-file */
 import { defineComponent } from 'vue';
 import { LayerType } from '@/models';
 import { OeZoneerder } from '@components/smart';

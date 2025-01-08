@@ -523,17 +523,19 @@ onMounted(() => {
 
     land.value = adres.land as ILand;
     if (isBelgium.value) {
-      adres.gemeente && (gemeente.value = adres.gemeente as IGemeente);
-      adres.postcode && (postcode.value = { postcode: adres.postcode.nummer, uri: adres.postcode.uri } as IPostinfo);
-      adres.straat && (straat.value = adres.straat as IStraat);
-      adres.adres && (huisnummer.value = adres.adres as IAdres);
-      adres.adres && (busnummer.value = adres.adres as IAdres);
+      if (adres.gemeente) gemeente.value = adres.gemeente as IGemeente;
+      if (adres.postcode) postcode.value = { postcode: adres.postcode.nummer, uri: adres.postcode.uri } as IPostinfo;
+      if (adres.straat) straat.value = adres.straat as IStraat;
+      if (adres.adres) {
+        huisnummer.value = adres.adres as IAdres;
+        busnummer.value = adres.adres as IAdres;
+      }
     } else {
-      gemeente.value = adres.gemeente?.naam;
-      postcode.value = adres.postcode?.nummer;
-      straat.value = adres.straat?.naam;
-      huisnummer.value = adres.adres?.huisnummer;
-      busnummer.value = adres.adres?.busnummer;
+      gemeente.value = adres.gemeente?.naam || '';
+      postcode.value = adres.postcode?.nummer || '';
+      straat.value = adres.straat?.naam || '';
+      huisnummer.value = adres.adres?.huisnummer || '';
+      busnummer.value = adres.adres?.busnummer || '';
     }
   }
 });
