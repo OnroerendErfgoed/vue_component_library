@@ -1,0 +1,19 @@
+[
+  {
+      "postcode": "3060",
+      "uri": "https://data.vlaanderen.be/id/postinfo/3060",
+      "status": "gerealiseerd",
+      "namen": [
+          "BERTEM",
+          "Korbeek-Dijle"
+      ]
+  },
+  {
+      "postcode": "3061",
+      "uri": "https://data.vlaanderen.be/id/postinfo/3061",
+      "status": "gerealiseerd",
+      "namen": [
+          "Leefdaal"
+      ]
+  }
+]

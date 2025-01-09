@@ -2,7 +2,7 @@
 import OeActorWidget from '../components/smart/OeActorWidget.vue';
 import { defineComponent } from 'vue';
 import { ActorType } from '@models/actor';
-import type { Interception } from 'cypress/types/net-stubbing';
+import type { Interception } from 'node_modules/cypress/types/net-stubbing';
 
 describe('OeActorWidget', () => {
   describe('default', () => {

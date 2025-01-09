@@ -23,7 +23,7 @@
     <layerswitcher @layerswitcher:mounted="addLayerswitcherControl"></layerswitcher>
     <zone-panel
       v-model:zone="zone"
-      v-model:selectPerceel="selectPerceel"
+      v-model:select-perceel="selectPerceel"
       :draw-panel-enabled="props.drawPanelEnabled"
       @zone-panel:mounted="addZonePanelControl"
     ></zone-panel>

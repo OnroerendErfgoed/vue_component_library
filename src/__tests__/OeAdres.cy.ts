@@ -1,5 +1,5 @@
 import { mount } from 'cypress/vue';
-import { defineComponent, useAttrs } from 'vue';
+import { defineComponent, ref, useAttrs } from 'vue';
 import OeAdres from '@components/smart/OeAdres.vue';
 import type { IAdresConfig } from '@models/adres';
 
@@ -8,10 +8,14 @@ describe('Adres', () => {
     components: { OeAdres },
     setup() {
       const attrs = useAttrs();
-      return { attrs };
+      const adresComponent = ref();
+
+      return { attrs, adresComponent };
     },
-    template: '<Suspense><OeAdres v-bind="attrs"/></Suspense>',
+    template: '<Suspense><OeAdres ref="adresComponent" v-bind="attrs"/></Suspense>',
   });
+
+  beforeEach(() => cy.mockAdressenregister());
 
   it('renders', () => {
     mount(TestComponent);
@@ -23,12 +27,15 @@ describe('Adres', () => {
   });
 
   describe('form - default', () => {
+    let adresComponent: Cypress.Chainable;
+
     beforeEach(() => {
-      cy.intercept({ method: 'GET', url: 'https://test-geo.onroerenderfgoed.be/adressenregister/landen' }).as(
-        'dataGetLanden'
-      );
-      mount(TestComponent);
-      cy.wait('@dataGetLanden');
+      mount(TestComponent).then(({ component }) => {
+        cy.wait('@dataGetLanden');
+        cy.wrap(component.$nextTick()).then(() => {
+          adresComponent = component.adresComponent;
+        });
+      });
     });
 
     it('has an input label land', () => {
@@ -120,10 +127,12 @@ describe('Adres', () => {
         getAutocompleteInput('busnummer').should('have.value', '');
       });
 
-      it('triggers required validation after fields are touched and emptied', () => {
+      it('triggers required validation after validate function is invoked', () => {
         fillInOeAdresBelgium();
 
         getMultiSelect('land').select(2).select(1);
+
+        cy.wrap(adresComponent).should('not.be.undefined').invoke('validate');
 
         getMultiSelect('gemeente').parent().should('have.class', 'vl-multiselect--error');
         getFormError('gemeente').should('have.text', 'Het veld gemeente is verplicht.');
@@ -199,10 +208,12 @@ describe('Adres', () => {
         getTextInput('busnummer').should('have.text', '');
       });
 
-      it('triggers required validation after fields are touched and emptied', () => {
+      it('triggers required validation after validate function is invoked', () => {
         fillInOeAdresOther();
 
         getMultiSelect('land').select(3);
+
+        cy.wrap(adresComponent).should('not.be.undefined').invoke('validate');
 
         getTextInput('gemeente').should('have.class', 'vl-input-field--error');
         getFormError('gemeente').should('have.text', 'Het veld gemeente is verplicht.');
@@ -281,6 +292,8 @@ describe('Adres', () => {
         template: '<Suspense><OeAdres v-model:adres="adres"/></Suspense>',
       });
 
+      cy.wait('@dataGetGemeentenVlaamsGewest');
+
       getMultiSelect('land').find(':selected').should('have.text', 'België');
       getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Bertem');
       getMultiSelect('postcode').find('.multiselect__single').should('have.text', '3060');
@@ -318,6 +331,8 @@ describe('Adres', () => {
         }),
         template: '<Suspense><OeAdres v-model:adres="adres"/></Suspense>',
       });
+
+      cy.wait('@dataGetGemeentenBrusselsHoofdstedelijkGewest');
 
       getMultiSelect('land').find(':selected').should('have.text', 'België');
       getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Brussel');
@@ -361,6 +376,8 @@ describe('Adres', () => {
         }),
         template: '<Suspense><OeAdres v-model:adres="adres"/></Suspense>',
       });
+
+      cy.wait('@dataGetGemeentenVlaamsGewest');
 
       getMultiSelect('land').find(':selected').should('have.text', 'België');
       getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Bierbeek');
@@ -439,6 +456,8 @@ describe('Adres', () => {
   });
 
   describe('form - custom config', () => {
+    let adresComponent: Cypress.Chainable;
+
     describe('applies custom configuration to free-text fields - land and gemeente required', () => {
       const config: IAdresConfig = {
         land: {
@@ -462,9 +481,23 @@ describe('Adres', () => {
       };
 
       beforeEach(() => {
+        cy.intercept({ method: 'GET', url: 'https://test-geo.onroerenderfgoed.be/adressenregister/landen' }).as(
+          'dataGetLanden'
+        );
+
         mount(TestComponent, {
-          data: () => ({ config }),
-          template: '<Suspense><OeAdres :config="config"/></Suspense>',
+          setup() {
+            const adresComponent = ref();
+            const c = config;
+
+            return { c, adresComponent };
+          },
+          template: '<Suspense><OeAdres ref="adresComponent" :config="c"/></Suspense>',
+        }).then(({ component }) => {
+          cy.wait('@dataGetLanden');
+          cy.wrap(component.$nextTick()).then(() => {
+            adresComponent = component.adresComponent;
+          });
         });
       });
 
@@ -492,10 +525,12 @@ describe('Adres', () => {
         getLabel('busnummer').should('have.text', 'Busnummer');
       });
 
-      it('triggers required validation after fields are touched and emptied', () => {
+      it('triggers required validation after validate function is invoked', () => {
         fillInOeAdresOther();
 
         getMultiSelect('land').select(3);
+
+        cy.wrap(adresComponent).should('not.be.undefined').invoke('validate');
 
         getTextInput('gemeente').should('have.class', 'vl-input-field--error');
         getFormError('gemeente').should('have.text', 'Het veld gemeente is verplicht.');
@@ -537,9 +572,23 @@ describe('Adres', () => {
       };
 
       beforeEach(() => {
+        cy.intercept({ method: 'GET', url: 'https://test-geo.onroerenderfgoed.be/adressenregister/landen' }).as(
+          'dataGetLanden'
+        );
+
         mount(TestComponent, {
-          data: () => ({ config }),
-          template: '<Suspense><OeAdres :config="config"/></Suspense>',
+          setup() {
+            const adresComponent = ref();
+            const c = config;
+
+            return { c, adresComponent };
+          },
+          template: '<Suspense><OeAdres ref="adresComponent" :config="c"/></Suspense>',
+        }).then(({ component }) => {
+          cy.wait('@dataGetLanden');
+          cy.wrap(component.$nextTick()).then(() => {
+            adresComponent = component.adresComponent;
+          });
         });
       });
 
@@ -567,10 +616,12 @@ describe('Adres', () => {
         getLabel('busnummer').should('have.text', 'Busnummer');
       });
 
-      it('triggers required validation after fields are touched and emptied', () => {
+      it('triggers required validation after validate function is invoked', () => {
         fillInOeAdresOther();
 
         getMultiSelect('land').select(3);
+
+        cy.wrap(adresComponent).should('not.be.undefined').invoke('validate');
 
         getTextInput('gemeente').should('have.class', 'vl-input-field--error');
         getFormError('gemeente').should('have.text', 'Het veld gemeente is verplicht.');
@@ -612,16 +663,32 @@ describe('Adres', () => {
       };
 
       beforeEach(() => {
+        cy.intercept({ method: 'GET', url: 'https://test-geo.onroerenderfgoed.be/adressenregister/landen' }).as(
+          'dataGetLanden'
+        );
+
         mount(TestComponent, {
-          data: () => ({ config }),
-          template: '<Suspense><OeAdres :config="config"/></Suspense>',
+          setup() {
+            const adresComponent = ref();
+            const c = config;
+
+            return { c, adresComponent };
+          },
+          template: '<Suspense><OeAdres ref="adresComponent" :config="c"/></Suspense>',
+        }).then(({ component }) => {
+          cy.wait('@dataGetLanden');
+          cy.wrap(component.$nextTick()).then(() => {
+            adresComponent = component.adresComponent;
+          });
         });
       });
 
-      it('triggers required validation after fields are touched and emptied', () => {
+      it('triggers required validation after validate function is invoked', () => {
         fillInOeAdresBelgium();
 
         getMultiSelect('land').select(3).select(1);
+
+        cy.wrap(adresComponent).should('not.be.undefined').invoke('validate');
 
         getMultiSelect('gemeente').parent().should('have.class', 'vl-multiselect--error');
         getFormError('gemeente').should('have.text', 'Het veld gemeente is verplicht.');
@@ -667,9 +734,9 @@ describe('Adres', () => {
       });
     });
     it('sets the max amount of items at multi-select elements', () => {
+      cy.intercept({ method: 'GET', url: 'https://test-geo.onroerenderfgoed.be/**' }).as('dataGet');
       getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
 
-      cy.intercept({ method: 'GET', url: 'https://test-geo.onroerenderfgoed.be/**' }).as('dataGet');
       cy.wait('@dataGet');
 
       getMultiSelect('gemeente').click();
@@ -699,54 +766,29 @@ const fillInOeAdresBelgium = () => {
   // Country selection
   getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
 
-  cy.intercept({
-    method: 'GET',
-    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/gewesten/**/gemeenten?status=inGebruik',
-  }).as('dataGetGemeenten');
-
-  cy.intercept({
-    method: 'GET',
-    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/gemeenten/**/postinfo?status=inGebruik',
-  }).as('dataGetPostinfo');
-
-  cy.intercept({
-    method: 'GET',
-    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/gemeenten/**/straten?status=inGebruik',
-  }).as('dataGetStraten');
-
-  cy.intercept({
-    method: 'GET',
-    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/straten/**/adressen?status=inGebruik',
-  }).as('dataGetAdressen');
-
-  cy.intercept({
-    method: 'GET',
-    url: 'https://test-geo.onroerenderfgoed.be/adressenregister/straten/**/huisnummers/416?status=inGebruik',
-  }).as('dataGetHuisnummer');
-
   // Gemeente selection
-  cy.wait('@dataGetGemeenten');
+  cy.wait('@dataGetGemeentenVlaamsGewest');
   setMultiSelectValue('gemeente', 'Bertem');
   getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Bertem');
 
   // Postcode selection
-  cy.wait('@dataGetPostinfo');
+  cy.wait('@dataGetPostinfoBertem');
 
   setMultiSelectValue('postcode', '3060');
   getMultiSelect('postcode').find('.multiselect__single').should('have.text', '3060');
 
   // Straat selection
-  cy.wait('@dataGetStraten');
+  cy.wait('@dataGetStratenBertem');
   setMultiSelectValue('straat', 'Dorpstraat');
   getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Dorpstraat');
 
   // Huisnummer with multiple busnummers
-  cy.wait('@dataGetAdressen');
+  cy.wait('@dataGetAdressenDorpstraatBertem');
   setAutocompleteValue('huisnummer', '416');
   getAutocompleteInput('huisnummer').should('have.value', '416');
 
   // Busnummer selection
-  cy.wait('@dataGetHuisnummer');
+  cy.wait('@dataGetHuisnummersDorpstraatBertem');
   setAutocompleteValue('busnummer', '010');
   getAutocompleteInput('busnummer').should('have.value', '0101');
 };
@@ -771,6 +813,5 @@ const setMultiSelectValue = (field: string, value: string) => {
 
 const setAutocompleteValue = (field: string, value: string) => {
   getAutocompleteInput(field).click();
-  cy.wait(2000);
   getAutocompleteInput(field).type(value);
 };

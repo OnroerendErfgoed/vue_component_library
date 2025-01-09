@@ -1,0 +1,14 @@
+[
+  {
+      "naam": "Brussels Hoofdstedelijk Gewest",
+      "niscode": "4000"
+  },
+  {
+      "naam": "Vlaams Gewest",
+      "niscode": "2000"
+  },
+  {
+      "naam": "Waals Gewest",
+      "niscode": "3000"
+  }
+]

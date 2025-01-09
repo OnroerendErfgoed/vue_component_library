@@ -15,7 +15,7 @@
       ></grid>
       <detail
         v-if="state === ActorWidgetState.Detail"
-        :actor="selectedActor"
+        :actor="selectedActor as IActor"
         data-cy="actor-widget-detail"
         @set-state-grid="state = ActorWidgetState.Grid"
       ></detail>

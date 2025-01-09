@@ -1,0 +1,37 @@
+[
+  {
+      "niscode": "20002",
+      "naam": "Waals-Brabant",
+      "gewest": {
+          "niscode": "3000"
+      }
+  },
+  {
+      "niscode": "50000",
+      "naam": "Henegouwen",
+      "gewest": {
+          "niscode": "3000"
+      }
+  },
+  {
+      "niscode": "60000",
+      "naam": "Luik",
+      "gewest": {
+          "niscode": "3000"
+      }
+  },
+  {
+      "niscode": "80000",
+      "naam": "Luxemburg",
+      "gewest": {
+          "niscode": "3000"
+      }
+  },
+  {
+      "niscode": "90000",
+      "naam": "Namen",
+      "gewest": {
+          "niscode": "3000"
+      }
+  }
+]

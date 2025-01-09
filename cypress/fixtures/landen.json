@@ -1,0 +1,1247 @@
+[
+    {
+        "code": "AW",
+        "naam": "Aruba",
+        "vlag": "\ud83c\udde6\ud83c\uddfc"
+    },
+    {
+        "code": "AF",
+        "naam": "Afghanistan",
+        "vlag": "\ud83c\udde6\ud83c\uddeb"
+    },
+    {
+        "code": "AO",
+        "naam": "Angola",
+        "vlag": "\ud83c\udde6\ud83c\uddf4"
+    },
+    {
+        "code": "AI",
+        "naam": "Anguilla",
+        "vlag": "\ud83c\udde6\ud83c\uddee"
+    },
+    {
+        "code": "AX",
+        "naam": "\u00c5land Islands",
+        "vlag": "\ud83c\udde6\ud83c\uddfd"
+    },
+    {
+        "code": "AL",
+        "naam": "Albania",
+        "vlag": "\ud83c\udde6\ud83c\uddf1"
+    },
+    {
+        "code": "AD",
+        "naam": "Andorra",
+        "vlag": "\ud83c\udde6\ud83c\udde9"
+    },
+    {
+        "code": "AE",
+        "naam": "United Arab Emirates",
+        "vlag": "\ud83c\udde6\ud83c\uddea"
+    },
+    {
+        "code": "AR",
+        "naam": "Argentina",
+        "vlag": "\ud83c\udde6\ud83c\uddf7"
+    },
+    {
+        "code": "AM",
+        "naam": "Armenia",
+        "vlag": "\ud83c\udde6\ud83c\uddf2"
+    },
+    {
+        "code": "AS",
+        "naam": "American Samoa",
+        "vlag": "\ud83c\udde6\ud83c\uddf8"
+    },
+    {
+        "code": "AQ",
+        "naam": "Antarctica",
+        "vlag": "\ud83c\udde6\ud83c\uddf6"
+    },
+    {
+        "code": "TF",
+        "naam": "French Southern Territories",
+        "vlag": "\ud83c\uddf9\ud83c\uddeb"
+    },
+    {
+        "code": "AG",
+        "naam": "Antigua and Barbuda",
+        "vlag": "\ud83c\udde6\ud83c\uddec"
+    },
+    {
+        "code": "AU",
+        "naam": "Australia",
+        "vlag": "\ud83c\udde6\ud83c\uddfa"
+    },
+    {
+        "code": "AT",
+        "naam": "Austria",
+        "vlag": "\ud83c\udde6\ud83c\uddf9"
+    },
+    {
+        "code": "AZ",
+        "naam": "Azerbaijan",
+        "vlag": "\ud83c\udde6\ud83c\uddff"
+    },
+    {
+        "code": "BI",
+        "naam": "Burundi",
+        "vlag": "\ud83c\udde7\ud83c\uddee"
+    },
+    {
+        "code": "BE",
+        "naam": "Belgium",
+        "vlag": "\ud83c\udde7\ud83c\uddea"
+    },
+    {
+        "code": "BJ",
+        "naam": "Benin",
+        "vlag": "\ud83c\udde7\ud83c\uddef"
+    },
+    {
+        "code": "BQ",
+        "naam": "Bonaire, Sint Eustatius and Saba",
+        "vlag": "\ud83c\udde7\ud83c\uddf6"
+    },
+    {
+        "code": "BF",
+        "naam": "Burkina Faso",
+        "vlag": "\ud83c\udde7\ud83c\uddeb"
+    },
+    {
+        "code": "BD",
+        "naam": "Bangladesh",
+        "vlag": "\ud83c\udde7\ud83c\udde9"
+    },
+    {
+        "code": "BG",
+        "naam": "Bulgaria",
+        "vlag": "\ud83c\udde7\ud83c\uddec"
+    },
+    {
+        "code": "BH",
+        "naam": "Bahrain",
+        "vlag": "\ud83c\udde7\ud83c\udded"
+    },
+    {
+        "code": "BS",
+        "naam": "Bahamas",
+        "vlag": "\ud83c\udde7\ud83c\uddf8"
+    },
+    {
+        "code": "BA",
+        "naam": "Bosnia and Herzegovina",
+        "vlag": "\ud83c\udde7\ud83c\udde6"
+    },
+    {
+        "code": "BL",
+        "naam": "Saint Barth\u00e9lemy",
+        "vlag": "\ud83c\udde7\ud83c\uddf1"
+    },
+    {
+        "code": "BY",
+        "naam": "Belarus",
+        "vlag": "\ud83c\udde7\ud83c\uddfe"
+    },
+    {
+        "code": "BZ",
+        "naam": "Belize",
+        "vlag": "\ud83c\udde7\ud83c\uddff"
+    },
+    {
+        "code": "BM",
+        "naam": "Bermuda",
+        "vlag": "\ud83c\udde7\ud83c\uddf2"
+    },
+    {
+        "code": "BO",
+        "naam": "Bolivia, Plurinational State of",
+        "vlag": "\ud83c\udde7\ud83c\uddf4"
+    },
+    {
+        "code": "BR",
+        "naam": "Brazil",
+        "vlag": "\ud83c\udde7\ud83c\uddf7"
+    },
+    {
+        "code": "BB",
+        "naam": "Barbados",
+        "vlag": "\ud83c\udde7\ud83c\udde7"
+    },
+    {
+        "code": "BN",
+        "naam": "Brunei Darussalam",
+        "vlag": "\ud83c\udde7\ud83c\uddf3"
+    },
+    {
+        "code": "BT",
+        "naam": "Bhutan",
+        "vlag": "\ud83c\udde7\ud83c\uddf9"
+    },
+    {
+        "code": "BV",
+        "naam": "Bouvet Island",
+        "vlag": "\ud83c\udde7\ud83c\uddfb"
+    },
+    {
+        "code": "BW",
+        "naam": "Botswana",
+        "vlag": "\ud83c\udde7\ud83c\uddfc"
+    },
+    {
+        "code": "CF",
+        "naam": "Central African Republic",
+        "vlag": "\ud83c\udde8\ud83c\uddeb"
+    },
+    {
+        "code": "CA",
+        "naam": "Canada",
+        "vlag": "\ud83c\udde8\ud83c\udde6"
+    },
+    {
+        "code": "CC",
+        "naam": "Cocos (Keeling) Islands",
+        "vlag": "\ud83c\udde8\ud83c\udde8"
+    },
+    {
+        "code": "CH",
+        "naam": "Switzerland",
+        "vlag": "\ud83c\udde8\ud83c\udded"
+    },
+    {
+        "code": "CL",
+        "naam": "Chile",
+        "vlag": "\ud83c\udde8\ud83c\uddf1"
+    },
+    {
+        "code": "CN",
+        "naam": "China",
+        "vlag": "\ud83c\udde8\ud83c\uddf3"
+    },
+    {
+        "code": "CI",
+        "naam": "C\u00f4te d'Ivoire",
+        "vlag": "\ud83c\udde8\ud83c\uddee"
+    },
+    {
+        "code": "CM",
+        "naam": "Cameroon",
+        "vlag": "\ud83c\udde8\ud83c\uddf2"
+    },
+    {
+        "code": "CD",
+        "naam": "Congo, The Democratic Republic of the",
+        "vlag": "\ud83c\udde8\ud83c\udde9"
+    },
+    {
+        "code": "CG",
+        "naam": "Congo",
+        "vlag": "\ud83c\udde8\ud83c\uddec"
+    },
+    {
+        "code": "CK",
+        "naam": "Cook Islands",
+        "vlag": "\ud83c\udde8\ud83c\uddf0"
+    },
+    {
+        "code": "CO",
+        "naam": "Colombia",
+        "vlag": "\ud83c\udde8\ud83c\uddf4"
+    },
+    {
+        "code": "KM",
+        "naam": "Comoros",
+        "vlag": "\ud83c\uddf0\ud83c\uddf2"
+    },
+    {
+        "code": "CV",
+        "naam": "Cabo Verde",
+        "vlag": "\ud83c\udde8\ud83c\uddfb"
+    },
+    {
+        "code": "CR",
+        "naam": "Costa Rica",
+        "vlag": "\ud83c\udde8\ud83c\uddf7"
+    },
+    {
+        "code": "CU",
+        "naam": "Cuba",
+        "vlag": "\ud83c\udde8\ud83c\uddfa"
+    },
+    {
+        "code": "CW",
+        "naam": "Cura\u00e7ao",
+        "vlag": "\ud83c\udde8\ud83c\uddfc"
+    },
+    {
+        "code": "CX",
+        "naam": "Christmas Island",
+        "vlag": "\ud83c\udde8\ud83c\uddfd"
+    },
+    {
+        "code": "KY",
+        "naam": "Cayman Islands",
+        "vlag": "\ud83c\uddf0\ud83c\uddfe"
+    },
+    {
+        "code": "CY",
+        "naam": "Cyprus",
+        "vlag": "\ud83c\udde8\ud83c\uddfe"
+    },
+    {
+        "code": "CZ",
+        "naam": "Czechia",
+        "vlag": "\ud83c\udde8\ud83c\uddff"
+    },
+    {
+        "code": "DE",
+        "naam": "Germany",
+        "vlag": "\ud83c\udde9\ud83c\uddea"
+    },
+    {
+        "code": "DJ",
+        "naam": "Djibouti",
+        "vlag": "\ud83c\udde9\ud83c\uddef"
+    },
+    {
+        "code": "DM",
+        "naam": "Dominica",
+        "vlag": "\ud83c\udde9\ud83c\uddf2"
+    },
+    {
+        "code": "DK",
+        "naam": "Denmark",
+        "vlag": "\ud83c\udde9\ud83c\uddf0"
+    },
+    {
+        "code": "DO",
+        "naam": "Dominican Republic",
+        "vlag": "\ud83c\udde9\ud83c\uddf4"
+    },
+    {
+        "code": "DZ",
+        "naam": "Algeria",
+        "vlag": "\ud83c\udde9\ud83c\uddff"
+    },
+    {
+        "code": "EC",
+        "naam": "Ecuador",
+        "vlag": "\ud83c\uddea\ud83c\udde8"
+    },
+    {
+        "code": "EG",
+        "naam": "Egypt",
+        "vlag": "\ud83c\uddea\ud83c\uddec"
+    },
+    {
+        "code": "ER",
+        "naam": "Eritrea",
+        "vlag": "\ud83c\uddea\ud83c\uddf7"
+    },
+    {
+        "code": "EH",
+        "naam": "Western Sahara",
+        "vlag": "\ud83c\uddea\ud83c\udded"
+    },
+    {
+        "code": "ES",
+        "naam": "Spain",
+        "vlag": "\ud83c\uddea\ud83c\uddf8"
+    },
+    {
+        "code": "EE",
+        "naam": "Estonia",
+        "vlag": "\ud83c\uddea\ud83c\uddea"
+    },
+    {
+        "code": "ET",
+        "naam": "Ethiopia",
+        "vlag": "\ud83c\uddea\ud83c\uddf9"
+    },
+    {
+        "code": "FI",
+        "naam": "Finland",
+        "vlag": "\ud83c\uddeb\ud83c\uddee"
+    },
+    {
+        "code": "FJ",
+        "naam": "Fiji",
+        "vlag": "\ud83c\uddeb\ud83c\uddef"
+    },
+    {
+        "code": "FK",
+        "naam": "Falkland Islands (Malvinas)",
+        "vlag": "\ud83c\uddeb\ud83c\uddf0"
+    },
+    {
+        "code": "FR",
+        "naam": "France",
+        "vlag": "\ud83c\uddeb\ud83c\uddf7"
+    },
+    {
+        "code": "FO",
+        "naam": "Faroe Islands",
+        "vlag": "\ud83c\uddeb\ud83c\uddf4"
+    },
+    {
+        "code": "FM",
+        "naam": "Micronesia, Federated States of",
+        "vlag": "\ud83c\uddeb\ud83c\uddf2"
+    },
+    {
+        "code": "GA",
+        "naam": "Gabon",
+        "vlag": "\ud83c\uddec\ud83c\udde6"
+    },
+    {
+        "code": "GB",
+        "naam": "United Kingdom",
+        "vlag": "\ud83c\uddec\ud83c\udde7"
+    },
+    {
+        "code": "GE",
+        "naam": "Georgia",
+        "vlag": "\ud83c\uddec\ud83c\uddea"
+    },
+    {
+        "code": "GG",
+        "naam": "Guernsey",
+        "vlag": "\ud83c\uddec\ud83c\uddec"
+    },
+    {
+        "code": "GH",
+        "naam": "Ghana",
+        "vlag": "\ud83c\uddec\ud83c\udded"
+    },
+    {
+        "code": "GI",
+        "naam": "Gibraltar",
+        "vlag": "\ud83c\uddec\ud83c\uddee"
+    },
+    {
+        "code": "GN",
+        "naam": "Guinea",
+        "vlag": "\ud83c\uddec\ud83c\uddf3"
+    },
+    {
+        "code": "GP",
+        "naam": "Guadeloupe",
+        "vlag": "\ud83c\uddec\ud83c\uddf5"
+    },
+    {
+        "code": "GM",
+        "naam": "Gambia",
+        "vlag": "\ud83c\uddec\ud83c\uddf2"
+    },
+    {
+        "code": "GW",
+        "naam": "Guinea-Bissau",
+        "vlag": "\ud83c\uddec\ud83c\uddfc"
+    },
+    {
+        "code": "GQ",
+        "naam": "Equatorial Guinea",
+        "vlag": "\ud83c\uddec\ud83c\uddf6"
+    },
+    {
+        "code": "GR",
+        "naam": "Greece",
+        "vlag": "\ud83c\uddec\ud83c\uddf7"
+    },
+    {
+        "code": "GD",
+        "naam": "Grenada",
+        "vlag": "\ud83c\uddec\ud83c\udde9"
+    },
+    {
+        "code": "GL",
+        "naam": "Greenland",
+        "vlag": "\ud83c\uddec\ud83c\uddf1"
+    },
+    {
+        "code": "GT",
+        "naam": "Guatemala",
+        "vlag": "\ud83c\uddec\ud83c\uddf9"
+    },
+    {
+        "code": "GF",
+        "naam": "French Guiana",
+        "vlag": "\ud83c\uddec\ud83c\uddeb"
+    },
+    {
+        "code": "GU",
+        "naam": "Guam",
+        "vlag": "\ud83c\uddec\ud83c\uddfa"
+    },
+    {
+        "code": "GY",
+        "naam": "Guyana",
+        "vlag": "\ud83c\uddec\ud83c\uddfe"
+    },
+    {
+        "code": "HK",
+        "naam": "Hong Kong",
+        "vlag": "\ud83c\udded\ud83c\uddf0"
+    },
+    {
+        "code": "HM",
+        "naam": "Heard Island and McDonald Islands",
+        "vlag": "\ud83c\udded\ud83c\uddf2"
+    },
+    {
+        "code": "HN",
+        "naam": "Honduras",
+        "vlag": "\ud83c\udded\ud83c\uddf3"
+    },
+    {
+        "code": "HR",
+        "naam": "Croatia",
+        "vlag": "\ud83c\udded\ud83c\uddf7"
+    },
+    {
+        "code": "HT",
+        "naam": "Haiti",
+        "vlag": "\ud83c\udded\ud83c\uddf9"
+    },
+    {
+        "code": "HU",
+        "naam": "Hungary",
+        "vlag": "\ud83c\udded\ud83c\uddfa"
+    },
+    {
+        "code": "ID",
+        "naam": "Indonesia",
+        "vlag": "\ud83c\uddee\ud83c\udde9"
+    },
+    {
+        "code": "IM",
+        "naam": "Isle of Man",
+        "vlag": "\ud83c\uddee\ud83c\uddf2"
+    },
+    {
+        "code": "IN",
+        "naam": "India",
+        "vlag": "\ud83c\uddee\ud83c\uddf3"
+    },
+    {
+        "code": "IO",
+        "naam": "British Indian Ocean Territory",
+        "vlag": "\ud83c\uddee\ud83c\uddf4"
+    },
+    {
+        "code": "IE",
+        "naam": "Ireland",
+        "vlag": "\ud83c\uddee\ud83c\uddea"
+    },
+    {
+        "code": "IR",
+        "naam": "Iran, Islamic Republic of",
+        "vlag": "\ud83c\uddee\ud83c\uddf7"
+    },
+    {
+        "code": "IQ",
+        "naam": "Iraq",
+        "vlag": "\ud83c\uddee\ud83c\uddf6"
+    },
+    {
+        "code": "IS",
+        "naam": "Iceland",
+        "vlag": "\ud83c\uddee\ud83c\uddf8"
+    },
+    {
+        "code": "IL",
+        "naam": "Israel",
+        "vlag": "\ud83c\uddee\ud83c\uddf1"
+    },
+    {
+        "code": "IT",
+        "naam": "Italy",
+        "vlag": "\ud83c\uddee\ud83c\uddf9"
+    },
+    {
+        "code": "JM",
+        "naam": "Jamaica",
+        "vlag": "\ud83c\uddef\ud83c\uddf2"
+    },
+    {
+        "code": "JE",
+        "naam": "Jersey",
+        "vlag": "\ud83c\uddef\ud83c\uddea"
+    },
+    {
+        "code": "JO",
+        "naam": "Jordan",
+        "vlag": "\ud83c\uddef\ud83c\uddf4"
+    },
+    {
+        "code": "JP",
+        "naam": "Japan",
+        "vlag": "\ud83c\uddef\ud83c\uddf5"
+    },
+    {
+        "code": "KZ",
+        "naam": "Kazakhstan",
+        "vlag": "\ud83c\uddf0\ud83c\uddff"
+    },
+    {
+        "code": "KE",
+        "naam": "Kenya",
+        "vlag": "\ud83c\uddf0\ud83c\uddea"
+    },
+    {
+        "code": "KG",
+        "naam": "Kyrgyzstan",
+        "vlag": "\ud83c\uddf0\ud83c\uddec"
+    },
+    {
+        "code": "KH",
+        "naam": "Cambodia",
+        "vlag": "\ud83c\uddf0\ud83c\udded"
+    },
+    {
+        "code": "KI",
+        "naam": "Kiribati",
+        "vlag": "\ud83c\uddf0\ud83c\uddee"
+    },
+    {
+        "code": "KN",
+        "naam": "Saint Kitts and Nevis",
+        "vlag": "\ud83c\uddf0\ud83c\uddf3"
+    },
+    {
+        "code": "KR",
+        "naam": "Korea, Republic of",
+        "vlag": "\ud83c\uddf0\ud83c\uddf7"
+    },
+    {
+        "code": "KW",
+        "naam": "Kuwait",
+        "vlag": "\ud83c\uddf0\ud83c\uddfc"
+    },
+    {
+        "code": "LA",
+        "naam": "Lao People's Democratic Republic",
+        "vlag": "\ud83c\uddf1\ud83c\udde6"
+    },
+    {
+        "code": "LB",
+        "naam": "Lebanon",
+        "vlag": "\ud83c\uddf1\ud83c\udde7"
+    },
+    {
+        "code": "LR",
+        "naam": "Liberia",
+        "vlag": "\ud83c\uddf1\ud83c\uddf7"
+    },
+    {
+        "code": "LY",
+        "naam": "Libya",
+        "vlag": "\ud83c\uddf1\ud83c\uddfe"
+    },
+    {
+        "code": "LC",
+        "naam": "Saint Lucia",
+        "vlag": "\ud83c\uddf1\ud83c\udde8"
+    },
+    {
+        "code": "LI",
+        "naam": "Liechtenstein",
+        "vlag": "\ud83c\uddf1\ud83c\uddee"
+    },
+    {
+        "code": "LK",
+        "naam": "Sri Lanka",
+        "vlag": "\ud83c\uddf1\ud83c\uddf0"
+    },
+    {
+        "code": "LS",
+        "naam": "Lesotho",
+        "vlag": "\ud83c\uddf1\ud83c\uddf8"
+    },
+    {
+        "code": "LT",
+        "naam": "Lithuania",
+        "vlag": "\ud83c\uddf1\ud83c\uddf9"
+    },
+    {
+        "code": "LU",
+        "naam": "Luxembourg",
+        "vlag": "\ud83c\uddf1\ud83c\uddfa"
+    },
+    {
+        "code": "LV",
+        "naam": "Latvia",
+        "vlag": "\ud83c\uddf1\ud83c\uddfb"
+    },
+    {
+        "code": "MO",
+        "naam": "Macao",
+        "vlag": "\ud83c\uddf2\ud83c\uddf4"
+    },
+    {
+        "code": "MF",
+        "naam": "Saint Martin (French part)",
+        "vlag": "\ud83c\uddf2\ud83c\uddeb"
+    },
+    {
+        "code": "MA",
+        "naam": "Morocco",
+        "vlag": "\ud83c\uddf2\ud83c\udde6"
+    },
+    {
+        "code": "MC",
+        "naam": "Monaco",
+        "vlag": "\ud83c\uddf2\ud83c\udde8"
+    },
+    {
+        "code": "MD",
+        "naam": "Moldova, Republic of",
+        "vlag": "\ud83c\uddf2\ud83c\udde9"
+    },
+    {
+        "code": "MG",
+        "naam": "Madagascar",
+        "vlag": "\ud83c\uddf2\ud83c\uddec"
+    },
+    {
+        "code": "MV",
+        "naam": "Maldives",
+        "vlag": "\ud83c\uddf2\ud83c\uddfb"
+    },
+    {
+        "code": "MX",
+        "naam": "Mexico",
+        "vlag": "\ud83c\uddf2\ud83c\uddfd"
+    },
+    {
+        "code": "MH",
+        "naam": "Marshall Islands",
+        "vlag": "\ud83c\uddf2\ud83c\udded"
+    },
+    {
+        "code": "MK",
+        "naam": "North Macedonia",
+        "vlag": "\ud83c\uddf2\ud83c\uddf0"
+    },
+    {
+        "code": "ML",
+        "naam": "Mali",
+        "vlag": "\ud83c\uddf2\ud83c\uddf1"
+    },
+    {
+        "code": "MT",
+        "naam": "Malta",
+        "vlag": "\ud83c\uddf2\ud83c\uddf9"
+    },
+    {
+        "code": "MM",
+        "naam": "Myanmar",
+        "vlag": "\ud83c\uddf2\ud83c\uddf2"
+    },
+    {
+        "code": "ME",
+        "naam": "Montenegro",
+        "vlag": "\ud83c\uddf2\ud83c\uddea"
+    },
+    {
+        "code": "MN",
+        "naam": "Mongolia",
+        "vlag": "\ud83c\uddf2\ud83c\uddf3"
+    },
+    {
+        "code": "MP",
+        "naam": "Northern Mariana Islands",
+        "vlag": "\ud83c\uddf2\ud83c\uddf5"
+    },
+    {
+        "code": "MZ",
+        "naam": "Mozambique",
+        "vlag": "\ud83c\uddf2\ud83c\uddff"
+    },
+    {
+        "code": "MR",
+        "naam": "Mauritania",
+        "vlag": "\ud83c\uddf2\ud83c\uddf7"
+    },
+    {
+        "code": "MS",
+        "naam": "Montserrat",
+        "vlag": "\ud83c\uddf2\ud83c\uddf8"
+    },
+    {
+        "code": "MQ",
+        "naam": "Martinique",
+        "vlag": "\ud83c\uddf2\ud83c\uddf6"
+    },
+    {
+        "code": "MU",
+        "naam": "Mauritius",
+        "vlag": "\ud83c\uddf2\ud83c\uddfa"
+    },
+    {
+        "code": "MW",
+        "naam": "Malawi",
+        "vlag": "\ud83c\uddf2\ud83c\uddfc"
+    },
+    {
+        "code": "MY",
+        "naam": "Malaysia",
+        "vlag": "\ud83c\uddf2\ud83c\uddfe"
+    },
+    {
+        "code": "YT",
+        "naam": "Mayotte",
+        "vlag": "\ud83c\uddfe\ud83c\uddf9"
+    },
+    {
+        "code": "NA",
+        "naam": "Namibia",
+        "vlag": "\ud83c\uddf3\ud83c\udde6"
+    },
+    {
+        "code": "NC",
+        "naam": "New Caledonia",
+        "vlag": "\ud83c\uddf3\ud83c\udde8"
+    },
+    {
+        "code": "NE",
+        "naam": "Niger",
+        "vlag": "\ud83c\uddf3\ud83c\uddea"
+    },
+    {
+        "code": "NF",
+        "naam": "Norfolk Island",
+        "vlag": "\ud83c\uddf3\ud83c\uddeb"
+    },
+    {
+        "code": "NG",
+        "naam": "Nigeria",
+        "vlag": "\ud83c\uddf3\ud83c\uddec"
+    },
+    {
+        "code": "NI",
+        "naam": "Nicaragua",
+        "vlag": "\ud83c\uddf3\ud83c\uddee"
+    },
+    {
+        "code": "NU",
+        "naam": "Niue",
+        "vlag": "\ud83c\uddf3\ud83c\uddfa"
+    },
+    {
+        "code": "NL",
+        "naam": "Netherlands",
+        "vlag": "\ud83c\uddf3\ud83c\uddf1"
+    },
+    {
+        "code": "NO",
+        "naam": "Norway",
+        "vlag": "\ud83c\uddf3\ud83c\uddf4"
+    },
+    {
+        "code": "NP",
+        "naam": "Nepal",
+        "vlag": "\ud83c\uddf3\ud83c\uddf5"
+    },
+    {
+        "code": "NR",
+        "naam": "Nauru",
+        "vlag": "\ud83c\uddf3\ud83c\uddf7"
+    },
+    {
+        "code": "NZ",
+        "naam": "New Zealand",
+        "vlag": "\ud83c\uddf3\ud83c\uddff"
+    },
+    {
+        "code": "OM",
+        "naam": "Oman",
+        "vlag": "\ud83c\uddf4\ud83c\uddf2"
+    },
+    {
+        "code": "PK",
+        "naam": "Pakistan",
+        "vlag": "\ud83c\uddf5\ud83c\uddf0"
+    },
+    {
+        "code": "PA",
+        "naam": "Panama",
+        "vlag": "\ud83c\uddf5\ud83c\udde6"
+    },
+    {
+        "code": "PN",
+        "naam": "Pitcairn",
+        "vlag": "\ud83c\uddf5\ud83c\uddf3"
+    },
+    {
+        "code": "PE",
+        "naam": "Peru",
+        "vlag": "\ud83c\uddf5\ud83c\uddea"
+    },
+    {
+        "code": "PH",
+        "naam": "Philippines",
+        "vlag": "\ud83c\uddf5\ud83c\udded"
+    },
+    {
+        "code": "PW",
+        "naam": "Palau",
+        "vlag": "\ud83c\uddf5\ud83c\uddfc"
+    },
+    {
+        "code": "PG",
+        "naam": "Papua New Guinea",
+        "vlag": "\ud83c\uddf5\ud83c\uddec"
+    },
+    {
+        "code": "PL",
+        "naam": "Poland",
+        "vlag": "\ud83c\uddf5\ud83c\uddf1"
+    },
+    {
+        "code": "PR",
+        "naam": "Puerto Rico",
+        "vlag": "\ud83c\uddf5\ud83c\uddf7"
+    },
+    {
+        "code": "KP",
+        "naam": "Korea, Democratic People's Republic of",
+        "vlag": "\ud83c\uddf0\ud83c\uddf5"
+    },
+    {
+        "code": "PT",
+        "naam": "Portugal",
+        "vlag": "\ud83c\uddf5\ud83c\uddf9"
+    },
+    {
+        "code": "PY",
+        "naam": "Paraguay",
+        "vlag": "\ud83c\uddf5\ud83c\uddfe"
+    },
+    {
+        "code": "PS",
+        "naam": "Palestine, State of",
+        "vlag": "\ud83c\uddf5\ud83c\uddf8"
+    },
+    {
+        "code": "PF",
+        "naam": "French Polynesia",
+        "vlag": "\ud83c\uddf5\ud83c\uddeb"
+    },
+    {
+        "code": "QA",
+        "naam": "Qatar",
+        "vlag": "\ud83c\uddf6\ud83c\udde6"
+    },
+    {
+        "code": "RE",
+        "naam": "R\u00e9union",
+        "vlag": "\ud83c\uddf7\ud83c\uddea"
+    },
+    {
+        "code": "RO",
+        "naam": "Romania",
+        "vlag": "\ud83c\uddf7\ud83c\uddf4"
+    },
+    {
+        "code": "RU",
+        "naam": "Russian Federation",
+        "vlag": "\ud83c\uddf7\ud83c\uddfa"
+    },
+    {
+        "code": "RW",
+        "naam": "Rwanda",
+        "vlag": "\ud83c\uddf7\ud83c\uddfc"
+    },
+    {
+        "code": "SA",
+        "naam": "Saudi Arabia",
+        "vlag": "\ud83c\uddf8\ud83c\udde6"
+    },
+    {
+        "code": "SD",
+        "naam": "Sudan",
+        "vlag": "\ud83c\uddf8\ud83c\udde9"
+    },
+    {
+        "code": "SN",
+        "naam": "Senegal",
+        "vlag": "\ud83c\uddf8\ud83c\uddf3"
+    },
+    {
+        "code": "SG",
+        "naam": "Singapore",
+        "vlag": "\ud83c\uddf8\ud83c\uddec"
+    },
+    {
+        "code": "GS",
+        "naam": "South Georgia and the South Sandwich Islands",
+        "vlag": "\ud83c\uddec\ud83c\uddf8"
+    },
+    {
+        "code": "SH",
+        "naam": "Saint Helena, Ascension and Tristan da Cunha",
+        "vlag": "\ud83c\uddf8\ud83c\udded"
+    },
+    {
+        "code": "SJ",
+        "naam": "Svalbard and Jan Mayen",
+        "vlag": "\ud83c\uddf8\ud83c\uddef"
+    },
+    {
+        "code": "SB",
+        "naam": "Solomon Islands",
+        "vlag": "\ud83c\uddf8\ud83c\udde7"
+    },
+    {
+        "code": "SL",
+        "naam": "Sierra Leone",
+        "vlag": "\ud83c\uddf8\ud83c\uddf1"
+    },
+    {
+        "code": "SV",
+        "naam": "El Salvador",
+        "vlag": "\ud83c\uddf8\ud83c\uddfb"
+    },
+    {
+        "code": "SM",
+        "naam": "San Marino",
+        "vlag": "\ud83c\uddf8\ud83c\uddf2"
+    },
+    {
+        "code": "SO",
+        "naam": "Somalia",
+        "vlag": "\ud83c\uddf8\ud83c\uddf4"
+    },
+    {
+        "code": "PM",
+        "naam": "Saint Pierre and Miquelon",
+        "vlag": "\ud83c\uddf5\ud83c\uddf2"
+    },
+    {
+        "code": "RS",
+        "naam": "Serbia",
+        "vlag": "\ud83c\uddf7\ud83c\uddf8"
+    },
+    {
+        "code": "SS",
+        "naam": "South Sudan",
+        "vlag": "\ud83c\uddf8\ud83c\uddf8"
+    },
+    {
+        "code": "ST",
+        "naam": "Sao Tome and Principe",
+        "vlag": "\ud83c\uddf8\ud83c\uddf9"
+    },
+    {
+        "code": "SR",
+        "naam": "Suriname",
+        "vlag": "\ud83c\uddf8\ud83c\uddf7"
+    },
+    {
+        "code": "SK",
+        "naam": "Slovakia",
+        "vlag": "\ud83c\uddf8\ud83c\uddf0"
+    },
+    {
+        "code": "SI",
+        "naam": "Slovenia",
+        "vlag": "\ud83c\uddf8\ud83c\uddee"
+    },
+    {
+        "code": "SE",
+        "naam": "Sweden",
+        "vlag": "\ud83c\uddf8\ud83c\uddea"
+    },
+    {
+        "code": "SZ",
+        "naam": "Eswatini",
+        "vlag": "\ud83c\uddf8\ud83c\uddff"
+    },
+    {
+        "code": "SX",
+        "naam": "Sint Maarten (Dutch part)",
+        "vlag": "\ud83c\uddf8\ud83c\uddfd"
+    },
+    {
+        "code": "SC",
+        "naam": "Seychelles",
+        "vlag": "\ud83c\uddf8\ud83c\udde8"
+    },
+    {
+        "code": "SY",
+        "naam": "Syrian Arab Republic",
+        "vlag": "\ud83c\uddf8\ud83c\uddfe"
+    },
+    {
+        "code": "TC",
+        "naam": "Turks and Caicos Islands",
+        "vlag": "\ud83c\uddf9\ud83c\udde8"
+    },
+    {
+        "code": "TD",
+        "naam": "Chad",
+        "vlag": "\ud83c\uddf9\ud83c\udde9"
+    },
+    {
+        "code": "TG",
+        "naam": "Togo",
+        "vlag": "\ud83c\uddf9\ud83c\uddec"
+    },
+    {
+        "code": "TH",
+        "naam": "Thailand",
+        "vlag": "\ud83c\uddf9\ud83c\udded"
+    },
+    {
+        "code": "TJ",
+        "naam": "Tajikistan",
+        "vlag": "\ud83c\uddf9\ud83c\uddef"
+    },
+    {
+        "code": "TK",
+        "naam": "Tokelau",
+        "vlag": "\ud83c\uddf9\ud83c\uddf0"
+    },
+    {
+        "code": "TM",
+        "naam": "Turkmenistan",
+        "vlag": "\ud83c\uddf9\ud83c\uddf2"
+    },
+    {
+        "code": "TL",
+        "naam": "Timor-Leste",
+        "vlag": "\ud83c\uddf9\ud83c\uddf1"
+    },
+    {
+        "code": "TO",
+        "naam": "Tonga",
+        "vlag": "\ud83c\uddf9\ud83c\uddf4"
+    },
+    {
+        "code": "TT",
+        "naam": "Trinidad and Tobago",
+        "vlag": "\ud83c\uddf9\ud83c\uddf9"
+    },
+    {
+        "code": "TN",
+        "naam": "Tunisia",
+        "vlag": "\ud83c\uddf9\ud83c\uddf3"
+    },
+    {
+        "code": "TR",
+        "naam": "T\u00fcrkiye",
+        "vlag": "\ud83c\uddf9\ud83c\uddf7"
+    },
+    {
+        "code": "TV",
+        "naam": "Tuvalu",
+        "vlag": "\ud83c\uddf9\ud83c\uddfb"
+    },
+    {
+        "code": "TW",
+        "naam": "Taiwan, Province of China",
+        "vlag": "\ud83c\uddf9\ud83c\uddfc"
+    },
+    {
+        "code": "TZ",
+        "naam": "Tanzania, United Republic of",
+        "vlag": "\ud83c\uddf9\ud83c\uddff"
+    },
+    {
+        "code": "UG",
+        "naam": "Uganda",
+        "vlag": "\ud83c\uddfa\ud83c\uddec"
+    },
+    {
+        "code": "UA",
+        "naam": "Ukraine",
+        "vlag": "\ud83c\uddfa\ud83c\udde6"
+    },
+    {
+        "code": "UM",
+        "naam": "United States Minor Outlying Islands",
+        "vlag": "\ud83c\uddfa\ud83c\uddf2"
+    },
+    {
+        "code": "UY",
+        "naam": "Uruguay",
+        "vlag": "\ud83c\uddfa\ud83c\uddfe"
+    },
+    {
+        "code": "US",
+        "naam": "United States",
+        "vlag": "\ud83c\uddfa\ud83c\uddf8"
+    },
+    {
+        "code": "UZ",
+        "naam": "Uzbekistan",
+        "vlag": "\ud83c\uddfa\ud83c\uddff"
+    },
+    {
+        "code": "VA",
+        "naam": "Holy See (Vatican City State)",
+        "vlag": "\ud83c\uddfb\ud83c\udde6"
+    },
+    {
+        "code": "VC",
+        "naam": "Saint Vincent and the Grenadines",
+        "vlag": "\ud83c\uddfb\ud83c\udde8"
+    },
+    {
+        "code": "VE",
+        "naam": "Venezuela, Bolivarian Republic of",
+        "vlag": "\ud83c\uddfb\ud83c\uddea"
+    },
+    {
+        "code": "VG",
+        "naam": "Virgin Islands, British",
+        "vlag": "\ud83c\uddfb\ud83c\uddec"
+    },
+    {
+        "code": "VI",
+        "naam": "Virgin Islands, U.S.",
+        "vlag": "\ud83c\uddfb\ud83c\uddee"
+    },
+    {
+        "code": "VN",
+        "naam": "Viet Nam",
+        "vlag": "\ud83c\uddfb\ud83c\uddf3"
+    },
+    {
+        "code": "VU",
+        "naam": "Vanuatu",
+        "vlag": "\ud83c\uddfb\ud83c\uddfa"
+    },
+    {
+        "code": "WF",
+        "naam": "Wallis and Futuna",
+        "vlag": "\ud83c\uddfc\ud83c\uddeb"
+    },
+    {
+        "code": "WS",
+        "naam": "Samoa",
+        "vlag": "\ud83c\uddfc\ud83c\uddf8"
+    },
+    {
+        "code": "YE",
+        "naam": "Yemen",
+        "vlag": "\ud83c\uddfe\ud83c\uddea"
+    },
+    {
+        "code": "ZA",
+        "naam": "South Africa",
+        "vlag": "\ud83c\uddff\ud83c\udde6"
+    },
+    {
+        "code": "ZM",
+        "naam": "Zambia",
+        "vlag": "\ud83c\uddff\ud83c\uddf2"
+    },
+    {
+        "code": "ZW",
+        "naam": "Zimbabwe",
+        "vlag": "\ud83c\uddff\ud83c\uddfc"
+    }
+]

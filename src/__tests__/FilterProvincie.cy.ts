@@ -12,15 +12,16 @@ describe('FilterProvincie', () => {
         return { provincieValue, setValue };
       },
       template:
-        '<filter-provincie api="https://dev-geo.onroerenderfgoed.be/" :value="provincieValue" @update:value="setValue"/>',
+        '<filter-provincie api="https://test-geo.onroerenderfgoed.be/" :value="provincieValue" @update:value="setValue"/>',
     });
+
+    beforeEach(() => cy.mockAdressenregister());
 
     it('fetch provincies, filter and assign the chosen filter to the corresponding data value', () => {
       const onUpdateValueSpy = cy.spy().as('onUpdateValueSpy');
-      cy.intercept({ method: 'GET', url: 'https://dev-geo.onroerenderfgoed.be/**' }).as('dataGet');
 
       cy.mount(TestComponent, { props: { 'onUpdate:value': onUpdateValueSpy } }).then(({ component }) => {
-        cy.wait('@dataGet').then(() => {
+        cy.wait('@dataGetProvinciesVlaamsGewest').then(() => {
           cy.dataCy('filter-provincie').click().find('.multiselect__input').type('vlaams');
           cy.dataCy('filter-provincie')
             .find('.multiselect__element')
