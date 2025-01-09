@@ -58,7 +58,7 @@ Cypress.Commands.add('mockAdressenregister', () => {
   }).as('dataGetGemeentenWaalsGewest');
   cy.intercept('GET', 'https://test-geo.onroerenderfgoed.be/adressenregister/gewesten/4000/gemeenten*', {
     fixture: 'gemeentenBrusselsHoofdstedelijkGewest.json',
-  }).as('dataGetGemeentenBrusselsHoofdstedelijkGewestt');
+  }).as('dataGetGemeentenBrusselsHoofdstedelijkGewest');
 
   // Info Bertem
   cy.intercept('GET', 'https://test-geo.onroerenderfgoed.be/adressenregister/gemeenten/Bertem/postinfo*', {

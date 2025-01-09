@@ -292,6 +292,8 @@ describe('Adres', () => {
         template: '<Suspense><OeAdres v-model:adres="adres"/></Suspense>',
       });
 
+      cy.wait('@dataGetGemeentenVlaamsGewest');
+
       getMultiSelect('land').find(':selected').should('have.text', 'België');
       getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Bertem');
       getMultiSelect('postcode').find('.multiselect__single').should('have.text', '3060');
@@ -329,6 +331,8 @@ describe('Adres', () => {
         }),
         template: '<Suspense><OeAdres v-model:adres="adres"/></Suspense>',
       });
+
+      cy.wait('@dataGetGemeentenBrusselsHoofdstedelijkGewest');
 
       getMultiSelect('land').find(':selected').should('have.text', 'België');
       getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Brussel');
@@ -372,6 +376,8 @@ describe('Adres', () => {
         }),
         template: '<Suspense><OeAdres v-model:adres="adres"/></Suspense>',
       });
+
+      cy.wait('@dataGetGemeentenVlaamsGewest');
 
       getMultiSelect('land').find(':selected').should('have.text', 'België');
       getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Bierbeek');
