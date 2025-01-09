@@ -1,6 +1,5 @@
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import vue from '@vitejs/plugin-vue';
-import { builtinModules } from 'module';
 import { resolve } from 'path';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
@@ -18,11 +17,7 @@ export default defineConfig({
     },
     sourcemap: true,
     rollupOptions: {
-      external: (id) => {
-        const externalModules = ['vue', 'pinia'];
-        // Exclude specific external modules, all node_modules, and built-in modules
-        return externalModules.includes(id) || id.includes('node_modules') || builtinModules.includes(id);
-      },
+      external: ['vue', 'pinia'],
       output: {
         exports: 'named',
         assetFileNames: (assetInfo) => {
