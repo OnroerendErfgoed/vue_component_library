@@ -57,8 +57,8 @@ import {
   VlAlert,
   VlLink,
 } from '@govflanders/vl-ui-design-system-vue3';
-import { sortBy } from 'lodash';
-import { type ComponentPublicInstance, computed, onBeforeMount, ref } from 'vue';
+import { isEqual, sortBy } from 'lodash';
+import { type ComponentPublicInstance, computed, onBeforeMount, ref, watch } from 'vue';
 import OeLoader from '@components/dumb/OeLoader.vue';
 import { IdService } from '@services/id.service';
 import type { IReference } from '@models/reference';
@@ -83,6 +83,16 @@ onBeforeMount(async () => {
     throw new Error('Geen koppeling of idServiceUrl en actorUri gevonden');
   }
 });
+
+watch(
+  () => props.koppeling,
+  (newValue, oldValue) => {
+    if (!isEqual(newValue, oldValue)) {
+      references.value = newValue;
+    }
+  },
+  { deep: true }
+);
 
 const applications = computed(() => sortBy(references.value?.applications, 'title'));
 
