@@ -14,6 +14,10 @@
         Er werden <span class="vl-u-text--bold">{{ references.count }}</span> referenties gevonden.</span
       >
       <p class="vl-u-text--small">(Er worden max. 5 referenties per applicatie getoond)</p>
+
+      <!-- Default slot  -->
+      <slot></slot>
+
       <vl-accordion-list mod-bordered>
         <vl-accordion-list-item v-for="(application, index) in applications" :key="index" ref="accordions">
           <vl-accordion mod-xsmall mod-icon-right>
@@ -59,18 +63,25 @@ import OeLoader from '@components/dumb/OeLoader.vue';
 import { IdService } from '@services/id.service';
 import type { IReference } from '@models/reference';
 
-const props = defineProps<{ actorUri: string; idServiceUrl: string }>();
+const props = defineProps<{ actorUri?: string; idServiceUrl?: string; koppeling?: IReference }>();
 const isLoading = ref(false);
 
-const idService = new IdService(props.idServiceUrl);
+let idService: IdService;
 
 const accordions = ref<ComponentPublicInstance[]>([]);
 const references = ref<IReference>();
 
 onBeforeMount(async () => {
-  isLoading.value = true;
-  references.value = await idService.getReferences(props.actorUri);
-  isLoading.value = false;
+  if (!props.koppeling && props.idServiceUrl && props.actorUri) {
+    idService = new IdService(props.idServiceUrl);
+    isLoading.value = true;
+    references.value = await idService.getReferences(props.actorUri);
+    isLoading.value = false;
+  } else if (props.koppeling) {
+    references.value = props.koppeling;
+  } else {
+    throw new Error('Geen koppeling of idServiceUrl en actorUri gevonden');
+  }
 });
 
 const applications = computed(() => sortBy(references.value?.applications, 'title'));
