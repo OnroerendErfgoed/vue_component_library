@@ -1,7 +1,7 @@
 <template>
   <oe-loader v-if="isLoading" />
   <div v-else>
-    <div v-if="references?.has_references" class="vl-u-spacer-bottom">
+    <div v-if="_reference?.has_references" class="vl-u-spacer-bottom">
       <p class="vl-u-align-right vl-u-spacer-right--small">
         <span class="toggle vl-u-text--small vl-u-spacer-right--small" @click="toggleAccordions(true)">
           <font-awesome-icon :icon="['fas', 'angle-down']" /> Alles tonen
@@ -11,7 +11,7 @@
         </span>
       </p>
       <span class="vl-u-mark--info vl-u-text">
-        Er werden <span class="vl-u-text--bold">{{ references.count }}</span> referenties gevonden.</span
+        Er werden <span class="vl-u-text--bold">{{ _reference.count }}</span> referenties gevonden.</span
       >
       <p class="vl-u-text--small">(Er worden max. 5 referenties per applicatie getoond)</p>
 
@@ -63,38 +63,38 @@ import OeLoader from '@components/dumb/OeLoader.vue';
 import { IdService } from '@services/id.service';
 import type { IReference } from '@models/reference';
 
-const props = defineProps<{ actorUri?: string; idServiceUrl?: string; koppeling?: IReference }>();
+const props = defineProps<{ uri?: string; idServiceUrl?: string; reference?: IReference }>();
 const isLoading = ref(false);
 
 let idService: IdService;
 
 const accordions = ref<ComponentPublicInstance[]>([]);
-const references = ref<IReference>();
+const _reference = ref<IReference>();
 
 onBeforeMount(async () => {
-  if (!props.koppeling && props.idServiceUrl && props.actorUri) {
+  if (!props.reference && props.idServiceUrl && props.uri) {
     idService = new IdService(props.idServiceUrl);
     isLoading.value = true;
-    references.value = await idService.getReferences(props.actorUri);
+    _reference.value = await idService.getReferences(props.uri);
     isLoading.value = false;
-  } else if (props.koppeling) {
-    references.value = props.koppeling;
+  } else if (props.reference) {
+    _reference.value = props.reference;
   } else {
-    throw new Error('Geen koppeling of idServiceUrl en actorUri gevonden');
+    throw new Error('Geen reference of idServiceUrl en uri gevonden');
   }
 });
 
 watch(
-  () => props.koppeling,
+  () => props.reference,
   (newValue, oldValue) => {
     if (!isEqual(newValue, oldValue)) {
-      references.value = newValue;
+      _reference.value = newValue;
     }
   },
   { deep: true }
 );
 
-const applications = computed(() => sortBy(references.value?.applications, 'title'));
+const applications = computed(() => sortBy(_reference.value?.applications, 'title'));
 
 const accordionsOpen = ref(false);
 const toggleAccordions = (open: boolean) => {

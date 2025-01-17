@@ -2,11 +2,11 @@ import FilterAOEActor from './FilterAOEActor.vue';
 import FilterAanduidingsobject from './FilterAanduidingsobject.vue';
 import FilterGemeente from './FilterGemeente.vue';
 import FilterProvincie from './FilterProvincie.vue';
-import OeActorReferences from './OeActorReferences.vue';
 import OeActorWidget from './OeActorWidget.vue';
 import OeActorWidgetGrid from './OeActorWidgetGrid.vue';
 import OeAdres from './OeAdres.vue';
 import OeInventarisLink from './OeInventarisLink.vue';
+import OeReferences from './OeReferences.vue';
 import OeZoneerder from './OeZoneerder.vue';
 
 export {
@@ -17,7 +17,7 @@ export {
   FilterProvincie,
   OeActorWidget,
   OeActorWidgetGrid,
-  OeActorReferences,
+  OeReferences,
   OeZoneerder,
   OeInventarisLink,
 };

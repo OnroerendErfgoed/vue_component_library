@@ -1,29 +1,29 @@
 import '@/scss/main.scss';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import OeActorReferences from '@components/smart/OeActorReferences.vue';
+import OeReferences from '@components/smart/OeReferences.vue';
 import { IReference } from '@models/reference';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
-const meta: Meta<typeof OeActorReferences> = {
-  title: 'Smart components/OeActorReferences',
-  component: OeActorReferences,
+const meta: Meta<typeof OeReferences> = {
+  title: 'Smart components/OeReferences',
+  component: OeReferences,
   parameters: {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: `Find and list application references for a specified actor (automatic flow) or provide your own reference data (custom flow).`,
+        component: `Find and list application references for a specified uri (automatic flow) or provide your own reference data (custom flow).`,
       },
     },
   },
   tags: ['autodocs'],
   args: {
     idServiceUrl: 'https://dev-id.erfgoed.net',
-    actorUri: 'https://dev-id.erfgoed.net/actoren/12564',
+    uri: 'https://dev-id.erfgoed.net/actoren/12564',
   },
   argTypes: {
-    actorUri: {
-      description: 'Uri of the actor',
+    uri: {
+      description: 'Uri of the entity to find references for',
       table: {
         type: { summary: 'string' },
       },
@@ -34,17 +34,21 @@ const meta: Meta<typeof OeActorReferences> = {
         type: { summary: 'string' },
       },
     },
+    reference: {
+      description:
+        'Custom reference data, when this is provided, the automated flow is disabled and uri and idServiceUrl are ignored',
+    },
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof OeActorReferences>;
+type Story = StoryObj<typeof OeReferences>;
 
 export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: `Automated flow based on id service data and actor uri.`,
+        story: `Automated flow based on id service data and uri.`,
       },
     },
   },
@@ -59,9 +63,9 @@ export const Custom: Story = {
     },
   },
   render: () => ({
-    components: { OeActorReferences, FontAwesomeIcon },
+    components: { OeReferences: OeReferences, FontAwesomeIcon },
     setup: () => {
-      const koppeling: IReference = {
+      const reference: IReference = {
         query_uri: 'https://dev-id.erfgoed.net/actor/12564/references',
         success: true,
         has_references: true,
@@ -114,13 +118,13 @@ export const Custom: Story = {
         ],
       };
 
-      return { koppeling };
+      return { reference };
     },
     template: `
-      <OeActorReferences :koppeling="koppeling">
+      <OeReferences :reference="reference">
         <font-awesome-icon class="vl-u-spacer-top--small vl-u-spacer-right--xxsmall icon" :icon="['fas', 'circle-info']" />
         <span>Sommige referenties zijn voor jou niet zichtbaar op basis van je rechten.</span>
-      </OeActorReferences>
+      </OeReferences>
     `,
   }),
 };
