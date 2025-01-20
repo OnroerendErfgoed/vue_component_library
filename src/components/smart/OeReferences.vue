@@ -11,8 +11,11 @@
         </span>
       </p>
       <span class="vl-u-mark--info vl-u-text">
-        Er werden <span class="vl-u-text--bold">{{ _reference.count }}</span> referenties gevonden.</span
-      >
+        <span v-if="_reference.count === 1">Er werd <span class="vl-u-text--bold">1</span> referentie gevonden.</span>
+        <span v-else
+          >Er werden <span class="vl-u-text--bold">{{ _reference.count }}</span> referenties gevonden.</span
+        >
+      </span>
       <p class="vl-u-text--small">(Er worden max. 5 referenties per applicatie getoond)</p>
 
       <!-- Default slot  -->
