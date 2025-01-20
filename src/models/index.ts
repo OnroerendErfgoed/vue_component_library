@@ -22,3 +22,4 @@ export * from './wizard';
 export * from './dossier';
 export * from './workflow';
 export * from './editor';
+export * from './reference';
