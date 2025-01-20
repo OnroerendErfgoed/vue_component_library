@@ -1,7 +1,7 @@
 <template>
   <oe-loader v-if="isLoading" />
   <div v-else>
-    <div v-if="references?.has_references" class="vl-u-spacer-bottom">
+    <div v-if="_reference?.has_references" class="vl-u-spacer-bottom">
       <p class="vl-u-align-right vl-u-spacer-right--small">
         <span class="toggle vl-u-text--small vl-u-spacer-right--small" @click="toggleAccordions(true)">
           <font-awesome-icon :icon="['fas', 'angle-down']" /> Alles tonen
@@ -11,9 +11,16 @@
         </span>
       </p>
       <span class="vl-u-mark--info vl-u-text">
-        Er werden <span class="vl-u-text--bold">{{ references.count }}</span> referenties gevonden.</span
-      >
+        <span v-if="_reference.count === 1">Er werd <span class="vl-u-text--bold">1</span> referentie gevonden.</span>
+        <span v-else
+          >Er werden <span class="vl-u-text--bold">{{ _reference.count }}</span> referenties gevonden.</span
+        >
+      </span>
       <p class="vl-u-text--small">(Er worden max. 5 referenties per applicatie getoond)</p>
+
+      <!-- Default slot  -->
+      <slot></slot>
+
       <vl-accordion-list mod-bordered>
         <vl-accordion-list-item v-for="(application, index) in applications" :key="index" ref="accordions">
           <vl-accordion mod-xsmall mod-icon-right>
@@ -53,27 +60,44 @@ import {
   VlAlert,
   VlLink,
 } from '@govflanders/vl-ui-design-system-vue3';
-import { sortBy } from 'lodash';
-import { type ComponentPublicInstance, computed, onBeforeMount, ref } from 'vue';
+import { isEqual, sortBy } from 'lodash';
+import { type ComponentPublicInstance, computed, onBeforeMount, ref, watch } from 'vue';
 import OeLoader from '@components/dumb/OeLoader.vue';
 import { IdService } from '@services/id.service';
 import type { IReference } from '@models/reference';
 
-const props = defineProps<{ actorUri: string; idServiceUrl: string }>();
+const props = defineProps<{ uri?: string; idServiceUrl?: string; reference?: IReference }>();
 const isLoading = ref(false);
 
-const idService = new IdService(props.idServiceUrl);
+let idService: IdService;
 
 const accordions = ref<ComponentPublicInstance[]>([]);
-const references = ref<IReference>();
+const _reference = ref<IReference>();
 
 onBeforeMount(async () => {
-  isLoading.value = true;
-  references.value = await idService.getReferences(props.actorUri);
-  isLoading.value = false;
+  if (!props.reference && props.idServiceUrl && props.uri) {
+    idService = new IdService(props.idServiceUrl);
+    isLoading.value = true;
+    _reference.value = await idService.getReferences(props.uri);
+    isLoading.value = false;
+  } else if (props.reference) {
+    _reference.value = props.reference;
+  } else {
+    throw new Error('Geen reference of idServiceUrl en uri gevonden');
+  }
 });
 
-const applications = computed(() => sortBy(references.value?.applications, 'title'));
+watch(
+  () => props.reference,
+  (newValue, oldValue) => {
+    if (!isEqual(newValue, oldValue)) {
+      _reference.value = newValue;
+    }
+  },
+  { deep: true }
+);
+
+const applications = computed(() => sortBy(_reference.value?.applications, 'title'));
 
 const accordionsOpen = ref(false);
 const toggleAccordions = (open: boolean) => {
