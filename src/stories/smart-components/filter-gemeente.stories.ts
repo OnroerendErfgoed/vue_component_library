@@ -2,6 +2,7 @@ import '@/scss/main.scss';
 import FilterGemeente from '@components/smart/FilterGemeente.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import type { IGemeente } from '@models/locatie';
+import { Niscode } from '@models/niscode.enum';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof FilterGemeente> = {
@@ -20,12 +21,20 @@ const meta: Meta<typeof FilterGemeente> = {
   },
   tags: ['autodocs'],
   argTypes: {
+    gewest: {
+      control: 'text',
+      description: 'Gewest niscode',
+      table: {
+        type: { summary: 'Niscode' },
+        defaultValue: { summary: undefined },
+      },
+    },
     value: {
       control: 'text',
       description: 'Current niscode',
       table: {
         type: { summary: 'string' },
-        defaultValue: { summary: '' },
+        defaultValue: { summary: undefined },
       },
     },
     api: {
@@ -70,5 +79,12 @@ type Story = StoryObj<typeof FilterGemeente>;
 export const Default: Story = {
   args: {
     api: 'https://test-geo.onroerenderfgoed.be/',
+  },
+};
+
+export const WithGewestConstraint: Story = {
+  args: {
+    api: 'https://test-geo.onroerenderfgoed.be/',
+    gewest: Niscode.VlaamsGewest,
   },
 };
