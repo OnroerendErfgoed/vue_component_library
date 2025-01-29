@@ -1,8 +1,8 @@
 import '@/scss/main.scss';
 import FilterGemeente from '@components/smart/FilterGemeente.vue';
+import { Niscode } from '@models/niscode.enum';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import type { IGemeente } from '@models/locatie';
-import { Niscode } from '@models/niscode.enum';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof FilterGemeente> = {

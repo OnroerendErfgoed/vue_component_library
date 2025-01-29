@@ -1,5 +1,5 @@
-import type { IGemeente } from './locatie';
 import { Niscode } from './niscode.enum';
+import type { IGemeente } from './locatie';
 
 export type TFilterInput = string | IGemeente;
 
