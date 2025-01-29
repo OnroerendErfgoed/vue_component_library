@@ -1,4 +1,5 @@
 import type { IGemeente } from './locatie';
+import { Niscode } from './niscode.enum';
 
 export type TFilterInput = string | IGemeente;
 
@@ -43,6 +44,7 @@ export interface IFilterInputRadioProps {
 export interface IFilterGemeenteProps {
   api: string;
   value?: string;
+  gewest?: Niscode;
 }
 
 export interface IFilterActorProps {

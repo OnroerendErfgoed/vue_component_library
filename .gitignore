@@ -24,3 +24,6 @@ typings/
 dist/*
 .DS_Store
 storybook-static/*
+
+# cypress
+cypress/screenshots
