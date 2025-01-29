@@ -22,13 +22,14 @@
 <script setup lang="ts">
 import { VlMultiselect } from '@govflanders/vl-ui-design-system-vue3';
 import { computed, onBeforeMount, ref } from 'vue';
+import { type IFilterGemeenteProps, Niscode } from '@models/index';
 import { CrabApiService } from '@services/crab-api.service';
-import type { IFilterGemeenteProps } from '@models/index';
 import type { IGemeente } from '@models/locatie';
 
 const props = withDefaults(defineProps<IFilterGemeenteProps>(), {
   api: '',
   value: undefined,
+  gewest: undefined,
 });
 const emit = defineEmits(['update:value']);
 
@@ -42,6 +43,19 @@ const gemeenten = ref<IGemeente[]>([]);
 const customGemeenteLabel = (option: IGemeente) => option.naam;
 
 onBeforeMount(async () => {
-  gemeenten.value = await crabApiService.getGemeenten();
+  const data = await crabApiService.getGemeenten();
+  switch (props.gewest) {
+    case Niscode.VlaamsGewest:
+      gemeenten.value = crabApiService.vlaamseGemeenten;
+      break;
+    case Niscode.WaalsGewest:
+      gemeenten.value = crabApiService.waalseGemeenten;
+      break;
+    case Niscode.BrusselsHoofdstedelijkGewest:
+      gemeenten.value = crabApiService.brusselseGemeenten;
+      break;
+    default:
+      gemeenten.value = data;
+  }
 });
 </script>
