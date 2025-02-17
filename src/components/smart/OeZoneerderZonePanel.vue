@@ -71,7 +71,15 @@
       <ul data-cy="geometryObjectList" class="geometryObjectList">
         <li v-for="(item, index) in geometryObjectList" :key="index">
           <span>{{ item }}</span>
-          <vl-link class="iconLink" @click="removeGeometryObject(item)"> <vl-icon icon="trash"></vl-icon> </vl-link>
+          <vl-link class="iconLink" title="Flash deze polygoon" @click="flashFeature(item)">
+            <font-awesome-icon icon="bolt-lightning" />
+          </vl-link>
+          <vl-link class="iconLink" title="Zoom naar deze polygoon" @click="zoomToFeature(item)">
+            <font-awesome-icon icon="magnifying-glass" />
+          </vl-link>
+          <vl-link class="iconLink" title="Verwijder deze polygoon" @click="removeGeometryObject(item)">
+            <font-awesome-icon icon="trash-can" />
+          </vl-link>
         </li>
       </ul>
     </div>
@@ -81,8 +89,9 @@
 <script setup lang="ts">
 import 'ol/ol.css';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { VlButton, VlIcon, VlInputField, VlInputGroup, VlLink, VlTitle } from '@govflanders/vl-ui-design-system-vue3';
+import { VlButton, VlInputField, VlInputGroup, VlLink, VlTitle } from '@govflanders/vl-ui-design-system-vue3';
 import { Feature, Map, MapBrowserEvent } from 'ol';
+import { type Extent } from 'ol/extent';
 import { GeoJSON, WKT } from 'ol/format';
 import { Circle, Geometry, MultiPolygon, Polygon } from 'ol/geom';
 import { fromCircle } from 'ol/geom/Polygon';
@@ -94,7 +103,6 @@ import { inject, onMounted, onUnmounted, ref, watch } from 'vue';
 import type { FeatureLike } from 'ol/Feature';
 import type { ColorLike } from 'ol/colorlike';
 import type { Listener } from 'ol/events';
-import type { Extent } from 'ol/extent';
 import type { CrabApiService } from '@/services';
 import type { Contour, IDrawGeomType } from '@models/oe-openlayers';
 
@@ -137,6 +145,13 @@ drawLayer.getSource()?.on('addfeature', () => {
 });
 map.addLayer(drawLayer);
 addZoneToDrawLayer();
+
+const flashLayer = _createVectorLayer({
+  color: 'rgba(255,0,255, 1)',
+  fill: 'rgba(255,0,255, 0.4)',
+  title: '',
+});
+map.addLayer(flashLayer);
 
 watch(zone, (newZone) => emit('update:zone', newZone));
 watch(selectPerceel, (newSelectPerceel) => emit('update:select-perceel', newSelectPerceel));
@@ -250,6 +265,17 @@ function drawWKTZone() {
 
 function zoomToFeatures() {
   const extent = drawLayer.getSource()?.getExtent();
+  if (!extent) return;
+
+  zoomToExtent(extent);
+}
+
+function zoomToFeature(featureName: string) {
+  const feature = drawLayer
+    .getSource()
+    ?.getFeatures()
+    .find((feature) => feature.getProperties().name === featureName);
+  const extent = feature?.getGeometry()?.getExtent();
   if (!extent) return;
 
   zoomToExtent(extent);
@@ -369,6 +395,23 @@ function addZoneToDrawLayer() {
   }
   zoomToExtent(geoJsonFormatter.readGeometry(zone.value).getExtent());
 }
+
+function flashFeature(featureName: string) {
+  if (!flashLayer || !drawLayer) return;
+
+  const flashSource = flashLayer.getSource() as VectorSource<Geometry>;
+  const drawSource = drawLayer.getSource() as VectorSource<Geometry>;
+
+  if (flashSource.getFeatures().find((feature) => feature.getProperties().name === featureName)) return;
+
+  const featureToFlash = drawSource.getFeatures().find((feature) => feature.getProperties().name === featureName);
+  if (featureToFlash) {
+    flashSource.addFeature(featureToFlash);
+    setTimeout(() => {
+      flashSource.removeFeature(featureToFlash);
+    }, 1000);
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -427,6 +470,7 @@ function addZoneToDrawLayer() {
       }
       .iconLink {
         color: $primary-color;
+        margin-left: 0.2em;
       }
     }
   }
