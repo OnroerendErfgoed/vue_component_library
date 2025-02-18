@@ -212,6 +212,7 @@ onUnmounted(() => {
 const perceelSelectCallback = (evt: MapBrowserEvent<UIEvent>) => {
   crabService.searchGRBWfs(evt.coordinate, mapProjection.getCode(), ['ADP']).then((result) => {
     geoJsonFormatter.readFeatures(result).forEach((olFeature) => {
+      console.log(olFeature);
       if (olFeature) {
         drawGRBWfs(olFeature, `Perceel ${olFeature.get('CAPAKEY')}`);
       } else {
@@ -365,20 +366,21 @@ function startPerceelSelect() {
 function startGebouwSelect() {
   toggleDrawZone(false);
   resetSelect();
-  selectPerceel.value = true;
+  selectGebouw.value = true;
   map.on('click', gebouwSelectCallback);
 }
 
 function startKunstwerkSelect() {
   toggleDrawZone(false);
   resetSelect();
-  selectPerceel.value = true;
+  selectKunstwerk.value = true;
   map.on('click', kunstwerkSelectCallback);
 }
 
 function drawGRBWfs(olFeature: Feature, name: string) {
   console.debug('drawGRBWfs');
   if (geometryObjectList.value.indexOf(name) === -1) {
+    olFeature.set('name', name);
     if (drawLayer.getSource()) {
       drawLayer.getSource()?.addFeature(olFeature);
       geometryObjectList.value.push(name);
