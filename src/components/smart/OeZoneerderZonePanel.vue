@@ -71,13 +71,23 @@
       <ul data-cy="geometryObjectList" class="geometryObjectList">
         <li v-for="(item, index) in geometryObjectList" :key="index">
           <span>{{ item }}</span>
-          <vl-link class="iconLink" title="Flash deze polygoon" @click="flashFeature(item)">
+          <vl-link class="iconLink" title="Flash deze polygoon" data-cy="flashFeatureBtn" @click="flashFeature(item)">
             <font-awesome-icon icon="bolt-lightning" />
           </vl-link>
-          <vl-link class="iconLink" title="Zoom naar deze polygoon" @click="zoomToFeature(item)">
+          <vl-link
+            class="iconLink"
+            title="Zoom naar deze polygoon"
+            data-cy="zoomFeatureBtn"
+            @click="zoomToFeature(item)"
+          >
             <font-awesome-icon icon="magnifying-glass" />
           </vl-link>
-          <vl-link class="iconLink" title="Verwijder deze polygoon" @click="removeGeometryObject(item)">
+          <vl-link
+            class="iconLink"
+            title="Verwijder deze polygoon"
+            data-cy="deleteFeatureBtn"
+            @click="removeGeometryObject(item)"
+          >
             <font-awesome-icon icon="trash-can" />
           </vl-link>
         </li>
