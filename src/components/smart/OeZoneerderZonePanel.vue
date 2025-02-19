@@ -31,6 +31,7 @@
             <font-awesome-icon :icon="['far', 'circle']"></font-awesome-icon>
           </vl-button>
           <vl-button
+            v-if="props.featureSelectConfig.perceel"
             vl-button
             mod-narrow
             :mod-secondary="featureSelect !== FeatureSelectEnum.Perceel"
@@ -40,6 +41,7 @@
             <font-awesome-icon icon="map-marker-alt"></font-awesome-icon>
           </vl-button>
           <vl-button
+            v-if="props.featureSelectConfig.gebouw"
             vl-button
             mod-narrow
             :mod-secondary="featureSelect !== FeatureSelectEnum.Gebouw"
@@ -49,6 +51,7 @@
             <font-awesome-icon icon="building"></font-awesome-icon>
           </vl-button>
           <vl-button
+            v-if="props.featureSelectConfig.kunstwerk"
             vl-button
             mod-narrow
             :mod-secondary="featureSelect !== FeatureSelectEnum.Kunstwerk"
@@ -130,6 +133,7 @@ import VectorSource from 'ol/source/Vector';
 import { Fill, Text as OlText, Stroke, Style } from 'ol/style';
 import { inject, onMounted, onUnmounted, ref, watch } from 'vue';
 import { FeatureSelectEnum } from '@models/featureSelect.enum';
+import { FeatureSelectConfig } from '@models/oe-zoneerder-config';
 import type { FeatureLike } from 'ol/Feature';
 import type { ColorLike } from 'ol/colorlike';
 import type { CrabApiService } from '@/services';
@@ -138,6 +142,7 @@ import type { Contour, IDrawGeomType } from '@models/oe-openlayers';
 const props = defineProps<{
   zone?: Contour;
   featureSelect: FeatureSelectEnum | undefined;
+  featureSelectConfig: FeatureSelectConfig;
   drawPanelEnabled?: boolean;
 }>();
 

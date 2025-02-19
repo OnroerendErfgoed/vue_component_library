@@ -24,6 +24,7 @@
     <zone-panel
       v-model:zone="zone"
       v-model:feature-select="featureSelect"
+      :feature-select-config="props.featureSelectConfig"
       :draw-panel-enabled="props.drawPanelEnabled"
       @zone-panel:mounted="addZonePanelControl"
     ></zone-panel>
@@ -46,7 +47,7 @@ import { TileWMS, WMTS } from 'ol/source';
 import WMTSTileGrid from 'ol/tilegrid/WMTS';
 import proj4 from 'proj4';
 import { onMounted, onUnmounted, provide, ref, watch } from 'vue';
-import { LayerType, defaultControlConfig, defaultLayerConfig } from '@/models';
+import { LayerType, defaultControlConfig, defaultFeatureSelectConfig, defaultLayerConfig } from '@/models';
 import { CrabApiService } from '@/services';
 import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
 import Layerswitcher from '@components/smart/OeZoneerderLayerswitcher.vue';
@@ -64,6 +65,7 @@ import type { Contour } from '@models/oe-openlayers';
 const props = withDefaults(defineProps<OeZoneerderProps>(), {
   controlConfig: () => defaultControlConfig,
   layerConfig: () => defaultLayerConfig,
+  featureSelectConfig: () => defaultFeatureSelectConfig,
   api: 'https://geo.onroerenderfgoed.be/',
   drawPanelEnabled: false,
   zone: undefined,

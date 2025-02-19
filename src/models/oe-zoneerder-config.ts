@@ -124,11 +124,24 @@ export const defaultLayerConfig: LayerConfig = {
   },
 };
 
+export interface FeatureSelectConfig {
+  perceel: boolean;
+  gebouw: boolean;
+  kunstwerk: boolean;
+}
+
+export const defaultFeatureSelectConfig: FeatureSelectConfig = {
+  perceel: true,
+  gebouw: false,
+  kunstwerk: false,
+};
+
 export interface OeZoneerderProps {
   zone?: Contour;
   api?: UrlString;
   controlConfig?: ControlConfig;
   layerConfig?: LayerConfig;
+  featureSelectConfig?: FeatureSelectConfig;
   locatie?: ILocatie;
   drawPanelEnabled?: boolean;
 }
