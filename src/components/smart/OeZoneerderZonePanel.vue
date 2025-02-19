@@ -33,7 +33,7 @@
           <vl-button
             vl-button
             mod-narrow
-            :mod-secondary="!selectPerceel"
+            :mod-secondary="featureSelect !== FeatureSelectEnum.Perceel"
             title="Selecteer perceel"
             @click="startPerceelSelect()"
           >
@@ -42,7 +42,7 @@
           <vl-button
             vl-button
             mod-narrow
-            :mod-secondary="!selectGebouw"
+            :mod-secondary="featureSelect !== FeatureSelectEnum.Gebouw"
             title="Selecteer gebouw"
             @click="startGebouwSelect()"
           >
@@ -51,7 +51,7 @@
           <vl-button
             vl-button
             mod-narrow
-            :mod-secondary="!selectKunstwerk"
+            :mod-secondary="featureSelect !== FeatureSelectEnum.Kunstwerk"
             title="Selecteer kunstwerk"
             @click="startKunstwerkSelect()"
           >
@@ -119,6 +119,7 @@ import 'ol/ol.css';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { VlButton, VlInputField, VlInputGroup, VlLink, VlTitle } from '@govflanders/vl-ui-design-system-vue3';
 import { Feature, Map, MapBrowserEvent } from 'ol';
+import { unByKey } from 'ol/Observable';
 import { type Extent } from 'ol/extent';
 import { GeoJSON, WKT } from 'ol/format';
 import { Circle, Geometry, MultiPolygon, Polygon } from 'ol/geom';
@@ -128,22 +129,22 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Fill, Text as OlText, Stroke, Style } from 'ol/style';
 import { inject, onMounted, onUnmounted, ref, watch } from 'vue';
+import { FeatureSelectEnum } from '@models/featureSelect.enum';
 import type { FeatureLike } from 'ol/Feature';
 import type { ColorLike } from 'ol/colorlike';
-import type { Listener } from 'ol/events';
 import type { CrabApiService } from '@/services';
 import type { Contour, IDrawGeomType } from '@models/oe-openlayers';
 
 const props = defineProps<{
   zone?: Contour;
-  selectPerceel?: boolean;
-  selectGebouw?: boolean;
-  selectKunstwerk?: boolean;
+  featureSelect: FeatureSelectEnum | undefined;
   drawPanelEnabled?: boolean;
 }>();
+
+const featureSelectEventKey = ref();
 const zone = ref<Contour | undefined>(props.zone);
 const elementRef = ref<HTMLElement>();
-const emit = defineEmits(['update:zone', 'update:select-perceel', 'zone-panel:mounted']);
+const emit = defineEmits(['update:zone', 'update:feature-select', 'zone-panel:mounted']);
 
 const map = inject('map') as Map;
 const zoomToExtent = inject('zoomToExtent') as (extent: Extent) => void;
@@ -154,9 +155,7 @@ const WKTString = ref('');
 const mapProjection = map.getView().getProjection();
 const zonePanelRef = ref<HTMLElement>();
 const panelOpen = ref(false);
-const selectPerceel = ref(props.selectPerceel);
-const selectGebouw = ref(props.selectGebouw);
-const selectKunstwerk = ref(props.selectKunstwerk);
+const featureSelect = ref(props.featureSelect);
 const activeDrawType = ref<IDrawGeomType>();
 const geometryObjectList = ref<string[]>([]);
 const addingWKT = ref(false);
@@ -186,7 +185,7 @@ const flashLayer = _createVectorLayer({
 map.addLayer(flashLayer);
 
 watch(zone, (newZone) => emit('update:zone', newZone));
-watch(selectPerceel, (newSelectPerceel) => emit('update:select-perceel', newSelectPerceel));
+watch(featureSelect, (newFeatureSelect) => emit('update:feature-select', newFeatureSelect));
 watch(
   () => props.drawPanelEnabled,
   (isEnabled) => {
@@ -209,38 +208,25 @@ onUnmounted(() => {
     .forEach((control) => map.removeControl(control));
 });
 
-const perceelSelectCallback = (evt: MapBrowserEvent<UIEvent>) => {
-  crabService.searchGRBWfs(evt.coordinate, mapProjection.getCode(), ['ADP']).then((result) => {
-    geoJsonFormatter.readFeatures(result).forEach((olFeature) => {
-      console.log(olFeature);
-      if (olFeature) {
-        drawGRBWfs(olFeature, `Perceel ${olFeature.get('CAPAKEY')}`);
-      } else {
-        console.error('Er werd geen perceel gevonden op deze locatie.');
-      }
-    });
-  });
-};
-
-const gebouwSelectCallback = (evt: MapBrowserEvent<UIEvent>) => {
-  crabService.searchGRBWfs(evt.coordinate, mapProjection.getCode(), ['GBG']).then((result) => {
+const featureSelectCallback = (
+  evt: MapBrowserEvent<UIEvent>,
+  featureTypes: string[],
+  type: FeatureSelectEnum,
+  featureProp: string
+) => {
+  crabService.searchGRBWfs(evt.coordinate, mapProjection.getCode(), featureTypes).then((result) => {
     geoJsonFormatter.readFeatures(result).forEach((olFeature) => {
       if (olFeature) {
-        drawGRBWfs(olFeature, `Gebouw ${olFeature.get('OIDN')}`);
+        const name = `${type} ${olFeature.get(featureProp)}`;
+        if (geometryObjectList.value.indexOf(name) === -1) {
+          olFeature.set('name', name);
+          if (drawLayer.getSource()) {
+            drawLayer.getSource()?.addFeature(olFeature);
+            geometryObjectList.value.push(name);
+          }
+        }
       } else {
-        console.error('Er werd geen gebouw gevonden op deze locatie.');
-      }
-    });
-  });
-};
-
-const kunstwerkSelectCallback = (evt: MapBrowserEvent<UIEvent>) => {
-  crabService.searchGRBWfs(evt.coordinate, mapProjection.getCode(), ['KNW']).then((result) => {
-    geoJsonFormatter.readFeatures(result).forEach((olFeature) => {
-      if (olFeature) {
-        drawGRBWfs(olFeature, `Kunstwerk ${olFeature.get('OIDN')}`);
-      } else {
-        console.error('Er werd geen gebouw gevonden op deze locatie.');
+        console.error(`Er werd geen ${type.toLowerCase()} gevonden op deze locatie.`);
       }
     });
   });
@@ -299,17 +285,9 @@ function toggleDrawZone(drawZoneEnabled = false, type: IDrawGeomType = 'Polygon'
 }
 
 function resetSelect() {
-  selectPerceel.value = false;
-  selectGebouw.value = false;
-  selectKunstwerk.value = false;
-  if (perceelSelectCallback) {
-    map.removeEventListener('click', perceelSelectCallback as Listener);
-  }
-  if (gebouwSelectCallback) {
-    map.removeEventListener('click', gebouwSelectCallback as Listener);
-  }
-  if (kunstwerkSelectCallback) {
-    map.removeEventListener('click', kunstwerkSelectCallback as Listener);
+  featureSelect.value = undefined;
+  if (featureSelectEventKey.value) {
+    unByKey(featureSelectEventKey.value);
   }
 }
 
@@ -356,36 +334,33 @@ function showWktInput() {
   invalidWKT.value = false;
 }
 
-function startPerceelSelect() {
+function startSelect() {
   toggleDrawZone(false);
   resetSelect();
-  selectPerceel.value = true;
-  map.on('click', perceelSelectCallback);
+}
+
+function startPerceelSelect() {
+  startSelect();
+  featureSelect.value = FeatureSelectEnum.Perceel;
+  featureSelectEventKey.value = map.on('click', (e) =>
+    featureSelectCallback(e, ['ADP'], FeatureSelectEnum.Perceel, 'CAPAKEY')
+  );
 }
 
 function startGebouwSelect() {
-  toggleDrawZone(false);
-  resetSelect();
-  selectGebouw.value = true;
-  map.on('click', gebouwSelectCallback);
+  startSelect();
+  featureSelect.value = FeatureSelectEnum.Gebouw;
+  featureSelectEventKey.value = map.on('click', (e) =>
+    featureSelectCallback(e, ['GBG'], FeatureSelectEnum.Gebouw, 'OIDN')
+  );
 }
 
 function startKunstwerkSelect() {
-  toggleDrawZone(false);
-  resetSelect();
-  selectKunstwerk.value = true;
-  map.on('click', kunstwerkSelectCallback);
-}
-
-function drawGRBWfs(olFeature: Feature, name: string) {
-  console.debug('drawGRBWfs');
-  if (geometryObjectList.value.indexOf(name) === -1) {
-    olFeature.set('name', name);
-    if (drawLayer.getSource()) {
-      drawLayer.getSource()?.addFeature(olFeature);
-      geometryObjectList.value.push(name);
-    }
-  }
+  startSelect();
+  featureSelect.value = FeatureSelectEnum.Kunstwerk;
+  featureSelectEventKey.value = map.on('click', (e) =>
+    featureSelectCallback(e, ['KNW'], FeatureSelectEnum.Kunstwerk, 'OIDN')
+  );
 }
 
 function _createInteractions() {

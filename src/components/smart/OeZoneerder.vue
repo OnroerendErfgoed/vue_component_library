@@ -1,5 +1,5 @@
 <template>
-  <div ref="mapRef" data-cy="olMap" class="map" :class="{ selectPerceel: selectPerceel }">
+  <div ref="mapRef" data-cy="olMap" class="map" :class="{ featureSelect: featureSelect }">
     <oe-autocomplete
       data-cy="locationSearchInput"
       :callback-fn="performAutocompleteSearch"
@@ -23,7 +23,7 @@
     <layerswitcher @layerswitcher:mounted="addLayerswitcherControl"></layerswitcher>
     <zone-panel
       v-model:zone="zone"
-      v-model:select-perceel="selectPerceel"
+      v-model:feature-select="featureSelect"
       :draw-panel-enabled="props.drawPanelEnabled"
       @zone-panel:mounted="addZonePanelControl"
     ></zone-panel>
@@ -51,6 +51,7 @@ import { CrabApiService } from '@/services';
 import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
 import Layerswitcher from '@components/smart/OeZoneerderLayerswitcher.vue';
 import ZonePanel from '@components/smart/OeZoneerderZonePanel.vue';
+import { FeatureSelectEnum } from '@models/featureSelect.enum';
 import { Geolocate } from '@utils/openlayers/oe-ol-geolocate';
 import type { Coordinate } from 'ol/coordinate';
 import type { Extent } from 'ol/extent';
@@ -73,7 +74,7 @@ const leftControlsContainerRef = ref<HTMLElement>() as Ref<HTMLElement>;
 const rightControlsContainerRef = ref<HTMLElement>() as Ref<HTMLElement>;
 const mapRef = ref<HTMLElement>();
 const autoCompleteValueRef = ref<IAutocompleteOption>();
-const selectPerceel = ref(false);
+const featureSelect = ref<FeatureSelectEnum | undefined>();
 
 const emit = defineEmits(['map:created', 'update:zone']);
 
@@ -379,7 +380,7 @@ function addControls(leftControlsContainer?: HTMLElement, rightControlsContainer
   background-color: aliceblue;
   position: relative;
 
-  &.selectPerceel canvas {
+  &.featureSelect canvas {
     cursor: pointer;
   }
 }
