@@ -33,6 +33,13 @@ const meta: Meta<typeof OeZoneerder> = {
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/vue/writing-docs/autodocs
   tags: ['autodocs'],
   argTypes: {
+    featureSelectConfig: {
+      control: 'object',
+      description: 'Configure which select buttons are visible on the openlayers map',
+      table: {
+        type: { summary: 'featureSelectConfig' },
+      },
+    },
     controlConfig: {
       control: 'object',
       description: 'Configure which controls are visible on the openlayers map',
