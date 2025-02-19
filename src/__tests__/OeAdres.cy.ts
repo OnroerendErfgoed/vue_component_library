@@ -23,6 +23,7 @@ describe('Adres', () => {
 
   it('has a title adres', () => {
     mount(TestComponent);
+    cy.wait(1000);
     cy.dataCy('title-adres').should('have.text', 'Adres');
   });
 
