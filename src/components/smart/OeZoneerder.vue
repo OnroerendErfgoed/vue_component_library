@@ -76,7 +76,7 @@ const leftControlsContainerRef = ref<HTMLElement>() as Ref<HTMLElement>;
 const rightControlsContainerRef = ref<HTMLElement>() as Ref<HTMLElement>;
 const mapRef = ref<HTMLElement>();
 const autoCompleteValueRef = ref<IAutocompleteOption>();
-const featureSelect = ref<FeatureSelectEnum | undefined>();
+const featureSelect = ref<FeatureSelectEnum>();
 
 const emit = defineEmits(['map:created', 'update:zone']);
 
