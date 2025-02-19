@@ -32,6 +32,7 @@
           </vl-button>
           <vl-button
             v-if="props.featureSelectConfig.perceel"
+            data-cy="selectPerceelButton"
             vl-button
             mod-narrow
             :mod-secondary="featureSelect !== FeatureSelectEnum.Perceel"
@@ -42,6 +43,7 @@
           </vl-button>
           <vl-button
             v-if="props.featureSelectConfig.gebouw"
+            data-cy="selectGebouwButton"
             vl-button
             mod-narrow
             :mod-secondary="featureSelect !== FeatureSelectEnum.Gebouw"
@@ -52,6 +54,7 @@
           </vl-button>
           <vl-button
             v-if="props.featureSelectConfig.kunstwerk"
+            data-cy="selectKunstwerkButton"
             vl-button
             mod-narrow
             :mod-secondary="featureSelect !== FeatureSelectEnum.Kunstwerk"
