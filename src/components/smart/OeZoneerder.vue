@@ -219,10 +219,10 @@ function setupProjection() {
 function getBaseLayerGroup() {
   const layers = Object.keys(props.layerConfig.baseLayers)
     .map((id) => ({ id, options: props.layerConfig.baseLayers[id] }))
+    .filter((layer) => !layer.options.hidden)
     .map(({ id, options }) => _createLayer(id, options, true))
     .reverse();
   const baseLayerGroup = new Group({ layers });
-  baseLayerGroup.set('title', 'Achtergrond kaart');
   baseLayerGroup.set('title', 'Achtergrond kaart');
   return baseLayerGroup;
 }
@@ -230,6 +230,7 @@ function getBaseLayerGroup() {
 function getOverlays() {
   return Object.keys(props.layerConfig.overlays)
     .map((id) => ({ id, options: props.layerConfig.overlays[id] }))
+    .filter((layer) => !layer.options.hidden)
     .map(({ id, options }) => _createLayer(id, options, false))
     .reverse();
 }

@@ -24,6 +24,7 @@ interface BaseLayerOptions {
   type: LayerType;
   title: string;
   visible?: boolean;
+  hidden?: boolean;
 }
 
 interface LegendImage {
@@ -84,6 +85,7 @@ export const defaultLayerConfig: LayerConfig = {
   },
   overlays: {
     overlay: { type: LayerType.Ngi, title: 'Topokaart overlay' },
+    kunstwerken: { type: LayerType.GrbWMS, wmsLayers: 'GRB_KNW', title: 'GRB-Kunstwerkenlaag', hidden: true },
     gebouwen: { type: LayerType.GrbWMS, wmsLayers: 'GRB_GBG', title: 'GRB-Gebouwenlaag' },
     percelen: { type: LayerType.GrbWMS, wmsLayers: 'GRB_ADP_GRENS', title: 'GRB-Percelenlaag' },
     bes: {
