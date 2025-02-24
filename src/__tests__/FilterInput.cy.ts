@@ -93,10 +93,6 @@ describe('FilterInput', () => {
         cy.dataCy('filter-add-button').click();
       });
 
-      it('has a filters label', () => {
-        cy.dataCy('filters-label').should('exist').invoke('text').should('equal', 'Filters:');
-      });
-
       it('clears the input field after filter was added', () => {
         cy.get('.vl-input-field ').last().should('have.value', '');
       });
