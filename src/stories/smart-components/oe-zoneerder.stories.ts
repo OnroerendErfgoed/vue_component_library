@@ -1,5 +1,6 @@
 import '@/scss/main.scss';
 import { OeZoneerder } from '@components/smart';
+import { defaultLayerConfig } from '@models/oe-zoneerder-config';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const api = 'https://test-geo.onroerenderfgoed.be/';
@@ -32,6 +33,13 @@ const meta: Meta<typeof OeZoneerder> = {
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/vue/writing-docs/autodocs
   tags: ['autodocs'],
   argTypes: {
+    featureSelectConfig: {
+      control: 'object',
+      description: 'Configure which select buttons are visible on the openlayers map',
+      table: {
+        type: { summary: 'featureSelectConfig' },
+      },
+    },
     controlConfig: {
       control: 'object',
       description: 'Configure which controls are visible on the openlayers map',
@@ -244,5 +252,26 @@ export const AllControls: Story = {
       };
     },
     template: `<oe-zoneerder :api="api" :control-config="controlConfig" style="height: 500px"></oe-zoneerder>`,
+  }),
+};
+
+export const AllSelects: Story = {
+  render: () => ({
+    components: { OeZoneerder },
+    setup() {
+      const layerConfig = defaultLayerConfig;
+      layerConfig.overlays.kunstwerken.hidden = false;
+      return {
+        api,
+        drawPanelEnabled: true,
+        featureSelectConfig: {
+          perceel: true,
+          gebouw: true,
+          kunstwerk: true,
+        },
+        layerConfig,
+      };
+    },
+    template: `<oe-zoneerder :api="api" :draw-panel-enabled="drawPanelEnabled" :layer-config="layerConfig" :feature-select-config="featureSelectConfig" style="height: 500px"></oe-zoneerder>`,
   }),
 };

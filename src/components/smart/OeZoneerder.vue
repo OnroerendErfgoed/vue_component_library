@@ -1,5 +1,5 @@
 <template>
-  <div ref="mapRef" data-cy="olMap" class="map" :class="{ selectPerceel: selectPerceel }">
+  <div ref="mapRef" data-cy="olMap" class="map" :class="{ featureSelect: featureSelect }">
     <oe-autocomplete
       data-cy="locationSearchInput"
       :callback-fn="performAutocompleteSearch"
@@ -23,7 +23,8 @@
     <layerswitcher @layerswitcher:mounted="addLayerswitcherControl"></layerswitcher>
     <zone-panel
       v-model:zone="zone"
-      v-model:select-perceel="selectPerceel"
+      v-model:feature-select="featureSelect"
+      :feature-select-config="props.featureSelectConfig"
       :draw-panel-enabled="props.drawPanelEnabled"
       @zone-panel:mounted="addZonePanelControl"
     ></zone-panel>
@@ -46,11 +47,12 @@ import { TileWMS, WMTS } from 'ol/source';
 import WMTSTileGrid from 'ol/tilegrid/WMTS';
 import proj4 from 'proj4';
 import { onMounted, onUnmounted, provide, ref, watch } from 'vue';
-import { LayerType, defaultControlConfig, defaultLayerConfig } from '@/models';
+import { LayerType, defaultControlConfig, defaultFeatureSelectConfig, defaultLayerConfig } from '@/models';
 import { CrabApiService } from '@/services';
 import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
 import Layerswitcher from '@components/smart/OeZoneerderLayerswitcher.vue';
 import ZonePanel from '@components/smart/OeZoneerderZonePanel.vue';
+import { FeatureSelectEnum } from '@models/featureSelect.enum';
 import { Geolocate } from '@utils/openlayers/oe-ol-geolocate';
 import type { Coordinate } from 'ol/coordinate';
 import type { Extent } from 'ol/extent';
@@ -63,6 +65,7 @@ import type { Contour } from '@models/oe-openlayers';
 const props = withDefaults(defineProps<OeZoneerderProps>(), {
   controlConfig: () => defaultControlConfig,
   layerConfig: () => defaultLayerConfig,
+  featureSelectConfig: () => defaultFeatureSelectConfig,
   api: 'https://geo.onroerenderfgoed.be/',
   drawPanelEnabled: false,
   zone: undefined,
@@ -73,7 +76,7 @@ const leftControlsContainerRef = ref<HTMLElement>() as Ref<HTMLElement>;
 const rightControlsContainerRef = ref<HTMLElement>() as Ref<HTMLElement>;
 const mapRef = ref<HTMLElement>();
 const autoCompleteValueRef = ref<IAutocompleteOption>();
-const selectPerceel = ref(false);
+const featureSelect = ref<FeatureSelectEnum>();
 
 const emit = defineEmits(['map:created', 'update:zone']);
 
@@ -216,10 +219,10 @@ function setupProjection() {
 function getBaseLayerGroup() {
   const layers = Object.keys(props.layerConfig.baseLayers)
     .map((id) => ({ id, options: props.layerConfig.baseLayers[id] }))
+    .filter((layer) => !layer.options.hidden)
     .map(({ id, options }) => _createLayer(id, options, true))
     .reverse();
   const baseLayerGroup = new Group({ layers });
-  baseLayerGroup.set('title', 'Achtergrond kaart');
   baseLayerGroup.set('title', 'Achtergrond kaart');
   return baseLayerGroup;
 }
@@ -227,6 +230,7 @@ function getBaseLayerGroup() {
 function getOverlays() {
   return Object.keys(props.layerConfig.overlays)
     .map((id) => ({ id, options: props.layerConfig.overlays[id] }))
+    .filter((layer) => !layer.options.hidden)
     .map(({ id, options }) => _createLayer(id, options, false))
     .reverse();
 }
@@ -379,7 +383,7 @@ function addControls(leftControlsContainer?: HTMLElement, rightControlsContainer
   background-color: aliceblue;
   position: relative;
 
-  &.selectPerceel canvas {
+  &.featureSelect canvas {
     cursor: pointer;
   }
 }

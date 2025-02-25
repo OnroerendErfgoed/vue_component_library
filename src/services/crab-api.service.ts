@@ -173,7 +173,7 @@ export class CrabApiService extends HttpService {
     ).data;
   }
 
-  public async searchPerceel(coordinate: Coordinate, srsName: string) {
+  public async searchGRBWfs(coordinate: Coordinate, srsName: string, featureTypes: string[]) {
     const agivGrbUrl = `https://geo.api.vlaanderen.be/GRB`;
     const agivGrbWfsUrl = `${agivGrbUrl}/wfs`;
 
@@ -184,7 +184,28 @@ export class CrabApiService extends HttpService {
       filter,
       featureNS: agivGrbUrl,
       featurePrefix: 'GRB',
-      featureTypes: ['ADP'],
+      featureTypes,
+      outputFormat: 'application/json',
+    });
+
+    const data = new XMLSerializer().serializeToString(featureRequest);
+    const headers = { 'Content-Type': 'application/xml', Accept: 'application/json' };
+    const response = await this.post<ArrayBuffer, string>(agivGrbWfsUrl, data, { headers });
+    return response.data;
+  }
+
+  public async searchGebouw(coordinate: Coordinate, srsName: string) {
+    const agivGrbUrl = `https://geo.api.vlaanderen.be/GRB`;
+    const agivGrbWfsUrl = `${agivGrbUrl}/wfs`;
+
+    const filter = new Intersects('SHAPE', new Point(coordinate, 'XY'), 'urn:x-ogc:def:crs:EPSG:31370');
+
+    const featureRequest = new WFS().writeGetFeature({
+      srsName,
+      filter,
+      featureNS: agivGrbUrl,
+      featurePrefix: 'GRB',
+      featureTypes: ['GBG'],
       outputFormat: 'application/json',
     });
 

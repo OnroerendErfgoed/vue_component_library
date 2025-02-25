@@ -138,6 +138,7 @@ describe('OeZoneerder', () => {
           layerConfig: {
             baseLayers: {
               omwrgbmrvl: { type: LayerType.OMWRGBMRVL, title: 'Ortho', visible: true },
+              kunstwerken: { type: LayerType.GrbWMS, wmsLayers: 'GRB_KNW', title: 'GRB-Kunstwerkenlaag', hidden: true },
             },
             overlays: {
               overlay: { type: LayerType.Ngi, title: 'Topokaart overlay' },
@@ -148,6 +149,24 @@ describe('OeZoneerder', () => {
       cy.dataCy('olMap').find('.layerswitcher.oe-ol-control').click();
       cy.dataCy('layerswitcherPanel').should('contain', 'Ortho');
       cy.dataCy('layerswitcherPanel').should('contain', 'Topokaart overlay');
+      cy.dataCy('layerswitcherPanel').should('not.contain', 'GRB-Kunstwerkenlaag');
+    });
+
+    it('shows all enabled selects', () => {
+      cy.mount(TestComponent, {
+        props: {
+          drawPanelEnabled: true,
+          featureSelectConfig: {
+            perceel: true,
+            gebouw: true,
+            kunstwerk: false,
+          },
+        },
+      });
+      cy.dataCy('zonePanelControl').click();
+      cy.dataCy('selectPerceelButton').should('exist');
+      cy.dataCy('selectGebouwButton').should('exist');
+      cy.dataCy('selectKunstwerkButton').should('not.exist');
     });
   });
 });

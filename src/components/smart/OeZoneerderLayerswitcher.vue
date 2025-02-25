@@ -98,7 +98,7 @@ function setupPanel() {
   achtergrondTitleRef.value = achtergrondGroup?.get('title') || achtergrondTitleRef.value;
   layers = getLeafLayers(map).reverse();
   achtergrondLayersRef.value = layers.filter((l) => l.get('type') === 'base');
-  overlayLayersRef.value = layers.filter((l) => l.get('type') === 'overlay');
+  overlayLayersRef.value = layers.filter((l) => l.get('type') === 'overlay' && !!l.get('title'));
   setVisibleLayers();
 }
 
