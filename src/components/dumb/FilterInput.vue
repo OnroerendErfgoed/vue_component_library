@@ -1,64 +1,65 @@
 <template>
-  <div class="vl-grid filters-input">
-    <span v-if="!props?.options.length" data-cy="no-options" class="vl-alert--warning"
-      >Geen filteropties geconfigureerd</span
-    >
-    <template v-else>
-      <vl-select
-        v-model="selectedOption"
-        data-cy="filter-select"
-        class="vl-col--5-12"
-        mod-block
-        mod-inline
-        @update:model-value="clearInputs"
+  <div class="filter-input-component vl-u-flex vl-u-flex-direction-column">
+    <div class="vl-grid filters-input">
+      <span v-if="!props?.options.length" data-cy="no-options" class="vl-alert--warning"
+        >Geen filteropties geconfigureerd</span
       >
-        <option v-for="option in props.options" :key="option.key" :value="option">
-          {{ option.label }}
-        </option>
-      </vl-select>
-      <vl-input-group class="vl-col--7-12">
-        <slot
-          :value="filterInputValue?.value"
-          :set-value="setFilterInputValue"
-          :selected-option="selectedOption"
-          :add-filter="addFilter"
-        ></slot>
+      <template v-else>
+        <vl-select
+          v-model="selectedOption"
+          data-cy="filter-select"
+          class="vl-col--5-12"
+          mod-block
+          mod-inline
+          @update:model-value="clearInputs"
+        >
+          <option v-for="option in props.options" :key="option.key" :value="option">
+            {{ option.label }}
+          </option>
+        </vl-select>
+        <vl-input-group class="vl-col--7-12">
+          <slot
+            :value="filterInputValue?.value"
+            :set-value="setFilterInputValue"
+            :selected-option="selectedOption"
+            :add-filter="addFilter"
+          ></slot>
 
-        <vl-input-addon
-          data-cy="filter-add-button"
-          :mod-disabled="filterValuesAreEmpty"
-          :disabled="filterValuesAreEmpty"
-          tag-name="button"
-          type="button"
-          icon="plus"
-          tooltip="Filter toevoegen"
-          text="Filter toevoegen"
-          @click="addFilter"
-        />
-      </vl-input-group>
-    </template>
-  </div>
-  <div v-if="!!filters.length" class="vl-grid filters-selected">
-    <span data-cy="filters-label" class="vl-col--1-12 vl-col--2-12--l vl-col--12-12--xs">Filters:</span>
-    <vl-action-group class="vl-col--10-12 vl-col--9-12--l vl-col--12-12--xs">
-      <button
-        data-cy="clear-filter-button"
-        class="vl-button vl-u-spacer-left--xsmall vl-u-spacer-bottom--xsmall vl-u-text--small"
-        @click="filters = []"
-      >
-        Alle filters wissen
-      </button>
-      <vl-pill
-        v-for="filter in filters"
-        :key="filter.key"
-        :data-cy="`filter-${filter.key}-${filter.value.value}`"
-        mod-closable
-        class="vl-u-spacer-left--xsmall vl-u-spacer-bottom--xsmall"
-        @close="removeFilter(filter)"
-      >
-        {{ filter.label }} / {{ filter.value.label }}
-      </vl-pill>
-    </vl-action-group>
+          <vl-input-addon
+            data-cy="filter-add-button"
+            :mod-disabled="filterValuesAreEmpty"
+            :disabled="filterValuesAreEmpty"
+            tag-name="button"
+            type="button"
+            icon="plus"
+            tooltip="Filter toevoegen"
+            text="Filter toevoegen"
+            @click="addFilter"
+          />
+        </vl-input-group>
+      </template>
+    </div>
+    <div v-if="!!filters.length" class="vl-grid filters-selected">
+      <vl-action-group class="vl-col--12-12">
+        <button
+          data-cy="clear-filter-button"
+          class="vl-button vl-u-spacer-left--xsmall vl-u-spacer-bottom--xsmall vl-u-text--small"
+          @click="filters = []"
+        >
+          Alle filters wissen
+        </button>
+        <vl-pill
+          v-for="filter in filters"
+          :key="filter.key"
+          :data-cy="`filter-${filter.key}-${filter.value.value}`"
+          mod-closable
+          class="vl-u-spacer-left--xsmall vl-u-spacer-bottom--xsmall"
+          @close="removeFilter(filter)"
+        >
+          {{ filter.label }} / {{ filter.value.label }}
+        </vl-pill>
+      </vl-action-group>
+    </div>
   </div>
 </template>
 
@@ -124,6 +125,7 @@ const removeFilter = (filter: IFilter) =>
 .vl-grid {
   &.filters-input {
     margin-left: 0;
+    align-self: flex-end;
 
     .vl-input-group {
       padding-left: 0.5rem;
@@ -132,6 +134,7 @@ const removeFilter = (filter: IFilter) =>
 
   &.filters-selected {
     margin-top: 2rem;
+    align-self: flex-end;
 
     :deep(.vl-action-group button:last-child) {
       margin-right: -1px;
@@ -139,13 +142,12 @@ const removeFilter = (filter: IFilter) =>
 
     .vl-pill {
       cursor: pointer;
-      margin-right: 0.5rem;
     }
 
     .vl-button {
       min-height: revert;
       padding: 0.4rem 1.4rem;
-      margin-right: 0.5rem;
+      margin-right: 0;
     }
   }
 }
