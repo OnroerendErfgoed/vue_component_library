@@ -28,7 +28,7 @@
           data-cy="actor-widget-add-btn"
           class="vl-u-spacer-right--small"
           mod-primary
-          :mod-disabled="!selectedActor"
+          :mod-disabled="!selectedActor || props.disableAddButton"
           @click="addActor()"
         >
           Toevoegen
@@ -54,6 +54,7 @@ interface IOeActorWidgetProps {
   getSsoToken?: () => Promise<string>;
   actorType?: ActorType;
   searchActor?: string;
+  disableAddButton?: boolean;
 }
 
 enum ActorWidgetState {
@@ -67,6 +68,7 @@ const props = withDefaults(defineProps<IOeActorWidgetProps>(), {
   getSsoToken: undefined,
   actorType: undefined,
   searchActor: '',
+  disableAddButton: false,
 });
 
 const emit = defineEmits<{

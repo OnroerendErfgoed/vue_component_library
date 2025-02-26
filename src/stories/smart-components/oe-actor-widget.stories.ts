@@ -41,6 +41,12 @@ const meta: Meta<typeof OeActorWidget> = {
         type: { summary: '<template #dropdown></template>' },
       },
     },
+    disableAddButton: {
+      description: 'Disable add button until extended conditions are met',
+      table: {
+        type: { summary: '<template #dropdown></template>' },
+      },
+    },
   },
 };
 
