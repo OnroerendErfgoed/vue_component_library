@@ -1,9 +1,10 @@
 <template>
-  <vl-modal :id="props.id" mod-large title="Actor toevoegen" class="actor-widget">
+  <vl-modal :id="props.id" mod-large :mod-locked="false" title="Actor toevoegen" class="actor-widget">
     <oe-loader v-if="loading"></oe-loader>
     <template #modal-content>
       <grid
         v-show="state === ActorWidgetState.Grid"
+        ref="actorGrid"
         :search-actor="props.searchActor"
         :api="props.api"
         :get-sso-token="props.getSsoToken"
@@ -40,7 +41,7 @@
 
 <script setup lang="ts">
 import { VlButton, VlModal } from '@govflanders/vl-ui-design-system-vue3';
-import { ref } from 'vue';
+import { ref, useTemplateRef } from 'vue';
 import Detail from '@components/dumb/OeActorWidgetDetail.vue';
 import OeLoader from '@components/dumb/OeLoader.vue';
 import Grid from '@components/smart/OeActorWidgetGrid.vue';
@@ -76,6 +77,7 @@ const state = ref<ActorWidgetState>(ActorWidgetState.Grid);
 const actorService = new ActorService(props.api, props.getSsoToken);
 const selectedActor = ref<IActor>();
 const loading = ref(false);
+const actorGrid = useTemplateRef('actorGrid');
 
 const selectActor = (actor: IActor) => {
   selectedActor.value = actor;
@@ -107,6 +109,7 @@ const close = () => {
 };
 
 const resetWidget = () => {
+  actorGrid.value?.resetSelectedActor();
   state.value = ActorWidgetState.Grid;
   selectedActor.value = undefined;
 };
