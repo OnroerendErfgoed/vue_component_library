@@ -65,7 +65,7 @@ const props = withDefaults(defineProps<IOeActorWidgetGridProps>(), {
   searchActor: '',
 });
 const emit = defineEmits<{
-  selectActor: [IActor];
+  selectActor: [IActor | undefined];
   setStateDetail: [number];
   setLoading: [boolean];
 }>();
@@ -74,7 +74,10 @@ const actorService = new ActorService(props.api, props.getSsoToken);
 
 // Search
 const zoekterm = ref('');
-const search = () => gridOptions.value.api?.purgeInfiniteCache();
+const search = () => {
+  resetSelectedActor();
+  gridOptions.value.api?.purgeInfiniteCache();
+};
 const triggerSearch = (event: Event) => {
   event.preventDefault();
   search();
@@ -180,6 +183,12 @@ const setRowData = () => {
   };
   gridOptions.value.api?.setDatasource(dataSource);
 };
+
+const resetSelectedActor = () => {
+  gridOptions.value.api?.deselectAll();
+  emit('selectActor', undefined);
+};
+defineExpose({ resetSelectedActor });
 </script>
 
 <style lang="scss" scoped>

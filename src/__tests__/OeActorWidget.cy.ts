@@ -108,4 +108,41 @@ describe('OeActorWidget', () => {
       });
     });
   });
+
+  describe('disabled add button', () => {
+    const TestComponent = defineComponent({
+      components: { OeActorWidget },
+      setup() {
+        const disableAddButton = true;
+        const id = '1';
+        const api = 'https://dev-actoren.onroerenderfgoed.be';
+        const getSsoToken = async () => 1;
+        return { id, api, getSsoToken, disableAddButton };
+      },
+      template: `
+      <oe-actor-widget :id="id" :api="api" :get-sso-token="getSsoToken" :open="true" :disable-add-button="disableAddButton">
+        <template v-slot:dropdown>
+          <div data-cy="actor-widget-slot-dropdown">Test</div>
+        </template>
+      </oe-actor-widget>
+      `,
+    });
+
+    beforeEach(() => {
+      cy.intercept('GET', 'https://dev-actoren.onroerenderfgoed.be/actoren*', {
+        fixture: 'actoren.json',
+        headers: {
+          'Content-Range': 'items 0-50/1',
+        },
+      }).as('dataGet');
+
+      cy.mount(TestComponent);
+      cy.wait('@dataGet');
+    });
+
+    it('disables the add button', () => {
+      cy.dataCy('ag-grid-vue').find('.ag-center-cols-container').children().first().click();
+      cy.dataCy('actor-widget-add-btn').should('be.disabled');
+    });
+  });
 });
