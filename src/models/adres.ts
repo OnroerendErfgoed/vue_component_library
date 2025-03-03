@@ -6,6 +6,8 @@ export interface IAdresProps {
   api?: string;
   config?: IAdresConfig;
   countryId?: string;
+  showGewest?: boolean;
+  showProvincie?: boolean;
   adres?: ILocatieAdres;
   optionsLimit?: number;
   showRequiredPerField?: boolean;
@@ -13,6 +15,8 @@ export interface IAdresProps {
 
 export interface IAdresConfig {
   land?: IConfigOption;
+  gewest?: IConfigOption;
+  provincie?: IConfigOption;
   gemeente?: IConfigOption;
   postcode?: IConfigOption;
   straat?: IConfigOption;

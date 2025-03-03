@@ -33,6 +33,88 @@
           </VlPropertiesData>
         </template>
 
+        <!-- Gewest -->
+        <template v-if="isBelgiumOrEmpty && $props.showGewest">
+          <VlPropertiesLabel>
+            <vl-form-message-label data-cy="label-gewest">
+              <span class="vl-u-spacer-right--xxsmall">Gewest</span>
+              <span v-if="props.showRequiredPerField && $props.config?.gewest?.required" class="vl-form__annotation"
+                >VERPLICHT</span
+              >
+            </vl-form-message-label>
+          </VlPropertiesLabel>
+          <VlPropertiesData>
+            <VlMultiselect
+              v-model="gewest"
+              placeholder="Gewest"
+              data-cy="select-gewest"
+              :mod-error="!!v$.gewest.naam.$errors.length"
+              :custom-label="customGewestLabel"
+              :disabled="!land || props.modDisabled"
+              :mod-multiple="false"
+              :options="gewesten"
+              :options-limit="optionsLimit"
+              :preserve-search="true"
+              @keydown.tab="!gewest ? $event.preventDefault() : null"
+            >
+              <template #noResult>
+                <span>Geen resultaten gevonden...</span>
+              </template>
+              <template #noOptions>
+                <span>Geen opties beschikbaar</span>
+              </template>
+            </VlMultiselect>
+            <vl-form-message-error
+              v-for="error of v$.gewest.naam.$errors"
+              :key="error.$uid"
+              data-cy="form-error-gewest"
+            >
+              {{ error.$message }}
+            </vl-form-message-error>
+          </VlPropertiesData>
+        </template>
+
+        <!-- Provincie -->
+        <template v-if="isBelgiumOrEmpty && $props.showProvincie">
+          <VlPropertiesLabel>
+            <vl-form-message-label data-cy="label-provincie">
+              <span class="vl-u-spacer-right--xxsmall">Provincie</span>
+              <span v-if="props.showRequiredPerField && $props.config?.provincie?.required" class="vl-form__annotation"
+                >VERPLICHT</span
+              >
+            </vl-form-message-label>
+          </VlPropertiesLabel>
+          <VlPropertiesData>
+            <VlMultiselect
+              v-model="provincie"
+              placeholder="Provincie"
+              data-cy="select-provincie"
+              :mod-error="!!v$.provincie.naam.$errors.length"
+              :custom-label="customProvincieLabel"
+              :disabled="!land || provincies.length === 0 || props.modDisabled"
+              :mod-multiple="false"
+              :options="provincies"
+              :options-limit="optionsLimit"
+              :preserve-search="true"
+              @keydown.tab="!provincie ? $event.preventDefault() : null"
+            >
+              <template #noResult>
+                <span>Geen resultaten gevonden...</span>
+              </template>
+              <template #noOptions>
+                <span>Geen opties beschikbaar</span>
+              </template>
+            </VlMultiselect>
+            <vl-form-message-error
+              v-for="error of v$.provincie.naam.$errors"
+              :key="error.$uid"
+              data-cy="form-error-provincie"
+            >
+              {{ error.$message }}
+            </vl-form-message-error>
+          </VlPropertiesData>
+        </template>
+
         <!-- Gemeente -->
         <VlPropertiesLabel>
           <vl-form-message-label data-cy="label-gemeente">
@@ -310,12 +392,13 @@ import { cloneDeep, pick, sortBy, uniqBy } from 'lodash';
 import { computed, onMounted, ref, watch } from 'vue';
 import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
 import OeLoader from '@components/dumb/OeLoader.vue';
+import { Niscode } from '@models/niscode.enum';
 import { CrabApiService } from '@services/crab-api.service';
 import { requiredIf } from '@utils/i18n-validators';
 import { removeEmptyValues } from '@utils/object';
 import type { IAdresProps } from '@models/adres';
 import type { IAutocompleteOption } from '@models/autocomplete';
-import type { IAdres, IGemeente, ILand, ILocatieAdres, IPostinfo, IStraat } from '@models/locatie';
+import type { IAdres, IGemeente, IGewest, ILand, ILocatieAdres, IPostinfo, IProvincie, IStraat } from '@models/locatie';
 
 const props = withDefaults(defineProps<IAdresProps>(), {
   modDisabled: false,
@@ -323,6 +406,8 @@ const props = withDefaults(defineProps<IAdresProps>(), {
   showRequiredPerField: false,
   config: () => ({
     land: { required: true },
+    gewest: { required: true },
+    provincie: { required: true },
     gemeente: { required: true },
     postcode: { required: true },
     straat: { required: true },
@@ -331,6 +416,8 @@ const props = withDefaults(defineProps<IAdresProps>(), {
   }),
   api: 'https://test-geo.onroerenderfgoed.be/',
   countryId: undefined,
+  showGewest: false,
+  showProvincie: false,
   adres: undefined,
   optionsLimit: 5000,
 });
@@ -344,12 +431,16 @@ const busnummerFreeText = ref(false);
 const isLoading = ref(false);
 
 // Custom multiselect labels
+const customGewestLabel = (option: IGewest) => option.naam;
+const customProvincieLabel = (option: IProvincie) => option.naam;
 const customGemeenteLabel = (option: IGemeente) => option.naam;
 const customPostcodeLabel = (option: IPostinfo) => option.postcode;
 const customStraatLabel = (option: IStraat) => option.naam;
 
 // Form values
 const land = ref<string | ILand>(''); // string is nodig om de placeholder te kunnen tonen
+const gewest = ref<string | IGewest>();
+const provincie = ref<string | IProvincie>();
 const gemeente = ref<string | IGemeente>();
 const postcode = ref<string | IPostinfo>();
 const straat = ref<string | IStraat>();
@@ -384,6 +475,8 @@ const isVlaamseGemeenteOrEmpty = computed(() => {
 // Form binding
 const adres = computed<ILocatieAdres>(() => {
   let landValue: ILocatieAdres['land'];
+  let gewestValue: ILocatieAdres['gewest'];
+  let provincieValue: ILocatieAdres['provincie'];
   let gemeenteValue: ILocatieAdres['gemeente'];
   let postcodeValue: ILocatieAdres['postcode'];
   let straatValue: ILocatieAdres['straat'];
@@ -395,6 +488,24 @@ const adres = computed<ILocatieAdres>(() => {
     landValue = {
       code: (land.value as ILand).code,
       naam: (land.value as ILand).naam,
+    };
+  }
+
+  if (!gewest.value) {
+    gewestValue = {};
+  } else {
+    gewestValue = {
+      naam: (gewest.value as IGewest).naam,
+      niscode: (gewest.value as IGewest).niscode,
+    };
+  }
+
+  if (!provincie.value) {
+    provincieValue = {};
+  } else {
+    provincieValue = {
+      naam: (provincie.value as IProvincie).naam,
+      niscode: (provincie.value as IProvincie).niscode,
     };
   }
 
@@ -454,6 +565,8 @@ const adres = computed<ILocatieAdres>(() => {
   }
   return {
     land: landValue,
+    gewest: gewestValue,
+    provincie: provincieValue,
     gemeente: gemeenteValue,
     postcode: postcodeValue,
     straat: straatValue,
@@ -464,6 +577,16 @@ const adres = computed<ILocatieAdres>(() => {
 // Form validation rules
 const rules = computed(() => ({
   land: { required: requiredIf(!!props.config.land?.required) },
+  gewest: {
+    naam: {
+      requiredIf: helpers.withParams({ field: 'gewest' }, requiredIf(!!props.config.gewest?.required)),
+    },
+  },
+  provincie: {
+    naam: {
+      requiredIf: helpers.withParams({ field: 'provincie' }, requiredIf(!!props.config.provincie?.required)),
+    },
+  },
   gemeente: {
     naam: {
       requiredIf: helpers.withParams({ field: 'gemeente' }, requiredIf(!!props.config.gemeente?.required)),
@@ -506,6 +629,8 @@ const staticLanden: ILand[] = [
 ];
 const apiLanden: ILand[] = await crabApiService.getLanden();
 const landen = computed<ILand[]>(() => [...staticLanden, ...apiLanden]);
+const gewesten = ref<IGewest[]>([]);
+const provincies = ref<IProvincie[]>([]);
 const gemeenten = ref<IGemeente[]>([]);
 const postinfo = ref<IPostinfo[]>([]);
 const straten = ref<IStraat[]>([]);
@@ -560,11 +685,61 @@ watch(
 // Land side-effects
 watch(land, async (selectedLand, oldValue) => {
   if (oldValue) {
+    gewest.value = undefined;
+    provincie.value = undefined;
     gemeente.value = undefined;
   }
   if (isBelgium.value) {
     resetFreeTextState();
+    if (props.showGewest) {
+      gewesten.value = await crabApiService.getGewesten();
+    }
+    if (props.showProvincie) {
+      provincies.value = await crabApiService.getProvincies();
+    }
     gemeenten.value = await crabApiService.getGemeenten();
+  } else {
+    isLoading.value = false;
+  }
+});
+
+// Gewest side-effects
+watch(gewest, (selectedGewest, oldValue) => {
+  if (oldValue) {
+    provincie.value = undefined;
+    gemeente.value = undefined;
+  }
+  if (isBelgiumOrEmpty.value && selectedGewest) {
+    resetFreeTextState();
+    switch ((selectedGewest as IGewest).niscode) {
+      case Niscode.VlaamsGewest:
+        provincies.value = crabApiService.vlaamseProvincies;
+        gemeenten.value = crabApiService.vlaamseGemeenten;
+        break;
+      case Niscode.WaalsGewest:
+        provincies.value = crabApiService.waalseProvincies;
+        gemeenten.value = crabApiService.waalseGemeenten;
+        break;
+      case Niscode.BrusselsHoofdstedelijkGewest:
+        provincies.value = [];
+        gemeenten.value = crabApiService.brusselseGemeenten;
+        break;
+    }
+  } else {
+    isLoading.value = false;
+  }
+});
+
+// Provincie side-effects
+watch(provincie, async (selectedProvincie, oldValue) => {
+  if (oldValue) {
+    gemeente.value = undefined;
+  }
+  if (isBelgiumOrEmpty.value && selectedProvincie) {
+    resetFreeTextState();
+    gemeenten.value = (await crabApiService.getGemeenten()).filter(
+      (g) => g.provincie.niscode === (selectedProvincie as IProvincie).niscode
+    );
   } else {
     isLoading.value = false;
   }
