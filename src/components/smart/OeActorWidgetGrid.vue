@@ -51,7 +51,7 @@ import { ActorService, type IActorenQuery } from '@services/actor.service';
 import type { ColDef, FirstDataRenderedEvent, GridOptions, IGetRowsParams, RowClickedEvent } from 'ag-grid-community';
 import type { ActorType, IActor } from '@models/actor';
 
-interface IOeActorWidgetGridProps {
+export interface IOeActorWidgetGridProps {
   api: string;
   getSsoToken?: () => Promise<string>;
   actorType?: ActorType;
