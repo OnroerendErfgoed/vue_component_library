@@ -3,14 +3,18 @@ export interface ILocatieAdres {
     code?: string;
     naam?: string;
   };
-  gewest: {
-    niscode?: string;
-    naam?: string;
-  };
-  provincie: {
-    niscode?: string;
-    naam?: string;
-  };
+  gewest:
+    | {
+        niscode?: string;
+        naam?: string;
+      }
+    | undefined;
+  provincie:
+    | {
+        niscode?: string;
+        naam?: string;
+      }
+    | undefined;
   gemeente: {
     niscode?: string;
     naam?: string;

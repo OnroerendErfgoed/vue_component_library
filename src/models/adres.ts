@@ -26,4 +26,5 @@ export interface IAdresConfig {
 
 interface IConfigOption {
   required: boolean;
+  hidden?: boolean;
 }

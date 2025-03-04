@@ -34,7 +34,7 @@
         </template>
 
         <!-- Gewest -->
-        <template v-if="isBelgiumOrEmpty && $props.showGewest">
+        <template v-if="isBelgiumOrEmpty && !$props.config?.gewest?.hidden">
           <VlPropertiesLabel>
             <vl-form-message-label data-cy="label-gewest">
               <span class="vl-u-spacer-right--xxsmall">Gewest</span>
@@ -75,7 +75,7 @@
         </template>
 
         <!-- Provincie -->
-        <template v-if="isBelgiumOrEmpty && $props.showProvincie">
+        <template v-if="isBelgiumOrEmpty && !$props.config?.provincie?.hidden">
           <VlPropertiesLabel>
             <vl-form-message-label data-cy="label-provincie">
               <span class="vl-u-spacer-right--xxsmall">Provincie</span>
@@ -406,8 +406,8 @@ const props = withDefaults(defineProps<IAdresProps>(), {
   showRequiredPerField: false,
   config: () => ({
     land: { required: true },
-    gewest: { required: true },
-    provincie: { required: true },
+    gewest: { required: true, hidden: true },
+    provincie: { required: true, hidden: true },
     gemeente: { required: true },
     postcode: { required: true },
     straat: { required: true },
@@ -416,8 +416,6 @@ const props = withDefaults(defineProps<IAdresProps>(), {
   }),
   api: 'https://test-geo.onroerenderfgoed.be/',
   countryId: undefined,
-  showGewest: false,
-  showProvincie: false,
   adres: undefined,
   optionsLimit: 5000,
 });
@@ -565,8 +563,8 @@ const adres = computed<ILocatieAdres>(() => {
   }
   return {
     land: landValue,
-    gewest: gewestValue,
-    provincie: provincieValue,
+    gewest: !props.config.gewest?.hidden ? gewestValue : undefined,
+    provincie: !props.config.provincie?.hidden ? provincieValue : undefined,
     gemeente: gemeenteValue,
     postcode: postcodeValue,
     straat: straatValue,
@@ -648,6 +646,8 @@ onMounted(() => {
 
     land.value = adres.land as ILand;
     if (isBelgium.value) {
+      if (adres.gewest) gewest.value = adres.gewest as IGewest;
+      if (adres.provincie) provincie.value = adres.provincie as IProvincie;
       if (adres.gemeente) gemeente.value = adres.gemeente as IGemeente;
       if (adres.postcode) postcode.value = { postcode: adres.postcode.nummer, uri: adres.postcode.uri } as IPostinfo;
       if (adres.straat) straat.value = adres.straat as IStraat;
@@ -691,10 +691,10 @@ watch(land, async (selectedLand, oldValue) => {
   }
   if (isBelgium.value) {
     resetFreeTextState();
-    if (props.showGewest) {
+    if (!props.config.gewest?.hidden) {
       gewesten.value = await crabApiService.getGewesten();
     }
-    if (props.showProvincie) {
+    if (!props.config.provincie?.hidden) {
       provincies.value = await crabApiService.getProvincies();
     }
     gemeenten.value = await crabApiService.getGemeenten();
