@@ -6,8 +6,6 @@ export interface IAdresProps {
   api?: string;
   config?: IAdresConfig;
   countryId?: string;
-  showGewest?: boolean;
-  showProvincie?: boolean;
   adres?: ILocatieAdres;
   optionsLimit?: number;
   showRequiredPerField?: boolean;

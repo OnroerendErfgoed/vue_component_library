@@ -48,7 +48,7 @@
               v-model="gewest"
               placeholder="Gewest"
               data-cy="select-gewest"
-              :mod-error="!!v$.gewest.naam.$errors.length"
+              :mod-error="!!v$.gewest.$errors.length"
               :custom-label="customGewestLabel"
               :disabled="!land || props.modDisabled"
               :mod-multiple="false"
@@ -64,11 +64,7 @@
                 <span>Geen opties beschikbaar</span>
               </template>
             </VlMultiselect>
-            <vl-form-message-error
-              v-for="error of v$.gewest.naam.$errors"
-              :key="error.$uid"
-              data-cy="form-error-gewest"
-            >
+            <vl-form-message-error v-for="error of v$.gewest.$errors" :key="error.$uid" data-cy="form-error-gewest">
               {{ error.$message }}
             </vl-form-message-error>
           </VlPropertiesData>
@@ -89,7 +85,7 @@
               v-model="provincie"
               placeholder="Provincie"
               data-cy="select-provincie"
-              :mod-error="!!v$.provincie.naam.$errors.length"
+              :mod-error="!!v$.provincie.$errors.length"
               :custom-label="customProvincieLabel"
               :disabled="!land || provincies.length === 0 || props.modDisabled"
               :mod-multiple="false"
@@ -106,7 +102,7 @@
               </template>
             </VlMultiselect>
             <vl-form-message-error
-              v-for="error of v$.provincie.naam.$errors"
+              v-for="error of v$.provincie.$errors"
               :key="error.$uid"
               data-cy="form-error-provincie"
             >
@@ -563,8 +559,8 @@ const adres = computed<ILocatieAdres>(() => {
   }
   return {
     land: landValue,
-    gewest: !props.config.gewest?.hidden ? gewestValue : undefined,
-    provincie: !props.config.provincie?.hidden ? provincieValue : undefined,
+    gewest: isBelgiumOrEmpty.value && !props.config.gewest?.hidden ? gewestValue : undefined,
+    provincie: isBelgiumOrEmpty.value && !props.config.provincie?.hidden ? provincieValue : undefined,
     gemeente: gemeenteValue,
     postcode: postcodeValue,
     straat: straatValue,
@@ -575,16 +571,8 @@ const adres = computed<ILocatieAdres>(() => {
 // Form validation rules
 const rules = computed(() => ({
   land: { required: requiredIf(!!props.config.land?.required) },
-  gewest: {
-    naam: {
-      requiredIf: helpers.withParams({ field: 'gewest' }, requiredIf(!!props.config.gewest?.required)),
-    },
-  },
-  provincie: {
-    naam: {
-      requiredIf: helpers.withParams({ field: 'provincie' }, requiredIf(!!props.config.provincie?.required)),
-    },
-  },
+  gewest: { requiredIf: helpers.withParams({ field: 'gewest' }, requiredIf(!!props.config.gewest?.required)) },
+  provincie: { requiredIf: helpers.withParams({ field: 'provincie' }, requiredIf(!!props.config.provincie?.required)) },
   gemeente: {
     naam: {
       requiredIf: helpers.withParams({ field: 'gemeente' }, requiredIf(!!props.config.gemeente?.required)),
@@ -691,10 +679,10 @@ watch(land, async (selectedLand, oldValue) => {
   }
   if (isBelgium.value) {
     resetFreeTextState();
-    if (!props.config.gewest?.hidden) {
+    if (isBelgiumOrEmpty.value && !props.config.gewest?.hidden) {
       gewesten.value = await crabApiService.getGewesten();
     }
-    if (!props.config.provincie?.hidden) {
+    if (isBelgiumOrEmpty.value && !props.config.provincie?.hidden) {
       provincies.value = await crabApiService.getProvincies();
     }
     gemeenten.value = await crabApiService.getGemeenten();
@@ -704,14 +692,14 @@ watch(land, async (selectedLand, oldValue) => {
 });
 
 // Gewest side-effects
-watch(gewest, (selectedGewest, oldValue) => {
+watch(gewest, async (selectedGewest, oldValue) => {
   if (oldValue) {
     provincie.value = undefined;
     gemeente.value = undefined;
   }
-  if (isBelgiumOrEmpty.value && selectedGewest) {
-    resetFreeTextState();
-    switch ((selectedGewest as IGewest).niscode) {
+  if (isBelgiumOrEmpty.value && !props.config.gewest?.hidden) {
+    if (selectedGewest) resetFreeTextState();
+    switch ((selectedGewest as IGewest)?.niscode) {
       case Niscode.VlaamsGewest:
         provincies.value = crabApiService.vlaamseProvincies;
         gemeenten.value = crabApiService.vlaamseGemeenten;
@@ -724,6 +712,9 @@ watch(gewest, (selectedGewest, oldValue) => {
         provincies.value = [];
         gemeenten.value = crabApiService.brusselseGemeenten;
         break;
+      default:
+        provincies.value = await crabApiService.getProvincies();
+        gemeenten.value = await crabApiService.getGemeenten();
     }
   } else {
     isLoading.value = false;
@@ -735,11 +726,26 @@ watch(provincie, async (selectedProvincie, oldValue) => {
   if (oldValue) {
     gemeente.value = undefined;
   }
-  if (isBelgiumOrEmpty.value && selectedProvincie) {
-    resetFreeTextState();
-    gemeenten.value = (await crabApiService.getGemeenten()).filter(
-      (g) => g.provincie.niscode === (selectedProvincie as IProvincie).niscode
-    );
+  if (isBelgiumOrEmpty.value && !props.config.provincie?.hidden) {
+    switch ((gewest.value as IGewest)?.niscode) {
+      case Niscode.VlaamsGewest:
+        gemeenten.value = crabApiService.vlaamseGemeenten;
+        break;
+      case Niscode.WaalsGewest:
+        gemeenten.value = crabApiService.waalseGemeenten;
+        break;
+      case Niscode.BrusselsHoofdstedelijkGewest:
+        gemeenten.value = crabApiService.brusselseGemeenten;
+        break;
+      default:
+        gemeenten.value = await crabApiService.getGemeenten();
+    }
+    if (selectedProvincie) {
+      resetFreeTextState();
+      gemeenten.value = gemeenten.value.filter(
+        (g) => g.provincie.niscode === (selectedProvincie as IProvincie).niscode
+      );
+    }
   } else {
     isLoading.value = false;
   }
