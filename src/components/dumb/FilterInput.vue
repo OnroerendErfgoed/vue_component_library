@@ -72,6 +72,7 @@ import type { IFilter, IFilterInputProps, IFilterOption, TFilterInput } from '@m
 const props = withDefaults(defineProps<IFilterInputProps>(), {
   options: () => [],
   defaultFilters: () => [],
+  onlyUniqueFilters: false,
 });
 const emit = defineEmits<{
   (e: 'filters-selected', filters: IFilter[]): void;
@@ -107,11 +108,19 @@ const addFilter = () => {
     },
   };
 
-  if (
-    !filters.value.find((f) => f.key === filter.key && f.value.value === filter.value.value) &&
-    (!!filter.value.value || typeof filter.value.value === 'boolean')
-  ) {
-    filters.value.push(filter);
+  if (!!filter.value.value || typeof filter.value.value === 'boolean') {
+    if (props.onlyUniqueFilters) {
+      const existingIndex = filters.value.findIndex((f) => f.key === filter.key);
+      if (existingIndex >= 0) {
+        filters.value.splice(existingIndex, 1, filter);
+      } else {
+        filters.value.push(filter);
+      }
+    } else {
+      if (!filters.value.find((f) => f.key === filter.key && f.value.value === filter.value.value)) {
+        filters.value.push(filter);
+      }
+    }
     clearInputs();
   }
 };

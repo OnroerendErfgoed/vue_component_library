@@ -22,6 +22,12 @@ describe('FilterInput', () => {
   describe('with options', () => {
     const TestComponentWithOptions = defineComponent({
       components: { FilterInput, FilterText, FilterDatepicker, FilterGemeente, FilterRadio, FilterSelect },
+      props: {
+        onlyUniqueFilters: {
+          type: Boolean,
+          default: false
+        }
+      },
       setup() {
         const options: IFilterOption[] = [
           {
@@ -50,7 +56,7 @@ describe('FilterInput', () => {
         return { options, filters, setFilters };
       },
       template: `
-      <filter-input v-slot="{ value, setValue, selectedOption, addFilter }" :options="options" @filters-selected="setFilters">
+      <filter-input v-slot="{ value, setValue, selectedOption, addFilter }" :options="options" :only-unique-filters="onlyUniqueFilters" @filters-selected="setFilters">
         <filter-text v-if="selectedOption.key === 'id'" :value="value" @update:value="setValue($event, $event)" placeholder="ID" @keyup.enter="addFilter"></filter-text>
         <filter-datepicker v-if="selectedOption.key === 'datum_goedkeuring_van'" :value="value" @update:value="setValue($event, $event[0])"></filter-datepicker>
         <filter-gemeente v-if="selectedOption.key === 'gemeente'" :value="value" @update:value="setValue($event, $event.naam)"></filter-gemeente>
@@ -198,6 +204,39 @@ describe('FilterInput', () => {
                 });
             });
         });
+      });
+    });
+    describe('unique filters behavior', () => {
+      it('replaces existing filter with same key when onlyUniqueFilters is true', () => {
+        cy.mount(TestComponentWithOptions, { props: { onlyUniqueFilters: true } });
+
+        cy.dataCy('filter-select').select('ID');
+        cy.dataCy('filter-text').type('firstValue');
+        cy.dataCy('filter-add-button').click();
+
+        cy.dataCy('filter-select').select('ID');
+        cy.dataCy('filter-text').type('secondValue');
+        cy.dataCy('filter-add-button').click();
+
+        cy.get('.vl-pill').should('have.length', 1);
+        cy.dataCy('filter-id-firstValue').should('not.exist');
+        cy.dataCy('filter-id-secondValue').should('exist');
+      });
+
+      it('allows multiple filters with same key when onlyUniqueFilters is false', () => {
+        cy.mount(TestComponentWithOptions, { props: { onlyUniqueFilters: false } });
+
+        cy.dataCy('filter-select').select('ID');
+        cy.dataCy('filter-text').type('firstValue');
+        cy.dataCy('filter-add-button').click();
+
+        cy.dataCy('filter-select').select('ID');
+        cy.dataCy('filter-text').type('secondValue');
+        cy.dataCy('filter-add-button').click();
+
+        cy.get('.vl-pill').should('have.length', 2);
+        cy.dataCy('filter-id-firstValue').should('exist');
+        cy.dataCy('filter-id-secondValue').should('exist');
       });
     });
   });
