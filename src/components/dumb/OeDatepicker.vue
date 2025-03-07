@@ -5,11 +5,10 @@
       v-bind="$attrs"
       placeholder="dd-mm-jjjj"
       visual-format="d-m-Y"
-      :value="[datepickerDate]"
-      :model-value="datepickerDate"
+      :model-value="[datepickerDate]"
       :mod-error="hasError"
       :parse-date="parseDate"
-      @input="setDate"
+      @update:model-value="setDate"
     />
     <vl-form-message-error v-if="hasFormatError"
       >Ongeldig formaat, gebruik {{ datumDisplayFormat }}</vl-form-message-error
