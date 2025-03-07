@@ -154,7 +154,7 @@ export const Default: Story = {
     <filter-input v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="defaultFilters" @filters-selected="$event => filters = $event">
       <filter-text v-if="selectedOption.key === 'id'" :value="value" @update:value="setValue($event, $event)" placeholder="ID" @keyup.enter="addFilter"></filter-text>
       <filter-text v-if="selectedOption.key === 'onderwerp'" :value="value" @update:value="setValue($event, $event)" placeholder="Onderwerp" @keyup.enter="addFilter"></filter-text>
-      <filter-datepicker v-if="selectedOption.key === 'datum_goedkeuring_van' || selectedOption.key === 'datum_goedkeuring_tot'" :value="value" @update:value="setValue($event, $event[0])"></filter-datepicker>
+      <filter-datepicker v-if="selectedOption.key === 'datum_goedkeuring_van' || selectedOption.key === 'datum_goedkeuring_tot'" :value="value" @update:value="setValue($event, $event)"></filter-datepicker>
       <filter-gemeente v-if="selectedOption.key === 'gemeente'" api="https://test-geo.onroerenderfgoed.be/" :value="value" @update:value="setValue($event.niscode, $event.naam)"></filter-gemeente>
       <filter-radio v-if="selectedOption.key === 'beheerscommissie' || selectedOption.key === 'beheersplan_verlopen'" :options="radioOptions" :value="value" @update:value="setValue($event.value, $event.label)"></filter-radio>
       <filter-select v-if="selectedOption.key === 'plantype'" placeholder="Type plan" :value="value" @update:value="setValue($event, $event)" @keyup.enter="addFilter">
