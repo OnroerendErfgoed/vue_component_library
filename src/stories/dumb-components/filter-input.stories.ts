@@ -51,6 +51,14 @@ setValue: function to apply the entered filter value from the custom filter fiel
         type: { summary: 'IFilter[]' },
       },
     },
+    uniqueFilters: {
+      description: 'When true, only one filter per key is allowed, replacing existing filters with the same key',
+      control: 'boolean',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
     'filters-selected': {
       description: 'Emits the currently active filters on each filter change',
       table: {
@@ -63,20 +71,19 @@ setValue: function to apply the entered filter value from the custom filter fiel
 export default meta;
 type Story = StoryObj<typeof FilterInput>;
 
-export const Default: Story = {
-  render: () => ({
-    components: {
-      FilterInput,
-      FilterText,
-      FilterDatepicker,
-      FilterGemeente,
-      FilterRadio,
-      FilterSelect,
-      FilterAanduidingsobject,
-    },
-    setup() {
-      const filterOptions: IFilterOption[] = [
-        {
+const renderConfig = {
+  components: {
+    FilterInput,
+    FilterText,
+    FilterDatepicker,
+    FilterGemeente,
+    FilterRadio,
+    FilterSelect,
+    FilterAanduidingsobject,
+  },
+  setup() {
+    const filterOptions: IFilterOption[] = [
+      {
           label: 'ID',
           key: 'id',
         },
@@ -116,65 +123,92 @@ export const Default: Story = {
           label: 'Aanduidingsobject',
           key: 'aanduidingsobject',
         },
-      ];
-      const statusOptions: IOption[] = [
-        {
-          label: 'Klad',
-          value: 'klad',
+    ];
+    const statusOptions: IOption[] = [
+      {
+        label: 'Klad',
+        value: 'klad',
+      },
+      {
+        label: 'Actief',
+        value: 'actief',
+      },
+    ];
+    const radioOptions: IOption[] = [
+      {
+        label: 'Ja',
+        value: 'ja',
+      },
+      {
+        label: 'Nee',
+        value: 'nee',
+      },
+    ];
+    const defaultFilters = [
+      {
+        key: 'test1',
+        label: 'test2',
+        value: {
+          label: 'test3',
+          value: 'test4',
         },
-        {
-          label: 'Actief',
-          value: 'actief',
-        },
-      ];
-      const radioOptions: IOption[] = [
-        {
-          label: 'Ja',
-          value: 'ja',
-        },
-        {
-          label: 'Nee',
-          value: 'nee',
-        },
-      ];
-      const defaultFilters = [
-        {
-          key: 'test1',
-          label: 'test2',
-          value: {
-            label: 'test3',
-            value: 'test4',
-          },
-        },
-      ];
+      },
+    ];
 
-      return { filterOptions, statusOptions, radioOptions, defaultFilters };
-    },
+    return { filterOptions, statusOptions, radioOptions, defaultFilters };
+  },
+};
+
+const filterTemplate = `
+  <filter-text v-if="selectedOption.key === 'id'" :value="value" @update:value="setValue($event, $event)" placeholder="ID" @keyup.enter="addFilter"></filter-text>
+  <filter-text v-if="selectedOption.key === 'onderwerp'" :value="value" @update:value="setValue($event, $event)" placeholder="Onderwerp" @keyup.enter="addFilter"></filter-text>
+  <filter-datepicker v-if="selectedOption.key === 'datum_goedkeuring_van' || selectedOption.key === 'datum_goedkeuring_tot'" :value="value" @update:value="setValue($event, $event[0])"></filter-datepicker>
+  <filter-gemeente v-if="selectedOption.key === 'gemeente'" api="https://test-geo.onroerenderfgoed.be/" :value="value" @update:value="setValue($event.niscode, $event.naam)"></filter-gemeente>
+  <filter-radio v-if="selectedOption.key === 'beheerscommissie' || selectedOption.key === 'beheersplan_verlopen'" :options="radioOptions" :value="value" @update:value="setValue($event.value, $event.label)"></filter-radio>
+  <filter-select v-if="selectedOption.key === 'plantype'" placeholder="Type plan" :value="value" @update:value="setValue($event, $event)" @keyup.enter="addFilter">
+    <optgroup label="Niet Actief">
+      <option value="klad">Klad</option>
+      <option value="kladzonderfoto">Klad zonder foto</option>
+    </optgroup>
+    <optgroup label="Actief">
+      <option value="actief">Actief</option>
+    </optgroup>
+  </filter-select>
+  <filter-select v-if="selectedOption.key === 'status'" :options="statusOptions" placeholder="Status" :value="value" @update:value="setValue($event, $event)" @keyup.enter="addFilter"></filter-select>
+  <filter-aanduidingsobject
+      id="test"
+      v-if="selectedOption.key === 'aanduidingsobject'"
+      :value="value"
+      api="https://dev-inventaris.onroerenderfgoed.be/"
+      @update:value="setValue($event.value, $event.title)"
+    ></filter-aanduidingsobject>
+`;
+
+export const Default: Story = {
+  render: () => ({
+    ...renderConfig,
     template: `
     <filter-input v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="defaultFilters" @filters-selected="$event => filters = $event">
-      <filter-text v-if="selectedOption.key === 'id'" :value="value" @update:value="setValue($event, $event)" placeholder="ID" @keyup.enter="addFilter"></filter-text>
-      <filter-text v-if="selectedOption.key === 'onderwerp'" :value="value" @update:value="setValue($event, $event)" placeholder="Onderwerp" @keyup.enter="addFilter"></filter-text>
-      <filter-datepicker v-if="selectedOption.key === 'datum_goedkeuring_van' || selectedOption.key === 'datum_goedkeuring_tot'" :value="value" @update:value="setValue($event, $event[0])"></filter-datepicker>
-      <filter-gemeente v-if="selectedOption.key === 'gemeente'" api="https://test-geo.onroerenderfgoed.be/" :value="value" @update:value="setValue($event.niscode, $event.naam)"></filter-gemeente>
-      <filter-radio v-if="selectedOption.key === 'beheerscommissie' || selectedOption.key === 'beheersplan_verlopen'" :options="radioOptions" :value="value" @update:value="setValue($event.value, $event.label)"></filter-radio>
-      <filter-select v-if="selectedOption.key === 'plantype'" placeholder="Type plan" :value="value" @update:value="setValue($event, $event)" @keyup.enter="addFilter">
-        <optgroup label="Niet Actief">
-          <option value="klad">Klad</option>
-          <option value="kladzonderfoto">Klad zonder foto</option>
-        </optgroup>
-        <optgroup label="Actief">
-          <option value="actief">Actief</option>
-        </optgroup>
-      </filter-select>
-      <filter-select v-if="selectedOption.key === 'status'" :options="statusOptions" placeholder="Status" :value="value" @update:value="setValue($event, $event)" @keyup.enter="addFilter"></filter-select>
-      <filter-aanduidingsobject
-          id="test"
-          v-if="selectedOption.key === 'aanduidingsobject'"
-          :value="value"
-          api="https://dev-inventaris.onroerenderfgoed.be/"
-          @update:value="setValue($event.value, $event.title)"
-        ></filter-aanduidingsobject>
-      </filter-input>
+      ${filterTemplate}
+    </filter-input>
+    `,
+  }),
+};
+
+export const UniqueFilters: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'When uniqueFilters is enabled, only one filter per key is allowed. Adding a new filter with the same key will replace the existing one.',
+      },
+    },
+  },
+  render: () => ({
+    ...renderConfig,
+    template: `
+    <filter-input v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="defaultFilters" unique-filters @filters-selected="$event => filters = $event">
+      ${filterTemplate}
+    </filter-input>
     `,
   }),
 };
