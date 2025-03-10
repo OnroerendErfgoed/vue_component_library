@@ -56,7 +56,7 @@ describe('FilterInput', () => {
         return { options, filters, setFilters };
       },
       template: `
-      <filter-input v-slot="{ value, setValue, selectedOption, addFilter }" :options="options" :only-unique-filters="uniqueFilters" @filters-selected="setFilters">
+      <filter-input v-slot="{ value, setValue, selectedOption, addFilter }" :options="options" :unique-filters="uniqueFilters" @filters-selected="setFilters">
         <filter-text v-if="selectedOption.key === 'id'" :value="value" @update:value="setValue($event, $event)" placeholder="ID" @keyup.enter="addFilter"></filter-text>
         <filter-datepicker v-if="selectedOption.key === 'datum_goedkeuring_van'" :value="value" @update:value="setValue($event, $event[0])"></filter-datepicker>
         <filter-gemeente v-if="selectedOption.key === 'gemeente'" :value="value" @update:value="setValue($event, $event.naam)"></filter-gemeente>
