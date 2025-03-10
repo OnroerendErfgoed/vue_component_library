@@ -23,7 +23,7 @@ describe('FilterInput', () => {
     const TestComponentWithOptions = defineComponent({
       components: { FilterInput, FilterText, FilterDatepicker, FilterGemeente, FilterRadio, FilterSelect },
       props: {
-        onlyUniqueFilters: {
+        uniqueFilters: {
           type: Boolean,
           default: false
         }
@@ -56,7 +56,7 @@ describe('FilterInput', () => {
         return { options, filters, setFilters };
       },
       template: `
-      <filter-input v-slot="{ value, setValue, selectedOption, addFilter }" :options="options" :only-unique-filters="onlyUniqueFilters" @filters-selected="setFilters">
+      <filter-input v-slot="{ value, setValue, selectedOption, addFilter }" :options="options" :only-unique-filters="uniqueFilters" @filters-selected="setFilters">
         <filter-text v-if="selectedOption.key === 'id'" :value="value" @update:value="setValue($event, $event)" placeholder="ID" @keyup.enter="addFilter"></filter-text>
         <filter-datepicker v-if="selectedOption.key === 'datum_goedkeuring_van'" :value="value" @update:value="setValue($event, $event[0])"></filter-datepicker>
         <filter-gemeente v-if="selectedOption.key === 'gemeente'" :value="value" @update:value="setValue($event, $event.naam)"></filter-gemeente>
@@ -207,8 +207,8 @@ describe('FilterInput', () => {
       });
     });
     describe('unique filters behavior', () => {
-      it('replaces existing filter with same key when onlyUniqueFilters is true', () => {
-        cy.mount(TestComponentWithOptions, { props: { onlyUniqueFilters: true } });
+      it('replaces existing filter with same key when uniqueFilters is true', () => {
+        cy.mount(TestComponentWithOptions, { props: { uniqueFilters: true } });
 
         cy.dataCy('filter-select').select('ID');
         cy.dataCy('filter-text').type('firstValue');
@@ -223,8 +223,8 @@ describe('FilterInput', () => {
         cy.dataCy('filter-id-secondValue').should('exist');
       });
 
-      it('allows multiple filters with same key when onlyUniqueFilters is false', () => {
-        cy.mount(TestComponentWithOptions, { props: { onlyUniqueFilters: false } });
+      it('allows multiple filters with same key when uniqueFilters is false', () => {
+        cy.mount(TestComponentWithOptions, { props: { uniqueFilters: false } });
 
         cy.dataCy('filter-select').select('ID');
         cy.dataCy('filter-text').type('firstValue');

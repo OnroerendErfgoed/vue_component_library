@@ -72,7 +72,7 @@ import type { IFilter, IFilterInputProps, IFilterOption, TFilterInput } from '@m
 const props = withDefaults(defineProps<IFilterInputProps>(), {
   options: () => [],
   defaultFilters: () => [],
-  onlyUniqueFilters: false,
+  uniqueFilters: false,
 });
 const emit = defineEmits<{
   (e: 'filters-selected', filters: IFilter[]): void;
@@ -109,7 +109,7 @@ const addFilter = () => {
   };
 
   if (!!filter.value.value || typeof filter.value.value === 'boolean') {
-    if (props.onlyUniqueFilters) {
+    if (props.uniqueFilters) {
       const existingIndex = filters.value.findIndex((f) => f.key === filter.key);
       if (existingIndex >= 0) {
         filters.value.splice(existingIndex, 1, filter);

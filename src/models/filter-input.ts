@@ -6,7 +6,7 @@ export type TFilterInput = string | IGemeente;
 export interface IFilterInputProps {
   options: IFilterOption[];
   defaultFilters?: IFilter[];
-  onlyUniqueFilters?: boolean;
+  uniqueFilters?: boolean;
 }
 
 export interface IFilter {
