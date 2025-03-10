@@ -108,19 +108,20 @@ const addFilter = () => {
     },
   };
 
-  if (!!filter.value.value || typeof filter.value.value === 'boolean') {
+  if (
+    !filters.value.find((f) => f.key === filter.key && f.value.value === filter.value.value) &&
+    (!!filter.value.value || typeof filter.value.value === 'boolean')
+  ) {
     if (props.uniqueFilters) {
       const existingIndex = filters.value.findIndex((f) => f.key === filter.key);
       if (existingIndex >= 0) {
         filters.value.splice(existingIndex, 1, filter);
-      } else {
-        filters.value.push(filter);
-      }
-    } else {
-      if (!filters.value.find((f) => f.key === filter.key && f.value.value === filter.value.value)) {
-        filters.value.push(filter);
+        clearInputs();
+        return;
       }
     }
+
+    filters.value.push(filter);
     clearInputs();
   }
 };
