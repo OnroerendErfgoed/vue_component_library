@@ -206,7 +206,7 @@ export const UniqueFilters: Story = {
   render: () => ({
     ...renderConfig,
     template: `
-    <filter-input v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="defaultFilters" :unique-filters="true" @filters-selected="$event => filters = $event">
+    <filter-input v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="defaultFilters" unique-filters @filters-selected="$event => filters = $event">
       ${filterTemplate}
     </filter-input>
     `,
