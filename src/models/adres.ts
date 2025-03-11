@@ -13,6 +13,8 @@ export interface IAdresProps {
 
 export interface IAdresConfig {
   land?: IConfigOption;
+  gewest?: IConfigOption;
+  provincie?: IConfigOption;
   gemeente?: IConfigOption;
   postcode?: IConfigOption;
   straat?: IConfigOption;
@@ -22,4 +24,5 @@ export interface IAdresConfig {
 
 interface IConfigOption {
   required: boolean;
+  hidden?: boolean;
 }
