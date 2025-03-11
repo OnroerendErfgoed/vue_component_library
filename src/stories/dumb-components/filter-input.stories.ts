@@ -84,45 +84,45 @@ const renderConfig = {
   setup() {
     const filterOptions: IFilterOption[] = [
       {
-          label: 'ID',
-          key: 'id',
-        },
-        {
-          label: 'Type plan',
-          key: 'plantype',
-        },
-        {
-          label: 'Onderwerp',
-          key: 'onderwerp',
-        },
-        {
-          label: 'Gemeente',
-          key: 'gemeente',
-        },
-        {
-          label: 'Datum goedkeuring vanaf',
-          key: 'datum_goedkeuring_van',
-        },
-        {
-          label: 'Datum goedkeuring tot',
-          key: 'datum_goedkeuring_tot',
-        },
-        {
-          label: 'Beheersplan verlopen',
-          key: 'beheersplan_verlopen',
-        },
-        {
-          label: 'Beheerscommissie',
-          key: 'beheerscommissie',
-        },
-        {
-          label: 'Status',
-          key: 'status',
-        },
-        {
-          label: 'Aanduidingsobject',
-          key: 'aanduidingsobject',
-        },
+        label: 'ID',
+        key: 'id',
+      },
+      {
+        label: 'Type plan',
+        key: 'plantype',
+      },
+      {
+        label: 'Onderwerp',
+        key: 'onderwerp',
+      },
+      {
+        label: 'Gemeente',
+        key: 'gemeente',
+      },
+      {
+        label: 'Datum goedkeuring vanaf',
+        key: 'datum_goedkeuring_van',
+      },
+      {
+        label: 'Datum goedkeuring tot',
+        key: 'datum_goedkeuring_tot',
+      },
+      {
+        label: 'Beheersplan verlopen',
+        key: 'beheersplan_verlopen',
+      },
+      {
+        label: 'Beheerscommissie',
+        key: 'beheerscommissie',
+      },
+      {
+        label: 'Status',
+        key: 'status',
+      },
+      {
+        label: 'Aanduidingsobject',
+        key: 'aanduidingsobject',
+      },
     ];
     const statusOptions: IOption[] = [
       {
@@ -199,7 +199,8 @@ export const UniqueFilters: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'When uniqueFilters is enabled, only one filter per key is allowed. Adding a new filter with the same key will replace the existing one.',
+        story:
+          'When uniqueFilters is enabled, only one filter per key is allowed. Adding a new filter with the same key will replace the existing one.',
       },
     },
   },

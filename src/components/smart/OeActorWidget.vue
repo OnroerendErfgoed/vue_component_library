@@ -81,9 +81,7 @@ const selectedActor = ref<IActor>();
 const loading = ref(false);
 const actorGrid = useTemplateRef('actorGrid');
 
-const selectActor = (actor: IActor | undefined) => {
-  selectedActor.value = actor;
-};
+const selectActor = (actor?: IActor) => (selectedActor.value = actor);
 
 const setLoading = (bool: boolean) => {
   loading.value = bool;

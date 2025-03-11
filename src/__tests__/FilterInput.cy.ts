@@ -25,8 +25,8 @@ describe('FilterInput', () => {
       props: {
         uniqueFilters: {
           type: Boolean,
-          default: false
-        }
+          default: false,
+        },
       },
       setup() {
         const options: IFilterOption[] = [
