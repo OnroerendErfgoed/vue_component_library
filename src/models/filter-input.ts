@@ -32,7 +32,7 @@ export interface IFilterSelectProps {
 }
 
 export interface IFilterDatepickerProps {
-  value?: string[];
+  value?: string;
   apiFormat?: string;
 }
 
