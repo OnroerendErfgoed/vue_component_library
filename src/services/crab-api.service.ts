@@ -23,6 +23,10 @@ export class CrabApiService extends HttpService {
   private landen: ILand[] = [];
   private provincies: IProvincie[] = [];
   private gemeenten: IGemeente[] = [];
+  private gewesten: IGewest[] = [];
+
+  private provinciesVlaamsGewest: IProvincie[] = [];
+  private provinciesWaalsGewest: IProvincie[] = [];
 
   private gemeentenVlaamsGewest: IGemeente[] = [];
   private gemeentenWaalsGewest: IGemeente[] = [];
@@ -55,16 +59,25 @@ export class CrabApiService extends HttpService {
     return this.landen;
   }
 
+  async getGewesten(): Promise<IGewest[]> {
+    if (this.gewesten?.length) {
+      return this.gewesten;
+    }
+    const response = await this.get<IProvincie[]>(`adressenregister/gewesten`, { baseURL: this.API_URL });
+    const { data } = response;
+    this.gewesten = sortBy(data, 'naam');
+    return this.gewesten;
+  }
+
   async getProvincies(): Promise<IProvincie[]> {
     if (this.provincies?.length > 0) {
       return this.provincies;
     }
-    const provinciesVlaamsGewest = await this.getProvinciesPerGewest(Niscode.VlaamsGewest);
-    const provinciesWaalsGewest = await this.getProvinciesPerGewest(Niscode.WaalsGewest);
+    this.provinciesVlaamsGewest = await this.getProvinciesPerGewest(Niscode.VlaamsGewest);
+    this.provinciesWaalsGewest = await this.getProvinciesPerGewest(Niscode.WaalsGewest);
 
-    this.provincies = this.provincies.concat(provinciesVlaamsGewest, provinciesWaalsGewest);
-
-    return sortBy(this.provincies, 'naam');
+    this.provincies = sortBy(this.provincies.concat(this.provinciesVlaamsGewest, this.provinciesWaalsGewest), 'naam');
+    return this.provincies;
   }
 
   async getProvinciesPerGewest(niscode: Niscode): Promise<IProvincie[]> {
@@ -72,16 +85,24 @@ export class CrabApiService extends HttpService {
       .data;
   }
 
+  get vlaamseProvincies(): IProvincie[] {
+    return sortBy(this.provinciesVlaamsGewest, 'naam');
+  }
+
+  get waalseProvincies(): IProvincie[] {
+    return sortBy(this.provinciesWaalsGewest, 'naam');
+  }
+
   get vlaamseGemeenten(): IGemeente[] {
-    return this.gemeentenVlaamsGewest;
+    return sortBy(this.gemeentenVlaamsGewest, 'naam');
   }
 
   get waalseGemeenten(): IGemeente[] {
-    return this.gemeentenWaalsGewest;
+    return sortBy(this.gemeentenWaalsGewest, 'naam');
   }
 
   get brusselseGemeenten(): IGemeente[] {
-    return this.gemeentenBHGewest;
+    return sortBy(this.gemeentenBHGewest, 'naam');
   }
 
   async getGemeenten(): Promise<IGemeente[]> {
@@ -109,12 +130,11 @@ export class CrabApiService extends HttpService {
       this.gemeentenVlaamsGewest = gemeenten[0];
       this.gemeentenWaalsGewest = gemeenten[1];
       this.gemeentenBHGewest = gemeenten[2];
-      this.gemeenten = this.gemeenten.concat(
-        this.gemeentenVlaamsGewest,
-        this.gemeentenWaalsGewest,
-        this.gemeentenBHGewest
+      this.gemeenten = sortBy(
+        this.gemeenten.concat(this.gemeentenVlaamsGewest, this.gemeentenWaalsGewest, this.gemeentenBHGewest),
+        'naam'
       );
-      return sortBy(this.gemeenten, 'naam');
+      return this.gemeenten;
     }
     return [];
   }
@@ -173,7 +193,7 @@ export class CrabApiService extends HttpService {
     ).data;
   }
 
-  public async searchPerceel(coordinate: Coordinate, srsName: string) {
+  public async searchGRBWfs(coordinate: Coordinate, srsName: string, featureTypes: string[]) {
     const agivGrbUrl = `https://geo.api.vlaanderen.be/GRB`;
     const agivGrbWfsUrl = `${agivGrbUrl}/wfs`;
 
@@ -184,7 +204,28 @@ export class CrabApiService extends HttpService {
       filter,
       featureNS: agivGrbUrl,
       featurePrefix: 'GRB',
-      featureTypes: ['ADP'],
+      featureTypes,
+      outputFormat: 'application/json',
+    });
+
+    const data = new XMLSerializer().serializeToString(featureRequest);
+    const headers = { 'Content-Type': 'application/xml', Accept: 'application/json' };
+    const response = await this.post<ArrayBuffer, string>(agivGrbWfsUrl, data, { headers });
+    return response.data;
+  }
+
+  public async searchGebouw(coordinate: Coordinate, srsName: string) {
+    const agivGrbUrl = `https://geo.api.vlaanderen.be/GRB`;
+    const agivGrbWfsUrl = `${agivGrbUrl}/wfs`;
+
+    const filter = new Intersects('SHAPE', new Point(coordinate, 'XY'), 'urn:x-ogc:def:crs:EPSG:31370');
+
+    const featureRequest = new WFS().writeGetFeature({
+      srsName,
+      filter,
+      featureNS: agivGrbUrl,
+      featurePrefix: 'GRB',
+      featureTypes: ['GBG'],
       outputFormat: 'application/json',
     });
 

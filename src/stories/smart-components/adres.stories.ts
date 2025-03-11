@@ -88,6 +88,8 @@ export const CustomConfig: Story = {
   args: {
     config: {
       land: { required: true },
+      gewest: { required: true },
+      provincie: { required: false },
       gemeente: { required: true },
       postcode: { required: false },
       straat: { required: false },

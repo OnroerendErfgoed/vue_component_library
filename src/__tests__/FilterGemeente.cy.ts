@@ -1,8 +1,8 @@
 /* eslint-disable vue/one-component-per-file */
 import FilterGemeente from '../components/smart/FilterGemeente.vue';
 import { defineComponent, ref } from 'vue';
-import type { IGemeente } from '@models/locatie';
 import { Niscode } from '@models/niscode.enum';
+import type { IGemeente } from '@models/locatie';
 
 describe('FilterGemeente', () => {
   describe('default', () => {
@@ -99,8 +99,9 @@ describe('FilterGemeente', () => {
       cy.mount(TestComponent).then(() => {
         cy.dataCy('filter-gemeente').click().find('.multiselect__input').type('Brussel');
         cy.dataCy('filter-gemeente')
-          .find('.multiselect__option span').first()
-          .should('have.text', 'Geen resultaten gevonden...')
+          .find('.multiselect__option span')
+          .first()
+          .should('have.text', 'Geen resultaten gevonden...');
       });
     });
   });

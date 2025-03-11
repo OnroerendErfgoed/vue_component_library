@@ -1,4 +1,5 @@
 import '@/scss/main.scss';
+import { ref } from 'vue';
 import { OeActorWidget } from '@components/smart';
 import { ActorType } from '@models/actor';
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -41,6 +42,12 @@ const meta: Meta<typeof OeActorWidget> = {
         type: { summary: '<template #dropdown></template>' },
       },
     },
+    disableAddButton: {
+      description: 'Disable add button until extended conditions are met',
+      table: {
+        type: { summary: '<template #dropdown></template>' },
+      },
+    },
   },
 };
 
@@ -56,11 +63,12 @@ export const Default: Story = {
       const actorType = ActorType.PERSOON;
       const id = '1';
       const api = 'https://dev-actoren.onroerenderfgoed.be';
-      return { id, api, actorType };
+      const open = ref(true);
+      return { id, api, actorType, open };
     },
     template: `
     <div style="zoom: .95">
-      <oe-actor-widget search-actor="van hum" :id="id" :api="api" :open="true" @add="console.log" @close="console.log" :actor-type="actorType">
+      <oe-actor-widget search-actor="van hum" :id="id" :api="api" :open="open" @add="console.log" @close="open=false" :actor-type="actorType">
         <template v-slot:dropdown>
           <div class="dropdown"></div>
         </template>

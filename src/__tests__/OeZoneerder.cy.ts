@@ -40,6 +40,77 @@ describe('OeZoneerder', () => {
       cy.dataCy('geometryObjectList').should('have.length', 1);
     });
 
+    it('shows flash, zoom and delete feature buttons', () => {
+      cy.mount(TestComponent, {
+        props: {
+          drawPanelEnabled: true,
+          zone: {
+            type: 'MultiPolygon',
+            coordinates: [
+              [
+                [
+                  [152362.90394889, 213066.79304588],
+                  [152362.33710089, 213066.81429388],
+                  [152341.61601287, 213067.59202188],
+                  [152339.99700487, 213029.92098185],
+                  [152340.53703687, 213029.89851785],
+                  [152361.39399689, 213029.03202185],
+                  [152362.07585289, 213046.08514186],
+                  [152362.90394889, 213066.79304588],
+                ],
+              ],
+            ],
+            crs: {
+              type: 'name',
+              properties: {
+                name: 'urn:ogc:def:crs:EPSG::31370',
+              },
+            },
+          },
+        },
+      });
+      cy.dataCy('zonePanelControl').click();
+      cy.dataCy('geometryObjectList').should('have.length', 1);
+      cy.dataCy('flashFeatureBtn').should('exist');
+      cy.dataCy('zoomFeatureBtn').should('exist');
+      cy.dataCy('deleteFeatureBtn').should('exist');
+    });
+
+    it('removes a feature when delete button is clicked', () => {
+      cy.mount(TestComponent, {
+        props: {
+          drawPanelEnabled: true,
+          zone: {
+            type: 'MultiPolygon',
+            coordinates: [
+              [
+                [
+                  [152362.90394889, 213066.79304588],
+                  [152362.33710089, 213066.81429388],
+                  [152341.61601287, 213067.59202188],
+                  [152339.99700487, 213029.92098185],
+                  [152340.53703687, 213029.89851785],
+                  [152361.39399689, 213029.03202185],
+                  [152362.07585289, 213046.08514186],
+                  [152362.90394889, 213066.79304588],
+                ],
+              ],
+            ],
+            crs: {
+              type: 'name',
+              properties: {
+                name: 'urn:ogc:def:crs:EPSG::31370',
+              },
+            },
+          },
+        },
+      });
+      cy.dataCy('zonePanelControl').click();
+      cy.dataCy('geometryObjectList').should('have.length', 1);
+      cy.dataCy('deleteFeatureBtn').click();
+      cy.dataCy('geometryObjectList').should('not.be.visible');
+    });
+
     it('shows all enabled controls', () => {
       cy.mount(TestComponent, {
         props: {
@@ -67,6 +138,7 @@ describe('OeZoneerder', () => {
           layerConfig: {
             baseLayers: {
               omwrgbmrvl: { type: LayerType.OMWRGBMRVL, title: 'Ortho', visible: true },
+              kunstwerken: { type: LayerType.GrbWMS, wmsLayers: 'GRB_KNW', title: 'GRB-Kunstwerkenlaag', hidden: true },
             },
             overlays: {
               overlay: { type: LayerType.Ngi, title: 'Topokaart overlay' },
@@ -77,6 +149,24 @@ describe('OeZoneerder', () => {
       cy.dataCy('olMap').find('.layerswitcher.oe-ol-control').click();
       cy.dataCy('layerswitcherPanel').should('contain', 'Ortho');
       cy.dataCy('layerswitcherPanel').should('contain', 'Topokaart overlay');
+      cy.dataCy('layerswitcherPanel').should('not.contain', 'GRB-Kunstwerkenlaag');
+    });
+
+    it('shows all enabled selects', () => {
+      cy.mount(TestComponent, {
+        props: {
+          drawPanelEnabled: true,
+          featureSelectConfig: {
+            perceel: true,
+            gebouw: true,
+            kunstwerk: false,
+          },
+        },
+      });
+      cy.dataCy('zonePanelControl').click();
+      cy.dataCy('selectPerceelButton').should('exist');
+      cy.dataCy('selectGebouwButton').should('exist');
+      cy.dataCy('selectKunstwerkButton').should('not.exist');
     });
   });
 });

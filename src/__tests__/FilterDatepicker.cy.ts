@@ -7,8 +7,8 @@ describe('FilterDatepicker', () => {
     const TestComponent = defineComponent({
       components: { FilterDatepicker },
       setup() {
-        const date = ref<string[]>([]);
-        const setValue = (value: string[]) => (date.value = value);
+        const date = ref<string>();
+        const setValue = (value: string) => (date.value = value);
         return { date, setValue };
       },
       template: '<filter-datepicker :value="date" @update:value="setValue"/>',
@@ -16,8 +16,8 @@ describe('FilterDatepicker', () => {
 
     it('accepts a value prop', () => {
       cy.mount(TestComponent).then(({ component }) => {
-        component.date = ['1996-02-16'];
-        cy.dataCy('filter-datepicker').should('have.value', '16-02-1996');
+        component.date = '1996-02-16';
+        cy.dataCy('filter-datepicker').find('.flatpickr-input').should('have.value', '16-02-1996');
       });
     });
 
@@ -31,16 +31,16 @@ describe('FilterDatepicker', () => {
           .type('16-02-1996')
           .wait(200)
           .then(() => {
-            expect(component.date).to.deep.equal(['1996-02-16']);
+            expect(component.date).to.deep.equal('1996-02-16');
           });
 
-        cy.get('@onUpdateValueSpy').should('have.been.calledWith', ['1996-02-16']);
+        cy.get('@onUpdateValueSpy').should('have.been.calledWith', '1996-02-16');
       });
     });
 
     it('renders a placeholder', () => {
       cy.mount(TestComponent);
-      cy.dataCy('filter-datepicker').should('have.attr', 'placeholder', 'dd-mm-jjjj');
+      cy.dataCy('filter-datepicker').find('.flatpickr-input').should('have.attr', 'placeholder', 'dd-mm-jjjj');
     });
   });
 
@@ -49,8 +49,8 @@ describe('FilterDatepicker', () => {
       components: { FilterDatepicker },
       setup() {
         const apiFormat = 'dd-MM-yyyy';
-        const date = ref<string[]>([]);
-        const setValue = (value: string[]) => (date.value = value);
+        const date = ref<string>();
+        const setValue = (value: string) => (date.value = value);
         return { date, setValue, apiFormat };
       },
       template: '<filter-datepicker :apiFormat="apiFormat" :value="date" @update:value="setValue"/>',
@@ -58,8 +58,8 @@ describe('FilterDatepicker', () => {
 
     it('accepts a value prop', () => {
       cy.mount(TestComponent).then(({ component }) => {
-        component.date = ['16-02-1996'];
-        cy.dataCy('filter-datepicker').should('have.value', '16-02-1996');
+        component.date = '16-02-1996';
+        cy.dataCy('filter-datepicker').find('.flatpickr-input').should('have.value', '16-02-1996');
       });
     });
 
@@ -73,10 +73,10 @@ describe('FilterDatepicker', () => {
           .type('16-02-1996')
           .wait(200)
           .then(() => {
-            expect(component.date).to.deep.equal(['16-02-1996']);
+            expect(component.date).to.deep.equal('16-02-1996');
           });
 
-        cy.get('@onUpdateValueSpy').should('have.been.calledWith', ['16-02-1996']);
+        cy.get('@onUpdateValueSpy').should('have.been.calledWith', '16-02-1996');
       });
     });
   });

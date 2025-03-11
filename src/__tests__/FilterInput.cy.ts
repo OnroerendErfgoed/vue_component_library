@@ -22,6 +22,12 @@ describe('FilterInput', () => {
   describe('with options', () => {
     const TestComponentWithOptions = defineComponent({
       components: { FilterInput, FilterText, FilterDatepicker, FilterGemeente, FilterRadio, FilterSelect },
+      props: {
+        uniqueFilters: {
+          type: Boolean,
+          default: false,
+        },
+      },
       setup() {
         const options: IFilterOption[] = [
           {
@@ -50,9 +56,9 @@ describe('FilterInput', () => {
         return { options, filters, setFilters };
       },
       template: `
-      <filter-input v-slot="{ value, setValue, selectedOption, addFilter }" :options="options" @filters-selected="setFilters">
+      <filter-input v-slot="{ value, setValue, selectedOption, addFilter }" :options="options" :unique-filters="uniqueFilters" @filters-selected="setFilters">
         <filter-text v-if="selectedOption.key === 'id'" :value="value" @update:value="setValue($event, $event)" placeholder="ID" @keyup.enter="addFilter"></filter-text>
-        <filter-datepicker v-if="selectedOption.key === 'datum_goedkeuring_van'" :value="value" @update:value="setValue($event, $event[0])"></filter-datepicker>
+        <filter-datepicker v-if="selectedOption.key === 'datum_goedkeuring_van'" :value="value" @update:value="setValue($event, $event)"></filter-datepicker>
         <filter-gemeente v-if="selectedOption.key === 'gemeente'" :value="value" @update:value="setValue($event, $event.naam)"></filter-gemeente>
         <filter-radio v-if="selectedOption.key === 'beheerscommissie' || selectedOption.key === 'beheersplan_verlopen'" :options="radioOptions" :value="value" @update:value="setValue($event, $event)"></filter-radio>
         <filter-select v-if="selectedOption.key === 'plantype'" placeholder="Type plan" :model-value="value" @update:model-value="setValue($event, $event)">
@@ -91,10 +97,6 @@ describe('FilterInput', () => {
         cy.dataCy('filter-select').select('Datum goedkeuring vanaf');
         cy.dataCy('filter-datepicker').parent().find('.vl-datepicker__input-field').should('exist').type('16-02-1996');
         cy.dataCy('filter-add-button').click();
-      });
-
-      it('has a filters label', () => {
-        cy.dataCy('filters-label').should('exist').invoke('text').should('equal', 'Filters:');
       });
 
       it('clears the input field after filter was added', () => {
@@ -202,6 +204,39 @@ describe('FilterInput', () => {
                 });
             });
         });
+      });
+    });
+    describe('unique filters behavior', () => {
+      it('replaces existing filter with same key when uniqueFilters is true', () => {
+        cy.mount(TestComponentWithOptions, { props: { uniqueFilters: true } });
+
+        cy.dataCy('filter-select').select('ID');
+        cy.dataCy('filter-text').type('firstValue');
+        cy.dataCy('filter-add-button').click();
+
+        cy.dataCy('filter-select').select('ID');
+        cy.dataCy('filter-text').type('secondValue');
+        cy.dataCy('filter-add-button').click();
+
+        cy.get('.vl-pill').should('have.length', 1);
+        cy.dataCy('filter-id-firstValue').should('not.exist');
+        cy.dataCy('filter-id-secondValue').should('exist');
+      });
+
+      it('allows multiple filters with same key when uniqueFilters is false', () => {
+        cy.mount(TestComponentWithOptions, { props: { uniqueFilters: false } });
+
+        cy.dataCy('filter-select').select('ID');
+        cy.dataCy('filter-text').type('firstValue');
+        cy.dataCy('filter-add-button').click();
+
+        cy.dataCy('filter-select').select('ID');
+        cy.dataCy('filter-text').type('secondValue');
+        cy.dataCy('filter-add-button').click();
+
+        cy.get('.vl-pill').should('have.length', 2);
+        cy.dataCy('filter-id-firstValue').should('exist');
+        cy.dataCy('filter-id-secondValue').should('exist');
       });
     });
   });

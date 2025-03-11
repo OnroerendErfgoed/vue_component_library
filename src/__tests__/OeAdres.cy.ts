@@ -23,6 +23,7 @@ describe('Adres', () => {
 
   it('has a title adres', () => {
     mount(TestComponent);
+    cy.wait(1000);
     cy.dataCy('title-adres').should('have.text', 'Adres');
   });
 
@@ -426,6 +427,8 @@ describe('Adres', () => {
                 naam: 'België',
                 code: 'BE',
               },
+              gewest: undefined,
+              provincie: undefined,
               gemeente: {
                 naam: 'Lummen',
                 niscode: '71037',
@@ -462,6 +465,14 @@ describe('Adres', () => {
       const config: IAdresConfig = {
         land: {
           required: true,
+        },
+        gewest: {
+          required: false,
+          hidden: true,
+        },
+        provincie: {
+          required: false,
+          hidden: true,
         },
         gemeente: {
           required: true,
@@ -554,6 +565,14 @@ describe('Adres', () => {
         land: {
           required: true,
         },
+        gewest: {
+          required: false,
+          hidden: true,
+        },
+        provincie: {
+          required: false,
+          hidden: true,
+        },
         gemeente: {
           required: true,
         },
@@ -644,6 +663,14 @@ describe('Adres', () => {
       const config: IAdresConfig = {
         land: {
           required: true,
+        },
+        gewest: {
+          required: false,
+          hidden: true,
+        },
+        provincie: {
+          required: false,
+          hidden: true,
         },
         gemeente: {
           required: true,
@@ -751,6 +778,94 @@ describe('Adres', () => {
       getMultiSelect('postcode').find('.multiselect__element').click();
       getMultiSelect('straat').click();
       getMultiSelect('straat').find('.multiselect__element').should('have.length', 3);
+    });
+  });
+
+  describe('form - gewest & provincie', () => {
+    let adresComponent: Cypress.Chainable;
+
+    describe('applies custom configuration - gewest & provincie required', () => {
+      const config: IAdresConfig = {
+        gewest: {
+          required: true,
+        },
+        provincie: {
+          required: true,
+        },
+        gemeente: {
+          required: false,
+        },
+        postcode: {
+          required: false,
+        },
+        straat: {
+          required: false,
+        },
+        huisnummer: {
+          required: false,
+        },
+        busnummer: {
+          required: false,
+        },
+      };
+
+      beforeEach(() => {
+        cy.intercept({ method: 'GET', url: 'https://test-geo.onroerenderfgoed.be/**' }).as('dataGet');
+
+        mount(TestComponent, {
+          setup() {
+            const adresComponent = ref();
+            const c = config;
+
+            return { c, adresComponent };
+          },
+          template: '<Suspense><OeAdres ref="adresComponent" countryId="BE" :config="c"/></Suspense>',
+        }).then(({ component }) => {
+          cy.wait('@dataGet');
+          cy.wrap(component.$nextTick()).then(() => {
+            adresComponent = component.adresComponent;
+          });
+        });
+      });
+
+      it('has an input label gewest', () => {
+        getLabel('gewest').should('have.text', 'Gewest');
+      });
+
+      it('has an input label provincie', () => {
+        getLabel('provincie').should('have.text', 'Provincie');
+      });
+
+      it('shows a list of gewesten and provincies', () => {
+        getMultiSelect('gewest').click();
+        getMultiSelect('gewest').find('.multiselect__element').should('have.length', 3);
+        getMultiSelect('gewest').find('.multiselect__select').click();
+
+        getMultiSelect('provincie').click();
+        getMultiSelect('provincie').find('.multiselect__element').should('have.length', 10);
+      });
+
+      it('narrows list of provincies and gemeenten on gewest selection', () => {
+        setMultiSelectValue('gewest', 'Vlaams');
+        getMultiSelect('provincie').click();
+        getMultiSelect('provincie').find('.multiselect__element').should('have.length', 5);
+        getMultiSelect('provincie').find('.multiselect__select').click();
+      });
+
+      it('disables provincie when selecting "Brussels Hoofdstedelijk Gewest"', () => {
+        setMultiSelectValue('gewest', 'Brussels');
+        getMultiSelect('provincie').should('have.class', 'multiselect--disabled');
+      });
+
+      it('triggers required validation after validate function is invoked', () => {
+        cy.wrap(adresComponent).should('not.be.undefined').invoke('validate');
+
+        getMultiSelect('gewest').parent().should('have.class', 'vl-multiselect--error');
+        getFormError('gewest').should('have.text', 'Het veld gewest is verplicht.');
+
+        getMultiSelect('provincie').parent().should('have.class', 'vl-multiselect--error');
+        getFormError('provincie').should('have.text', 'Het veld provincie is verplicht.');
+      });
     });
   });
 });

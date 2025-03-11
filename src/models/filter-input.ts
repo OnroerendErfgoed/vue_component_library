@@ -1,11 +1,12 @@
-import type { IGemeente } from './locatie';
 import { Niscode } from './niscode.enum';
+import type { IGemeente } from './locatie';
 
 export type TFilterInput = string | IGemeente;
 
 export interface IFilterInputProps {
   options: IFilterOption[];
   defaultFilters?: IFilter[];
+  uniqueFilters?: boolean;
 }
 
 export interface IFilter {
@@ -31,7 +32,7 @@ export interface IFilterSelectProps {
 }
 
 export interface IFilterDatepickerProps {
-  value?: string[];
+  value?: string;
   apiFormat?: string;
 }
 
