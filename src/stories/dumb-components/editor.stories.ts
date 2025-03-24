@@ -116,7 +116,7 @@ export const DisabledState: Story = {
       OeEditor,
     },
     setup() {
-      const model = ref('');
+      const model = ref('This area is disabled!');
       return { model };
     },
     template: `

@@ -219,7 +219,13 @@ watch(
 </script>
 
 <style lang="scss" scoped>
+@import 'pyoes/scss/base-variables';
+
 .editor-disabled {
+  * {
+    background-color: $light-gray;
+  }
+
   .ql-toolbar {
     cursor: not-allowed;
 
