@@ -1,5 +1,5 @@
 import { defineConfig } from 'cypress';
-import plugin from 'cypress-watch-and-reload/plugins';
+import plugin from 'cypress-watch-and-reload/plugins.js';
 
 export default defineConfig({
   e2e: {
