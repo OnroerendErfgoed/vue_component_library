@@ -1,4 +1,4 @@
-import codeCoverageTask from '@cypress/code-coverage/task';
+import codeCoverageTask from '@cypress/code-coverage/task.js';
 import { defineConfig } from 'cypress';
 import plugin from 'cypress-watch-and-reload/plugins.js';
 
