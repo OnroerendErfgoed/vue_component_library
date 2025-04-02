@@ -21,10 +21,8 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GOVFLANDERS_NPM_TOKEN}}
       - name: Cypress run
         uses: cypress-io/github-action@v5
-        with:
-          component: true
-          browser: chrome
-          env:
-            CYPRESS_codeCoverageTasksRegistered: true
+        run: yarn cypress run --component --browser=chrome -e codeCoverageTasksRegistered=true
+      - name: Generate Coverage Report
+        run: yarn nyc report --reporter=text-summary
       - name: Show Coverage Report in Logs
         run: cat ./coverage/coverage-summary.json | jq
