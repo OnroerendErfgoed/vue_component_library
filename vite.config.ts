@@ -3,9 +3,9 @@ import vue from '@vitejs/plugin-vue';
 import { resolve } from 'path';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
+import istanbul from 'vite-plugin-istanbul';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   build: {
     outDir: 'dist',
@@ -43,6 +43,14 @@ export default defineConfig({
         { src: 'src/scss/*', dest: 'scss' },
         { src: 'src/assets/*', dest: 'assets' },
       ],
+    }),
+    istanbul({
+      include: 'src/*',
+      exclude: ['node_modules', 'test/', 'coverage/'],
+      extension: ['.js', '.ts', '.vue'],
+      requireEnv: false,
+      cypress: true, // Ensure Cypress tests are instrumented,
+      forceBuildInstrument: true,
     }),
   ],
   resolve: {
