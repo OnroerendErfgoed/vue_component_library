@@ -23,5 +23,9 @@ jobs:
         run: yarn cypress run --component --browser=chrome -e codeCoverageTasksRegistered=true
       - name: Generate Coverage Report
         run: yarn nyc report --reporter=text-summary
-      - name: Show Coverage Report in Logs
-        run: cat ./coverage/coverage-summary.json | jq
+      - name: Upload HTML Coverage Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: ./coverage
+          retention-days: 7 # Keep it for 7 days (adjust as needed)
