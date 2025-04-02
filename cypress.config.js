@@ -1,6 +1,6 @@
+import codeCoverageTask from '@cypress/code-coverage/task.js';
 import { defineConfig } from 'cypress';
 import plugin from 'cypress-watch-and-reload/plugins.js';
-import codeCoverageTask from '@cypress/code-coverage/task.js';
 
 export default defineConfig({
   e2e: {
