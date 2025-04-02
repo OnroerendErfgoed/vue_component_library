@@ -52,6 +52,7 @@
     "serve-coverage": "npx http-server -p 8080 -c-1 ./coverage"
   },
   "dependencies": {
+    "@cypress/code-coverage": "^3.14.0",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-brands-svg-icons": "^6.4.0",
     "@fortawesome/free-regular-svg-icons": "^6.4.0",
@@ -90,7 +91,6 @@
     "vue": "^3.5.13"
   },
   "devDependencies": {
-    "@cypress/code-coverage": "^3.14.0",
     "@intlify/unplugin-vue-i18n": "^0.10.0",
     "@rushstack/eslint-patch": "^1.2.0",
     "@storybook/addon-essentials": "^8.4.7",
