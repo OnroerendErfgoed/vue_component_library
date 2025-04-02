@@ -24,7 +24,6 @@ jobs:
         with:
           component: true
           browser: chrome
-          env:
-            CYPRESS_codeCoverageTasksRegistered: true
+          e: codeCoverageTasksRegistered=true
       - name: Show Coverage Report in Logs
         run: cat ./coverage/coverage-summary.json | jq
