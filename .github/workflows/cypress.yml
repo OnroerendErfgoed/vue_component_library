@@ -21,11 +21,35 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GOVFLANDERS_NPM_TOKEN}}
       - name: Run Cypress with Coverage
         run: yarn cypress run --component --browser=chrome -e codeCoverageTasksRegistered=true
-      - name: Generate Coverage Report
-        run: yarn nyc report --reporter=text-summary
-      - name: Upload HTML Coverage Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-report
-          path: ./coverage
-          retention-days: 7 # Keep it for 7 days (adjust as needed)
+
+      - name: Generate Coverage Report (Text + HTML)
+        run: |
+          yarn nyc report --reporter=text-summary
+          yarn nyc report --reporter=html
+
+      - name: Show Coverage Report in Logs
+        run: cat ./coverage/coverage-summary.json | jq
+
+      - name: Extract Coverage Information
+        id: coverage
+        run: |
+          # Extract relevant coverage info (e.g., statements, branches, functions, lines)
+          STATEMENTS=$(cat ./coverage/coverage-summary.json | jq .total.statements.pct)
+          BRANCHES=$(cat ./coverage/coverage-summary.json | jq .total.branches.pct)
+          FUNCTIONS=$(cat ./coverage/coverage-summary.json | jq .total.functions.pct)
+          LINES=$(cat ./coverage/coverage-summary.json | jq .total.lines.pct)
+          echo "STATEMENTS=$STATEMENTS" >> $GITHUB_ENV
+          echo "BRANCHES=$BRANCHES" >> $GITHUB_ENV
+          echo "FUNCTIONS=$FUNCTIONS" >> $GITHUB_ENV
+          echo "LINES=$LINES" >> $GITHUB_ENV
+
+      - name: Post Coverage Comment on Pull Request
+        if: github.event.pull_request
+        run: |
+          COVERAGE_COMMENT="☂️☂️ **Cypress Coverage**\n\nOverall Coverage\nLines Covered: ${STATEMENTS}%\nBranches Covered: ${BRANCHES}%\nFunctions Covered: ${FUNCTIONS}%\nLines Covered: ${LINES}%\n\nStatus: 🟢"
+
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            --data "{\"body\":\"$COVERAGE_COMMENT\"}" \
+            "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments"

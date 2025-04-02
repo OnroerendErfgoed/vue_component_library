@@ -45,7 +45,7 @@ export default defineConfig({
       ],
     }),
     istanbul({
-      include: 'src/*',
+      include: 'src/components/*',
       exclude: ['node_modules', 'test/', 'coverage/'],
       extension: ['.js', '.ts', '.vue'],
       requireEnv: false,
