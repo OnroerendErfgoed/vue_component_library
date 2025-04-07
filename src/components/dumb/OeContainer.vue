@@ -154,23 +154,28 @@ const closeTab = (item: ITab, confirm = false) => {
 
     .vl-pill {
       cursor: pointer;
-      margin-bottom: 1px;
       margin-right: 0.5rem;
       border-radius: 0 0 0.4rem 0.4rem;
       height: 2.4rem;
+      border-top: none;
+
+      .vl-pill__close {
+        border-right: none;
+        border-bottom: none;
+        border-top: none;
+      }
 
       &.is-active {
         border-top: none;
-        margin-right: 1rem;
 
-        padding: 0.5rem 1rem;
-        border: 2px solid $primary-color;
+        padding: 0 1rem;
         background-color: $primary-color;
         color: $white;
+        border-top: none;
 
         .vl-pill__close {
           color: $white;
-          border-top: none;
+          height: 100%;
 
           &:hover:not([disabled]) {
             color: $dark-purple;
