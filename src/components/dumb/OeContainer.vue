@@ -14,6 +14,8 @@
         <vl-pill
           v-for="item in props.tabs"
           :key="item.id"
+          :style="{ 'max-width': `${props.tabSelectorMaxWidth}px` }"
+          :title="item.label"
           :class="[{ 'is-active': item.id === props.activeTab?.id }, `tab-${item.id}`]"
           :mod-closable="item.closable"
           :close-label="`Sluit tab ${item.label}`"
@@ -38,6 +40,7 @@ const props = withDefaults(defineProps<IContainerProps>(), {
   tabs: () => [],
   activeTab: undefined,
   disableConfirmCloseTab: false,
+  tabSelectorMaxWidth: 200,
 });
 const emit = defineEmits<{
   (e: 'tab-selected', tab: ITab): void;
@@ -139,7 +142,6 @@ const closeTab = (item: ITab, confirm = false) => {
     display: flex;
     align-items: flex-start;
     background: #f3f3f3;
-    height: 40px;
     border-top: 1px solid $dark-purple;
 
     .vl-action-group button:last-child {
@@ -155,24 +157,34 @@ const closeTab = (item: ITab, confirm = false) => {
       margin-right: 0.5rem;
       border-radius: 0 0 0.4rem 0.4rem;
       height: 2.4rem;
+      border-top: none;
+
+      .vl-pill__close {
+        border-right: none;
+        border-bottom: none;
+        border-top: none;
+      }
 
       &.is-active {
         border-top: none;
-        margin-left: 0.5rem;
-        margin-right: 1rem;
 
-        scale: 1.1;
+        padding: 0 1rem;
         background-color: $primary-color;
         color: $white;
+        border-top: none;
 
         .vl-pill__close {
           color: $white;
-          border-top: none;
+          height: 100%;
 
           &:hover:not([disabled]) {
             color: $dark-purple;
           }
         }
+      }
+
+      &--closable {
+        padding-right: 0 !important;
       }
     }
   }

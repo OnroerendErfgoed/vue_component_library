@@ -2,6 +2,7 @@ export interface IContainerProps {
   activeTab?: ITab;
   tabs?: ITab[];
   disableConfirmCloseTab?: boolean;
+  tabSelectorMaxWidth?: number;
 }
 
 export interface ITab {
