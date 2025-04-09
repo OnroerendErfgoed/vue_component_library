@@ -23,24 +23,23 @@
       <slot name="dropdown"></slot>
     </template>
     <template #modal-footer>
-      <div class="vl-u-flex vl-u-flex-align-center">
+      <vl-action-group mod-align-center>
         <vl-button
           data-cy="actor-widget-add-btn"
-          class="vl-u-spacer-right--small"
           mod-primary
           :mod-disabled="!selectedActor || props.disableAddButton"
           @click="addActor()"
         >
           Toevoegen
         </vl-button>
-        <vl-button class="vl-u-spacer-right--small" mod-secondary @click="close()">Sluiten</vl-button>
-      </div>
+        <vl-button mod-secondary @click="close()">Sluiten</vl-button>
+      </vl-action-group>
     </template>
   </vl-modal>
 </template>
 
 <script setup lang="ts">
-import { VlButton, VlModal } from '@govflanders/vl-ui-design-system-vue3';
+import { VlActionGroup, VlButton, VlModal } from '@govflanders/vl-ui-design-system-vue3';
 import { ref, useTemplateRef } from 'vue';
 import Detail from '@components/dumb/OeActorWidgetDetail.vue';
 import OeLoader from '@components/dumb/OeLoader.vue';
@@ -113,6 +112,8 @@ const resetWidget = () => {
   state.value = ActorWidgetState.Grid;
   selectedActor.value = undefined;
 };
+
+defineExpose({ selectedActor });
 </script>
 
 <style lang="scss" scoped>
