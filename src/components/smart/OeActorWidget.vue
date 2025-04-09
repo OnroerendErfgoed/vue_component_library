@@ -79,7 +79,7 @@ const state = ref<ActorWidgetState>(ActorWidgetState.Grid);
 const actorService = new ActorService(props.api, props.getSsoToken);
 const selectedActor = ref<IActor>();
 const loading = ref(false);
-const actorGrid = useTemplateRef('actorGrid');
+const actorGridRef = useTemplateRef('actorGrid');
 
 const selectActor = (actor?: IActor) => (selectedActor.value = actor);
 
@@ -109,7 +109,7 @@ const close = () => {
 };
 
 const resetWidget = () => {
-  actorGrid.value?.resetSelectedActor();
+  actorGridRef.value?.resetSelectedActor();
   state.value = ActorWidgetState.Grid;
   selectedActor.value = undefined;
 };
