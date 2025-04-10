@@ -92,7 +92,7 @@
 <script setup lang="ts">
 import 'quill/dist/quill.snow.css';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import Quill from 'quill';
+import Quill, { Delta } from 'quill';
 import { htmlEditButton } from 'quill-html-edit-button';
 import QuillToggleFullscreenButton from 'quill-toggle-fullscreen-button';
 import { computed, onMounted, ref, watch } from 'vue';
@@ -204,6 +204,12 @@ const model = defineModel({ type: String });
 
 onMounted(() => {
   quill = editor.value?.initialize(Quill) as Quill;
+  quill.clipboard.addMatcher(Node.ELEMENT_NODE, (node) => {
+    if (node.children.length > 0) {
+      node.textContent += '\n';
+    }
+    return new Delta().insert(node.textContent);
+  });
 });
 
 watch(
