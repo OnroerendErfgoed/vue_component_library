@@ -2,16 +2,16 @@
   <div :id="props.id" :class="{ 'editor-disabled': props.modDisabled }">
     <div :id="`${props.id}-toolbar`">
       <div class="toolbar-container">
-        <div v-if="toolbar.undo || toolbar.redo" class="toolbar-group">
-          <button v-if="toolbar.undo" class="ql-undo" title="Undo">
+        <div v-if="includes(tb, OeEditorToolbar.UNDO) || includes(tb, OeEditorToolbar.REDO)" class="toolbar-group">
+          <button v-if="includes(tb, OeEditorToolbar.UNDO)" class="ql-undo" title="Undo">
             <font-awesome-icon :icon="['fas', 'rotate-left']" />
           </button>
-          <button v-if="toolbar.redo" class="ql-redo" title="Redo">
+          <button v-if="includes(tb, OeEditorToolbar.REDO)" class="ql-redo" title="Redo">
             <font-awesome-icon :icon="['fas', 'rotate-right']" />
           </button>
         </div>
 
-        <div v-if="toolbar.header" class="toolbar-group">
+        <div v-if="includes(tb, OeEditorToolbar.HEADER)" class="toolbar-group">
           <select class="ql-header">
             <option value="">Paragraph</option>
             <option value="1">Heading 1</option>
@@ -23,56 +23,83 @@
           </select>
         </div>
 
-        <div v-if="toolbar.blockquote || toolbar.codeblock" class="toolbar-group">
-          <button v-if="toolbar.blockquote" class="ql-blockquote"></button>
-          <button v-if="toolbar.codeblock" class="ql-code-block"></button>
-        </div>
-
-        <div v-if="toolbar.bold || toolbar.italic || toolbar.underline || toolbar.strike" class="toolbar-group">
-          <button v-if="toolbar.bold" class="ql-bold"></button>
-          <button v-if="toolbar.italic" class="ql-italic"></button>
-          <button v-if="toolbar.underline" class="ql-underline"></button>
-          <button v-if="toolbar.strike" class="ql-strike"></button>
-        </div>
-
-        <div v-if="toolbar.color || toolbar.background" class="toolbar-group">
-          <select v-if="toolbar.color" class="ql-color"></select>
-          <select v-if="toolbar.background" class="ql-background"></select>
-        </div>
-
-        <div v-if="toolbar.sub || toolbar.super" class="toolbar-group">
-          <button v-if="toolbar.sub" class="ql-script" value="sub"></button>
-          <button v-if="toolbar.super" class="ql-script" value="super"></button>
+        <div
+          v-if="includes(tb, OeEditorToolbar.BLOCKQUOTE) || includes(tb, OeEditorToolbar.CODEBLOCK)"
+          class="toolbar-group"
+        >
+          <button v-if="includes(tb, OeEditorToolbar.BLOCKQUOTE)" class="ql-blockquote"></button>
+          <button v-if="includes(tb, OeEditorToolbar.CODEBLOCK)" class="ql-code-block"></button>
         </div>
 
         <div
-          v-if="toolbar.numlist || toolbar.bullist || toolbar.indent || toolbar.outdent || toolbar.align"
+          v-if="
+            includes(tb, OeEditorToolbar.BOLD) ||
+            includes(tb, OeEditorToolbar.ITALIC) ||
+            includes(tb, OeEditorToolbar.UNDERLINE) ||
+            includes(tb, OeEditorToolbar.STRIKE)
+          "
           class="toolbar-group"
         >
-          <button v-if="toolbar.numlist" class="ql-list" value="ordered"></button>
-          <button v-if="toolbar.bullist" class="ql-list" value="bullet"></button>
-          <button v-if="toolbar.outdent" class="ql-indent" value="-1"></button>
-          <button v-if="toolbar.indent" class="ql-indent" value="+1"></button>
-          <select v-if="toolbar.align" class="ql-align"></select>
+          <button v-if="includes(tb, OeEditorToolbar.BOLD)" class="ql-bold"></button>
+          <button v-if="includes(tb, OeEditorToolbar.ITALIC)" class="ql-italic"></button>
+          <button v-if="includes(tb, OeEditorToolbar.UNDERLINE)" class="ql-underline"></button>
+          <button v-if="includes(tb, OeEditorToolbar.STRIKE)" class="ql-strike"></button>
+        </div>
+        <div
+          v-if="includes(tb, OeEditorToolbar.COLOR) || includes(tb, OeEditorToolbar.BACKGROUND)"
+          class="toolbar-group"
+        >
+          <select v-if="includes(tb, OeEditorToolbar.COLOR)" class="ql-color"></select>
+          <select v-if="includes(tb, OeEditorToolbar.BACKGROUND)" class="ql-background"></select>
         </div>
 
-        <div v-if="toolbar.link || toolbar.image || toolbar.video || toolbar.formula" class="toolbar-group">
-          <button v-if="toolbar.link" class="ql-link"></button>
-          <button v-if="toolbar.image" class="ql-image"></button>
-          <button v-if="toolbar.video" class="ql-video"></button>
-          <button v-if="toolbar.formula" class="ql-formula"></button>
+        <div v-if="includes(tb, OeEditorToolbar.SUB) || includes(tb, OeEditorToolbar.SUPER)" class="toolbar-group">
+          <button v-if="includes(tb, OeEditorToolbar.SUB)" class="ql-script" value="sub"></button>
+          <button v-if="includes(tb, OeEditorToolbar.SUPER)" class="ql-script" value="super"></button>
         </div>
 
-        <div v-if="toolbar.removeformat" class="toolbar-group">
-          <button v-if="toolbar.removeformat" class="ql-clean"></button>
+        <div
+          v-if="
+            includes(tb, OeEditorToolbar.NUMLIST) ||
+            includes(tb, OeEditorToolbar.BULLIST) ||
+            includes(tb, OeEditorToolbar.INDENT) ||
+            includes(tb, OeEditorToolbar.OUTDENT) ||
+            includes(tb, OeEditorToolbar.ALIGN)
+          "
+          class="toolbar-group"
+        >
+          <button v-if="includes(tb, OeEditorToolbar.NUMLIST)" class="ql-list" value="ordered"></button>
+          <button v-if="includes(tb, OeEditorToolbar.BULLIST)" class="ql-list" value="bullet"></button>
+          <button v-if="includes(tb, OeEditorToolbar.OUTDENT)" class="ql-indent" value="-1"></button>
+          <button v-if="includes(tb, OeEditorToolbar.INDENT)" class="ql-indent" value="+1"></button>
+          <select v-if="includes(tb, OeEditorToolbar.ALIGN)" class="ql-align"></select>
         </div>
 
-        <div v-if="toolbar.biblio || toolbar.private" class="toolbar-group">
-          <button v-if="toolbar.biblio" class="ql-biblio" title="Bibliografie">
+        <div
+          v-if="
+            includes(tb, OeEditorToolbar.LINK) ||
+            includes(tb, OeEditorToolbar.IMAGE) ||
+            includes(tb, OeEditorToolbar.VIDEO) ||
+            includes(tb, OeEditorToolbar.FORMULA)
+          "
+          class="toolbar-group"
+        >
+          <button v-if="includes(tb, OeEditorToolbar.LINK)" class="ql-link"></button>
+          <button v-if="includes(tb, OeEditorToolbar.IMAGE)" class="ql-image"></button>
+          <button v-if="includes(tb, OeEditorToolbar.VIDEO)" class="ql-video"></button>
+          <button v-if="includes(tb, OeEditorToolbar.FORMULA)" class="ql-formula"></button>
+        </div>
+
+        <div v-if="includes(tb, OeEditorToolbar.REMOVEFORMAT)" class="toolbar-group">
+          <button v-if="includes(tb, OeEditorToolbar.REMOVEFORMAT)" class="ql-clean"></button>
+        </div>
+
+        <div v-if="includes(tb, OeEditorToolbar.BIBLIO) || includes(tb, OeEditorToolbar.PRIVATE)" class="toolbar-group">
+          <button v-if="includes(tb, OeEditorToolbar.BIBLIO)" class="ql-biblio" title="Bibliografie">
             <font-awesome-icon :icon="['fas', 'bookmark']" />
           </button>
 
-          <button v-if="toolbar.private" class="ql-private" title="Prive">
+          <button v-if="includes(tb, OeEditorToolbar.PRIVATE)" class="ql-private" title="Prive">
             <font-awesome-icon :icon="['fas', 'lock']" />
           </button>
         </div>
@@ -92,54 +119,51 @@
 <script setup lang="ts">
 import 'quill/dist/quill.snow.css';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import Quill, { Delta } from 'quill';
+import { includes } from 'lodash';
+import Quill from 'quill';
 import { htmlEditButton } from 'quill-html-edit-button';
 import QuillToggleFullscreenButton from 'quill-toggle-fullscreen-button';
 import { computed, onMounted, ref, watch } from 'vue';
 import { QuillyEditor } from 'vue-quilly';
-import { BibliografieBlock, type OeEditorProps, PrivateBlock } from '@models/editor';
+import { BibliografieBlock, OeEditorFormat, type OeEditorProps, OeEditorToolbar, PrivateBlock } from '@models/editor';
 
 const props = withDefaults(defineProps<OeEditorProps>(), {
   height: 400,
   modDisabled: false,
-  toolbar: () => ({
-    undo: true,
-    redo: true,
-    header: true,
-    blockquote: false,
-    codeblock: false,
-    bold: true,
-    italic: true,
-    strike: false,
-    underline: false,
-    color: false,
-    background: false,
-    sub: false,
-    super: false,
-    bullist: true,
-    numlist: true,
-    indent: true,
-    outdent: true,
-    align: false,
-    removeformat: true,
-    biblio: false,
-    private: false,
-    code: false,
-    fullscreen: false,
-  }),
+  toolbar: () => [
+    OeEditorToolbar.UNDO,
+    OeEditorToolbar.REDO,
+    OeEditorToolbar.HEADER,
+    OeEditorToolbar.BOLD,
+    OeEditorToolbar.ITALIC,
+    OeEditorToolbar.BULLIST,
+    OeEditorToolbar.NUMLIST,
+    OeEditorToolbar.INDENT,
+    OeEditorToolbar.OUTDENT,
+    OeEditorToolbar.REMOVEFORMAT,
+  ],
+  formats: () => [
+    OeEditorFormat.ITALIC,
+    OeEditorFormat.BOLD,
+    OeEditorFormat.HEADER,
+    OeEditorFormat.LIST,
+    OeEditorFormat.INDENT,
+  ],
+  enableFullToolbar: false,
+  enableAllFormats: false,
 });
 
-const toolbar = computed(() => props.toolbar);
+const tb = computed(() => (props.enableFullToolbar ? Object.values(OeEditorToolbar) : props.toolbar));
 
 // Register custom blocks and modules
 Quill.register(PrivateBlock, true);
 Quill.register(BibliografieBlock, true);
 
-if (props.toolbar.code) {
+if (includes(tb.value, OeEditorToolbar.CODE)) {
   Quill.register('modules/htmlEditButton', htmlEditButton);
 }
 
-if (props.toolbar.fullscreen) {
+if (includes(tb.value, OeEditorToolbar.FULLSCREEN)) {
   Quill.register('modules/toggleFullscreen', QuillToggleFullscreenButton);
 }
 
@@ -149,6 +173,7 @@ let quill: Quill;
 const editor = ref<InstanceType<typeof QuillyEditor>>();
 const options = computed(() => ({
   theme: 'snow',
+  ...(!props.enableAllFormats && !props.enableFullToolbar && { formats: props.formats }),
   modules: {
     toolbar: {
       container: `#${props.id}-toolbar`,
@@ -180,7 +205,7 @@ const options = computed(() => ({
       maxStack: 500,
       userOnly: true,
     },
-    ...(props.toolbar.code && {
+    ...(includes(tb.value, OeEditorToolbar.CODE) && {
       htmlEditButton: {
         prependSelector: `#${props.id}`,
         buttonTitle: 'Source code',
@@ -189,7 +214,7 @@ const options = computed(() => ({
         cancelText: 'Annuleren',
       },
     }),
-    ...(props.toolbar.fullscreen && {
+    ...(includes(tb.value, OeEditorToolbar.FULLSCREEN) && {
       toggleFullscreen: {
         buttonTitle: 'Fullscreen',
       },
@@ -204,12 +229,6 @@ const model = defineModel({ type: String });
 
 onMounted(() => {
   quill = editor.value?.initialize(Quill) as Quill;
-  quill.clipboard.addMatcher(Node.ELEMENT_NODE, (node) => {
-    if (node.children.length > 0) {
-      node.textContent += '\n';
-    }
-    return new Delta().insert(node.textContent);
-  });
 });
 
 watch(
