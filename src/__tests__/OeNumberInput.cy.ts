@@ -1,3 +1,4 @@
+/* eslint-disable vue/one-component-per-file */
 import { defineComponent, ref } from 'vue';
 import OeNumberInput from '@components/dumb/OeNumberInput.vue';
 
