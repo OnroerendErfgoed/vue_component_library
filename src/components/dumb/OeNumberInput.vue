@@ -4,6 +4,7 @@
     :model-value="localValue"
     @update:model-value="updateValue"
     @keydown="preventInvalidInput"
+    @paste="handlePaste"
   />
 </template>
 
@@ -91,5 +92,11 @@ const preventInvalidInput = (event: KeyboardEvent) => {
   if (key === ',' && (event.target as HTMLInputElement).value.includes(',')) {
     event.preventDefault();
   }
+};
+
+const handlePaste = (event: ClipboardEvent) => {
+  event.preventDefault();
+  const pastedData = event.clipboardData?.getData('text') || '';
+  updateValue(pastedData);
 };
 </script>
