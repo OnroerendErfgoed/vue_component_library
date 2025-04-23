@@ -24,6 +24,7 @@ import OeTinyMce from './OeTinyMCE.vue';
 import OeToaster from './OeToaster.vue';
 import OeWizard from './OeWizard.vue';
 import SystemFields from './SystemFields.vue';
+import OeNumberInput from './OeNumberInput.vue';
 
 export {
   ClipboardCopy,
@@ -52,4 +53,5 @@ export {
   OeToaster,
   OeWizard,
   SystemFields,
+  OeNumberInput,
 };
