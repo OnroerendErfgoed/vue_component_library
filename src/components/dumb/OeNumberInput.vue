@@ -4,7 +4,7 @@
     :model-value="localValue"
     @update:model-value="updateValue"
     @keydown="preventInvalidInput"
-    @paste="handlePaste"
+    @paste.prevent="handlePaste"
   />
 </template>
 
@@ -76,35 +76,36 @@ const updateValue = (newValue?: string) => {
 
 const preventInvalidInput = (event: KeyboardEvent) => {
   const key = event.key;
+  const inputValue = (event.target as HTMLInputElement).value;
+  const selectionStart = (event.target as HTMLInputElement).selectionStart;
 
-  // Allow numbers, a single comma, minus sign, backspace, delete, arrow keys (left and right), and control keys (Ctrl+[z,x,c,v])
-  if (
-    !/^[0-9,-]$/.test(key) &&
-    key !== 'Backspace' &&
-    key !== 'Delete' &&
-    key !== 'ArrowLeft' &&
-    key !== 'ArrowRight' &&
-    !(event.ctrlKey && ['z', 'x', 'c', 'v'].includes(key))
-  ) {
+  const isAllowedKey =
+    /^[0-9,-]$/.test(key) ||
+    ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(key) ||
+    (event.ctrlKey && ['z', 'x', 'c', 'v'].includes(key));
+
+  if (!isAllowedKey) {
     event.preventDefault();
+    return;
   }
 
   // Prevent multiple minus signs or minus sign not at the start
-  if (key === '-' && (event.target as HTMLInputElement).value.includes('-')) {
-    event.preventDefault();
-  }
-  if (key === '-' && (event.target as HTMLInputElement).selectionStart !== 0) {
-    event.preventDefault();
+  if (key === '-') {
+    const hasMinusSign = inputValue.includes('-');
+    const isNotAtStart = selectionStart !== 0;
+
+    if (hasMinusSign || isNotAtStart) {
+      event.preventDefault();
+    }
   }
 
   // Prevent multiple commas
-  if (key === ',' && (event.target as HTMLInputElement).value.includes(',')) {
+  if (key === ',' && inputValue.includes(',')) {
     event.preventDefault();
   }
 };
 
 const handlePaste = (event: ClipboardEvent) => {
-  event.preventDefault();
   const pastedData = event.clipboardData?.getData('text') || '';
   updateValue(pastedData);
 };
