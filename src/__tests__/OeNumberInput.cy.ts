@@ -55,10 +55,7 @@ describe('OeNumberInput', () => {
       ];
 
       testCases.forEach(({ input, expected }) => {
-        cy.get('[data-cy="number-input"]')
-          .clear()
-          .type(input)
-          .blur();
+        cy.get('[data-cy="number-input"]').clear().type(input).blur();
         cy.wait(10).then(() => {
           expect(component.value).to.equal(expected);
         });
@@ -69,9 +66,7 @@ describe('OeNumberInput', () => {
   it('clears the value when input is cleared', () => {
     mountNumberInput(987).then(({ component }) => {
       cy.get('[data-cy="number-input"]').should('have.value', '987');
-      cy.get('[data-cy="number-input"]')
-        .clear()
-        .blur();
+      cy.get('[data-cy="number-input"]').clear().blur();
       cy.wait(10).then(() => {
         expect(component.value).to.equal(null);
       });
@@ -105,10 +100,7 @@ describe('OeNumberInput', () => {
 
   it('allows typing of a minus sign for negative numbers', () => {
     mountNumberInput();
-    cy.get('[data-cy="number-input"]')
-      .clear()
-      .type('-123,45')
-      .should('have.value', '-123,45');
+    cy.get('[data-cy="number-input"]').clear().type('-123,45').should('have.value', '-123,45');
   });
 
   it('prevents typing of multiple minus signs', () => {
@@ -124,9 +116,6 @@ describe('OeNumberInput', () => {
 
   it('removes leading zeros', () => {
     mountNumberInput();
-    cy.get('[data-cy="number-input"]')
-      .clear()
-      .type('000123,45')
-      .should('have.value', '123,45');
+    cy.get('[data-cy="number-input"]').clear().type('000123,45').should('have.value', '123,45');
   });
 });

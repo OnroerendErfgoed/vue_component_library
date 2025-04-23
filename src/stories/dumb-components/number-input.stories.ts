@@ -13,7 +13,8 @@ const meta: Meta<typeof OeNumberInput> = {
         height: '250px',
       },
       description: {
-        component: 'Wrapper component for VlInputField.\n\n Component handles a number in dot format (xxx.yy) and allows input using comma format (xxx,yy).',
+        component:
+          'Wrapper component for VlInputField.\n\n Component handles a number in dot format (xxx.yy) and allows input using comma format (xxx,yy).',
       },
     },
   },
@@ -27,8 +28,7 @@ const meta: Meta<typeof OeNumberInput> = {
     },
     'update:modelValue': {
       action: 'update:modelValue',
-      description:
-        'Event emitted when the input value is updated. Returns the new numeric value or null when cleared.',
+      description: 'Event emitted when the input value is updated. Returns the new numeric value or null when cleared.',
       table: {
         type: { summary: 'number | null' },
       },
@@ -67,4 +67,3 @@ export const TwoWayBinding: Story = {
     `,
   }),
 };
-

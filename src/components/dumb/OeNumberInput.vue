@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import { VlInputField } from '@govflanders/vl-ui-design-system-vue3';
-import { ref, watch, computed } from 'vue';
+import { ref, watch } from 'vue';
 
 interface Props {
   modelValue: number | null;
@@ -32,9 +32,13 @@ const formatNumberToString = (value: number | null): string => {
   return value.toString().replace(/\./g, ',');
 };
 
-watch(() => props.modelValue, (newValue) => {
-  localValue.value = formatNumberToString(newValue);
-}, { immediate: true });
+watch(
+  () => props.modelValue,
+  (newValue) => {
+    localValue.value = formatNumberToString(newValue);
+  },
+  { immediate: true }
+);
 
 const updateValue = (newValue?: string) => {
   // Empty value means the user cleared everything, so the value should be null
@@ -60,9 +64,7 @@ const updateValue = (newValue?: string) => {
   integerPart = integerPart.replace(/[^\d-]/g, '');
   decimalPart = decimalPart.replace(/\D/g, '');
 
-  const formattedValue = decimalPart
-    ? `${integerPart}.${decimalPart}`
-    : `${integerPart}`;
+  const formattedValue = decimalPart ? `${integerPart}.${decimalPart}` : `${integerPart}`;
 
   if (Number.isNaN(parseFloat(formattedValue))) {
     return;
@@ -76,7 +78,14 @@ const preventInvalidInput = (event: KeyboardEvent) => {
   const key = event.key;
 
   // Allow numbers, a single comma, minus sign, backspace, delete, arrow keys (left and right), and control keys (Ctrl+[z,x,c,v])
-  if (!/^[0-9,-]$/.test(key) && key !== 'Backspace' && key !== 'Delete' && key !== 'ArrowLeft' && key !== 'ArrowRight' && !(event.ctrlKey && ['z', 'x', 'c', 'v'].includes(key))) {
+  if (
+    !/^[0-9,-]$/.test(key) &&
+    key !== 'Backspace' &&
+    key !== 'Delete' &&
+    key !== 'ArrowLeft' &&
+    key !== 'ArrowRight' &&
+    !(event.ctrlKey && ['z', 'x', 'c', 'v'].includes(key))
+  ) {
     event.preventDefault();
   }
 
