@@ -1,3 +1,5 @@
+import { useEventListener } from '@vueuse/core';
+
 export const vAutoResizeTextarea = {
   mounted(el: HTMLElement) {
     const adjustHeight = () => {
@@ -6,12 +8,9 @@ export const vAutoResizeTextarea = {
       el.style.height = `${el.scrollHeight}px`;
     };
 
-    el.addEventListener('input', adjustHeight);
+    useEventListener(el, 'input', adjustHeight);
 
     // Adjust height on mount in case there's initial content
     adjustHeight();
-  },
-  unmounted(el: HTMLElement) {
-    el.removeEventListener('input', () => {});
   },
 };
