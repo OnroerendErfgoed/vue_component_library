@@ -81,7 +81,7 @@ const preventInvalidInput = (event: KeyboardEvent) => {
 
   const isAllowedKey =
     /^[0-9,-]$/.test(key) ||
-    ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(key) ||
+    ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(key) ||
     (event.ctrlKey && ['z', 'x', 'c', 'v'].includes(key));
 
   if (!isAllowedKey) {
