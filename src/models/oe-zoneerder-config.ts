@@ -138,12 +138,15 @@ export const defaultFeatureSelectConfig: FeatureSelectConfig = {
   kunstwerk: false,
 };
 
-export interface OeZoneerderProps {
+export interface OeZoneerderProps extends OeMapProps {
+  featureSelectConfig?: FeatureSelectConfig;
+  drawPanelEnabled?: boolean;
+}
+
+export interface OeMapProps {
   zone?: Contour;
   api?: UrlString;
   controlConfig?: ControlConfig;
   layerConfig?: LayerConfig;
-  featureSelectConfig?: FeatureSelectConfig;
   locatie?: ILocatie;
-  drawPanelEnabled?: boolean;
 }
