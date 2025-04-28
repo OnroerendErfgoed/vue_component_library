@@ -571,8 +571,18 @@ const adres = computed<ILocatieAdres>(() => {
 // Form validation rules
 const rules = computed(() => ({
   land: { required: requiredIf(!!props.config.land?.required) },
-  gewest: { requiredIf: helpers.withParams({ field: 'gewest' }, requiredIf(!!props.config.gewest?.required)) },
-  provincie: { requiredIf: helpers.withParams({ field: 'provincie' }, requiredIf(!!props.config.provincie?.required)) },
+  gewest: {
+    requiredIf: helpers.withParams(
+      { field: 'gewest' },
+      requiredIf(!!props.config.gewest?.required && !props.config.gewest?.hidden)
+    ),
+  },
+  provincie: {
+    requiredIf: helpers.withParams(
+      { field: 'provincie' },
+      requiredIf(!!props.config.provincie?.required && !props.config.provincie?.hidden)
+    ),
+  },
   gemeente: {
     naam: {
       requiredIf: helpers.withParams({ field: 'gemeente' }, requiredIf(!!props.config.gemeente?.required)),
