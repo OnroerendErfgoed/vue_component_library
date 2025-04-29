@@ -16,35 +16,65 @@ export interface OeEditorProps {
   id: string;
   height?: number;
   modDisabled?: boolean;
-  toolbar?: OeEditorToolbarConfig;
+  toolbar?: OeEditorToolbar[];
+  enableFullToolbar?: boolean;
+  formats?: OeEditorFormat[];
+  enableAllFormats?: boolean;
 }
 
-export interface OeEditorToolbarConfig {
-  undo?: boolean;
-  redo?: boolean;
-  header?: boolean;
-  blockquote?: boolean;
-  codeblock?: boolean;
-  bold?: boolean;
-  italic?: boolean;
-  underline?: boolean;
-  strike?: boolean;
-  color?: boolean;
-  background?: boolean;
-  sub?: boolean;
-  super?: boolean;
-  bullist?: boolean;
-  numlist?: boolean;
-  outdent?: boolean;
-  indent?: boolean;
-  align?: boolean;
-  removeformat?: boolean;
-  private?: boolean;
-  biblio?: boolean;
-  code?: boolean;
-  fullscreen?: boolean;
-  link?: boolean;
-  image?: boolean;
-  video?: boolean;
-  formula?: boolean;
+export enum OeEditorFormat {
+  BACKGROUND = 'background',
+  BOLD = 'bold',
+  COLOR = 'color',
+  FONT = 'font',
+  CODE = 'code',
+  ITALIC = 'italic',
+  LINK = 'link',
+  SIZE = 'size',
+  STRIKE = 'strike',
+  SCRIPT = 'script',
+  UNDERLINE = 'underline',
+  BLOCKQUOTE = 'blockquote',
+  HEADER = 'header',
+  INDENT = 'indent',
+  LIST = 'list',
+  ALIGN = 'align',
+  DIRECTION = 'direction',
+  CODE_BLOCK = 'code-block',
+  FORMULA = 'formula',
+  IMAGE = 'image',
+  VIDEO = 'video',
+  PRIVATE = 'private',
+  BIBLIO = 'biblio',
+  FULLSCREEN = 'fullscreen',
+}
+
+export enum OeEditorToolbar {
+  UNDO = 'undo',
+  REDO = 'redo',
+  HEADER = 'header',
+  BLOCKQUOTE = 'blockquote',
+  CODEBLOCK = 'codeblock',
+  BOLD = 'bold',
+  ITALIC = 'italic',
+  UNDERLINE = 'underline',
+  STRIKE = 'strike',
+  COLOR = 'color',
+  BACKGROUND = 'background',
+  SUB = 'sub',
+  SUPER = 'super',
+  BULLIST = 'bullist',
+  NUMLIST = 'numlist',
+  OUTDENT = 'outdent',
+  INDENT = 'indent',
+  ALIGN = 'align',
+  REMOVEFORMAT = 'removeformat',
+  PRIVATE = 'private',
+  BIBLIO = 'biblio',
+  CODE = 'code',
+  FULLSCREEN = 'fullscreen',
+  LINK = 'link',
+  IMAGE = 'image',
+  VIDEO = 'video',
+  FORMULA = 'formula',
 }

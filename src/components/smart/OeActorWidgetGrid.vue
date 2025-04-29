@@ -1,7 +1,7 @@
 <template>
   <div class="vl-u-flex vl-u-flex-direction-column">
-    <div class="vl-grid">
-      <div class="vl-col--1-1 vl-u-flex vl-u-flex-align-flex-end">
+    <vl-grid>
+      <vl-column width="12" class="vl-u-flex vl-u-flex-align-flex-end">
         <vl-search
           id="actor-widget-menu-search"
           v-model="zoekterm"
@@ -14,21 +14,23 @@
           @submit="triggerSearch"
           @input="zoekterm = $event.target.value"
         ></vl-search>
-      </div>
-    </div>
-    <div class="vl-grid vl-u-spacer-top--xsmall">
-      <div class="vl-col--1-1">
-        <span class="vl-u-mark--info vl-u-text--small">{{ rowCountText }}</span>
-        <div class="vl-u-float-right">
-          <a :href="`${props.api}/beheer/0`" target="_blank">
-            <vl-button icon="plus" mod-icon-before mod-naked> Actor aanmaken </vl-button>
-          </a>
-          <vl-button icon="synchronize" mod-icon-before mod-naked @click="refresh()">Vernieuwen</vl-button>
-        </div>
-      </div>
-    </div>
-    <div class="vl-grid vl-u-spacer-top--xsmall">
-      <div class="vl-col--1-1">
+      </vl-column>
+    </vl-grid>
+    <vl-grid class="vl-u-spacer-top--xsmall">
+      <vl-column width="12">
+        <vl-action-group mod-space-between class="vl-u-flex-v-flex-end">
+          <span class="vl-u-mark--info vl-u-text--small">{{ rowCountText }}</span>
+          <div>
+            <a :href="`${props.api}/beheer/0`" target="_blank">
+              <vl-button icon="plus" mod-icon-before mod-naked> Actor aanmaken </vl-button>
+            </a>
+            <vl-button icon="synchronize" mod-icon-before mod-naked @click="refresh()">Vernieuwen</vl-button>
+          </div>
+        </vl-action-group>
+      </vl-column>
+    </vl-grid>
+    <vl-grid class="vl-u-spacer-top--xsmall">
+      <vl-column width="12">
         <oe-grid
           class="table"
           :grid-options="gridOptions"
@@ -36,13 +38,13 @@
           @first-data-rendered="firstDataRendered"
           @row-clicked="gridOptions?.onRowClicked"
         ></oe-grid>
-      </div>
-    </div>
+      </vl-column>
+    </vl-grid>
   </div>
 </template>
 
 <script setup lang="ts">
-import { VlButton, VlSearch } from '@govflanders/vl-ui-design-system-vue3';
+import { VlActionGroup, VlButton, VlColumn, VlGrid, VlSearch } from '@govflanders/vl-ui-design-system-vue3';
 import { isEmpty, omitBy } from 'lodash';
 import { computed, getCurrentInstance, ref, watch } from 'vue';
 import { OeActorWidgetGridActies } from '@components/dumb';
