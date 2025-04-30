@@ -1,5 +1,5 @@
 <template>
-  <div ref="mapRef" data-cy="olMap" class="map" :class="{ featureSelect: featureSelect }">
+  <div ref="mapRef" data-cy="olMap" class="map">
     <oe-autocomplete
       data-cy="locationSearchInput"
       :callback-fn="performAutocompleteSearch"
@@ -14,6 +14,10 @@
           <font-awesome-icon :icon="['fas', 'fa-globe']"></font-awesome-icon>
         </button>
       </div>
+      <slot name="leftControls"></slot>
+    </div>
+    <div ref="rightControlsContainerRef" class="controlsContainer right">
+      <slot name="rightControls"></slot>
     </div>
     <layerswitcher @layerswitcher:mounted="addLayerswitcherControl"></layerswitcher>
     <slot name="panel"></slot>
@@ -40,7 +44,6 @@ import { LayerType, defaultControlConfig, defaultLayerConfig } from '@/models';
 import { CrabApiService } from '@/services';
 import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
 import Layerswitcher from '@components/smart/OeZoneerderLayerswitcher.vue';
-import { FeatureSelectEnum } from '@models/featureSelect.enum';
 import { Geolocate } from '@utils/openlayers/oe-ol-geolocate';
 import type { Coordinate } from 'ol/coordinate';
 import type { Extent } from 'ol/extent';
@@ -62,7 +65,6 @@ const leftControlsContainerRef = ref<HTMLElement>() as Ref<HTMLElement>;
 const rightControlsContainerRef = ref<HTMLElement>() as Ref<HTMLElement>;
 const mapRef = ref<HTMLElement>();
 const autoCompleteValueRef = ref<IAutocompleteOption>();
-const featureSelect = ref<FeatureSelectEnum>();
 
 const emit = defineEmits(['map:created', 'update:zone']);
 
@@ -87,6 +89,7 @@ emit('map:created', map);
 provide('map', map);
 provide('crabService', crabService);
 provide('zoomToExtent', zoomToExtent);
+defineExpose({ map, crabService, zoomToExtent });
 
 onMounted(() => {
   map?.setTarget(mapRef.value);
@@ -364,14 +367,6 @@ function addControls(leftControlsContainer?: HTMLElement, rightControlsContainer
   padding: 0;
   background-color: aliceblue;
   position: relative;
-
-  &.featureSelect canvas {
-    cursor: pointer;
-  }
-}
-
-.hideZonePanelControl .oe-ol-control.zone-panel {
-  display: none;
 }
 
 .zone-search {
@@ -435,13 +430,6 @@ function addControls(leftControlsContainer?: HTMLElement, rightControlsContainer
 }
 
 //right controls
-.zone-panel.oe-ol-control {
-  order: 1;
-  button {
-    width: 2.5em;
-    height: 2.5em;
-  }
-}
 .rotate.oe-ol-control {
   order: 1;
 }
