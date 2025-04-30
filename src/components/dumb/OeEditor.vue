@@ -106,13 +106,7 @@
       </div>
     </div>
 
-    <QuillyEditor
-      ref="editor"
-      v-model="model"
-      :style="{ height: `${props.height}px` }"
-      :options="options"
-      @blur="model = quill?.getSemanticHTML()"
-    />
+    <QuillyEditor ref="editor" v-model="model" :style="{ height: `${props.height}px` }" :options="options" />
   </div>
 </template>
 
