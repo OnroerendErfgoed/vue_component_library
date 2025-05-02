@@ -2,7 +2,7 @@
   <oe-loader v-if="isLoading" />
   <div v-else class="oe-adres">
     <VlProperties>
-      <VlPropertiesTitle v-if="!props.hideTitle" data-cy="title-adres">Adres</VlPropertiesTitle>
+      <VlPropertiesTitle v-if="!props.hideTitle" data-cy="title-adres">{{ titleText }}</VlPropertiesTitle>
       <VlPropertiesList>
         <!-- Land -->
         <template v-if="!props.countryId">
@@ -399,6 +399,7 @@ import type { IAdres, IGemeente, IGewest, ILand, ILocatieAdres, IPostinfo, IProv
 const props = withDefaults(defineProps<IAdresProps>(), {
   modDisabled: false,
   hideTitle: false,
+  titleText: 'Adres',
   showRequiredPerField: false,
   config: () => ({
     land: { required: true },

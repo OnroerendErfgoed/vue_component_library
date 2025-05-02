@@ -54,6 +54,10 @@ const meta: Meta<typeof OeAdres> = {
       control: 'number',
       description: 'Max. amount of items in a multi-select list',
     },
+    titleText: {
+      control: 'text',
+      description: 'Title text',
+    },
   },
 };
 

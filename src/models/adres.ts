@@ -2,6 +2,7 @@ import type { ILocatieAdres } from '@models/locatie';
 
 export interface IAdresProps {
   hideTitle?: boolean;
+  titleText?: string;
   modDisabled?: boolean;
   api?: string;
   config?: IAdresConfig;
