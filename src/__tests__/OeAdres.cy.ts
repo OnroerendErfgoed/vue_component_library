@@ -27,6 +27,12 @@ describe('Adres', () => {
     cy.dataCy('title-adres').should('have.text', 'Adres');
   });
 
+  it.only('has a title adres - custom title', () => {
+    mount(TestComponent, { props: { titleText: 'Custom' } });
+    cy.wait(1000);
+    cy.dataCy('title-adres').should('have.text', 'Custom');
+  });
+
   describe('form - default', () => {
     let adresComponent: Cypress.Chainable;
 
@@ -240,23 +246,28 @@ describe('Adres', () => {
     });
 
     it('has an input label land', () => {
-      getLabel('land').should('have.text', 'LandVERPLICHT');
+      getLabel('land').should('have.text', 'Land');
+      getLabelAnnotation('land').should('have.text', 'VERPLICHT');
     });
 
     it('has an input label gemeente', () => {
-      getLabel('gemeente').should('have.text', 'GemeenteVERPLICHT');
+      getLabel('gemeente').should('have.text', 'Gemeente');
+      getLabelAnnotation('gemeente').should('have.text', 'VERPLICHT');
     });
 
     it('has an input label postcode', () => {
-      getLabel('postcode').should('have.text', 'PostcodeVERPLICHT');
+      getLabel('postcode').should('have.text', 'Postcode');
+      getLabelAnnotation('postcode').should('have.text', 'VERPLICHT');
     });
 
     it('has an input label straat', () => {
-      getLabel('straat').should('have.text', 'StraatVERPLICHT');
+      getLabel('straat').should('have.text', 'Straat');
+      getLabelAnnotation('straat').should('have.text', 'VERPLICHT');
     });
 
     it('has an input label huisnummer', () => {
-      getLabel('huisnummer').should('have.text', 'HuisnummerVERPLICHT');
+      getLabel('huisnummer').should('have.text', 'Huisnummer');
+      getLabelAnnotation('huisnummer').should('have.text', 'VERPLICHT');
     });
 
     it('has an input label busnummer', () => {
@@ -871,6 +882,7 @@ describe('Adres', () => {
 });
 
 const getLabel = (field: string) => cy.dataCy(`label-${field}`);
+const getLabelAnnotation = (field: string) => cy.dataCy(`label-${field}`).next();
 const getMultiSelect = (field: string) => cy.dataCy(`select-${field}`);
 const getAutocompleteRootElement = (field: string) => cy.dataCy(`autocomplete-${field}`);
 const getAutocompleteInput = (field: string) => getAutocompleteRootElement(field).children().first();
