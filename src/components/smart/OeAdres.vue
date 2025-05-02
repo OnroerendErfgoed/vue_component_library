@@ -4,7 +4,11 @@
     <VlPropertiesTitle v-if="!props.hideTitle" data-cy="title-adres">{{ titleText }}</VlPropertiesTitle>
 
     <VlFormStructure @submit.prevent>
-      <VlFormGrid mod-stacked-small>
+      <VlFormGrid
+        :mod-stacked-large="props.modStackedLarge"
+        :mod-stacked-small="props.modStackedSmall"
+        :mod-stacked="props.modStacked"
+      >
         <!-- Land -->
         <template v-if="!props.countryId">
           <VlFormColumn width="3" width-s="12">
@@ -372,7 +376,7 @@ import { useVuelidate } from '@vuelidate/core';
 import { helpers } from '@vuelidate/validators';
 import { AxiosError } from 'axios';
 import { cloneDeep, pick, sortBy, uniqBy } from 'lodash';
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, onBeforeMount, onMounted, ref, watch } from 'vue';
 import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
 import OeLoader from '@components/dumb/OeLoader.vue';
 import { Niscode } from '@models/niscode.enum';
@@ -385,6 +389,9 @@ import type { IAdres, IGemeente, IGewest, ILand, ILocatieAdres, IPostinfo, IProv
 
 const props = withDefaults(defineProps<IAdresProps>(), {
   modDisabled: false,
+  modStackedLarge: false,
+  modStackedSmall: true,
+  modStacked: false,
   hideTitle: false,
   titleText: 'Adres',
   showRequiredPerField: false,
@@ -601,7 +608,7 @@ const v$ = useVuelidate(rules, adres);
 defineExpose({ validate: () => v$.value.$validate() });
 
 // Reference data
-const crabApiService = new CrabApiService(props.api);
+let crabApiService: CrabApiService;
 const staticLanden: ILand[] = [
   { code: 'BE', naam: 'België' },
   { code: 'DE', naam: 'Duitsland' },
@@ -611,8 +618,8 @@ const staticLanden: ILand[] = [
   { code: 'LU', naam: 'Luxemburg' },
   { code: 'divider', naam: '─────────────────────────' },
 ];
-const apiLanden: ILand[] = await crabApiService.getLanden();
-const landen = computed<ILand[]>(() => [...staticLanden, ...apiLanden]);
+const apiLanden = ref<ILand[]>([]);
+const landen = computed<ILand[]>(() => [...staticLanden, ...apiLanden.value]);
 const gewesten = ref<IGewest[]>([]);
 const provincies = ref<IProvincie[]>([]);
 const gemeenten = ref<IGemeente[]>([]);
@@ -620,6 +627,11 @@ const postinfo = ref<IPostinfo[]>([]);
 const straten = ref<IStraat[]>([]);
 const huisnummers = ref<IAdres[]>([]);
 const busnummers = ref<IAdres[]>([]);
+
+onBeforeMount(async () => {
+  crabApiService = new CrabApiService(props.api);
+  apiLanden.value = await crabApiService.getLanden();
+});
 
 onMounted(() => {
   if (props.countryId) {
@@ -878,6 +890,9 @@ const updateBusnummer = (value: IAutocompleteOption<IAdres>) => (busnummer.value
 
 <style lang="scss" scoped>
 .oe-adres {
+  :deep(.vl-form__group) {
+    padding: 0;
+  }
   .vl-link {
     outline: none;
     float: right;

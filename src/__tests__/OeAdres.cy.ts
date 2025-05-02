@@ -12,7 +12,7 @@ describe('Adres', () => {
 
       return { attrs, adresComponent };
     },
-    template: '<Suspense><OeAdres ref="adresComponent" v-bind="attrs"/></Suspense>',
+    template: '<OeAdres ref="adresComponent" v-bind="attrs"/>',
   });
 
   beforeEach(() => cy.mockAdressenregister());
@@ -23,13 +23,11 @@ describe('Adres', () => {
 
   it('has a title adres', () => {
     mount(TestComponent);
-    cy.wait(1000);
     cy.dataCy('title-adres').should('have.text', 'Adres');
   });
 
-  it.only('has a title adres - custom title', () => {
+  it('has a title adres - custom title', () => {
     mount(TestComponent, { props: { titleText: 'Custom' } });
-    cy.wait(1000);
     cy.dataCy('title-adres').should('have.text', 'Custom');
   });
 
@@ -301,7 +299,7 @@ describe('Adres', () => {
             },
           },
         }),
-        template: '<Suspense><OeAdres v-model:adres="adres"/></Suspense>',
+        template: '<OeAdres v-model:adres="adres"/>',
       });
 
       cy.wait('@dataGetGemeentenVlaamsGewest');
@@ -341,7 +339,7 @@ describe('Adres', () => {
             },
           },
         }),
-        template: '<Suspense><OeAdres v-model:adres="adres"/></Suspense>',
+        template: '<OeAdres v-model:adres="adres"/>',
       });
 
       cy.wait('@dataGetGemeentenBrusselsHoofdstedelijkGewest');
@@ -386,7 +384,7 @@ describe('Adres', () => {
             deelgemeente: {},
           },
         }),
-        template: '<Suspense><OeAdres v-model:adres="adres"/></Suspense>',
+        template: '<OeAdres v-model:adres="adres"/>',
       });
 
       cy.wait('@dataGetGemeentenVlaamsGewest');
@@ -424,7 +422,7 @@ describe('Adres', () => {
             },
           },
         }),
-        template: '<Suspense><OeAdres v-model:adres="adres"/></Suspense>',
+        template: '<OeAdres v-model:adres="adres"/>',
       }).then(({ component }) => {
         getMultiSelect('gemeente').click();
         getMultiSelect('gemeente').find('.multiselect__input').type('Lummen');
@@ -460,7 +458,7 @@ describe('Adres', () => {
 
       mount(TestComponent, {
         data: () => ({ api }),
-        template: '<Suspense><OeAdres :api="api"/></Suspense>',
+        template: '<OeAdres :api="api"/>',
       }).then(() => {
         cy.wait('@dataGetLanden').then((intercept) => {
           expect(intercept.request.url).to.equal('https://test.be/adressenregister/landen');
@@ -514,7 +512,7 @@ describe('Adres', () => {
 
             return { c, adresComponent };
           },
-          template: '<Suspense><OeAdres ref="adresComponent" :config="c"/></Suspense>',
+          template: '<OeAdres ref="adresComponent" :config="c"/>',
         }).then(({ component }) => {
           cy.wait('@dataGetLanden');
           cy.wrap(component.$nextTick()).then(() => {
@@ -613,7 +611,7 @@ describe('Adres', () => {
 
             return { c, adresComponent };
           },
-          template: '<Suspense><OeAdres ref="adresComponent" :config="c"/></Suspense>',
+          template: '<OeAdres ref="adresComponent" :config="c"/>',
         }).then(({ component }) => {
           cy.wait('@dataGetLanden');
           cy.wrap(component.$nextTick()).then(() => {
@@ -712,7 +710,7 @@ describe('Adres', () => {
 
             return { c, adresComponent };
           },
-          template: '<Suspense><OeAdres ref="adresComponent" :config="c"/></Suspense>',
+          template: '<OeAdres ref="adresComponent" :config="c"/>',
         }).then(({ component }) => {
           cy.wait('@dataGetLanden');
           cy.wrap(component.$nextTick()).then(() => {
@@ -749,7 +747,7 @@ describe('Adres', () => {
   describe('form - specific country', () => {
     beforeEach(() => {
       mount(TestComponent, {
-        template: '<Suspense><OeAdres countryId="BE" v-model:adres="adres"/></Suspense>',
+        template: '<OeAdres countryId="BE" v-model:adres="adres"/>',
       });
     });
 
@@ -768,7 +766,7 @@ describe('Adres', () => {
   describe('form - multi select options limit', () => {
     beforeEach(() => {
       mount(TestComponent, {
-        template: '<Suspense><OeAdres :options-limit="3" v-model:adres="adres"/></Suspense>',
+        template: '<OeAdres :options-limit="3" v-model:adres="adres"/>',
       });
     });
     it('sets the max amount of items at multi-select elements', () => {
@@ -830,7 +828,7 @@ describe('Adres', () => {
 
             return { c, adresComponent };
           },
-          template: '<Suspense><OeAdres ref="adresComponent" countryId="BE" :config="c"/></Suspense>',
+          template: '<OeAdres ref="adresComponent" countryId="BE" :config="c"/>',
         }).then(({ component }) => {
           cy.wait('@dataGet');
           cy.wrap(component.$nextTick()).then(() => {

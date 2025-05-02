@@ -15,9 +15,7 @@ const meta: Meta<typeof OeAdres> = {
     },
     template: `
       <div>
-      <Suspense>
-        <OeAdres v-bind="args" @update:adres="onUpdateAdres" />
-      </Suspense>
+      <OeAdres v-bind="args" @update:adres="onUpdateAdres" />
       <h3>Adres:</h3>
       <pre>{{ eventOutput }}</pre>
       </div>
@@ -145,9 +143,7 @@ export const TwoWayBinding: Story = {
     },
     template: `
       <div>
-      <Suspense>
-        <OeAdres v-model:adres="adres"  @update:adres="onUpdateAdres" />
-      </Suspense>
+      <OeAdres v-model:adres="adres"  @update:adres="onUpdateAdres" />
       <h3>Adres:</h3>
       <pre>{{ eventOutput }}</pre>
       </div>

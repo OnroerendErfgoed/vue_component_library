@@ -4,6 +4,9 @@ export interface IAdresProps {
   hideTitle?: boolean;
   titleText?: string;
   modDisabled?: boolean;
+  modStackedLarge?: boolean;
+  modStackedSmall?: boolean;
+  modStacked?: boolean;
   api?: string;
   config?: IAdresConfig;
   countryId?: string;
