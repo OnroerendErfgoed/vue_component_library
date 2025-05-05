@@ -1,10 +1,10 @@
 <template>
   <OeMap
-    ref="mapRef"
+    ref="oeMap"
+    v-model:zone="zone"
     :control-config="props.controlConfig"
     :layer-config="props.layerConfig"
     :api="props.api"
-    :zone="props.zone"
     :class="{ featureSelect: featureSelect }"
   >
     <template #rightControls>
@@ -47,7 +47,7 @@ const zone = ref<Contour | undefined>(props.zone);
 const rightControlsContainerRef = ref<HTMLElement>() as Ref<HTMLElement>;
 
 const featureSelect = ref<FeatureSelectEnum>();
-const mapRef = useTemplateRef('mapRef');
+const mapRef = useTemplateRef('oeMap');
 provide('map', mapRef.value?.map);
 provide('crabService', mapRef.value?.crabService);
 provide('zoomToExtent', mapRef.value?.zoomToExtent);

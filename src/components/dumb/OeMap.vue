@@ -1,5 +1,5 @@
 <template>
-  <div ref="mapRef" data-cy="olMap" class="map">
+  <div ref="oeMap" data-cy="olMap" class="map">
     <oe-autocomplete
       data-cy="locationSearchInput"
       :callback-fn="performAutocompleteSearch"
@@ -24,22 +24,26 @@
   </div>
 </template>
 
-<!--suppress CommaExpressionJS -->
 <script setup lang="ts">
 import 'ol/ol.css';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { FeatureLike } from 'ol/Feature';
 import Map from 'ol/Map';
 import View from 'ol/View';
+import { ColorLike } from 'ol/colorlike';
 import { Attribution, Control, FullScreen, Rotate, ScaleLine, Zoom, ZoomToExtent } from 'ol/control';
 import { getCenter, getTopLeft, getWidth } from 'ol/extent';
 import Point from 'ol/geom/Point';
 import { Group, Layer, Tile } from 'ol/layer';
+import VectorLayer from 'ol/layer/Vector';
 import { type ProjectionLike, get as getOlProj, transformExtent } from 'ol/proj';
 import { register } from 'ol/proj/proj4';
 import { TileWMS, WMTS } from 'ol/source';
+import VectorSource from 'ol/source/Vector';
+import { Fill, Text as OlText, Stroke, Style } from 'ol/style';
 import WMTSTileGrid from 'ol/tilegrid/WMTS';
 import proj4 from 'proj4';
-import { onMounted, onUnmounted, provide, ref, watch } from 'vue';
+import { onMounted, onUnmounted, provide, ref, useTemplateRef, watch } from 'vue';
 import { LayerType, defaultControlConfig, defaultLayerConfig } from '@/models';
 import { CrabApiService } from '@/services';
 import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
@@ -63,7 +67,7 @@ const zone = ref<Contour | undefined>(props.zone);
 
 const leftControlsContainerRef = ref<HTMLElement>() as Ref<HTMLElement>;
 const rightControlsContainerRef = ref<HTMLElement>() as Ref<HTMLElement>;
-const mapRef = ref<HTMLElement>();
+const mapRef = useTemplateRef('oeMap');
 const autoCompleteValueRef = ref<IAutocompleteOption>();
 
 const emit = defineEmits(['map:created', 'update:zone']);
@@ -85,14 +89,22 @@ let map: Map | undefined = new Map({
   controls: [],
 });
 
+const drawLayer = _createVectorLayer({
+  color: 'rgb(39, 146, 195)',
+  fill: 'rgba(39, 146, 195, 0.3)',
+  title: 'Zone',
+});
+map.addLayer(drawLayer);
+
 emit('map:created', map);
 provide('map', map);
+provide('drawLayer', drawLayer);
 provide('crabService', crabService);
 provide('zoomToExtent', zoomToExtent);
-defineExpose({ map, crabService, zoomToExtent });
+defineExpose({ map, drawLayer, crabService, zoomToExtent });
 
 onMounted(() => {
-  map?.setTarget(mapRef.value);
+  map?.setTarget(mapRef.value as HTMLElement);
   addControls(leftControlsContainerRef.value, rightControlsContainerRef.value);
 });
 
@@ -319,6 +331,32 @@ function _createErfgoedWMSLayer(wmsLayers: string) {
     maxResolution: 2000,
     visible: false,
   });
+}
+
+function _createVectorLayer(options: { color: ColorLike; fill: ColorLike; title: string }) {
+  const getText = (feature: FeatureLike) =>
+    new OlText({
+      font: '10px Verdana',
+      text: feature.get('name') || '',
+      fill: new Fill({ color: options.color }),
+      stroke: new Stroke({ color: '#fff', width: 3 }),
+    });
+
+  const getStyle = (feature: FeatureLike) =>
+    new Style({
+      stroke: new Stroke({ color: options.color, width: 3 }),
+      fill: new Fill({ color: options.fill }),
+      text: getText(feature),
+    });
+  const vLayer = new VectorLayer({
+    source: new VectorSource(),
+    style: getStyle,
+    visible: true,
+  });
+  vLayer.set('title', options.title);
+  vLayer.set('type', 'overlay');
+
+  return vLayer;
 }
 
 function addControls(leftControlsContainer?: HTMLElement, rightControlsContainer?: HTMLElement) {
