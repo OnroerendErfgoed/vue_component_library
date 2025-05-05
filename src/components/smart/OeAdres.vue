@@ -272,7 +272,7 @@
         </VlFormColumn>
         <VlFormColumn width="9" width-s="12">
           <OeAutocomplete
-            v-if="typeof huisnummer !== 'string' && isBelgiumOrEmpty && !huisnummerFreeText"
+            v-if="isBelgiumOrEmpty && !huisnummerFreeText"
             data-cy="autocomplete-huisnummer"
             allow-free-text
             autoselect
@@ -323,7 +323,7 @@
         </VlFormColumn>
         <VlFormColumn width="9" width-s="12">
           <OeAutocomplete
-            v-if="typeof huisnummer !== 'string' && isBelgiumOrEmpty && !huisnummerFreeText && !busnummerFreeText"
+            v-if="isBelgiumOrEmpty && !huisnummerFreeText && !busnummerFreeText"
             data-cy="autocomplete-busnummer"
             allow-free-text
             autoselect
