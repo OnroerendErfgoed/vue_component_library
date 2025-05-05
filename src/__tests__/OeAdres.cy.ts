@@ -183,14 +183,17 @@ describe('Adres', () => {
         // Gemeente selection
         setMultiSelectValue('gemeente', 'Aarschot');
         getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Aarschot');
+        cy.wait('@dataGet');
 
         // Straat selection
         setMultiSelectValue('straat', 'Astridlaan');
         getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Astridlaan');
+        cy.wait('@dataGet');
 
         // Huisnummer selection
         setAutocompleteValue('huisnummer', '28');
         getAutocompleteInput('huisnummer').should('have.value', '28');
+        cy.wait('@dataGet');
 
         getTextInput('busnummer').should('exist');
       });
