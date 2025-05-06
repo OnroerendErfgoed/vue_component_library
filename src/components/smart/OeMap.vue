@@ -27,13 +27,16 @@
 <script setup lang="ts">
 import 'ol/ol.css';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { FeatureLike } from 'ol/Feature';
+import Feature, { FeatureLike } from 'ol/Feature';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import { ColorLike } from 'ol/colorlike';
 import { Attribution, Control, FullScreen, Rotate, ScaleLine, Zoom, ZoomToExtent } from 'ol/control';
 import { getCenter, getTopLeft, getWidth } from 'ol/extent';
+import { GeoJSON } from 'ol/format';
+import { Circle, Geometry, MultiPolygon, Polygon } from 'ol/geom';
 import Point from 'ol/geom/Point';
+import { fromCircle } from 'ol/geom/Polygon';
 import { Group, Layer, Tile } from 'ol/layer';
 import VectorLayer from 'ol/layer/Vector';
 import { type ProjectionLike, get as getOlProj, transformExtent } from 'ol/proj';
@@ -88,20 +91,31 @@ let map: Map | undefined = new Map({
   layers: [getBaseLayerGroup(), ...getOverlays()],
   controls: [],
 });
-
-const drawLayer = _createVectorLayer({
+const geoJsonFormatter = new GeoJSON({
+  dataProjection: mapProjection,
+  featureProjection: mapProjection,
+});
+const drawLayer = createVectorLayer({
   color: 'rgb(39, 146, 195)',
   fill: 'rgba(39, 146, 195, 0.3)',
   title: 'Zone',
 });
+drawLayer.getSource()?.on('addfeature', () => {
+  drawLayerToZone();
+});
+drawLayer.getSource()?.on('removefeature', () => {
+  drawLayerToZone();
+});
 map.addLayer(drawLayer);
+addZoneToDrawLayer();
 
 emit('map:created', map);
 provide('map', map);
 provide('drawLayer', drawLayer);
 provide('crabService', crabService);
 provide('zoomToExtent', zoomToExtent);
-defineExpose({ map, drawLayer, crabService, zoomToExtent });
+provide('createVectorLayer', createVectorLayer);
+defineExpose({ map, drawLayer, crabService, zoomToExtent, createVectorLayer });
 
 onMounted(() => {
   map?.setTarget(mapRef.value as HTMLElement);
@@ -333,7 +347,7 @@ function _createErfgoedWMSLayer(wmsLayers: string) {
   });
 }
 
-function _createVectorLayer(options: { color: ColorLike; fill: ColorLike; title: string }) {
+function createVectorLayer(options: { color: ColorLike; fill: ColorLike; title: string }) {
   const getText = (feature: FeatureLike) =>
     new OlText({
       font: '10px Verdana',
@@ -392,6 +406,53 @@ function addControls(leftControlsContainer?: HTMLElement, rightControlsContainer
     const className = 'rotate oe-ol-control';
     map?.addControl(new Rotate({ tipLabel, className, target }));
   }
+}
+
+function formatGeoJson(feature: Geometry) {
+  return geoJsonFormatter.writeGeometryObject(feature) as Contour;
+}
+
+function drawLayerToZone() {
+  const multiPolygon = new MultiPolygon([], 'XY');
+  const features = drawLayer.getSource()?.getFeatures();
+  features?.forEach((feature) => {
+    const geom = feature.getGeometry();
+    if (geom instanceof Polygon) {
+      multiPolygon.appendPolygon(geom as Polygon);
+    } else if (geom instanceof MultiPolygon) {
+      geom.getPolygons().forEach((polygon: Polygon) => {
+        multiPolygon.appendPolygon(polygon);
+      });
+    } else if (geom instanceof Circle) {
+      multiPolygon.appendPolygon(fromCircle(geom));
+    }
+  });
+
+  const contour = formatGeoJson(multiPolygon);
+  if (!zone.value) {
+    zone.value = contour;
+  } else {
+    zone.value.coordinates = contour.coordinates;
+  }
+}
+
+function addZoneToDrawLayer() {
+  if (!drawLayer) return;
+
+  const drawSource = drawLayer.getSource() as VectorSource<Geometry>;
+  drawSource.getFeatures().forEach((feature) => {
+    drawSource.removeFeature(feature);
+  });
+
+  if (!zone.value) return;
+  const coordinates = zone.value.type === 'Polygon' ? [zone.value.coordinates] : zone.value.coordinates;
+
+  for (const [index, coords] of coordinates.entries()) {
+    const name = coordinates.length > 1 ? `Zone feature ${index + 1}` : 'Zone';
+    const geometry = new Polygon(coords);
+    drawSource.addFeature(new Feature({ name, geometry }));
+  }
+  zoomToExtent(geoJsonFormatter.readGeometry(zone.value).getExtent());
 }
 </script>
 

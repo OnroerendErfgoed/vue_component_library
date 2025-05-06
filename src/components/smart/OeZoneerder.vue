@@ -28,7 +28,7 @@ import 'ol/ol.css';
 import { Control } from 'ol/control';
 import { Ref, provide, ref, useTemplateRef, watch } from 'vue';
 import { defaultControlConfig, defaultFeatureSelectConfig, defaultLayerConfig } from '@/models';
-import OeMap from '@components/dumb/OeMap.vue';
+import OeMap from '@components/smart/OeMap.vue';
 import ZonePanel from '@components/smart/OeZoneerderZonePanel.vue';
 import { FeatureSelectEnum } from '@models/featureSelect.enum';
 import type { OeZoneerderProps } from '@/models';
@@ -49,8 +49,10 @@ const rightControlsContainerRef = ref<HTMLElement>() as Ref<HTMLElement>;
 const featureSelect = ref<FeatureSelectEnum>();
 const mapRef = useTemplateRef('oeMap');
 provide('map', mapRef.value?.map);
+provide('drawLayer', mapRef.value?.drawLayer);
 provide('crabService', mapRef.value?.crabService);
 provide('zoomToExtent', mapRef.value?.zoomToExtent);
+provide('createVectorLayer', mapRef.value?.createVectorLayer);
 
 function addZonePanelControl(element: HTMLElement) {
   mapRef.value?.map?.addControl(new Control({ element, target: rightControlsContainerRef.value }));

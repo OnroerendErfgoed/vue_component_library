@@ -18,7 +18,6 @@ import OeGrid from './OeGrid.vue';
 import OeHeader from './OeHeader.vue';
 import OeInventarisLoadedLink from './OeInventarisLoadedLink.vue';
 import OeLoader from './OeLoader.vue';
-import OeMap from './OeMap.vue';
 import OeModalConfirmCancelChanges from './OeModalConfirmCancelChanges.vue';
 import OeNumberInput from './OeNumberInput.vue';
 import OeSelect from './OeSelect.vue';
@@ -55,5 +54,4 @@ export {
   OeWizard,
   SystemFields,
   OeNumberInput,
-  OeMap,
 };

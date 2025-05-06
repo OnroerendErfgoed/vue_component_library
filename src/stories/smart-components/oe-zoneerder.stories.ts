@@ -1,7 +1,6 @@
 import '@/scss/main.scss';
-import { OeMap } from '@components/dumb';
-import { OeZoneerder } from '@components/smart';
-import { defaultLayerConfig } from '@models/oe-zoneerder-config';
+import { OeMap, OeZoneerder } from '@components/smart';
+import { defaultLayerConfig } from '@models/oe-map-config';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const api = 'https://test-geo.onroerenderfgoed.be/';
