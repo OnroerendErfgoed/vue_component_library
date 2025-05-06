@@ -12,7 +12,6 @@
     </template>
     <template #panel>
       <zone-panel
-        v-model:zone="zone"
         v-model:feature-select="featureSelect"
         :feature-select-config="props.featureSelectConfig"
         :draw-panel-enabled="props.drawPanelEnabled"
@@ -58,7 +57,7 @@ function addZonePanelControl(element: HTMLElement) {
   mapRef.value?.map?.addControl(new Control({ element, target: rightControlsContainerRef.value }));
 }
 
-watch(zone, (newZone) => emit('update:zone', newZone));
+watch(zone, (newZone) => emit('update:zone', newZone), { deep: true });
 </script>
 
 <style lang="scss">

@@ -137,19 +137,17 @@ import { FeatureSelectEnum } from '@models/featureSelect.enum';
 import { FeatureSelectConfig } from '@models/oe-map-config';
 import type { ColorLike } from 'ol/colorlike';
 import type { CrabApiService } from '@/services';
-import type { Contour, IDrawGeomType } from '@models/oe-openlayers';
+import type { IDrawGeomType } from '@models/oe-openlayers';
 
 const props = defineProps<{
-  zone?: Contour;
   featureSelect: FeatureSelectEnum | undefined;
   featureSelectConfig: FeatureSelectConfig;
   drawPanelEnabled?: boolean;
 }>();
 
 const featureSelectEventKey = ref();
-const zone = ref<Contour | undefined>(props.zone);
 const elementRef = ref<HTMLElement>();
-const emit = defineEmits(['update:zone', 'update:feature-select', 'zone-panel:mounted']);
+const emit = defineEmits(['update:feature-select', 'zone-panel:mounted']);
 
 const map = inject('map') as Map;
 const drawLayer = inject('drawLayer') as VectorLayer<VectorSource<Geometry>>;
@@ -185,7 +183,6 @@ const flashLayer = createVectorLayer({
 });
 map.addLayer(flashLayer);
 
-watch(zone, (newZone) => emit('update:zone', newZone));
 watch(featureSelect, (newFeatureSelect) => emit('update:feature-select', newFeatureSelect));
 watch(
   () => props.drawPanelEnabled,
