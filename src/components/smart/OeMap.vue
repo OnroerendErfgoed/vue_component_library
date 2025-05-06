@@ -1,17 +1,17 @@
 <template>
   <div ref="oeMap" data-cy="olMap" class="map">
-    <oe-autocomplete
+    <OeAutocomplete
       data-cy="locationSearchInput"
       :callback-fn="performAutocompleteSearch"
       :placeholder="'Gemeente, straat of adres'"
       :value="autoCompleteValueRef"
       class="zone-search"
       @update:value="onAutocompleteFinished"
-    ></oe-autocomplete>
+    ></OeAutocomplete>
     <div ref="leftControlsContainerRef" class="controlsContainer left">
       <div v-if="props.controlConfig.zoomSwitcher" class="zoom-switcher oe-ol-control ol-unselectable ol-control">
         <button class="zoomButton" title="Ga naar het Geoportaal" @click="zoomButtonClick">
-          <font-awesome-icon :icon="['fas', 'fa-globe']"></font-awesome-icon>
+          <FontAwesomeIcon :icon="['fas', 'fa-globe']" />
         </button>
       </div>
       <slot name="leftControls"></slot>
@@ -19,7 +19,7 @@
     <div ref="rightControlsContainerRef" class="controlsContainer right">
       <slot name="rightControls"></slot>
     </div>
-    <layerswitcher @layerswitcher:mounted="addLayerswitcherControl"></layerswitcher>
+    <Layerswitcher @layerswitcher:mounted="addLayerswitcherControl" />
     <slot name="panel"></slot>
   </div>
 </template>
@@ -50,7 +50,7 @@ import { onMounted, onUnmounted, provide, ref, useTemplateRef, watch } from 'vue
 import { LayerType, defaultControlConfig, defaultLayerConfig } from '@/models';
 import { CrabApiService } from '@/services';
 import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
-import Layerswitcher from '@components/smart/OeZoneerderLayerswitcher.vue';
+import Layerswitcher from '@components/smart/OeMapLayerswitcher.vue';
 import { Geolocate } from '@utils/openlayers/oe-ol-geolocate';
 import type { Coordinate } from 'ol/coordinate';
 import type { Extent } from 'ol/extent';

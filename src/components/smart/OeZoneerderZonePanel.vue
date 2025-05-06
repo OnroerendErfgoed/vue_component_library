@@ -2,35 +2,35 @@
   <div ref="zonePanelRef" :class="{ closed: !panelOpen || !props.drawPanelEnabled }" class="panel">
     <div ref="elementRef" class="zone-panel oe-ol-control ol-control ol-unselectable">
       <button data-cy="zonePanelControl" @click="togglePanel">
-        <font-awesome-icon icon="pencil" title="Zone samenstellen"></font-awesome-icon>
+        <FontAwesomeIcon icon="pencil" title="Zone samenstellen" />
       </button>
     </div>
 
-    <vl-title class="panelHeader" tag-name="h4">
+    <VlTitle class="panelHeader" tag-name="h4">
       <span v-if="panelOpen" class="titleText">&nbsp;Zone samenstellen</span>
-      <font-awesome-icon class="pointer" :icon="['fas', 'close']" @click="togglePanel"></font-awesome-icon>
-    </vl-title>
+      <FontAwesomeIcon class="pointer" :icon="['fas', 'close']" @click="togglePanel" />
+    </VlTitle>
 
     <div v-if="panelOpen" class="panelBody">
-      <vl-input-group class="zone-input-group">
+      <VlInputGroup class="zone-input-group">
         <template v-if="!addingWKT">
-          <vl-button
+          <VlButton
             mod-narrow
             :mod-secondary="!(activeDrawType === 'Polygon')"
             title="Teken polygoon"
             @click="toggleDrawZone(true)"
           >
-            <font-awesome-icon icon="draw-polygon"></font-awesome-icon>
-          </vl-button>
-          <vl-button
+            <FontAwesomeIcon icon="draw-polygon" />
+          </VlButton>
+          <VlButton
             mod-narrow
             :mod-secondary="!(activeDrawType === 'Circle')"
             title="Teken cirkel"
             @click="toggleDrawZone(true, 'Circle')"
           >
-            <font-awesome-icon :icon="['far', 'circle']"></font-awesome-icon>
-          </vl-button>
-          <vl-button
+            <FontAwesomeIcon :icon="['far', 'circle']" />
+          </VlButton>
+          <VlButton
             v-if="props.featureSelectConfig.perceel"
             data-cy="selectPerceelButton"
             vl-button
@@ -39,9 +39,9 @@
             title="Selecteer perceel"
             @click="startPerceelSelect()"
           >
-            <font-awesome-icon icon="map-marker-alt"></font-awesome-icon>
-          </vl-button>
-          <vl-button
+            <FontAwesomeIcon icon="map-marker-alt" />
+          </VlButton>
+          <VlButton
             v-if="props.featureSelectConfig.gebouw"
             data-cy="selectGebouwButton"
             vl-button
@@ -50,9 +50,9 @@
             title="Selecteer gebouw"
             @click="startGebouwSelect()"
           >
-            <font-awesome-icon icon="building"></font-awesome-icon>
-          </vl-button>
-          <vl-button
+            <FontAwesomeIcon icon="building" />
+          </VlButton>
+          <VlButton
             v-if="props.featureSelectConfig.kunstwerk"
             data-cy="selectKunstwerkButton"
             vl-button
@@ -61,20 +61,14 @@
             title="Selecteer kunstwerk"
             @click="startKunstwerkSelect()"
           >
-            <font-awesome-icon icon="monument"></font-awesome-icon>
-          </vl-button>
-          <vl-button
-            data-cy="showWKTInput"
-            vl-button
-            mod-narrow
-            mod-secondary
-            title="WKT string"
-            @click="showWktInput()"
-            >WKT</vl-button
+            <FontAwesomeIcon icon="monument" />
+          </VlButton>
+          <VlButton data-cy="showWKTInput" vl-button mod-narrow mod-secondary title="WKT string" @click="showWktInput()"
+            >WKT</VlButton
           >
         </template>
         <template v-else>
-          <vl-input-field
+          <VlInputField
             id="map-address"
             data-cy="WKTInput"
             name="map-address"
@@ -83,13 +77,13 @@
             :mod-error="invalidWKT"
             :model-value="WKTString"
             @update:model-value="updateWKTString"
-          ></vl-input-field>
-          <vl-button data-cy="plaatsWKT" vl-button mod-narrow mod-secondary @click="drawWKTZone()">Plaats</vl-button>
+          />
+          <VlButton data-cy="plaatsWKT" vl-button mod-narrow mod-secondary @click="drawWKTZone()">Plaats</VlButton>
         </template>
-        <vl-button title="annuleren" vl-button mod-narrow mod-secondary @click="toggleDrawZone(false)">
-          <font-awesome-icon icon="cancel"></font-awesome-icon>
-        </vl-button>
-      </vl-input-group>
+        <VlButton title="annuleren" vl-button mod-narrow mod-secondary @click="toggleDrawZone(false)">
+          <FontAwesomeIcon icon="cancel" />
+        </VlButton>
+      </VlInputGroup>
 
       <p><strong>Toegevoegde zones</strong></p>
       <ul data-cy="geometryObjectList" class="geometryObjectList">

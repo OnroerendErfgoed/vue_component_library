@@ -50,7 +50,7 @@ import { onMounted, onUnmounted, provide, ref, watch } from 'vue';
 import { LayerType, defaultControlConfig, defaultFeatureSelectConfig, defaultLayerConfig } from '@/models';
 import { CrabApiService } from '@/services';
 import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
-import Layerswitcher from '@components/smart/OeZoneerderLayerswitcher.vue';
+import Layerswitcher from '@components/smart/OeMapLayerswitcher.vue';
 import ZonePanel from '@components/smart/OeZoneerderZonePanel.vue';
 import { FeatureSelectEnum } from '@models/featureSelect.enum';
 import { Geolocate } from '@utils/openlayers/oe-ol-geolocate';

@@ -11,12 +11,12 @@
       <div ref="rightControlsContainerRef" :class="{ hideZonePanelControl: !props.drawPanelEnabled }"></div>
     </template>
     <template #panel>
-      <zone-panel
+      <ZonePanel
         v-model:feature-select="featureSelect"
         :feature-select-config="props.featureSelectConfig"
         :draw-panel-enabled="props.drawPanelEnabled"
         @zone-panel:mounted="addZonePanelControl"
-      ></zone-panel>
+      ></ZonePanel>
     </template>
   </OeMap>
 </template>
