@@ -21,7 +21,6 @@
   </OeMap>
 </template>
 
-<!--suppress CommaExpressionJS -->
 <script setup lang="ts">
 import 'ol/ol.css';
 import { Control } from 'ol/control';
