@@ -1,20 +1,23 @@
 <template>
-  <oe-loader v-if="isLoading" />
+  <OeLoader v-if="isLoading" />
   <div v-else class="oe-adres">
-    <VlProperties>
-      <VlPropertiesTitle v-if="!props.hideTitle" data-cy="title-adres">Adres</VlPropertiesTitle>
-      <VlPropertiesList>
+    <VlPropertiesTitle v-if="!props.hideTitle" data-cy="title-adres">{{ titleText }}</VlPropertiesTitle>
+
+    <VlFormStructure @submit.prevent>
+      <VlFormGrid
+        :mod-stacked-large="props.modStackedLarge"
+        :mod-stacked-small="props.modStackedSmall"
+        :mod-stacked="props.modStacked"
+      >
         <!-- Land -->
         <template v-if="!props.countryId">
-          <VlPropertiesLabel>
-            <vl-form-message-label data-cy="label-land">
-              <span class="vl-u-spacer-right--xxsmall">Land</span>
-              <span v-if="props.showRequiredPerField && $props.config?.land?.required" class="vl-form__annotation"
-                >VERPLICHT</span
-              >
-            </vl-form-message-label>
-          </VlPropertiesLabel>
-          <VlPropertiesData>
+          <VlFormColumn width="3" width-s="12">
+            <VlFormMessageLabel data-cy="label-land">Land</VlFormMessageLabel>
+            <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.land?.required"
+              >VERPLICHT</VlFormMessageAnnotation
+            >
+          </VlFormColumn>
+          <VlFormColumn width="9" width-s="12">
             <VlSelect
               v-model:model-value="land"
               data-cy="select-land"
@@ -27,23 +30,21 @@
                 {{ item.naam }}
               </option>
             </VlSelect>
-            <vl-form-message-error v-for="error of v$.land.$errors" :key="error.$uid">
+            <VlFormMessageError v-for="error of v$.land.$errors" :key="error.$uid">
               {{ error.$message }}
-            </vl-form-message-error>
-          </VlPropertiesData>
+            </VlFormMessageError>
+          </VlFormColumn>
         </template>
 
         <!-- Gewest -->
         <template v-if="isBelgiumOrEmpty && !$props.config?.gewest?.hidden">
-          <VlPropertiesLabel>
-            <vl-form-message-label data-cy="label-gewest">
-              <span class="vl-u-spacer-right--xxsmall">Gewest</span>
-              <span v-if="props.showRequiredPerField && $props.config?.gewest?.required" class="vl-form__annotation"
-                >VERPLICHT</span
-              >
-            </vl-form-message-label>
-          </VlPropertiesLabel>
-          <VlPropertiesData>
+          <VlFormColumn width="3" width-s="12">
+            <VlFormMessageLabel data-cy="label-gewest">Gewest</VlFormMessageLabel>
+            <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.gewest?.required"
+              >VERPLICHT</VlFormMessageAnnotation
+            >
+          </VlFormColumn>
+          <VlFormColumn width="9" width-s="12">
             <VlMultiselect
               v-model="gewest"
               placeholder="Gewest"
@@ -64,23 +65,21 @@
                 <span>Geen opties beschikbaar</span>
               </template>
             </VlMultiselect>
-            <vl-form-message-error v-for="error of v$.gewest.$errors" :key="error.$uid" data-cy="form-error-gewest">
+            <VlFormMessageError v-for="error of v$.gewest.$errors" :key="error.$uid" data-cy="form-error-gewest">
               {{ error.$message }}
-            </vl-form-message-error>
-          </VlPropertiesData>
+            </VlFormMessageError>
+          </VlFormColumn>
         </template>
 
         <!-- Provincie -->
         <template v-if="isBelgiumOrEmpty && !$props.config?.provincie?.hidden">
-          <VlPropertiesLabel>
-            <vl-form-message-label data-cy="label-provincie">
-              <span class="vl-u-spacer-right--xxsmall">Provincie</span>
-              <span v-if="props.showRequiredPerField && $props.config?.provincie?.required" class="vl-form__annotation"
-                >VERPLICHT</span
-              >
-            </vl-form-message-label>
-          </VlPropertiesLabel>
-          <VlPropertiesData>
+          <VlFormColumn width="3" width-s="12">
+            <VlFormMessageLabel data-cy="label-provincie">Provincie</VlFormMessageLabel>
+            <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.provincie?.required"
+              >VERPLICHT</VlFormMessageAnnotation
+            >
+          </VlFormColumn>
+          <VlFormColumn width="9" width-s="12">
             <VlMultiselect
               v-model="provincie"
               placeholder="Provincie"
@@ -101,26 +100,20 @@
                 <span>Geen opties beschikbaar</span>
               </template>
             </VlMultiselect>
-            <vl-form-message-error
-              v-for="error of v$.provincie.$errors"
-              :key="error.$uid"
-              data-cy="form-error-provincie"
-            >
+            <VlFormMessageError v-for="error of v$.provincie.$errors" :key="error.$uid" data-cy="form-error-provincie">
               {{ error.$message }}
-            </vl-form-message-error>
-          </VlPropertiesData>
+            </VlFormMessageError>
+          </VlFormColumn>
         </template>
 
         <!-- Gemeente -->
-        <VlPropertiesLabel>
-          <vl-form-message-label data-cy="label-gemeente">
-            <span class="vl-u-spacer-right--xxsmall">Gemeente</span>
-            <span v-if="props.showRequiredPerField && $props.config?.gemeente?.required" class="vl-form__annotation"
-              >VERPLICHT</span
-            >
-          </vl-form-message-label>
-        </VlPropertiesLabel>
-        <VlPropertiesData>
+        <VlFormColumn width="3" width-s="12">
+          <VlFormMessageLabel data-cy="label-gemeente">Gemeente</VlFormMessageLabel>
+          <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.gemeente?.required"
+            >VERPLICHT</VlFormMessageAnnotation
+          >
+        </VlFormColumn>
+        <VlFormColumn width="9" width-s="12">
           <VlMultiselect
             v-if="isBelgiumOrEmpty"
             v-model="gemeente"
@@ -152,25 +145,19 @@
             mod-block
             placeholder="Gemeente"
           ></VlInputField>
-          <vl-form-message-error
-            v-for="error of v$.gemeente.naam.$errors"
-            :key="error.$uid"
-            data-cy="form-error-gemeente"
-          >
+          <VlFormMessageError v-for="error of v$.gemeente.naam.$errors" :key="error.$uid" data-cy="form-error-gemeente">
             {{ error.$message }}
-          </vl-form-message-error>
-        </VlPropertiesData>
+          </VlFormMessageError>
+        </VlFormColumn>
 
         <!-- Postcode -->
-        <VlPropertiesLabel>
-          <vl-form-message-label data-cy="label-postcode">
-            <span class="vl-u-spacer-right--xxsmall">Postcode</span>
-            <span v-if="props.showRequiredPerField && $props.config?.postcode?.required" class="vl-form__annotation"
-              >VERPLICHT</span
-            >
-          </vl-form-message-label>
-        </VlPropertiesLabel>
-        <VlPropertiesData>
+        <VlFormColumn width="3" width-s="12">
+          <VlFormMessageLabel data-cy="label-postcode">Postcode</VlFormMessageLabel>
+          <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.postcode?.required"
+            >VERPLICHT</VlFormMessageAnnotation
+          >
+        </VlFormColumn>
+        <VlFormColumn width="9" width-s="12">
           <VlMultiselect
             v-if="isBelgiumOrEmpty && !postcodeFreeText"
             v-model="postcode"
@@ -213,25 +200,23 @@
             <span v-else>Toon lijst met suggesties</span>
           </button>
 
-          <vl-form-message-error
+          <VlFormMessageError
             v-for="error of v$.postcode.nummer.$errors"
             :key="error.$uid"
             data-cy="form-error-postcode"
           >
             {{ error.$message }}
-          </vl-form-message-error>
-        </VlPropertiesData>
+          </VlFormMessageError>
+        </VlFormColumn>
 
         <!-- Straat -->
-        <VlPropertiesLabel>
-          <vl-form-message-label data-cy="label-straat">
-            <span class="vl-u-spacer-right--xxsmall">Straat</span>
-            <span v-if="props.showRequiredPerField && $props.config?.straat?.required" class="vl-form__annotation"
-              >VERPLICHT</span
-            >
-          </vl-form-message-label>
-        </VlPropertiesLabel>
-        <VlPropertiesData>
+        <VlFormColumn width="3" width-s="12">
+          <VlFormMessageLabel data-cy="label-straat">Straat</VlFormMessageLabel>
+          <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.straat?.required"
+            >VERPLICHT</VlFormMessageAnnotation
+          >
+        </VlFormColumn>
+        <VlFormColumn width="9" width-s="12">
           <VlMultiselect
             v-if="isBelgiumOrEmpty && !straatFreeText"
             v-model="straat"
@@ -273,26 +258,24 @@
             <span v-else>Toon lijst met suggesties</span>
           </button>
 
-          <vl-form-message-error v-for="error of v$.straat.naam.$errors" :key="error.$uid" data-cy="form-error-straat">
+          <VlFormMessageError v-for="error of v$.straat.naam.$errors" :key="error.$uid" data-cy="form-error-straat">
             {{ error.$message }}
-          </vl-form-message-error>
-        </VlPropertiesData>
+          </VlFormMessageError>
+        </VlFormColumn>
 
         <!-- Huisnummer -->
-        <VlPropertiesLabel>
-          <vl-form-message-label data-cy="label-huisnummer">
-            <span class="vl-u-spacer-right--xxsmall">Huisnummer</span>
-            <span v-if="props.showRequiredPerField && $props.config?.huisnummer?.required" class="vl-form__annotation"
-              >VERPLICHT</span
-            >
-          </vl-form-message-label>
-        </VlPropertiesLabel>
-        <VlPropertiesData>
-          <oe-autocomplete
+        <VlFormColumn width="3" width-s="12">
+          <VlFormMessageLabel data-cy="label-huisnummer">Huisnummer</VlFormMessageLabel>
+          <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.huisnummer?.required"
+            >VERPLICHT</VlFormMessageAnnotation
+          >
+        </VlFormColumn>
+        <VlFormColumn width="9" width-s="12">
+          <OeAutocomplete
             v-if="isBelgiumOrEmpty && !huisnummerFreeText"
             data-cy="autocomplete-huisnummer"
-            autoselect
             allow-free-text
+            autoselect
             :mod-error="!!v$.adres.huisnummer.$errors.length"
             :min-chars="1"
             :mod-disabled="!straat || props.modDisabled"
@@ -300,39 +283,47 @@
             :callback-fn="performAutocompleteSearchHuisnummers"
             placeholder="Huisnummer"
             @update:value="updateHuisnummer"
-          ></oe-autocomplete>
+          ></OeAutocomplete>
 
           <VlInputField
-            v-else
+            v-else-if="typeof huisnummer === 'string' || !huisnummer"
             v-model="huisnummer"
             data-cy="input-huisnummer"
+            :mod-error="!!v$.adres.huisnummer.$errors.length"
+            :mod-disabled="!straat || props.modDisabled"
             mod-block
             placeholder="Huisnummer"
-            :mod-disabled="!straat || props.modDisabled"
-            :mod-error="!!v$.adres.huisnummer.$errors.length"
           ></VlInputField>
 
-          <vl-form-message-error
+          <button
+            v-if="isBelgium && !isVlaamseGemeenteOrEmpty"
+            data-cy="action-huisnummer-not-found"
+            class="vl-link"
+            @click="huisnummerFreeText = !huisnummerFreeText"
+          >
+            <span v-if="!huisnummerFreeText">Een huisnummer invullen dat niet tussen de suggesties staat?</span>
+            <span v-else>Toon lijst met suggesties</span>
+          </button>
+
+          <VlFormMessageError
             v-for="error of v$.adres.huisnummer.$errors"
             :key="error.$uid"
             data-cy="form-error-huisnummer"
           >
             {{ error.$message }}
-          </vl-form-message-error>
-        </VlPropertiesData>
+          </VlFormMessageError>
+        </VlFormColumn>
 
         <!-- Busnummer -->
-        <VlPropertiesLabel>
-          <vl-form-message-label data-cy="label-busnummer">
-            <span class="vl-u-spacer-right--xxsmall">Busnummer</span>
-            <span v-if="props.showRequiredPerField && $props.config?.busnummer?.required" class="vl-form__annotation"
-              >VERPLICHT</span
-            >
-          </vl-form-message-label>
-        </VlPropertiesLabel>
-        <VlPropertiesData>
-          <oe-autocomplete
-            v-if="typeof huisnummer !== 'string' && isBelgiumOrEmpty && !huisnummerFreeText && !busnummerFreeText"
+        <VlFormColumn width="3" width-s="12">
+          <VlFormMessageLabel data-cy="label-busnummer">Busnummer</VlFormMessageLabel>
+          <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.busnummer?.required"
+            >VERPLICHT</VlFormMessageAnnotation
+          >
+        </VlFormColumn>
+        <VlFormColumn width="9" width-s="12">
+          <OeAutocomplete
+            v-if="isBelgiumOrEmpty && !huisnummerFreeText && !busnummerFreeText"
             data-cy="autocomplete-busnummer"
             allow-free-text
             autoselect
@@ -343,7 +334,7 @@
             :callback-fn="performAutocompleteSearchBusnummers"
             placeholder="Busnummer"
             @update:value="updateBusnummer"
-          ></oe-autocomplete>
+          ></OeAutocomplete>
 
           <VlInputField
             v-else-if="typeof busnummer === 'string' || !busnummer"
@@ -355,29 +346,29 @@
             :mod-error="!!v$.adres.busnummer.$errors.length"
           ></VlInputField>
 
-          <vl-form-message-error
+          <VlFormMessageError
             v-for="error of v$.adres.busnummer.$errors"
             :key="error.$uid"
             data-cy="form-error-busnummer"
           >
             {{ error.$message }}
-          </vl-form-message-error>
-        </VlPropertiesData>
-      </VlPropertiesList>
-    </VlProperties>
+          </VlFormMessageError>
+        </VlFormColumn>
+      </VlFormGrid>
+    </VlFormStructure>
   </div>
 </template>
 
 <script setup lang="ts">
 import {
+  VlFormColumn,
+  VlFormGrid,
+  VlFormMessageAnnotation,
   VlFormMessageError,
   VlFormMessageLabel,
+  VlFormStructure,
   VlInputField,
   VlMultiselect,
-  VlProperties,
-  VlPropertiesData,
-  VlPropertiesLabel,
-  VlPropertiesList,
   VlPropertiesTitle,
   VlSelect,
 } from '@govflanders/vl-ui-design-system-vue3';
@@ -385,7 +376,7 @@ import { useVuelidate } from '@vuelidate/core';
 import { helpers } from '@vuelidate/validators';
 import { AxiosError } from 'axios';
 import { cloneDeep, pick, sortBy, uniqBy } from 'lodash';
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, onBeforeMount, onMounted, ref, watch } from 'vue';
 import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
 import OeLoader from '@components/dumb/OeLoader.vue';
 import { Niscode } from '@models/niscode.enum';
@@ -398,7 +389,11 @@ import type { IAdres, IGemeente, IGewest, ILand, ILocatieAdres, IPostinfo, IProv
 
 const props = withDefaults(defineProps<IAdresProps>(), {
   modDisabled: false,
+  modStackedLarge: false,
+  modStackedSmall: true,
+  modStacked: false,
   hideTitle: false,
+  titleText: 'Adres',
   showRequiredPerField: false,
   config: () => ({
     land: { required: true },
@@ -613,7 +608,7 @@ const v$ = useVuelidate(rules, adres);
 defineExpose({ validate: () => v$.value.$validate() });
 
 // Reference data
-const crabApiService = new CrabApiService(props.api);
+let crabApiService: CrabApiService;
 const staticLanden: ILand[] = [
   { code: 'BE', naam: 'België' },
   { code: 'DE', naam: 'Duitsland' },
@@ -623,8 +618,8 @@ const staticLanden: ILand[] = [
   { code: 'LU', naam: 'Luxemburg' },
   { code: 'divider', naam: '─────────────────────────' },
 ];
-const apiLanden: ILand[] = await crabApiService.getLanden();
-const landen = computed<ILand[]>(() => [...staticLanden, ...apiLanden]);
+const apiLanden = ref<ILand[]>([]);
+const landen = computed<ILand[]>(() => [...staticLanden, ...apiLanden.value]);
 const gewesten = ref<IGewest[]>([]);
 const provincies = ref<IProvincie[]>([]);
 const gemeenten = ref<IGemeente[]>([]);
@@ -632,6 +627,11 @@ const postinfo = ref<IPostinfo[]>([]);
 const straten = ref<IStraat[]>([]);
 const huisnummers = ref<IAdres[]>([]);
 const busnummers = ref<IAdres[]>([]);
+
+onBeforeMount(async () => {
+  crabApiService = new CrabApiService(props.api);
+  apiLanden.value = await crabApiService.getLanden();
+});
 
 onMounted(() => {
   if (props.countryId) {
@@ -890,10 +890,9 @@ const updateBusnummer = (value: IAutocompleteOption<IAdres>) => (busnummer.value
 
 <style lang="scss" scoped>
 .oe-adres {
-  .vl-properties__label {
-    max-width: 100%;
+  :deep(.vl-form__group) {
+    padding: 0;
   }
-
   .vl-link {
     outline: none;
     float: right;
