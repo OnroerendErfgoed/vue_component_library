@@ -7,7 +7,7 @@
   "main": "./dist/vue-components.umd.js",
   "module": "./dist/vue-components.es.js",
   "typings": "./dist/src/main.d.ts",
-  "version": "3.2.0",
+  "version": "3.2.0-alpha.0",
   "exports": {
     ".": {
       "import": "./dist/vue-components.es.js",
@@ -113,7 +113,7 @@
     "@vue/test-utils": "^2.3.2",
     "@vue/tsconfig": "^0.7.0",
     "chromatic": "^6.17.3",
-    "cypress": "^13.17.0",
+    "cypress": "14.3.2",
     "cypress-watch-and-reload": "^1.10.6",
     "eslint": "^9.17.0",
     "eslint-plugin-import": "^2.31.0",

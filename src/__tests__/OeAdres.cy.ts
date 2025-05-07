@@ -12,7 +12,7 @@ describe('Adres', () => {
 
       return { attrs, adresComponent };
     },
-    template: '<Suspense><OeAdres ref="adresComponent" v-bind="attrs"/></Suspense>',
+    template: '<OeAdres ref="adresComponent" v-bind="attrs"/>',
   });
 
   beforeEach(() => cy.mockAdressenregister());
@@ -23,8 +23,12 @@ describe('Adres', () => {
 
   it('has a title adres', () => {
     mount(TestComponent);
-    cy.wait(1000);
     cy.dataCy('title-adres').should('have.text', 'Adres');
+  });
+
+  it('has a title adres - custom title', () => {
+    mount(TestComponent, { props: { titleText: 'Custom' } });
+    cy.dataCy('title-adres').should('have.text', 'Custom');
   });
 
   describe('form - default', () => {
@@ -179,14 +183,17 @@ describe('Adres', () => {
         // Gemeente selection
         setMultiSelectValue('gemeente', 'Aarschot');
         getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Aarschot');
+        cy.wait('@dataGet');
 
         // Straat selection
         setMultiSelectValue('straat', 'Astridlaan');
         getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Astridlaan');
+        cy.wait('@dataGet');
 
         // Huisnummer selection
         setAutocompleteValue('huisnummer', '28');
         getAutocompleteInput('huisnummer').should('have.value', '28');
+        cy.wait('@dataGet');
 
         getTextInput('busnummer').should('exist');
       });
@@ -240,23 +247,28 @@ describe('Adres', () => {
     });
 
     it('has an input label land', () => {
-      getLabel('land').should('have.text', 'LandVERPLICHT');
+      getLabel('land').should('have.text', 'Land');
+      getLabelAnnotation('land').should('have.text', 'VERPLICHT');
     });
 
     it('has an input label gemeente', () => {
-      getLabel('gemeente').should('have.text', 'GemeenteVERPLICHT');
+      getLabel('gemeente').should('have.text', 'Gemeente');
+      getLabelAnnotation('gemeente').should('have.text', 'VERPLICHT');
     });
 
     it('has an input label postcode', () => {
-      getLabel('postcode').should('have.text', 'PostcodeVERPLICHT');
+      getLabel('postcode').should('have.text', 'Postcode');
+      getLabelAnnotation('postcode').should('have.text', 'VERPLICHT');
     });
 
     it('has an input label straat', () => {
-      getLabel('straat').should('have.text', 'StraatVERPLICHT');
+      getLabel('straat').should('have.text', 'Straat');
+      getLabelAnnotation('straat').should('have.text', 'VERPLICHT');
     });
 
     it('has an input label huisnummer', () => {
-      getLabel('huisnummer').should('have.text', 'HuisnummerVERPLICHT');
+      getLabel('huisnummer').should('have.text', 'Huisnummer');
+      getLabelAnnotation('huisnummer').should('have.text', 'VERPLICHT');
     });
 
     it('has an input label busnummer', () => {
@@ -290,7 +302,7 @@ describe('Adres', () => {
             },
           },
         }),
-        template: '<Suspense><OeAdres v-model:adres="adres"/></Suspense>',
+        template: '<OeAdres v-model:adres="adres"/>',
       });
 
       cy.wait('@dataGetGemeentenVlaamsGewest');
@@ -330,7 +342,7 @@ describe('Adres', () => {
             },
           },
         }),
-        template: '<Suspense><OeAdres v-model:adres="adres"/></Suspense>',
+        template: '<OeAdres v-model:adres="adres"/>',
       });
 
       cy.wait('@dataGetGemeentenBrusselsHoofdstedelijkGewest');
@@ -375,7 +387,7 @@ describe('Adres', () => {
             deelgemeente: {},
           },
         }),
-        template: '<Suspense><OeAdres v-model:adres="adres"/></Suspense>',
+        template: '<OeAdres v-model:adres="adres"/>',
       });
 
       cy.wait('@dataGetGemeentenVlaamsGewest');
@@ -413,7 +425,7 @@ describe('Adres', () => {
             },
           },
         }),
-        template: '<Suspense><OeAdres v-model:adres="adres"/></Suspense>',
+        template: '<OeAdres v-model:adres="adres"/>',
       }).then(({ component }) => {
         getMultiSelect('gemeente').click();
         getMultiSelect('gemeente').find('.multiselect__input').type('Lummen');
@@ -449,7 +461,7 @@ describe('Adres', () => {
 
       mount(TestComponent, {
         data: () => ({ api }),
-        template: '<Suspense><OeAdres :api="api"/></Suspense>',
+        template: '<OeAdres :api="api"/>',
       }).then(() => {
         cy.wait('@dataGetLanden').then((intercept) => {
           expect(intercept.request.url).to.equal('https://test.be/adressenregister/landen');
@@ -503,7 +515,7 @@ describe('Adres', () => {
 
             return { c, adresComponent };
           },
-          template: '<Suspense><OeAdres ref="adresComponent" :config="c"/></Suspense>',
+          template: '<OeAdres ref="adresComponent" :config="c"/>',
         }).then(({ component }) => {
           cy.wait('@dataGetLanden');
           cy.wrap(component.$nextTick()).then(() => {
@@ -602,7 +614,7 @@ describe('Adres', () => {
 
             return { c, adresComponent };
           },
-          template: '<Suspense><OeAdres ref="adresComponent" :config="c"/></Suspense>',
+          template: '<OeAdres ref="adresComponent" :config="c"/>',
         }).then(({ component }) => {
           cy.wait('@dataGetLanden');
           cy.wrap(component.$nextTick()).then(() => {
@@ -701,7 +713,7 @@ describe('Adres', () => {
 
             return { c, adresComponent };
           },
-          template: '<Suspense><OeAdres ref="adresComponent" :config="c"/></Suspense>',
+          template: '<OeAdres ref="adresComponent" :config="c"/>',
         }).then(({ component }) => {
           cy.wait('@dataGetLanden');
           cy.wrap(component.$nextTick()).then(() => {
@@ -738,7 +750,7 @@ describe('Adres', () => {
   describe('form - specific country', () => {
     beforeEach(() => {
       mount(TestComponent, {
-        template: '<Suspense><OeAdres countryId="BE" v-model:adres="adres"/></Suspense>',
+        template: '<OeAdres countryId="BE" v-model:adres="adres"/>',
       });
     });
 
@@ -757,7 +769,7 @@ describe('Adres', () => {
   describe('form - multi select options limit', () => {
     beforeEach(() => {
       mount(TestComponent, {
-        template: '<Suspense><OeAdres :options-limit="3" v-model:adres="adres"/></Suspense>',
+        template: '<OeAdres :options-limit="3" v-model:adres="adres"/>',
       });
     });
     it('sets the max amount of items at multi-select elements', () => {
@@ -819,7 +831,7 @@ describe('Adres', () => {
 
             return { c, adresComponent };
           },
-          template: '<Suspense><OeAdres ref="adresComponent" countryId="BE" :config="c"/></Suspense>',
+          template: '<OeAdres ref="adresComponent" countryId="BE" :config="c"/>',
         }).then(({ component }) => {
           cy.wait('@dataGet');
           cy.wrap(component.$nextTick()).then(() => {
@@ -871,6 +883,7 @@ describe('Adres', () => {
 });
 
 const getLabel = (field: string) => cy.dataCy(`label-${field}`);
+const getLabelAnnotation = (field: string) => cy.dataCy(`label-${field}`).next();
 const getMultiSelect = (field: string) => cy.dataCy(`select-${field}`);
 const getAutocompleteRootElement = (field: string) => cy.dataCy(`autocomplete-${field}`);
 const getAutocompleteInput = (field: string) => getAutocompleteRootElement(field).children().first();
