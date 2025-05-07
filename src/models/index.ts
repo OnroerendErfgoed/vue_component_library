@@ -13,7 +13,7 @@ export * from './links';
 export * from './locatie';
 export * from './niscode.enum';
 export * from './oe-openlayers';
-export * from './oe-zoneerder-config';
+export * from './oe-map-config';
 export * from './status';
 export * from './system-fields';
 export * from './toast';

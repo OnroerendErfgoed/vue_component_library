@@ -8,21 +8,21 @@
   >
     <div ref="elementRef" class="layerswitcher oe-ol-control ol-control ol-unselectable">
       <button ref="buttonRef" title="Verander kaartlagen" @click="togglePanel">
-        <font-awesome-icon :icon="['fas', 'layer-group']" style="pointer-events: none"></font-awesome-icon>
+        <FontAwesomeIcon :icon="['fas', 'layer-group']" style="pointer-events: none" />
       </button>
     </div>
 
-    <vl-title class="panelHeader" tag-name="h4">Legende</vl-title>
+    <VlTitle class="panelHeader" tag-name="h4">Legende</VlTitle>
     <div class="panelBody">
       <template v-for="(layer, index) in overlayLayersRef" :key="layer.get('id') + layer.get('visible')">
-        <vl-checkbox
+        <VlCheckbox
           :checked="layer.getVisible()"
           :name="'checkbox-overlayLayer-' + index"
           mod-block
           @input="toggleVisibility(layer)"
         >
           {{ layer.get('title') }}
-        </vl-checkbox>
+        </VlCheckbox>
         <ul v-if="layer.getVisible() && layer.get('legendImages')">
           <li v-for="(legendImage, index2) in layer.get('legendImages')" :key="index2" class="legendImage">
             <img :src="crabService.API_URL + legendImage.path" :alt="legendImage.title" />
@@ -33,7 +33,7 @@
       <p class="achtergrondTitle">
         <strong> {{ achtergrondTitleRef }}</strong>
       </p>
-      <vl-radio
+      <VlRadio
         v-for="(layer, index) in achtergrondLayersRef"
         :id="layerSwitcherId + 'radio-achtergrondLayer-' + index"
         :key="index"
@@ -43,7 +43,7 @@
         mod-block
       >
         {{ layer.get('title') }}
-      </vl-radio>
+      </VlRadio>
     </div>
   </div>
 </template>
