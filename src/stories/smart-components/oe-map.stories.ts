@@ -94,28 +94,22 @@ const meta: Meta<typeof OeMap> = {
         type: { summary: 'Map' },
       },
     },
-    drawLayer: {
-      description: 'Layer for draw interactions',
-      table: {
-        type: { summary: 'VectorLayer<VectorSource<Geometry>>' },
-      },
-    },
     crabService: {
       description: 'Service',
       table: {
         type: { summary: 'CrabApiService' },
       },
     },
+    geoJsonFormatter: {
+      description: 'Formatter',
+      table: {
+        type: { summary: 'GeoJSON' },
+      },
+    },
     zoomToExtent: {
       description: 'Zoom to provided extent',
       table: {
         type: { summary: 'zoomToExtent(extent: Extent): void' },
-      },
-    },
-    createVectorLayer: {
-      description: 'Method to create an extra vector layer for the map',
-      table: {
-        type: { summary: 'createVectorLayer(options: Options): VectorLayer<VectorSource<Geometry>>' },
       },
     },
   },

@@ -1,5 +1,5 @@
 import '@/scss/main.scss';
-import { OeMap, OeZoneerder } from '@components/smart';
+import { OeZoneerder } from '@components/smart';
 import { defaultLayerConfig } from '@models/oe-map-config';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
@@ -94,7 +94,7 @@ export const Default: Story = {};
 
 export const DrawZone: Story = {
   render: () => ({
-    components: { OeZoneerder, OeMap },
+    components: { OeZoneerder },
     setup() {
       return {
         api,
@@ -231,7 +231,7 @@ export const DrawZone: Story = {
         },
       };
     },
-    template: `<oe-map :api="api" v-model:zone="zone" style="height: 500px"></oe-map><oe-zoneerder :api="api" v-model:zone="zone" :draw-panel-enabled="drawPanelEnabled" style="height: 500px"></oe-zoneerder>`,
+    template: `<oe-zoneerder :api="api" v-model:zone="zone" :draw-panel-enabled="drawPanelEnabled" style="height: 500px"></oe-zoneerder>`,
   }),
 };
 
