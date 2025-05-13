@@ -410,7 +410,7 @@ function addZoneToDrawLayer() {
   for (const [index, coords] of coordinates.entries()) {
     const name = coordinates.length > 1 ? `Zone feature ${index + 1}` : 'Zone';
     const geometry = new Polygon(coords);
-    drawSource.addFeature(new Feature({ name, geometry }));
+    drawSource.addFeature(new Feature({ name, geometry, show: true }));
   }
   zoomToExtent(geoJsonFormatter.readGeometry(zone.value).getExtent());
 }

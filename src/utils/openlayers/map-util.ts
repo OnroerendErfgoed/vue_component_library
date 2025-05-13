@@ -18,26 +18,52 @@ import VectorSource from 'ol/source/Vector';
 import { Fill, Text as OlText, Stroke, Style } from 'ol/style';
 import type { Contour } from '@models/oe-openlayers';
 
+interface VectorLayerOptions {
+  color: ColorLike;
+  fill: ColorLike;
+  title: string;
+  id?: string;
+  maxLabelResolution?: number;
+}
+
 export class MapUtil {
   public static getLayerById(map: Map, id: string): VectorLayer<VectorSource<Geometry>> {
     return map.getAllLayers().find((lyr) => lyr.get('id') === id) as VectorLayer<VectorSource<Geometry>>;
   }
 
-  public static createVectorLayer(options: { color: ColorLike; fill: ColorLike; title: string; id?: string }) {
-    const getText = (feature: FeatureLike) =>
-      new OlText({
+  public static createVectorLayer(options: VectorLayerOptions) {
+    const getText = (feature: FeatureLike, resolution: number) => {
+      let text = feature.get('name') || '';
+      if (options.maxLabelResolution && resolution > options.maxLabelResolution) {
+        text = '';
+      }
+
+      return new OlText({
         font: '10px Verdana',
-        text: feature.get('name') || '',
+        text: feature.get('show') ? text : '',
         fill: new Fill({ color: options.color }),
         stroke: new Stroke({ color: '#fff', width: 3 }),
       });
+    };
 
-    const getStyle = (feature: FeatureLike) =>
-      new Style({
-        stroke: new Stroke({ color: options.color, width: 3 }),
-        fill: new Fill({ color: options.fill }),
-        text: getText(feature),
-      });
+    const getStyle = (feature: FeatureLike, resolution: number) => {
+      const styleText: OlText = getText(feature, resolution);
+      const showFeature = feature.get('show');
+
+      if (showFeature) {
+        return new Style({
+          stroke: new Stroke({ color: options.color, width: 3 }),
+          fill: new Fill({ color: options.fill }),
+          text: styleText,
+        });
+      } else {
+        return new Style({
+          stroke: new Stroke({ color: 'rgba(0,0,0,0)', width: 1 }),
+          fill: new Fill({ color: 'rgba(0,0,0,0)' }),
+          text: styleText,
+        });
+      }
+    };
     const vLayer = new VectorLayer({
       source: new VectorSource(),
       style: getStyle,
