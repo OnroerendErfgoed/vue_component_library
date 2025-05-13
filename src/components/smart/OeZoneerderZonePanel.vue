@@ -122,7 +122,7 @@ import { Map, MapBrowserEvent } from 'ol';
 import { unByKey } from 'ol/Observable';
 import { type Extent } from 'ol/extent';
 import { GeoJSON, WKT } from 'ol/format';
-import { Geometry } from 'ol/geom';
+import { Geometry, Point } from 'ol/geom';
 import { Draw } from 'ol/interaction';
 import VectorSource from 'ol/source/Vector';
 import { inject, onMounted, onUnmounted, ref, watch } from 'vue';
@@ -205,7 +205,8 @@ const featureSelectCallback = (
   type: FeatureSelectEnum,
   featureProp: string
 ) => {
-  crabService.searchGRBWfs(evt.coordinate, mapProjection.getCode(), featureTypes).then((result) => {
+  const geom = new Point(evt.coordinate, 'XY');
+  crabService.searchGRBWfs(geom, mapProjection.getCode(), featureTypes).then((result) => {
     geoJsonFormatter.readFeatures(result).forEach((olFeature) => {
       if (olFeature) {
         const name = `${type} ${olFeature.get(featureProp)}`;
