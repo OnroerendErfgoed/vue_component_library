@@ -110,11 +110,10 @@ addZoneToDrawLayer();
 
 emit('map:created', map);
 provide('map', map);
-provide('drawLayer', drawLayer);
 provide('crabService', crabService);
 provide('geoJsonFormatter', geoJsonFormatter);
 provide('zoomToExtent', zoomToExtent);
-defineExpose({ map, drawLayer, crabService, geoJsonFormatter, zoomToExtent });
+defineExpose({ map, crabService, geoJsonFormatter, zoomToExtent });
 
 onMounted(() => {
   map?.setTarget(mapRef.value as HTMLElement);

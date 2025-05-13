@@ -124,7 +124,6 @@ import { type Extent } from 'ol/extent';
 import { GeoJSON, WKT } from 'ol/format';
 import { Geometry } from 'ol/geom';
 import { Draw } from 'ol/interaction';
-import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { inject, onMounted, onUnmounted, ref, watch } from 'vue';
 import { FeatureSelectEnum } from '@models/featureSelect.enum';
@@ -144,8 +143,8 @@ const elementRef = ref<HTMLElement>();
 const emit = defineEmits(['update:feature-select', 'zone-panel:mounted']);
 
 const map = inject('map') as Map;
-const drawLayer = inject('drawLayer') as VectorLayer<VectorSource<Geometry>>;
 const crabService = inject('crabService') as CrabApiService;
+const geoJsonFormatter = inject('geoJsonFormatter') as GeoJSON;
 const zoomToExtent = inject('zoomToExtent') as (extent: Extent) => void;
 
 const WKTString = ref('');
@@ -160,11 +159,8 @@ const addingWKT = ref(false);
 const invalidWKT = ref(false);
 let circleIndex = 1;
 let polygonIndex = 1;
-const geoJsonFormatter = new GeoJSON({
-  dataProjection: mapProjection,
-  featureProjection: mapProjection,
-});
 
+const drawLayer = MapUtil.getLayerById(map, 'drawLayer');
 const flashLayer = MapUtil.createVectorLayer({
   color: 'rgba(255,0,255, 1)',
   fill: 'rgba(255,0,255, 0.4)',

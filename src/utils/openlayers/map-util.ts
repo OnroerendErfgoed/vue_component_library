@@ -1,8 +1,9 @@
 import * as jsts from 'jsts';
-import { Feature } from 'ol';
+import { Feature, Map } from 'ol';
 import { FeatureLike } from 'ol/Feature';
 import { ColorLike } from 'ol/colorlike';
 import {
+  Geometry,
   GeometryCollection,
   LineString,
   LinearRing,
@@ -18,6 +19,10 @@ import { Fill, Text as OlText, Stroke, Style } from 'ol/style';
 import type { Contour } from '@models/oe-openlayers';
 
 export class MapUtil {
+  public static getLayerById(map: Map, id: string): VectorLayer<VectorSource<Geometry>> {
+    return map.getAllLayers().find((lyr) => lyr.get('id') === id) as VectorLayer<VectorSource<Geometry>>;
+  }
+
   public static createVectorLayer(options: { color: ColorLike; fill: ColorLike; title: string; id?: string }) {
     const getText = (feature: FeatureLike) =>
       new OlText({
