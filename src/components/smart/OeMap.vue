@@ -27,10 +27,9 @@
 <script setup lang="ts">
 import 'ol/ol.css';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import Feature, { FeatureLike } from 'ol/Feature';
+import Feature from 'ol/Feature';
 import Map from 'ol/Map';
 import View from 'ol/View';
-import { ColorLike } from 'ol/colorlike';
 import { Attribution, Control, FullScreen, Rotate, ScaleLine, Zoom, ZoomToExtent } from 'ol/control';
 import { getCenter, getTopLeft, getWidth } from 'ol/extent';
 import { GeoJSON } from 'ol/format';
@@ -38,12 +37,10 @@ import { Circle, Geometry, MultiPolygon, Polygon } from 'ol/geom';
 import Point from 'ol/geom/Point';
 import { fromCircle } from 'ol/geom/Polygon';
 import { Group, Layer, Tile } from 'ol/layer';
-import VectorLayer from 'ol/layer/Vector';
 import { type ProjectionLike, get as getOlProj, transformExtent } from 'ol/proj';
 import { register } from 'ol/proj/proj4';
 import { TileWMS, WMTS } from 'ol/source';
 import VectorSource from 'ol/source/Vector';
-import { Fill, Text as OlText, Stroke, Style } from 'ol/style';
 import WMTSTileGrid from 'ol/tilegrid/WMTS';
 import proj4 from 'proj4';
 import { onMounted, onUnmounted, provide, ref, useTemplateRef, watch } from 'vue';
@@ -51,6 +48,7 @@ import { LayerType, defaultControlConfig, defaultLayerConfig } from '@/models';
 import { CrabApiService } from '@/services';
 import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
 import Layerswitcher from '@components/smart/OeMapLayerswitcher.vue';
+import { MapUtil, ProjectionUtil } from '@utils/index';
 import { Geolocate } from '@utils/openlayers/oe-ol-geolocate';
 import type { Coordinate } from 'ol/coordinate';
 import type { Extent } from 'ol/extent';
@@ -95,10 +93,11 @@ const geoJsonFormatter = new GeoJSON({
   dataProjection: mapProjection,
   featureProjection: mapProjection,
 });
-const drawLayer = createVectorLayer({
+const drawLayer = MapUtil.createVectorLayer({
   color: 'rgb(39, 146, 195)',
   fill: 'rgba(39, 146, 195, 0.3)',
   title: 'Zone',
+  id: 'drawLayer',
 });
 drawLayer.getSource()?.on('addfeature', () => {
   drawLayerToZone();
@@ -113,9 +112,9 @@ emit('map:created', map);
 provide('map', map);
 provide('drawLayer', drawLayer);
 provide('crabService', crabService);
+provide('geoJsonFormatter', geoJsonFormatter);
 provide('zoomToExtent', zoomToExtent);
-provide('createVectorLayer', createVectorLayer);
-defineExpose({ map, drawLayer, crabService, zoomToExtent, createVectorLayer });
+defineExpose({ map, drawLayer, crabService, geoJsonFormatter, zoomToExtent });
 
 onMounted(() => {
   map?.setTarget(mapRef.value as HTMLElement);
@@ -199,27 +198,8 @@ function transformLambert72ToWebMercator(center: Coordinate): Coordinate {
 }
 
 function setupProjection() {
-  // Define projection EPSG:31370
-  proj4.defs(
-    'EPSG:31370',
-    '+proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 ' +
-      '+lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl ' +
-      '+towgs84=-106.869,52.2978,-103.724,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs'
-  ); // epsg.io
-
-  // Define aliases
-  proj4.defs('urn:ogc:def:crs:EPSG::31370', proj4.defs('EPSG:31370'));
-  proj4.defs('urn:ogc:def:crs:EPSG:6.9:31370', proj4.defs('EPSG:31370'));
-  proj4.defs('urn:x-ogc:def:crs:EPSG:31370', proj4.defs('EPSG:31370'));
-  proj4.defs('http://www.opengis.net/gml/srs/epsg.xml#31370', proj4.defs('EPSG:31370'));
-
-  // Define projection EPSG:3812
-  proj4.defs(
-    'EPSG:3812',
-    '+proj=lcc +lat_1=49.83333333333334 +lat_2=51.16666666666666 ' +
-      '+lat_0=50.797815 +lon_0=4.359215833333333 +x_0=649328 +y_0=665262 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 ' +
-      '+units=m +no_defs'
-  );
+  ProjectionUtil.defineLambert72(proj4);
+  ProjectionUtil.defineWgs84(proj4);
   register(proj4);
 
   const projection = getOlProj('EPSG:31370') as Projection;
@@ -347,32 +327,6 @@ function _createErfgoedWMSLayer(wmsLayers: string) {
   });
 }
 
-function createVectorLayer(options: { color: ColorLike; fill: ColorLike; title: string }) {
-  const getText = (feature: FeatureLike) =>
-    new OlText({
-      font: '10px Verdana',
-      text: feature.get('name') || '',
-      fill: new Fill({ color: options.color }),
-      stroke: new Stroke({ color: '#fff', width: 3 }),
-    });
-
-  const getStyle = (feature: FeatureLike) =>
-    new Style({
-      stroke: new Stroke({ color: options.color, width: 3 }),
-      fill: new Fill({ color: options.fill }),
-      text: getText(feature),
-    });
-  const vLayer = new VectorLayer({
-    source: new VectorSource(),
-    style: getStyle,
-    visible: true,
-  });
-  vLayer.set('title', options.title);
-  vLayer.set('type', 'overlay');
-
-  return vLayer;
-}
-
 function addControls(leftControlsContainer?: HTMLElement, rightControlsContainer?: HTMLElement) {
   map?.addControl(new Attribution({ collapsible: false }));
   map?.addControl(new ScaleLine());
@@ -408,8 +362,15 @@ function addControls(leftControlsContainer?: HTMLElement, rightControlsContainer
   }
 }
 
-function formatGeoJson(feature: Geometry) {
-  return geoJsonFormatter.writeGeometryObject(feature) as Contour;
+function formatGeoJson(feature: Geometry): Contour {
+  const geojson = geoJsonFormatter.writeGeometryObject(feature);
+  geojson.crs = {
+    type: 'name',
+    properties: {
+      name: 'urn:ogc:def:crs:EPSG::31370',
+    },
+  };
+  return geojson;
 }
 
 function drawLayerToZone() {

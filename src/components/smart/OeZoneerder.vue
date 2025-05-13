@@ -50,7 +50,6 @@ provide('map', mapRef.value?.map);
 provide('drawLayer', mapRef.value?.drawLayer);
 provide('crabService', mapRef.value?.crabService);
 provide('zoomToExtent', mapRef.value?.zoomToExtent);
-provide('createVectorLayer', mapRef.value?.createVectorLayer);
 
 function addZonePanelControl(element: HTMLElement) {
   mapRef.value?.map?.addControl(new Control({ element, target: rightControlsContainerRef.value }));
