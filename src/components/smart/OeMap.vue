@@ -93,20 +93,20 @@ const geoJsonFormatter = new GeoJSON({
   dataProjection: mapProjection,
   featureProjection: mapProjection,
 });
-const drawLayer = MapUtil.createVectorLayer({
+const zoneLayer = MapUtil.createVectorLayer({
   color: 'rgb(39, 146, 195)',
   fill: 'rgba(39, 146, 195, 0.3)',
   title: 'Zone',
-  id: 'drawLayer',
+  id: 'zoneLayer',
 });
-drawLayer.getSource()?.on('addfeature', () => {
-  drawLayerToZone();
+zoneLayer.getSource()?.on('addfeature', () => {
+  zoneLayerToZone();
 });
-drawLayer.getSource()?.on('removefeature', () => {
-  drawLayerToZone();
+zoneLayer.getSource()?.on('removefeature', () => {
+  zoneLayerToZone();
 });
-map.addLayer(drawLayer);
-addZoneToDrawLayer();
+map.addLayer(zoneLayer);
+addZoneToZoneLayer();
 
 emit('map:created', map);
 provide('map', map);
@@ -198,7 +198,6 @@ function transformLambert72ToWebMercator(center: Coordinate): Coordinate {
 
 function setupProjection() {
   ProjectionUtil.defineLambert72(proj4);
-  ProjectionUtil.defineWgs84(proj4);
   register(proj4);
 
   const projection = getOlProj('EPSG:31370') as Projection;
@@ -372,9 +371,9 @@ function formatGeoJson(feature: Geometry): Contour {
   return geojson;
 }
 
-function drawLayerToZone() {
+function zoneLayerToZone() {
   const multiPolygon = new MultiPolygon([], 'XY');
-  const features = drawLayer.getSource()?.getFeatures();
+  const features = zoneLayer.getSource()?.getFeatures();
   features?.forEach((feature) => {
     const geom = feature.getGeometry();
     if (geom instanceof Polygon) {
@@ -396,12 +395,12 @@ function drawLayerToZone() {
   }
 }
 
-function addZoneToDrawLayer() {
-  if (!drawLayer) return;
+function addZoneToZoneLayer() {
+  if (!zoneLayer) return;
 
-  const drawSource = drawLayer.getSource() as VectorSource<Geometry>;
-  drawSource.getFeatures().forEach((feature) => {
-    drawSource.removeFeature(feature);
+  const zoneSource = zoneLayer.getSource() as VectorSource<Geometry>;
+  zoneSource.getFeatures().forEach((feature) => {
+    zoneSource.removeFeature(feature);
   });
 
   if (!zone.value) return;
@@ -410,7 +409,7 @@ function addZoneToDrawLayer() {
   for (const [index, coords] of coordinates.entries()) {
     const name = coordinates.length > 1 ? `Zone feature ${index + 1}` : 'Zone';
     const geometry = new Polygon(coords);
-    drawSource.addFeature(new Feature({ name, geometry, show: true }));
+    zoneSource.addFeature(new Feature({ name, geometry, show: true }));
   }
   zoomToExtent(geoJsonFormatter.readGeometry(zone.value).getExtent());
 }

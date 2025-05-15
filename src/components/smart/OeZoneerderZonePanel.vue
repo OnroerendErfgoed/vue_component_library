@@ -160,7 +160,7 @@ const invalidWKT = ref(false);
 let circleIndex = 1;
 let polygonIndex = 1;
 
-const drawLayer = MapUtil.getLayerById(map, 'drawLayer');
+const zoneLayer = MapUtil.getLayerById(map, 'zoneLayer');
 const flashLayer = MapUtil.createVectorLayer({
   color: 'rgba(255,0,255, 1)',
   fill: 'rgba(255,0,255, 0.4)',
@@ -182,7 +182,7 @@ watch(
 
 onMounted(() => {
   emit('zone-panel:mounted', elementRef.value);
-  drawLayer
+  zoneLayer
     .getSource()
     ?.getFeatures()
     .forEach((feature) => {
@@ -212,8 +212,9 @@ const featureSelectCallback = (
         const name = `${type} ${olFeature.get(featureProp)}`;
         if (geometryObjectList.value.indexOf(name) === -1) {
           olFeature.set('name', name);
-          if (drawLayer.getSource()) {
-            drawLayer.getSource()?.addFeature(olFeature);
+          olFeature.set('show', true);
+          if (zoneLayer.getSource()) {
+            zoneLayer.getSource()?.addFeature(olFeature);
             geometryObjectList.value.push(name);
           }
         }
@@ -265,8 +266,9 @@ function drawWKTZone() {
     const name = `Polygoon ${polygonIndex++}`;
     featureFromWKT.setProperties({
       name: name,
+      show: true,
     });
-    drawLayer.getSource()?.addFeature(featureFromWKT);
+    zoneLayer.getSource()?.addFeature(featureFromWKT);
     geometryObjectList.value.push(name);
     zoomToFeatures();
     WKTString.value = '';
@@ -277,14 +279,14 @@ function drawWKTZone() {
 }
 
 function zoomToFeatures() {
-  const extent = drawLayer.getSource()?.getExtent();
+  const extent = zoneLayer.getSource()?.getExtent();
   if (!extent) return;
 
   zoomToExtent(extent);
 }
 
 function zoomToFeature(featureName: string) {
-  const feature = drawLayer
+  const feature = zoneLayer
     .getSource()
     ?.getFeatures()
     .find((feature) => feature.getProperties().name === featureName);
@@ -331,14 +333,14 @@ function startKunstwerkSelect() {
 
 function _createInteractions() {
   const drawInteractions = {
-    Circle: new Draw({ type: 'Circle', source: drawLayer.getSource() as VectorSource }),
-    Polygon: new Draw({ type: 'Polygon', source: drawLayer.getSource() as VectorSource }),
+    Circle: new Draw({ type: 'Circle', source: zoneLayer.getSource() as VectorSource }),
+    Polygon: new Draw({ type: 'Polygon', source: zoneLayer.getSource() as VectorSource }),
   };
 
   for (const [type, interaction] of Object.entries(drawInteractions)) {
     interaction.on('drawend', (evt) => {
       const name = type === 'Circle' ? `Cirkel ${circleIndex++}` : `Polygoon ${polygonIndex++}`;
-      evt.feature.setProperties({ name });
+      evt.feature.setProperties({ name, show: true });
       geometryObjectList.value.push(evt.feature.getProperties().name);
     });
     interaction.setActive(false);
@@ -347,24 +349,24 @@ function _createInteractions() {
 }
 
 function removeGeometryObject(name: string) {
-  const drawLayerSource = drawLayer.getSource();
-  const featuresToRemove = drawLayerSource?.getFeatures().filter((feature) => feature.getProperties().name === name);
+  const zoneSource = zoneLayer.getSource();
+  const featuresToRemove = zoneSource?.getFeatures().filter((feature) => feature.getProperties().name === name);
   featuresToRemove?.forEach((featureToRemove) => {
-    drawLayerSource?.removeFeature(featureToRemove);
+    zoneSource?.removeFeature(featureToRemove);
   });
 
   geometryObjectList.value.splice(geometryObjectList.value.indexOf(name), 1);
 }
 
 function flashFeature(featureName: string) {
-  if (!flashLayer || !drawLayer) return;
+  if (!flashLayer || !zoneLayer) return;
 
   const flashSource = flashLayer.getSource() as VectorSource<Geometry>;
-  const drawSource = drawLayer.getSource() as VectorSource<Geometry>;
+  const zoneSource = zoneLayer.getSource() as VectorSource<Geometry>;
 
   if (flashSource.getFeatures().find((feature) => feature.getProperties().name === featureName)) return;
 
-  const featureToFlash = drawSource.getFeatures().find((feature) => feature.getProperties().name === featureName);
+  const featureToFlash = zoneSource.getFeatures().find((feature) => feature.getProperties().name === featureName);
   if (featureToFlash) {
     flashSource.addFeature(featureToFlash);
     setTimeout(() => {
