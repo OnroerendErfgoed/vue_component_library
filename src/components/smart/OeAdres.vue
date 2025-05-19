@@ -191,7 +191,7 @@
           ></VlInputField>
 
           <button
-            v-if="isBelgium && !isVlaamseGemeenteOrEmpty"
+            v-if="isBelgium && gemeenten.length && !isVlaamseGemeenteOrEmpty"
             data-cy="action-postcode-not-found"
             class="vl-link"
             @click="postcodeFreeText = !postcodeFreeText"
@@ -249,7 +249,7 @@
           ></VlInputField>
 
           <button
-            v-if="isBelgium && !isVlaamseGemeenteOrEmpty"
+            v-if="isBelgium && gemeenten.length && !isVlaamseGemeenteOrEmpty"
             data-cy="action-straat-not-found"
             class="vl-link"
             @click="straatFreeText = !straatFreeText"
@@ -296,7 +296,7 @@
           ></VlInputField>
 
           <button
-            v-if="isBelgium && !isVlaamseGemeenteOrEmpty"
+            v-if="isBelgium && gemeenten.length && !isVlaamseGemeenteOrEmpty"
             data-cy="action-huisnummer-not-found"
             class="vl-link"
             @click="huisnummerFreeText = !huisnummerFreeText"
@@ -376,7 +376,7 @@ import { useVuelidate } from '@vuelidate/core';
 import { helpers } from '@vuelidate/validators';
 import { AxiosError } from 'axios';
 import { cloneDeep, pick, sortBy, uniqBy } from 'lodash';
-import { computed, onBeforeMount, onMounted, ref, watch } from 'vue';
+import { computed, onBeforeMount, ref, watch } from 'vue';
 import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
 import OeLoader from '@components/dumb/OeLoader.vue';
 import { Niscode } from '@models/niscode.enum';
@@ -631,18 +631,17 @@ const busnummers = ref<IAdres[]>([]);
 onBeforeMount(async () => {
   crabApiService = new CrabApiService(props.api);
   apiLanden.value = await crabApiService.getLanden();
-});
-
-onMounted(() => {
-  if (props.countryId) {
-    land.value = { code: props.countryId } as ILand;
-  }
 
   if (props.adres) {
     const adres = cloneDeep(props.adres);
     removeEmptyValues(adres);
 
-    land.value = adres.land as ILand;
+    if (props.countryId) {
+      land.value = { code: props.countryId } as ILand;
+    } else {
+      land.value = adres.land as ILand;
+    }
+
     if (isBelgium.value) {
       if (adres.gewest) gewest.value = adres.gewest as IGewest;
       if (adres.provincie) provincie.value = adres.provincie as IProvincie;
@@ -659,6 +658,10 @@ onMounted(() => {
       straat.value = adres.straat?.naam || '';
       huisnummer.value = adres.adres?.huisnummer || '';
       busnummer.value = adres.adres?.busnummer || '';
+    }
+  } else {
+    if (props.countryId) {
+      land.value = { code: props.countryId } as ILand;
     }
   }
 });
