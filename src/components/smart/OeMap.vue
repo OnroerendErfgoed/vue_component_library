@@ -432,6 +432,10 @@ function addZoneToZoneLayer() {
   width: 300px !important;
   left: calc(50% - 150px);
   top: 0.5em;
+
+  .vl-autocomplete {
+    top: 48px;
+  }
 }
 
 .ol-hidden {
