@@ -434,7 +434,7 @@ function addZoneToZoneLayer() {
   top: 0.5em;
 
   .vl-autocomplete {
-    top: 48px;
+    top: 48px !important;
   }
 }
 
