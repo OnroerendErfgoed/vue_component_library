@@ -70,7 +70,7 @@ const props = withDefaults(defineProps<IWizardProps>(), {
   allowBarNavigation: false,
   disableSubmitWhenInvalid: false,
 });
-const emit = defineEmits(['step-changed', 'submit']);
+const emit = defineEmits(['step-changed', 'submit', 'go-to-step']);
 
 const currentStep = ref(0);
 const totalSteps = ref(props.steps.length);
@@ -99,6 +99,7 @@ const nextStep = async () => {
 };
 
 const goToStep = async (step: number) => {
+  emit('go-to-step', step);
   if (props.allowBarNavigation && (step < currentStep.value || (await previousStepsAreValid(step)))) {
     currentStep.value = step;
   }
@@ -124,7 +125,7 @@ watch(
   () => emit('step-changed', currentStep.value)
 );
 
-defineExpose({ reset });
+defineExpose({ reset, previousStep, nextStep, goToStep, submit });
 </script>
 
 <style lang="scss" scoped>
