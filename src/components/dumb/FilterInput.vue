@@ -134,6 +134,7 @@ const removeFilter = (filter: IFilter) =>
 
 .vl-grid {
   &.filters-input {
+    width: 100%;
     margin-left: 0;
     align-self: flex-end;
 
