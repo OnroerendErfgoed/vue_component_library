@@ -1,6 +1,7 @@
 @font-face {
   font-family: 'Flanders Art Sans';
-  src: url('/node_modules/pyoes/fonts/FlandersArtSans-Light.ttf') format('truetype'),
+  src:
+    url('/node_modules/pyoes/fonts/FlandersArtSans-Light.ttf') format('truetype'),
     url('/node_modules/pyoes/fonts/FlandersArtSans-Light.woff') format('woff');
   font-weight: 300;
   font-style: normal;
@@ -8,7 +9,8 @@
 
 @font-face {
   font-family: 'Flanders Art Sans';
-  src: url('/node_modules/pyoes/fonts/FlandersArtSans-Regular.ttf') format('truetype'),
+  src:
+    url('/node_modules/pyoes/fonts/FlandersArtSans-Regular.ttf') format('truetype'),
     url('/node_modules/pyoes/fonts/FlandersArtSans-Regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
@@ -16,7 +18,8 @@
 
 @font-face {
   font-family: 'Flanders Art Sans';
-  src: url('/node_modules/pyoes/fonts/FlandersArtSans-Medium.ttf') format('truetype'),
+  src:
+    url('/node_modules/pyoes/fonts/FlandersArtSans-Medium.ttf') format('truetype'),
     url('/node_modules/pyoes/fonts/FlandersArtSans-Medium.woff') format('woff');
   font-weight: 500;
   font-style: normal;
@@ -24,7 +27,8 @@
 
 @font-face {
   font-family: 'Flanders Art Sans';
-  src: url('/node_modules/pyoes/fonts/FlandersArtSans-Bold.ttf') format('truetype'),
+  src:
+    url('/node_modules/pyoes/fonts/FlandersArtSans-Bold.ttf') format('truetype'),
     url('/node_modules/pyoes/fonts/FlandersArtSans-Bold.woff') format('woff');
   font-weight: 700;
   font-style: normal;
