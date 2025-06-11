@@ -86,8 +86,8 @@
     "vue-quilly": "^1.0.5"
   },
   "peerDependencies": {
-    "pinia": "^2.3.0",
-    "vue": "^3.5.13"
+    "pinia": "^2.1.7",
+    "vue": "^3.4.0"
   },
   "devDependencies": {
     "@intlify/unplugin-vue-i18n": "^0.10.0",
@@ -131,6 +131,7 @@
     "sass": "^1.62.0",
     "start-server-and-test": "^2.0.0",
     "storybook": "^8.4.7",
+    "storybook-vue3-router": "^5.0.0",
     "tslib": "^2.5.0",
     "typescript": "^5.7.2",
     "vite": "^5.4.10",
