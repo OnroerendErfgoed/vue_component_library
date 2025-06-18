@@ -193,7 +193,7 @@ defineExpose({ reset, previousStep, nextStep, goToStep, submit });
       }
       .vl-badge {
         background-color: $primary-color;
-        margin-left: 2rem;
+        margin-left: 2.3rem;
         margin-right: 5px;
       }
 
