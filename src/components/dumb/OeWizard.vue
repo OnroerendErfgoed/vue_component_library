@@ -146,6 +146,7 @@ defineExpose({ reset, previousStep, nextStep, goToStep, submit });
 
     .wizard__bar-item {
       flex: 1;
+      min-width: 0;
       display: inline-block;
       text-decoration: none;
       transition: all 0.15s;
@@ -180,6 +181,10 @@ defineExpose({ reset, previousStep, nextStep, goToStep, submit });
 
       &:first-of-type {
         border-radius: 0.25rem 0 0 0.25rem;
+
+        .vl-badge {
+          margin-left: 1rem;
+        }
       }
 
       &:last-of-type {
@@ -207,6 +212,12 @@ defineExpose({ reset, previousStep, nextStep, goToStep, submit });
 
       :deep(.vl-badge--initials span) {
         color: $white;
+      }
+
+      .wizard__bar-item-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       @media screen and (max-width: 1024px) {
