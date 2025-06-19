@@ -146,6 +146,7 @@ defineExpose({ reset, previousStep, nextStep, goToStep, submit });
 
     .wizard__bar-item {
       flex: 1;
+      min-width: 0;
       display: inline-block;
       text-decoration: none;
       transition: all 0.15s;
@@ -180,11 +181,19 @@ defineExpose({ reset, previousStep, nextStep, goToStep, submit });
 
       &:first-of-type {
         border-radius: 0.25rem 0 0 0.25rem;
+
+        .vl-badge {
+          margin-left: 1rem;
+        }
       }
 
       &:last-of-type {
         border-radius: 0 0.25rem 0.25rem 0;
         margin-right: 0;
+
+        .wizard__bar-item-name {
+          margin-right: 1rem;
+        }
       }
 
       &:first-of-type:before,
@@ -193,7 +202,7 @@ defineExpose({ reset, previousStep, nextStep, goToStep, submit });
       }
       .vl-badge {
         background-color: $primary-color;
-        margin-left: 2rem;
+        margin-left: 2.3rem;
         margin-right: 5px;
       }
 
@@ -203,6 +212,13 @@ defineExpose({ reset, previousStep, nextStep, goToStep, submit });
 
       :deep(.vl-badge--initials span) {
         color: $white;
+      }
+
+      .wizard__bar-item-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.5;
       }
 
       @media screen and (max-width: 1024px) {
