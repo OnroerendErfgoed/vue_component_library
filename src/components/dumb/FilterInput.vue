@@ -137,6 +137,7 @@ const removeFilter = (filter: IFilter) =>
     width: 100%;
     margin-left: 0;
     align-self: flex-end;
+    min-width: 500px;
 
     .vl-input-group {
       padding-left: 0.5rem;

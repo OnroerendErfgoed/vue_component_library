@@ -1,4 +1,5 @@
 import { Niscode } from './niscode.enum';
+import { IWorkflowOwner } from '@models/workflow';
 import type { IGemeente } from './locatie';
 
 export type TFilterInput = string | IGemeente;
@@ -53,6 +54,7 @@ export interface IFilterActorProps {
   api: string;
   value?: string;
   getSsoToken: () => Promise<string>;
+  groepActoren?: IWorkflowOwner[];
 }
 
 export interface IFilterProvincieProps {
