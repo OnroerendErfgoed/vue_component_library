@@ -218,6 +218,7 @@ defineExpose({ reset, previousStep, nextStep, goToStep, submit });
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        line-height: 1.5;
       }
 
       @media screen and (max-width: 1024px) {
