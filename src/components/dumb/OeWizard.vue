@@ -185,6 +185,10 @@ defineExpose({ reset, previousStep, nextStep, goToStep, submit });
       &:last-of-type {
         border-radius: 0 0.25rem 0.25rem 0;
         margin-right: 0;
+
+        .wizard__bar-item-name {
+          margin-right: 1rem;
+        }
       }
 
       &:first-of-type:before,
