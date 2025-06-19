@@ -1,23 +1,22 @@
 import '@/scss/main.scss';
-import { OeZoneerder } from '@components/smart';
-import { defaultLayerConfig } from '@models/oe-map-config';
+import { OeMap } from '@components/smart';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const api = 'https://test-geo.onroerenderfgoed.be/';
 
-const meta: Meta<typeof OeZoneerder> = {
+const meta: Meta<typeof OeMap> = {
   /* 👇 The title prop is optional.
    * See https://storybook.js.org/docs/vue/configure/overview#configure-story-loading
    * to learn how to generate automatic titles
    */
-  title: 'Smart components/OeZoneerder',
-  component: OeZoneerder,
+  title: 'Smart components/OeMap',
+  component: OeMap,
   render: () => ({
     setup: () => {
       return { api };
     },
-    components: { OeZoneerder },
-    template: '<oe-zoneerder :api="api" style="height: 500px"/>',
+    components: { OeMap },
+    template: '<oe-map :api="api" style="height: 500px"/>',
   }),
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/react/configure/story-layout
@@ -33,13 +32,6 @@ const meta: Meta<typeof OeZoneerder> = {
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/vue/writing-docs/autodocs
   tags: ['autodocs'],
   argTypes: {
-    featureSelectConfig: {
-      control: 'object',
-      description: 'Configure which select buttons are visible on the openlayers map',
-      table: {
-        type: { summary: 'featureSelectConfig' },
-      },
-    },
     controlConfig: {
       control: 'object',
       description: 'Configure which controls are visible on the openlayers map',
@@ -60,12 +52,6 @@ const meta: Meta<typeof OeZoneerder> = {
         type: { summary: 'string' },
       },
     },
-    drawPanelEnabled: {
-      description: 'Set true to show the drawPanel on the map',
-      table: {
-        type: { summary: 'boolean' },
-      },
-    },
     zone: {
       description: 'The zoneerder zone object',
       table: {
@@ -84,21 +70,62 @@ const meta: Meta<typeof OeZoneerder> = {
         type: { summary: 'Contour' },
       },
     },
+    leftControls: {
+      description: 'Slot for extending the left side control buttons',
+      table: {
+        type: { summary: 'Component' },
+      },
+    },
+    rightControls: {
+      description: 'Slot for extending the right side control buttons',
+      table: {
+        type: { summary: 'Component' },
+      },
+    },
+    panel: {
+      description: 'Slot for adding a panel',
+      table: {
+        type: { summary: 'Component' },
+      },
+    },
+    map: {
+      description: 'Created openlayers map',
+      table: {
+        type: { summary: 'Map' },
+      },
+    },
+    crabService: {
+      description: 'Service',
+      table: {
+        type: { summary: 'CrabApiService' },
+      },
+    },
+    geoJsonFormatter: {
+      description: 'Formatter',
+      table: {
+        type: { summary: 'GeoJSON' },
+      },
+    },
+    zoomToExtent: {
+      description: 'Zoom to provided extent',
+      table: {
+        type: { summary: 'zoomToExtent(extent: Extent): void' },
+      },
+    },
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof OeZoneerder>;
+type Story = StoryObj<typeof OeMap>;
 
 export const Default: Story = {};
 
-export const DrawZone: Story = {
+export const ShowZone: Story = {
   render: () => ({
-    components: { OeZoneerder },
+    components: { OeMap },
     setup() {
       return {
         api,
-        drawPanelEnabled: true,
         zone: {
           type: 'MultiPolygon',
           coordinates: [
@@ -231,27 +258,26 @@ export const DrawZone: Story = {
         },
       };
     },
-    template: `<oe-zoneerder :api="api" v-model:zone="zone" :draw-panel-enabled="drawPanelEnabled" style="height: 500px"></oe-zoneerder>`,
+    template: `<oe-map :api="api" v-model:zone="zone" style="height: 500px"></oe-map>`,
   }),
 };
 
-export const AllSelects: Story = {
+export const AllControls: Story = {
   render: () => ({
-    components: { OeZoneerder },
+    components: { OeMap },
     setup() {
-      const layerConfig = defaultLayerConfig;
-      layerConfig.overlays.kunstwerken.hidden = false;
       return {
         api,
-        drawPanelEnabled: true,
-        featureSelectConfig: {
-          perceel: true,
-          gebouw: true,
-          kunstwerk: true,
+        controlConfig: {
+          fullscreen: true,
+          zoomInOut: true,
+          zoomFullExtent: true,
+          zoomGeoLocation: true,
+          rotate: true,
+          zoomSwitcher: true,
         },
-        layerConfig,
       };
     },
-    template: `<oe-zoneerder :api="api" :draw-panel-enabled="drawPanelEnabled" :layer-config="layerConfig" :feature-select-config="featureSelectConfig" style="height: 500px"></oe-zoneerder>`,
+    template: `<oe-map :api="api" :control-config="controlConfig" style="height: 500px"></oe-map>`,
   }),
 };

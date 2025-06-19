@@ -213,3 +213,24 @@ export const UniqueFilters: Story = {
     `,
   }),
 };
+
+export const SmallContainerWrapper: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'This story demonstrates the filter input component inside a smaller container, which can be useful for testing responsiveness or integration in smaller layouts.',
+      },
+    },
+  },
+  render: () => ({
+    ...renderConfig,
+    template: `
+    <div style="width: 450px;">
+    <filter-input v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="defaultFilters" unique-filters @filters-selected="$event => filters = $event">
+      ${filterTemplate}
+    </filter-input>
+    </div>
+    `,
+  }),
+};

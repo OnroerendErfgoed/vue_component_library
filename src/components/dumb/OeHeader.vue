@@ -236,7 +236,6 @@ const props = withDefaults(defineProps<IHeaderProps>(), {
 
     .heading {
       width: 100%;
-      justify-content: end;
     }
   }
 

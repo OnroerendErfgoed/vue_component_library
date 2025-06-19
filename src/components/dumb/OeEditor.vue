@@ -106,13 +106,7 @@
       </div>
     </div>
 
-    <QuillyEditor
-      ref="editor"
-      v-model="model"
-      :style="{ height: `${props.height}px` }"
-      :options="options"
-      @blur="model = quill?.getSemanticHTML()"
-    />
+    <QuillyEditor ref="editor" v-model="model" :style="{ height: `${props.height}px` }" :options="options" />
   </div>
 </template>
 
@@ -342,7 +336,9 @@ watch(
   align-items: center;
   min-height: 3.5rem;
   font-size: 1.6rem;
-  font-family: Flanders Art Sans, sans-serif;
+  font-family:
+    Flanders Art Sans,
+    sans-serif;
   font-weight: 500;
   padding: 0.5rem 2rem;
   background-color: var(--vl-theme-action-color, #944ea1);
@@ -359,6 +355,9 @@ watch(
   background-color: transparent;
   color: var(--vl-theme-action-color, #944ea1);
   border: 0.2rem solid currentColor;
-  transition: color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  transition:
+    color 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 </style>

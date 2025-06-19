@@ -40,6 +40,13 @@ const meta: Meta<typeof FilterAOEActor> = {
         type: { summary: 'string' },
       },
     },
+    groepActoren: {
+      control: 'object',
+      description: 'Array of group actors to filter locally',
+      table: {
+        type: { summary: 'IActor[]' },
+      },
+    },
     placeholder: {
       control: 'text',
       description: 'Input placeholder',
@@ -76,6 +83,37 @@ export const Default: Story = {
     template: `
     <div>
       <filter-a-o-e-actor :api="api" :get-sso-token="getSsoToken" />
+    </div>
+    `,
+  }),
+};
+
+export const WithGroepActoren: Story = {
+  args: {
+    api: 'https://dev-actoren.onroerenderfgoed.be',
+    id: 'my-id-with-groups',
+  },
+  render: () => ({
+    components: {
+      FilterAOEActor,
+    },
+    setup() {
+      const api = 'https://dev-actoren.onroerenderfgoed.be';
+      const getSsoToken = async () => 'vul hier bearer token in';
+      const groepActoren = [
+        { id: 1, omschrijving: 'Groep Actor 1', uri: 'group-1' },
+        { id: 2, omschrijving: 'Groep Actor 2', uri: 'group-2' },
+        { id: 3, omschrijving: 'Test Groep', uri: 'group-3' },
+      ];
+      return { api, getSsoToken, groepActoren };
+    },
+    template: `
+    <div>
+      <filter-a-o-e-actor 
+        :api="api" 
+        :get-sso-token="getSsoToken" 
+        :groep-actoren="groepActoren" 
+      />
     </div>
     `,
   }),

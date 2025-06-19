@@ -21,6 +21,7 @@ import OeLoader from './OeLoader.vue';
 import OeModalConfirmCancelChanges from './OeModalConfirmCancelChanges.vue';
 import OeNumberInput from './OeNumberInput.vue';
 import OeSelect from './OeSelect.vue';
+import OeSideNavigation from './OeSideNavigation.vue';
 import OeTinyMce from './OeTinyMCE.vue';
 import OeToaster from './OeToaster.vue';
 import OeWizard from './OeWizard.vue';
@@ -54,4 +55,5 @@ export {
   OeWizard,
   SystemFields,
   OeNumberInput,
+  OeSideNavigation,
 };

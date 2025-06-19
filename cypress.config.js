@@ -24,5 +24,10 @@ export default defineConfig({
       return plugin(on, config);
     },
     video: false,
+    defaultCommandTimeout: 10000,
+    retries: {
+      runMode: 2,
+      openMode: 0
+    }
   },
 });
