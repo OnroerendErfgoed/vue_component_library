@@ -28,7 +28,8 @@ const meta: Meta<typeof OeNumberInput> = {
     },
     'update:modelValue': {
       action: 'update:modelValue',
-      description: 'Event emitted when the input value is updated. Returns the new numeric value, null when cleared, or undefined for optional fields.',
+      description:
+        'Event emitted when the input value is updated. Returns the new numeric value, null when cleared, or undefined for optional fields.',
       table: {
         type: { summary: 'number | null | undefined' },
       },

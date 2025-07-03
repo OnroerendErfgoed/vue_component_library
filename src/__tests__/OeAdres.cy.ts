@@ -197,6 +197,80 @@ describe('Adres', () => {
 
         getTextInput('busnummer').should('exist');
       });
+
+      it('sorts the gemeenten by naam using filtering-sort-func', () => {
+        // Country selection
+        getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
+
+        // Gemeente selection
+        cy.wait('@dataGetGemeentenVlaamsGewest');
+        getMultiSelect('gemeente').click();
+        getMultiSelect('gemeente').find('.multiselect__input').type('br');
+
+        getMultiSelect('gemeente')
+          .get('.multiselect__option span')
+          .then(($options) => {
+            const optionsText = Array.from($options)
+              .filter((option) => option.offsetParent !== null)
+              .map((option) => option.textContent?.trim());
+
+            expect(optionsText).to.deep.equal([
+              "'s Gravenbrakel",
+              'Braives',
+              'Brakel',
+              'Brasschaat',
+              'Brecht',
+              'Bredene',
+              'Bree',
+              'Brugelette',
+              'Brugge',
+              'Brunehaut',
+              'Brussel',
+              'Eigenbrakel',
+              'Jemeppe-sur-Sambre',
+              'Kasteelbrakel',
+              'La Bruyère',
+              'Libramont-Chevigny',
+              'Sambreville',
+              'Sint-Lambrechts-Woluwe',
+              'Sombreffe',
+              'Stabroek',
+              'Willebroek',
+            ]);
+          });
+      });
+
+      it('sorts the straten by naam using filtering-sort-func', () => {
+        // Country selection
+        getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
+
+        // Gemeente selection
+        cy.wait('@dataGetGemeentenVlaamsGewest');
+        setMultiSelectValue('gemeente', 'Lummen');
+        setMultiSelectValue('postcode', '3560');
+
+        getMultiSelect('straat').click();
+        getMultiSelect('straat').find('.multiselect__input').type('Mo');
+
+        getMultiSelect('straat')
+          .get('.multiselect__option span')
+          .then(($options) => {
+            const optionsText = Array.from($options)
+              .filter((option) => option.offsetParent !== null)
+              .map((option) => option.textContent?.trim());
+
+            expect(optionsText).to.deep.equal([
+              'Klimopstraat',
+              'Molemstraat',
+              'Molenaarstraat',
+              'Morgenstraat',
+              'Mortelkoelstraat',
+              'St.-Edmondstraat',
+              'Watermolenstraat',
+              'Windmolenstraat',
+            ]);
+          });
+      });
     });
 
     describe('country selection other', () => {

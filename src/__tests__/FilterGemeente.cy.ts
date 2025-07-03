@@ -104,5 +104,29 @@ describe('FilterGemeente', () => {
           .should('have.text', 'Geen resultaten gevonden...');
       });
     });
+
+    it('sorts the gemeenten by naam using filtering-sort-func', () => {
+      cy.mount(TestComponent).then(() => {
+        cy.dataCy('filter-gemeente').click().find('.multiselect__input').type('br');
+        cy.dataCy('filter-gemeente')
+          .get('.multiselect__option span')
+          .then(($options) => {
+            const optionsText = Array.from($options)
+              .filter((option) => option.offsetParent !== null)
+              .map((option) => option.textContent?.trim());
+
+            expect(optionsText).to.deep.equal([
+              'Brakel',
+              'Brasschaat',
+              'Brecht',
+              'Bredene',
+              'Bree',
+              'Brugge',
+              'Stabroek',
+              'Willebroek',
+            ]);
+          });
+      });
+    });
   });
 });
