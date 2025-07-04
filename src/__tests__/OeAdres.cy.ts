@@ -474,6 +474,39 @@ describe('Adres', () => {
       getTextInput('busnummer').should('have.value', 'B');
     });
 
+    it('fills in the predefined values - case 4 - country with enriched data', () => {
+      mount(TestComponent, {
+        data: () => ({
+          adres: {
+            land: {
+              code: 'BH',
+              naam: 'Bahrain',
+            },
+            gemeente: {
+              naam: 'Manama',
+            },
+            postcode: {
+              nummer: '12345',
+            },
+            straat: {
+              naam: 'Al-Fateh Highway',
+            },
+            adres: {
+              huisnummer: '123',
+            },
+          },
+        }),
+        template: '<OeAdres v-model:adres="adres"/>',
+      });
+
+      getMultiSelect('land').find(':selected').should('have.text', 'Bahrain');
+      getTextInput('gemeente').should('have.value', 'Manama');
+      getTextInput('postcode').should('have.value', '12345');
+      getTextInput('straat').should('have.value', 'Al-Fateh Highway');
+      getTextInput('huisnummer').should('have.value', '123');
+      getTextInput('busnummer').should('have.value', '');
+    });
+
     it('updates the model binding on value change', () => {
       mount(TestComponent, {
         data: () => ({

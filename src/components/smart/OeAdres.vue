@@ -19,14 +19,15 @@
           </VlFormColumn>
           <VlFormColumn width="9" width-s="12">
             <VlSelect
-              v-model:model-value="land"
               data-cy="select-land"
+              :model-value="(land as ILand)?.code || land"
               :mod-error="!!v$.land.$errors.length"
+              :mod-disabled="props.modDisabled"
               mod-block
               placeholder-text="Land"
-              :mod-disabled="props.modDisabled"
+              @update:model-value="(value: string) => (land = landen.find((l) => l.code === value) || '')"
             >
-              <option v-for="item in landen" :key="item.code" :value="item" :disabled="item.code === 'divider'">
+              <option v-for="item in landen" :key="item.code" :value="item.code" :disabled="item.code === 'divider'">
                 {{ item.naam }}
               </option>
             </VlSelect>
