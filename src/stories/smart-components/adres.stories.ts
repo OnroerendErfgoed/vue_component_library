@@ -161,6 +161,57 @@ export const TwoWayBinding: Story = {
   }),
 };
 
+export const CountryWithEnrichedData: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'This story demonstrates the component with a country that has enriched data (like a flag), such as Bahrain.',
+      },
+    },
+  },
+  args: {
+    adres: {
+      land: {
+        code: 'BH',
+        naam: 'Bahrain',
+      },
+      gemeente: {
+        naam: 'Manama',
+      },
+      postcode: {
+        nummer: '12345',
+      },
+      straat: {
+        naam: 'Al-Fateh Highway',
+      },
+      adres: {
+        huisnummer: '123',
+      },
+    },
+  },
+  render: ({ adres }: ILocatieAdres) => ({
+    components: { OeAdres },
+    inheritAttrs: false,
+    setup() {
+      return { adres };
+    },
+    template: `
+      <OeAdres v-model:adres="adres"  @update:adres="onUpdateAdres" />
+    `,
+    data() {
+      return {
+        eventOutput: '' as string,
+      };
+    },
+    methods: {
+      onUpdateAdres(payload: ILocatieAdres) {
+        this.eventOutput = payload;
+      },
+    },
+  }),
+};
+
 export const OldAddresses: Story = {
   args: {
     adres: {
