@@ -65,3 +65,27 @@ export const ibanValidator = (value: string | null | undefined) => {
   // The IBAN is valid if the final remainder modulo 97 is equal to 1
   return parseInt(remainder, 10) % 97 === 1;
 };
+
+export const bicValidator = (value: string | null | undefined) => {
+  if (!value) {
+    return true;
+  }
+
+  // Remove all whitespace and convert to uppercase
+  const bic = value.replace(/\s+/g, '').toUpperCase();
+
+  // Regular expression for BIC/SWIFT code validation
+  // [A-Z]{4}    : 4 letters (bank code)
+  // [A-Z]{2}    : 2 letters (country code)
+  // [A-Z0-9]{2} : 2 letters or digits (location code)
+  // ([A-Z0-9]{3})? : optional 3 letters or digits (branch code)
+  const bicRegex = /^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$/;
+
+  // BIC must be either 8 or 11 characters long and match the pattern
+  if ((bic.length === 8 || bic.length === 11) && bicRegex.test(bic)) {
+    return true;
+  }
+
+  // If it doesn't match, it's not a valid BIC
+  return false;
+};
