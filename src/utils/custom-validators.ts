@@ -30,3 +30,38 @@ export const rrnValidator = (value: string) => {
   }
   return valid;
 };
+
+export const ibanValidator = (value: string | null | undefined) => {
+  if (!value) {
+    return true;
+  }
+
+  // Remove all whitespace characters and convert to uppercase
+  const iban = value.replace(/\s+/g, '').toUpperCase();
+
+  // 1. Basic IBAN format check:
+  //    - Starts with 2 letters (country code)
+  //    - Followed by 2 digits (check digits)
+  //    - Followed by 11 to 30 alphanumeric characters (BBAN)
+  if (!/^[A-Z]{2}\d{2}[A-Z0-9]{11,30}$/.test(iban)) {
+    return false;
+  }
+
+  // 2. Move the first four characters (country code + check digits) to the end of the string
+  const rearranged = iban.slice(4) + iban.slice(0, 4);
+
+  // 3. Replace each letter with two digits (A=10, B=11, ..., Z=35)
+  const expanded = rearranged.replace(/[A-Z]/g, (char: string) => (char.charCodeAt(0) - 55).toString());
+
+  // 4. Modulo 97 calculation:
+  //    - Due to the potentially huge number, process in blocks of up to 9 digits.
+  //    - For each block, calculate the remainder and prepend it to the next block.
+  let remainder = expanded;
+  while (remainder.length > 9) {
+    const block = remainder.slice(0, 9);
+    remainder = (parseInt(block, 10) % 97).toString() + remainder.slice(9);
+  }
+
+  // The IBAN is valid if the final remainder modulo 97 is equal to 1
+  return parseInt(remainder, 10) % 97 === 1;
+};
