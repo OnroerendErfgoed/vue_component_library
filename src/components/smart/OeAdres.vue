@@ -608,7 +608,11 @@ const rules = computed(() => ({
 
 // Init validation instance
 const v$ = useVuelidate(rules, adres);
-defineExpose({ validate: () => v$.value.$validate() });
+defineExpose({
+  validate: () => v$.value.$validate(),
+  invalid: () => v$.value.$invalid,
+  anyDirty: () => v$.value.$anyDirty,
+});
 
 // Reference data
 let crabApiService: CrabApiService;
