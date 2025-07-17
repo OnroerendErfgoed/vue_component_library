@@ -610,8 +610,8 @@ const rules = computed(() => ({
 const v$ = useVuelidate(rules, adres);
 defineExpose({
   validate: () => v$.value.$validate(),
-  invalid: () => v$.value.$invalid,
-  anyDirty: () => v$.value.$anyDirty,
+  invalid: computed(() => v$.value.$invalid),
+  anyDirty: computed(() => v$.value.$anyDirty),
 });
 
 // Reference data
