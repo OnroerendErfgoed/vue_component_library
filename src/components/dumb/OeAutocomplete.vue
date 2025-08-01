@@ -120,11 +120,9 @@ watch(searchTerm, async (newValue, previousValue) => {
 watch(
   () => props.value,
   () => {
+    searchTerm.value = props.value?.title || '';
     if (selectedOption.value && !props.value?.value) {
-      searchTerm.value = '';
       selectedOption.value = undefined;
-    } else if (props.value?.title) {
-      searchTerm.value = props.value?.title;
     }
   },
   { deep: true }
