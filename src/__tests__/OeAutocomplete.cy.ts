@@ -1,5 +1,6 @@
 /* eslint-disable vue/one-component-per-file */
-import { defineComponent } from 'vue';
+import { VlButton } from '@govflanders/vl-ui-design-system-vue3';
+import { defineComponent, ref } from 'vue';
 import { OeAutocomplete } from '@components/index';
 import type { IAutocompleteOption } from '@models/autocomplete';
 
@@ -86,6 +87,56 @@ describe('Autocomplete', () => {
     it('applies fallthrough attributes to the input element', () => {
       cy.mount(TestComponent);
       cy.dataCy('autocomplete-input').should('have.attr', 'custom-attr');
+    });
+  });
+
+  describe('Initial value', () => {
+    const TestComponent = defineComponent({
+      components: { OeAutocomplete, VlButton },
+      setup() {
+        const callback = (searchTerm: string): Promise<IAutocompleteOption[]> => {
+          return new Promise(function (resolve) {
+            // Fake delay to show the loader
+            setTimeout(() => {
+              resolve(
+                [
+                  {
+                    title: 'dummy',
+                  },
+                  {
+                    title: 'random',
+                  },
+                ].filter((item) => item.title.includes(searchTerm))
+              );
+            }, 1000);
+          });
+        };
+        const value = ref({
+          title: 'dummy',
+        });
+        const resetValue = () => {
+          value.value = { title: '' };
+        };
+
+        return {
+          value,
+          callback,
+          resetValue,
+        };
+      },
+      template:
+        '<OeAutocomplete id="test" :callbackFn="callback" :value="value"/><VlButton id="reset-button" class="vl-u-spacer-top" @click="resetValue">Reset value</VlButton>',
+    });
+
+    it('sets the initial value correctly', () => {
+      cy.mount(TestComponent);
+      cy.dataCy('autocomplete').find('input').should('have.value', 'dummy');
+    });
+
+    it('clears the value when the passed in value title is empty', () => {
+      cy.mount(TestComponent);
+      cy.get('#reset-button').click();
+      cy.dataCy('autocomplete').find('input').should('have.value', '');
     });
   });
 

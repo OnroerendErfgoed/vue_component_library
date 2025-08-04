@@ -1,4 +1,5 @@
 import '@/scss/main.scss';
+import { VlButton } from '@govflanders/vl-ui-design-system-vue3';
 import { ref } from 'vue';
 import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -58,6 +59,51 @@ export default meta;
 type Story = StoryObj<typeof OeAutocomplete>;
 
 export const Default: Story = {};
+
+export const InitialValue: Story = {
+  render: () => ({
+    components: {
+      OeAutocomplete,
+      VlButton,
+    },
+    setup() {
+      const callback = (): Promise<IAutocompleteOption[]> => {
+        return new Promise(function (resolve) {
+          // Fake delay to show the loader
+          setTimeout(function () {
+            resolve([
+              {
+                title: 'Match 1',
+              },
+              {
+                title: 'Match 2',
+              },
+              {
+                title: 'Match 3',
+              },
+            ]);
+          }, 1000);
+        });
+      };
+      const value = ref<IAutocompleteOption>({
+        title: 'Match 2',
+      });
+
+      return { callback, value };
+    },
+    template: `
+    <OeAutocomplete :callbackFn="callback" :value="value"/>
+    <VlButton class="vl-u-spacer-top" @click="() => value = { title: '' }">Reset value</VlButton>
+    `,
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Sets the initial value of the autocomplete to "Match 2" and allows you to reset it to an empty value.',
+      },
+    },
+  },
+};
 
 export const CustomCallbackFunction: Story = {
   render: () => ({

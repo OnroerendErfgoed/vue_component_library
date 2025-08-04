@@ -125,7 +125,7 @@ watch(
       selectedOption.value = undefined;
     }
   },
-  { deep: true }
+  { deep: true, immediate: true }
 );
 </script>
 
