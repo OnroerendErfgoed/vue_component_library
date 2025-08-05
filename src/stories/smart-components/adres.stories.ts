@@ -1,4 +1,5 @@
 import '@/scss/main.scss';
+import { VlButton } from '@govflanders/vl-ui-design-system-vue3';
 import OeAdres from '@components/smart/OeAdres.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import type { ILocatieAdres } from '@models/locatie';
@@ -72,6 +73,23 @@ export const ShowRequiredAnnotationPerField: Story = {
   args: {
     showRequiredPerField: true,
   },
+};
+
+export const FormValidation: Story = {
+  render: () => ({
+    components: { OeAdres, VlButton },
+    template: `
+      <div>
+        <OeAdres ref="oeAdres" v-model:adres="adres" :config="config" show-required-per-field />
+        <VlButton @click="validateForm" style="margin-top: 16px; float: right;">Validate Form</VlButton>
+      </div>
+    `,
+    methods: {
+      validateForm() {
+        this.$refs.oeAdres.validate();
+      },
+    },
+  }),
 };
 
 export const DisabledState: Story = {
