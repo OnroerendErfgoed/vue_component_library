@@ -905,8 +905,9 @@ const updateBusnummer = (value: IAutocompleteOption<IAdres>) => (busnummer.value
   }
   .vl-link {
     outline: none;
-    float: right;
+    margin-left: auto;
     cursor: pointer;
+    display: block;
   }
 }
 </style>
