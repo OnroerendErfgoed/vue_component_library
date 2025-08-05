@@ -559,6 +559,42 @@ describe('Adres', () => {
           });
       });
     });
+
+    it('clears huisnummer and busnummer autocomplete when changing straat', () => {
+      mount(TestComponent, {
+        data: () => ({
+          adres: {
+            land: {
+              naam: 'België',
+              code: 'BE',
+            },
+            gemeente: {
+              naam: 'Bertem',
+              niscode: '24009',
+            },
+            postcode: {
+              nummer: '3060',
+            },
+            straat: {
+              naam: 'Dorpstraat',
+              id: '32110',
+            },
+            adres: {
+              huisnummer: '190',
+              busnummer: '0101',
+            },
+          },
+        }),
+        template: '<OeAdres v-model:adres="adres"/>',
+      });
+
+      cy.wait('@dataGetGemeentenVlaamsGewest');
+
+      setMultiSelectValue('straat', 'Alsemberglaan');
+
+      getAutocompleteInput('huisnummer').should('have.value', '');
+      getAutocompleteInput('busnummer').should('have.value', '');
+    });
   });
 
   describe('form - custom API', () => {
