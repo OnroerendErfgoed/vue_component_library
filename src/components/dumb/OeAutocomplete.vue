@@ -46,7 +46,7 @@
 
 <script setup lang="ts">
 import { VlInputField } from '@govflanders/vl-ui-design-system-vue3';
-import { computed, ref, useAttrs, watch } from 'vue';
+import { computed, onMounted, ref, useAttrs, watch } from 'vue';
 import { vClickOutside } from '@directives/click-outside.directive';
 import type { IAutocompleteOption, IAutocompleteProps } from '@models/autocomplete';
 
@@ -118,15 +118,26 @@ watch(searchTerm, async (newValue, previousValue) => {
 });
 
 watch(
-  () => props.value,
-  () => {
-    searchTerm.value = props.value?.title || '';
-    if (selectedOption.value && !props.value?.value) {
+  () => props.value?.title,
+  (newValue, oldValue) => {
+    if (!newValue) {
+      searchTerm.value = '';
       selectedOption.value = undefined;
+      return;
     }
-  },
-  { deep: true, immediate: true }
+    if (newValue !== oldValue) {
+      searchTerm.value = newValue;
+      selectedOption.value = props.value;
+    }
+  }
 );
+
+onMounted(() => {
+  if (props.value) {
+    searchTerm.value = props.value.title || '';
+    selectedOption.value = props.value;
+  }
+});
 </script>
 
 <style lang="scss" scoped>

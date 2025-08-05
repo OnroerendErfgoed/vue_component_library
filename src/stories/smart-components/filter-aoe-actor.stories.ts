@@ -82,7 +82,7 @@ export const Default: Story = {
     },
     template: `
     <div>
-      <filter-a-o-e-actor :api="api" :get-sso-token="getSsoToken" />
+      <filter-a-o-e-actor id="my-id" :api="api" :get-sso-token="getSsoToken" />
     </div>
     `,
   }),
@@ -109,10 +109,11 @@ export const WithGroepActoren: Story = {
     },
     template: `
     <div>
-      <filter-a-o-e-actor 
-        :api="api" 
-        :get-sso-token="getSsoToken" 
-        :groep-actoren="groepActoren" 
+      <filter-a-o-e-actor
+        id="my-id"
+        :api="api"
+        :get-sso-token="getSsoToken"
+        :groep-actoren="groepActoren"
       />
     </div>
     `,

@@ -93,7 +93,7 @@ export const InitialValue: Story = {
     },
     template: `
     <OeAutocomplete :callbackFn="callback" :value="value"/>
-    <VlButton class="vl-u-spacer-top" @click="() => value = { title: '' }">Reset value</VlButton>
+    <VlButton class="vl-u-spacer-top" @click="() => value = undefined">Reset value</VlButton>
     `,
   }),
   parameters: {
