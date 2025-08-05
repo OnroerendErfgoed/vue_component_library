@@ -13,7 +13,7 @@ describe('FilterAanduidingsobject', () => {
         return { actorValue, setValue, getSsoToken };
       },
       template:
-        '<filter-AOE-actor api="https://dev-actoren.onroerenderfgoed.be" :get-sso-token="getSsoToken" :value="actorValue" @update:value="setValue"/>',
+        '<FilterAOEActor api="https://dev-actoren.onroerenderfgoed.be" :get-sso-token="getSsoToken" :value="actorValue" @update:value="setValue"/>',
     });
 
     it('fetches wij actoren, filter and assign the chosen filter to the corresponding data value', () => {
