@@ -19,14 +19,15 @@
           </VlFormColumn>
           <VlFormColumn width="9" width-s="12">
             <VlSelect
-              v-model:model-value="land"
               data-cy="select-land"
+              :model-value="(land as ILand)?.code || land"
               :mod-error="!!v$.land.$errors.length"
+              :mod-disabled="props.modDisabled"
               mod-block
               placeholder-text="Land"
-              :mod-disabled="props.modDisabled"
+              @update:model-value="(value: string) => (land = landen.find((l) => l.code === value) || '')"
             >
-              <option v-for="item in landen" :key="item.code" :value="item" :disabled="item.code === 'divider'">
+              <option v-for="item in landen" :key="item.code" :value="item.code" :disabled="item.code === 'divider'">
                 {{ item.naam }}
               </option>
             </VlSelect>
@@ -119,6 +120,7 @@
             v-model="gemeente"
             placeholder="Gemeente"
             data-cy="select-gemeente"
+            :filtering-sort-func="(a: IGemeente, b: IGemeente) => a.naam.localeCompare(b.naam)"
             :mod-error="!!v$.gemeente.naam.$errors.length"
             :custom-label="customGemeenteLabel"
             :disabled="!land || props.modDisabled"
@@ -222,6 +224,7 @@
             v-model="straat"
             placeholder="Straat"
             data-cy="select-straat"
+            :filtering-sort-func="(a: IStraat, b: IStraat) => a.naam.localeCompare(b.naam)"
             :custom-label="customStraatLabel"
             :disabled="!gemeente || props.modDisabled"
             :mod-multiple="false"
@@ -605,7 +608,11 @@ const rules = computed(() => ({
 
 // Init validation instance
 const v$ = useVuelidate(rules, adres);
-defineExpose({ validate: () => v$.value.$validate() });
+defineExpose({
+  validate: () => v$.value.$validate(),
+  invalid: computed(() => v$.value.$invalid),
+  anyDirty: computed(() => v$.value.$anyDirty),
+});
 
 // Reference data
 let crabApiService: CrabApiService;
@@ -898,8 +905,9 @@ const updateBusnummer = (value: IAutocompleteOption<IAdres>) => (busnummer.value
   }
   .vl-link {
     outline: none;
-    float: right;
+    margin-left: auto;
     cursor: pointer;
+    display: block;
   }
 }
 </style>

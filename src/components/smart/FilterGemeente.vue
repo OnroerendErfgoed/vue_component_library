@@ -1,5 +1,6 @@
 <template>
   <vl-multiselect
+    :filtering-sort-func="(a: IGemeente, b: IGemeente) => a.naam.localeCompare(b.naam)"
     data-cy="filter-gemeente"
     placeholder="Gemeente"
     :custom-label="customGemeenteLabel"

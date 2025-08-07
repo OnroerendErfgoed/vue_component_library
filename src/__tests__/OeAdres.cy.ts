@@ -197,6 +197,80 @@ describe('Adres', () => {
 
         getTextInput('busnummer').should('exist');
       });
+
+      it('sorts the gemeenten by naam using filtering-sort-func', () => {
+        // Country selection
+        getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
+
+        // Gemeente selection
+        cy.wait('@dataGetGemeentenVlaamsGewest');
+        getMultiSelect('gemeente').click();
+        getMultiSelect('gemeente').find('.multiselect__input').type('br');
+
+        getMultiSelect('gemeente')
+          .get('.multiselect__option span')
+          .then(($options) => {
+            const optionsText = Array.from($options)
+              .filter((option) => option.offsetParent !== null)
+              .map((option) => option.textContent?.trim());
+
+            expect(optionsText).to.deep.equal([
+              "'s Gravenbrakel",
+              'Braives',
+              'Brakel',
+              'Brasschaat',
+              'Brecht',
+              'Bredene',
+              'Bree',
+              'Brugelette',
+              'Brugge',
+              'Brunehaut',
+              'Brussel',
+              'Eigenbrakel',
+              'Jemeppe-sur-Sambre',
+              'Kasteelbrakel',
+              'La Bruyère',
+              'Libramont-Chevigny',
+              'Sambreville',
+              'Sint-Lambrechts-Woluwe',
+              'Sombreffe',
+              'Stabroek',
+              'Willebroek',
+            ]);
+          });
+      });
+
+      it('sorts the straten by naam using filtering-sort-func', () => {
+        // Country selection
+        getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
+
+        // Gemeente selection
+        cy.wait('@dataGetGemeentenVlaamsGewest');
+        setMultiSelectValue('gemeente', 'Lummen');
+        setMultiSelectValue('postcode', '3560');
+
+        getMultiSelect('straat').click();
+        getMultiSelect('straat').find('.multiselect__input').type('Mo');
+
+        getMultiSelect('straat')
+          .get('.multiselect__option span')
+          .then(($options) => {
+            const optionsText = Array.from($options)
+              .filter((option) => option.offsetParent !== null)
+              .map((option) => option.textContent?.trim());
+
+            expect(optionsText).to.deep.equal([
+              'Klimopstraat',
+              'Molemstraat',
+              'Molenaarstraat',
+              'Morgenstraat',
+              'Mortelkoelstraat',
+              'St.-Edmondstraat',
+              'Watermolenstraat',
+              'Windmolenstraat',
+            ]);
+          });
+      });
     });
 
     describe('country selection other', () => {
@@ -400,6 +474,39 @@ describe('Adres', () => {
       getTextInput('busnummer').should('have.value', 'B');
     });
 
+    it('fills in the predefined values - case 4 - country with enriched data', () => {
+      mount(TestComponent, {
+        data: () => ({
+          adres: {
+            land: {
+              code: 'BH',
+              naam: 'Bahrain',
+            },
+            gemeente: {
+              naam: 'Manama',
+            },
+            postcode: {
+              nummer: '12345',
+            },
+            straat: {
+              naam: 'Al-Fateh Highway',
+            },
+            adres: {
+              huisnummer: '123',
+            },
+          },
+        }),
+        template: '<OeAdres v-model:adres="adres"/>',
+      });
+
+      getMultiSelect('land').find(':selected').should('have.text', 'Bahrain');
+      getTextInput('gemeente').should('have.value', 'Manama');
+      getTextInput('postcode').should('have.value', '12345');
+      getTextInput('straat').should('have.value', 'Al-Fateh Highway');
+      getTextInput('huisnummer').should('have.value', '123');
+      getTextInput('busnummer').should('have.value', '');
+    });
+
     it('updates the model binding on value change', () => {
       mount(TestComponent, {
         data: () => ({
@@ -451,6 +558,42 @@ describe('Adres', () => {
             });
           });
       });
+    });
+
+    it('clears huisnummer and busnummer autocomplete when changing straat', () => {
+      mount(TestComponent, {
+        data: () => ({
+          adres: {
+            land: {
+              naam: 'België',
+              code: 'BE',
+            },
+            gemeente: {
+              naam: 'Bertem',
+              niscode: '24009',
+            },
+            postcode: {
+              nummer: '3060',
+            },
+            straat: {
+              naam: 'Dorpstraat',
+              id: '32110',
+            },
+            adres: {
+              huisnummer: '190',
+              busnummer: '0101',
+            },
+          },
+        }),
+        template: '<OeAdres v-model:adres="adres"/>',
+      });
+
+      cy.wait('@dataGetGemeentenVlaamsGewest');
+
+      setMultiSelectValue('straat', 'Alsemberglaan');
+
+      getAutocompleteInput('huisnummer').should('have.value', '');
+      getAutocompleteInput('busnummer').should('have.value', '');
     });
   });
 

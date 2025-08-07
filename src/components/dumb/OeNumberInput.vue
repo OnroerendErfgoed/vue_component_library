@@ -13,19 +13,19 @@ import { VlInputField } from '@govflanders/vl-ui-design-system-vue3';
 import { ref, watch } from 'vue';
 
 interface Props {
-  modelValue: number | null;
+  modelValue: number | null | undefined;
 }
 
 const props = defineProps<Props>();
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: number | null): void;
+  (e: 'update:modelValue', value: number | null | undefined): void;
 }>();
 
 const localValue = ref<string>('');
 
-const formatNumberToString = (value: number | null): string => {
-  if (value === null) {
+const formatNumberToString = (value: number | null | undefined): string => {
+  if (value === null || value === undefined) {
     return '';
   }
 

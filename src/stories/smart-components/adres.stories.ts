@@ -1,4 +1,5 @@
 import '@/scss/main.scss';
+import { VlButton } from '@govflanders/vl-ui-design-system-vue3';
 import OeAdres from '@components/smart/OeAdres.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import type { ILocatieAdres } from '@models/locatie';
@@ -74,6 +75,23 @@ export const ShowRequiredAnnotationPerField: Story = {
   },
 };
 
+export const FormValidation: Story = {
+  render: () => ({
+    components: { OeAdres, VlButton },
+    template: `
+      <div>
+        <OeAdres ref="oeAdres" v-model:adres="adres" :config="config" show-required-per-field />
+        <VlButton @click="validateForm" style="margin-top: 16px; float: right;">Validate Form</VlButton>
+      </div>
+    `,
+    methods: {
+      validateForm() {
+        this.$refs.oeAdres.validate();
+      },
+    },
+  }),
+};
+
 export const DisabledState: Story = {
   args: {
     modDisabled: true,
@@ -147,6 +165,57 @@ export const TwoWayBinding: Story = {
       <h3>Adres:</h3>
       <pre>{{ eventOutput }}</pre>
       </div>
+    `,
+    data() {
+      return {
+        eventOutput: '' as string,
+      };
+    },
+    methods: {
+      onUpdateAdres(payload: ILocatieAdres) {
+        this.eventOutput = payload;
+      },
+    },
+  }),
+};
+
+export const CountryWithEnrichedData: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'This story demonstrates the component with a country that has enriched data (like a flag), such as Bahrain.',
+      },
+    },
+  },
+  args: {
+    adres: {
+      land: {
+        code: 'BH',
+        naam: 'Bahrain',
+      },
+      gemeente: {
+        naam: 'Manama',
+      },
+      postcode: {
+        nummer: '12345',
+      },
+      straat: {
+        naam: 'Al-Fateh Highway',
+      },
+      adres: {
+        huisnummer: '123',
+      },
+    },
+  },
+  render: ({ adres }: ILocatieAdres) => ({
+    components: { OeAdres },
+    inheritAttrs: false,
+    setup() {
+      return { adres };
+    },
+    template: `
+      <OeAdres v-model:adres="adres"  @update:adres="onUpdateAdres" />
     `,
     data() {
       return {
