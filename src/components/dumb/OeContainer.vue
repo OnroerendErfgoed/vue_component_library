@@ -32,7 +32,8 @@
 
 <script setup lang="ts">
 import { VlActionGroup, VlPill } from '@govflanders/vl-ui-design-system-vue3';
-import { ref } from 'vue';
+import { useEventListener } from '@vueuse/core';
+import { onMounted, ref } from 'vue';
 import { OeModalConfirmCancelChanges } from '@components/dumb';
 import type { IContainerProps, ITab } from '@models/container';
 
@@ -68,6 +69,14 @@ const closeTab = (item: ITab, confirm = false) => {
     confirmCancelChangesOpen.value = true;
   }
 };
+
+onMounted(() => {
+  useEventListener(document, 'closed', (evt: { detail: { modalId: string } }) => {
+    if (evt.detail.modalId === 'confirm-cancel-changes-modal') {
+      confirmCancelChangesOpen.value = false;
+    }
+  });
+});
 </script>
 
 <style lang="scss">

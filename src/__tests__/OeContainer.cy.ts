@@ -162,6 +162,20 @@ describe('Container', () => {
       });
     });
 
+    it('does not emit a tab-closed event with the selected tab on close after clicking on the backdrop', () => {
+      const onTabClosedSpy = cy.spy().as('onTabClosedSpy');
+
+      cy.mount(TestComponent, { props: { onTabClosed: onTabClosedSpy } }).then(({ component }) => {
+        cy.dataCy('bottom-tabs').find('.tab-1 .vl-pill__close').click();
+        cy.get('.vl-modal-backdrop').click({ force: true });
+
+        cy.get('@onTabClosedSpy').should(
+          'not.have.been.calledWith',
+          component.tabs.find((t) => t.id === '1')
+        );
+      });
+    });
+
     it('emits a tab-closed event with the selected tab on close when confirmation is disabled', () => {
       const onTabClosedSpy = cy.spy().as('onTabClosedSpy');
 
@@ -200,6 +214,17 @@ describe('Container', () => {
           'have.been.calledWith',
           component.tabs.find((t) => t.id === '2')
         );
+      });
+    });
+
+    it('shoud be able to reopen the confirm dialog after clicking on the backdrop', () => {
+      const onTabClosedSpy = cy.spy().as('onTabClosedSpy');
+
+      cy.mount(TestComponent, { props: { onTabClosed: onTabClosedSpy } }).then(() => {
+        cy.dataCy('bottom-tabs').find('.tab-1 .vl-pill__close').click();
+        cy.get('.vl-modal-backdrop').click({ force: true });
+        cy.dataCy('bottom-tabs').find('.tab-1 .vl-pill__close').click();
+        cy.get('.vl-modal-dialog__content').should('be.visible');
       });
     });
   });
