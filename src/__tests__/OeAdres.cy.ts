@@ -204,6 +204,8 @@ describe('Adres', () => {
 
         // Gemeente selection
         cy.wait('@dataGetGemeentenVlaamsGewest');
+        cy.wait('@dataGetGemeentenBrusselsHoofdstedelijkGewest');
+        cy.wait('@dataGetGemeentenWaalsGewest');
         getMultiSelect('gemeente').click();
         getMultiSelect('gemeente').find('.multiselect__input').type('br');
 
@@ -246,6 +248,8 @@ describe('Adres', () => {
 
         // Gemeente selection
         cy.wait('@dataGetGemeentenVlaamsGewest');
+        cy.wait('@dataGetGemeentenBrusselsHoofdstedelijkGewest');
+        cy.wait('@dataGetGemeentenWaalsGewest');
         setMultiSelectValue('gemeente', 'Lummen');
         setMultiSelectValue('postcode', '3560');
 
@@ -898,7 +902,7 @@ describe('Adres', () => {
     });
 
     it('does not render the land entry', () => {
-      getLabel('land').should('not.exist');
+      cy.dataCy(`label-land`).should('not.exist');
       getMultiSelect('land').should('not.exist');
 
       getMultiSelect('gemeente').should('exist');
@@ -1025,8 +1029,8 @@ describe('Adres', () => {
   });
 });
 
-const getLabel = (field: string) => cy.dataCy(`label-${field}`);
-const getLabelAnnotation = (field: string) => cy.dataCy(`label-${field}`).next();
+const getLabel = (field: string) => cy.dataCy(`label-${field}`).find('span');
+const getLabelAnnotation = (field: string) => cy.dataCy(`label-${field}`).children().last();
 const getMultiSelect = (field: string) => cy.dataCy(`select-${field}`);
 const getAutocompleteRootElement = (field: string) => cy.dataCy(`autocomplete-${field}`);
 const getAutocompleteInput = (field: string) => getAutocompleteRootElement(field).children().first();

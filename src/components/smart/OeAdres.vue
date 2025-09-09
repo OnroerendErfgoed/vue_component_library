@@ -12,10 +12,12 @@
         <!-- Land -->
         <template v-if="!props.countryId">
           <VlFormColumn width="3" width-s="12">
-            <VlFormMessageLabel data-cy="label-land">Land</VlFormMessageLabel>
-            <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.land?.required"
-              >VERPLICHT</VlFormMessageAnnotation
-            >
+            <VlFormMessageLabel :class="{ 'vl-properties__label': adminMode }" data-cy="label-land">
+              <span>Land</span>
+              <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.land?.required"
+                >VERPLICHT</VlFormMessageAnnotation
+              >
+            </VlFormMessageLabel>
           </VlFormColumn>
           <VlFormColumn width="9" width-s="12">
             <VlSelect
@@ -40,10 +42,12 @@
         <!-- Gewest -->
         <template v-if="isBelgiumOrEmpty && !$props.config?.gewest?.hidden">
           <VlFormColumn width="3" width-s="12">
-            <VlFormMessageLabel data-cy="label-gewest">Gewest</VlFormMessageLabel>
-            <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.gewest?.required"
-              >VERPLICHT</VlFormMessageAnnotation
-            >
+            <VlFormMessageLabel :class="{ 'vl-properties__label': adminMode }" data-cy="label-gewest">
+              <span>Gewest</span>
+              <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.gewest?.required"
+                >VERPLICHT</VlFormMessageAnnotation
+              >
+            </VlFormMessageLabel>
           </VlFormColumn>
           <VlFormColumn width="9" width-s="12">
             <VlMultiselect
@@ -75,10 +79,12 @@
         <!-- Provincie -->
         <template v-if="isBelgiumOrEmpty && !$props.config?.provincie?.hidden">
           <VlFormColumn width="3" width-s="12">
-            <VlFormMessageLabel data-cy="label-provincie">Provincie</VlFormMessageLabel>
-            <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.provincie?.required"
-              >VERPLICHT</VlFormMessageAnnotation
-            >
+            <VlFormMessageLabel :class="{ 'vl-properties__label': adminMode }" data-cy="label-provincie">
+              <span>Provincie</span>
+              <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.provincie?.required"
+                >VERPLICHT</VlFormMessageAnnotation
+              >
+            </VlFormMessageLabel>
           </VlFormColumn>
           <VlFormColumn width="9" width-s="12">
             <VlMultiselect
@@ -109,10 +115,12 @@
 
         <!-- Gemeente -->
         <VlFormColumn width="3" width-s="12">
-          <VlFormMessageLabel data-cy="label-gemeente">Gemeente</VlFormMessageLabel>
-          <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.gemeente?.required"
-            >VERPLICHT</VlFormMessageAnnotation
-          >
+          <VlFormMessageLabel :class="{ 'vl-properties__label': adminMode }" data-cy="label-gemeente">
+            <span>Gemeente</span>
+            <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.gemeente?.required"
+              >VERPLICHT</VlFormMessageAnnotation
+            >
+          </VlFormMessageLabel>
         </VlFormColumn>
         <VlFormColumn width="9" width-s="12">
           <VlMultiselect
@@ -154,10 +162,12 @@
 
         <!-- Postcode -->
         <VlFormColumn width="3" width-s="12">
-          <VlFormMessageLabel data-cy="label-postcode">Postcode</VlFormMessageLabel>
-          <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.postcode?.required"
-            >VERPLICHT</VlFormMessageAnnotation
-          >
+          <VlFormMessageLabel :class="{ 'vl-properties__label': adminMode }" data-cy="label-postcode">
+            <span>Postcode</span>
+            <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.postcode?.required"
+              >VERPLICHT</VlFormMessageAnnotation
+            >
+          </VlFormMessageLabel>
         </VlFormColumn>
         <VlFormColumn width="9" width-s="12">
           <VlMultiselect
@@ -213,10 +223,12 @@
 
         <!-- Straat -->
         <VlFormColumn width="3" width-s="12">
-          <VlFormMessageLabel data-cy="label-straat">Straat</VlFormMessageLabel>
-          <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.straat?.required"
-            >VERPLICHT</VlFormMessageAnnotation
-          >
+          <VlFormMessageLabel :class="{ 'vl-properties__label': adminMode }" data-cy="label-straat">
+            <span>Straat</span>
+            <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.straat?.required"
+              >VERPLICHT</VlFormMessageAnnotation
+            >
+          </VlFormMessageLabel>
         </VlFormColumn>
         <VlFormColumn width="9" width-s="12">
           <VlMultiselect
@@ -268,10 +280,12 @@
 
         <!-- Huisnummer -->
         <VlFormColumn width="3" width-s="12">
-          <VlFormMessageLabel data-cy="label-huisnummer">Huisnummer</VlFormMessageLabel>
-          <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.huisnummer?.required"
-            >VERPLICHT</VlFormMessageAnnotation
-          >
+          <VlFormMessageLabel :class="{ 'vl-properties__label': adminMode }" data-cy="label-huisnummer">
+            <span>Huisnummer</span>
+            <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.huisnummer?.required"
+              >VERPLICHT</VlFormMessageAnnotation
+            >
+          </VlFormMessageLabel>
         </VlFormColumn>
         <VlFormColumn width="9" width-s="12">
           <OeAutocomplete
@@ -319,10 +333,12 @@
 
         <!-- Busnummer -->
         <VlFormColumn width="3" width-s="12">
-          <VlFormMessageLabel data-cy="label-busnummer">Busnummer</VlFormMessageLabel>
-          <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.busnummer?.required"
-            >VERPLICHT</VlFormMessageAnnotation
-          >
+          <VlFormMessageLabel :class="{ 'vl-properties__label': adminMode }" data-cy="label-busnummer">
+            <span>Busnummer</span>
+            <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.busnummer?.required"
+              >VERPLICHT</VlFormMessageAnnotation
+            >
+          </VlFormMessageLabel>
         </VlFormColumn>
         <VlFormColumn width="9" width-s="12">
           <OeAutocomplete
@@ -412,6 +428,7 @@ const props = withDefaults(defineProps<IAdresProps>(), {
   countryId: undefined,
   adres: undefined,
   optionsLimit: 5000,
+  adminMode: false,
 });
 
 const emit = defineEmits(['update:adres']);
@@ -908,6 +925,12 @@ const updateBusnummer = (value: IAutocompleteOption<IAdres>) => (busnummer.value
     margin-left: auto;
     cursor: pointer;
     display: block;
+  }
+
+  :deep(.vl-properties__label) {
+    font-weight: 400;
+    line-height: inherit;
+    margin-bottom: 0;
   }
 }
 </style>

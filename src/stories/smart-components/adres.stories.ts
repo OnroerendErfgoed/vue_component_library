@@ -69,6 +69,12 @@ type Story = StoryObj<typeof OeAdres>;
  */
 export const Default: Story = {};
 
+export const AdminMode: Story = {
+  args: {
+    adminMode: true,
+  },
+};
+
 export const ShowRequiredAnnotationPerField: Story = {
   args: {
     showRequiredPerField: true,
