@@ -13,6 +13,7 @@ export interface IAdresProps {
   adres?: ILocatieAdres;
   optionsLimit?: number;
   showRequiredPerField?: boolean;
+  adminMode?: boolean;
 }
 
 export interface IAdresConfig {
