@@ -10,8 +10,8 @@
       <slot></slot>
     </div>
     <div v-if="props.tabs.length" class="bottom-tabs" data-cy="bottom-tabs">
-      <vl-action-group>
-        <vl-pill
+      <VlActionGroup>
+        <VlPill
           v-for="item in props.tabs"
           :key="item.id"
           :style="{ 'max-width': `${props.tabSelectorMaxWidth}px` }"
@@ -24,8 +24,8 @@
           @close="closeTab(item)"
         >
           {{ item.label }}
-        </vl-pill>
-      </vl-action-group>
+        </VlPill>
+      </VlActionGroup>
     </div>
   </div>
 </template>
@@ -143,6 +143,11 @@ const closeTab = (item: ITab, confirm = false) => {
     align-items: flex-start;
     background: #f3f3f3;
     border-top: 1px solid $dark-purple;
+
+    .vl-action-group {
+      row-gap: unset;
+      gap: unset;
+    }
 
     .vl-action-group button:last-child {
       margin-right: -1px;
