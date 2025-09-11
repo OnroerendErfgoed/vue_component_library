@@ -219,6 +219,11 @@ body {
   flex: 1;
 }
 
+.vl-action-group {
+  row-gap: unset;
+  gap: unset;
+}
+
 /**
 -------------------------------
  End override specific styles
