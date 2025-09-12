@@ -198,6 +198,10 @@ function transformLambert72ToWebMercator(center: Coordinate): Coordinate {
 
 function setupProjection() {
   ProjectionUtil.defineLambert72(proj4);
+  proj4.defs(
+    'EPSG:3812',
+    '+proj=lcc +lat_0=50.797815 +lon_0=4.35921583333333 +lat_1=49.8333339 +lat_2=51.1666672333333 +x_0=649328 +y_0=665262 +ellps=GRS80 +units=m +no_defs'
+  );
   register(proj4);
 
   const projection = getOlProj('EPSG:31370') as Projection;
