@@ -198,6 +198,7 @@ function transformLambert72ToWebMercator(center: Coordinate): Coordinate {
 
 function setupProjection() {
   ProjectionUtil.defineLambert72(proj4);
+  ProjectionUtil.defineLambert2008(proj4);
   register(proj4);
 
   const projection = getOlProj('EPSG:31370') as Projection;
@@ -295,6 +296,7 @@ function _createNgiLayer(layerId: string) {
         'class="copyrightLink">NGI</a>',
     }),
     visible: false,
+    ...(layerId === 'overlay' && { maxResolution: 2000 }),
   });
 }
 
