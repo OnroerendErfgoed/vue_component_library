@@ -234,6 +234,7 @@ function _createLayer(id: string, layerOptions: LayerOptions, isBaseLayer: boole
   else if (layerOptions.type === LayerType.ErfgoedWms) layer = _createErfgoedWMSLayer(layerOptions.wmsLayers);
   else if (layerOptions.type === LayerType.Ngi) layer = _createNgiLayer(id);
   else if (layerOptions.type === LayerType.OSM) layer = _createOSMLayer();
+  else if (layerOptions.type === LayerType.MWMTS) layer = _createMercatorWMTSLayer(id);
   else throw `unsupported layer type: ${layerOptions.type}`;
 
   layer.set('title', layerOptions.title);
@@ -336,6 +337,48 @@ function _createOSMLayer() {
         '<i class="fa fa-copyright"></i> <a href="http://www.openstreetmap.org/copyright" ' +
         'class="copyrightLink">OpenStreetMap</a>',
     }),
+  });
+}
+
+function _createMercatorWMTSLayer(layerId: string) {
+  console.log(layerId);
+  const matrixIds = [
+    'BPL72VL:0',
+    'BPL72VL:1',
+    'BPL72VL:2',
+    'BPL72VL:3',
+    'BPL72VL:4',
+    'BPL72VL:5',
+    'BPL72VL:6',
+    'BPL72VL:7',
+    'BPL72VL:8',
+    'BPL72VL:9',
+    'BPL72VL:10',
+    'BPL72VL:11',
+    'BPL72VL:12',
+    'BPL72VL:13',
+    'BPL72VL:14',
+    'BPL72VL:15',
+  ];
+  const resolutions = [1024, 512, 256, 128, 64, 32, 16, 8, 4, 2, 1, 0.5, 0.25, 0.125, 0.0625, 0.03125];
+  const origin: Coordinate = getTopLeft(mapProjection.getExtent());
+
+  return new Tile({
+    source: new WMTS({
+      url: '//www.mercator.vlaanderen.be/raadpleegdienstenmercatorgeocachepubliek/service/wmts/',
+      requestEncoding: 'KVP',
+      layer: layerId,
+      matrixSet: 'BPL72VL',
+      format: 'image/png',
+      projection: mapProjection,
+      style: 'default',
+      tileGrid: new WMTSTileGrid({ origin, resolutions, matrixIds }),
+      attributions:
+        '© <a href="https://overheid.vlaanderen.be/informatie-vlaanderen" target="_blank" title="Informatie Vlaanderen" ' +
+        'class="copyrightLink">Informatie Vlaanderen</a>',
+    }),
+    visible: false,
+    ...(layerId === 'overlay' && { maxResolution: 2000 }),
   });
 }
 

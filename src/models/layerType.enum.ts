@@ -6,4 +6,5 @@ export enum LayerType {
   DHMV = 'DHMV',
   OMWRGBMRVL = 'OMWRGBMRVL',
   OSM = 'OSM',
+  MWMTS = 'MWMTS',
 }
