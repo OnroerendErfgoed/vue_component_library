@@ -39,7 +39,7 @@ import { fromCircle } from 'ol/geom/Polygon';
 import { Group, Layer, Tile } from 'ol/layer';
 import { type ProjectionLike, get as getOlProj, transformExtent } from 'ol/proj';
 import { register } from 'ol/proj/proj4';
-import { TileWMS, WMTS } from 'ol/source';
+import { OSM, TileWMS, WMTS } from 'ol/source';
 import VectorSource from 'ol/source/Vector';
 import WMTSTileGrid from 'ol/tilegrid/WMTS';
 import proj4 from 'proj4';
@@ -233,6 +233,7 @@ function _createLayer(id: string, layerOptions: LayerOptions, isBaseLayer: boole
   else if (layerOptions.type === LayerType.GrbWMS) layer = _createGrbWMSLayer(layerOptions.wmsLayers);
   else if (layerOptions.type === LayerType.ErfgoedWms) layer = _createErfgoedWMSLayer(layerOptions.wmsLayers);
   else if (layerOptions.type === LayerType.Ngi) layer = _createNgiLayer(id);
+  else if (layerOptions.type === LayerType.OSM) layer = _createOSMLayer();
   else throw `unsupported layer type: ${layerOptions.type}`;
 
   layer.set('title', layerOptions.title);
@@ -324,6 +325,17 @@ function _createErfgoedWMSLayer(wmsLayers: string) {
     }),
     maxResolution: 2000,
     visible: false,
+  });
+}
+
+function _createOSMLayer() {
+  return new Tile({
+    source: new OSM({
+      url: '//tile.geofabrik.de/dccc92ba3f2a5a2c17189755134e6b1d/{z}/{x}/{y}.png',
+      attributions:
+        '<i class="fa fa-copyright"></i> <a href="http://www.openstreetmap.org/copyright" ' +
+        'class="copyrightLink">OpenStreetMap</a>',
+    }),
   });
 }
 

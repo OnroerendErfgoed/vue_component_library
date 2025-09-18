@@ -5,4 +5,5 @@ export enum LayerType {
   ErfgoedWms = 'ErfgoedWms',
   DHMV = 'DHMV',
   OMWRGBMRVL = 'OMWRGBMRVL',
+  OSM = 'OSM',
 }
