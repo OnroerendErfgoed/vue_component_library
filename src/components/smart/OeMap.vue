@@ -341,7 +341,6 @@ function _createOSMLayer() {
 }
 
 function _createMercatorWMTSLayer(layerId: string) {
-  console.log(layerId);
   const matrixIds = [
     'BPL72VL:0',
     'BPL72VL:1',
