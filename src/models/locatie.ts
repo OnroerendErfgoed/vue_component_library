@@ -19,10 +19,12 @@ export interface ILocatieAdres {
     niscode?: string;
     naam?: string;
   };
-  postcode: {
-    uri?: string;
-    nummer?: string;
-  };
+  postcode:
+    | {
+        uri?: string;
+        nummer?: string;
+      }
+    | undefined;
   straat: {
     id?: string;
     uri?: string;
