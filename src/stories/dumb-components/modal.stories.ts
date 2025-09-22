@@ -1,4 +1,4 @@
-import { VlButton } from '@govflanders/vl-ui-design-system-vue3';
+import { VlActionGroup, VlButton, VlModalToggle, VlTitle } from '@govflanders/vl-ui-design-system-vue3';
 import { ref } from 'vue';
 import OeModal from '@/components/dumb/OeModal.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -7,32 +7,25 @@ const meta: Meta<typeof OeModal> = {
   title: 'Dumb components/Modal',
   component: OeModal,
   tags: ['autodocs'],
-  args: {
-    modEnableScroll: true, // Enable background scroll to prevent storybook scroll lock
-  },
   parameters: {
     docs: {
+      story: {
+        inline: false,
+        iframeHeight: 350,
+      },
       description: {
-        component: 'A modal wrapper component around VlModal with enhanced functionality.',
+        component: `A modal wrapper component around VlModal with enhanced functionality.
+          \n\rAll props of VlModal are supported. (https://master--642e92e0cda6c627a0601f07.chromatic.com/?path=/docs/components-vl-modal--docs#parameters)
+          \n\rThe goal is to handle all open and close logic in a centralized way and to provide a consistent API for modals across the application.
+          \n\r**Usage notes:**
+          \n\r- Use the \`v-model:open\` directive to control the modal's visibility.
+          \n\r- The modal content is provided via the default slot. More named slots are available for header, content, and footer customization.
+          \n\r- The modal is focus-locked by default to enhance accessibility, preventing focus from leaving the modal when it's open.
+          \n\r- The modal can be made closable via X by setting the \`closable\` prop to true, which adds a close button to the upper right corner of the modal. By default, the modal can be closed by clicking outside or pressing the escape key when focused.
+          Both behaviors work in conjunction with the \`v-model:open\` directive.
+       `,
       },
     },
-  },
-  argTypes: {
-    open: { control: 'boolean' },
-    title: { control: 'text' },
-    closable: { control: 'boolean' },
-    modLarge: { control: 'boolean' },
-    modMedium: { control: 'boolean' },
-    modLocked: { control: 'boolean' },
-    modEnableScroll: { control: 'boolean' },
-    modRight: { control: 'boolean' },
-    modLeft: { control: 'boolean' },
-    modTop: { control: 'boolean' },
-    modBottom: { control: 'boolean' },
-    modDisableBackdrop: { control: 'boolean' },
-    modFocusOnClose: { control: 'boolean' },
-    role: { control: 'select', options: ['dialog', 'alert', 'alertdialog'] },
-    titleTagName: { control: 'select', options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] },
   },
 };
 
@@ -40,43 +33,31 @@ export default meta;
 type Story = StoryObj<typeof OeModal>;
 
 export const Default: Story = {
-  render: (args) => ({
+  render: () => ({
     components: { OeModal, VlButton },
     setup() {
-      const isOpen = ref(false);
+      const isOpen = ref(true);
       const openModal = () => {
         isOpen.value = true;
       };
-      const closeModal = (e) => {
-        console.log('Event details:', e);
+      const closeModal = () => {
         isOpen.value = false;
       };
 
-      return { isOpen, openModal, closeModal, args };
+      return { isOpen, openModal, closeModal };
     },
     template: `
-      <div style="min-height: 400px;"> <!-- Set a minimal height -->
         <VlButton @click="openModal">Open Modal</VlButton>
-        <OeModal
-          v-bind="args"
-          v-model:open="isOpen"
-          @update:open="closeModal"
-        >
+        <OeModal v-model:open="isOpen" title="Default Modal Title">
           <p>This is the default modal content. You can put any content here.</p>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </OeModal>
-      </div>
     `,
   }),
-  args: {
-    id: 'default-modal',
-    title: 'Default Modal',
-    closable: true,
-  },
 };
 
-export const Large: Story = {
-  render: (args) => ({
+export const Closable: Story = {
+  render: () => ({
     components: { OeModal, VlButton },
     setup() {
       const isOpen = ref(false);
@@ -87,32 +68,82 @@ export const Large: Story = {
         isOpen.value = false;
       };
 
-      return { isOpen, openModal, closeModal, args };
+      return { isOpen, openModal, closeModal };
     },
     template: `
-      <div style="min-height: 400px;"> <!-- Set a minimal height -->
-        <VlButton @click="openModal">Open Large Modal</VlButton>
-        <OeModal
-          v-bind="args"
-          v-model:open="isOpen"
-          @update:open="closeModal"
-        >
-          <p>This is a large modal with more space for content.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+        <VlButton @click="openModal">Open Closable Modal</VlButton>
+        <OeModal v-model:open="isOpen" title="Closable Modal Title" closable>
+          <p>This modal can be closed by clicking the close button, clicking outside the modal, or pressing the ESC key when focusing on the modal.</p>
         </OeModal>
-      </div>
     `,
   }),
-  args: {
-    id: 'large-modal',
-    title: 'Large Modal',
-    modLarge: true,
-    closable: true,
-  },
 };
 
-export const Medium: Story = {
-  render: (args) => ({
+export const CustomSlotContent: Story = {
+  render: () => ({
+    components: { OeModal, VlButton, VlTitle, VlActionGroup },
+    setup() {
+      const isOpen = ref(false);
+      const openModal = () => {
+        isOpen.value = true;
+      };
+      const closeModal = () => {
+        isOpen.value = false;
+      };
+
+      return { isOpen, openModal, closeModal };
+    },
+    template: `
+        <VlButton @click="openModal">Open Modal with Custom Content</VlButton>
+        <OeModal v-model:open="isOpen">
+          <template #modal-header>
+            <VlTitle tag-name="h2">Custom Modal Title</VlTitle>
+          </template>
+          <template #modal-content>
+            <p>This modal has custom content provided via slots.</p>
+            <ul>
+              <li>Point one</li>
+              <li>Point two</li>
+            </ul>
+          </template>
+          <template #modal-footer>
+            <VlActionGroup mod-align-center>
+              <VlButton @click="closeModal">Close</VlButton>
+            </VlActionGroup>
+          </template>
+        </OeModal>
+    `,
+  }),
+};
+
+export const ToggleDirective: Story = {
+  render: () => ({
+    directives: { VlModalToggle },
+    components: { OeModal, VlButton, VlActionGroup },
+    setup() {
+      const isOpen = ref(false);
+      const toggleModal = () => {
+        isOpen.value = !isOpen.value;
+      };
+
+      return { isOpen, toggleModal };
+    },
+    template: `
+        <VlButton v-vl-modal-toggle="'custom-modal'">Toggle Modal</VlButton>
+        <OeModal id="custom-modal" title="Toggle Modal Title">
+          <p>This modal is toggled using the modal toggle directive.</p>
+          <template #modal-footer>
+            <VlActionGroup mod-align-center>
+              <VlButton v-vl-modal-toggle="'custom-modal'">Close</VlButton>
+            </VlActionGroup>
+          </template>
+        </OeModal>
+    `,
+  }),
+};
+
+export const BackdropCloseDisabled: Story = {
+  render: () => ({
     components: { OeModal, VlButton },
     setup() {
       const isOpen = ref(false);
@@ -123,174 +154,17 @@ export const Medium: Story = {
         isOpen.value = false;
       };
 
-      return { isOpen, openModal, closeModal, args };
+      return { isOpen, openModal, closeModal };
     },
     template: `
-      <div style="min-height: 400px;"> <!-- Set a minimal height -->
-        <VlButton @click="openModal">Open Medium Modal</VlButton>
-        <OeModal
-          v-bind="args"
-          v-model:open="isOpen"
-          @update:open="closeModal"
-        >
-          <p>This is a medium-sized modal.</p>
-          <p>Perfect for forms or moderate amounts of content.</p>
+        <VlButton @click="openModal">Open Non-Closable Backdrop Modal</VlButton>
+        <OeModal v-model:open="isOpen" mod-disable-backdrop-close title="Non-Closable Backdrop Modal Title">
+          <p>This modal cannot be closed by clicking on the backdrop.</p>
+          <p>You can only close it using the close button or by pressing the ESC key when focusing on the modal.</p>
+          <template #modal-footer>
+            <VlButton @click="closeModal">Close</VlButton>
+          </template>
         </OeModal>
-      </div>
     `,
   }),
-  args: {
-    id: 'medium-modal',
-    title: 'Medium Modal',
-    modMedium: true,
-    closable: true,
-  },
-};
-
-export const RightAligned: Story = {
-  render: (args) => ({
-    components: { OeModal, VlButton },
-    setup() {
-      const isOpen = ref(false);
-      const openModal = () => {
-        isOpen.value = true;
-      };
-      const closeModal = () => {
-        isOpen.value = false;
-      };
-
-      return { isOpen, openModal, closeModal, args };
-    },
-    template: `
-      <div style="min-height: 400px;"> <!-- Set a minimal height -->
-        <VlButton @click="openModal">Open Right-aligned Modal</VlButton>
-        <OeModal
-          v-bind="args"
-          v-model:open="isOpen"
-          @update:open="closeModal"
-        >
-          <p>This modal appears on the right side of the screen.</p>
-          <p>Useful for sidebars or navigation panels.</p>
-        </OeModal>
-      </div>
-    `,
-  }),
-  args: {
-    id: 'right-modal',
-    title: 'Right-aligned Modal',
-    modRight: true,
-    closable: true,
-  },
-};
-
-export const NotClosable: Story = {
-  render: (args) => ({
-    components: { OeModal, VlButton },
-    setup() {
-      const isOpen = ref(false);
-      const openModal = () => {
-        isOpen.value = true;
-      };
-      const closeModal = () => {
-        isOpen.value = false;
-      };
-
-      return { isOpen, openModal, closeModal, args };
-    },
-    template: `
-      <div style="min-height: 400px;"> <!-- Set a minimal height -->
-        <VlButton @click="openModal">Open Non-closable Modal</VlButton>
-        <OeModal
-          v-bind="args"
-          v-model:open="isOpen"
-          @update:open="closeModal"
-        >
-          <p>This modal cannot be closed with the X button.</p>
-          <p>You must use the button below to close it.</p>
-          <VlButton @click="closeModal">Close Modal</VlButton>
-        </OeModal>
-      </div>
-    `,
-  }),
-  args: {
-    id: 'not-closable-modal',
-    title: 'Non-closable Modal',
-    closable: false,
-  },
-};
-
-export const WithScrollableContent: Story = {
-  render: (args) => ({
-    components: { OeModal, VlButton },
-    setup() {
-      const isOpen = ref(false);
-      const openModal = () => {
-        isOpen.value = true;
-      };
-      const closeModal = () => {
-        isOpen.value = false;
-      };
-
-      return { isOpen, openModal, closeModal, args };
-    },
-    template: `
-      <div style="min-height: 400px;"> <!-- Set a minimal height -->
-        <VlButton @click="openModal">Open Modal with Scrollable Content</VlButton>
-        <OeModal
-          v-bind="args"
-          v-model:open="isOpen"
-          @update:open="closeModal"
-        >
-          <p>This modal has a lot of content that requires scrolling.</p>
-          <p v-for="i in 20" :key="i">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Paragraph {{ i }}.</p>
-        </OeModal>
-      </div>
-    `,
-  }),
-  args: {
-    id: 'scrollable-modal',
-    title: 'Modal with Scrollable Content',
-    closable: true,
-    modEnableScroll: true,
-  },
-};
-
-export const AlertDialog: Story = {
-  render: (args) => ({
-    components: { OeModal, VlButton },
-    setup() {
-      const isOpen = ref(false);
-      const openModal = () => {
-        isOpen.value = true;
-      };
-      const closeModal = () => {
-        isOpen.value = false;
-      };
-
-      return { isOpen, openModal, closeModal, args };
-    },
-    template: `
-      <div style="min-height: 400px;"> <!-- Set a minimal height -->
-        <VlButton @click="openModal">Open Alert Dialog</VlButton>
-        <OeModal
-          v-bind="args"
-          v-model:open="isOpen"
-          @update:open="closeModal"
-        >
-          <p><strong>Warning:</strong> This action cannot be undone.</p>
-          <p>Are you sure you want to continue?</p>
-          <div style="margin-top: 1rem;">
-            <VlButton @click="closeModal" style="margin-right: 0.5rem;">Cancel</VlButton>
-            <VlButton @click="closeModal" variant="danger">Delete</VlButton>
-          </div>
-        </OeModal>
-      </div>
-    `,
-  }),
-  args: {
-    id: 'alert-dialog',
-    title: 'Confirm Delete',
-    role: 'alertdialog',
-    closable: true,
-  },
 };

@@ -26,6 +26,7 @@ import OeTinyMce from './OeTinyMCE.vue';
 import OeToaster from './OeToaster.vue';
 import OeWizard from './OeWizard.vue';
 import SystemFields from './SystemFields.vue';
+import OeModal from '@/components/dumb/OeModal.vue';
 
 export {
   ClipboardCopy,
@@ -48,12 +49,13 @@ export {
   OeHeader,
   OeInventarisLoadedLink,
   OeLoader,
+  OeModal,
   OeModalConfirmCancelChanges,
+  OeNumberInput,
   OeSelect,
+  OeSideNavigation,
   OeTinyMce,
   OeToaster,
   OeWizard,
   SystemFields,
-  OeNumberInput,
-  OeSideNavigation,
 };
