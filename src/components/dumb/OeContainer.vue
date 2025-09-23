@@ -2,7 +2,7 @@
   <div class="oe-container">
     <OeModalConfirmCancelChanges
       v-if="!props.disableConfirmCloseTab"
-      :open="confirmCancelChangesOpen"
+      v-model:open="confirmCancelChangesOpen"
       @close="confirmCancelChangesOpen = false"
       @confirm="closeTab(confirmTab as ITab, true)"
     />
