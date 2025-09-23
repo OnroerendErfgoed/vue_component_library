@@ -117,10 +117,10 @@ export const CustomConfig: Story = {
       gewest: { required: true },
       provincie: { required: false },
       gemeente: { required: true },
-      postcode: { required: false },
+      postcode: { required: false, hidden: true },
       straat: { required: false },
       huisnummer: { required: false },
-      busnummer: { required: false },
+      busnummer: { required: false, hidden: true },
     },
   },
 };
