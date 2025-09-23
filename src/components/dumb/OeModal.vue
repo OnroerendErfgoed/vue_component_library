@@ -46,11 +46,11 @@ const props = withDefaults(defineProps<OeModalProps>(), {
   modDisableBackdropClose: false,
 });
 
-function handleBackdropClick() {
+const handleBackdropClick = () => {
   if (!props.modDisableBackdropClose) {
     open.value = false;
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

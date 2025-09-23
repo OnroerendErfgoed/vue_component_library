@@ -23,24 +23,6 @@ describe('OeModal', () => {
       cy.get('.vl-modal-dialog').should('have.attr', 'aria-labelledby', `${testId}-label`);
       cy.get('.vl-modal-dialog').should('have.attr', 'aria-describedby', `${testId}-description`);
     });
-
-    // it('applies modLocked prop correctly', () => {
-    //   cy.mount({
-    //     components: { OeModal },
-    //     setup() {
-    //       const open = ref(true);
-    //       return { open };
-    //     },
-    //     template: `
-    //     <OeModal v-model:open="open" title="Locked Modal" :mod-locked="true">
-    //       <p>Locked modal content</p>
-    //     </OeModal>
-    //   `,
-    //   });
-
-    //   cy.get('.oe-modal-wrapper').should('be.visible');
-    //   cy.get('.vl-modal-dialog').should('have.class', 'vl-modal-dialog--locked');
-    // });
   });
 
   describe('Rendering and basic functionality', () => {
@@ -130,6 +112,24 @@ describe('OeModal', () => {
 
       cy.get('.oe-modal-wrapper').should('be.visible');
       cy.get('.vl-modal-dialog__close').should('not.exist');
+    });
+
+    it('does not render the vl modal backdrop when modDisableBackdropClose is true', () => {
+      cy.mount({
+        components: { OeModal },
+        setup() {
+          const open = ref(true);
+          return { open };
+        },
+        template: `
+        <OeModal v-model:open="open" title="No Backdrop Modal" mod-disable-backdrop-close>
+          <p>No backdrop content</p>
+        </OeModal>
+      `,
+      });
+      cy.get('.oe-modal-wrapper').should('be.visible');
+      cy.get('.vl-modal-backdrop').should('not.exist');
+      cy.get('.oe-modal-backdrop').should('exist');
     });
   });
 
@@ -240,6 +240,45 @@ describe('OeModal', () => {
       cy.get('.oe-modal-wrapper').should('be.visible');
       cy.dataCy('toggle-close-btn').click();
       cy.get('.oe-modal-wrapper').should('not.be.visible');
+    });
+
+    it('prevents closing with Escape when modLocked is false', () => {
+      cy.mount({
+        components: { OeModal, VlButton },
+        setup() {
+          const open = ref(true);
+          return { open };
+        },
+        template: `
+      <OeModal v-model:open="open" title="Locked Modal" :mod-locked="false">
+        <p>Locked modal content</p>
+        <VlButton data-cy="close-btn" @click="open = false">Close</VlButton>
+      </OeModal>
+    `,
+      });
+
+      cy.get('.oe-modal-wrapper').should('be.visible');
+      cy.get('body').type('{esc}');
+      cy.get('.oe-modal-wrapper').should('be.visible'); // Modal should remain open
+    });
+
+    it('allows closing with Escape when modLocked is true (default)', () => {
+      cy.mount({
+        components: { OeModal, VlButton },
+        setup() {
+          const open = ref(true);
+          return { open };
+        },
+        template: `
+      <OeModal v-model:open="open" title="Unlocked Modal">
+        <p>Unlocked modal content</p>
+        <VlButton data-cy="close-btn" @click="open = false">Close</VlButton>
+      </OeModal>
+    `,
+      });
+      cy.get('.oe-modal-wrapper').should('be.visible');
+      cy.get('body').type('{esc}');
+      cy.get('.oe-modal-wrapper').should('not.be.visible'); // Modal should close
     });
   });
 });
