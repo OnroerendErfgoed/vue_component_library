@@ -14,6 +14,10 @@ const meta: Meta<typeof OeActorWidget> = {
       description: {
         component: `Modal to find and select an actor.`,
       },
+      story: {
+        inline: false,
+        iframeHeight: 800,
+      },
     },
   },
   tags: ['autodocs'],
