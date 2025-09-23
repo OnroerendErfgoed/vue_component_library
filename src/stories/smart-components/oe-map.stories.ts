@@ -1,5 +1,6 @@
 import '@/scss/main.scss';
 import { OeMap } from '@components/smart';
+import { defaultLayerConfig } from '@models/oe-map-config';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const api = 'https://test-geo.onroerenderfgoed.be/';
@@ -262,12 +263,15 @@ export const ShowZone: Story = {
   }),
 };
 
-export const AllControls: Story = {
+export const AllControlsAndLayers: Story = {
   render: () => ({
     components: { OeMap },
     setup() {
+      Object.keys(defaultLayerConfig.baseLayers).forEach((l) => (defaultLayerConfig.baseLayers[l].hidden = false));
+      Object.keys(defaultLayerConfig.overlays).forEach((l) => (defaultLayerConfig.overlays[l].hidden = false));
       return {
         api,
+        layerConfig: defaultLayerConfig,
         controlConfig: {
           fullscreen: true,
           zoomInOut: true,
