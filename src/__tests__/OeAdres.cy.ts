@@ -204,6 +204,8 @@ describe('Adres', () => {
 
         // Gemeente selection
         cy.wait('@dataGetGemeentenVlaamsGewest');
+        cy.wait('@dataGetGemeentenBrusselsHoofdstedelijkGewest');
+        cy.wait('@dataGetGemeentenWaalsGewest');
         getMultiSelect('gemeente').click();
         getMultiSelect('gemeente').find('.multiselect__input').type('br');
 
@@ -246,6 +248,8 @@ describe('Adres', () => {
 
         // Gemeente selection
         cy.wait('@dataGetGemeentenVlaamsGewest');
+        cy.wait('@dataGetGemeentenBrusselsHoofdstedelijkGewest');
+        cy.wait('@dataGetGemeentenWaalsGewest');
         setMultiSelectValue('gemeente', 'Lummen');
         setMultiSelectValue('postcode', '3560');
 
@@ -898,7 +902,7 @@ describe('Adres', () => {
     });
 
     it('does not render the land entry', () => {
-      getLabel('land').should('not.exist');
+      cy.dataCy(`label-land`).should('not.exist');
       getMultiSelect('land').should('not.exist');
 
       getMultiSelect('gemeente').should('exist');
@@ -1023,10 +1027,89 @@ describe('Adres', () => {
       });
     });
   });
+
+  describe('form - postcode & busnummer', () => {
+    const config: IAdresConfig = {
+      gewest: {
+        required: true,
+        hidden: true,
+      },
+      provincie: {
+        required: true,
+        hidden: true,
+      },
+      gemeente: {
+        required: false,
+      },
+      postcode: {
+        required: false,
+        hidden: true,
+      },
+      straat: {
+        required: false,
+      },
+      huisnummer: {
+        required: false,
+      },
+      busnummer: {
+        required: false,
+        hidden: true,
+      },
+    };
+
+    it('the postcode and busnummer are undefined', () => {
+      mount(TestComponent, {
+        data: () => ({
+          adres: {},
+        }),
+        setup() {
+          const c = config;
+
+          return { c };
+        },
+        template: '<OeAdres v-model:adres="adres" :config="c" country-id="BE" />',
+      }).then(({ component }) => {
+        getMultiSelect('gemeente').click();
+        getMultiSelect('gemeente').find('.multiselect__input').type('Lummen');
+        getMultiSelect('gemeente')
+          .find('.multiselect__element')
+          .click()
+          .then(() => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            expect((component.$data as any).adres).to.deep.equal({
+              land: { code: 'BE', naam: undefined },
+              gewest: undefined,
+              provincie: undefined,
+              gemeente: {
+                naam: 'Lummen',
+                niscode: '71037',
+              },
+              postcode: undefined,
+              straat: {},
+              adres: {},
+            });
+          });
+      });
+    });
+
+    it('the postcode and busnummer fields are hidden', () => {
+      mount(TestComponent, {
+        setup() {
+          const c = config;
+
+          return { c };
+        },
+        template: '<OeAdres :config="c" country-id="BE" />',
+      }).then(() => {
+        getMultiSelect('postcode').should('not.exist');
+        getAutocompleteRootElement('busnummer').should('not.exist');
+      });
+    });
+  });
 });
 
-const getLabel = (field: string) => cy.dataCy(`label-${field}`);
-const getLabelAnnotation = (field: string) => cy.dataCy(`label-${field}`).next();
+const getLabel = (field: string) => cy.dataCy(`label-${field}`).find('span');
+const getLabelAnnotation = (field: string) => cy.dataCy(`label-${field}`).children().last();
 const getMultiSelect = (field: string) => cy.dataCy(`select-${field}`);
 const getAutocompleteRootElement = (field: string) => cy.dataCy(`autocomplete-${field}`);
 const getAutocompleteInput = (field: string) => getAutocompleteRootElement(field).children().first();

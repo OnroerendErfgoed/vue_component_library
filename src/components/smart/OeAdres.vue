@@ -12,10 +12,12 @@
         <!-- Land -->
         <template v-if="!props.countryId">
           <VlFormColumn width="3" width-s="12">
-            <VlFormMessageLabel data-cy="label-land">Land</VlFormMessageLabel>
-            <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.land?.required"
-              >VERPLICHT</VlFormMessageAnnotation
-            >
+            <VlFormMessageLabel :class="{ 'vl-properties__label': adminMode }" data-cy="label-land">
+              <span>Land</span>
+              <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.land?.required"
+                >VERPLICHT</VlFormMessageAnnotation
+              >
+            </VlFormMessageLabel>
           </VlFormColumn>
           <VlFormColumn width="9" width-s="12">
             <VlSelect
@@ -40,10 +42,12 @@
         <!-- Gewest -->
         <template v-if="isBelgiumOrEmpty && !$props.config?.gewest?.hidden">
           <VlFormColumn width="3" width-s="12">
-            <VlFormMessageLabel data-cy="label-gewest">Gewest</VlFormMessageLabel>
-            <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.gewest?.required"
-              >VERPLICHT</VlFormMessageAnnotation
-            >
+            <VlFormMessageLabel :class="{ 'vl-properties__label': adminMode }" data-cy="label-gewest">
+              <span>Gewest</span>
+              <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.gewest?.required"
+                >VERPLICHT</VlFormMessageAnnotation
+              >
+            </VlFormMessageLabel>
           </VlFormColumn>
           <VlFormColumn width="9" width-s="12">
             <VlMultiselect
@@ -75,10 +79,12 @@
         <!-- Provincie -->
         <template v-if="isBelgiumOrEmpty && !$props.config?.provincie?.hidden">
           <VlFormColumn width="3" width-s="12">
-            <VlFormMessageLabel data-cy="label-provincie">Provincie</VlFormMessageLabel>
-            <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.provincie?.required"
-              >VERPLICHT</VlFormMessageAnnotation
-            >
+            <VlFormMessageLabel :class="{ 'vl-properties__label': adminMode }" data-cy="label-provincie">
+              <span>Provincie</span>
+              <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.provincie?.required"
+                >VERPLICHT</VlFormMessageAnnotation
+              >
+            </VlFormMessageLabel>
           </VlFormColumn>
           <VlFormColumn width="9" width-s="12">
             <VlMultiselect
@@ -109,10 +115,12 @@
 
         <!-- Gemeente -->
         <VlFormColumn width="3" width-s="12">
-          <VlFormMessageLabel data-cy="label-gemeente">Gemeente</VlFormMessageLabel>
-          <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.gemeente?.required"
-            >VERPLICHT</VlFormMessageAnnotation
-          >
+          <VlFormMessageLabel :class="{ 'vl-properties__label': adminMode }" data-cy="label-gemeente">
+            <span>Gemeente</span>
+            <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.gemeente?.required"
+              >VERPLICHT</VlFormMessageAnnotation
+            >
+          </VlFormMessageLabel>
         </VlFormColumn>
         <VlFormColumn width="9" width-s="12">
           <VlMultiselect
@@ -153,70 +161,76 @@
         </VlFormColumn>
 
         <!-- Postcode -->
-        <VlFormColumn width="3" width-s="12">
-          <VlFormMessageLabel data-cy="label-postcode">Postcode</VlFormMessageLabel>
-          <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.postcode?.required"
-            >VERPLICHT</VlFormMessageAnnotation
-          >
-        </VlFormColumn>
-        <VlFormColumn width="9" width-s="12">
-          <VlMultiselect
-            v-if="isBelgiumOrEmpty && !postcodeFreeText"
-            v-model="postcode"
-            placeholder="Postcode"
-            data-cy="select-postcode"
-            :custom-label="customPostcodeLabel"
-            :disabled="!gemeente || props.modDisabled"
-            :mod-error="!!v$.postcode.nummer.$errors.length"
-            :mod-multiple="false"
-            :options="postinfo"
-            :options-limit="optionsLimit"
-            :preserve-search="true"
-            @keydown.tab="!postcode ? $event.preventDefault() : null"
-          >
-            <template #noResult>
-              <span>Geen resultaten gevonden...</span>
-            </template>
-            <template #noOptions>
-              <span>Geen opties beschikbaar</span>
-            </template>
-          </VlMultiselect>
+        <template v-if="!$props.config?.postcode?.hidden">
+          <VlFormColumn width="3" width-s="12">
+            <VlFormMessageLabel :class="{ 'vl-properties__label': adminMode }" data-cy="label-postcode">
+              <span>Postcode</span>
+              <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.postcode?.required"
+                >VERPLICHT</VlFormMessageAnnotation
+              >
+            </VlFormMessageLabel>
+          </VlFormColumn>
+          <VlFormColumn width="9" width-s="12">
+            <VlMultiselect
+              v-if="isBelgiumOrEmpty && !postcodeFreeText"
+              v-model="postcode"
+              placeholder="Postcode"
+              data-cy="select-postcode"
+              :custom-label="customPostcodeLabel"
+              :disabled="!gemeente || props.modDisabled"
+              :mod-error="!!v$.postcode.nummer.$errors.length"
+              :mod-multiple="false"
+              :options="postinfo"
+              :options-limit="optionsLimit"
+              :preserve-search="true"
+              @keydown.tab="!postcode ? $event.preventDefault() : null"
+            >
+              <template #noResult>
+                <span>Geen resultaten gevonden...</span>
+              </template>
+              <template #noOptions>
+                <span>Geen opties beschikbaar</span>
+              </template>
+            </VlMultiselect>
 
-          <VlInputField
-            v-else
-            v-model="postcode"
-            data-cy="input-postcode"
-            :mod-error="!!v$.postcode.nummer.$errors.length"
-            :mod-disabled="props.modDisabled"
-            mod-block
-            placeholder="Postcode"
-          ></VlInputField>
+            <VlInputField
+              v-else
+              v-model="postcode"
+              data-cy="input-postcode"
+              :mod-error="!!v$.postcode.nummer.$errors.length"
+              :mod-disabled="props.modDisabled"
+              mod-block
+              placeholder="Postcode"
+            ></VlInputField>
 
-          <button
-            v-if="isBelgium && gemeenten.length && !isVlaamseGemeenteOrEmpty"
-            data-cy="action-postcode-not-found"
-            class="vl-link"
-            @click="postcodeFreeText = !postcodeFreeText"
-          >
-            <span v-if="!postcodeFreeText">Een postcode invullen die niet tussen de suggesties staat?</span>
-            <span v-else>Toon lijst met suggesties</span>
-          </button>
+            <button
+              v-if="isBelgium && gemeenten.length && !isVlaamseGemeenteOrEmpty"
+              data-cy="action-postcode-not-found"
+              class="vl-link"
+              @click="postcodeFreeText = !postcodeFreeText"
+            >
+              <span v-if="!postcodeFreeText">Een postcode invullen die niet tussen de suggesties staat?</span>
+              <span v-else>Toon lijst met suggesties</span>
+            </button>
 
-          <VlFormMessageError
-            v-for="error of v$.postcode.nummer.$errors"
-            :key="error.$uid"
-            data-cy="form-error-postcode"
-          >
-            {{ error.$message }}
-          </VlFormMessageError>
-        </VlFormColumn>
+            <VlFormMessageError
+              v-for="error of v$.postcode.nummer.$errors"
+              :key="error.$uid"
+              data-cy="form-error-postcode"
+            >
+              {{ error.$message }}
+            </VlFormMessageError>
+          </VlFormColumn>
+        </template>
 
         <!-- Straat -->
         <VlFormColumn width="3" width-s="12">
-          <VlFormMessageLabel data-cy="label-straat">Straat</VlFormMessageLabel>
-          <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.straat?.required"
-            >VERPLICHT</VlFormMessageAnnotation
-          >
+          <VlFormMessageLabel :class="{ 'vl-properties__label': adminMode }" data-cy="label-straat">
+            <span>Straat</span>
+            <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.straat?.required"
+              >VERPLICHT</VlFormMessageAnnotation
+            >
+          </VlFormMessageLabel>
         </VlFormColumn>
         <VlFormColumn width="9" width-s="12">
           <VlMultiselect
@@ -268,10 +282,12 @@
 
         <!-- Huisnummer -->
         <VlFormColumn width="3" width-s="12">
-          <VlFormMessageLabel data-cy="label-huisnummer">Huisnummer</VlFormMessageLabel>
-          <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.huisnummer?.required"
-            >VERPLICHT</VlFormMessageAnnotation
-          >
+          <VlFormMessageLabel :class="{ 'vl-properties__label': adminMode }" data-cy="label-huisnummer">
+            <span>Huisnummer</span>
+            <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.huisnummer?.required"
+              >VERPLICHT</VlFormMessageAnnotation
+            >
+          </VlFormMessageLabel>
         </VlFormColumn>
         <VlFormColumn width="9" width-s="12">
           <OeAutocomplete
@@ -318,45 +334,49 @@
         </VlFormColumn>
 
         <!-- Busnummer -->
-        <VlFormColumn width="3" width-s="12">
-          <VlFormMessageLabel data-cy="label-busnummer">Busnummer</VlFormMessageLabel>
-          <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.busnummer?.required"
-            >VERPLICHT</VlFormMessageAnnotation
-          >
-        </VlFormColumn>
-        <VlFormColumn width="9" width-s="12">
-          <OeAutocomplete
-            v-if="isBelgiumOrEmpty && !huisnummerFreeText && !busnummerFreeText"
-            data-cy="autocomplete-busnummer"
-            allow-free-text
-            autoselect
-            :mod-error="!!v$.adres.busnummer.$errors.length"
-            :min-chars="1"
-            :mod-disabled="!huisnummer || props.modDisabled"
-            :value="busnummerAutocompleteOption"
-            :callback-fn="performAutocompleteSearchBusnummers"
-            placeholder="Busnummer"
-            @update:value="updateBusnummer"
-          ></OeAutocomplete>
+        <template v-if="!$props.config?.busnummer?.hidden">
+          <VlFormColumn width="3" width-s="12">
+            <VlFormMessageLabel :class="{ 'vl-properties__label': adminMode }" data-cy="label-busnummer">
+              <span>Busnummer</span>
+              <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.busnummer?.required"
+                >VERPLICHT</VlFormMessageAnnotation
+              >
+            </VlFormMessageLabel>
+          </VlFormColumn>
+          <VlFormColumn width="9" width-s="12">
+            <OeAutocomplete
+              v-if="isBelgiumOrEmpty && !huisnummerFreeText && !busnummerFreeText"
+              data-cy="autocomplete-busnummer"
+              allow-free-text
+              autoselect
+              :mod-error="!!v$.adres.busnummer.$errors.length"
+              :min-chars="1"
+              :mod-disabled="!huisnummer || props.modDisabled"
+              :value="busnummerAutocompleteOption"
+              :callback-fn="performAutocompleteSearchBusnummers"
+              placeholder="Busnummer"
+              @update:value="updateBusnummer"
+            ></OeAutocomplete>
 
-          <VlInputField
-            v-else-if="typeof busnummer === 'string' || !busnummer"
-            v-model="busnummer"
-            data-cy="input-busnummer"
-            mod-block
-            placeholder="Busnummer"
-            :mod-disabled="!huisnummer || props.modDisabled"
-            :mod-error="!!v$.adres.busnummer.$errors.length"
-          ></VlInputField>
+            <VlInputField
+              v-else-if="typeof busnummer === 'string' || !busnummer"
+              v-model="busnummer"
+              data-cy="input-busnummer"
+              mod-block
+              placeholder="Busnummer"
+              :mod-disabled="!huisnummer || props.modDisabled"
+              :mod-error="!!v$.adres.busnummer.$errors.length"
+            ></VlInputField>
 
-          <VlFormMessageError
-            v-for="error of v$.adres.busnummer.$errors"
-            :key="error.$uid"
-            data-cy="form-error-busnummer"
-          >
-            {{ error.$message }}
-          </VlFormMessageError>
-        </VlFormColumn>
+            <VlFormMessageError
+              v-for="error of v$.adres.busnummer.$errors"
+              :key="error.$uid"
+              data-cy="form-error-busnummer"
+            >
+              {{ error.$message }}
+            </VlFormMessageError>
+          </VlFormColumn>
+        </template>
       </VlFormGrid>
     </VlFormStructure>
   </div>
@@ -412,6 +432,7 @@ const props = withDefaults(defineProps<IAdresProps>(), {
   countryId: undefined,
   adres: undefined,
   optionsLimit: 5000,
+  adminMode: false,
 });
 
 const emit = defineEmits(['update:adres']);
@@ -560,7 +581,7 @@ const adres = computed<ILocatieAdres>(() => {
     gewest: isBelgiumOrEmpty.value && !props.config.gewest?.hidden ? gewestValue : undefined,
     provincie: isBelgiumOrEmpty.value && !props.config.provincie?.hidden ? provincieValue : undefined,
     gemeente: gemeenteValue,
-    postcode: postcodeValue,
+    postcode: !props.config.postcode?.hidden ? postcodeValue : undefined,
     straat: straatValue,
     adres: adresValue,
   };
@@ -588,7 +609,10 @@ const rules = computed(() => ({
   },
   postcode: {
     nummer: {
-      requiredIf: helpers.withParams({ field: 'postcode' }, requiredIf(!!props.config.postcode?.required)),
+      requiredIf: helpers.withParams(
+        { field: 'postcode' },
+        requiredIf(!!props.config.postcode?.required && !props.config.postcode?.hidden)
+      ),
     },
   },
   straat: {
@@ -601,7 +625,10 @@ const rules = computed(() => ({
       requiredIf: helpers.withParams({ field: 'huisnummer' }, requiredIf(!!props.config.huisnummer?.required)),
     },
     busnummer: {
-      requiredIf: helpers.withParams({ field: 'busnummer' }, requiredIf(!!props.config.busnummer?.required)),
+      requiredIf: helpers.withParams(
+        { field: 'busnummer' },
+        requiredIf(!!props.config.busnummer?.required && !props.config.busnummer?.hidden)
+      ),
     },
   },
 }));
@@ -782,7 +809,9 @@ watch(gemeente, async (selectedGemeente, oldValue) => {
     resetFreeTextState();
 
     try {
-      postinfo.value = await crabApiService.getPostinfo((selectedGemeente as IGemeente).naam);
+      postinfo.value = !props.config.postcode?.hidden
+        ? await crabApiService.getPostinfo((selectedGemeente as IGemeente).naam)
+        : [];
       straten.value = sortBy(await crabApiService.getStraten((selectedGemeente as IGemeente).niscode), 'naam');
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
@@ -845,7 +874,13 @@ watch(huisnummer, async (selectedHuisnummer, oldValue) => {
     busnummer.value = undefined;
   }
 
-  if (adres.value.straat?.id && isBelgiumOrEmpty.value && selectedHuisnummer && !huisnummerFreeText.value) {
+  if (
+    adres.value.straat?.id &&
+    isBelgiumOrEmpty.value &&
+    selectedHuisnummer &&
+    !huisnummerFreeText.value &&
+    !props.config.busnummer?.hidden
+  ) {
     busnummers.value = sortBy(
       await crabApiService.getAdressen(adres.value.straat.id as string, (selectedHuisnummer as IAdres).huisnummer),
       'busnummer'
@@ -908,6 +943,12 @@ const updateBusnummer = (value: IAutocompleteOption<IAdres>) => (busnummer.value
     margin-left: auto;
     cursor: pointer;
     display: block;
+  }
+
+  :deep(.vl-properties__label) {
+    font-weight: 400;
+    line-height: inherit;
+    margin-bottom: 0;
   }
 }
 </style>

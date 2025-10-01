@@ -57,6 +57,14 @@ export interface OMWRGBMRVLOptions extends BaseLayerOptions {
   type: LayerType.OMWRGBMRVL;
 }
 
+export interface OSMLayerOptions extends BaseLayerOptions {
+  type: LayerType.OSM;
+}
+
+export interface MWMTSLayerOptions extends BaseLayerOptions {
+  type: LayerType.MWMTS;
+}
+
 export type GrbLayerOptions = GrbOrNgiLayerOptions;
 export type NgiLayerOptions = GrbOrNgiLayerOptions;
 
@@ -66,7 +74,9 @@ export type LayerOptions =
   | GrbWmsLayerOptions
   | ErfgoedWmsLayerOptions
   | DHMVLayerOptions
-  | OMWRGBMRVLOptions;
+  | OMWRGBMRVLOptions
+  | OSMLayerOptions
+  | MWMTSLayerOptions;
 
 export interface LayerConfig {
   baseLayers: { [layerId: string]: LayerOptions };
@@ -82,6 +92,8 @@ export const defaultLayerConfig: LayerConfig = {
     topo: { type: LayerType.Ngi, title: 'Topokaart', visible: false },
     DHMV_II_HILL_25cm: { type: LayerType.DHMV, title: 'Hillshade 25cm', visible: false },
     DHMV_II_SVF_25cm: { type: LayerType.DHMV, title: 'Skyview 25cm', visible: false },
+    osm: { type: LayerType.OSM, title: 'Open StreetMap', visible: false, hidden: true },
+    'lu:lu_gwp_rv_raster': { type: LayerType.MWMTS, title: 'Gewestplan', visible: false, hidden: true },
   },
   overlays: {
     overlay: { type: LayerType.Ngi, title: 'Topokaart overlay' },

@@ -17,6 +17,10 @@ const meta: Meta<typeof OeContainer> = {
         component:
           'The container is a white flexbox element on a page. It will take the height of its content and will become scrollable when overflowing.\n\n',
       },
+      story: {
+        inline: false,
+        iframeHeight: 400,
+      },
     },
     backgrounds: {
       default: 'gray',

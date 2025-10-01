@@ -1,6 +1,6 @@
 <template>
-  <vl-modal :id="props.id" mod-large :mod-locked="false" title="Actor toevoegen" class="actor-widget">
-    <oe-loader v-if="loading"></oe-loader>
+  <OeModal :id="props.id" mod-large :mod-locked="false" title="Actor toevoegen" class="actor-widget">
+    <OeLoader v-if="loading" />
     <template #modal-content>
       <grid
         v-show="state === ActorWidgetState.Grid"
@@ -20,29 +20,30 @@
         data-cy="actor-widget-detail"
         @set-state-grid="state = ActorWidgetState.Grid"
       ></detail>
-      <slot name="dropdown"></slot>
+      <slot name="dropdown" />
     </template>
     <template #modal-footer>
-      <vl-action-group mod-align-center>
-        <vl-button
+      <VlActionGroup mod-align-center>
+        <VlButton
           data-cy="actor-widget-add-btn"
           mod-primary
           :mod-disabled="!selectedActor || props.disableAddButton"
           @click="addActor()"
         >
           Toevoegen
-        </vl-button>
-        <vl-button mod-secondary @click="close()">Sluiten</vl-button>
-      </vl-action-group>
+        </VlButton>
+        <VlButton mod-secondary @click="close()">Sluiten</VlButton>
+      </VlActionGroup>
     </template>
-  </vl-modal>
+  </OeModal>
 </template>
 
 <script setup lang="ts">
-import { VlActionGroup, VlButton, VlModal } from '@govflanders/vl-ui-design-system-vue3';
+import { VlActionGroup, VlButton } from '@govflanders/vl-ui-design-system-vue3';
 import { ref, useTemplateRef } from 'vue';
 import Detail from '@components/dumb/OeActorWidgetDetail.vue';
 import OeLoader from '@components/dumb/OeLoader.vue';
+import OeModal from '@components/dumb/OeModal.vue';
 import Grid from '@components/smart/OeActorWidgetGrid.vue';
 import { ActorService } from '@services/actor.service';
 import type { ActorType, IActor } from '@models/actor';
