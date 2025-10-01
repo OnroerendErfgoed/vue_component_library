@@ -511,6 +511,57 @@ describe('Adres', () => {
       getTextInput('busnummer').should('have.value', '');
     });
 
+    it('fills in the predefined values - case 5 - gewest and provincie narrow other options', () => {
+      mount(TestComponent, {
+        data: () => ({
+          adres: {
+            land: {
+              code: 'BE',
+              naam: 'België',
+            },
+            adres: {},
+            straat: {
+              id: '32284',
+              uri: 'https://data.vlaanderen.be/id/straatnaam/32284',
+              naam: 'Krijkelberg',
+            },
+            gemeente: {
+              naam: 'Bierbeek',
+              niscode: '24011',
+            },
+            postcode: {
+              uri: 'https://data.vlaanderen.be/id/postinfo/3360',
+              nummer: '3360',
+            },
+            gewest: { naam: 'Vlaams Gewest', niscode: '2000' },
+            provincie: {
+              naam: 'Vlaams-Brabant',
+              niscode: '20001',
+            },
+          },
+          config: {
+            land: { required: true },
+            gewest: { required: true },
+            provincie: { required: false },
+            gemeente: { required: false },
+            postcode: { required: false },
+            straat: { required: false },
+            huisnummer: { required: false },
+            busnummer: { required: false },
+          },
+        }),
+        template: '<OeAdres v-model:adres="adres" :config="config" />',
+      });
+
+      cy.wait('@dataGetGemeentenVlaamsGewest');
+
+      getMultiSelect('land').find(':selected').should('have.text', 'België');
+      getMultiSelect('gewest').find('.multiselect__single').should('have.text', 'Vlaams Gewest');
+      getMultiSelect('provincie').find('.multiselect__single').should('have.text', 'Vlaams-Brabant');
+      getMultiSelect('provincie').find('.multiselect__element').should('have.length', 5);
+      getMultiSelect('gemeente').find('.multiselect__element').should('have.length', 67);
+    });
+
     it('updates the model binding on value change', () => {
       mount(TestComponent, {
         data: () => ({

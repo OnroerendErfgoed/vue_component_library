@@ -136,38 +136,37 @@ export const TwoWayBinding: Story = {
     adres: {
       land: {
         code: 'BE',
-        naam: 'België',
       },
-      gemeente: {
-        naam: 'Bertem',
-        niscode: '24009',
-      },
+      gewest: { naam: 'Vlaams Gewest', niscode: '2000' },
+      provincie: { naam: 'Antwerpen', niscode: '10000' },
+      gemeente: { naam: 'Hulshout', niscode: '13016' },
       postcode: {
-        nummer: '3060',
-        uri: 'https://data.vlaanderen.be/id/postinfo/3060',
+        uri: 'https://data.vlaanderen.be/id/postinfo/2235',
+        nummer: '2235',
       },
-      straat: {
-        naam: 'Dorpstraat',
-        id: '32110',
-        uri: 'https://data.vlaanderen.be/id/straatnaam/32110',
-      },
-      adres: {
-        huisnummer: '416',
-        busnummer: '0101',
-        uri: 'https://data.vlaanderen.be/id/adres/993686',
-        id: '993686',
-      },
+      straat: { naam: 'Heibergstraat', id: '15000', uri: 'https://data.vlaanderen.be/id/straatnaam/15000' },
+      adres: { id: '1562699', uri: 'https://data.vlaanderen.be/id/adres/1562699', huisnummer: '8' },
+    },
+    config: {
+      land: { required: true },
+      gewest: { required: true },
+      provincie: { required: false },
+      gemeente: { required: true },
+      postcode: { required: true },
+      straat: { required: false },
+      huisnummer: { required: false },
+      busnummer: { required: false },
     },
   },
-  render: ({ adres }: ILocatieAdres) => ({
+  render: ({ adres, config }) => ({
     components: { OeAdres },
     inheritAttrs: false,
     setup() {
-      return { adres };
+      return { adres, config };
     },
     template: `
       <div>
-      <OeAdres v-model:adres="adres"  @update:adres="onUpdateAdres" />
+      <OeAdres v-model:adres="adres" :config="config" @update:adres="onUpdateAdres" />
       <h3>Adres:</h3>
       <pre>{{ eventOutput }}</pre>
       </div>
