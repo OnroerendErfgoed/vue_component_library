@@ -1,9 +1,9 @@
 <template>
   <div class="filter-input-container">
     <div class="filters-input">
-      <span v-if="!props?.options.length" data-cy="no-options" class="vl-alert--warning">
-        Geen filteropties geconfigureerd
-      </span>
+      <span v-if="!props?.options.length" data-cy="no-options" class="vl-alert--warning"
+        >Geen filteropties geconfigureerd</span
+      >
       <template v-else>
         <div class="filter-select-column">
           <VlSelect
