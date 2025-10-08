@@ -1,54 +1,59 @@
 <template>
-  <div class="filter-input-component vl-u-flex vl-u-flex-direction-column">
-    <div class="vl-grid filters-input">
-      <span v-if="!props?.options.length" data-cy="no-options" class="vl-alert--warning"
-        >Geen filteropties geconfigureerd</span
-      >
+  <div class="filter-input-container">
+    <div class="filters-input">
+      <span v-if="!props?.options.length" data-cy="no-options" class="vl-alert--warning">
+        Geen filteropties geconfigureerd
+      </span>
       <template v-else>
-        <vl-select
-          v-model="selectedOption"
-          data-cy="filter-select"
-          class="vl-col--5-12"
-          mod-block
-          mod-inline
-          @update:model-value="clearInputs"
-        >
-          <option v-for="option in props.options" :key="option.key" :value="option">
-            {{ option.label }}
-          </option>
-        </vl-select>
-        <vl-input-group class="vl-col--7-12">
-          <slot
-            :value="filterInputValue?.value"
-            :set-value="setFilterInputValue"
-            :selected-option="selectedOption"
-            :add-filter="addFilter"
-          ></slot>
+        <div class="filter-select-column">
+          <VlSelect
+            v-model="selectedOption"
+            :title="selectedOption.label"
+            data-cy="filter-select"
+            mod-block
+            mod-inline
+            @update:model-value="clearInputs"
+          >
+            <option v-for="option in props.options" :key="option.key" :value="option">
+              {{ option.label }}
+            </option>
+          </VlSelect>
+        </div>
+        <div class="filter-value-column">
+          <VlInputGroup>
+            <slot
+              :value="filterInputValue?.value"
+              :set-value="setFilterInputValue"
+              :selected-option="selectedOption"
+              :add-filter="addFilter"
+            ></slot>
 
-          <vl-input-addon
-            data-cy="filter-add-button"
-            :mod-disabled="filterValuesAreEmpty"
-            :disabled="filterValuesAreEmpty"
-            tag-name="button"
-            type="button"
-            icon="plus"
-            tooltip="Filter toevoegen"
-            text="Filter toevoegen"
-            @click="addFilter"
-          />
-        </vl-input-group>
+            <VlInputAddon
+              data-cy="filter-add-button"
+              :mod-disabled="filterValuesAreEmpty"
+              :disabled="filterValuesAreEmpty"
+              tag-name="button"
+              type="button"
+              icon="plus"
+              tooltip="Filter toevoegen"
+              text="Filter toevoegen"
+              @click="addFilter"
+            />
+          </VlInputGroup>
+        </div>
       </template>
     </div>
-    <div v-if="!!filters.length" class="vl-grid filters-selected">
-      <vl-action-group class="vl-col--12-12">
-        <button
+
+    <div v-if="!!filters.length" class="filters-selected">
+      <VlActionGroup mod-align-right>
+        <VlButton
           data-cy="clear-filter-button"
-          class="vl-button vl-u-spacer-left--xsmall vl-u-spacer-bottom--xsmall vl-u-text--small"
+          class="vl-u-spacer-left--xsmall vl-u-spacer-bottom--xsmall vl-u-text--small"
           @click="filters = []"
         >
           Alle filters wissen
-        </button>
-        <vl-pill
+        </VlButton>
+        <VlPill
           v-for="filter in filters"
           :key="filter.key"
           :data-cy="`filter-${filter.key}-${filter.value.value}`"
@@ -57,14 +62,21 @@
           @close="removeFilter(filter)"
         >
           {{ filter.label }} / {{ filter.value.label }}
-        </vl-pill>
-      </vl-action-group>
+        </VlPill>
+      </VlActionGroup>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { VlActionGroup, VlInputAddon, VlInputGroup, VlPill, VlSelect } from '@govflanders/vl-ui-design-system-vue3';
+import {
+  VlActionGroup,
+  VlButton,
+  VlInputAddon,
+  VlInputGroup,
+  VlPill,
+  VlSelect,
+} from '@govflanders/vl-ui-design-system-vue3';
 import { isEmpty, remove } from 'lodash';
 import { computed, ref, watch } from 'vue';
 import type { IFilter, IFilterInputProps, IFilterOption, TFilterInput } from '@models/filter-input';
@@ -132,20 +144,67 @@ const removeFilter = (filter: IFilter) =>
 <style lang="scss" scoped>
 @import 'pyoes/scss/base-variables';
 
-.vl-grid {
-  &.filters-input {
-    width: 100%;
-    margin-left: 0;
-    align-self: flex-end;
+.filter-input-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  container-type: inline-size; /* Enable container queries */
 
-    .vl-input-group {
-      padding-left: 0.5rem;
+  .filters-input {
+    display: flex;
+    align-items: flex-start;
+
+    /* Default: 50% width, always aligned to the right */
+    width: 50%;
+    margin-left: 50%;
+
+    .filter-select-column {
+      /* Equivalent to width="5" in a 12-column grid = 42% */
+      flex: 0 0 42%;
+      margin-left: -0.75rem;
+      margin-right: 0.75rem;
+
+      @container (max-width: 500px) {
+        flex: 1 1 100%;
+        margin-left: 0;
+      }
+    }
+
+    .filter-value-column {
+      /* Equivalent to width="7" in a 12-column grid = 58% */
+      flex: 0 0 58%;
+
+      @container (max-width: 500px) {
+        flex: 1 1 100%;
+      }
+    }
+
+    /* Container-based responsive design */
+    @container (max-width: 800px) {
+      width: 67%;
+      margin-left: 33%;
+    }
+
+    @container (max-width: 500px) {
+      width: 100%;
+      margin-left: 0;
+    }
+
+    /* Stack vertically when container is small */
+    @container (max-width: 350px) {
+      flex-direction: column;
+      gap: 1rem;
+
+      .filter-select-column,
+      .filter-value-column {
+        width: 100%;
+        margin: 0;
+      }
     }
   }
 
-  &.filters-selected {
+  .filters-selected {
     margin-top: 2rem;
-    align-self: flex-end;
 
     :deep(.vl-action-group button:last-child) {
       margin-right: -1px;
