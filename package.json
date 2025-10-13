@@ -7,7 +7,7 @@
   "main": "./dist/vue-components.umd.js",
   "module": "./dist/vue-components.es.js",
   "typings": "./dist/src/main.d.ts",
-  "version": "3.4.0-alpha.4",
+  "version": "3.5.0",
   "exports": {
     ".": {
       "import": "./dist/vue-components.es.js",
@@ -67,7 +67,7 @@
     "@vueuse/core": "^10.4.1",
     "ag-grid-community": "^29.3.5",
     "ag-grid-vue3": "^29.3.5",
-    "axios": "^1.4.0",
+    "axios": "^1.12.0",
     "axios-mock-adapter": "^1.22.0",
     "date-fns": "^2.30.0",
     "guid-typescript": "^1.0.9",
