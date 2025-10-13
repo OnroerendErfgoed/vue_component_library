@@ -1,4 +1,5 @@
 import '@/scss/main.scss';
+import { VlColumn, VlGrid } from '@govflanders/vl-ui-design-system-vue3';
 import FilterDatepicker from '@components/dumb/FilterDatepicker.vue';
 import FilterInput from '@components/dumb/FilterInput.vue';
 import FilterRadio from '@components/dumb/FilterRadio.vue';
@@ -80,6 +81,8 @@ const renderConfig = {
     FilterRadio,
     FilterSelect,
     FilterAanduidingsobject,
+    VlGrid,
+    VlColumn,
   },
   setup() {
     const filterOptions: IFilterOption[] = [
@@ -154,8 +157,16 @@ const renderConfig = {
         },
       },
     ];
+    const manyDefaultFilters = Array.from({ length: 10 }, (_, i) => ({
+      key: `test${i + 1}`,
+      label: `test${i + 2}`,
+      value: {
+        label: `test${i + 3}`,
+        value: `test${i + 4}`,
+      },
+    }));
 
-    return { filterOptions, statusOptions, radioOptions, defaultFilters };
+    return { filterOptions, statusOptions, radioOptions, defaultFilters, manyDefaultFilters };
   },
 };
 
@@ -214,22 +225,72 @@ export const UniqueFilters: Story = {
   }),
 };
 
-export const SmallContainerWrapper: Story = {
+export const ResponsiveDesign: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'This story demonstrates the filter input component inside a smaller container, which can be useful for testing responsiveness or integration in smaller layouts.',
+          'This story showcases the responsive design of the filter input component. It resizes and adapts its layout based on the container size, ensuring usability across different screen sizes. When multiple filters are selected, they should overflow the container without affecting the filter input size. \n\nNote: a border is added to the containers to visualize their size, the filter input itself does not have a border.',
       },
     },
   },
   render: () => ({
     ...renderConfig,
     template: `
-    <div style="width: 450px;">
-    <filter-input v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="defaultFilters" unique-filters @filters-selected="$event => filters = $event">
-      ${filterTemplate}
-    </filter-input>
+    <p>A container with a width of 100% uses 50% of the available space</p>
+    <div style="width: 100%; border: 1px solid lightgrey; padding: 1rem; box-sizing: border-box;">
+      <FilterInput v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="defaultFilters" @filters-selected="$event => filters = $event">
+        ${filterTemplate}
+      </FilterInput>
+    </div>
+    <br/>
+    <p>A container with a width of 600px (smaller than 800px) uses 75% of the available space for the filter input</p>
+    <div style="width: 600px ; border: 1px solid lightgrey; padding: 1rem; box-sizing: border-box;">
+      <FilterInput v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="defaultFilters" @filters-selected="$event => filters = $event">
+        ${filterTemplate}
+      </FilterInput>
+    </div>
+    <br/>
+    <p>A container with a width of 450px (smaller than 500px) uses 100% of the available space for the filter input</p>
+    <div style="width: 450px ; border: 1px solid lightgrey; padding: 1rem; box-sizing: border-box;">
+      <FilterInput v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="defaultFilters" @filters-selected="$event => filters = $event">
+        ${filterTemplate}
+      </FilterInput>
+    </div>
+    <br>
+    <p>A container with a width of 320px (smaller than 350px) uses 100% of the available space for the filter input and renders as a single column</p>
+    <div style="width: 320px ; border: 1px solid lightgrey; padding: 1rem; box-sizing: border-box;">
+      <FilterInput v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="defaultFilters" @filters-selected="$event => filters = $event">
+        ${filterTemplate}
+      </FilterInput>
+    </div>
+    <br/>
+    <p>A container with a width of 100% and multiple selected filters for the filter input</p>
+    <div style="width: 100%; border: 1px solid lightgrey; padding: 1rem; box-sizing: border-box;">
+      <FilterInput v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="manyDefaultFilters" @filters-selected="$event => filters = $event">
+        ${filterTemplate}
+      </FilterInput>
+    </div>
+    <br/>
+    <p>A container with a width of 600px and multiple selected filters</p>
+    <div style="width: 600px ; border: 1px solid lightgrey; padding: 1rem; box-sizing: border-box;">
+      <FilterInput v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="manyDefaultFilters" @filters-selected="$event => filters = $event">
+        ${filterTemplate}
+      </FilterInput>
+    </div>
+    <br/>
+    <p>A container with a width of 450px and multiple selected filters</p>
+    <div style="width: 450px ; border: 1px solid lightgrey; padding: 1rem; box-sizing: border-box;">
+      <FilterInput v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="manyDefaultFilters" @filters-selected="$event => filters = $event">
+        ${filterTemplate}
+      </FilterInput>
+    </div>
+    <br/>
+    <p>A container with a width of 320px and multiple selected filters</p>
+    <div style="width: 320px ; border: 1px solid lightgrey; padding: 1rem; box-sizing: border-box;">
+      <FilterInput v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="manyDefaultFilters" @filters-selected="$event => filters = $event">
+        ${filterTemplate}
+      </FilterInput>
     </div>
     `,
   }),
