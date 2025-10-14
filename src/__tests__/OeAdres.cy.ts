@@ -1031,6 +1031,8 @@ describe('Adres', () => {
           template: '<OeAdres ref="adresComponent" countryId="BE" :config="c"/>',
         }).then(({ component }) => {
           cy.wait('@dataGetLanden');
+          cy.wait('@dataGetGewesten');
+
           cy.wrap(component.$nextTick()).then(() => {
             adresComponent = component.adresComponent;
           });
@@ -1046,8 +1048,6 @@ describe('Adres', () => {
       });
 
       it('shows a list of gewesten and provincies', () => {
-        cy.wait('@dataGetGewesten');
-
         getMultiSelect('gewest').click();
         getMultiSelect('gewest').find('.multiselect__element').should('have.length', 3);
         getMultiSelect('gewest').find('.multiselect__select').click();
