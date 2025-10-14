@@ -255,16 +255,38 @@ export function useAdresLogic(props: IAdresProps, emit: (event: 'update:adres', 
       }
       if (isBelgiumOrEmpty.value && !props.config?.provincie?.hidden) {
         provincies.value = await crabApiService.getProvincies();
+        gemeenten.value = await crabApiService.getGemeenten();
 
         if ((gewest.value as IGewest)?.niscode === Niscode.VlaamsGewest) {
           provincies.value = crabApiService.vlaamseProvincies;
+
+          if ((provincie.value as IProvincie)?.niscode) {
+            console.log('has provincie', provincie.value);
+
+            gemeenten.value = crabApiService.vlaamseGemeenten.filter(
+              (g) => g.provincie.niscode === (provincie.value as IProvincie).niscode
+            );
+          } else {
+            console.log('setting all gemeenten for vlaams gewest');
+
+            gemeenten.value = crabApiService.vlaamseGemeenten;
+          }
+          console.log('[LAND] Setting provinces and municipalities for Flemish region', gemeenten.value);
         } else if ((gewest.value as IGewest)?.niscode === Niscode.WaalsGewest) {
           provincies.value = crabApiService.waalseProvincies;
+          gemeenten.value = crabApiService.waalseGemeenten;
         } else if ((gewest.value as IGewest)?.niscode === Niscode.BrusselsHoofdstedelijkGewest) {
           provincies.value = [];
+          gemeenten.value = crabApiService.brusselseGemeenten;
+        } else {
+          console.log('[LAND] Unknown gewest, fetching all provinces and municipalities');
+          gemeenten.value = await crabApiService.getGemeenten();
         }
       }
-      gemeenten.value = await crabApiService.getGemeenten();
+
+      if (isBelgiumOrEmpty.value && props.config?.gewest?.hidden && props.config?.provincie?.hidden) {
+        gemeenten.value = await crabApiService.getGemeenten();
+      }
     } else {
       isLoading.value = false;
     }
@@ -291,6 +313,8 @@ export function useAdresLogic(props: IAdresProps, emit: (event: 'update:adres', 
           gemeenten.value = crabApiService.brusselseGemeenten;
           break;
         default:
+          console.log('Unknown gewest, fetching all provinces and municipalities');
+
           provincies.value = await crabApiService.getProvincies();
           gemeenten.value = await crabApiService.getGemeenten();
       }
@@ -315,13 +339,17 @@ export function useAdresLogic(props: IAdresProps, emit: (event: 'update:adres', 
           gemeenten.value = crabApiService.brusselseGemeenten;
           break;
         default:
+          console.log('Unknown gewest, watch provincie fetching all municipalities');
+
           gemeenten.value = await crabApiService.getGemeenten();
       }
-      if (selectedProvincie) {
+      if ((selectedProvincie as IProvincie)?.niscode) {
         resetFreeTextState();
-        gemeenten.value = gemeenten.value.filter(
+
+        gemeenten.value = (await crabApiService.getGemeenten()).filter(
           (g) => g.provincie.niscode === (selectedProvincie as IProvincie).niscode
         );
+        console.log('setting gemeenten for provincie', gemeenten.value);
       }
     } else {
       isLoading.value = false;

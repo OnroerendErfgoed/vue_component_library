@@ -509,7 +509,7 @@ describe('Adres', () => {
       getTextInput('busnummer').should('have.value', '');
     });
 
-    it.skip('fills in the predefined values - case 5 - gewest and provincie narrow other options', () => {
+    it('fills in the predefined values - case 5 - gewest and provincie narrow other options', () => {
       mount(TestComponent, {
         data: () => ({
           adres: {
@@ -551,13 +551,17 @@ describe('Adres', () => {
         template: '<OeAdres v-model:adres="adres" :config="config" />',
       });
 
-      cy.wait('@dataGetGemeentenVlaamsGewest');
-
       getMultiSelect('land').find(':selected').should('have.text', 'België');
       getMultiSelect('gewest').find('.multiselect__single').should('have.text', 'Vlaams Gewest');
+
+      cy.wait('@dataGetProvinciesVlaamsGewest');
+
       getMultiSelect('provincie').find('.multiselect__single').should('have.text', 'Vlaams-Brabant');
       getMultiSelect('provincie').find('.multiselect__element').should('have.length', 5);
-      getMultiSelect('gemeente').find('.multiselect__element').should('have.length', 67);
+
+      cy.wait('@dataGetGemeentenVlaamsGewest');
+
+      getMultiSelect('gemeente').find('.multiselect__element').should('have.length', 63);
     });
 
     it('updates the model binding on value change', () => {
@@ -1042,9 +1046,13 @@ describe('Adres', () => {
       });
 
       it('shows a list of gewesten and provincies', () => {
+        cy.wait('@dataGetGewesten');
+
         getMultiSelect('gewest').click();
         getMultiSelect('gewest').find('.multiselect__element').should('have.length', 3);
         getMultiSelect('gewest').find('.multiselect__select').click();
+
+        cy.wait('@dataGetProvinciesVlaamsGewest');
 
         getMultiSelect('provincie').click();
         getMultiSelect('provincie').find('.multiselect__element').should('have.length', 10);
