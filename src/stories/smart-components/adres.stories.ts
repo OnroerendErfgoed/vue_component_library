@@ -1,6 +1,6 @@
 import '@/scss/main.scss';
 import { VlButton } from '@govflanders/vl-ui-design-system-vue3';
-import OeAdres from '@components/smart/OeAdres.vue';
+import OeAdres from '@components/smart/adres/OeAdres.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import type { ILocatieAdres } from '@models/locatie';
 

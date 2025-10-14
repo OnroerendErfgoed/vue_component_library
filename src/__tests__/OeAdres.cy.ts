@@ -1,6 +1,6 @@
 import { mount } from 'cypress/vue';
 import { defineComponent, ref, useAttrs } from 'vue';
-import OeAdres from '@components/smart/OeAdres.vue';
+import OeAdres from '@components/smart/adres/OeAdres.vue';
 import type { IAdresConfig } from '@models/adres';
 
 describe('Adres', () => {
@@ -1052,6 +1052,7 @@ describe('Adres', () => {
 
       it('narrows list of provincies and gemeenten on gewest selection', () => {
         setMultiSelectValue('gewest', 'Vlaams');
+        cy.wait('@dataGetProvinciesVlaamsGewest');
         getMultiSelect('provincie').click();
         getMultiSelect('provincie').find('.multiselect__element').should('have.length', 5);
         getMultiSelect('provincie').find('.multiselect__select').click();
@@ -1191,7 +1192,7 @@ const fillInOeAdresBelgium = () => {
 
   // Busnummer selection
   cy.wait('@dataGetHuisnummersDorpstraatBertem');
-  setAutocompleteValue('busnummer', '010');
+  setAutocompleteValue('busnummer', '0101');
   getAutocompleteInput('busnummer').should('have.value', '0101');
 };
 
