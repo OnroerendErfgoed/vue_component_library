@@ -267,15 +267,19 @@ export function useAdresLogic(props: IAdresProps, emit: (event: 'update:adres', 
   };
 
   const initializeGewestData = async () => {
-    if (!gewest.value || !isBelgiumOrEmpty.value) return;
+    if (!gewest.value || !isBelgiumOrEmpty.value || props.config?.gewest?.hidden) return;
 
     const niscode = (gewest.value as IGewest).niscode;
-    provincies.value = getProvinciesByGewest(niscode);
+
+    if (!props.config?.provincie?.hidden) {
+      provincies.value = getProvinciesByGewest(niscode);
+    }
+
     gemeenten.value = await getGemeentenByGewest(niscode);
   };
 
   const initializeProvincieData = async () => {
-    if (!provincie.value || !gewest.value) return;
+    if (!provincie.value || !gewest.value || props.config?.provincie?.hidden) return;
 
     const currentGewest = gewest.value as IGewest;
     gemeenten.value = await getGemeentenByGewest(currentGewest.niscode);
@@ -492,13 +496,13 @@ export function useAdresLogic(props: IAdresProps, emit: (event: 'update:adres', 
   });
 
   watch(gewest, async (selectedGewest, oldValue) => {
-    if (isInitializing.value) return;
+    if (isInitializing.value || props.config?.gewest?.hidden) return;
 
     if (oldValue) {
       resetDependentFields('provincie');
     }
 
-    if (isBelgiumOrEmpty.value && !props.config?.gewest?.hidden && selectedGewest) {
+    if (isBelgiumOrEmpty.value && selectedGewest) {
       resetFreeTextState();
       await initializeGewestData();
     } else {
@@ -507,13 +511,13 @@ export function useAdresLogic(props: IAdresProps, emit: (event: 'update:adres', 
   });
 
   watch(provincie, async (selectedProvincie, oldValue) => {
-    if (isInitializing.value) return;
+    if (isInitializing.value || props.config?.provincie?.hidden) return;
 
     if (oldValue) {
       resetDependentFields('gemeente');
     }
 
-    if (isBelgiumOrEmpty.value && !props.config?.provincie?.hidden && selectedProvincie) {
+    if (isBelgiumOrEmpty.value && selectedProvincie) {
       resetFreeTextState();
       await initializeProvincieData();
     } else {
@@ -560,7 +564,9 @@ export function useAdresLogic(props: IAdresProps, emit: (event: 'update:adres', 
     if (hasChanged) {
       resetDependentFields('huisnummer');
       // Reset busnummerFreeText when huisnummer changes (user interaction)
-      busnummerFreeText.value = false;
+      if (!props.config?.busnummer?.hidden) {
+        busnummerFreeText.value = false;
+      }
     }
 
     const shouldFetchBusnummers =
@@ -577,7 +583,7 @@ export function useAdresLogic(props: IAdresProps, emit: (event: 'update:adres', 
 
   // Free text watchers - Add guards to prevent infinite loops
   watch(postcodeFreeText, (newVal, oldVal) => {
-    if (isInitializing.value || newVal === oldVal) return;
+    if (isInitializing.value || newVal === oldVal || props.config?.postcode?.hidden) return;
     postcode.value = '';
   });
 
@@ -595,7 +601,7 @@ export function useAdresLogic(props: IAdresProps, emit: (event: 'update:adres', 
   });
 
   watch(busnummerFreeText, (newVal, oldVal) => {
-    if (isInitializing.value || newVal === oldVal) return;
+    if (isInitializing.value || newVal === oldVal || props.config?.busnummer?.hidden) return;
     const currentValue = busnummer.value;
     busnummer.value = hasInitialData.value
       ? (currentValue as IAdres)?.busnummer || currentValue || ''
