@@ -1,14 +1,20 @@
 import { cloneDeep } from 'lodash';
 import { sortBy, uniqBy } from 'lodash';
 import { nextTick } from 'vue';
+import { logInfo } from '@utils/index';
 import { removeEmptyValues } from '@utils/object';
 import type { AdresState } from './state';
-import type { InitializationStep } from './types';
 import type { IAdresProps } from '@models/adres';
 import type { IAdres, IGemeente, IGewest, ILand, IPostinfo, IProvincie, IStraat } from '@models/locatie';
 import type { CrabApiService } from '@services/crab-api.service';
 
-export function createInitializers(
+interface InitializationStep {
+  condition: () => boolean;
+  action: () => Promise<void>;
+  name: string;
+}
+
+export const createInitializers = (
   state: AdresState,
   props: IAdresProps,
   crabApiService: CrabApiService,
@@ -19,23 +25,21 @@ export function createInitializers(
     isBelgium: () => boolean;
     isBelgiumOrEmpty: () => boolean;
   }
-) {
+) => {
   const initializeLandData = async () => {
     if (!helpers.isBelgium()) return;
 
-    const promises: Promise<unknown>[] = [];
-
+    // Only fetch what is necessary based on visibility.
     if (!props.config?.gewest?.hidden) {
-      promises.push(crabApiService.getGewesten().then((data) => (state.gewesten.value = data)));
+      state.gewesten.value = await crabApiService.getGewesten();
     }
 
     if (!props.config?.provincie?.hidden) {
-      promises.push(crabApiService.getProvincies().then((data) => (state.provincies.value = data)));
+      state.provincies.value = await crabApiService.getProvincies();
     }
 
-    promises.push(crabApiService.getGemeenten().then((data) => (state.gemeenten.value = data)));
-
-    await Promise.all(promises);
+    // Gemeenten always fetched for BE
+    state.gemeenten.value = await crabApiService.getGemeenten();
   };
 
   const initializeGewestData = async () => {
@@ -64,24 +68,13 @@ export function createInitializers(
   const initializeGemeenteData = async () => {
     if (!state.gemeente.value || !helpers.isBelgiumOrEmpty()) return;
 
-    const promises: Promise<unknown>[] = [];
-
-    if (!props.config?.postcode?.hidden) {
-      promises.push(
-        crabApiService
-          .getPostinfo((state.gemeente.value as IGemeente).naam)
-          .then((data) => (state.postinfo.value = data))
-      );
-    }
-
-    promises.push(
-      crabApiService
-        .getStraten((state.gemeente.value as IGemeente).niscode)
-        .then((data) => (state.straten.value = sortBy(data, 'naam')))
-    );
-
     try {
-      await Promise.all(promises);
+      if (!props.config?.postcode?.hidden) {
+        state.postinfo.value = await crabApiService.getPostinfo((state.gemeente.value as IGemeente).naam);
+      }
+
+      const stratenResult = await crabApiService.getStraten((state.gemeente.value as IGemeente).niscode);
+      state.straten.value = sortBy(stratenResult, 'naam');
     } catch (error: unknown) {
       if (helpers.handleApiError(error)) {
         state.straten.value = [];
@@ -90,7 +83,7 @@ export function createInitializers(
   };
 
   const initializeStraatData = async () => {
-    if (!state.straat.value || !helpers.isBelgiumOrEmpty() || state.straatFreeText.value) return;
+    if (!state.straat.value || !helpers.isBelgiumOrEmpty() || state.straatIsFreeText.value) return;
 
     try {
       const adressen = await crabApiService.getAdressen((state.straat.value as IStraat).id);
@@ -98,13 +91,13 @@ export function createInitializers(
         sortBy(adressen, (s) => parseInt(s.huisnummer, 0)),
         'huisnummer'
       );
-      state.huisnummerFreeText.value = !state.huisnummers.value.length;
+      state.huisnummerIsFreeText.value = !state.huisnummers.value.length;
     } catch (error: unknown) {
       if (helpers.handleApiError(error)) {
         state.huisnummers.value = [];
         state.busnummers.value = [];
-        state.huisnummerFreeText.value = true;
-        state.busnummerFreeText.value = true;
+        state.huisnummerIsFreeText.value = true;
+        state.busnummerIsFreeText.value = true;
       }
     }
   };
@@ -114,7 +107,7 @@ export function createInitializers(
       !adresValue.straat?.id ||
       !state.huisnummer.value ||
       !helpers.isBelgiumOrEmpty() ||
-      state.huisnummerFreeText.value ||
+      state.huisnummerIsFreeText.value ||
       props.config?.busnummer?.hidden
     )
       return;
@@ -131,7 +124,9 @@ export function createInitializers(
     }
 
     if (state.isInitializing.value || state.busnummers.value.length === 0) {
-      state.busnummerFreeText.value = state.busnummers.value.length === 0;
+      state.busnummerIsFreeText.value =
+        state.busnummers.value.length === 0 ||
+        !adressen.find((b) => b.huisnummer === state.huisnummer.value)?.busnummer;
     }
   };
 
@@ -185,6 +180,8 @@ export function createInitializers(
   };
 
   const initializeData = async () => {
+    logInfo('initializeData');
+
     state.apiLanden.value = await crabApiService.getLanden();
 
     if (props.adres) {
@@ -238,4 +235,4 @@ export function createInitializers(
     initializeSequentially,
     initializeData,
   };
-}
+};

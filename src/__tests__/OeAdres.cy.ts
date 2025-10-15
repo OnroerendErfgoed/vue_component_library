@@ -158,15 +158,20 @@ describe('Adres', () => {
         // Country selection
         getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
 
-        cy.wait('@dataGetGemeentenBrusselsHoofdstedelijkGewest');
+        cy.wait('@dataGetGemeentenWaalsGewest');
 
         // Gemeente selection
-        setMultiSelectValue('gemeente', 's Gravenbrakel');
-        getMultiSelect('gemeente').find('.multiselect__single').should('have.text', "'s Gravenbrakel");
+        setMultiSelectValue('gemeente', 'Durbuy');
+        getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Durbuy');
+
+        cy.wait('@dataGetPostinfoDurbuy');
+        cy.wait('@dataGetStratenDurbuy');
 
         // Straat selection
-        setMultiSelectValue('straat', 'Acacias');
-        getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Acacias');
+        setMultiSelectValue('straat', 'Hiva');
+        getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Hiva');
+
+        cy.wait('@dataGetAdressenDurbuy');
 
         getTextInput('huisnummer').should('exist');
       });
@@ -175,23 +180,20 @@ describe('Adres', () => {
         // Country selection
         getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
 
-        cy.intercept({ method: 'GET', url: 'https://test-geo.onroerenderfgoed.be/**' }).as('dataGet');
-        cy.wait('@dataGet');
+        cy.wait('@dataGetGemeentenVlaamsGewest');
 
         // Gemeente selection
-        setMultiSelectValue('gemeente', 'Aarschot');
-        getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Aarschot');
-        cy.wait('@dataGet');
+        setMultiSelectValue('gemeente', 'Bertem');
+        getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Bertem');
+        cy.wait('@dataGetStratenBertem');
 
         // Straat selection
-        setMultiSelectValue('straat', 'Astridlaan');
-        getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Astridlaan');
-        cy.wait('@dataGet');
+        setMultiSelectValue('straat', 'Dorpstraat');
+        getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Dorpstraat');
 
         // Huisnummer selection
-        setAutocompleteValue('huisnummer', '28');
-        getAutocompleteInput('huisnummer').should('have.value', '28');
-        cy.wait('@dataGet');
+        setAutocompleteValue('huisnummer', '383A');
+        getAutocompleteInput('huisnummer').should('have.value', '383A');
 
         getTextInput('busnummer').should('exist');
       });
@@ -248,11 +250,11 @@ describe('Adres', () => {
         cy.wait('@dataGetGemeentenVlaamsGewest');
         cy.wait('@dataGetGemeentenBrusselsHoofdstedelijkGewest');
         cy.wait('@dataGetGemeentenWaalsGewest');
-        setMultiSelectValue('gemeente', 'Lummen');
-        setMultiSelectValue('postcode', '3560');
+        setMultiSelectValue('gemeente', 'Bertem');
+        setMultiSelectValue('postcode', '3060');
 
         getMultiSelect('straat').click();
-        getMultiSelect('straat').find('.multiselect__input').type('Mo');
+        getMultiSelect('straat').find('.multiselect__input').type('Do');
 
         getMultiSelect('straat')
           .get('.multiselect__option span')
@@ -262,14 +264,10 @@ describe('Adres', () => {
               .map((option) => option.textContent?.trim());
 
             expect(optionsText).to.deep.equal([
-              'Klimopstraat',
-              'Molemstraat',
-              'Molenaarstraat',
-              'Morgenstraat',
-              'Mortelkoelstraat',
-              'St.-Edmondstraat',
-              'Watermolenstraat',
-              'Windmolenstraat',
+              'Dokter Tielemansstraat',
+              'Dorpsplein',
+              'Dorpstraat',
+              'Fr. Dottermansstraat',
             ]);
           });
       });
@@ -596,39 +594,30 @@ describe('Adres', () => {
         cy.wait('@dataGetPostinfoBertem');
         cy.wait('@dataGetStratenBertem');
 
-        cy.intercept({
-          method: 'GET',
-          url: '**/adressenregister/gemeenten/Lummen/postinfo*',
-        }).as('dataGetPostinfoLummen');
-        cy.intercept({
-          method: 'GET',
-          url: '**/adressenregister/gemeenten/71037/straten*',
-        }).as('dataGetStratenLummen');
-
         getMultiSelect('gemeente').click();
-        getMultiSelect('gemeente').find('.multiselect__input').type('Lummen');
+        getMultiSelect('gemeente').find('.multiselect__input').type('Bierbeek');
         getMultiSelect('gemeente').find('.multiselect__element').click();
 
-        // Wait for gemeente change to propagate and API calls to complete
-        cy.wait('@dataGetPostinfoLummen').then(() => {
-          // Wait for Vue's reactivity to update
-          cy.wrap(component.$nextTick()).then(() => {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            expect((component.$data as any).adres).to.deep.equal({
-              land: {
-                naam: 'België',
-                code: 'BE',
-              },
-              gewest: undefined,
-              provincie: undefined,
-              gemeente: {
-                naam: 'Lummen',
-                niscode: '71037',
-              },
-              postcode: {},
-              straat: {},
-              adres: {},
-            });
+        cy.wait('@dataGetPostinfoBierbeek');
+        cy.wait('@dataGetStratenBierbeek');
+
+        // Wait for Vue's reactivity to update
+        cy.wrap(component.$nextTick()).then(() => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          expect((component.$data as any).adres).to.deep.equal({
+            land: {
+              naam: 'België',
+              code: 'BE',
+            },
+            gewest: undefined,
+            provincie: undefined,
+            gemeente: {
+              naam: 'Bierbeek',
+              niscode: '24011',
+            },
+            postcode: {},
+            straat: {},
+            adres: {},
           });
         });
       });
@@ -721,10 +710,6 @@ describe('Adres', () => {
       };
 
       beforeEach(() => {
-        cy.intercept({ method: 'GET', url: 'https://test-geo.onroerenderfgoed.be/adressenregister/landen' }).as(
-          'dataGetLanden'
-        );
-
         mount(TestComponent, {
           setup() {
             const adresComponent = ref();

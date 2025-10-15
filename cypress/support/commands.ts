@@ -69,6 +69,59 @@ Cypress.Commands.add('mockAdressenregister', () => {
   cy.intercept('GET', '**/adressenregister/straten/32110/huisnummers/416*', {
     fixture: 'huisnummersDorpstraatBertem.json',
   }).as('dataGetHuisnummersDorpstraatBertem');
+  cy.intercept('GET', '**/adressenregister/straten/32110/huisnummers/383A*', {
+    body: [],
+  });
+
+  // Info Durbuy
+  cy.intercept('GET', '**/adressenregister/gemeenten/Durbuy/postinfo*', { body: [] }).as('dataGetPostinfoDurbuy');
+  cy.intercept('GET', '**/adressenregister/gemeenten/83012/straten*', { fixture: 'stratenDurbuy.json' }).as(
+    'dataGetStratenDurbuy'
+  );
+  cy.intercept('GET', '**/adressenregister/straten/125552/adressen*', { body: [] }).as('dataGetAdressenDurbuy');
+
+  // Info Aalst
+  cy.intercept('GET', '**/adressenregister/gemeenten/Aalst/postinfo*', { fixture: 'postinfoAalst.json' }).as(
+    'dataGetPostinfoAalst'
+  );
+  cy.intercept('GET', '**/adressenregister/gemeenten/41002/straten*', { fixture: 'stratenAalst.json' }).as(
+    'dataGetStratenAalst'
+  );
+
+  // Info Brussel
+  cy.intercept('GET', '**/adressenregister/gemeenten/Brussel/postinfo*', { fixture: 'postinfoBrussel.json' }).as(
+    'dataGetPostinfoBrussel'
+  );
+  cy.intercept('GET', '**/adressenregister/gemeenten/21004/straten*', {
+    body: [
+      {
+        id: '19887',
+        naam: 'Havenlaan',
+        homoniem: null,
+        status: 'inGebruik',
+        uri: 'https://data.vlaanderen.be/id/straatnaam/19887',
+      },
+    ],
+  }).as('dataGetStratenBrussel');
+  cy.intercept('GET', '**/adressenregister/straten/19887/adressen*', { body: [] }).as('dataGetAdressenBrussel');
+
+  // Info Bierbeek
+  cy.intercept('GET', '**/adressenregister/gemeenten/Bierbeek/postinfo*', {
+    body: [
+      {
+        postcode: '3360',
+        uri: 'https://data.vlaanderen.be/id/postinfo/3360',
+        status: 'gerealiseerd',
+        namen: ['BIERBEEK', 'Korbeek-Lo', 'Lovenjoel', 'Opvelp'],
+      },
+    ],
+  }).as('dataGetPostinfoBierbeek');
+  cy.intercept('GET', '**/adressenregister/gemeenten/24011/straten*', { fixture: 'stratenBierbeek.json' }).as(
+    'dataGetStratenBierbeek'
+  );
+  cy.intercept('GET', '**/adressenregister/straten/32284/adressen*', {
+    fixture: 'adressenKrijkelbergBierbeek.json',
+  }).as('dataGetAdressenKrijkelbergBierbeek');
 });
 
 declare global {

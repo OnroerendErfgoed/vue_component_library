@@ -1,0 +1,2536 @@
+[
+    {
+        "id": "125450",
+        "naam": "A l'Eau",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125450"
+    },
+    {
+        "id": "125451",
+        "naam": "A Pahis'",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125451"
+    },
+    {
+        "id": "125452",
+        "naam": "A Pi\u00e8ri",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125452"
+    },
+    {
+        "id": "125453",
+        "naam": "Aisne",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125453"
+    },
+    {
+        "id": "125454",
+        "naam": "Al Rotche Kinet",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125454"
+    },
+    {
+        "id": "125455",
+        "naam": "Al. de la Haute Famenne",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125455"
+    },
+    {
+        "id": "125456",
+        "naam": "All\u00e9e de Pierreuse",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125456"
+    },
+    {
+        "id": "125457",
+        "naam": "All\u00e9e des Closeries",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125457"
+    },
+    {
+        "id": "125458",
+        "naam": "All\u00e9e des Faisans",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125458"
+    },
+    {
+        "id": "125459",
+        "naam": "All\u00e9e du Val",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125459"
+    },
+    {
+        "id": "125460",
+        "naam": "Au Cou de Chasse",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125460"
+    },
+    {
+        "id": "125461",
+        "naam": "Aux Achans",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125461"
+    },
+    {
+        "id": "125462",
+        "naam": "Aux Quatre Buissons",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125462"
+    },
+    {
+        "id": "125463",
+        "naam": "Aux Roches",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125463"
+    },
+    {
+        "id": "125464",
+        "naam": "Avenue des Bergers",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125464"
+    },
+    {
+        "id": "125465",
+        "naam": "Avenue des Tilleuls",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125465"
+    },
+    {
+        "id": "125466",
+        "naam": "Avenue Hubert Philippart",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125466"
+    },
+    {
+        "id": "125467",
+        "naam": "Avenue Louis de Loncin",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125467"
+    },
+    {
+        "id": "125468",
+        "naam": "Basse Comm\u00e8ne",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125468"
+    },
+    {
+        "id": "125469",
+        "naam": "Basse Cour",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125469"
+    },
+    {
+        "id": "125470",
+        "naam": "Basse Sauveni\u00e8re",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125470"
+    },
+    {
+        "id": "125471",
+        "naam": "Bihay",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125471"
+    },
+    {
+        "id": "125472",
+        "naam": "Boclinville",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125472"
+    },
+    {
+        "id": "125473",
+        "naam": "Bohon",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125473"
+    },
+    {
+        "id": "125474",
+        "naam": "Bois G\u00e9rard",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125474"
+    },
+    {
+        "id": "125475",
+        "naam": "Bois-de-Gras",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125475"
+    },
+    {
+        "id": "125476",
+        "naam": "Campagne Saint-Rahi",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125476"
+    },
+    {
+        "id": "125477",
+        "naam": "Ch. de la Croix de Pierre",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125477"
+    },
+    {
+        "id": "125478",
+        "naam": "Ch. de la Vieille Chapelle",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125478"
+    },
+    {
+        "id": "125479",
+        "naam": "Ch. de Nanchenioule",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125479"
+    },
+    {
+        "id": "125480",
+        "naam": "Chainrue",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125480"
+    },
+    {
+        "id": "125481",
+        "naam": "Champ des H\u00eatres",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125481"
+    },
+    {
+        "id": "125482",
+        "naam": "Champay",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125482"
+    },
+    {
+        "id": "125483",
+        "naam": "Champoutre",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125483"
+    },
+    {
+        "id": "125484",
+        "naam": "Chayeneux",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125484"
+    },
+    {
+        "id": "125485",
+        "naam": "Chemin de Corneh\u00e9",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125485"
+    },
+    {
+        "id": "125486",
+        "naam": "Chemin de la Chabotte",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125486"
+    },
+    {
+        "id": "125487",
+        "naam": "Chemin de la Maladr\u00e9e",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125487"
+    },
+    {
+        "id": "125488",
+        "naam": "Chemin de la Mini\u00e9e",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125488"
+    },
+    {
+        "id": "125489",
+        "naam": "Chemin de la Pyramide",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125489"
+    },
+    {
+        "id": "125490",
+        "naam": "Chemin de la Source",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125490"
+    },
+    {
+        "id": "125491",
+        "naam": "Chemin de l'Aisance",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125491"
+    },
+    {
+        "id": "125492",
+        "naam": "Chemin de Pair",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125492"
+    },
+    {
+        "id": "125493",
+        "naam": "Chemin de Sy",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125493"
+    },
+    {
+        "id": "125494",
+        "naam": "Chemin des Bouleaux",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125494"
+    },
+    {
+        "id": "125495",
+        "naam": "Chemin des Charan\u00e7ons",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125495"
+    },
+    {
+        "id": "125496",
+        "naam": "Chemin des Charmes",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125496"
+    },
+    {
+        "id": "125497",
+        "naam": "Chemin des Ch\u00eanes",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125497"
+    },
+    {
+        "id": "125498",
+        "naam": "Chemin des Chevreuils",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125498"
+    },
+    {
+        "id": "125499",
+        "naam": "Chemin des Ecureuils",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125499"
+    },
+    {
+        "id": "125500",
+        "naam": "Chemin des Grandes Roches",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125500"
+    },
+    {
+        "id": "125501",
+        "naam": "Chemin des H\u00e9rissons",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125501"
+    },
+    {
+        "id": "125502",
+        "naam": "Chemin des Houblonni\u00e8res",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125502"
+    },
+    {
+        "id": "125503",
+        "naam": "Chemin des Houill\u00e8res",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125503"
+    },
+    {
+        "id": "125504",
+        "naam": "Chemin des Hulottes",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125504"
+    },
+    {
+        "id": "125505",
+        "naam": "Chemin des Li\u00e8vres",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125505"
+    },
+    {
+        "id": "125506",
+        "naam": "Chemin des M\u00e9sanges",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125506"
+    },
+    {
+        "id": "125507",
+        "naam": "Chemin des Mines",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125507"
+    },
+    {
+        "id": "125508",
+        "naam": "Chemin des Remparts",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125508"
+    },
+    {
+        "id": "125509",
+        "naam": "Chemin des Roses",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125509"
+    },
+    {
+        "id": "125510",
+        "naam": "Chemin des Sangliers",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125510"
+    },
+    {
+        "id": "125511",
+        "naam": "Chemin des Sapins",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125511"
+    },
+    {
+        "id": "125512",
+        "naam": "Chemin du Champ Mahay",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125512"
+    },
+    {
+        "id": "125513",
+        "naam": "Chemin du Chant d'Oiseaux",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125513"
+    },
+    {
+        "id": "125514",
+        "naam": "Chemin du Ch\u00e9nisse",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125514"
+    },
+    {
+        "id": "125515",
+        "naam": "Chemin du Clinchamps",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125515"
+    },
+    {
+        "id": "125516",
+        "naam": "Chemin du Hasard",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125516"
+    },
+    {
+        "id": "125517",
+        "naam": "Chemin du Puits",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125517"
+    },
+    {
+        "id": "125518",
+        "naam": "Ch\u00eane \u00e0 Han",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125518"
+    },
+    {
+        "id": "125519",
+        "naam": "Chera Monseu",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125519"
+    },
+    {
+        "id": "125520",
+        "naam": "Clos du Manoir",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125520"
+    },
+    {
+        "id": "125521",
+        "naam": "Coquaimont",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125521"
+    },
+    {
+        "id": "125522",
+        "naam": "Courtil Miesseni",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125522"
+    },
+    {
+        "id": "125523",
+        "naam": "Croix Bertholet",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125523"
+    },
+    {
+        "id": "125524",
+        "naam": "Derri\u00e8re les Courtils",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125524"
+    },
+    {
+        "id": "125525",
+        "naam": "Devant Bouchaimont",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125525"
+    },
+    {
+        "id": "125526",
+        "naam": "Dizos Bihay-Sous Bihay",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125526"
+    },
+    {
+        "id": "125527",
+        "naam": "Domaine de Bellevue",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125527"
+    },
+    {
+        "id": "125528",
+        "naam": "Dr\u00e8ve du Centenaire",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125528"
+    },
+    {
+        "id": "125529",
+        "naam": "Driaisne",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125529"
+    },
+    {
+        "id": "125530",
+        "naam": "El Coul\u00eaye",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125530"
+    },
+    {
+        "id": "125531",
+        "naam": "El Cw\u00e8ne",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125531"
+    },
+    {
+        "id": "125532",
+        "naam": "El Tave",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125532"
+    },
+    {
+        "id": "125533",
+        "naam": "El Va",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125533"
+    },
+    {
+        "id": "125534",
+        "naam": "En Charotte",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125534"
+    },
+    {
+        "id": "125535",
+        "naam": "Entre deux Soyes",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125535"
+    },
+    {
+        "id": "125536",
+        "naam": "Famenne",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125536"
+    },
+    {
+        "id": "125537",
+        "naam": "Fermine",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125537"
+    },
+    {
+        "id": "125538",
+        "naam": "Fond Colas",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125538"
+    },
+    {
+        "id": "125539",
+        "naam": "Fond de Vedeur",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125539"
+    },
+    {
+        "id": "125540",
+        "naam": "Fond Sainte-Anne",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125540"
+    },
+    {
+        "id": "125541",
+        "naam": "Fouyeux",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125541"
+    },
+    {
+        "id": "125542",
+        "naam": "Grand Houmart",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125542"
+    },
+    {
+        "id": "125543",
+        "naam": "Grand-Bru",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125543"
+    },
+    {
+        "id": "125544",
+        "naam": "Grande Enneille",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125544"
+    },
+    {
+        "id": "125545",
+        "naam": "Grand'Rue",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125545"
+    },
+    {
+        "id": "125546",
+        "naam": "Grand-Rue",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125546"
+    },
+    {
+        "id": "125547",
+        "naam": "Haute Comm\u00e8ne",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125547"
+    },
+    {
+        "id": "125548",
+        "naam": "Hautes Voies",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125548"
+    },
+    {
+        "id": "125549",
+        "naam": "Herbet",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125549"
+    },
+    {
+        "id": "125550",
+        "naam": "Hermanne",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125550"
+    },
+    {
+        "id": "125551",
+        "naam": "Hinonsart",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125551"
+    },
+    {
+        "id": "125552",
+        "naam": "Hiva",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125552"
+    },
+    {
+        "id": "125553",
+        "naam": "Hodister",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125553"
+    },
+    {
+        "id": "125554",
+        "naam": "Hourlay",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125554"
+    },
+    {
+        "id": "125555",
+        "naam": "Inz\u00e8f\u00e8r\u00eere",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125555"
+    },
+    {
+        "id": "125556",
+        "naam": "Inz\u00e8s Pr\u00e9s",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125556"
+    },
+    {
+        "id": "125557",
+        "naam": "Inz\u00e8s V\u00e2s",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125557"
+    },
+    {
+        "id": "125558",
+        "naam": "La Basse Kaye",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125558"
+    },
+    {
+        "id": "125559",
+        "naam": "La Clairi\u00e8re",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125559"
+    },
+    {
+        "id": "125560",
+        "naam": "La Dr\u00e8ve",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125560"
+    },
+    {
+        "id": "125561",
+        "naam": "La Gridj\u00e8te",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125561"
+    },
+    {
+        "id": "125562",
+        "naam": "La Haisse",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125562"
+    },
+    {
+        "id": "125563",
+        "naam": "La Herdavoie",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125563"
+    },
+    {
+        "id": "125564",
+        "naam": "La Petite Batte",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125564"
+    },
+    {
+        "id": "125565",
+        "naam": "La Rote",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125565"
+    },
+    {
+        "id": "125566",
+        "naam": "La Voie Romaine",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125566"
+    },
+    {
+        "id": "125567",
+        "naam": "Lagelire",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125567"
+    },
+    {
+        "id": "125568",
+        "naam": "Le Doyar",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125568"
+    },
+    {
+        "id": "125569",
+        "naam": "Le Haya",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125569"
+    },
+    {
+        "id": "125570",
+        "naam": "Le Vin\u00e2ve",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125570"
+    },
+    {
+        "id": "125571",
+        "naam": "Les Cre\u00fbh\u00e9tes",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125571"
+    },
+    {
+        "id": "125572",
+        "naam": "Les Deux Tilleuls",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125572"
+    },
+    {
+        "id": "125573",
+        "naam": "Les Jardins du Golf",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125573"
+    },
+    {
+        "id": "125574",
+        "naam": "Les Marchettes",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125574"
+    },
+    {
+        "id": "125575",
+        "naam": "Lignely",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125575"
+    },
+    {
+        "id": "125576",
+        "naam": "Loher\u00e9",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125576"
+    },
+    {
+        "id": "125577",
+        "naam": "Longchamps",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125577"
+    },
+    {
+        "id": "125578",
+        "naam": "Longs Trixhes",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125578"
+    },
+    {
+        "id": "125579",
+        "naam": "Longueville",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125579"
+    },
+    {
+        "id": "125580",
+        "naam": "Lotissement Adam",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125580"
+    },
+    {
+        "id": "125581",
+        "naam": "Malbout\u00e9e",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125581"
+    },
+    {
+        "id": "125582",
+        "naam": "Mont des Pins",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125582"
+    },
+    {
+        "id": "125583",
+        "naam": "Monten\u00e9",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125583"
+    },
+    {
+        "id": "125584",
+        "naam": "Morville",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125584"
+    },
+    {
+        "id": "125585",
+        "naam": "Moulin-d'Amas",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125585"
+    },
+    {
+        "id": "125586",
+        "naam": "Neuve Voie",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125586"
+    },
+    {
+        "id": "125587",
+        "naam": "Ninane",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125587"
+    },
+    {
+        "id": "125588",
+        "naam": "Ozo",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125588"
+    },
+    {
+        "id": "125589",
+        "naam": "Pahis d\u00e8s V\u00eas",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125589"
+    },
+    {
+        "id": "125590",
+        "naam": "Parc de Juli\u00e9nas",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125590"
+    },
+    {
+        "id": "125591",
+        "naam": "Parc R\u00e9sidentiel des Hazalles",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125591"
+    },
+    {
+        "id": "125592",
+        "naam": "Parvis Saint-Martin",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125592"
+    },
+    {
+        "id": "125593",
+        "naam": "Pas Bayard",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125593"
+    },
+    {
+        "id": "125594",
+        "naam": "Petit Barvaux",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125594"
+    },
+    {
+        "id": "125595",
+        "naam": "Petit Houmart",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125595"
+    },
+    {
+        "id": "125596",
+        "naam": "Petite Enneille",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125596"
+    },
+    {
+        "id": "125597",
+        "naam": "Petite Somme",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125597"
+    },
+    {
+        "id": "125598",
+        "naam": "Pl. Jacques aux Puces",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125598"
+    },
+    {
+        "id": "125599",
+        "naam": "Place Ars\u00e8ne Soreil",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125599"
+    },
+    {
+        "id": "125600",
+        "naam": "Place aux Foires",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125600"
+    },
+    {
+        "id": "125601",
+        "naam": "Place de Beaujeu",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125601"
+    },
+    {
+        "id": "125602",
+        "naam": "Place de la Pierre",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125602"
+    },
+    {
+        "id": "125603",
+        "naam": "Place du March\u00e9",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125603"
+    },
+    {
+        "id": "125604",
+        "naam": "Place Isabeau Madame",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125604"
+    },
+    {
+        "id": "125605",
+        "naam": "Place Joseph Mar\u00e9chal",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125605"
+    },
+    {
+        "id": "125606",
+        "naam": "Place Vend\u00f4me",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125606"
+    },
+    {
+        "id": "125607",
+        "naam": "Plateau du Soleil",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125607"
+    },
+    {
+        "id": "125608",
+        "naam": "Plain de Holset",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125608"
+    },
+    {
+        "id": "125609",
+        "naam": "Pr\u00e9 Cawiai",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125609"
+    },
+    {
+        "id": "125610",
+        "naam": "Pr\u00e9 Lign\u00e9",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125610"
+    },
+    {
+        "id": "125611",
+        "naam": "Quai des Outleux",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125611"
+    },
+    {
+        "id": "125612",
+        "naam": "R. A.Daufresne-de-la-Chevalerie",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125612"
+    },
+    {
+        "id": "125613",
+        "naam": "R. des Comtes du Luxembourg",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125613"
+    },
+    {
+        "id": "125614",
+        "naam": "R. du Ch\u00eane \u00e0 la Mouche",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125614"
+    },
+    {
+        "id": "125615",
+        "naam": "R. du Colonel Vanderpeere",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125615"
+    },
+    {
+        "id": "125616",
+        "naam": "R. du Pont le Pr\u00eatre",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125616"
+    },
+    {
+        "id": "125617",
+        "naam": "Ride\u00fb",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125617"
+    },
+    {
+        "id": "125618",
+        "naam": "Rochettes Grandes",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125618"
+    },
+    {
+        "id": "125619",
+        "naam": "Roisse Herbet",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125619"
+    },
+    {
+        "id": "125620",
+        "naam": "Route d'Amas",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125620"
+    },
+    {
+        "id": "125621",
+        "naam": "Route de Barvaux",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125621"
+    },
+    {
+        "id": "125622",
+        "naam": "Route de Bomal",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125622"
+    },
+    {
+        "id": "125623",
+        "naam": "Route de Durbuy",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125623"
+    },
+    {
+        "id": "125625",
+        "naam": "Route de Hottemme",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125625"
+    },
+    {
+        "id": "125626",
+        "naam": "Route de Longueville",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125626"
+    },
+    {
+        "id": "125627",
+        "naam": "Route de Marche",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125627"
+    },
+    {
+        "id": "125628",
+        "naam": "Route d'Erez\u00e9e",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125628"
+    },
+    {
+        "id": "125629",
+        "naam": "Route d'Oneux",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125629"
+    },
+    {
+        "id": "125630",
+        "naam": "Route d'Oppagne",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125630"
+    },
+    {
+        "id": "125631",
+        "naam": "Rowe d\u00e8 R\u00e8mole\u00fb",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125631"
+    },
+    {
+        "id": "125632",
+        "naam": "Rowe di Ve\u00fble",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125632"
+    },
+    {
+        "id": "125633",
+        "naam": "Rue Alphonse Eloy",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125633"
+    },
+    {
+        "id": "125634",
+        "naam": "Rue Au-Del\u00e0-de-la-Fray\u00e8re",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125634"
+    },
+    {
+        "id": "125635",
+        "naam": "Rue Craway",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125635"
+    },
+    {
+        "id": "125636",
+        "naam": "Rue d'Andenne",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125636"
+    },
+    {
+        "id": "125637",
+        "naam": "Rue de Barvaux",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125637"
+    },
+    {
+        "id": "125638",
+        "naam": "Rue de Chaplis",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125638"
+    },
+    {
+        "id": "125639",
+        "naam": "Rue de Fisenne",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125639"
+    },
+    {
+        "id": "125640",
+        "naam": "Rue de Fleurie",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125640"
+    },
+    {
+        "id": "125641",
+        "naam": "Rue de Gibet",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125641"
+    },
+    {
+        "id": "125642",
+        "naam": "Rue de Givet",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125642"
+    },
+    {
+        "id": "125643",
+        "naam": "Rue de Heyd",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125643"
+    },
+    {
+        "id": "125644",
+        "naam": "Rue de Hotton",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125644"
+    },
+    {
+        "id": "125645",
+        "naam": "Rue de la Brassine",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125645"
+    },
+    {
+        "id": "125646",
+        "naam": "Rue de la Croix de Fer",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125646"
+    },
+    {
+        "id": "125647",
+        "naam": "Rue de la Cure",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125647"
+    },
+    {
+        "id": "125648",
+        "naam": "Rue de la Fontaine",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125648"
+    },
+    {
+        "id": "125649",
+        "naam": "Rue de la For\u00eat",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125649"
+    },
+    {
+        "id": "125650",
+        "naam": "Rue de la Forge",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125650"
+    },
+    {
+        "id": "125651",
+        "naam": "Rue de la Fray\u00e8re",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125651"
+    },
+    {
+        "id": "125652",
+        "naam": "Rue de la Haie Himbe",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125652"
+    },
+    {
+        "id": "125653",
+        "naam": "Rue de la Jastr\u00e9e",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125653"
+    },
+    {
+        "id": "125654",
+        "naam": "Rue de la Laiterie",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125654"
+    },
+    {
+        "id": "125655",
+        "naam": "Rue de la Petite Chaise",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125655"
+    },
+    {
+        "id": "125656",
+        "naam": "Rue de la Pr\u00e9v\u00f4t\u00e9",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125656"
+    },
+    {
+        "id": "125657",
+        "naam": "Rue de la Somme",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125657"
+    },
+    {
+        "id": "125658",
+        "naam": "Rue de la Tour du Diable",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125658"
+    },
+    {
+        "id": "125659",
+        "naam": "Rue de la Vieille-Halle",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125659"
+    },
+    {
+        "id": "125660",
+        "naam": "Rue de l'Abb\u00e9 Deldef",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125660"
+    },
+    {
+        "id": "125661",
+        "naam": "Rue de Lantign\u00e9",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125661"
+    },
+    {
+        "id": "125662",
+        "naam": "Rue de l'Argot\u00e9",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125662"
+    },
+    {
+        "id": "125663",
+        "naam": "Rue de Li\u00e8ge",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125663"
+    },
+    {
+        "id": "125664",
+        "naam": "Rue de l'Industrie",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125664"
+    },
+    {
+        "id": "125665",
+        "naam": "Rue de l'Ourthe",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125665"
+    },
+    {
+        "id": "125666",
+        "naam": "Rue de Marlaine",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125666"
+    },
+    {
+        "id": "125667",
+        "naam": "Rue de Ny",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125667"
+    },
+    {
+        "id": "125668",
+        "naam": "Rue de Pissoux",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125668"
+    },
+    {
+        "id": "125669",
+        "naam": "Rue de Presseux",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125669"
+    },
+    {
+        "id": "125670",
+        "naam": "Rue de Saint Amour",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125670"
+    },
+    {
+        "id": "125671",
+        "naam": "Rue de Soy",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125671"
+    },
+    {
+        "id": "125672",
+        "naam": "Rue de Tohogne",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125672"
+    },
+    {
+        "id": "125673",
+        "naam": "Rue de W\u00e9ris",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125673"
+    },
+    {
+        "id": "125674",
+        "naam": "Rue des Aguesses",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125674"
+    },
+    {
+        "id": "125675",
+        "naam": "Rue des Alisiers",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125675"
+    },
+    {
+        "id": "125676",
+        "naam": "Rue des Amordins",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125676"
+    },
+    {
+        "id": "125677",
+        "naam": "Rue des Arcades",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125677"
+    },
+    {
+        "id": "125678",
+        "naam": "Rue des Ardennes",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125678"
+    },
+    {
+        "id": "125679",
+        "naam": "Rue des Ardillats",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125679"
+    },
+    {
+        "id": "125680",
+        "naam": "Rue des Basses",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125680"
+    },
+    {
+        "id": "125681",
+        "naam": "Rue des Combattants",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125681"
+    },
+    {
+        "id": "125682",
+        "naam": "Rue des Comtes du Luxembourg",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125682"
+    },
+    {
+        "id": "125683",
+        "naam": "Rue des Cr\u00eates",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125683"
+    },
+    {
+        "id": "125684",
+        "naam": "Rue des Dolmens",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125684"
+    },
+    {
+        "id": "125685",
+        "naam": "Rue des Eresses",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125685"
+    },
+    {
+        "id": "125686",
+        "naam": "Rue des Fr\u00e8res Collin",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125686"
+    },
+    {
+        "id": "125687",
+        "naam": "Rue des Glawans",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125687"
+    },
+    {
+        "id": "125688",
+        "naam": "Rue des Gueuvelettes",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125688"
+    },
+    {
+        "id": "125689",
+        "naam": "Rue des Hazalles",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125689"
+    },
+    {
+        "id": "125690",
+        "naam": "Rue des Jardins",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125690"
+    },
+    {
+        "id": "125691",
+        "naam": "Rue des Longs B\u00e2tis",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125691"
+    },
+    {
+        "id": "125692",
+        "naam": "Rue des Macralles",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125692"
+    },
+    {
+        "id": "125693",
+        "naam": "Rue des M\u00e9tiers",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125693"
+    },
+    {
+        "id": "125694",
+        "naam": "Rue des Pin\u00e8des",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125694"
+    },
+    {
+        "id": "125695",
+        "naam": "Rue des R\u00e9collectines",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125695"
+    },
+    {
+        "id": "125696",
+        "naam": "Rue des R\u00e9collets",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125696"
+    },
+    {
+        "id": "125697",
+        "naam": "Rue des Saven\u00eeres",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125697"
+    },
+    {
+        "id": "125698",
+        "naam": "Rue des Trois Sapins",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125698"
+    },
+    {
+        "id": "125699",
+        "naam": "Rue des Zones",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125699"
+    },
+    {
+        "id": "125700",
+        "naam": "Rue d'Izier",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125700"
+    },
+    {
+        "id": "125701",
+        "naam": "Rue du Bati - Rowe d\u00e8 Bati",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125701"
+    },
+    {
+        "id": "125702",
+        "naam": "Rue du Bois",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125702"
+    },
+    {
+        "id": "125703",
+        "naam": "Rue du Broux",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125703"
+    },
+    {
+        "id": "125704",
+        "naam": "Rue du Canal",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125704"
+    },
+    {
+        "id": "125705",
+        "naam": "Rue du Ch\u00e2teau",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125705"
+    },
+    {
+        "id": "125706",
+        "naam": "Rue du Chemin de Fer",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125706"
+    },
+    {
+        "id": "125707",
+        "naam": "Rue du Comte Th\u00e9odule d'Ursel",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125707"
+    },
+    {
+        "id": "125708",
+        "naam": "Rue du Coreux",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125708"
+    },
+    {
+        "id": "125709",
+        "naam": "Rue du Gibet",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125709"
+    },
+    {
+        "id": "125710",
+        "naam": "Rue du Lieutenant Li\u00e9geois",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125710"
+    },
+    {
+        "id": "125711",
+        "naam": "Rue du Marais",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125711"
+    },
+    {
+        "id": "125712",
+        "naam": "Rue du March\u00e9",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125712"
+    },
+    {
+        "id": "125713",
+        "naam": "Rue du Mazy",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125713"
+    },
+    {
+        "id": "125714",
+        "naam": "Rue du Menhir",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125714"
+    },
+    {
+        "id": "125715",
+        "naam": "Rue du M\u00e9rou",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125715"
+    },
+    {
+        "id": "125716",
+        "naam": "Rue du Mill\u00e9naire",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125716"
+    },
+    {
+        "id": "125717",
+        "naam": "Rue du Mont",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125717"
+    },
+    {
+        "id": "125718",
+        "naam": "Rue du Monument",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125718"
+    },
+    {
+        "id": "125719",
+        "naam": "Rue du Moulin",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125719"
+    },
+    {
+        "id": "125720",
+        "naam": "Rue du Nofiot",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125720"
+    },
+    {
+        "id": "125721",
+        "naam": "Rue du Pl\u00e2tre",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125721"
+    },
+    {
+        "id": "125722",
+        "naam": "Rue du Poteau",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125722"
+    },
+    {
+        "id": "125723",
+        "naam": "Rue du Ry de Savon",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125723"
+    },
+    {
+        "id": "125724",
+        "naam": "Rue du Sassin",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125724"
+    },
+    {
+        "id": "125725",
+        "naam": "Rue du Sawheux",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125725"
+    },
+    {
+        "id": "125726",
+        "naam": "Rue du T\u00e9nimont",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125726"
+    },
+    {
+        "id": "125727",
+        "naam": "Rue du Vieux Cur\u00e9",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125727"
+    },
+    {
+        "id": "125728",
+        "naam": "Rue du Vieux-Mayeur",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125728"
+    },
+    {
+        "id": "125729",
+        "naam": "Rue Gilles Bouvet",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125729"
+    },
+    {
+        "id": "125730",
+        "naam": "Rue Hagueule",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125730"
+    },
+    {
+        "id": "125731",
+        "naam": "Rue Jean de Boh\u00e8me",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125731"
+    },
+    {
+        "id": "125732",
+        "naam": "Rue l'Agent",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125732"
+    },
+    {
+        "id": "125733",
+        "naam": "Rue Lamorteau",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125733"
+    },
+    {
+        "id": "125734",
+        "naam": "Rue Marchettes",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125734"
+    },
+    {
+        "id": "125735",
+        "naam": "Rue Rahier",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125735"
+    },
+    {
+        "id": "125736",
+        "naam": "Rue Roche al Boule",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125736"
+    },
+    {
+        "id": "125737",
+        "naam": "Rue Rome",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125737"
+    },
+    {
+        "id": "125738",
+        "naam": "Rue Saint-Monon",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125738"
+    },
+    {
+        "id": "125739",
+        "naam": "Rue Soussy",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125739"
+    },
+    {
+        "id": "125740",
+        "naam": "Rue Spinettes",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125740"
+    },
+    {
+        "id": "125741",
+        "naam": "Rue Trois Fontaines",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125741"
+    },
+    {
+        "id": "125742",
+        "naam": "Ruelle de l'Aite",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125742"
+    },
+    {
+        "id": "125743",
+        "naam": "Strya",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125743"
+    },
+    {
+        "id": "125744",
+        "naam": "Sur la G\u00e8re",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125744"
+    },
+    {
+        "id": "125745",
+        "naam": "Sur Pierreux",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125745"
+    },
+    {
+        "id": "125746",
+        "naam": "Terre aux Ris",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125746"
+    },
+    {
+        "id": "125747",
+        "naam": "Tier d'Acneye",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125747"
+    },
+    {
+        "id": "125748",
+        "naam": "Tier de Palenge",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125748"
+    },
+    {
+        "id": "125749",
+        "naam": "Tier d\u00e8 Rinze",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125749"
+    },
+    {
+        "id": "125750",
+        "naam": "Tier de Rome",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125750"
+    },
+    {
+        "id": "125751",
+        "naam": "Tier de Vin\u00e9",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125751"
+    },
+    {
+        "id": "125752",
+        "naam": "Tier del Creux",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125752"
+    },
+    {
+        "id": "125753",
+        "naam": "Tier des Bo\u00fbs",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125753"
+    },
+    {
+        "id": "125754",
+        "naam": "Tier des R\u00e9simont",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125754"
+    },
+    {
+        "id": "125755",
+        "naam": "Tier dol H\u00e9",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125755"
+    },
+    {
+        "id": "125756",
+        "naam": "Tier d'Ozo",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125756"
+    },
+    {
+        "id": "125757",
+        "naam": "Tier La Rocheblin",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125757"
+    },
+    {
+        "id": "125758",
+        "naam": "Tier Moreau",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125758"
+    },
+    {
+        "id": "125759",
+        "naam": "Tier Saint-Antoine",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125759"
+    },
+    {
+        "id": "125760",
+        "naam": "Tige du Bois de Gras",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125760"
+    },
+    {
+        "id": "125761",
+        "naam": "Tombeux",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125761"
+    },
+    {
+        "id": "125762",
+        "naam": "Tour",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125762"
+    },
+    {
+        "id": "125763",
+        "naam": "Trieux",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125763"
+    },
+    {
+        "id": "125764",
+        "naam": "Troneux",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125764"
+    },
+    {
+        "id": "125765",
+        "naam": "Val M\u00e8l\u00e8ye",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125765"
+    },
+    {
+        "id": "125766",
+        "naam": "Vanne Navet",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125766"
+    },
+    {
+        "id": "125767",
+        "naam": "V\u00e9v\u00ee Gaime",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125767"
+    },
+    {
+        "id": "125768",
+        "naam": "Vieux Chemin de Petithan",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125768"
+    },
+    {
+        "id": "125769",
+        "naam": "Vieux Chemin de W\u00e9ris",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125769"
+    },
+    {
+        "id": "125770",
+        "naam": "Vieux Fourneau",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125770"
+    },
+    {
+        "id": "125771",
+        "naam": "Vieux Mont",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125771"
+    },
+    {
+        "id": "125772",
+        "naam": "Vivier Madame",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125772"
+    },
+    {
+        "id": "125773",
+        "naam": "Voie d'Aisne",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125773"
+    },
+    {
+        "id": "125774",
+        "naam": "Voie de Ferri\u00e8res",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125774"
+    },
+    {
+        "id": "125775",
+        "naam": "Voie Michel",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125775"
+    },
+    {
+        "id": "125776",
+        "naam": "V\u00f4ye d\u00e8 Marl\u00ee",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125776"
+    },
+    {
+        "id": "125777",
+        "naam": "V\u00f4ye del Rotche a Frinne",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125777"
+    },
+    {
+        "id": "125778",
+        "naam": "Warre",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125778"
+    },
+    {
+        "id": "125779",
+        "naam": "Wenin",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/125779"
+    },
+    {
+        "id": "144032",
+        "naam": "Rue des Renoncules",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/144032"
+    },
+    {
+        "id": "144033",
+        "naam": "Rue des V\u00e9roniques",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/144033"
+    },
+    {
+        "id": "144034",
+        "naam": "Rue des Violettes",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/144034"
+    },
+    {
+        "id": "144035",
+        "naam": "Rue des Orchid\u00e9es",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/144035"
+    },
+    {
+        "id": "144036",
+        "naam": "Rue des Parisettes",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/144036"
+    },
+    {
+        "id": "144037",
+        "naam": "Rue des Primev\u00e8res",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/144037"
+    },
+    {
+        "id": "144038",
+        "naam": "Rue des An\u00e9mones",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/144038"
+    },
+    {
+        "id": "144039",
+        "naam": "Rue des Asp\u00e9rules",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/144039"
+    },
+    {
+        "id": "144040",
+        "naam": "Rue Bois Joli",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/144040"
+    },
+    {
+        "id": "144041",
+        "naam": "Place d'Hanyu",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/144041"
+    },
+    {
+        "id": "144042",
+        "naam": "Place du Grand Anticlinal",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/144042"
+    },
+    {
+        "id": "144043",
+        "naam": "Voie de Halage",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/144043"
+    },
+    {
+        "id": "144044",
+        "naam": "Chemin de Halage",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/144044"
+    },
+    {
+        "id": "144045",
+        "naam": "Derri\u00e8re Clairval",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/144045"
+    },
+    {
+        "id": "144046",
+        "naam": "Parc Roi Baudouin",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/144046"
+    },
+    {
+        "id": "144047",
+        "naam": "Rue Christophe THEATE",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/144047"
+    },
+    {
+        "id": "144048",
+        "naam": "Fosses di Martchet",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/144048"
+    },
+    {
+        "id": "144049",
+        "naam": "Pl\u00e8ce di Vog\u00fc\u00e9",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/144049"
+    },
+    {
+        "id": "145800",
+        "naam": "Parc d'Ursel",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/145800"
+    },
+    {
+        "id": "145801",
+        "naam": "Chemin de la Grotte",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/145801"
+    },
+    {
+        "id": "145962",
+        "naam": "Au-dessus des Hans",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/145962"
+    },
+    {
+        "id": "146331",
+        "naam": "Rue des Gentianes",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/146331"
+    },
+    {
+        "id": "151368",
+        "naam": "Sur Cohaimont",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/151368"
+    },
+    {
+        "id": "151369",
+        "naam": "Bois Beno\u00eet",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/151369"
+    },
+    {
+        "id": "151370",
+        "naam": "Rue de la Lembree",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/151370"
+    },
+    {
+        "id": "151371",
+        "naam": "Rouwale d\u00e8 Grand Pr\u00e9",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/151371"
+    },
+    {
+        "id": "161618",
+        "naam": "Chemin des Prunelliers",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/161618"
+    },
+    {
+        "id": "179804",
+        "naam": "Chemin du Meunier",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/179804"
+    },
+    {
+        "id": "179805",
+        "naam": "Voie de Forte Terre",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/179805"
+    },
+    {
+        "id": "179806",
+        "naam": "Chemin de L'\u00c9tang",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/179806"
+    },
+    {
+        "id": "184192",
+        "naam": "Rue Pl\u00e8n\u00e8sse",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/184192"
+    },
+    {
+        "id": "198130",
+        "naam": "Chemin de la Haie Madame",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/198130"
+    },
+    {
+        "id": "226860",
+        "naam": "Clos du Ris Dodet",
+        "homoniem": null,
+        "status": "inGebruik",
+        "uri": "https://data.vlaanderen.be/id/straatnaam/226860"
+    }
+]

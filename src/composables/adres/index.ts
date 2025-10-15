@@ -5,28 +5,29 @@ import { createAdresState } from './state';
 import { setupWatchers } from './watchers';
 import { computed } from 'vue';
 import { CrabApiService } from '@services/crab-api.service';
+import { logInfo } from '@utils/index';
 import type { IAdresProps } from '@models/adres';
 import type { IGemeente, ILand } from '@models/locatie';
 
-export function useAdresLogic(props: IAdresProps, emit: (event: 'update:adres', ...args: unknown[]) => void) {
+export type ResetLevel = 'gewest' | 'provincie' | 'gemeente' | 'straat' | 'huisnummer';
+
+export const useAdresLogic = (props: IAdresProps, emit: (event: 'update:adres', ...args: unknown[]) => void) => {
+  logInfo('useAdresLogic');
+
   // Initialize state
   const state = createAdresState();
 
   // Initialize CRAB API service
   const crabApiService = new CrabApiService(props.api || '');
 
-  // Computed helpers
-  const isBelgiumOrEmpty = () => {
-    return !state.land.value || (state.land.value as ILand)?.code === 'BE' || (state.land.value as ILand)?.code === '';
-  };
-
+  // Helpers
   const isBelgium = () => (state.land.value as ILand)?.code === 'BE';
+  const isBelgiumOrEmpty = () => !state.land.value || isBelgium();
 
+  // Computed
   const isVlaamseGemeenteOrEmptyComputed = computed(() => {
-    if (isBelgium() && state.gemeente.value && !!state.gemeenten.value.length) {
-      return crabApiService.vlaamseGemeenten.some(
-        (g) => g.niscode === (state.gemeente.value as unknown as IGemeente).niscode
-      );
+    if (isBelgium() && !!state.gemeenten.value?.length) {
+      return crabApiService.vlaamseGemeenten.some((g) => g.niscode === (state.gemeente.value as IGemeente)?.niscode);
     }
     return !state.gemeente.value;
   });
@@ -75,10 +76,10 @@ export function useAdresLogic(props: IAdresProps, emit: (event: 'update:adres', 
   return {
     // State
     isLoading: state.isLoading,
-    postcodeFreeText: state.postcodeFreeText,
-    straatFreeText: state.straatFreeText,
-    huisnummerFreeText: state.huisnummerFreeText,
-    busnummerFreeText: state.busnummerFreeText,
+    postcodeIsFreeText: state.postcodeIsFreeText,
+    straatIsFreeText: state.straatIsFreeText,
+    huisnummerIsFreeText: state.huisnummerIsFreeText,
+    busnummerIsFreeText: state.busnummerIsFreeText,
 
     // Form values
     land: state.land,
@@ -111,4 +112,4 @@ export function useAdresLogic(props: IAdresProps, emit: (event: 'update:adres', 
     performAutocompleteSearchBusnummers: apiHelpers.performAutocompleteSearchBusnummers,
     initializeData: initializers.initializeData,
   };
-}
+};

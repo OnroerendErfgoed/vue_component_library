@@ -2,6 +2,8 @@ import { defineConfig } from 'cypress';
 import plugin from 'cypress-watch-and-reload/plugins.js';
 
 export default defineConfig({
+  // Make sure we don't make requests to the real APIs during tests
+  blockHosts: ['*.onroerenderfgoed.be'],
   e2e: {
     specPattern: 'cypress/e2e/**/*.{cy,spec}.{js,jsx,ts,tsx}',
     baseUrl: 'http://localhost:4173',

@@ -1,13 +1,21 @@
+import { ResetLevel } from '@composables/adres';
 import { AxiosError } from 'axios';
 import { uniqBy } from 'lodash';
 import { Niscode } from '@models/niscode.enum';
+import { logInfo } from '@utils/index';
 import type { AdresState } from './state';
-import type { ResetLevel } from './types';
 import type { IAutocompleteOption } from '@models/autocomplete';
 import type { IGemeente, IProvincie } from '@models/locatie';
 import type { CrabApiService } from '@services/crab-api.service';
 
-export function createApiHelpers(state: AdresState, crabApiService: CrabApiService, isBelgium: () => boolean) {
+/*
+ * API helpers
+ * Functions to interact with the CRAB API and handle related logic
+ * Includes functions to fetch data based on current state and handle API errors
+ */
+export const createApiHelpers = (state: AdresState, crabApiService: CrabApiService, isBelgium: () => boolean) => {
+  logInfo('createApiHelpers');
+
   const getGemeentenByGewest = async (niscode: string): Promise<IGemeente[]> => {
     switch (niscode) {
       case Niscode.VlaamsGewest:
@@ -46,10 +54,10 @@ export function createApiHelpers(state: AdresState, crabApiService: CrabApiServi
   const handleApiError = (error: unknown): boolean => {
     if (error instanceof AxiosError && error?.response?.status === 404) {
       if (!isVlaamseGemeenteOrEmpty()) {
-        state.postcodeFreeText.value = true;
-        state.straatFreeText.value = true;
-        state.huisnummerFreeText.value = true;
-        state.busnummerFreeText.value = true;
+        state.postcodeIsFreeText.value = true;
+        state.straatIsFreeText.value = true;
+        state.huisnummerIsFreeText.value = true;
+        state.busnummerIsFreeText.value = true;
       }
       return true;
     }
@@ -57,9 +65,16 @@ export function createApiHelpers(state: AdresState, crabApiService: CrabApiServi
   };
 
   const resetFreeTextState = () => {
-    state.straatFreeText.value = false;
+    state.postcodeIsFreeText.value = false;
+    state.huisnummerIsFreeText.value = false;
+    state.busnummerIsFreeText.value = false;
+    state.straatIsFreeText.value = false;
   };
 
+  /* Reset dependent fields based on the level of change
+   * For example, changing the 'gemeente' will reset 'postcode', 'straat', 'huisnummer', and 'busnummer'
+   * The 'skipDuringInit' flag prevents resets during the initial loading phase
+   */
   const resetDependentFields = (level: ResetLevel, skipDuringInit = false) => {
     if (state.isInitializing.value && skipDuringInit) return;
 
@@ -128,4 +143,4 @@ export function createApiHelpers(state: AdresState, crabApiService: CrabApiServi
     performAutocompleteSearchHuisnummers,
     performAutocompleteSearchBusnummers,
   };
-}
+};

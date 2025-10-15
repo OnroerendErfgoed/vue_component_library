@@ -1,8 +1,17 @@
+import { ResetLevel } from '@composables/adres';
 import { Ref, watch } from 'vue';
 import { IAdresConfig } from '@models/adres';
 import type { AdresState } from './state';
-import type { ResetLevel, WatcherConfig } from './types';
 import type { IAdres, ILocatieAdres } from '@models/locatie';
+
+interface WatcherConfig<T> {
+  source: () => T;
+  resetLevel?: ResetLevel;
+  initializeAction?: () => Promise<void>;
+  skipWhen?: () => boolean;
+  onValueChange?: (newValue: T, oldValue: T | undefined) => void;
+  shouldInitialize?: (newValue: T) => boolean;
+}
 
 export function createFieldWatcher<T>(state: AdresState, config: WatcherConfig<T>, resetFreeTextState: () => void) {
   watch(config.source, async (newValue, oldValue) => {
@@ -141,7 +150,7 @@ export function setupWatchers(
     {
       source: () => state.straat.value,
       resetLevel: 'straat',
-      shouldInitialize: (value) => helpers.isBelgiumOrEmpty() && !!value && !state.straatFreeText.value,
+      shouldInitialize: (value) => helpers.isBelgiumOrEmpty() && !!value && !state.straatIsFreeText.value,
       initializeAction: initializers.initializeStraatData,
       onValueChange: (newValue, oldValue) => {
         if (oldValue) {
@@ -164,7 +173,7 @@ export function setupWatchers(
     if (hasChanged) {
       helpers.resetDependentFields('huisnummer');
       if (!props.config?.busnummer?.hidden) {
-        state.busnummerFreeText.value = false;
+        state.busnummerIsFreeText.value = false;
       }
     }
 
@@ -172,7 +181,7 @@ export function setupWatchers(
       adresComputed.value.straat?.id &&
       helpers.isBelgiumOrEmpty() &&
       selectedHuisnummer &&
-      !state.huisnummerFreeText.value &&
+      !state.huisnummerIsFreeText.value &&
       !props.config?.busnummer?.hidden;
 
     if (shouldFetchBusnummers) {
@@ -181,17 +190,17 @@ export function setupWatchers(
   });
 
   // Free text watchers
-  watch(state.postcodeFreeText, (newVal, oldVal) => {
+  watch(state.postcodeIsFreeText, (newVal, oldVal) => {
     if (state.isInitializing.value || newVal === oldVal || props.config?.postcode?.hidden) return;
     state.postcode.value = '';
   });
 
-  watch(state.straatFreeText, (newVal, oldVal) => {
+  watch(state.straatIsFreeText, (newVal, oldVal) => {
     if (state.isInitializing.value || newVal === oldVal) return;
     state.straat.value = '';
   });
 
-  watch(state.huisnummerFreeText, (newVal, oldVal) => {
+  watch(state.huisnummerIsFreeText, (newVal, oldVal) => {
     if (state.isInitializing.value || newVal === oldVal) return;
     const currentValue = state.huisnummer.value;
     const hasInitialData = !!props.adres;
@@ -200,7 +209,7 @@ export function setupWatchers(
       : (currentValue as IAdres)?.huisnummer || '';
   });
 
-  watch(state.busnummerFreeText, (newVal, oldVal) => {
+  watch(state.busnummerIsFreeText, (newVal, oldVal) => {
     if (state.isInitializing.value || newVal === oldVal || props.config?.busnummer?.hidden) return;
     const currentValue = state.busnummer.value;
     const hasInitialData = !!props.adres;

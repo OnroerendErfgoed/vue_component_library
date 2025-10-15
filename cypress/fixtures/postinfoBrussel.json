@@ -1,0 +1,50 @@
+[
+    {
+        "postcode": "1000",
+        "uri": "https://data.vlaanderen.be/id/postinfo/1000",
+        "status": "gerealiseerd",
+        "namen": [
+            "BRUSSEL"
+        ]
+    },
+    {
+        "postcode": "1020",
+        "uri": "https://data.vlaanderen.be/id/postinfo/1020",
+        "status": "gerealiseerd",
+        "namen": [
+            "Laken"
+        ]
+    },
+    {
+        "postcode": "1031",
+        "uri": "https://data.vlaanderen.be/id/postinfo/1031",
+        "status": "gerealiseerd",
+        "namen": [
+            "Christelijke Sociale Organisaties"
+        ]
+    },
+    {
+        "postcode": "1041",
+        "uri": "https://data.vlaanderen.be/id/postinfo/1041",
+        "status": "gerealiseerd",
+        "namen": [
+            "International press center"
+        ]
+    },
+    {
+        "postcode": "1120",
+        "uri": "https://data.vlaanderen.be/id/postinfo/1120",
+        "status": "gerealiseerd",
+        "namen": [
+            "Neder-Over-Heembeek"
+        ]
+    },
+    {
+        "postcode": "1130",
+        "uri": "https://data.vlaanderen.be/id/postinfo/1130",
+        "status": "gerealiseerd",
+        "namen": [
+            "Haren"
+        ]
+    }
+]

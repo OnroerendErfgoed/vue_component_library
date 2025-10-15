@@ -1,13 +1,17 @@
-import { pick } from 'lodash';
+import { isString, pick } from 'lodash';
+import { logInfo } from '@utils/index';
 import type { AdresState } from './state';
 import type { IGewest, ILand, ILocatieAdres, IProvincie } from '@models/locatie';
 
-// Type guards
-export const isStringValue = <T>(value: string | T | undefined): value is string => {
-  return typeof value === 'string';
-};
+/*
+ * Adres builders
+ * Functions to build the address object based on the current state
+ * Each function corresponds to a field in the ILocatieAdres interface
+ * They handle both object and string values for fields that can be free text
+ */
+export const createAdresBuilders = (state: AdresState) => {
+  logInfo('createAdresBuilders');
 
-export function createAdresBuilders(state: AdresState) {
   const buildLandValue = (): ILocatieAdres['land'] => {
     if (!state.land.value) return {};
     return {
@@ -34,7 +38,7 @@ export function createAdresBuilders(state: AdresState) {
 
   const buildGemeenteValue = (): ILocatieAdres['gemeente'] => {
     if (!state.gemeente.value) return {};
-    if (isStringValue(state.gemeente.value)) {
+    if (isString(state.gemeente.value)) {
       return { naam: state.gemeente.value };
     }
     return {
@@ -45,7 +49,7 @@ export function createAdresBuilders(state: AdresState) {
 
   const buildPostcodeValue = (): ILocatieAdres['postcode'] => {
     if (!state.postcode.value) return {};
-    if (isStringValue(state.postcode.value)) {
+    if (isString(state.postcode.value)) {
       return { nummer: state.postcode.value };
     }
     return {
@@ -56,7 +60,7 @@ export function createAdresBuilders(state: AdresState) {
 
   const buildStraatValue = (): ILocatieAdres['straat'] => {
     if (!state.straat.value) return {};
-    if (isStringValue(state.straat.value)) {
+    if (isString(state.straat.value)) {
       return { naam: state.straat.value };
     }
     return {
@@ -70,7 +74,7 @@ export function createAdresBuilders(state: AdresState) {
     let adresValue: ILocatieAdres['adres'] = {};
 
     if (state.huisnummer.value) {
-      if (isStringValue(state.huisnummer.value)) {
+      if (isString(state.huisnummer.value)) {
         adresValue = { huisnummer: state.huisnummer.value };
       } else {
         adresValue = pick(state.huisnummer.value, ['id', 'uri', 'huisnummer']);
@@ -78,7 +82,7 @@ export function createAdresBuilders(state: AdresState) {
     }
 
     if (state.busnummer.value) {
-      if (isStringValue(state.busnummer.value)) {
+      if (isString(state.busnummer.value)) {
         adresValue = { ...adresValue, busnummer: state.busnummer.value };
       } else {
         adresValue = {
@@ -102,4 +106,4 @@ export function createAdresBuilders(state: AdresState) {
     buildStraatValue,
     buildAdresValue,
   };
-}
+};

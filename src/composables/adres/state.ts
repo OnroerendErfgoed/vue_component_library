@@ -1,17 +1,39 @@
-import { STATIC_LANDEN } from './constants';
 import { computed, ref } from 'vue';
+import { logInfo } from '@utils/index';
 import type { IAdres, IGemeente, IGewest, ILand, IPostinfo, IProvincie, IStraat } from '@models/locatie';
 
-export function createAdresState() {
+/*
+ * Static landen
+ * A static list of commonly used landen to avoid excessive API calls
+ * The list is sorted with Belgium on top, followed by frequently used countries and a divider
+ * Additional landen can be fetched from the API and are appended to this list
+ */
+const STATIC_LANDEN: ILand[] = [
+  { code: 'BE', naam: 'België' },
+  { code: 'DE', naam: 'Duitsland' },
+  { code: 'FR', naam: 'Frankrijk' },
+  { code: 'GB', naam: 'Groot-Brittanië' },
+  { code: 'NL', naam: 'Nederland' },
+  { code: 'LU', naam: 'Luxemburg' },
+  { code: 'divider', naam: '─────────────────────────' },
+];
+
+/*
+ * Adres state
+ * All reactive state used in the adres composable
+ */
+export const createAdresState = () => {
+  logInfo('createAdresState');
+
   // Loading states
   const isLoading = ref(false);
   const isInitializing = ref(false);
 
   // Free text states
-  const postcodeFreeText = ref(false);
-  const straatFreeText = ref(false);
-  const huisnummerFreeText = ref(false);
-  const busnummerFreeText = ref(false);
+  const postcodeIsFreeText = ref(false);
+  const straatIsFreeText = ref(false);
+  const huisnummerIsFreeText = ref(false);
+  const busnummerIsFreeText = ref(false);
 
   // Form values
   const land = ref<string | ILand>('');
@@ -40,10 +62,10 @@ export function createAdresState() {
     isInitializing,
 
     // Free text states
-    postcodeFreeText,
-    straatFreeText,
-    huisnummerFreeText,
-    busnummerFreeText,
+    postcodeIsFreeText,
+    straatIsFreeText,
+    huisnummerIsFreeText,
+    busnummerIsFreeText,
 
     // Form values
     land,
@@ -66,6 +88,6 @@ export function createAdresState() {
     huisnummers,
     busnummers,
   };
-}
+};
 
 export type AdresState = ReturnType<typeof createAdresState>;

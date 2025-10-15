@@ -1,7 +1,7 @@
 <template>
   <div>
     <OeAutocomplete
-      v-if="isBelgiumOrEmpty && !huisnummerFreeText && !freeText"
+      v-if="isBelgiumOrEmpty && !huisnummerIsFreeText && !freeText"
       data-cy="autocomplete-busnummer"
       allow-free-text
       autoselect
@@ -39,7 +39,7 @@ const props = defineProps({
   modError: { type: Boolean, default: false },
   autocompleteFn: { type: Function, default: undefined },
   isBelgiumOrEmpty: { type: Boolean, default: true },
-  huisnummerFreeText: { type: Boolean, default: false },
+  huisnummerIsFreeText: { type: Boolean, default: false },
 });
 const emit = defineEmits(['update:modelValue']);
 

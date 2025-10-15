@@ -120,10 +120,10 @@
               :options="postinfo"
               :disabled="!gemeente || props.modDisabled"
               :mod-error="!!v$.postcode.nummer.$errors.length"
-              :free-text="postcodeFreeText"
+              :free-text="postcodeIsFreeText"
               :show-toggle="(isBelgium && gemeenten.length && !isVlaamseGemeenteOrEmpty) || false"
               :is-belgium-or-empty="isBelgiumOrEmpty"
-              @toggle-free-text="() => (postcodeFreeText = !postcodeFreeText)"
+              @toggle-free-text="() => (postcodeIsFreeText = !postcodeIsFreeText)"
             />
             <VlFormMessageError
               v-for="error of v$.postcode.nummer.$errors"
@@ -151,10 +151,10 @@
             :options-limit="optionsLimit"
             :disabled="!gemeente || props.modDisabled"
             :mod-error="!!v$.straat.naam.$errors.length"
-            :free-text="straatFreeText"
+            :free-text="straatIsFreeText"
             :show-toggle="(isBelgium && gemeenten.length && !isVlaamseGemeenteOrEmpty) || false"
             :is-belgium-or-empty="isBelgiumOrEmpty"
-            @toggle-free-text="() => (straatFreeText = !straatFreeText)"
+            @toggle-free-text="() => (straatIsFreeText = !straatIsFreeText)"
           />
           <VlFormMessageError v-for="error of v$.straat.naam.$errors" :key="error.$uid" data-cy="form-error-straat">
             {{ error.$message }}
@@ -174,12 +174,12 @@
           <HuisnummerSelector
             v-model="huisnummer"
             :disabled="!straat || props.modDisabled"
-            :free-text="huisnummerFreeText"
+            :free-text="huisnummerIsFreeText"
             :mod-error="!!v$.adres.huisnummer.$errors.length"
             :autocomplete-fn="performAutocompleteSearchHuisnummers"
             :show-toggle="(isBelgium && gemeenten.length && !isVlaamseGemeenteOrEmpty) || false"
             :is-belgium-or-empty="isBelgiumOrEmpty"
-            @toggle-free-text="() => (huisnummerFreeText = !huisnummerFreeText)"
+            @toggle-free-text="() => (huisnummerIsFreeText = !huisnummerIsFreeText)"
           />
           <VlFormMessageError
             v-for="error of v$.adres.huisnummer.$errors"
@@ -204,11 +204,11 @@
             <BusnummerSelector
               v-model="busnummer"
               :disabled="!huisnummer || props.modDisabled"
-              :free-text="busnummerFreeText"
+              :free-text="busnummerIsFreeText"
               :mod-error="!!v$.adres.busnummer.$errors.length"
               :autocomplete-fn="performAutocompleteSearchBusnummers"
               :is-belgium-or-empty="isBelgiumOrEmpty"
-              :huisnummer-free-text="huisnummerFreeText"
+              :huisnummer-is-free-text="huisnummerIsFreeText"
             />
             <VlFormMessageError
               v-for="error of v$.adres.busnummer.$errors"
@@ -279,10 +279,10 @@ const emit = defineEmits(['update:adres']);
 
 const {
   isLoading,
-  postcodeFreeText,
-  straatFreeText,
-  huisnummerFreeText,
-  busnummerFreeText,
+  postcodeIsFreeText,
+  straatIsFreeText,
+  huisnummerIsFreeText,
+  busnummerIsFreeText,
   land,
   gewest,
   provincie,
