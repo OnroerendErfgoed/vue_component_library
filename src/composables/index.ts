@@ -1,2 +1,2 @@
 export * from './util.store';
-export * from './adres';
+export * from './adres/index';

@@ -1,0 +1,114 @@
+import { createApiHelpers } from './api-helpers';
+import { createAdresBuilders } from './builders';
+import { createInitializers } from './initialization';
+import { createAdresState } from './state';
+import { setupWatchers } from './watchers';
+import { computed } from 'vue';
+import { CrabApiService } from '@services/crab-api.service';
+import type { IAdresProps } from '@models/adres';
+import type { IGemeente, ILand } from '@models/locatie';
+
+export function useAdresLogic(props: IAdresProps, emit: (event: 'update:adres', ...args: unknown[]) => void) {
+  // Initialize state
+  const state = createAdresState();
+
+  // Initialize CRAB API service
+  const crabApiService = new CrabApiService(props.api || '');
+
+  // Computed helpers
+  const isBelgiumOrEmpty = () => {
+    return !state.land.value || (state.land.value as ILand)?.code === 'BE' || (state.land.value as ILand)?.code === '';
+  };
+
+  const isBelgium = () => (state.land.value as ILand)?.code === 'BE';
+
+  const isVlaamseGemeenteOrEmptyComputed = computed(() => {
+    if (isBelgium() && state.gemeente.value && !!state.gemeenten.value.length) {
+      return crabApiService.vlaamseGemeenten.some(
+        (g) => g.niscode === (state.gemeente.value as unknown as IGemeente).niscode
+      );
+    }
+    return !state.gemeente.value;
+  });
+
+  // Create builders
+  const builders = createAdresBuilders(state);
+
+  // Build address computed
+  const adres = computed(() => ({
+    land: builders.buildLandValue(),
+    gewest: isBelgiumOrEmpty() && !props.config?.gewest?.hidden ? builders.buildGewestValue() : undefined,
+    provincie: isBelgiumOrEmpty() && !props.config?.provincie?.hidden ? builders.buildProvincieValue() : undefined,
+    gemeente: builders.buildGemeenteValue(),
+    postcode: !props.config?.postcode?.hidden ? builders.buildPostcodeValue() : undefined,
+    straat: builders.buildStraatValue(),
+    adres: builders.buildAdresValue(),
+  }));
+
+  // Create API helpers
+  const apiHelpers = createApiHelpers(state, crabApiService, isBelgium);
+
+  // Create initializers
+  const initializers = createInitializers(state, props, crabApiService, {
+    getGemeentenByGewest: apiHelpers.getGemeentenByGewest,
+    getProvinciesByGewest: apiHelpers.getProvinciesByGewest,
+    handleApiError: apiHelpers.handleApiError,
+    isBelgium,
+    isBelgiumOrEmpty,
+  });
+
+  // Setup watchers
+  setupWatchers(
+    state,
+    props,
+    emit,
+    {
+      resetDependentFields: apiHelpers.resetDependentFields,
+      resetFreeTextState: apiHelpers.resetFreeTextState,
+      isBelgium,
+      isBelgiumOrEmpty,
+    },
+    initializers,
+    adres
+  );
+
+  return {
+    // State
+    isLoading: state.isLoading,
+    postcodeFreeText: state.postcodeFreeText,
+    straatFreeText: state.straatFreeText,
+    huisnummerFreeText: state.huisnummerFreeText,
+    busnummerFreeText: state.busnummerFreeText,
+
+    // Form values
+    land: state.land,
+    gewest: state.gewest,
+    provincie: state.provincie,
+    gemeente: state.gemeente,
+    postcode: state.postcode,
+    straat: state.straat,
+    huisnummer: state.huisnummer,
+    busnummer: state.busnummer,
+
+    // Reference data
+    landen: state.landen,
+    gewesten: state.gewesten,
+    provincies: state.provincies,
+    gemeenten: state.gemeenten,
+    postinfo: state.postinfo,
+    straten: state.straten,
+    huisnummers: state.huisnummers,
+    busnummers: state.busnummers,
+
+    // Computed
+    isBelgiumOrEmpty: computed(isBelgiumOrEmpty),
+    isBelgium: computed(isBelgium),
+    isVlaamseGemeenteOrEmpty: isVlaamseGemeenteOrEmptyComputed,
+    adres,
+
+    // Methods
+    performAutocompleteSearchHuisnummers: apiHelpers.performAutocompleteSearchHuisnummers,
+    performAutocompleteSearchBusnummers: apiHelpers.performAutocompleteSearchBusnummers,
+    initializeData: initializers.initializeData,
+  };
+}
