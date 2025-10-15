@@ -591,12 +591,28 @@ describe('Adres', () => {
         }),
         template: '<OeAdres v-model:adres="adres"/>',
       }).then(({ component }) => {
+        // Wait for initial data loading
+        cy.wait('@dataGetGemeentenVlaamsGewest');
+        cy.wait('@dataGetPostinfoBertem');
+        cy.wait('@dataGetStratenBertem');
+
+        cy.intercept({
+          method: 'GET',
+          url: '**/adressenregister/gemeenten/Lummen/postinfo*',
+        }).as('dataGetPostinfoLummen');
+        cy.intercept({
+          method: 'GET',
+          url: '**/adressenregister/gemeenten/71037/straten*',
+        }).as('dataGetStratenLummen');
+
         getMultiSelect('gemeente').click();
         getMultiSelect('gemeente').find('.multiselect__input').type('Lummen');
-        getMultiSelect('gemeente')
-          .find('.multiselect__element')
-          .click()
-          .then(() => {
+        getMultiSelect('gemeente').find('.multiselect__element').click();
+
+        // Wait for gemeente change to propagate and API calls to complete
+        cy.wait('@dataGetPostinfoLummen').then(() => {
+          // Wait for Vue's reactivity to update
+          cy.wrap(component.$nextTick()).then(() => {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             expect((component.$data as any).adres).to.deep.equal({
               land: {
@@ -614,6 +630,7 @@ describe('Adres', () => {
               adres: {},
             });
           });
+        });
       });
     });
 
