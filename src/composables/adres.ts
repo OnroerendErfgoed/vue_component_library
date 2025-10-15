@@ -48,6 +48,11 @@ export function useAdresLogic(props: IAdresProps, emit: (event: 'update:adres', 
   const huisnummers = ref<IAdres[]>([]);
   const busnummers = ref<IAdres[]>([]);
 
+  // Type guards
+  const isStringValue = <T>(value: string | T | undefined): value is string => {
+    return typeof value === 'string';
+  };
+
   // Computed
   const isBelgiumOrEmpty = computed(() => {
     return !land.value || (land.value as ILand)?.code === 'BE' || (land.value as ILand)?.code === '';
@@ -64,86 +69,80 @@ export function useAdresLogic(props: IAdresProps, emit: (event: 'update:adres', 
     return !gemeente.value;
   });
 
-  const adres = computed<ILocatieAdres>(() => {
-    let landValue: ILocatieAdres['land'];
-    let gewestValue: ILocatieAdres['gewest'];
-    let provincieValue: ILocatieAdres['provincie'];
-    let gemeenteValue: ILocatieAdres['gemeente'];
-    let postcodeValue: ILocatieAdres['postcode'];
-    let straatValue: ILocatieAdres['straat'];
-    let adresValue: ILocatieAdres['adres'];
+  const hasInitialData = computed(() => !!props.adres);
 
-    if (!land.value) {
-      landValue = {};
-    } else {
-      landValue = {
-        code: (land.value as ILand).code,
-        naam: (land.value as ILand).naam,
-      };
+  // Helper functions for building adres parts
+  const buildLandValue = (): ILocatieAdres['land'] => {
+    if (!land.value) return {};
+    return {
+      code: (land.value as ILand).code,
+      naam: (land.value as ILand).naam,
+    };
+  };
+
+  const buildGewestValue = (): ILocatieAdres['gewest'] => {
+    if (!gewest.value) return {};
+    return {
+      naam: (gewest.value as IGewest).naam,
+      niscode: (gewest.value as IGewest).niscode,
+    };
+  };
+
+  const buildProvincieValue = (): ILocatieAdres['provincie'] => {
+    if (!provincie.value) return {};
+    return {
+      naam: (provincie.value as IProvincie).naam,
+      niscode: (provincie.value as IProvincie).niscode,
+    };
+  };
+
+  const buildGemeenteValue = (): ILocatieAdres['gemeente'] => {
+    if (!gemeente.value) return {};
+    if (isStringValue(gemeente.value)) {
+      return { naam: gemeente.value };
     }
+    return {
+      naam: gemeente.value.naam,
+      niscode: gemeente.value.niscode,
+    };
+  };
 
-    if (!gewest.value) {
-      gewestValue = {};
-    } else {
-      gewestValue = {
-        naam: (gewest.value as IGewest).naam,
-        niscode: (gewest.value as IGewest).niscode,
-      };
+  const buildPostcodeValue = (): ILocatieAdres['postcode'] => {
+    if (!postcode.value) return {};
+    if (isStringValue(postcode.value)) {
+      return { nummer: postcode.value };
     }
+    return {
+      uri: postcode.value.uri,
+      nummer: postcode.value.postcode,
+    };
+  };
 
-    if (!provincie.value) {
-      provincieValue = {};
-    } else {
-      provincieValue = {
-        naam: (provincie.value as IProvincie).naam,
-        niscode: (provincie.value as IProvincie).niscode,
-      };
+  const buildStraatValue = (): ILocatieAdres['straat'] => {
+    if (!straat.value) return {};
+    if (isStringValue(straat.value)) {
+      return { naam: straat.value };
     }
+    return {
+      naam: straat.value.naam,
+      id: straat.value.id,
+      uri: straat.value.uri,
+    };
+  };
 
-    if (!gemeente.value) {
-      gemeenteValue = {};
-    } else if (typeof gemeente.value === 'string') {
-      gemeenteValue = { naam: gemeente.value as string };
-    } else {
-      gemeenteValue = {
-        naam: (gemeente.value as IGemeente).naam,
-        niscode: (gemeente.value as IGemeente).niscode,
-      };
-    }
+  const buildAdresValue = (): ILocatieAdres['adres'] => {
+    let adresValue: ILocatieAdres['adres'] = {};
 
-    if (!postcode.value) {
-      postcodeValue = {};
-    } else if (typeof postcode.value === 'string') {
-      postcodeValue = { nummer: postcode.value as string };
-    } else {
-      postcodeValue = {
-        uri: (postcode.value as IPostinfo).uri,
-        nummer: (postcode.value as IPostinfo).postcode,
-      };
-    }
-
-    if (!straat.value) {
-      straatValue = {};
-    } else if (typeof straat.value === 'string') {
-      straatValue = { naam: straat.value as string };
-    } else {
-      straatValue = {
-        naam: (straat.value as IStraat).naam,
-        id: (straat.value as IStraat).id,
-        uri: (straat.value as IStraat).uri,
-      };
-    }
-
-    if (!huisnummer.value) {
-      adresValue = {};
-    } else if (typeof huisnummer.value === 'string') {
-      adresValue = { huisnummer: huisnummer.value };
-    } else {
-      adresValue = pick(huisnummer.value, ['id', 'uri', 'huisnummer']);
+    if (huisnummer.value) {
+      if (isStringValue(huisnummer.value)) {
+        adresValue = { huisnummer: huisnummer.value };
+      } else {
+        adresValue = pick(huisnummer.value, ['id', 'uri', 'huisnummer']);
+      }
     }
 
     if (busnummer.value) {
-      if (typeof busnummer.value === 'string') {
+      if (isStringValue(busnummer.value)) {
         adresValue = { ...adresValue, busnummer: busnummer.value };
       } else {
         adresValue = {
@@ -154,16 +153,19 @@ export function useAdresLogic(props: IAdresProps, emit: (event: 'update:adres', 
         };
       }
     }
-    return {
-      land: landValue,
-      gewest: isBelgiumOrEmpty.value && !props.config?.gewest?.hidden ? gewestValue : undefined,
-      provincie: isBelgiumOrEmpty.value && !props.config?.provincie?.hidden ? provincieValue : undefined,
-      gemeente: gemeenteValue,
-      postcode: !props.config?.postcode?.hidden ? postcodeValue : undefined,
-      straat: straatValue,
-      adres: adresValue,
-    };
-  });
+
+    return adresValue;
+  };
+
+  const adres = computed<ILocatieAdres>(() => ({
+    land: buildLandValue(),
+    gewest: isBelgiumOrEmpty.value && !props.config?.gewest?.hidden ? buildGewestValue() : undefined,
+    provincie: isBelgiumOrEmpty.value && !props.config?.provincie?.hidden ? buildProvincieValue() : undefined,
+    gemeente: buildGemeenteValue(),
+    postcode: !props.config?.postcode?.hidden ? buildPostcodeValue() : undefined,
+    straat: buildStraatValue(),
+    adres: buildAdresValue(),
+  }));
 
   // Helper functions
   const resetFreeTextState = () => (straatFreeText.value = false);
@@ -172,7 +174,6 @@ export function useAdresLogic(props: IAdresProps, emit: (event: 'update:adres', 
     level: 'gewest' | 'provincie' | 'gemeente' | 'straat' | 'huisnummer',
     skipDuringInit = false
   ) => {
-    // Don't reset fields during initialization unless explicitly requested
     if (isInitializing.value && skipDuringInit) return;
 
     const resetMap = {
@@ -242,9 +243,9 @@ export function useAdresLogic(props: IAdresProps, emit: (event: 'update:adres', 
         huisnummerFreeText.value = true;
         busnummerFreeText.value = true;
       }
-      return true; // Error handled
+      return true;
     }
-    return false; // Error not handled
+    return false;
   };
 
   // Sequential initialization functions
@@ -354,39 +355,61 @@ export function useAdresLogic(props: IAdresProps, emit: (event: 'update:adres', 
       busnummer.value = (busnummers.value.at(0) as IAdres)?.busnummer;
     }
 
-    // Only set busnummerFreeText during initialization or if explicitly needed
     if (isInitializing.value || busnummers.value.length === 0) {
       busnummerFreeText.value = busnummers.value.length === 0;
     }
   };
 
-  // Sequential initialization chain
+  // Initialization configuration
+  interface InitializationStep {
+    condition: () => boolean;
+    action: () => Promise<void>;
+    name: string;
+  }
+
+  const initializationSteps: InitializationStep[] = [
+    {
+      name: 'land',
+      condition: () => isBelgium.value,
+      action: initializeLandData,
+    },
+    {
+      name: 'gewest',
+      condition: () => !!gewest.value && !props.config?.gewest?.hidden,
+      action: initializeGewestData,
+    },
+    {
+      name: 'provincie',
+      condition: () => !!provincie.value && !props.config?.provincie?.hidden,
+      action: initializeProvincieData,
+    },
+    {
+      name: 'gemeente',
+      condition: () => !!gemeente.value,
+      action: initializeGemeenteData,
+    },
+    {
+      name: 'straat',
+      condition: () => !!straat.value,
+      action: initializeStraatData,
+    },
+    {
+      name: 'huisnummer',
+      condition: () => !!huisnummer.value && !props.config?.busnummer?.hidden,
+      action: initializeHuisnummerData,
+    },
+  ];
+
   const initializeSequentially = async () => {
     isInitializing.value = true;
 
     try {
-      // Step 1: Initialize based on land
-      await initializeLandData();
-      await nextTick();
-
-      // Step 2: Initialize based on gewest
-      await initializeGewestData();
-      await nextTick();
-
-      // Step 3: Initialize based on provincie
-      await initializeProvincieData();
-      await nextTick();
-
-      // Step 4: Initialize based on gemeente
-      await initializeGemeenteData();
-      await nextTick();
-
-      // Step 5: Initialize based on straat
-      await initializeStraatData();
-      await nextTick();
-
-      // Step 6: Initialize based on huisnummer
-      await initializeHuisnummerData();
+      for (const step of initializationSteps) {
+        if (step.condition()) {
+          await step.action();
+          await nextTick();
+        }
+      }
     } finally {
       isInitializing.value = false;
       isLoading.value = false;
@@ -416,8 +439,6 @@ export function useAdresLogic(props: IAdresProps, emit: (event: 'update:adres', 
     );
   };
 
-  const hasInitialData = computed(() => !!props.adres);
-
   const initializeData = async () => {
     crabApiService = new CrabApiService(props.api || '');
     apiLanden.value = await crabApiService.getLanden();
@@ -428,7 +449,6 @@ export function useAdresLogic(props: IAdresProps, emit: (event: 'update:adres', 
 
       isInitializing.value = true;
 
-      // Set all values first without triggering watchers
       if (props.countryId) {
         land.value = { code: props.countryId } as ILand;
       } else {
@@ -447,7 +467,6 @@ export function useAdresLogic(props: IAdresProps, emit: (event: 'update:adres', 
           busnummer.value = adresData.adres as IAdres;
         }
 
-        // Now initialize data sequentially
         await nextTick();
         await initializeSequentially();
       } else {
@@ -465,7 +484,38 @@ export function useAdresLogic(props: IAdresProps, emit: (event: 'update:adres', 
     }
   };
 
-  // Watchers - Now with proper guards
+  // Watcher factory
+  interface WatcherConfig<T> {
+    source: () => T;
+    resetLevel?: 'gewest' | 'provincie' | 'gemeente' | 'straat' | 'huisnummer';
+    initializeAction?: () => Promise<void>;
+    skipWhen?: () => boolean;
+    onValueChange?: (newValue: T, oldValue: T | undefined) => void;
+    shouldInitialize?: (newValue: T) => boolean;
+  }
+
+  const createFieldWatcher = <T>(config: WatcherConfig<T>) => {
+    watch(config.source, async (newValue, oldValue) => {
+      if (isInitializing.value || config.skipWhen?.()) return;
+
+      if (oldValue && config.resetLevel) {
+        resetDependentFields(config.resetLevel);
+      }
+
+      config.onValueChange?.(newValue, oldValue);
+
+      const shouldInit = config.shouldInitialize ? config.shouldInitialize(newValue) : !!newValue;
+
+      if (config.initializeAction && shouldInit) {
+        resetFreeTextState();
+        await config.initializeAction();
+      } else {
+        isLoading.value = false;
+      }
+    });
+  };
+
+  // Watchers
   watch(adres, () => {
     if (!isInitializing.value) {
       emit('update:adres', adres.value);
@@ -480,77 +530,44 @@ export function useAdresLogic(props: IAdresProps, emit: (event: 'update:adres', 
     }
   );
 
-  watch(land, async (selectedLand, oldValue) => {
-    if (isInitializing.value) return;
-
-    if (oldValue) {
-      resetDependentFields('gewest');
-    }
-
-    if (isBelgium.value) {
-      resetFreeTextState();
-      await initializeLandData();
-    } else {
-      isLoading.value = false;
-    }
+  createFieldWatcher({
+    source: () => land.value,
+    resetLevel: 'gewest',
+    initializeAction: async () => {
+      if (isBelgium.value) {
+        await initializeLandData();
+      }
+    },
   });
 
-  watch(gewest, async (selectedGewest, oldValue) => {
-    if (isInitializing.value || props.config?.gewest?.hidden) return;
-
-    if (oldValue) {
-      resetDependentFields('provincie');
-    }
-
-    if (isBelgiumOrEmpty.value && selectedGewest) {
-      resetFreeTextState();
-      await initializeGewestData();
-    } else {
-      isLoading.value = false;
-    }
+  createFieldWatcher({
+    source: () => gewest.value,
+    resetLevel: 'provincie',
+    skipWhen: () => props.config?.gewest?.hidden || false,
+    shouldInitialize: (value) => isBelgiumOrEmpty.value && !!value,
+    initializeAction: initializeGewestData,
   });
 
-  watch(provincie, async (selectedProvincie, oldValue) => {
-    if (isInitializing.value || props.config?.provincie?.hidden) return;
-
-    if (oldValue) {
-      resetDependentFields('gemeente');
-    }
-
-    if (isBelgiumOrEmpty.value && selectedProvincie) {
-      resetFreeTextState();
-      await initializeProvincieData();
-    } else {
-      isLoading.value = false;
-    }
+  createFieldWatcher({
+    source: () => provincie.value,
+    resetLevel: 'gemeente',
+    skipWhen: () => props.config?.provincie?.hidden || false,
+    shouldInitialize: (value) => isBelgiumOrEmpty.value && !!value,
+    initializeAction: initializeProvincieData,
   });
 
-  watch(gemeente, async (selectedGemeente, oldValue) => {
-    if (isInitializing.value) return;
-
-    if (oldValue) {
-      resetDependentFields('gemeente');
-    }
-
-    if (isBelgiumOrEmpty.value && selectedGemeente) {
-      resetFreeTextState();
-      await initializeGemeenteData();
-    } else {
-      isLoading.value = false;
-    }
+  createFieldWatcher({
+    source: () => gemeente.value,
+    resetLevel: 'gemeente',
+    shouldInitialize: (value) => isBelgiumOrEmpty.value && !!value,
+    initializeAction: initializeGemeenteData,
   });
 
-  watch(straat, async (selectedStraat, oldValue) => {
-    if (isInitializing.value) return;
-
-    if (oldValue) {
-      resetDependentFields('straat');
-    }
-
-    if (isBelgiumOrEmpty.value && selectedStraat && !straatFreeText.value) {
-      resetFreeTextState();
-      await initializeStraatData();
-    }
+  createFieldWatcher({
+    source: () => straat.value,
+    resetLevel: 'straat',
+    shouldInitialize: (value) => isBelgiumOrEmpty.value && !!value && !straatFreeText.value,
+    initializeAction: initializeStraatData,
   });
 
   watch(huisnummer, async (selectedHuisnummer, oldValue) => {
@@ -563,7 +580,6 @@ export function useAdresLogic(props: IAdresProps, emit: (event: 'update:adres', 
 
     if (hasChanged) {
       resetDependentFields('huisnummer');
-      // Reset busnummerFreeText when huisnummer changes (user interaction)
       if (!props.config?.busnummer?.hidden) {
         busnummerFreeText.value = false;
       }
@@ -581,7 +597,7 @@ export function useAdresLogic(props: IAdresProps, emit: (event: 'update:adres', 
     }
   });
 
-  // Free text watchers - Add guards to prevent infinite loops
+  // Free text watchers
   watch(postcodeFreeText, (newVal, oldVal) => {
     if (isInitializing.value || newVal === oldVal || props.config?.postcode?.hidden) return;
     postcode.value = '';
