@@ -115,7 +115,7 @@
     "@vue/test-utils": "^2.3.2",
     "@vue/tsconfig": "^0.7.0",
     "chromatic": "^6.17.3",
-    "cypress": "14.3.2",
+    "cypress": "15.4.0",
     "cypress-watch-and-reload": "^1.10.6",
     "eslint": "^9.17.0",
     "eslint-plugin-import": "^2.31.0",
