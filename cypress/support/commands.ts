@@ -104,24 +104,6 @@ Cypress.Commands.add('mockAdressenregister', () => {
     ],
   }).as('dataGetStratenBrussel');
   cy.intercept('GET', '**/adressenregister/straten/19887/adressen*', { body: [] }).as('dataGetAdressenBrussel');
-
-  // Info Bierbeek
-  cy.intercept('GET', '**/adressenregister/gemeenten/Bierbeek/postinfo*', {
-    body: [
-      {
-        postcode: '3360',
-        uri: 'https://data.vlaanderen.be/id/postinfo/3360',
-        status: 'gerealiseerd',
-        namen: ['BIERBEEK', 'Korbeek-Lo', 'Lovenjoel', 'Opvelp'],
-      },
-    ],
-  }).as('dataGetPostinfoBierbeek');
-  cy.intercept('GET', '**/adressenregister/gemeenten/24011/straten*', { fixture: 'stratenBierbeek.json' }).as(
-    'dataGetStratenBierbeek'
-  );
-  cy.intercept('GET', '**/adressenregister/straten/32284/adressen*', {
-    fixture: 'adressenKrijkelbergBierbeek.json',
-  }).as('dataGetAdressenKrijkelbergBierbeek');
 });
 
 declare global {

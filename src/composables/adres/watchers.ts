@@ -96,13 +96,13 @@ export function setupWatchers(
     state,
     {
       source: () => state.gewest.value,
-      resetLevel: 'provincie',
+      resetLevel: 'gewest',
       skipWhen: () => props.config?.gewest?.hidden || false,
       shouldInitialize: (value) => helpers.isBelgiumOrEmpty() && !!value,
       initializeAction: initializers.initializeGewestData,
       onValueChange: (newValue, oldValue) => {
         if (oldValue) {
-          helpers.resetDependentFields('provincie');
+          helpers.resetDependentFields('gewest');
         }
       },
     },
@@ -114,13 +114,13 @@ export function setupWatchers(
     state,
     {
       source: () => state.provincie.value,
-      resetLevel: 'gemeente',
+      resetLevel: 'provincie',
       skipWhen: () => props.config?.provincie?.hidden || false,
       shouldInitialize: (value) => helpers.isBelgiumOrEmpty() && !!value,
       initializeAction: initializers.initializeProvincieData,
       onValueChange: (newValue, oldValue) => {
         if (oldValue) {
-          helpers.resetDependentFields('gemeente');
+          helpers.resetDependentFields('provincie');
         }
       },
     },
