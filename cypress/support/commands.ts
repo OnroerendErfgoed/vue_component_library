@@ -1,40 +1,12 @@
 /// <reference types="cypress" />
-// ***********************************************
-// This example commands.ts shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
 
-Cypress.Commands.add('dataCy', (name: string) => {
-  cy.get(`[data-cy="${name}"]`);
-});
-
-Cypress.Commands.add('mockAdressenregister', () => {
-  // Landen
+// Helper function to mock land-related API calls
+const mockLanden = () => {
   cy.intercept('GET', '**/adressenregister/landen*', { fixture: 'landen.json' }).as('dataGetLanden');
+};
 
-  // Gemeenten
+// Helper function to mock gemeente-related API calls
+const mockGemeenten = () => {
   cy.intercept('GET', '**/adressenregister/gewesten/2000/gemeenten*', { fixture: 'gemeentenVlaamsGewest.json' }).as(
     'dataGetGemeentenVlaamsGewest'
   );
@@ -44,19 +16,25 @@ Cypress.Commands.add('mockAdressenregister', () => {
   cy.intercept('GET', '**/adressenregister/gewesten/4000/gemeenten*', {
     fixture: 'gemeentenBrusselsHoofdstedelijkGewest.json',
   }).as('dataGetGemeentenBrusselsHoofdstedelijkGewest');
+};
 
-  // Provincies
+// Helper function to mock provincie-related API calls
+const mockProvincies = () => {
   cy.intercept('GET', '**/adressenregister/gewesten/2000/provincies*', { fixture: 'provinciesVlaamsGewest.json' }).as(
     'dataGetProvinciesVlaamsGewest'
   );
   cy.intercept('GET', '**/adressenregister/gewesten/3000/provincies*', { fixture: 'provinciesWaalsGewest.json' }).as(
     'dataGetProvinciesWaalsGewest'
   );
+};
 
-  // Gewesten
+// Helper function to mock gewest-related API calls
+const mockGewesten = () => {
   cy.intercept('GET', '**/adressenregister/gewesten*', { fixture: 'gewesten.json' }).as('dataGetGewesten');
+};
 
-  // Info Bertem
+// Helper function to mock Bertem-related API calls
+const mockBertem = () => {
   cy.intercept('GET', '**/adressenregister/gemeenten/Bertem/postinfo*', { fixture: 'postinfoBertem.json' }).as(
     'dataGetPostinfoBertem'
   );
@@ -69,11 +47,11 @@ Cypress.Commands.add('mockAdressenregister', () => {
   cy.intercept('GET', '**/adressenregister/straten/32110/huisnummers/416*', {
     fixture: 'huisnummersDorpstraatBertem.json',
   }).as('dataGetHuisnummersDorpstraatBertem');
-  cy.intercept('GET', '**/adressenregister/straten/32110/huisnummers/383A*', {
-    body: [],
-  });
+  cy.intercept('GET', '**/adressenregister/straten/32110/huisnummers/383A*', { body: [] });
+};
 
-  // Info Bierbeek
+// Helper function to mock Bierbeek-related API calls
+const mockBierbeek = () => {
   cy.intercept('GET', '**/adressenregister/gemeenten/Bierbeek/postinfo*', {
     body: [
       {
@@ -90,23 +68,29 @@ Cypress.Commands.add('mockAdressenregister', () => {
   cy.intercept('GET', '**/adressenregister/straten/32284/adressen*', {
     fixture: 'adressenKrijkelbergBierbeek.json',
   }).as('dataGetAdressenKrijkelbergBierbeek');
+};
 
-  // Info Durbuy
+// Helper function to mock Durbuy-related API calls
+const mockDurbuy = () => {
   cy.intercept('GET', '**/adressenregister/gemeenten/Durbuy/postinfo*', { body: [] }).as('dataGetPostinfoDurbuy');
   cy.intercept('GET', '**/adressenregister/gemeenten/83012/straten*', { fixture: 'stratenDurbuy.json' }).as(
     'dataGetStratenDurbuy'
   );
   cy.intercept('GET', '**/adressenregister/straten/125552/adressen*', { body: [] }).as('dataGetAdressenDurbuy');
+};
 
-  // Info Aalst
+// Helper function to mock Aalst-related API calls
+const mockAalst = () => {
   cy.intercept('GET', '**/adressenregister/gemeenten/Aalst/postinfo*', { fixture: 'postinfoAalst.json' }).as(
     'dataGetPostinfoAalst'
   );
   cy.intercept('GET', '**/adressenregister/gemeenten/41002/straten*', { fixture: 'stratenAalst.json' }).as(
     'dataGetStratenAalst'
   );
+};
 
-  // Info Brussel
+// Helper function to mock Brussel-related API calls
+const mockBrussel = () => {
   cy.intercept('GET', '**/adressenregister/gemeenten/Brussel/postinfo*', { fixture: 'postinfoBrussel.json' }).as(
     'dataGetPostinfoBrussel'
   );
@@ -122,6 +106,34 @@ Cypress.Commands.add('mockAdressenregister', () => {
     ],
   }).as('dataGetStratenBrussel');
   cy.intercept('GET', '**/adressenregister/straten/19887/adressen*', { body: [] }).as('dataGetAdressenBrussel');
+};
+
+// Main mock function to call all helpers
+Cypress.Commands.add('mockAdressenregister', () => {
+  mockLanden();
+  mockGemeenten();
+  mockProvincies();
+  mockGewesten();
+  mockBertem();
+  mockBierbeek();
+  mockDurbuy();
+  mockAalst();
+  mockBrussel();
+});
+
+Cypress.Commands.add('mockLanden', mockLanden);
+Cypress.Commands.add('mockGemeenten', mockGemeenten);
+Cypress.Commands.add('mockProvincies', mockProvincies);
+Cypress.Commands.add('mockGewesten', mockGewesten);
+Cypress.Commands.add('mockBertem', mockBertem);
+Cypress.Commands.add('mockBierbeek', mockBierbeek);
+Cypress.Commands.add('mockDurbuy', mockDurbuy);
+Cypress.Commands.add('mockAalst', mockAalst);
+Cypress.Commands.add('mockBrussel', mockBrussel);
+
+// Custom command to select elements by data-cy attribute
+Cypress.Commands.add('dataCy', (name: string) => {
+  cy.get(`[data-cy="${name}"]`);
 });
 
 declare global {
@@ -129,6 +141,15 @@ declare global {
     interface Chainable {
       dataCy(name: string): Chainable<Element>;
       mockAdressenregister(): void;
+      mockLanden(): void;
+      mockGemeenten(): void;
+      mockProvincies(): void;
+      mockGewesten(): void;
+      mockBertem(): void;
+      mockBierbeek(): void;
+      mockDurbuy(): void;
+      mockAalst(): void;
+      mockBrussel(): void;
     }
   }
 }

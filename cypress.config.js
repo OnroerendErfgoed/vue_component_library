@@ -2,7 +2,10 @@ import { defineConfig } from 'cypress';
 import plugin from 'cypress-watch-and-reload/plugins.js';
 
 export default defineConfig({
-  // Make sure we don't make requests to the real APIs during tests
+  /*
+   blockHosts: Make sure we don't make requests to the real APIs during tests (these are mocked in the support/commands.ts file)
+   Calls that are not mocked will fail and result in a 503 error
+  */
   blockHosts: ['test-geo.onroerenderfgoed.be'],
   e2e: {
     specPattern: 'cypress/e2e/**/*.{cy,spec}.{js,jsx,ts,tsx}',

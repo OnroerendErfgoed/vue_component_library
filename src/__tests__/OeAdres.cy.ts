@@ -15,8 +15,6 @@ describe('Adres', () => {
     template: '<OeAdres ref="adresComponent" v-bind="attrs"/>',
   });
 
-  beforeEach(() => cy.mockAdressenregister());
-
   it('renders', () => {
     mount(TestComponent);
   });
@@ -35,6 +33,7 @@ describe('Adres', () => {
     let adresComponent: Cypress.Chainable;
 
     beforeEach(() => {
+      cy.mockLanden();
       mount(TestComponent).then(({ component }) => {
         cy.wait('@dataGetLanden');
         cy.wrap(component.$nextTick()).then(() => {
@@ -68,6 +67,12 @@ describe('Adres', () => {
     });
 
     describe('country selection België', () => {
+      beforeEach(() => {
+        cy.mockGewesten();
+        cy.mockGemeenten();
+        cy.mockBertem();
+      });
+
       it('disables fields when country select is empty', () => {
         getMultiSelect('gemeente').should('have.class', 'multiselect--disabled');
         getMultiSelect('postcode').should('have.class', 'multiselect--disabled');
@@ -155,6 +160,8 @@ describe('Adres', () => {
       });
 
       it('allows huisnummer to be free text input when no house numbers were found', () => {
+        cy.mockDurbuy();
+
         // Country selection
         getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
 
@@ -351,6 +358,16 @@ describe('Adres', () => {
   });
 
   describe('form - 2-way binding', () => {
+    beforeEach(() => {
+      cy.mockLanden();
+      cy.mockGewesten();
+      cy.mockProvincies();
+      cy.mockGemeenten();
+      cy.mockBertem();
+      cy.mockBierbeek();
+      cy.mockBrussel();
+    });
+
     it('fills in the predefined values - case 1 - no freetext', () => {
       mount(TestComponent, {
         data: () => ({
@@ -714,6 +731,7 @@ describe('Adres', () => {
       };
 
       beforeEach(() => {
+        cy.mockLanden();
         mount(TestComponent, {
           setup() {
             const adresComponent = ref();
@@ -809,9 +827,7 @@ describe('Adres', () => {
       };
 
       beforeEach(() => {
-        cy.intercept({ method: 'GET', url: 'https://test-geo.onroerenderfgoed.be/adressenregister/landen' }).as(
-          'dataGetLanden'
-        );
+        cy.mockLanden();
 
         mount(TestComponent, {
           setup() {
@@ -908,9 +924,11 @@ describe('Adres', () => {
       };
 
       beforeEach(() => {
-        cy.intercept({ method: 'GET', url: 'https://test-geo.onroerenderfgoed.be/adressenregister/landen' }).as(
-          'dataGetLanden'
-        );
+        cy.mockLanden();
+        cy.mockGewesten();
+        cy.mockProvincies();
+        cy.mockGemeenten();
+        cy.mockBertem();
 
         mount(TestComponent, {
           setup() {
@@ -974,6 +992,11 @@ describe('Adres', () => {
 
   describe('form - multi select options limit', () => {
     beforeEach(() => {
+      cy.mockLanden();
+      cy.mockGewesten();
+      cy.mockGemeenten();
+      cy.mockAalst();
+
       mount(TestComponent, {
         template: '<OeAdres :options-limit="3" v-model:adres="adres"/>',
       });
@@ -1000,6 +1023,13 @@ describe('Adres', () => {
 
   describe('form - gewest & provincie', () => {
     let adresComponent: Cypress.Chainable;
+
+    beforeEach(() => {
+      cy.mockLanden();
+      cy.mockGewesten();
+      cy.mockProvincies();
+      cy.mockGemeenten();
+    });
 
     describe('applies custom configuration - gewest & provincie required', () => {
       const config: IAdresConfig = {
@@ -1036,9 +1066,6 @@ describe('Adres', () => {
           },
           template: '<OeAdres ref="adresComponent" countryId="BE" :config="c"/>',
         }).then(({ component }) => {
-          cy.wait('@dataGetLanden');
-          cy.wait('@dataGetGewesten');
-
           cy.wrap(component.$nextTick()).then(() => {
             adresComponent = component.adresComponent;
           });
@@ -1090,6 +1117,13 @@ describe('Adres', () => {
   });
 
   describe('form - postcode & busnummer', () => {
+    beforeEach(() => {
+      cy.mockLanden();
+      cy.mockGewesten();
+      cy.mockProvincies();
+      cy.mockGemeenten();
+    });
+
     const config: IAdresConfig = {
       gewest: {
         required: true,
@@ -1130,7 +1164,6 @@ describe('Adres', () => {
         },
         template: '<OeAdres v-model:adres="adres" :config="c" country-id="BE" />',
       }).then(({ component }) => {
-        cy.wait('@dataGetGemeentenVlaamsGewest');
         getMultiSelect('gemeente').click();
         getMultiSelect('gemeente').find('.multiselect__input').type('Lummen');
         getMultiSelect('gemeente')
