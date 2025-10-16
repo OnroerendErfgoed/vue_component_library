@@ -642,8 +642,10 @@ describe('Adres', () => {
         });
       });
     });
+  });
 
-    it('clears huisnummer and busnummer autocomplete when changing straat', () => {
+  describe('form - clear descendants on change', () => {
+    const mountComponent = () =>
       mount(TestComponent, {
         data: () => ({
           adres: {
@@ -651,6 +653,8 @@ describe('Adres', () => {
               naam: 'België',
               code: 'BE',
             },
+            gewest: { naam: 'Vlaams Gewest', niscode: '2000' },
+            provincie: { naam: 'Vlaams-Brabant', niscode: '20001' },
             gemeente: {
               naam: 'Bertem',
               niscode: '24009',
@@ -667,16 +671,94 @@ describe('Adres', () => {
               busnummer: '0101',
             },
           },
+          config: {
+            land: { required: true },
+            gewest: { required: true },
+            provincie: { required: true },
+            gemeente: { required: false },
+            postcode: { required: false },
+            straat: { required: false },
+            huisnummer: { required: false },
+            busnummer: { required: false },
+          },
         }),
-        template: '<OeAdres v-model:adres="adres"/>',
+        template: '<OeAdres v-model:adres="adres" :config="config" />',
       });
 
-      cy.wait('@dataGetGemeentenVlaamsGewest');
-      cy.wait('@dataGetAdressenDorpstraatBertem');
+    beforeEach(() => {
+      cy.mockLanden();
+      cy.mockGewesten();
+      cy.mockProvincies();
+      cy.mockGemeenten();
+      cy.mockBertem();
+      cy.mockBierbeek();
+      cy.mockBrussel();
 
+      mountComponent();
+
+      cy.wait('@dataGetGemeentenVlaamsGewest');
+      cy.wait('@dataGetPostinfoBertem');
+      cy.wait('@dataGetStratenBertem');
+      cy.wait('@dataGetAdressenDorpstraatBertem');
+    });
+
+    it('clears gewest, provincie, gemeente, postcode, straat, huisnummer and busnummer autocomplete when changing land', () => {
+      getMultiSelect('land').select(2).select(1);
+
+      getMultiSelect('gewest').find('.multiselect__single').should('not.exist');
+      getMultiSelect('provincie').find('.multiselect__single').should('not.exist');
+      getMultiSelect('gemeente').find('.multiselect__single').should('not.exist');
+      getMultiSelect('postcode').find('.multiselect__single').should('not.exist');
+      getMultiSelect('straat').find('.multiselect__single').should('not.exist');
+      getAutocompleteInput('huisnummer').should('have.value', '');
+      getAutocompleteInput('busnummer').should('have.value', '');
+    });
+
+    it('clears provincie, gemeente, postcode, straat, huisnummer and busnummer autocomplete when changing gewest', () => {
+      setMultiSelectValue('gewest', 'Waals Gewest');
+
+      cy.wait('@dataGetProvinciesWaalsGewest');
+
+      getMultiSelect('provincie').find('.multiselect__single').should('not.exist');
+      getMultiSelect('gemeente').find('.multiselect__single').should('not.exist');
+      getMultiSelect('postcode').find('.multiselect__single').should('not.exist');
+      getMultiSelect('straat').find('.multiselect__single').should('not.exist');
+      getAutocompleteInput('huisnummer').should('have.value', '');
+      getAutocompleteInput('busnummer').should('have.value', '');
+    });
+
+    it('clears gemeente, postcode, straat, huisnummer and busnummer autocomplete when changing provincie', () => {
+      setMultiSelectValue('provincie', 'Antwerpen');
+
+      getMultiSelect('gemeente').find('.multiselect__single').should('not.exist');
+      getMultiSelect('postcode').find('.multiselect__single').should('not.exist');
+      getMultiSelect('straat').find('.multiselect__single').should('not.exist');
+      getAutocompleteInput('huisnummer').should('have.value', '');
+      getAutocompleteInput('busnummer').should('have.value', '');
+    });
+
+    it('clears postcode, straat, huisnummer and busnummer autocomplete when changing gemeente', () => {
+      setMultiSelectValue('gemeente', 'Bierbeek');
+
+      cy.wait('@dataGetPostinfoBierbeek');
+      cy.wait('@dataGetStratenBierbeek');
+
+      getMultiSelect('postcode').find('.multiselect__single').should('not.exist');
+      getMultiSelect('straat').find('.multiselect__single').should('not.exist');
+      getAutocompleteInput('huisnummer').should('have.value', '');
+      getAutocompleteInput('busnummer').should('have.value', '');
+    });
+
+    it('clears huisnummer and busnummer autocomplete when changing straat', () => {
       setMultiSelectValue('straat', 'Alsemberglaan');
 
       getAutocompleteInput('huisnummer').should('have.value', '');
+      getAutocompleteInput('busnummer').should('have.value', '');
+    });
+
+    it('clears busnummer autocomplete when changing huisnummer', () => {
+      setAutocompleteValue('huisnummer', '416');
+
       getAutocompleteInput('busnummer').should('have.value', '');
     });
   });

@@ -9,7 +9,7 @@ import { logInfo } from '@utils/index';
 import type { IAdresProps } from '@models/adres';
 import type { IGemeente, ILand } from '@models/locatie';
 
-export type ResetLevel = 'gewest' | 'provincie' | 'gemeente' | 'straat' | 'huisnummer';
+export type ResetLevel = 'land' | 'gewest' | 'provincie' | 'gemeente' | 'straat' | 'huisnummer';
 
 export const useAdresLogic = (props: IAdresProps, emit: (event: 'update:adres', ...args: unknown[]) => void) => {
   logInfo('useAdresLogic');

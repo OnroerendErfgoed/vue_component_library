@@ -82,9 +82,9 @@ export function setupWatchers(
           await initializers.initializeLandData();
         }
       },
-      onValueChange: (newValue, oldValue) => {
+      onValueChange: (_, oldValue) => {
         if (oldValue) {
-          helpers.resetDependentFields('gewest');
+          helpers.resetDependentFields('land');
         }
       },
     },
@@ -100,7 +100,7 @@ export function setupWatchers(
       skipWhen: () => props.config?.gewest?.hidden || false,
       shouldInitialize: (value) => helpers.isBelgiumOrEmpty() && !!value,
       initializeAction: initializers.initializeGewestData,
-      onValueChange: (newValue, oldValue) => {
+      onValueChange: (_, oldValue) => {
         if (oldValue) {
           helpers.resetDependentFields('gewest');
         }
@@ -118,7 +118,7 @@ export function setupWatchers(
       skipWhen: () => props.config?.provincie?.hidden || false,
       shouldInitialize: (value) => helpers.isBelgiumOrEmpty() && !!value,
       initializeAction: initializers.initializeProvincieData,
-      onValueChange: (newValue, oldValue) => {
+      onValueChange: (_, oldValue) => {
         if (oldValue) {
           helpers.resetDependentFields('provincie');
         }
@@ -135,7 +135,7 @@ export function setupWatchers(
       resetLevel: 'gemeente',
       shouldInitialize: (value) => helpers.isBelgiumOrEmpty() && !!value,
       initializeAction: initializers.initializeGemeenteData,
-      onValueChange: (newValue, oldValue) => {
+      onValueChange: (_, oldValue) => {
         if (oldValue) {
           helpers.resetDependentFields('gemeente');
         }
@@ -152,7 +152,7 @@ export function setupWatchers(
       resetLevel: 'straat',
       shouldInitialize: (value) => helpers.isBelgiumOrEmpty() && !!value && !state.straatIsFreeText.value,
       initializeAction: initializers.initializeStraatData,
-      onValueChange: (newValue, oldValue) => {
+      onValueChange: (_, oldValue) => {
         if (oldValue) {
           helpers.resetDependentFields('straat');
         }

@@ -79,6 +79,15 @@ export const createApiHelpers = (state: AdresState, crabApiService: CrabApiServi
     if (state.isInitializing.value && skipDuringInit) return;
 
     const resetMap = {
+      land: () => {
+        state.gewest.value = undefined;
+        state.provincie.value = undefined;
+        state.gemeente.value = undefined;
+        state.postcode.value = undefined;
+        state.straat.value = undefined;
+        state.huisnummer.value = undefined;
+        state.busnummer.value = undefined;
+      },
       gewest: () => {
         state.provincie.value = undefined;
         state.gemeente.value = undefined;
