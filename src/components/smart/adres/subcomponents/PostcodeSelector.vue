@@ -44,7 +44,7 @@ const props = defineProps({
   disabled: { type: Boolean, default: false },
   modError: { type: Boolean, default: false },
   freeText: { type: Boolean, default: false },
-  showToggle: { type: Boolean, default: true },
+  showToggle: { type: Boolean, default: false },
   optionsLimit: { type: Number, default: 5000 },
   isBelgiumOrEmpty: { type: Boolean, default: true },
 });

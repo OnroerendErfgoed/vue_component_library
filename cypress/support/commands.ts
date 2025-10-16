@@ -73,6 +73,24 @@ Cypress.Commands.add('mockAdressenregister', () => {
     body: [],
   });
 
+  // Info Bierbeek
+  cy.intercept('GET', '**/adressenregister/gemeenten/Bierbeek/postinfo*', {
+    body: [
+      {
+        postcode: '3360',
+        uri: 'https://data.vlaanderen.be/id/postinfo/3360',
+        status: 'gerealiseerd',
+        namen: ['BIERBEEK', 'Korbeek-Lo', 'Lovenjoel', 'Opvelp'],
+      },
+    ],
+  }).as('dataGetPostinfoBierbeek');
+  cy.intercept('GET', '**/adressenregister/gemeenten/24011/straten*', { fixture: 'stratenBierbeek.json' }).as(
+    'dataGetStratenBierbeek'
+  );
+  cy.intercept('GET', '**/adressenregister/straten/32284/adressen*', {
+    fixture: 'adressenKrijkelbergBierbeek.json',
+  }).as('dataGetAdressenKrijkelbergBierbeek');
+
   // Info Durbuy
   cy.intercept('GET', '**/adressenregister/gemeenten/Durbuy/postinfo*', { body: [] }).as('dataGetPostinfoDurbuy');
   cy.intercept('GET', '**/adressenregister/gemeenten/83012/straten*', { fixture: 'stratenDurbuy.json' }).as(

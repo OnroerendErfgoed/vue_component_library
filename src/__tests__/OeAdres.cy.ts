@@ -471,6 +471,9 @@ describe('Adres', () => {
       getMultiSelect('postcode').find('.multiselect__single').should('have.text', '3360');
       getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Krijkelberg');
       getAutocompleteInput('huisnummer').should('have.value', '5');
+
+      cy.wait('@dataGetAdressenKrijkelbergBierbeek');
+
       getTextInput('busnummer').should('have.value', 'B');
     });
 
@@ -593,12 +596,12 @@ describe('Adres', () => {
         cy.wait('@dataGetGemeentenVlaamsGewest');
         cy.wait('@dataGetPostinfoBertem');
         cy.wait('@dataGetStratenBertem');
+        cy.wait('@dataGetAdressenDorpstraatBertem');
 
         getMultiSelect('gemeente').click();
         getMultiSelect('gemeente').find('.multiselect__input').type('Bierbeek');
         getMultiSelect('gemeente').find('.multiselect__element').click();
 
-        cy.wait('@dataGetPostinfoBierbeek');
         cy.wait('@dataGetStratenBierbeek');
 
         // Wait for Vue's reactivity to update
@@ -652,6 +655,7 @@ describe('Adres', () => {
       });
 
       cy.wait('@dataGetGemeentenVlaamsGewest');
+      cy.wait('@dataGetAdressenDorpstraatBertem');
 
       setMultiSelectValue('straat', 'Alsemberglaan');
 
@@ -1202,7 +1206,7 @@ const fillInOeAdresBelgium = () => {
 
   // Busnummer selection
   cy.wait('@dataGetHuisnummersDorpstraatBertem');
-  setAutocompleteValue('busnummer', '0101');
+  setAutocompleteValue('busnummer', '010');
   getAutocompleteInput('busnummer').should('have.value', '0101');
 };
 

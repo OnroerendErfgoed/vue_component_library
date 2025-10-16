@@ -42,7 +42,7 @@ const props = defineProps({
   freeText: { type: Boolean, default: false },
   modError: { type: Boolean, default: false },
   autocompleteFn: { type: Function, default: undefined },
-  showToggle: { type: Boolean, default: true },
+  showToggle: { type: Boolean, default: false },
   isBelgiumOrEmpty: { type: Boolean, default: true },
 });
 const emit = defineEmits(['update:modelValue', 'toggle-free-text']);
