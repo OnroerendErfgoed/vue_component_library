@@ -363,9 +363,9 @@ describe('Adres', () => {
       cy.mockGewesten();
       cy.mockProvincies();
       cy.mockGemeenten();
-      cy.mockBertem();
       cy.mockBierbeek();
       cy.mockBrussel();
+      cy.mockBertem();
     });
 
     it('fills in the predefined values - case 1 - no freetext', () => {
@@ -388,7 +388,7 @@ describe('Adres', () => {
               id: '32110',
             },
             adres: {
-              huisnummer: '190',
+              huisnummer: '416',
               busnummer: '0101',
             },
           },
@@ -396,13 +396,16 @@ describe('Adres', () => {
         template: '<OeAdres v-model:adres="adres"/>',
       });
 
+      cy.wait('@dataGetLanden');
       cy.wait('@dataGetGemeentenVlaamsGewest');
+      cy.wait('@dataGetHuisnummersDorpstraatBertem');
 
       getMultiSelect('land').find(':selected').should('have.text', 'België');
       getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Bertem');
       getMultiSelect('postcode').find('.multiselect__single').should('have.text', '3060');
       getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Dorpstraat');
-      getAutocompleteInput('huisnummer').should('have.value', '190');
+      getAutocompleteInput('huisnummer').should('have.value', '416');
+
       getAutocompleteInput('busnummer').should('have.value', '0101');
     });
 
@@ -436,9 +439,10 @@ describe('Adres', () => {
         template: '<OeAdres v-model:adres="adres"/>',
       });
 
-      cy.wait('@dataGetGemeentenBrusselsHoofdstedelijkGewest');
+      cy.wait('@dataGetLanden');
 
       getMultiSelect('land').find(':selected').should('have.text', 'België');
+      cy.wait('@dataGetGemeentenBrusselsHoofdstedelijkGewest');
       getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Brussel');
       getMultiSelect('postcode').find('.multiselect__single').should('have.text', '1000');
       getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Havenlaan');
@@ -642,6 +646,49 @@ describe('Adres', () => {
         });
       });
     });
+
+    it('completes the address with a valid structure when all fields are filled ', () => {
+      mount(TestComponent, {
+        data: () => ({
+          adres: {},
+        }),
+        template: '<OeAdres v-model:adres="adres"/> <pre>{{ adres }}</pre>',
+      }).then(({ component }) => {
+        // Wait for initial data loading
+        cy.wait('@dataGetLanden');
+        getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
+        cy.wait('@dataGetGemeentenVlaamsGewest');
+
+        setMultiSelectValue('gemeente', 'Bertem');
+        cy.wait('@dataGetPostinfoBertem');
+
+        setMultiSelectValue('postcode', '3060');
+        cy.wait('@dataGetStratenBertem');
+
+        setMultiSelectValue('straat', 'Dorpstraat');
+        cy.wait('@dataGetAdressenDorpstraatBertem');
+
+        setAutocompleteValue('huisnummer', '383A');
+        cy.wait('@dataGetHuisnummer383ABertem');
+
+        // Wait for Vue's reactivity to update
+        cy.wrap(component.$nextTick()).then(() => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          expect((component.$data as any).adres).to.deep.equal({
+            land: {
+              naam: 'België',
+              code: 'BE',
+            },
+            gewest: undefined,
+            provincie: undefined,
+            gemeente: { naam: 'Bertem', niscode: '24009' },
+            postcode: { nummer: '3060', uri: 'https://data.vlaanderen.be/id/postinfo/3060' },
+            straat: { naam: 'Dorpstraat', id: '32110', uri: 'https://data.vlaanderen.be/id/straatnaam/32110' },
+            adres: { huisnummer: '383A', uri: 'https://data.vlaanderen.be/id/adres/466831', id: '466831' },
+          });
+        });
+      });
+    });
   });
 
   describe('form - clear descendants on change', () => {
@@ -667,7 +714,7 @@ describe('Adres', () => {
               id: '32110',
             },
             adres: {
-              huisnummer: '190',
+              huisnummer: '416',
               busnummer: '0101',
             },
           },
@@ -696,6 +743,7 @@ describe('Adres', () => {
 
       mountComponent();
 
+      cy.wait('@dataGetLanden');
       cy.wait('@dataGetGemeentenVlaamsGewest');
       cy.wait('@dataGetPostinfoBertem');
       cy.wait('@dataGetStratenBertem');

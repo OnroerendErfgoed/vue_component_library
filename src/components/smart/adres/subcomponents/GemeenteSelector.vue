@@ -1,7 +1,7 @@
 <template>
   <VlMultiselect
     v-if="isBelgiumOrEmpty"
-    v-model="modelValue"
+    v-model="modelValueComputed"
     data-cy="select-gemeente"
     placeholder="Gemeente"
     :options="options"
@@ -12,14 +12,14 @@
     :preserve-search="true"
     :custom-label="customLabel"
     :filtering-sort-func="filteringSortFunc"
-    @keydown.tab="!modelValue ? $event.preventDefault() : null"
+    @keydown.tab="!modelValueComputed ? $event.preventDefault() : null"
   >
     <template #noResult><span>Geen resultaten gevonden...</span></template>
     <template #noOptions><span>Geen opties beschikbaar</span></template>
   </VlMultiselect>
   <VlInputField
     v-else
-    v-model="modelValue"
+    v-model="modelValueComputed"
     data-cy="input-gemeente"
     :mod-error="modError"
     :mod-disabled="disabled"
@@ -34,7 +34,7 @@ import { computed } from 'vue';
 import type { IGemeente } from '@models/locatie';
 
 interface GemeenteSelectorProps {
-  modelValue: string | IGemeente;
+  modelValue: string | IGemeente | undefined;
   options: IGemeente[];
   disabled: boolean;
   modError: boolean;
@@ -52,7 +52,7 @@ const props = withDefaults(defineProps<GemeenteSelectorProps>(), {
 });
 const emit = defineEmits(['update:modelValue']);
 
-const modelValue = computed({
+const modelValueComputed = computed({
   get: () => props.modelValue,
   set: (v) => emit('update:modelValue', v),
 });

@@ -135,17 +135,24 @@ export const TwoWayBinding: Story = {
   args: {
     adres: {
       land: {
+        naam: 'België',
         code: 'BE',
       },
-      gewest: { naam: 'Vlaams Gewest', niscode: '2000' },
-      provincie: { naam: 'Antwerpen', niscode: '10000' },
-      gemeente: { naam: 'Hulshout', niscode: '13016' },
-      postcode: {
-        uri: 'https://data.vlaanderen.be/id/postinfo/2235',
-        nummer: '2235',
+      gemeente: {
+        naam: 'Bertem',
+        niscode: '24009',
       },
-      straat: { naam: 'Heibergstraat', id: '15000', uri: 'https://data.vlaanderen.be/id/straatnaam/15000' },
-      adres: { id: '1562699', uri: 'https://data.vlaanderen.be/id/adres/1562699', huisnummer: '8' },
+      postcode: {
+        nummer: '3060',
+      },
+      straat: {
+        naam: 'Dorpstraat',
+        id: '32110',
+      },
+      adres: {
+        huisnummer: '416',
+        busnummer: '0101',
+      },
     },
     config: {
       land: { required: true },

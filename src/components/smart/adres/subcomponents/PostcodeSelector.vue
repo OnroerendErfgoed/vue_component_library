@@ -2,7 +2,7 @@
   <div>
     <VlMultiselect
       v-if="isBelgiumOrEmpty && !freeText"
-      v-model="modelValue"
+      v-model="modelValueComputed"
       data-cy="select-postcode"
       placeholder="Postcode"
       :options="options"
@@ -12,14 +12,14 @@
       :options-limit="optionsLimit"
       :preserve-search="true"
       :custom-label="customLabel"
-      @keydown.tab="!modelValue ? $event.preventDefault() : null"
+      @keydown.tab="!modelValueComputed ? $event.preventDefault() : null"
     >
       <template #noResult><span>Geen resultaten gevonden...</span></template>
       <template #noOptions><span>Geen opties beschikbaar</span></template>
     </VlMultiselect>
     <VlInputField
       v-else
-      v-model="modelValue"
+      v-model="modelValueComputed"
       data-cy="input-postcode"
       mod-block
       placeholder="Postcode"
@@ -39,7 +39,7 @@ import { computed } from 'vue';
 import type { IPostinfo } from '@models/locatie';
 
 interface PostcodeSelectorProps {
-  modelValue: string | IPostinfo;
+  modelValue: string | IPostinfo | undefined;
   options: IPostinfo[];
   disabled: boolean;
   modError: boolean;
@@ -61,7 +61,7 @@ const props = withDefaults(defineProps<PostcodeSelectorProps>(), {
 });
 const emit = defineEmits(['update:modelValue', 'toggle-free-text']);
 
-const modelValue = computed({
+const modelValueComputed = computed({
   get: () => props.modelValue,
   set: (v) => emit('update:modelValue', v),
 });

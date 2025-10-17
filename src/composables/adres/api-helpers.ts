@@ -54,6 +54,7 @@ export const createApiHelpers = (state: AdresState, crabApiService: CrabApiServi
   const handleApiError = (error: unknown): boolean => {
     if (error instanceof AxiosError && error?.response?.status === 404) {
       if (!isVlaamseGemeenteOrEmpty()) {
+        console.log('iere');
         state.postcodeIsFreeText.value = true;
         state.straatIsFreeText.value = true;
         state.huisnummerIsFreeText.value = true;

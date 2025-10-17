@@ -97,6 +97,7 @@ export const createInitializers = (
         state.huisnummers.value = [];
         state.busnummers.value = [];
         state.huisnummerIsFreeText.value = true;
+        console.log('iere');
         state.busnummerIsFreeText.value = true;
       }
     }
@@ -124,9 +125,8 @@ export const createInitializers = (
     }
 
     if (state.isInitializing.value || state.busnummers.value.length === 0) {
-      state.busnummerIsFreeText.value =
-        state.busnummers.value.length === 0 ||
-        !adressen.find((b) => b.huisnummer === state.huisnummer.value)?.busnummer;
+      const huisnummerHasBusnummers = adressen.some((a) => !!a.busnummer);
+      state.busnummerIsFreeText.value = state.busnummers.value.length === 0 || !huisnummerHasBusnummers;
     }
   };
 

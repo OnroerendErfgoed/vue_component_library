@@ -2,7 +2,7 @@
   <div>
     <VlMultiselect
       v-if="isBelgiumOrEmpty && !freeText"
-      v-model="modelValue"
+      v-model="modelValueComputed"
       data-cy="select-straat"
       placeholder="Straat"
       :options="options"
@@ -20,7 +20,7 @@
     </VlMultiselect>
     <VlInputField
       v-else
-      v-model="modelValue"
+      v-model="modelValueComputed"
       data-cy="input-straat"
       mod-block
       placeholder="Straat"
@@ -40,7 +40,7 @@ import { computed } from 'vue';
 import type { IStraat } from '@models/locatie';
 
 interface StraatSelectorProps {
-  modelValue: string | IStraat;
+  modelValue: string | IStraat | undefined;
   options: IStraat[];
   disabled: boolean;
   modError: boolean;
@@ -62,7 +62,7 @@ const props = withDefaults(defineProps<StraatSelectorProps>(), {
 });
 const emit = defineEmits(['update:modelValue', 'toggle-free-text']);
 
-const modelValue = computed({
+const modelValueComputed = computed({
   get: () => props.modelValue,
   set: (v) => emit('update:modelValue', v),
 });

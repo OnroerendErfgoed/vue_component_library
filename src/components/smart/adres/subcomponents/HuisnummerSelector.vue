@@ -15,7 +15,7 @@
     />
     <VlInputField
       v-else
-      v-model="localString"
+      v-model="modelValueComputed"
       data-cy="input-huisnummer"
       mod-block
       placeholder="Huisnummer"
@@ -31,13 +31,13 @@
 
 <script setup lang="ts">
 import { VlInputField } from '@govflanders/vl-ui-design-system-vue3';
-import { computed, ref, watch } from 'vue';
+import { computed } from 'vue';
 import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
 import type { IAutocompleteOption } from '@models/autocomplete';
 import type { IAdres } from '@models/locatie';
 
 interface HuisnummerSelectorProps {
-  modelValue: string | IAdres;
+  modelValue: string | IAdres | undefined;
   disabled: boolean;
   freeText: boolean;
   modError: boolean;
@@ -57,25 +57,15 @@ const props = withDefaults(defineProps<HuisnummerSelectorProps>(), {
 });
 const emit = defineEmits(['update:modelValue', 'toggle-free-text']);
 
-const localString = ref(
-  typeof props.modelValue === 'string' ? props.modelValue : (props.modelValue as IAdres)?.huisnummer || ''
-);
+const modelValueComputed = computed<string>({
+  get: () => (typeof props.modelValue === 'string' ? props.modelValue : (props.modelValue as IAdres)?.huisnummer || ''),
+  set: (val: string) => emit('update:modelValue', val),
+});
 
 const autocompleteOption = computed(() => ({
   title: typeof props.modelValue !== 'string' ? (props.modelValue as IAdres)?.huisnummer : props.modelValue,
   value: props.modelValue,
 }));
-
-watch(
-  () => props.modelValue,
-  (v) => {
-    if (typeof v === 'string') localString.value = v;
-    else if (v && typeof v === 'object') localString.value = (v as IAdres).huisnummer || '';
-    else localString.value = '';
-  }
-);
-
-watch(localString, (v) => emit('update:modelValue', v));
 
 const autocompleteFn = (term: string) => props.autocompleteFn?.(term) ?? Promise.resolve([]);
 const onUpdate = (opt: IAutocompleteOption) => emit('update:modelValue', opt?.value);

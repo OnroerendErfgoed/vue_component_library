@@ -47,7 +47,18 @@ const mockBertem = () => {
   cy.intercept('GET', '**/adressenregister/straten/32110/huisnummers/416*', {
     fixture: 'huisnummersDorpstraatBertem.json',
   }).as('dataGetHuisnummersDorpstraatBertem');
-  cy.intercept('GET', '**/adressenregister/straten/32110/huisnummers/383A*', { body: [] });
+  cy.intercept('GET', '**/adressenregister/straten/32110/huisnummers/383A*', {
+    body: [
+      {
+        id: '466831',
+        uri: 'https://data.vlaanderen.be/id/adres/466831',
+        label: 'Dorpstraat 383A, 3061 Bertem',
+        huisnummer: '383A',
+        busnummer: '',
+        status: 'inGebruik',
+      },
+    ],
+  }).as('dataGetHuisnummer383ABertem');
 };
 
 // Helper function to mock Bierbeek-related API calls
@@ -68,6 +79,9 @@ const mockBierbeek = () => {
   cy.intercept('GET', '**/adressenregister/straten/32284/adressen*', {
     fixture: 'adressenKrijkelbergBierbeek.json',
   }).as('dataGetAdressenKrijkelbergBierbeek');
+  cy.intercept('GET', '**/adressenregister/straten/32284/huisnummers/5*', {
+    body: [],
+  }).as('dataGetHuisnummersKrijkelbergBierbeek');
 };
 
 // Helper function to mock Durbuy-related API calls
