@@ -1148,6 +1148,8 @@ describe('Adres', () => {
           },
           template: '<OeAdres ref="adresComponent" countryId="BE" :config="c"/>',
         }).then(({ component }) => {
+          cy.wait('@dataGetLanden');
+          cy.wait('@dataGetGewesten');
           cy.wrap(component.$nextTick()).then(() => {
             adresComponent = component.adresComponent;
           });
@@ -1174,7 +1176,7 @@ describe('Adres', () => {
       });
 
       it('narrows list of provincies and gemeenten on gewest selection', () => {
-        setMultiSelectValue('gewest', 'Vlaams');
+        setMultiSelectValue('gewest', 'Vlaams Gewest');
         cy.wait('@dataGetProvinciesVlaamsGewest');
         getMultiSelect('provincie').click();
         getMultiSelect('provincie').find('.multiselect__element').should('have.length', 5);

@@ -15,7 +15,11 @@ describe('FilterProvincie', () => {
         '<filter-provincie api="https://test-geo.onroerenderfgoed.be/" :value="provincieValue" @update:value="setValue"/>',
     });
 
-    beforeEach(() => cy.mockAdressenregister());
+    beforeEach(() => {
+      cy.mockLanden();
+      cy.mockGewesten();
+      cy.mockProvincies();
+    });
 
     it('fetch provincies, filter and assign the chosen filter to the corresponding data value', () => {
       const onUpdateValueSpy = cy.spy().as('onUpdateValueSpy');
