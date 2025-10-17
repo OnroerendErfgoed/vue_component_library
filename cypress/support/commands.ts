@@ -80,13 +80,48 @@ const mockDurbuy = () => {
 };
 
 // Helper function to mock Aalst-related API calls
+
 const mockAalst = () => {
-  cy.intercept('GET', '**/adressenregister/gemeenten/Aalst/postinfo*', { fixture: 'postinfoAalst.json' }).as(
-    'dataGetPostinfoAalst'
-  );
-  cy.intercept('GET', '**/adressenregister/gemeenten/41002/straten*', { fixture: 'stratenAalst.json' }).as(
-    'dataGetStratenAalst'
-  );
+  cy.intercept('GET', '**/adressenregister/gemeenten/Aalst/postinfo*', {
+    body: [
+      {
+        postcode: '9300',
+        uri: 'https://data.vlaanderen.be/id/postinfo/9300',
+        status: 'gerealiseerd',
+        namen: ['AALST'],
+      },
+      {
+        postcode: '9308',
+        uri: 'https://data.vlaanderen.be/id/postinfo/9308',
+        status: 'gerealiseerd',
+        namen: ['Gijzegem', 'Hofstade'],
+      },
+      {
+        postcode: '9310',
+        uri: 'https://data.vlaanderen.be/id/postinfo/9310',
+        status: 'gerealiseerd',
+        namen: ['Baardegem', 'Herdersem', 'Meldert', 'Moorsel'],
+      },
+      {
+        postcode: '9320',
+        uri: 'https://data.vlaanderen.be/id/postinfo/9320',
+        status: 'gerealiseerd',
+        namen: ['Erembodegem', 'Nieuwerkerken'],
+      },
+    ],
+  }).as('dataGetPostinfoAalst');
+
+  cy.intercept('GET', '**/adressenregister/gemeenten/41002/straten*', {
+    body: Array.from({ length: 5 }, (_, i) => ({
+      id: (229270 + i).toString(),
+      naam: `Straatnaam ${i + 1}`,
+      homoniem: null,
+      status: 'inGebruik',
+      uri: `https://data.vlaanderen.be/id/straatnaam/${229270 + i}`,
+    })),
+  }).as('dataGetStratenAalst');
+
+  cy.intercept('GET', '**/adressenregister/straten/41010/adressen*', { body: [] }).as('dataGetAdressenAalst');
 };
 
 // Helper function to mock Brussel-related API calls
