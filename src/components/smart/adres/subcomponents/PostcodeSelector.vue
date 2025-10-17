@@ -2,7 +2,7 @@
   <div>
     <VlMultiselect
       v-if="isBelgiumOrEmpty && !freeText"
-      v-model="localValue"
+      v-model="modelValue"
       data-cy="select-postcode"
       placeholder="Postcode"
       :options="options"
@@ -12,14 +12,14 @@
       :options-limit="optionsLimit"
       :preserve-search="true"
       :custom-label="customLabel"
-      @keydown.tab="!localValue ? $event.preventDefault() : null"
+      @keydown.tab="!modelValue ? $event.preventDefault() : null"
     >
       <template #noResult><span>Geen resultaten gevonden...</span></template>
       <template #noOptions><span>Geen opties beschikbaar</span></template>
     </VlMultiselect>
     <VlInputField
       v-else
-      v-model="localValue"
+      v-model="modelValue"
       data-cy="input-postcode"
       mod-block
       placeholder="Postcode"
@@ -35,27 +35,36 @@
 
 <script setup lang="ts">
 import { VlInputField, VlMultiselect } from '@govflanders/vl-ui-design-system-vue3';
-import { ref, watch } from 'vue';
+import { computed } from 'vue';
 import type { IPostinfo } from '@models/locatie';
 
-const props = defineProps({
-  modelValue: { type: [Object, String], default: undefined },
-  options: { type: Array as () => IPostinfo[], default: () => [] },
-  disabled: { type: Boolean, default: false },
-  modError: { type: Boolean, default: false },
-  freeText: { type: Boolean, default: false },
-  showToggle: { type: Boolean, default: false },
-  optionsLimit: { type: Number, default: 5000 },
-  isBelgiumOrEmpty: { type: Boolean, default: true },
+interface PostcodeSelectorProps {
+  modelValue: string | IPostinfo;
+  options: IPostinfo[];
+  disabled: boolean;
+  modError: boolean;
+  freeText: boolean;
+  showToggle: boolean;
+  optionsLimit: number;
+  isBelgiumOrEmpty: boolean;
+}
+
+const props = withDefaults(defineProps<PostcodeSelectorProps>(), {
+  modelValue: undefined,
+  options: () => [],
+  disabled: false,
+  modError: false,
+  freeText: false,
+  showToggle: false,
+  optionsLimit: 5000,
+  isBelgiumOrEmpty: true,
 });
 const emit = defineEmits(['update:modelValue', 'toggle-free-text']);
-const localValue = ref(props.modelValue);
+
+const modelValue = computed({
+  get: () => props.modelValue,
+  set: (v) => emit('update:modelValue', v),
+});
 
 const customLabel = (option: IPostinfo) => option.postcode;
-
-watch(
-  () => props.modelValue,
-  (v) => (localValue.value = v)
-);
-watch(localValue, (v) => emit('update:modelValue', v));
 </script>

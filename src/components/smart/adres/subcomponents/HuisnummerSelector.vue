@@ -36,14 +36,24 @@ import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
 import type { IAutocompleteOption } from '@models/autocomplete';
 import type { IAdres } from '@models/locatie';
 
-const props = defineProps({
-  modelValue: { type: [Object, String], default: undefined },
-  disabled: { type: Boolean, default: false },
-  freeText: { type: Boolean, default: false },
-  modError: { type: Boolean, default: false },
-  autocompleteFn: { type: Function, default: undefined },
-  showToggle: { type: Boolean, default: false },
-  isBelgiumOrEmpty: { type: Boolean, default: true },
+interface HuisnummerSelectorProps {
+  modelValue: string | IAdres;
+  disabled: boolean;
+  freeText: boolean;
+  modError: boolean;
+  autocompleteFn?: (term: string) => Promise<IAutocompleteOption[]>;
+  showToggle: boolean;
+  isBelgiumOrEmpty: boolean;
+}
+
+const props = withDefaults(defineProps<HuisnummerSelectorProps>(), {
+  modelValue: undefined,
+  disabled: false,
+  freeText: false,
+  modError: false,
+  autocompleteFn: undefined,
+  showToggle: false,
+  isBelgiumOrEmpty: true,
 });
 const emit = defineEmits(['update:modelValue', 'toggle-free-text']);
 
@@ -61,6 +71,7 @@ watch(
   (v) => {
     if (typeof v === 'string') localString.value = v;
     else if (v && typeof v === 'object') localString.value = (v as IAdres).huisnummer || '';
+    else localString.value = '';
   }
 );
 

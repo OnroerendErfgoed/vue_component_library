@@ -37,13 +37,13 @@ export const createAdresState = () => {
 
   // Form values
   const land = ref<string | ILand>('');
-  const gewest = ref<string | IGewest>();
-  const provincie = ref<string | IProvincie>();
-  const gemeente = ref<string | IGemeente>();
-  const postcode = ref<string | IPostinfo>();
-  const straat = ref<string | IStraat>();
-  const huisnummer = ref<string | IAdres>();
-  const busnummer = ref<string | IAdres>();
+  const gewest = ref<string | IGewest>('');
+  const provincie = ref<string | IProvincie>('');
+  const gemeente = ref<string | IGemeente>('');
+  const postcode = ref<string | IPostinfo>('');
+  const straat = ref<string | IStraat>('');
+  const huisnummer = ref<string | IAdres>('');
+  const busnummer = ref<string | IAdres>('');
 
   // Reference data
   const apiLanden = ref<ILand[]>([]);

@@ -7,7 +7,7 @@ import type { IGewest, ILand, ILocatieAdres, IProvincie } from '@models/locatie'
  * Adres builders
  * Functions to build the address object based on the current state
  * Each function corresponds to a field in the ILocatieAdres interface
- * They handle both object and string values for fields that can be free text
+ * They handle both object and string values for fields that can be free text or part of foreign countries
  */
 export const createAdresBuilders = (state: AdresState) => {
   logInfo('createAdresBuilders');

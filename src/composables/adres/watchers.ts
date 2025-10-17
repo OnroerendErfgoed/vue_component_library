@@ -1,10 +1,11 @@
 import { ResetLevel } from '@composables/adres';
 import { Ref, watch } from 'vue';
-import { IAdresConfig } from '@models/adres';
+import { IAdresProps } from '@models/adres';
 import type { AdresState } from './state';
 import type { IAdres, ILocatieAdres } from '@models/locatie';
 
 interface WatcherConfig<T> {
+  // Property to watch
   source: () => T;
   resetLevel?: ResetLevel;
   initializeAction?: () => Promise<void>;
@@ -13,6 +14,13 @@ interface WatcherConfig<T> {
   shouldInitialize?: (newValue: T) => boolean;
 }
 
+/*
+ * Create field watcher
+ * Generic function to create a watcher for a specific field in the address state
+ * @param state - The address state
+ * @param config - Configuration for the watcher
+ * @param resetFreeTextState - Function to reset free text state flags
+ */
 export function createFieldWatcher<T>(state: AdresState, config: WatcherConfig<T>, resetFreeTextState: () => void) {
   watch(config.source, async (newValue, oldValue) => {
     if (state.isInitializing.value || config.skipWhen?.()) return;
@@ -21,8 +29,6 @@ export function createFieldWatcher<T>(state: AdresState, config: WatcherConfig<T
       // This would need the resetDependentFields function passed in
       config.onValueChange?.(newValue, oldValue);
     }
-
-    config.onValueChange?.(newValue, oldValue);
 
     const shouldInit = config.shouldInitialize ? config.shouldInitialize(newValue) : !!newValue;
 
@@ -35,9 +41,19 @@ export function createFieldWatcher<T>(state: AdresState, config: WatcherConfig<T
   });
 }
 
+/*
+ * Setup watchers
+ * Watch for changes in state and props to trigger actions and rebuild data
+ * @param state - The address state
+ * @param props - The address component props
+ * @param emit - The emit function to emit events
+ * @param helpers - Helper functions for resetting fields and checking country
+ * @param initializers - Functions to initialize reference data
+ * @param adresComputed - The computed address value
+ */
 export function setupWatchers(
   state: AdresState,
-  props: { countryId?: string; config?: IAdresConfig; adres?: ILocatieAdres },
+  props: IAdresProps,
   emit: (event: 'update:adres', ...args: unknown[]) => void,
   helpers: {
     resetDependentFields: (level: ResetLevel) => void;
@@ -76,7 +92,7 @@ export function setupWatchers(
     state,
     {
       source: () => state.land.value,
-      resetLevel: 'gewest',
+      resetLevel: 'land',
       initializeAction: async () => {
         if (helpers.isBelgium()) {
           await initializers.initializeLandData();

@@ -55,14 +55,14 @@ export const createInitializers = (
   };
 
   const initializeProvincieData = async () => {
-    if (!state.provincie.value || !state.gewest.value || props.config?.provincie?.hidden) return;
+    if (!state.provincie.value || !helpers.isBelgiumOrEmpty() || !state.gewest.value || props.config?.provincie?.hidden)
+      return;
 
-    const currentGewest = state.gewest.value as IGewest;
-    state.gemeenten.value = await helpers.getGemeentenByGewest(currentGewest.niscode);
+    const niscode = (state.gewest.value as IGewest).niscode;
+    const gemeenten = await helpers.getGemeentenByGewest(niscode);
+    const provincieNiscode = (state.provincie.value as IProvincie).niscode;
 
-    state.gemeenten.value = state.gemeenten.value.filter(
-      (g) => g.provincie.niscode === (state.provincie.value as IProvincie).niscode
-    );
+    state.gemeenten.value = gemeenten.filter((g) => g.provincie?.niscode === provincieNiscode);
   };
 
   const initializeGemeenteData = async () => {
@@ -218,10 +218,8 @@ export const createInitializers = (
         state.busnummer.value = adresData.adres?.busnummer || '';
         state.isInitializing.value = false;
       }
-    } else {
-      if (props.countryId) {
-        state.land.value = { code: props.countryId } as ILand;
-      }
+    } else if (props.countryId) {
+      state.land.value = { code: props.countryId } as ILand;
     }
   };
 

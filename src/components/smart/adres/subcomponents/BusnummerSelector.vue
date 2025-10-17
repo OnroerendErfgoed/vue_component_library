@@ -32,14 +32,24 @@ import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
 import type { IAutocompleteOption } from '@models/autocomplete';
 import type { IAdres } from '@models/locatie';
 
-const props = defineProps({
-  modelValue: { type: [Object, String], default: undefined },
-  disabled: { type: Boolean, default: false },
-  freeText: { type: Boolean, default: false },
-  modError: { type: Boolean, default: false },
-  autocompleteFn: { type: Function, default: undefined },
-  isBelgiumOrEmpty: { type: Boolean, default: true },
-  huisnummerIsFreeText: { type: Boolean, default: false },
+interface BusnummerSelectorProps {
+  modelValue: string | IAdres;
+  disabled: boolean;
+  freeText: boolean;
+  modError: boolean;
+  autocompleteFn?: (term: string) => Promise<IAutocompleteOption[]>;
+  isBelgiumOrEmpty: boolean;
+  huisnummerIsFreeText: boolean;
+}
+
+const props = withDefaults(defineProps<BusnummerSelectorProps>(), {
+  modelValue: undefined,
+  disabled: false,
+  freeText: false,
+  modError: false,
+  autocompleteFn: undefined,
+  isBelgiumOrEmpty: true,
+  huisnummerIsFreeText: false,
 });
 const emit = defineEmits(['update:modelValue']);
 

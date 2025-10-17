@@ -32,7 +32,7 @@ export const useAdresLogic = (props: IAdresProps, emit: (event: 'update:adres', 
     return !state.gemeente.value;
   });
 
-  // Create builders
+  // Create builders - helpers to build address fields based on current state
   const builders = createAdresBuilders(state);
 
   // Build address computed
@@ -49,7 +49,7 @@ export const useAdresLogic = (props: IAdresProps, emit: (event: 'update:adres', 
   // Create API helpers
   const apiHelpers = createApiHelpers(state, crabApiService, isBelgium);
 
-  // Create initializers
+  // Create initializers - functions to initialize reference data
   const initializers = createInitializers(state, props, crabApiService, {
     getGemeentenByGewest: apiHelpers.getGemeentenByGewest,
     getProvinciesByGewest: apiHelpers.getProvinciesByGewest,
@@ -58,7 +58,7 @@ export const useAdresLogic = (props: IAdresProps, emit: (event: 'update:adres', 
     isBelgiumOrEmpty,
   });
 
-  // Setup watchers
+  // Setup watchers - watch for changes in state and props to trigger actions and rebuild data
   setupWatchers(
     state,
     props,

@@ -18,14 +18,14 @@ import { VlSelect } from '@govflanders/vl-ui-design-system-vue3';
 import { computed } from 'vue';
 import type { ILand } from '@models/locatie';
 
-interface LandProps {
+interface LandSelectorProps {
   modelValue: string | ILand;
   landen: ILand[];
   modDisabled: boolean;
   modError: boolean;
 }
 
-const props = withDefaults(defineProps<LandProps>(), {
+const props = withDefaults(defineProps<LandSelectorProps>(), {
   modelValue: '',
   landen: () => [],
   modDisabled: false,
