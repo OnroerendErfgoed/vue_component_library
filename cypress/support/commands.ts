@@ -73,12 +73,7 @@ const mockBierbeek = () => {
       },
     ],
   }).as('dataGetPostinfoBierbeek');
-  cy.intercept('GET', '**/adressenregister/gemeenten/24011/straten*', { fixture: 'stratenBierbeek.json' }).as(
-    'dataGetStratenBierbeek'
-  );
-  cy.intercept('GET', '**/adressenregister/straten/32284/adressen*', {
-    fixture: 'adressenKrijkelbergBierbeek.json',
-  }).as('dataGetAdressenKrijkelbergBierbeek');
+  cy.intercept('GET', '**/adressenregister/gemeenten/24011/straten*', { body: [] }).as('dataGetStratenBierbeek');
   cy.intercept('GET', '**/adressenregister/straten/32284/huisnummers/5*', {
     body: [],
   }).as('dataGetHuisnummersKrijkelbergBierbeek');
@@ -87,9 +82,17 @@ const mockBierbeek = () => {
 // Helper function to mock Durbuy-related API calls
 const mockDurbuy = () => {
   cy.intercept('GET', '**/adressenregister/gemeenten/Durbuy/postinfo*', { body: [] }).as('dataGetPostinfoDurbuy');
-  cy.intercept('GET', '**/adressenregister/gemeenten/83012/straten*', { fixture: 'stratenDurbuy.json' }).as(
-    'dataGetStratenDurbuy'
-  );
+  cy.intercept('GET', '**/adressenregister/gemeenten/83012/straten*', {
+    body: [
+      {
+        id: '125552',
+        naam: 'Hiva',
+        homoniem: null,
+        status: 'inGebruik',
+        uri: 'https://data.vlaanderen.be/id/straatnaam/125552',
+      },
+    ],
+  }).as('dataGetStratenDurbuy');
   cy.intercept('GET', '**/adressenregister/straten/125552/adressen*', { body: [] }).as('dataGetAdressenDurbuy');
 };
 

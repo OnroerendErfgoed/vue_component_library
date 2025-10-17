@@ -493,8 +493,6 @@ describe('Adres', () => {
       getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Krijkelberg');
       getAutocompleteInput('huisnummer').should('have.value', '5');
 
-      cy.wait('@dataGetAdressenKrijkelbergBierbeek');
-
       getTextInput('busnummer').should('have.value', 'B');
     });
 
