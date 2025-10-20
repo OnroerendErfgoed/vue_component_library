@@ -142,7 +142,7 @@
               :disabled="!gemeente || props.modDisabled"
               :mod-error="!!v$.postcode.nummer.$errors.length"
               :free-text="postcodeIsFreeText"
-              :show-toggle="(isBelgium && gemeenten.length && !isVlaamseGemeenteOrEmpty) || false"
+              :show-toggle="(!modDisabled && isBelgium && gemeenten.length && !isVlaamseGemeenteOrEmpty) || false"
               :is-belgium-or-empty="isBelgiumOrEmpty"
               @toggle-free-text="() => (postcodeIsFreeText = !postcodeIsFreeText)"
             />
@@ -178,7 +178,7 @@
             :disabled="!gemeente || props.modDisabled"
             :mod-error="!!v$.straat.naam.$errors.length"
             :free-text="straatIsFreeText"
-            :show-toggle="(isBelgium && gemeenten.length && !isVlaamseGemeenteOrEmpty) || false"
+            :show-toggle="(!modDisabled && isBelgium && gemeenten.length && !isVlaamseGemeenteOrEmpty) || false"
             :is-belgium-or-empty="isBelgiumOrEmpty"
             @toggle-free-text="() => (straatIsFreeText = !straatIsFreeText)"
           />
@@ -208,7 +208,7 @@
             :free-text="huisnummerIsFreeText"
             :mod-error="!!v$.adres.huisnummer.$errors.length"
             :autocomplete-fn="performAutocompleteSearchHuisnummers"
-            :show-toggle="(isBelgium && gemeenten.length && !isVlaamseGemeenteOrEmpty) || false"
+            :show-toggle="(!modDisabled && isBelgium && gemeenten.length && !isVlaamseGemeenteOrEmpty) || false"
             :is-belgium-or-empty="isBelgiumOrEmpty"
             @toggle-free-text="() => (huisnummerIsFreeText = !huisnummerIsFreeText)"
           />

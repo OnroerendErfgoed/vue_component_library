@@ -94,6 +94,7 @@ const mockDurbuy = () => {
     ],
   }).as('dataGetStratenDurbuy');
   cy.intercept('GET', '**/adressenregister/straten/125552/adressen*', { body: [] }).as('dataGetAdressenDurbuy');
+  cy.intercept('GET', '**/adressenregister/straten/125552/huisnummers*', { body: [] }).as('dataGetHuisnummersDurbuy');
 };
 
 // Helper function to mock Aalst-related API calls
