@@ -144,7 +144,7 @@ export const TwoWayBinding: Story = {
       },
       provincie: {
         naam: 'Vlaams-Brabant',
-        niscode: '21001',
+        niscode: '20001',
       },
       gemeente: {
         naam: 'Bertem',
