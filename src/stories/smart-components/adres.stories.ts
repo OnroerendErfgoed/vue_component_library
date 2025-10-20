@@ -138,6 +138,14 @@ export const TwoWayBinding: Story = {
         naam: 'België',
         code: 'BE',
       },
+      gewest: {
+        naam: 'Vlaams Gewest',
+        niscode: '2000',
+      },
+      provincie: {
+        naam: 'Vlaams-Brabant',
+        niscode: '21001',
+      },
       gemeente: {
         naam: 'Bertem',
         niscode: '24009',
