@@ -1,7 +1,7 @@
 import { createApiHelpers } from './api-helpers';
 import { createAdresBuilders } from './builders';
 import { createInitializers } from './initialization';
-import { createAdresState } from './state';
+import { useAdresState } from './state';
 import { setupWatchers } from './watchers';
 import { computed } from 'vue';
 import { CrabApiService } from '@services/crab-api.service';
@@ -15,7 +15,7 @@ export const useAdresLogic = (props: IAdresProps, emit: (event: 'update:adres', 
   logInfo('useAdresLogic');
 
   // Initialize state
-  const state = createAdresState();
+  const state = useAdresState();
 
   // Initialize CRAB API service
   const crabApiService = new CrabApiService(props.api || '');

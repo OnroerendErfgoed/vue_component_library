@@ -1403,6 +1403,8 @@ describe('Adres', () => {
 
       it('narrows list of gemeenten on provincie selection without gewest selection', () => {
         setMultiSelectValue('provincie', 'Vlaams-Brabant');
+        cy.wait('@dataGetGemeentenVlaamsGewest');
+
         getMultiSelect('gemeente').click();
         getMultiSelect('gemeente').find('.multiselect__element').first().should('have.text', 'Aarschot');
       });

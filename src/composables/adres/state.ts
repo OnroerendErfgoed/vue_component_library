@@ -22,8 +22,8 @@ const STATIC_LANDEN: ILand[] = [
  * Adres state
  * All reactive state used in the adres composable
  */
-export const createAdresState = () => {
-  logInfo('createAdresState');
+export const useAdresState = () => {
+  logInfo('useAdresState');
 
   // Loading states
   const isLoading = ref(false);
@@ -90,4 +90,4 @@ export const createAdresState = () => {
   };
 };
 
-export type AdresState = ReturnType<typeof createAdresState>;
+export type AdresState = ReturnType<typeof useAdresState>;

@@ -1,5 +1,6 @@
 <template>
   <VlSelect
+    id="land"
     v-model="modelValueCode"
     data-cy="select-land"
     :mod-disabled="modDisabled"

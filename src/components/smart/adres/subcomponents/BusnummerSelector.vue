@@ -2,6 +2,7 @@
   <div>
     <OeAutocomplete
       v-if="isBelgiumOrEmpty && !huisnummerIsFreeText && !freeText"
+      id="busnummer"
       data-cy="autocomplete-busnummer"
       allow-free-text
       autoselect
@@ -15,6 +16,7 @@
     />
     <VlInputField
       v-else
+      id="busnummer"
       v-model="modelValueComputed"
       data-cy="input-busnummer"
       mod-block

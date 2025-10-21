@@ -1,5 +1,6 @@
 <template>
   <VlMultiselect
+    id="provincie"
     v-model="modelValueComputed"
     data-cy="select-provincie"
     placeholder="Provincie"

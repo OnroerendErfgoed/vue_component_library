@@ -2,6 +2,7 @@
   <div>
     <VlMultiselect
       v-if="isBelgiumOrEmpty && !freeText"
+      id="postcode"
       v-model="modelValueComputed"
       data-cy="select-postcode"
       placeholder="Postcode"
@@ -19,6 +20,7 @@
     </VlMultiselect>
     <VlInputField
       v-else
+      id="postcode"
       v-model="modelValueComputed"
       data-cy="input-postcode"
       mod-block
@@ -26,15 +28,15 @@
       :mod-disabled="disabled"
       :mod-error="modError"
     />
-    <button v-if="showToggle" data-cy="action-postcode-not-found" class="vl-link" @click="$emit('toggle-free-text')">
+    <VlButton v-if="showToggle" data-cy="action-postcode-not-found" mod-link @click="$emit('toggle-free-text')">
       <span v-if="!freeText">Een postcode invullen die niet tussen de suggesties staat?</span>
       <span v-else>Toon lijst met suggesties</span>
-    </button>
+    </VlButton>
   </div>
 </template>
 
 <script setup lang="ts">
-import { VlInputField, VlMultiselect } from '@govflanders/vl-ui-design-system-vue3';
+import { VlButton, VlInputField, VlMultiselect } from '@govflanders/vl-ui-design-system-vue3';
 import { computed } from 'vue';
 import type { IPostinfo } from '@models/locatie';
 

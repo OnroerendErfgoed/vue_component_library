@@ -2,6 +2,7 @@
   <div>
     <OeAutocomplete
       v-if="isBelgiumOrEmpty && !freeText"
+      id="huisnummer"
       data-cy="autocomplete-huisnummer"
       allow-free-text
       autoselect
@@ -15,6 +16,7 @@
     />
     <VlInputField
       v-else
+      id="huisnummer"
       v-model="modelValueComputed"
       data-cy="input-huisnummer"
       mod-block
@@ -22,15 +24,15 @@
       :mod-disabled="disabled"
       :mod-error="modError"
     />
-    <button v-if="showToggle" data-cy="action-huisnummer-not-found" class="vl-link" @click="$emit('toggle-free-text')">
+    <VlButton v-if="showToggle" mod-link data-cy="action-huisnummer-not-found" @click="$emit('toggle-free-text')">
       <span v-if="!freeText">Een huisnummer invullen dat niet tussen de suggesties staat?</span>
       <span v-else>Toon lijst met suggesties</span>
-    </button>
+    </VlButton>
   </div>
 </template>
 
 <script setup lang="ts">
-import { VlInputField } from '@govflanders/vl-ui-design-system-vue3';
+import { VlButton, VlInputField } from '@govflanders/vl-ui-design-system-vue3';
 import { computed } from 'vue';
 import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
 import type { IAutocompleteOption } from '@models/autocomplete';

@@ -2,6 +2,7 @@
   <div>
     <VlMultiselect
       v-if="isBelgiumOrEmpty && !freeText"
+      id="straat"
       v-model="modelValueComputed"
       data-cy="select-straat"
       placeholder="Straat"
@@ -20,6 +21,7 @@
     </VlMultiselect>
     <VlInputField
       v-else
+      id="straat"
       v-model="modelValueComputed"
       data-cy="input-straat"
       mod-block
@@ -27,15 +29,15 @@
       :mod-disabled="disabled"
       :mod-error="modError"
     />
-    <button v-if="showToggle" data-cy="action-straat-not-found" class="vl-link" @click="$emit('toggle-free-text')">
+    <VlButton v-if="showToggle" data-cy="action-straat-not-found" mod-link @click="$emit('toggle-free-text')">
       <span v-if="!freeText">Een straat invullen die niet tussen de suggesties staat?</span>
       <span v-else>Toon lijst met suggesties</span>
-    </button>
+    </VlButton>
   </div>
 </template>
 
 <script setup lang="ts">
-import { VlInputField, VlMultiselect } from '@govflanders/vl-ui-design-system-vue3';
+import { VlButton, VlInputField, VlMultiselect } from '@govflanders/vl-ui-design-system-vue3';
 import { computed } from 'vue';
 import type { IStraat } from '@models/locatie';
 

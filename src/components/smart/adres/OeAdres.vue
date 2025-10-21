@@ -12,7 +12,7 @@
         <!-- Land -->
         <template v-if="!props.countryId">
           <VlFormColumn width="3" width-s="12">
-            <VlFormMessageLabel :class="{ 'vl-properties__label': adminMode }" data-cy="label-land">
+            <VlFormMessageLabel for="land" :class="{ 'vl-properties__label': adminMode }" data-cy="label-land">
               <span>Land</span>
               <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.land?.required"
                 >VERPLICHT</VlFormMessageAnnotation
@@ -35,7 +35,7 @@
         <!-- Gewest -->
         <template v-if="isBelgiumOrEmpty && !$props.config?.gewest?.hidden">
           <VlFormColumn width="3" width-s="12">
-            <VlFormMessageLabel :class="{ 'vl-properties__label': adminMode }" data-cy="label-gewest">
+            <VlFormMessageLabel for="gewest" :class="{ 'vl-properties__label': adminMode }" data-cy="label-gewest">
               <span>Gewest</span>
               <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.gewest?.required"
                 >VERPLICHT</VlFormMessageAnnotation
@@ -59,7 +59,11 @@
         <!-- Provincie -->
         <template v-if="isBelgiumOrEmpty && !$props.config?.provincie?.hidden">
           <VlFormColumn width="3" width-s="12">
-            <VlFormMessageLabel :class="{ 'vl-properties__label': adminMode }" data-cy="label-provincie">
+            <VlFormMessageLabel
+              for="provincie"
+              :class="{ 'vl-properties__label': adminMode }"
+              data-cy="label-provincie"
+            >
               <span>Provincie</span>
               <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.provincie?.required"
                 >VERPLICHT</VlFormMessageAnnotation
@@ -82,7 +86,7 @@
 
         <!-- Gemeente -->
         <VlFormColumn width="3" width-s="12">
-          <VlFormMessageLabel :class="{ 'vl-properties__label': adminMode }" data-cy="label-gemeente">
+          <VlFormMessageLabel for="gemeente" :class="{ 'vl-properties__label': adminMode }" data-cy="label-gemeente">
             <span>Gemeente</span>
             <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.gemeente?.required"
               >VERPLICHT</VlFormMessageAnnotation
@@ -106,7 +110,7 @@
         <!-- Postcode -->
         <template v-if="!$props.config?.postcode?.hidden">
           <VlFormColumn width="3" width-s="12">
-            <VlFormMessageLabel :class="{ 'vl-properties__label': adminMode }" data-cy="label-postcode">
+            <VlFormMessageLabel for="postcode" :class="{ 'vl-properties__label': adminMode }" data-cy="label-postcode">
               <span>Postcode</span>
               <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.postcode?.required"
                 >VERPLICHT</VlFormMessageAnnotation
@@ -137,7 +141,7 @@
 
         <!-- Straat -->
         <VlFormColumn width="3" width-s="12">
-          <VlFormMessageLabel :class="{ 'vl-properties__label': adminMode }" data-cy="label-straat">
+          <VlFormMessageLabel for="straat" :class="{ 'vl-properties__label': adminMode }" data-cy="label-straat">
             <span>Straat</span>
             <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.straat?.required"
               >VERPLICHT</VlFormMessageAnnotation
@@ -163,7 +167,11 @@
 
         <!-- Huisnummer -->
         <VlFormColumn width="3" width-s="12">
-          <VlFormMessageLabel :class="{ 'vl-properties__label': adminMode }" data-cy="label-huisnummer">
+          <VlFormMessageLabel
+            for="huisnummer"
+            :class="{ 'vl-properties__label': adminMode }"
+            data-cy="label-huisnummer"
+          >
             <span>Huisnummer</span>
             <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.huisnummer?.required"
               >VERPLICHT</VlFormMessageAnnotation
@@ -193,7 +201,11 @@
         <!-- Busnummer -->
         <template v-if="!$props.config?.busnummer?.hidden">
           <VlFormColumn width="3" width-s="12">
-            <VlFormMessageLabel :class="{ 'vl-properties__label': adminMode }" data-cy="label-busnummer">
+            <VlFormMessageLabel
+              for="busnummer"
+              :class="{ 'vl-properties__label': adminMode }"
+              data-cy="label-busnummer"
+            >
               <span>Busnummer</span>
               <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.busnummer?.required"
                 >VERPLICHT</VlFormMessageAnnotation
