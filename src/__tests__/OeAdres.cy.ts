@@ -1357,6 +1357,56 @@ describe('Adres', () => {
         getFormError('provincie').should('have.text', 'Het veld provincie is verplicht.');
       });
     });
+
+    describe('applies custom configuration - gewest & provincie optional', () => {
+      const config: IAdresConfig = {
+        gewest: {
+          required: false,
+        },
+        provincie: {
+          required: false,
+        },
+        gemeente: {
+          required: false,
+        },
+        postcode: {
+          required: false,
+        },
+        straat: {
+          required: false,
+        },
+        huisnummer: {
+          required: false,
+        },
+        busnummer: {
+          required: false,
+        },
+      };
+
+      beforeEach(() => {
+        mount(TestComponent, {
+          setup() {
+            const adresComponent = ref();
+            const c = config;
+
+            return { c, adresComponent };
+          },
+          template: '<OeAdres ref="adresComponent" countryId="BE" :config="c"/>',
+        }).then(({ component }) => {
+          cy.wait('@dataGetLanden');
+          cy.wait('@dataGetGewesten');
+          cy.wrap(component.$nextTick()).then(() => {
+            adresComponent = component.adresComponent;
+          });
+        });
+      });
+
+      it('narrows list of gemeenten on provincie selection without gewest selection', () => {
+        setMultiSelectValue('provincie', 'Vlaams-Brabant');
+        getMultiSelect('gemeente').click();
+        getMultiSelect('gemeente').find('.multiselect__element').first().should('have.text', 'Aarschot');
+      });
+    });
   });
 
   describe('form - postcode & busnummer', () => {

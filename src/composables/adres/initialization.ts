@@ -55,11 +55,10 @@ export const createInitializers = (
   };
 
   const initializeProvincieData = async () => {
-    if (!state.provincie.value || !helpers.isBelgiumOrEmpty() || !state.gewest.value || props.config?.provincie?.hidden)
-      return;
+    if (!state.provincie.value || !helpers.isBelgiumOrEmpty() || props.config?.provincie?.hidden) return;
 
-    const niscode = (state.gewest.value as IGewest).niscode;
-    const gemeenten = await helpers.getGemeentenByGewest(niscode);
+    const niscode = (state.gewest.value as IGewest)?.niscode;
+    const gemeenten = niscode ? await helpers.getGemeentenByGewest(niscode) : state.gemeenten.value;
     const provincieNiscode = (state.provincie.value as IProvincie).niscode;
 
     state.gemeenten.value = gemeenten.filter((g) => g.provincie?.niscode === provincieNiscode);
@@ -97,7 +96,6 @@ export const createInitializers = (
         state.huisnummers.value = [];
         state.busnummers.value = [];
         state.huisnummerIsFreeText.value = true;
-        console.log('iere');
         state.busnummerIsFreeText.value = true;
       }
     }
