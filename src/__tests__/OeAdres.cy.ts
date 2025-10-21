@@ -357,6 +357,55 @@ describe('Adres', () => {
     });
   });
 
+  describe('form - disabled state', () => {
+    beforeEach(() => {
+      cy.mockLanden();
+      cy.mockGewesten();
+      cy.mockGemeenten();
+      cy.mockDurbuy();
+
+      mount(TestComponent, {
+        props: {
+          modDisabled: true,
+          adres: {
+            land: { code: 'BE', naam: 'België' },
+            gemeente: { naam: 'Durbuy', niscode: '83012' },
+            postcode: { uri: 'https://data.vlaanderen.be/id/postinfo/6940', nummer: '6940' },
+            straat: { naam: 'Hiva', id: '125552', uri: 'https://data.vlaanderen.be/id/straatnaam/125552' },
+            adres: { huisnummer: '2' },
+          },
+        },
+      }).then(() => {
+        cy.wait('@dataGetLanden');
+        cy.wait('@dataGetGemeentenWaalsGewest');
+      });
+    });
+
+    it('disables all fields', () => {
+      getMultiSelect('land').should('be.disabled');
+      getMultiSelect('gemeente').should('have.class', 'multiselect--disabled');
+      getMultiSelect('postcode').should('have.class', 'multiselect--disabled');
+      getMultiSelect('straat').should('have.class', 'multiselect--disabled');
+      getAutocompleteInput('huisnummer').should('have.class', 'vl-input-field--disabled');
+      getAutocompleteInput('busnummer').should('have.class', 'vl-input-field--disabled');
+    });
+
+    it('should show the selected address', () => {
+      getMultiSelect('land').find(':selected').should('have.text', 'België');
+      getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Durbuy');
+      getMultiSelect('postcode').find('.multiselect__single').should('have.text', '6940');
+      getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Hiva');
+      getAutocompleteInput('huisnummer').should('have.value', '2');
+      getAutocompleteInput('busnummer').should('have.value', '');
+    });
+
+    it('should not show action buttons when disabled', () => {
+      cy.dataCy('action-postcode-not-found').should('not.exist');
+      cy.dataCy('action-straat-not-found').should('not.exist');
+      cy.dataCy('action-huisnummer-not-found').should('not.exist');
+    });
+  });
+
   describe('form - 2-way binding', () => {
     beforeEach(() => {
       cy.mockLanden();
