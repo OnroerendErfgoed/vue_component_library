@@ -1263,8 +1263,6 @@ describe('Adres', () => {
   });
 
   describe('form - gewest & provincie', () => {
-    let adresComponent: Cypress.Chainable;
-
     beforeEach(() => {
       cy.mockLanden();
       cy.mockGewesten();
@@ -1273,6 +1271,8 @@ describe('Adres', () => {
     });
 
     describe('applies custom configuration - gewest & provincie required', () => {
+      let adresComponent: Cypress.Chainable;
+
       const config: IAdresConfig = {
         gewest: {
           required: true,
@@ -1386,25 +1386,21 @@ describe('Adres', () => {
       beforeEach(() => {
         mount(TestComponent, {
           setup() {
-            const adresComponent = ref();
             const c = config;
 
-            return { c, adresComponent };
+            return { c };
           },
-          template: '<OeAdres ref="adresComponent" countryId="BE" :config="c"/>',
-        }).then(({ component }) => {
-          cy.wrap(component.$nextTick()).then(() => {
-            adresComponent = component.adresComponent;
-          });
+          template: '<OeAdres :config="c"/>',
         });
       });
 
       it('narrows list of gemeenten on provincie selection without gewest selection', () => {
         cy.wait('@dataGetLanden');
+        getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
+
         cy.wait('@dataGetGewesten');
         cy.wait('@dataGetProvinciesVlaamsGewest');
         setMultiSelectValue('provincie', 'Vlaams-Brabant');
-        cy.wait('@dataGetGemeentenVlaamsGewest');
 
         getMultiSelect('gemeente').click();
         getMultiSelect('gemeente').find('.multiselect__element').first().should('have.text', 'Aarschot');
