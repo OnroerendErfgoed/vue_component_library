@@ -2,6 +2,7 @@
   <div :id="`autocomplete-${props.id}`" v-click-outside="hideResults" data-cy="autocomplete" class="js-vl-autocomplete">
     <vl-input-field
       v-bind="attrs"
+      :id="props.id"
       v-model="searchTerm"
       data-cy="autocomplete-input"
       :placeholder="props.placeholder"

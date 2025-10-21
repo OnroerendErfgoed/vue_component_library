@@ -5,6 +5,11 @@ import { Niscode } from '@models/niscode.enum';
 import type { IGemeente } from '@models/locatie';
 
 describe('FilterGemeente', () => {
+  beforeEach(() => {
+    cy.mockGewesten();
+    cy.mockGemeenten();
+  });
+
   describe('default', () => {
     const TestComponent = defineComponent({
       components: { FilterGemeente },
@@ -16,8 +21,6 @@ describe('FilterGemeente', () => {
       template:
         '<filter-gemeente api="https://test-geo.onroerenderfgoed.be/" :value="gemeenteValue" @update:value="setValue"/>',
     });
-
-    beforeEach(() => cy.mockAdressenregister());
 
     it('fetch gemeenten, filter and assign the chosen filter to the corresponding data value', () => {
       const onUpdateValueSpy = cy.spy().as('onUpdateValueSpy');
@@ -62,8 +65,6 @@ describe('FilterGemeente', () => {
       template:
         '<filter-gemeente api="https://test-geo.onroerenderfgoed.be/" :value="gemeenteValue" :gewest="gewest" @update:value="setValue"/>',
     });
-
-    beforeEach(() => cy.mockAdressenregister());
 
     it('fetches gemeenten with gewest constraint, search and assign an available gemeente', () => {
       const onUpdateValueSpy = cy.spy().as('onUpdateValueSpy');
