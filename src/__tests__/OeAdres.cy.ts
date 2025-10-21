@@ -1393,8 +1393,6 @@ describe('Adres', () => {
           },
           template: '<OeAdres ref="adresComponent" countryId="BE" :config="c"/>',
         }).then(({ component }) => {
-          cy.wait('@dataGetLanden');
-          cy.wait('@dataGetGewesten');
           cy.wrap(component.$nextTick()).then(() => {
             adresComponent = component.adresComponent;
           });
@@ -1402,6 +1400,9 @@ describe('Adres', () => {
       });
 
       it('narrows list of gemeenten on provincie selection without gewest selection', () => {
+        cy.wait('@dataGetLanden');
+        cy.wait('@dataGetGewesten');
+        cy.wait('@dataGetProvinciesVlaamsGewest');
         setMultiSelectValue('provincie', 'Vlaams-Brabant');
         cy.wait('@dataGetGemeentenVlaamsGewest');
 
