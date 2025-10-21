@@ -2,7 +2,7 @@
   <div>
     <VlMultiselect
       v-if="isBelgiumOrEmpty && !freeText"
-      id="postcode"
+      :id="$attrs.id"
       v-model="modelValueComputed"
       data-cy="select-postcode"
       placeholder="Postcode"
@@ -20,7 +20,7 @@
     </VlMultiselect>
     <VlInputField
       v-else
-      id="postcode"
+      :id="$attrs.id"
       v-model="modelValueComputed"
       data-cy="input-postcode"
       mod-block
@@ -39,6 +39,10 @@
 import { VlButton, VlInputField, VlMultiselect } from '@govflanders/vl-ui-design-system-vue3';
 import { computed } from 'vue';
 import type { IPostinfo } from '@models/locatie';
+
+defineOptions({
+  inheritAttrs: false,
+});
 
 interface PostcodeSelectorProps {
   modelValue: string | IPostinfo | undefined;

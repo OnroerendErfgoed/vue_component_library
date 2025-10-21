@@ -1,7 +1,7 @@
 <template>
   <VlMultiselect
     v-if="isBelgiumOrEmpty"
-    id="gemeente"
+    :id="$attrs.id"
     v-model="modelValueComputed"
     data-cy="select-gemeente"
     placeholder="Gemeente"
@@ -20,7 +20,7 @@
   </VlMultiselect>
   <VlInputField
     v-else
-    id="gemeente"
+    :id="$attrs.id"
     v-model="modelValueComputed"
     data-cy="input-gemeente"
     :mod-error="modError"

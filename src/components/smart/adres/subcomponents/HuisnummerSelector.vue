@@ -2,7 +2,7 @@
   <div>
     <OeAutocomplete
       v-if="isBelgiumOrEmpty && !freeText"
-      id="huisnummer"
+      :id="$attrs.id as string"
       data-cy="autocomplete-huisnummer"
       allow-free-text
       autoselect
@@ -16,7 +16,7 @@
     />
     <VlInputField
       v-else
-      id="huisnummer"
+      :id="$attrs.id"
       v-model="modelValueComputed"
       data-cy="input-huisnummer"
       mod-block
@@ -37,6 +37,10 @@ import { computed } from 'vue';
 import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
 import type { IAutocompleteOption } from '@models/autocomplete';
 import type { IAdres } from '@models/locatie';
+
+defineOptions({
+  inheritAttrs: false,
+});
 
 interface HuisnummerSelectorProps {
   modelValue: string | IAdres | undefined;

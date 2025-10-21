@@ -2,7 +2,7 @@
   <div>
     <VlMultiselect
       v-if="isBelgiumOrEmpty && !freeText"
-      id="straat"
+      :id="$attrs.id"
       v-model="modelValueComputed"
       data-cy="select-straat"
       placeholder="Straat"
@@ -21,7 +21,7 @@
     </VlMultiselect>
     <VlInputField
       v-else
-      id="straat"
+      :id="$attrs.id"
       v-model="modelValueComputed"
       data-cy="input-straat"
       mod-block
@@ -40,6 +40,10 @@
 import { VlButton, VlInputField, VlMultiselect } from '@govflanders/vl-ui-design-system-vue3';
 import { computed } from 'vue';
 import type { IStraat } from '@models/locatie';
+
+defineOptions({
+  inheritAttrs: false,
+});
 
 interface StraatSelectorProps {
   modelValue: string | IStraat | undefined;

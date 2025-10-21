@@ -1,6 +1,6 @@
 <template>
   <OeLoader v-if="isLoading" />
-  <div v-else class="oe-adres">
+  <div v-else :id="`oe-adres-${id}`" class="oe-adres">
     <VlPropertiesTitle v-if="!props.hideTitle" data-cy="title-adres">{{ titleText }}</VlPropertiesTitle>
 
     <VlFormStructure @submit.prevent>
@@ -12,7 +12,7 @@
         <!-- Land -->
         <template v-if="!props.countryId">
           <VlFormColumn width="3" width-s="12">
-            <VlFormMessageLabel for="land" :class="{ 'vl-properties__label': adminMode }" data-cy="label-land">
+            <VlFormMessageLabel :for="`land-${id}`" :class="{ 'vl-properties__label': adminMode }" data-cy="label-land">
               <span>Land</span>
               <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.land?.required"
                 >VERPLICHT</VlFormMessageAnnotation
@@ -21,6 +21,7 @@
           </VlFormColumn>
           <VlFormColumn width="9" width-s="12">
             <LandSelector
+              :id="`land-${id}`"
               v-model="land"
               :landen="landen"
               :mod-error="!!v$.land.$errors.length"
@@ -35,7 +36,11 @@
         <!-- Gewest -->
         <template v-if="isBelgiumOrEmpty && !$props.config?.gewest?.hidden">
           <VlFormColumn width="3" width-s="12">
-            <VlFormMessageLabel for="gewest" :class="{ 'vl-properties__label': adminMode }" data-cy="label-gewest">
+            <VlFormMessageLabel
+              :for="`gewest-${id}`"
+              :class="{ 'vl-properties__label': adminMode }"
+              data-cy="label-gewest"
+            >
               <span>Gewest</span>
               <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.gewest?.required"
                 >VERPLICHT</VlFormMessageAnnotation
@@ -44,6 +49,7 @@
           </VlFormColumn>
           <VlFormColumn width="9" width-s="12">
             <GewestSelector
+              :id="`gewest-${id}`"
               v-model="gewest"
               :options="gewesten"
               :disabled="!land || props.modDisabled"
@@ -60,7 +66,7 @@
         <template v-if="isBelgiumOrEmpty && !$props.config?.provincie?.hidden">
           <VlFormColumn width="3" width-s="12">
             <VlFormMessageLabel
-              for="provincie"
+              :for="`provincie-${id}`"
               :class="{ 'vl-properties__label': adminMode }"
               data-cy="label-provincie"
             >
@@ -72,6 +78,7 @@
           </VlFormColumn>
           <VlFormColumn width="9" width-s="12">
             <ProvincieSelector
+              :id="`provincie-${id}`"
               v-model="provincie"
               :options="provincies"
               :disabled="!land || provincies.length === 0 || props.modDisabled"
@@ -86,7 +93,11 @@
 
         <!-- Gemeente -->
         <VlFormColumn width="3" width-s="12">
-          <VlFormMessageLabel for="gemeente" :class="{ 'vl-properties__label': adminMode }" data-cy="label-gemeente">
+          <VlFormMessageLabel
+            :for="`gemeente-${id}`"
+            :class="{ 'vl-properties__label': adminMode }"
+            data-cy="label-gemeente"
+          >
             <span>Gemeente</span>
             <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.gemeente?.required"
               >VERPLICHT</VlFormMessageAnnotation
@@ -95,6 +106,7 @@
         </VlFormColumn>
         <VlFormColumn width="9" width-s="12">
           <GemeenteSelector
+            :id="`gemeente-${id}`"
             v-model="gemeente"
             :options="gemeenten"
             :disabled="!land || props.modDisabled"
@@ -110,7 +122,11 @@
         <!-- Postcode -->
         <template v-if="!$props.config?.postcode?.hidden">
           <VlFormColumn width="3" width-s="12">
-            <VlFormMessageLabel for="postcode" :class="{ 'vl-properties__label': adminMode }" data-cy="label-postcode">
+            <VlFormMessageLabel
+              :for="`postcode-${id}`"
+              :class="{ 'vl-properties__label': adminMode }"
+              data-cy="label-postcode"
+            >
               <span>Postcode</span>
               <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.postcode?.required"
                 >VERPLICHT</VlFormMessageAnnotation
@@ -119,6 +135,7 @@
           </VlFormColumn>
           <VlFormColumn width="9" width-s="12">
             <PostcodeSelector
+              :id="`postcode-${id}`"
               v-model="postcode"
               :options-limit="optionsLimit"
               :options="postinfo"
@@ -141,7 +158,11 @@
 
         <!-- Straat -->
         <VlFormColumn width="3" width-s="12">
-          <VlFormMessageLabel for="straat" :class="{ 'vl-properties__label': adminMode }" data-cy="label-straat">
+          <VlFormMessageLabel
+            :for="`straat-${id}`"
+            :class="{ 'vl-properties__label': adminMode }"
+            data-cy="label-straat"
+          >
             <span>Straat</span>
             <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.straat?.required"
               >VERPLICHT</VlFormMessageAnnotation
@@ -150,6 +171,7 @@
         </VlFormColumn>
         <VlFormColumn width="9" width-s="12">
           <StraatSelector
+            :id="`straat-${id}`"
             v-model="straat"
             :options="straten"
             :options-limit="optionsLimit"
@@ -168,7 +190,7 @@
         <!-- Huisnummer -->
         <VlFormColumn width="3" width-s="12">
           <VlFormMessageLabel
-            for="huisnummer"
+            :for="`huisnummer-${id}`"
             :class="{ 'vl-properties__label': adminMode }"
             data-cy="label-huisnummer"
           >
@@ -180,6 +202,7 @@
         </VlFormColumn>
         <VlFormColumn width="9" width-s="12">
           <HuisnummerSelector
+            :id="`huisnummer-${id}`"
             v-model="huisnummer"
             :disabled="!straat || props.modDisabled"
             :free-text="huisnummerIsFreeText"
@@ -202,7 +225,7 @@
         <template v-if="!$props.config?.busnummer?.hidden">
           <VlFormColumn width="3" width-s="12">
             <VlFormMessageLabel
-              for="busnummer"
+              :for="`busnummer-${id}`"
               :class="{ 'vl-properties__label': adminMode }"
               data-cy="label-busnummer"
             >
@@ -214,6 +237,7 @@
           </VlFormColumn>
           <VlFormColumn width="9" width-s="12">
             <BusnummerSelector
+              :id="`busnummer-${id}`"
               v-model="busnummer"
               :disabled="!huisnummer || props.modDisabled"
               :free-text="busnummerIsFreeText"
@@ -257,10 +281,13 @@ import {
 } from '@govflanders/vl-ui-design-system-vue3';
 import { useVuelidate } from '@vuelidate/core';
 import { helpers } from '@vuelidate/validators';
+import { Guid } from 'guid-typescript';
 import { computed, onBeforeMount } from 'vue';
 import OeLoader from '@components/dumb/OeLoader.vue';
 import { requiredIf } from '@utils/i18n-validators';
 import type { IAdresProps } from '@models/adres';
+
+const id = Guid.create().toString();
 
 const props = withDefaults(defineProps<IAdresProps>(), {
   modDisabled: false,
