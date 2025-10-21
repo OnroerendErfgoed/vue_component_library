@@ -58,7 +58,7 @@ export const createInitializers = (
     if (!state.provincie.value || !helpers.isBelgiumOrEmpty() || props.config?.provincie?.hidden) return;
 
     const niscode = (state.gewest.value as IGewest)?.niscode;
-    const gemeenten = niscode ? await helpers.getGemeentenByGewest(niscode) : state.gemeenten.value;
+    const gemeenten = niscode ? await helpers.getGemeentenByGewest(niscode) : await crabApiService.getGemeenten();
     const provincieNiscode = (state.provincie.value as IProvincie).niscode;
 
     state.gemeenten.value = gemeenten.filter((g) => g.provincie?.niscode === provincieNiscode);
