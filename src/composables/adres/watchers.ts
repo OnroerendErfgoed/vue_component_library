@@ -25,7 +25,7 @@ export function createFieldWatcher<T>(state: AdresState, config: WatcherConfig<T
   watch(config.source, async (newValue, oldValue) => {
     if (state.isInitializing.value || config.skipWhen?.()) return;
 
-    if (oldValue && config.resetLevel) {
+    if (config.resetLevel) {
       // This would need the resetDependentFields function passed in
       config.onValueChange?.(newValue, oldValue);
     }
@@ -116,11 +116,7 @@ export function setupWatchers(
       skipWhen: () => props.config?.gewest?.hidden || false,
       shouldInitialize: (value) => helpers.isBelgiumOrEmpty() && !!value,
       initializeAction: initializers.initializeGewestData,
-      onValueChange: (_, oldValue) => {
-        if (oldValue) {
-          helpers.resetDependentFields('gewest');
-        }
-      },
+      onValueChange: () => helpers.resetDependentFields('gewest'),
     },
     helpers.resetFreeTextState
   );
@@ -134,11 +130,7 @@ export function setupWatchers(
       skipWhen: () => props.config?.provincie?.hidden || false,
       shouldInitialize: (value) => helpers.isBelgiumOrEmpty() && !!value,
       initializeAction: initializers.initializeProvincieData,
-      onValueChange: (_, oldValue) => {
-        if (oldValue) {
-          helpers.resetDependentFields('provincie');
-        }
-      },
+      onValueChange: () => helpers.resetDependentFields('provincie'),
     },
     helpers.resetFreeTextState
   );
