@@ -31,6 +31,8 @@ export class CrabApiService extends HttpService {
   private gemeentenWaalsGewest: IGemeente[] = [];
   private gemeentenBHGewest: IGemeente[] = [];
 
+  private adresCache: Map<string, IAdres[]> = new Map();
+
   constructor(apiUrl: string) {
     super();
     this.API_URL = apiUrl.endsWith('/') ? apiUrl : `${apiUrl}/`;
@@ -172,24 +174,33 @@ export class CrabApiService extends HttpService {
   }
 
   async getAdressen(straat: string, huisnummer?: string): Promise<IAdres[]> {
-    if (huisnummer) {
-      return (
-        await this.get<IAdres[]>(`adressenregister/straten/${straat}/huisnummers/${huisnummer}`, {
-          baseURL: this.API_URL,
-          params: {
-            status: 'inGebruik',
-          },
-        })
-      ).data;
+    const cacheKey = huisnummer ? `${straat}-${huisnummer}` : straat;
+
+    // Check if the result is already cached
+    if (this.adresCache.has(cacheKey)) {
+      return this.adresCache.get(cacheKey) as IAdres[];
     }
-    return (
-      await this.get<IAdres[]>(`adressenregister/straten/${straat}/adressen`, {
+
+    let response;
+    if (huisnummer) {
+      response = await this.get<IAdres[]>(`adressenregister/straten/${straat}/huisnummers/${huisnummer}`, {
         baseURL: this.API_URL,
         params: {
           status: 'inGebruik',
         },
-      })
-    ).data;
+      });
+    } else {
+      response = await this.get<IAdres[]>(`adressenregister/straten/${straat}/adressen`, {
+        baseURL: this.API_URL,
+        params: {
+          status: 'inGebruik',
+        },
+      });
+    }
+
+    // Cache the result
+    this.adresCache.set(cacheKey, response.data);
+    return response.data;
   }
 
   public async searchGRBWfs(geom: Geometry, srsName: string, featureTypes: string[]) {

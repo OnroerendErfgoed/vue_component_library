@@ -1,6 +1,6 @@
 import '@/scss/main.scss';
 import { VlButton } from '@govflanders/vl-ui-design-system-vue3';
-import OeAdres from '@components/smart/OeAdres.vue';
+import OeAdres from '@components/smart/adres/OeAdres.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import type { ILocatieAdres } from '@models/locatie';
 
@@ -135,8 +135,16 @@ export const TwoWayBinding: Story = {
   args: {
     adres: {
       land: {
-        code: 'BE',
         naam: 'België',
+        code: 'BE',
+      },
+      gewest: {
+        naam: 'Vlaams Gewest',
+        niscode: '2000',
+      },
+      provincie: {
+        naam: 'Vlaams-Brabant',
+        niscode: '20001',
       },
       gemeente: {
         naam: 'Bertem',
@@ -144,30 +152,36 @@ export const TwoWayBinding: Story = {
       },
       postcode: {
         nummer: '3060',
-        uri: 'https://data.vlaanderen.be/id/postinfo/3060',
       },
       straat: {
         naam: 'Dorpstraat',
         id: '32110',
-        uri: 'https://data.vlaanderen.be/id/straatnaam/32110',
       },
       adres: {
         huisnummer: '416',
         busnummer: '0101',
-        uri: 'https://data.vlaanderen.be/id/adres/993686',
-        id: '993686',
       },
     },
+    config: {
+      land: { required: true },
+      gewest: { required: true },
+      provincie: { required: false },
+      gemeente: { required: true },
+      postcode: { required: true },
+      straat: { required: false },
+      huisnummer: { required: false },
+      busnummer: { required: false },
+    },
   },
-  render: ({ adres }: ILocatieAdres) => ({
+  render: ({ adres, config }) => ({
     components: { OeAdres },
     inheritAttrs: false,
     setup() {
-      return { adres };
+      return { adres, config };
     },
     template: `
       <div>
-      <OeAdres v-model:adres="adres"  @update:adres="onUpdateAdres" />
+      <OeAdres v-model:adres="adres" :config="config" @update:adres="onUpdateAdres" />
       <h3>Adres:</h3>
       <pre>{{ eventOutput }}</pre>
       </div>

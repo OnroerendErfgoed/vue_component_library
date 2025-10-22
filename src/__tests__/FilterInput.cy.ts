@@ -52,8 +52,9 @@ describe('FilterInput', () => {
           },
         ];
         const filters = ref<IFilter[]>([]);
+        const selectedOption = ref<IFilterOption>(options[0]); // Initialize with the first option
         const setFilters = (f: IFilter[]) => (filters.value = f);
-        return { options, filters, setFilters };
+        return { options, filters, selectedOption, setFilters };
       },
       template: `
       <filter-input v-slot="{ value, setValue, selectedOption, addFilter }" :options="options" :unique-filters="uniqueFilters" @filters-selected="setFilters">
@@ -206,6 +207,7 @@ describe('FilterInput', () => {
         });
       });
     });
+
     describe('unique filters behavior', () => {
       it('replaces existing filter with same key when uniqueFilters is true', () => {
         cy.mount(TestComponentWithOptions, { props: { uniqueFilters: true } });
@@ -237,6 +239,85 @@ describe('FilterInput', () => {
         cy.get('.vl-pill').should('have.length', 2);
         cy.dataCy('filter-id-firstValue').should('exist');
         cy.dataCy('filter-id-secondValue').should('exist');
+      });
+    });
+  });
+
+  describe('responsive behavior', () => {
+    const TestComponentWithOptions = defineComponent({
+      components: { FilterInput, FilterText, FilterDatepicker, FilterGemeente, FilterRadio, FilterSelect },
+      setup() {
+        const options: IFilterOption[] = [
+          { label: 'ID', key: 'id' },
+          { label: 'Type plan', key: 'plantype' },
+          { label: 'Gemeente', key: 'gemeente' },
+          { label: 'Datum goedkeuring vanaf', key: 'datum_goedkeuring_van' },
+          { label: 'Beheerscommissie', key: 'beheerscommissie' },
+        ];
+        const filters = ref<IFilter[]>([]);
+        const selectedOption = ref<IFilterOption>(options[0]); // Initialize with the first option
+        return { options, filters, selectedOption };
+      },
+      template: `
+        <filter-input :options="options" @filters-selected="setFilters">
+          <filter-text v-if="selectedOption.key === 'id'" :value="value" @update:value="setValue($event, $event)" placeholder="ID"></filter-text>
+          <filter-datepicker v-if="selectedOption.key === 'datum_goedkeuring_van'" :value="value" @update:value="setValue($event, $event)"></filter-datepicker>
+          <filter-gemeente v-if="selectedOption.key === 'gemeente'" :value="value" @update:value="setValue($event, $event.naam)"></filter-gemeente>
+          <filter-radio v-if="selectedOption.key === 'beheerscommissie'" :options="radioOptions" :value="value" @update:value="setValue($event, $event)"></filter-radio>
+          <filter-select v-if="selectedOption.key === 'plantype'" placeholder="Type plan" :model-value="value" @update:model-value="setValue($event, $event)">
+            <optgroup label="Niet Actief">
+              <option value="klad">Klad</option>
+              <option value="kladzonderfoto">Klad zonder foto</option>
+            </optgroup>
+            <optgroup label="Actief">
+              <option value="actief">Actief</option>
+            </optgroup>
+          </filter-select>
+        </filter-input>
+      `,
+    });
+
+    it('takes full width on small containers', () => {
+      cy.mount(TestComponentWithOptions).then(() => {
+        cy.viewport(400, 600); // Simulate a small container
+        cy.get('.filters-input').should('have.css', 'width', 400 * 1 + 'px');
+      });
+    });
+
+    it('stacks columns vertically on very small containers', () => {
+      cy.mount(TestComponentWithOptions).then(() => {
+        cy.viewport(300, 600); // Simulate a very small container
+        cy.get('.filters-input').should('have.css', 'flex-direction', 'column');
+      });
+    });
+
+    it('displays filters-input with 67% width on medium containers', () => {
+      cy.mount(TestComponentWithOptions).then(() => {
+        cy.viewport(800, 600); // Simulate a medium container
+        cy.get('.filters-input').should('have.css', 'width', 800 * 0.67 + 'px');
+      });
+    });
+
+    it('displays filters-input with 50% width on large containers', () => {
+      cy.mount(TestComponentWithOptions).then(() => {
+        cy.viewport(1200, 600); // Simulate a large container
+        cy.get('.filters-input').should('have.css', 'width', 1200 * 0.5 + 'px');
+      });
+    });
+
+    it('maintains responsive behavior when resizing', () => {
+      cy.mount(TestComponentWithOptions).then(() => {
+        cy.viewport(1200, 600); // Start with a large container
+        cy.get('.filters-input').should('have.css', 'width', 1200 * 0.5 + 'px');
+
+        cy.viewport(800, 600); // Resize to medium container
+        cy.get('.filters-input').should('have.css', 'width', 800 * 0.67 + 'px');
+
+        cy.viewport(400, 600); // Resize to small container
+        cy.get('.filters-input').should('have.css', 'width', 400 * 1 + 'px');
+
+        cy.viewport(300, 600); // Resize to very small container
+        cy.get('.filters-input').should('have.css', 'flex-direction', 'column');
       });
     });
   });

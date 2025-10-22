@@ -14,13 +14,14 @@
     "baseUrl": ".",
     "paths": {
       "@components/*": ["./src/components/*"],
+      "@composables/*": ["./src/composables/*"],
       "@directives/*": ["./src/directives/*"],
       "@services/*": ["./src/services/*"],
       "@models/*": ["./src/models/*"],
       "@utils/*": ["./src/utils/*"],
       "@/*": ["./src/*"]
     },
-    "types": ["@intlify/unplugin-vue-i18n/messages", "vite/client"],
+    "types": ["@intlify/unplugin-vue-i18n/messages", "vite/client", "node"],
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
