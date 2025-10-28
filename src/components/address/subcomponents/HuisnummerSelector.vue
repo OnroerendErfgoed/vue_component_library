@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!readMode">
     <OeAutocomplete
       v-if="isBelgiumOrEmpty && !freeText"
       :id="$attrs.id as string"
@@ -29,10 +29,13 @@
       <span v-else>Toon lijst met suggesties</span>
     </VlButton>
   </div>
+  <VlPropertiesData v-else data-cy="huisnummer-value">
+    {{ selectedHuisnummer || '-' }}
+  </VlPropertiesData>
 </template>
 
 <script setup lang="ts">
-import { VlButton, VlInputField } from '@govflanders/vl-ui-design-system-vue3';
+import { VlButton, VlInputField, VlPropertiesData } from '@govflanders/vl-ui-design-system-vue3';
 import { computed } from 'vue';
 import OeAutocomplete from '@components/forms/dumb/OeAutocomplete.vue';
 import type { IAutocompleteOption } from '@components/forms/models/autocomplete';
@@ -50,6 +53,7 @@ interface HuisnummerSelectorProps {
   autocompleteFn?: (term: string) => Promise<IAutocompleteOption[]>;
   showToggle: boolean;
   isBelgiumOrEmpty: boolean;
+  readMode: boolean;
 }
 
 const props = withDefaults(defineProps<HuisnummerSelectorProps>(), {
@@ -67,6 +71,10 @@ const modelValueComputed = computed<string>({
   get: () => (typeof props.modelValue === 'string' ? props.modelValue : (props.modelValue as IAdres)?.huisnummer || ''),
   set: (val: string) => emit('update:modelValue', val),
 });
+
+const selectedHuisnummer = computed(() =>
+  typeof props.modelValue === 'string' ? props.modelValue : props.modelValue?.huisnummer
+);
 
 const autocompleteOption = computed(() => ({
   title: typeof props.modelValue !== 'string' ? (props.modelValue as IAdres)?.huisnummer : props.modelValue,

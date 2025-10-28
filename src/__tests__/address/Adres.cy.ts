@@ -361,21 +361,45 @@ describe('Adres', () => {
     beforeEach(() => {
       cy.mockLanden();
       cy.mockGewesten();
+      cy.mockProvincies();
       cy.mockGemeenten();
       cy.mockDurbuy();
 
-      mount(TestComponent, {
-        props: {
-          modDisabled: true,
-          adres: {
-            land: { code: 'BE', naam: 'België' },
-            gemeente: { naam: 'Durbuy', niscode: '83012' },
-            postcode: { uri: 'https://data.vlaanderen.be/id/postinfo/6940', nummer: '6940' },
-            straat: { naam: 'Hiva', id: '125552', uri: 'https://data.vlaanderen.be/id/straatnaam/125552' },
-            adres: { huisnummer: '2' },
+      mount(
+        // eslint-disable-next-line vue/one-component-per-file
+        defineComponent({
+          components: { OeAdres },
+          setup() {
+            const config: IAdresConfig = {
+              land: { required: true },
+              gewest: { required: false },
+              provincie: { required: false },
+              gemeente: { required: true },
+              postcode: { required: true },
+              straat: { required: true },
+              huisnummer: { required: true },
+              busnummer: { required: false },
+            };
+
+            return { config };
           },
-        },
-      }).then(() => {
+          template: '<OeAdres :config="config"/>',
+        }),
+        {
+          props: {
+            modDisabled: true,
+            adres: {
+              land: { code: 'BE', naam: 'België' },
+              gewest: { naam: 'Waals Gewest', niscode: '3000' },
+              provincie: { naam: 'Luxemburg', niscode: '80000' },
+              gemeente: { naam: 'Durbuy', niscode: '83012' },
+              postcode: { uri: 'https://data.vlaanderen.be/id/postinfo/6940', nummer: '6940' },
+              straat: { naam: 'Hiva', id: '125552', uri: 'https://data.vlaanderen.be/id/straatnaam/125552' },
+              adres: { huisnummer: '2', busnummer: '0001' },
+            },
+          },
+        }
+      ).then(() => {
         cy.wait('@dataGetLanden');
         cy.wait('@dataGetGemeentenWaalsGewest');
       });

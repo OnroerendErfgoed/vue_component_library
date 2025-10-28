@@ -1,5 +1,6 @@
 <template>
   <VlMultiselect
+    v-if="!readMode"
     id="provincie"
     v-model="modelValueComputed"
     data-cy="select-provincie"
@@ -20,10 +21,13 @@
     <template #noresults><li class="multiselect-option">Geen resultaten gevonden...</li></template>
     <template #nooptions><li class="multiselect-option">Geen opties beschikbaar</li></template>
   </VlMultiselect>
+  <VlPropertiesData v-else data-cy="provincie-value">
+    {{ selectedProvincie || '-' }}
+  </VlPropertiesData>
 </template>
 
 <script setup lang="ts">
-import { VlMultiselect } from '@govflanders/vl-ui-design-system-vue3';
+import { VlMultiselect, VlPropertiesData } from '@govflanders/vl-ui-design-system-vue3';
 import { computed } from 'vue';
 import type { IProvincie } from '@models/locatie';
 
@@ -33,6 +37,7 @@ interface ProvincieSelectorProps {
   disabled: boolean;
   modError: boolean;
   optionsLimit: number;
+  readMode: boolean;
 }
 
 const props = withDefaults(defineProps<ProvincieSelectorProps>(), {

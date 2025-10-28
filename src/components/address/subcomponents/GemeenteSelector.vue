@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { VlInputField, VlMultiselect } from '@govflanders/vl-ui-design-system-vue3';
+import { VlInputField, VlMultiselect, VlPropertiesData } from '@govflanders/vl-ui-design-system-vue3';
 import { computed } from 'vue';
 import type { IGemeente } from '@models/locatie';
 
@@ -45,6 +45,7 @@ interface GemeenteSelectorProps {
   modError: boolean;
   optionsLimit: number;
   isBelgiumOrEmpty: boolean;
+  readMode: boolean;
 }
 
 const props = withDefaults(defineProps<GemeenteSelectorProps>(), {

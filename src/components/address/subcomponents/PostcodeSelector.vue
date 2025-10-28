@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!readMode">
     <VlMultiselect
       v-if="isBelgiumOrEmpty && !freeText"
       :id="$attrs.id"
@@ -37,10 +37,13 @@
       <span v-else>Toon lijst met suggesties</span>
     </VlButton>
   </div>
+  <VlPropertiesData v-else data-cy="postcode-value">
+    {{ selectedPostcode || '-' }}
+  </VlPropertiesData>
 </template>
 
 <script setup lang="ts">
-import { VlButton, VlInputField, VlMultiselect } from '@govflanders/vl-ui-design-system-vue3';
+import { VlButton, VlInputField, VlMultiselect, VlPropertiesData } from '@govflanders/vl-ui-design-system-vue3';
 import { computed } from 'vue';
 import type { IPostinfo } from '@models/locatie';
 
@@ -57,6 +60,7 @@ interface PostcodeSelectorProps {
   showToggle: boolean;
   optionsLimit: number;
   isBelgiumOrEmpty: boolean;
+  readMode: boolean;
 }
 
 const props = withDefaults(defineProps<PostcodeSelectorProps>(), {

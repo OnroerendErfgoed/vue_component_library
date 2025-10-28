@@ -52,6 +52,7 @@
               :id="`gewest-${id}`"
               v-model="gewest"
               :options="gewesten"
+              :read-mode="props.modDisabled"
               :disabled="!land || props.modDisabled"
               :mod-error="!!v$.gewest.$errors.length"
               :options-limit="optionsLimit"
@@ -80,6 +81,7 @@
             <ProvincieSelector
               :id="`provincie-${id}`"
               v-model="provincie"
+              :read-mode="props.modDisabled"
               :options="provincies"
               :disabled="!land || provincies.length === 0 || props.modDisabled"
               :mod-error="!!v$.provincie.$errors.length"
@@ -108,6 +110,7 @@
           <GemeenteSelector
             :id="`gemeente-${id}`"
             v-model="gemeente"
+            :read-mode="props.modDisabled"
             :options="gemeenten"
             :disabled="!land || props.modDisabled"
             :mod-error="!!v$.gemeente.naam.$errors.length"
@@ -137,6 +140,7 @@
             <PostcodeSelector
               :id="`postcode-${id}`"
               v-model="postcode"
+              :read-mode="props.modDisabled"
               :options-limit="optionsLimit"
               :options="postinfo"
               :disabled="!gemeente || props.modDisabled"
@@ -173,6 +177,7 @@
           <StraatSelector
             :id="`straat-${id}`"
             v-model="straat"
+            :read-mode="props.modDisabled"
             :options="straten"
             :options-limit="optionsLimit"
             :disabled="!gemeente || props.modDisabled"
@@ -204,6 +209,7 @@
           <HuisnummerSelector
             :id="`huisnummer-${id}`"
             v-model="huisnummer"
+            :read-mode="props.modDisabled"
             :disabled="!straat || props.modDisabled"
             :free-text="huisnummerIsFreeText"
             :mod-error="!!v$.adres.huisnummer.$errors.length"
@@ -239,6 +245,7 @@
             <BusnummerSelector
               :id="`busnummer-${id}`"
               v-model="busnummer"
+              :read-mode="props.modDisabled"
               :disabled="!huisnummer || props.modDisabled"
               :free-text="busnummerIsFreeText"
               :mod-error="!!v$.adres.busnummer.$errors.length"
