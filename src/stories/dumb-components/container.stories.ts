@@ -1,6 +1,6 @@
 import '@/scss/main.scss';
 import { VlButton } from '@govflanders/vl-ui-design-system-vue3';
-import { last, remove } from 'lodash';
+import { last, remove } from 'lodash-es';
 import { ref } from 'vue';
 import OeContainer from '@components/dumb/OeContainer.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';

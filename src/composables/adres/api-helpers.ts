@@ -1,6 +1,6 @@
 import { ResetLevel } from '@composables/adres';
 import { AxiosError } from 'axios';
-import { uniqBy } from 'lodash';
+import { uniqBy } from 'lodash-es';
 import { Niscode } from '@models/niscode.enum';
 import { logInfo } from '@utils/index';
 import type { AdresState } from './state';

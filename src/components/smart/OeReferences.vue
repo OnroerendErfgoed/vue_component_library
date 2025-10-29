@@ -60,7 +60,7 @@ import {
   VlAlert,
   VlLink,
 } from '@govflanders/vl-ui-design-system-vue3';
-import { isEqual, sortBy } from 'lodash';
+import { isEqual, sortBy } from 'lodash-es';
 import { type ComponentPublicInstance, computed, onBeforeMount, ref, watch } from 'vue';
 import OeLoader from '@components/dumb/OeLoader.vue';
 import { IdService } from '@services/id.service';

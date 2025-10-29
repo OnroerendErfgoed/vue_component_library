@@ -113,7 +113,7 @@
 <script setup lang="ts">
 import 'quill/dist/quill.snow.css';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { includes } from 'lodash';
+import { includes } from 'lodash-es';
 import Quill from 'quill';
 import { htmlEditButton } from 'quill-html-edit-button';
 import QuillToggleFullscreenButton from 'quill-toggle-fullscreen-button';

@@ -1,5 +1,5 @@
-import { cloneDeep } from 'lodash';
-import { sortBy, uniqBy } from 'lodash';
+import { cloneDeep } from 'lodash-es';
+import { sortBy, uniqBy } from 'lodash-es';
 import { nextTick } from 'vue';
 import { logInfo } from '@utils/index';
 import { removeEmptyValues } from '@utils/object';

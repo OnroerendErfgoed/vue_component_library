@@ -1,5 +1,5 @@
 import { HttpService } from './http.service';
-import { sortBy } from 'lodash';
+import { sortBy } from 'lodash-es';
 import WFS from 'ol/format/WFS';
 import Intersects from 'ol/format/filter/Intersects';
 import { Geometry } from 'ol/geom';

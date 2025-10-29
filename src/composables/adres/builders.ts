@@ -1,4 +1,4 @@
-import { isString, pick } from 'lodash';
+import { isString, pick } from 'lodash-es';
 import { logInfo } from '@utils/index';
 import type { AdresState } from './state';
 import type { IGewest, ILand, ILocatieAdres, IProvincie } from '@models/locatie';

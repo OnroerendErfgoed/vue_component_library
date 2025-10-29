@@ -1,5 +1,5 @@
 import { Guid } from 'guid-typescript';
-import { remove } from 'lodash';
+import { remove } from 'lodash-es';
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 import type { IToast } from '@models/toast';
