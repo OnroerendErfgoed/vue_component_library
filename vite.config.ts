@@ -10,16 +10,21 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     lib: {
-      entry: resolve(__dirname, 'src/main.ts'),
-      name: 'VueComponents',
+      entry: {
+        main: 'src/main.ts',
+        grid: 'src/grid.ts',
+      },
       formats: ['es'],
-      fileName: (format) => `vue-components.${format}.js`,
+      fileName: (format, entryName) => `${entryName}.js`,
     },
     sourcemap: true,
     rollupOptions: {
       external: ['vue', 'pinia'],
       output: {
-        exports: 'named',
+        globals: {
+          vue: 'Vue',
+          pinia: 'Pinia',
+        },
         assetFileNames: (assetInfo) => {
           if (assetInfo.name === 'style.css') return 'vue-components.css';
           return assetInfo.name as string;

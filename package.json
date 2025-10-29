@@ -4,26 +4,27 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/vue-components.umd.js",
-  "module": "./dist/vue-components.es.js",
-  "typings": "./dist/src/main.d.ts",
-  "version": "3.6.0",
+  "main": "./dist/main.js",
+  "module": "./dist/main.js",
+  "types": "./dist/main.d.ts",
+  "version": "4.0.0-alpha.5",
   "exports": {
     ".": {
-      "import": "./dist/vue-components.es.js",
-      "require": "./dist/vue-components.umd.js"
+      "import": "./dist/main.js",
+      "types": "./dist/main.d.ts"
+    },
+    "./grid": {
+      "import": "./dist/grid.js",
+      "types": "./dist/grid.d.ts"
     },
     "./dist/vue-components.css": {
-      "import": "./dist/vue-components.css",
-      "require": "./dist/vue-components.css"
+      "import": "./dist/vue-components.css"
     },
     "./dist/scss/main.scss": {
-      "import": "./dist/scss/main.scss",
-      "require": "./dist/scss/main.scss"
+      "import": "./dist/scss/main.scss"
     },
     "./eslint": {
-      "import": "./dist/eslint.config.js",
-      "require": "./dist/eslint.config.js"
+      "import": "./dist/eslint.config.js"
     }
   },
   "repository": {
@@ -33,7 +34,6 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
-  "types": "./dist/src/main.d.ts",
   "scripts": {
     "ci": "yarn install --frozen-lockfile",
     "build": "yarn type-check && yarn build-only && yarn type-generation",
@@ -43,7 +43,7 @@
     "test:unit": "cypress run --component --browser=chrome",
     "test:unit:dev": "cypress open --component",
     "type-check": "vue-tsc --noEmit",
-    "type-generation": "vue-tsc --declaration --emitDeclarationOnly",
+    "type-generation": "vue-tsc --project tsconfig.build.json",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
     "storybook": "storybook dev -p 6006",

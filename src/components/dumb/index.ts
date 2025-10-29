@@ -14,7 +14,6 @@ import OeButton from './OeButton.vue';
 import OeContainer from './OeContainer.vue';
 import OeDatepicker from './OeDatepicker.vue';
 import OeEditor from './OeEditor.vue';
-import OeGrid from './OeGrid.vue';
 import OeHeader from './OeHeader.vue';
 import OeInventarisLoadedLink from './OeInventarisLoadedLink.vue';
 import OeLoader from './OeLoader.vue';
@@ -45,7 +44,6 @@ export {
   OeContainer,
   OeDatepicker,
   OeEditor,
-  OeGrid,
   OeHeader,
   OeInventarisLoadedLink,
   OeLoader,
