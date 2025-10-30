@@ -1,11 +1,29 @@
 <template>
-  <ag-grid-vue data-cy="ag-grid-vue" class="ag-grid-vue ag-theme-balham"></ag-grid-vue>
+  <AgGridVue data-cy="ag-grid-vue" class="ag-grid-vue ag-theme-balham" />
 </template>
 
 <script setup lang="ts">
-import 'ag-grid-community/styles/ag-grid.css';
-import 'ag-grid-community/styles/ag-theme-balham.css';
+import {
+  CellStyleModule,
+  ClientSideRowModelModule,
+  ColumnAutoSizeModule,
+  InfiniteRowModelModule,
+  ModuleRegistry,
+  PaginationModule,
+  RowSelectionModule,
+  ValidationModule,
+} from 'ag-grid-community';
 import { AgGridVue } from 'ag-grid-vue3';
+
+ModuleRegistry.registerModules([
+  InfiniteRowModelModule,
+  ClientSideRowModelModule,
+  ValidationModule,
+  ColumnAutoSizeModule,
+  PaginationModule,
+  RowSelectionModule,
+  CellStyleModule,
+]);
 </script>
 
 <style lang="scss">

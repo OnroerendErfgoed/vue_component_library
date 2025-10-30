@@ -1,11 +1,13 @@
 import '@/scss/main.scss';
 import OeGrid from '@components/dumb/OeGrid.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
+// Modular type imports
 import type {
   FirstDataRenderedEvent,
   GridOptions,
   GridReadyEvent,
   ICellRendererParams,
+  IDatasource,
   IGetRowsParams,
 } from 'ag-grid-community';
 
@@ -136,7 +138,9 @@ export const InfiniteRowModelWithDatasource: Story = {
           minWidth: 100,
         },
         rowBuffer: 0,
-        rowSelection: 'multiple',
+        rowSelection: {
+          mode: 'multiRow',
+        },
         rowModelType: 'infinite',
         cacheBlockSize: 100,
         cacheOverflowSize: 2,
@@ -146,7 +150,7 @@ export const InfiniteRowModelWithDatasource: Story = {
       };
       const onGridReady = (gridReadyEvent: GridReadyEvent) => {
         const updateData = (data: unknown[]) => {
-          const dataSource = {
+          const dataSource: IDatasource = {
             getRows: (params: IGetRowsParams) => {
               // At this point in your code, you would call the server.
               // To make the demo look real, wait for 500ms before returning
@@ -163,7 +167,7 @@ export const InfiniteRowModelWithDatasource: Story = {
               }, 500);
             },
           };
-          gridReadyEvent.api.setDatasource(dataSource);
+          gridReadyEvent.api.setGridOption('datasource', dataSource);
         };
 
         fetch('https://www.ag-grid.com/example-assets/olympic-winners.json')

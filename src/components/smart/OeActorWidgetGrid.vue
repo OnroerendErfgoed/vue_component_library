@@ -50,7 +50,16 @@ import { computed, getCurrentInstance, ref, watch } from 'vue';
 import { OeActorWidgetGridActies } from '@components/dumb';
 import OeGrid from '@components/dumb/OeGrid.vue';
 import { ActorService, type IActorenQuery } from '@services/actor.service';
-import type { ColDef, FirstDataRenderedEvent, GridOptions, IGetRowsParams, RowClickedEvent } from 'ag-grid-community';
+import type {
+  ColDef,
+  FirstDataRenderedEvent,
+  GridApi,
+  GridOptions,
+  GridReadyEvent,
+  IDatasource,
+  IGetRowsParams,
+  RowClickedEvent,
+} from 'ag-grid-community';
 import type { ActorType, IActor } from '@models/actor';
 
 export interface IOeActorWidgetGridProps {
@@ -78,7 +87,7 @@ const actorService = new ActorService(props.api, props.getSsoToken);
 const zoekterm = ref('');
 const search = () => {
   resetSelectedActor();
-  gridOptions.value.api?.purgeInfiniteCache();
+  gridApi.value?.purgeInfiniteCache();
 };
 const triggerSearch = (event: Event) => {
   event.preventDefault();
@@ -93,7 +102,7 @@ const handleSearchClick = (event: Event) => {
 };
 const refresh = () => {
   // reset sort values
-  gridOptions.value.columnApi?.resetColumnState();
+  gridApi.value?.resetColumnState();
   search();
 };
 watch(
@@ -130,7 +139,9 @@ const gridOptions = ref<GridOptions>({
   suppressMovableColumns: false,
   suppressClickEdit: true,
   suppressCellFocus: true,
-  rowSelection: 'single',
+  rowSelection: {
+    mode: 'singleRow',
+  },
   headerHeight: 45,
   rowHeight: 40,
   rowModelType: 'infinite',
@@ -144,9 +155,13 @@ const gridOptions = ref<GridOptions>({
     emit('selectActor', event.data);
   },
 });
-const onGridReady = () => setRowData();
+const gridApi = ref<GridApi>();
+const onGridReady = (gridReadyEvent: GridReadyEvent) => {
+  gridApi.value = gridReadyEvent.api;
+  setRowData();
+};
 const firstDataRendered = (grid: FirstDataRenderedEvent) => grid.api.sizeColumnsToFit();
-const onGridSizeChanged = () => gridOptions.value.api?.sizeColumnsToFit();
+const onGridSizeChanged = () => gridApi.value?.sizeColumnsToFit();
 const rowCountText = computed(() =>
   rowCount.value === 1 ? `Er is 1 resultaat gevonden` : `Er zijn ${rowCount?.value || 'geen'} resultaten gevonden`
 );
@@ -166,7 +181,7 @@ const setQueryParameters = (params: IGetRowsParams): IActorenQuery => {
 };
 
 const setRowData = () => {
-  const dataSource = {
+  const dataSource: IDatasource = {
     getRows: (params: IGetRowsParams) => {
       const query = setQueryParameters(params);
       emit('setLoading', true);
@@ -183,11 +198,12 @@ const setRowData = () => {
         .finally(() => emit('setLoading', false));
     },
   };
-  gridOptions.value.api?.setDatasource(dataSource);
+
+  gridApi.value?.setGridOption('datasource', dataSource);
 };
 
 const resetSelectedActor = () => {
-  gridOptions.value.api?.deselectAll();
+  gridApi.value?.deselectAll();
   emit('selectActor', undefined);
 };
 defineExpose({ resetSelectedActor });

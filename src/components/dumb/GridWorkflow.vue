@@ -106,12 +106,12 @@ const gridOptions = ref<GridOptions>({
 
 const onGridReady = (gridReadyEvent: GridReadyEvent) => {
   gridApi.value = gridReadyEvent.api;
-  gridApi.value?.setRowData(props.data);
+  gridApi.value?.setGridOption('rowData', props.data);
 };
 
 const firstDataRendered = () => {
   resizeColumns();
-  gridApi.value?.setRowData(props.data);
+  gridApi.value?.setGridOption('rowData', props.data);
 };
 
 const resizeColumns = async () => {

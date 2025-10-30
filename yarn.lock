@@ -2054,18 +2054,24 @@ acorn@^8.14.0, acorn@^8.15.0, acorn@^8.8.2, acorn@^8.9.0:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.15.0.tgz#a360898bc415edaac46c8241f6383975b930b816"
   integrity sha512-NZyJarBfL7nWwIq+FDL6Zp/yHEhePMNnnJ0y3qfieCrmNvYct8uvtiV41UvlSe6apAfk0fY1FbWx+NwfmpvtTg==
 
-ag-grid-community@^29.3.5, ag-grid-community@~29.3.5:
-  version "29.3.5"
-  resolved "https://registry.yarnpkg.com/ag-grid-community/-/ag-grid-community-29.3.5.tgz#16897896d10fa3ecac79279aad50d3aaa17c5f33"
-  integrity sha512-LxUo21f2/CH31ACEs1C7Q/ggGGI1fQPSTB4aY5OThmM+lBkygZ7QszBE8jpfgWOIjvjdtcdIeQbmbjkHeMsA7A==
+ag-charts-types@12.3.1:
+  version "12.3.1"
+  resolved "https://registry.yarnpkg.com/ag-charts-types/-/ag-charts-types-12.3.1.tgz#237d69cfaf27605c9bb49a1028a87632a91e653a"
+  integrity sha512-5216xYoawnvMXDFI6kTpPku+mH0Csiwu/FE7lsAm8Z22HEN6ciSG/V7g+IrpLWncELqksgENebCTP75PZ3CsHA==
 
-ag-grid-vue3@^29.3.5:
-  version "29.3.5"
-  resolved "https://registry.yarnpkg.com/ag-grid-vue3/-/ag-grid-vue3-29.3.5.tgz#59ba181bbbc8a93ef92841ed70fe1197a0e7a7b6"
-  integrity sha512-wO2qREJ9q+b+ariDtZ3OufyoFx00pn8jAsZ2goAb5+TzKDc+U2w8g3E3NvGEz2xCh8ut/MarnOSSTLl6jFcizw==
+ag-grid-community@34.3.1:
+  version "34.3.1"
+  resolved "https://registry.yarnpkg.com/ag-grid-community/-/ag-grid-community-34.3.1.tgz#29c7a914812224e8c03f5177e9888dbf789af2cf"
+  integrity sha512-PwlrPudsFOzGumphi2y9ihWeaUlIwKhOra/MXu2LjeV2U8DgLLcYS8CartE5Hszhn1poJHawwI9HWrxlKliwdw==
   dependencies:
-    ag-grid-community "~29.3.5"
-    vue "^3.0.0"
+    ag-charts-types "12.3.1"
+
+ag-grid-vue3@^34.3.1:
+  version "34.3.1"
+  resolved "https://registry.yarnpkg.com/ag-grid-vue3/-/ag-grid-vue3-34.3.1.tgz#e3c73710a868d286d4bb01ff866f349aca06e4f1"
+  integrity sha512-DSurKDsOPk8zX+goy4BsDcAi4wSXP4hZ/YtGc2cQTvh72ceTCqrVxAitI2CB/MfDkvvB05ybbpa4wPxWEmxchw==
+  dependencies:
+    ag-grid-community "34.3.1"
 
 aggregate-error@^3.0.0:
   version "3.1.0"
@@ -7784,7 +7790,7 @@ vue@^2.5.16:
     "@vue/compiler-sfc" "2.7.16"
     csstype "^3.1.0"
 
-vue@^3.0.0, vue@^3.5.13:
+vue@^3.5.13:
   version "3.5.22"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.5.22.tgz#2b8ddb94ee4b640ef12fe7f6efe1cf16f3b582e7"
   integrity sha512-toaZjQ3a/G/mYaLSbV+QsQhIdMo9x5rrqIpYRObsJ6T/J+RyCSFwN2LHNVH9v8uIcljDNa3QzPVdv3Y6b9hAJQ==
