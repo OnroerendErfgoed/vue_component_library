@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import { format } from 'date-fns';
 import { getCurrentInstance, ref } from 'vue';
-import { NoRowsOverlay } from '@/grid';
+// import { NoRowsOverlay } from '@/grid';
 import OeGrid from '@components/dumb/OeGrid.vue';
 import type {
   ColDef,
@@ -96,7 +96,7 @@ const gridOptions = ref<GridOptions>({
   rowData: [],
   enableBrowserTooltips: true,
   columnDefs: getColumnDefinitions(),
-  noRowsOverlayComponent: NoRowsOverlay,
+  // noRowsOverlayComponent: NoRowsOverlay,
   noRowsOverlayComponentParams: {
     noRowsMessage: 'Er zijn nog geen workflow gegevens beschikbaar',
   },

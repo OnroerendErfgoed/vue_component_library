@@ -1,7 +1,7 @@
 /* eslint-disable vue/one-component-per-file */
 import { defineComponent, ref } from 'vue';
-import { OeContainer } from '@components/index';
-import type { ITab } from '@models/container';
+import { OeContainer } from '@components/dumb';
+import type { ITab } from '@components/core/models/container';
 
 describe('Container', () => {
   describe('default', () => {

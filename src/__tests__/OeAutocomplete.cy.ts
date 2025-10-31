@@ -1,7 +1,7 @@
 /* eslint-disable vue/one-component-per-file */
-import { VlButton } from '@govflanders/vl-ui-design-system-vue3';
+import { VlButton } from '@govflanders/vl-ui-design-system-vue3/build/components/vl-ui-button';
 import { defineComponent, ref } from 'vue';
-import { OeAutocomplete } from '@components/index';
+import { OeAutocomplete } from '@components/dumb';
 import type { IAutocompleteOption } from '@models/autocomplete';
 
 describe('Autocomplete', () => {

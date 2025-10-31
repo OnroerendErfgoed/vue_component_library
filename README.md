@@ -13,8 +13,8 @@ TypeScript cannot handle type information for `.vue` imports by default, so we r
 If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
 
 1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
+   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
+   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
 2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
 
 ## Customize configuration
@@ -84,6 +84,7 @@ yarn build:watch
 ```sh
 Yalc publish
 ```
+
 Afterwards link the package in the desired implementing application.
 
 ```sh
@@ -131,3 +132,47 @@ yarn lint
 ```sh
 yarn format
 ```
+
+## Installation & Usage
+
+### Basic Usage
+
+```typescript
+import { OeAlert, OeButton, OeInput } from '@OnroerendErfgoed/vue_component_library';
+```
+
+### Optimized Imports (Recommended for Production)
+
+For better bundle sizes, import heavy components from their specific modules:
+
+**Grid Components** (~1.2MB)
+
+```typescript
+import { GridWorkflow, OeGrid } from '@OnroerendErfgoed/vue_component_library/grid';
+```
+
+**Map Components** (~500KB)
+
+```typescript
+import { OeGeolocatieWidget } from '@OnroerendErfgoed/vue_component_library/map';
+```
+
+### Lazy Loading (Best Practice)
+
+For even better performance, lazy-load heavy modules:
+
+```typescript
+// In your router
+const GridPage = () => import('./pages/GridPage.vue');
+
+// Or in components
+const OeGrid = defineAsyncComponent(() => import('@OnroerendErfgoed/vue_component_library/grid').then((m) => m.OeGrid));
+```
+
+### Module Breakdown
+
+| Module | Size   | Use When                        |
+| ------ | ------ | ------------------------------- |
+| Main   | ~300KB | Basic components, forms, layout |
+| Grid   | ~1.2MB | Using AG Grid tables            |
+| Map    | ~500KB | Using OpenLayers maps           |

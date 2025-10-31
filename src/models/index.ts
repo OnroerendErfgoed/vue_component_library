@@ -2,7 +2,6 @@ export * from './_common';
 export * from './aanduidingsobject';
 export * from './actor';
 export * from './adres';
-export * from './container';
 export * from './dataverantwoordelijke';
 export * from './filter-input';
 export * from './grid';

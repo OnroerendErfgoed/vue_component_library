@@ -5,25 +5,32 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   build: {
     outDir: 'dist',
     lib: {
       entry: {
-        main: 'src/main.ts',
-        grid: 'src/grid.ts',
+        // Remove 'main' - force explicit imports
+        core: 'src/core.ts', // Essential components only
+        forms: 'src/forms.ts', // Form components
+        layout: 'src/layout.ts', // Layout components
+        grid: 'src/grid.ts', // AG Grid components
+        map: 'src/map.ts', // OpenLayers components
+        widgets: 'src/widgets.ts', // Complex widgets
+        servicess: 'src/servicess.ts', // HTTP services
+        utils: 'src/utils.ts', // Utilities, composables, directives
       },
       formats: ['es'],
       fileName: (format, entryName) => `${entryName}.js`,
     },
     sourcemap: true,
     rollupOptions: {
-      external: ['vue', 'pinia'],
+      external: ['vue', 'pinia', 'axios'],
       output: {
         globals: {
           vue: 'Vue',
           pinia: 'Pinia',
+          axios: 'axios',
         },
         assetFileNames: (assetInfo) => {
           if (assetInfo.name === 'style.css') return 'vue-components.css';
@@ -34,6 +41,7 @@ export default defineConfig({
         visualizer({
           filename: 'dist/stats.html',
           open: true,
+          gzipSize: true,
         }),
       ],
     },
@@ -53,6 +61,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
+      '@core': resolve(__dirname, './src/components/core'),
       '@assets': resolve(__dirname, './src/assets'),
       '@components': resolve(__dirname, './src/components'),
       '@composables': resolve(__dirname, './src/composables'),

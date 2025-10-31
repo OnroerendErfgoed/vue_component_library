@@ -47,7 +47,7 @@
 import { VlActionGroup, VlButton, VlColumn, VlGrid, VlSearch } from '@govflanders/vl-ui-design-system-vue3';
 import { isEmpty, omitBy } from 'lodash-es';
 import { computed, getCurrentInstance, ref, watch } from 'vue';
-import { OeActorWidgetGridActies } from '@/grid';
+// import { OeActorWidgetGridActies } from '@/grid';
 import OeGrid from '@components/dumb/OeGrid.vue';
 import { ActorService, type IActorenQuery } from '@services/actor.service';
 import type {
@@ -124,7 +124,7 @@ const getColumnDefinitions = (): ColDef[] => {
       headerName: 'Acties',
       width: 60,
       cellClass: 'acties-cell',
-      cellRenderer: OeActorWidgetGridActies,
+      // cellRenderer: OeActorWidgetGridActies,
       cellRendererParams: {
         setStateDetail: (id: number) => emit('setStateDetail', id),
         actorenUrl: props.api,

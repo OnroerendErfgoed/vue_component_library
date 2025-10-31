@@ -1,9 +1,9 @@
 <template>
-  <vl-button>
+  <VlButton>
     <slot></slot>
-  </vl-button>
+  </VlButton>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { VlButton } from '@govflanders/vl-ui-design-system-vue3';
 </script>

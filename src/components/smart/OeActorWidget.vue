@@ -41,9 +41,9 @@
 <script setup lang="ts">
 import { VlActionGroup, VlButton } from '@govflanders/vl-ui-design-system-vue3';
 import { ref, useTemplateRef } from 'vue';
+import OeLoader from '@components/core/dumb/OeLoader.vue';
+import OeModal from '@components/core/dumb/OeModal.vue';
 import Detail from '@components/dumb/OeActorWidgetDetail.vue';
-import OeLoader from '@components/dumb/OeLoader.vue';
-import OeModal from '@components/dumb/OeModal.vue';
 import Grid from '@components/smart/OeActorWidgetGrid.vue';
 import { ActorService } from '@services/actor.service';
 import type { ActorType, IActor } from '@models/actor';

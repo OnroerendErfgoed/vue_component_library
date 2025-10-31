@@ -1,11 +1,12 @@
 <template>
   <div class="vl-u-display-inline-block">
-    <font-awesome-icon v-if="!showCheck" class="clipboard" :icon="['fa-solid', 'clipboard']" @click="clipboardClick" />
-    <font-awesome-icon v-else class="check" :icon="['fa-solid', 'check']" />
+    <FontAwesomeIcon v-if="!showCheck" class="clipboard" :icon="faClipboard" @click="clipboardClick" />
+    <FontAwesomeIcon v-else class="check" :icon="faCheck" />
   </div>
 </template>
 
 <script setup lang="ts">
+import { faCheck, faClipboard } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { toClipboard } from '@soerenmartius/vue3-clipboard';
 import { ref } from 'vue';

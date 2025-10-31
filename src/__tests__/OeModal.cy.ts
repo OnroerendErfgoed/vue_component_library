@@ -1,6 +1,8 @@
-import { VlActionGroup, VlButton, VlModalToggle, VlTitle } from '@govflanders/vl-ui-design-system-vue3';
+import { VlActionGroup } from '@govflanders/vl-ui-design-system-vue3/build/components/vl-ui-action-group';
+import { VlButton } from '@govflanders/vl-ui-design-system-vue3/build/components/vl-ui-button';
+import { VlModalToggle } from '@govflanders/vl-ui-design-system-vue3/build/components/vl-ui-modal';
 import { ref } from 'vue';
-import OeModal from '@/components/dumb/OeModal.vue';
+import OeModal from '@components/core/dumb/OeModal.vue';
 
 describe('OeModal', () => {
   describe('Props', () => {
@@ -47,7 +49,7 @@ describe('OeModal', () => {
 
     it('renders custom header, content, and footer slots', () => {
       cy.mount({
-        components: { OeModal, VlTitle, VlActionGroup, VlButton },
+        components: { OeModal, VlActionGroup, VlButton },
         setup() {
           const open = ref(true);
           const closeModal = () => {

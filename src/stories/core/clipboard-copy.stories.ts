@@ -1,9 +1,9 @@
-import ClipboardCopy from '@components/dumb/ClipboardCopy.vue';
+import OeClipboardCopy from '@components/core/dumb/OeClipboardCopy.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-const meta: Meta<typeof ClipboardCopy> = {
-  title: 'Dumb components/ClipboardCopy',
-  component: ClipboardCopy,
+const meta: Meta<typeof OeClipboardCopy> = {
+  title: 'Core/Clipboard Copy',
+  component: OeClipboardCopy,
   tags: ['autodocs'],
   argTypes: {
     value: { control: 'text' },
@@ -20,14 +20,14 @@ const meta: Meta<typeof ClipboardCopy> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof ClipboardCopy>;
+type Story = StoryObj<typeof OeClipboardCopy>;
 
 export const Default: Story = {
   render: (args) => ({
     setup() {
       return { args };
     },
-    components: { ClipboardCopy },
-    template: `<Clipboard-copy :value="args.value"></Clipboard-copy>`,
+    components: { OeClipboardCopy },
+    template: `<OeClipboardCopy :value="args.value"></OeClipboardCopy>`,
   }),
 };

@@ -10,7 +10,7 @@
           'spinner-content--xlarge': props.modInline && props.modXLarge,
         }"
       >
-        <font-awesome-icon class="spinner" :icon="['fas', 'spinner']" spin-pulse />
+        <FontAwesomeIcon class="spinner" :icon="faSpinner" spin-pulse />
       </div>
     </DefineTemplate>
 
@@ -31,6 +31,7 @@
 </template>
 
 <script setup lang="ts">
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { createReusableTemplate } from '@vueuse/core';
 

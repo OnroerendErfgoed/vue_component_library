@@ -16,15 +16,13 @@
 import '@/scss/main.scss';
 import './commands';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { fab } from '@fortawesome/free-brands-svg-icons';
-import { far } from '@fortawesome/free-regular-svg-icons';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+// Import VL components
+import { installs } from '@govflanders/vl-ui-design-system-vue3';
 // Alternatively you can use CommonJS syntax:
 import { mount } from 'cypress/vue';
 
 library.add(fas);
-library.add(far);
-library.add(fab);
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.

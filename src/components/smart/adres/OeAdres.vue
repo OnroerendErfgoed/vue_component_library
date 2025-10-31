@@ -283,7 +283,7 @@ import { useVuelidate } from '@vuelidate/core';
 import { helpers } from '@vuelidate/validators';
 import { Guid } from 'guid-typescript';
 import { computed, onBeforeMount } from 'vue';
-import OeLoader from '@components/dumb/OeLoader.vue';
+import OeLoader from '@components/core/dumb/OeLoader.vue';
 import { requiredIf } from '@utils/i18n-validators';
 import type { IAdresProps } from '@models/adres';
 

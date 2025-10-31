@@ -1,14 +1,12 @@
-import '@/scss/main.scss';
 import { VlButton } from '@govflanders/vl-ui-design-system-vue3';
 import { last, remove } from 'lodash-es';
 import { ref } from 'vue';
-import OeContainer from '@components/dumb/OeContainer.vue';
+import { ITab, OeContainer } from '@components/core';
 import type { Meta, StoryObj } from '@storybook/vue3';
-import type { ITab } from '@models/container';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof OeContainer> = {
-  title: 'Dumb components/Container',
+  title: 'Core/Container',
   component: OeContainer,
   parameters: {
     layout: 'fullscreen',

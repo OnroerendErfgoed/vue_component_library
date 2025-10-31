@@ -1,10 +1,10 @@
 import '@/scss/main.scss';
-import OeButton from '@components/dumb/OeButton.vue';
+import OeButton from '@components/core/dumb/OeButton.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof OeButton> = {
-  title: 'Dumb components/Button',
+  title: 'Core/Button',
   component: OeButton,
   render: (args) => ({
     components: {
