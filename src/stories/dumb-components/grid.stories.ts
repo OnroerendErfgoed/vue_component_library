@@ -1,15 +1,33 @@
 import '@/scss/main.scss';
+// Modular type imports
+import {
+  CellStyleModule,
+  ClientSideRowModelModule,
+  ColumnAutoSizeModule,
+  type FirstDataRenderedEvent,
+  type GridOptions,
+  type GridReadyEvent,
+  type ICellRendererParams,
+  type IDatasource,
+  type IGetRowsParams,
+  InfiniteRowModelModule,
+  ModuleRegistry,
+  PaginationModule,
+  RowSelectionModule,
+  ValidationModule,
+} from 'ag-grid-community';
 import OeGrid from '@components/dumb/OeGrid.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
-// Modular type imports
-import type {
-  FirstDataRenderedEvent,
-  GridOptions,
-  GridReadyEvent,
-  ICellRendererParams,
-  IDatasource,
-  IGetRowsParams,
-} from 'ag-grid-community';
+
+ModuleRegistry.registerModules([
+  InfiniteRowModelModule,
+  ClientSideRowModelModule,
+  ValidationModule,
+  ColumnAutoSizeModule,
+  PaginationModule,
+  RowSelectionModule,
+  CellStyleModule,
+]);
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof OeGrid> = {

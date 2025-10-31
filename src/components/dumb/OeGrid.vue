@@ -3,27 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  CellStyleModule,
-  ClientSideRowModelModule,
-  ColumnAutoSizeModule,
-  InfiniteRowModelModule,
-  ModuleRegistry,
-  PaginationModule,
-  RowSelectionModule,
-  ValidationModule,
-} from 'ag-grid-community';
 import { AgGridVue } from 'ag-grid-vue3';
-
-ModuleRegistry.registerModules([
-  InfiniteRowModelModule,
-  ClientSideRowModelModule,
-  ValidationModule,
-  ColumnAutoSizeModule,
-  PaginationModule,
-  RowSelectionModule,
-  CellStyleModule,
-]);
 </script>
 
 <style lang="scss">

@@ -4,11 +4,7 @@ import FilterInput from './FilterInput.vue';
 import FilterRadio from './FilterRadio.vue';
 import FilterSelect from './FilterSelect.vue';
 import FilterText from './FilterText.vue';
-import GridWorkflow from './GridWorkflow.vue';
 import InputPhone from './InputPhone.vue';
-import NoRowsOverlay from './NoRowsOverlay.vue';
-import OeActorWidgetDetail from './OeActorWidgetDetail.vue';
-import OeActorWidgetGridActies from './OeActorWidgetGridActies.vue';
 import OeAutocomplete from './OeAutocomplete.vue';
 import OeButton from './OeButton.vue';
 import OeContainer from './OeContainer.vue';
@@ -34,11 +30,7 @@ export {
   FilterRadio,
   FilterSelect,
   FilterText,
-  GridWorkflow,
   InputPhone,
-  NoRowsOverlay,
-  OeActorWidgetDetail,
-  OeActorWidgetGridActies,
   OeAutocomplete,
   OeButton,
   OeContainer,
