@@ -129,7 +129,7 @@ import { inject, onMounted, onUnmounted, ref, watch } from 'vue';
 import { FeatureSelectEnum } from '@models/featureSelect.enum';
 import { FeatureSelectConfig } from '@models/oe-map-config';
 import { MapUtil } from '@utils/index';
-import type { CrabApiService } from '@/services';
+import type { CrabApiService } from '@/services/crab-api.service';
 import type { IDrawGeomType } from '@models/oe-openlayers';
 
 const props = defineProps<{

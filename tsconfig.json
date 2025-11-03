@@ -11,7 +11,7 @@
   "exclude": ["src/stories/**"],
   "compilerOptions": {
     "outDir": "dist",
-    "baseUrl": ".",
+    "rootDir": ".",
     "paths": {
       "@components/*": ["./src/components/*"],
       "@composables/*": ["./src/composables/*"],

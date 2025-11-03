@@ -18,7 +18,7 @@ export default defineConfig({
         grid: 'src/grid.ts', // AG Grid components
         map: 'src/map.ts', // OpenLayers components
         widgets: 'src/widgets.ts', // Complex widgets
-        servicess: 'src/servicess.ts', // HTTP services
+        services: 'src/services.ts', // HTTP services
         utils: 'src/utils.ts', // Utilities, composables, directives
       },
       formats: ['es'],

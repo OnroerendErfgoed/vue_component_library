@@ -4,4 +4,4 @@
  */
 
 // Re-export everything from the core module
-export * from './components/core';
+export * from '@components/core';

@@ -59,7 +59,7 @@ import { vClickOutside } from '@directives/click-outside.directive';
 import type Map from 'ol/Map';
 import type BaseLayer from 'ol/layer/Base';
 import type { Ref } from 'vue';
-import type { CrabApiService } from '@/services';
+import type { CrabApiService } from '@/services/crab-api.service';
 
 const buttonRef = ref<HTMLElement>();
 const elementRef = ref<HTMLElement>();

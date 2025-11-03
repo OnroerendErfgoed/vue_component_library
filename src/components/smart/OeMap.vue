@@ -45,7 +45,7 @@ import WMTSTileGrid from 'ol/tilegrid/WMTS';
 import proj4 from 'proj4';
 import { onMounted, onUnmounted, provide, ref, useTemplateRef, watch } from 'vue';
 import { LayerType, defaultControlConfig, defaultLayerConfig } from '@/models';
-import { CrabApiService } from '@/services';
+import { CrabApiService } from '@/services/crab-api.service';
 import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
 import Layerswitcher from '@components/smart/OeMapLayerswitcher.vue';
 import { MapUtil, ProjectionUtil } from '@utils/index';
