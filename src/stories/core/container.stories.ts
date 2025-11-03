@@ -182,14 +182,12 @@ export const WithTabs: Story = {
       const setActiveTab = (tab: ITab) => {
         activeTab.value = tab;
         actionLog.value.unshift(`👆 Selected tab: "${tab.label}"`);
-        args.onTabSelected?.(tab);
       };
 
       const closeTab = (tab: ITab) => {
         remove(tabs.value, (item) => item.id === tab.id);
         activeTab.value = tabs.value[tabs.value.length - 1];
         actionLog.value.unshift(`❌ Closed tab: "${tab.label}"`);
-        args.onTabClosed?.(tab);
       };
 
       const toggleEditMode = () => {

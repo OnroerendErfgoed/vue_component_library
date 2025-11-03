@@ -10,7 +10,6 @@ export default defineConfig({
     outDir: 'dist',
     lib: {
       entry: {
-        // Remove 'main' - force explicit imports
         core: 'src/core.ts', // Essential components only
         composables: 'src/composables.ts', // Composables
         forms: 'src/forms.ts', // Form components
@@ -26,7 +25,51 @@ export default defineConfig({
     },
     sourcemap: true,
     rollupOptions: {
-      external: ['vue', 'pinia', 'axios'],
+      external: [
+        // Core Vue ecosystem
+        'vue',
+        'pinia',
+        'vue-i18n',
+
+        // Govflanders (always needed)
+        '@govflanders/vl-ui-design-system-vue3',
+        '@govflanders/vl-ui-design-system-style',
+
+        // FontAwesome (always needed)
+        '@fortawesome/fontawesome-svg-core',
+        '@fortawesome/free-solid-svg-icons',
+        '@fortawesome/vue-fontawesome',
+
+        // Forms module dependencies
+        '@vuelidate/core',
+        '@vuelidate/validators',
+
+        // Grid module dependencies
+        'ag-grid-vue3',
+
+        // Map module dependencies
+        'jsts',
+        'ol',
+        'ol-contextmenu',
+        'ol-ext',
+        'proj4',
+
+        // Services module dependencies
+        'axios',
+        'axios-mock-adapter',
+        '@vueuse/core',
+
+        // Editors
+        '@tinymce/tinymce-vue',
+        'quill',
+        'quill-html-edit-button',
+        'quill-toggle-fullscreen-button',
+        'vue-quilly',
+
+        // Other utilities
+        '@soerenmartius/vue3-clipboard',
+        'lodash-es', // Add this
+      ],
       output: {
         globals: {
           vue: 'Vue',

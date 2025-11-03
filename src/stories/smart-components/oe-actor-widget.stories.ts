@@ -1,6 +1,6 @@
 import '@/scss/main.scss';
 import { ref } from 'vue';
-import { OeActorWidget } from '@components/smart';
+import { OeActorWidget } from '@components/dumb/grid';
 import { ActorType } from '@models/actor';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
