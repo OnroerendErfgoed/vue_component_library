@@ -12,6 +12,7 @@ export default defineConfig({
       entry: {
         // Remove 'main' - force explicit imports
         core: 'src/core.ts', // Essential components only
+        composables: 'src/composables.ts', // Composables
         forms: 'src/forms.ts', // Form components
         layout: 'src/layout.ts', // Layout components
         grid: 'src/grid.ts', // AG Grid components
@@ -67,6 +68,7 @@ export default defineConfig({
       '@composables': resolve(__dirname, './src/composables'),
       '@directives': resolve(__dirname, './src/directives'),
       '@services': resolve(__dirname, './src/services'),
+      '@stores': resolve(__dirname, './src/stores'),
       '@models': resolve(__dirname, './src/models'),
       '@utils': resolve(__dirname, './src/utils'),
       vue: 'vue/dist/vue.esm-bundler.js',

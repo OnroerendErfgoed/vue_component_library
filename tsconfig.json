@@ -18,6 +18,7 @@
       "@directives/*": ["./src/directives/*"],
       "@services/*": ["./src/services/*"],
       "@models/*": ["./src/models/*"],
+      "@stores/*": ["./src/stores/*"],
       "@utils/*": ["./src/utils/*"],
       "@/*": ["./src/*"]
     },

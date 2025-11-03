@@ -60,7 +60,7 @@
 
 <script setup lang="ts">
 import { VlDropdownNavigation, VlLink, VlLinkList, VlLinkListItem } from '@govflanders/vl-ui-design-system-vue3';
-import type { IHeaderProps } from '@models/header';
+import { IHeaderProps } from '@/core';
 
 const props = withDefaults(defineProps<IHeaderProps>(), {
   user: undefined,

@@ -1,10 +1,9 @@
-import '@/scss/main.scss';
-import OeHeader from '@components/dumb/OeHeader.vue';
+import { OeHeader } from '@components/core';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof OeHeader> = {
-  title: 'Dumb components/Header',
+  title: 'Core/Header',
   component: OeHeader,
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/vue/writing-docs/autodocs
   tags: ['autodocs'],

@@ -1,13 +1,11 @@
-import '@/scss/main.scss';
-import { useUtilStore } from '@/composables';
-import { OeButton } from '@components/dumb';
-import OeToaster from '@components/dumb/OeToaster.vue';
+import { useUtilStore } from '@stores/utilStore';
+import { OeButton, OeToaster } from '@components/core';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import type { ToastType } from '@models/toast';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof OeToaster> = {
-  title: 'Dumb components/Toaster',
+  title: 'Core/Toaster',
   component: OeToaster,
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/vue/writing-docs/autodocs
   tags: ['autodocs'],

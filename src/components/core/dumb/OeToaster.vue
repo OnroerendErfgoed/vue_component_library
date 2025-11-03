@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
-  <vl-toaster mod-top-right>
-    <vl-alert
+  <VlToaster mod-top-right>
+    <VlAlert
       v-for="toast in store.toasts"
       :key="toast.id"
       mod-small
@@ -21,13 +21,13 @@
         </li>
       </ul>
       <div v-else v-html="toast.content" />
-    </vl-alert>
-  </vl-toaster>
+    </VlAlert>
+  </VlToaster>
 </template>
 
 <script setup lang="ts">
 import { VlAlert, VlToaster } from '@govflanders/vl-ui-design-system-vue3';
-import { useUtilStore } from '@/composables';
+import { useUtilStore } from '@stores/utilStore';
 
 const store = useUtilStore();
 </script>

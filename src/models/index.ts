@@ -5,7 +5,6 @@ export * from './adres';
 export * from './dataverantwoordelijke';
 export * from './filter-input';
 export * from './grid';
-export * from './header';
 export * from './input-phone';
 export * from './layerType.enum';
 export * from './links';
@@ -14,8 +13,6 @@ export * from './niscode.enum';
 export * from './oe-openlayers';
 export * from './oe-map-config';
 export * from './status';
-export * from './system-fields';
-export * from './toast';
 export * from './user';
 export * from './wizard';
 export * from './dossier';
@@ -23,3 +20,6 @@ export * from './workflow';
 export * from './editor';
 export * from './reference';
 export * from './side-navigation';
+
+// After refactoring accepted
+export * from './toast';

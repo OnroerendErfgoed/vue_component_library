@@ -10,6 +10,10 @@
       "import": "./dist/core.js",
       "types": "./dist/core.d.ts"
     },
+    "./composables": {
+      "import": "./dist/composables.js",
+      "types": "./dist/composables.d.ts"
+    },
     "./forms": {
       "import": "./dist/forms.js",
       "types": "./dist/forms.d.ts"

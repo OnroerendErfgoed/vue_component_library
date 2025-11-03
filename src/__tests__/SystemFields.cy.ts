@@ -1,6 +1,6 @@
 import { mount } from 'cypress/vue';
 import { defineComponent } from 'vue';
-import SystemFields from '@components/dumb/SystemFields.vue';
+import SystemFields from '@components/core/dumb/OeSystemFields.vue';
 
 const status = 'Klad';
 const createdBy = 'Mr. Foo';

@@ -31,10 +31,9 @@
 </template>
 
 <script setup lang="ts">
-import { IContainerProps, ITab } from '../models/container';
-import OeModalConfirmCancelChanges from './OeModalConfirmCancelChanges.vue';
 import { VlActionGroup, VlPill } from '@govflanders/vl-ui-design-system-vue3';
 import { ref } from 'vue';
+import { IContainerProps, ITab, OeModalConfirmCancelChanges } from '@/core';
 
 const props = withDefaults(defineProps<IContainerProps>(), {
   tabs: () => [],
