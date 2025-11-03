@@ -79,7 +79,7 @@ import {
 } from '@govflanders/vl-ui-design-system-vue3';
 import { isEmpty, remove } from 'lodash-es';
 import { computed, ref, watch } from 'vue';
-import type { IFilter, IFilterInputProps, IFilterOption, TFilterInput } from '@models/filter-input';
+import type { IFilter, IFilterInputProps, IFilterOption, TFilterInput } from '@components/forms/models/filter-input';
 
 const props = withDefaults(defineProps<IFilterInputProps>(), {
   options: () => [],

@@ -8,11 +8,15 @@ export { default as OeContainer } from './dumb/OeContainer.vue';
 export { default as OeToaster } from './dumb/OeToaster.vue';
 export { default as OeHeader } from './dumb/OeHeader.vue';
 export { default as SystemFields } from './dumb/OeSystemFields.vue';
+export { default as OeSideNavigation } from './dumb/OeSideNavigation.vue';
 
 // Models
 export * from './models/container';
 export * from './models/header';
 export * from './models/system-fields';
+export * from './models/side-navigation';
+
+// Common types
 export type { IToast } from '@models/toast';
 
 // Stores

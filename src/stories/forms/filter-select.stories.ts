@@ -1,10 +1,9 @@
-import '@/scss/main.scss';
-import FilterSelect from '@components/dumb/FilterSelect.vue';
+import { FilterSelect } from '@/forms';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof FilterSelect> = {
-  title: 'Dumb components/Filter Inputs/FilterSelect',
+  title: 'Forms/Filter Inputs/Filter Select',
   component: FilterSelect,
   parameters: {
     docs: {

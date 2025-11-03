@@ -1,5 +1,5 @@
 <template>
-  <vl-select
+  <VlSelect
     data-cy="filter-select"
     :placeholder-text="props.placeholder"
     mod-block
@@ -16,12 +16,12 @@
         {{ option.label }}
       </option>
     </slot>
-  </vl-select>
+  </VlSelect>
 </template>
 
 <script setup lang="ts">
 import { VlSelect } from '@govflanders/vl-ui-design-system-vue3';
-import type { IFilterSelectProps } from '@models/filter-input';
+import { IFilterSelectProps } from '@/forms';
 
 const props = withDefaults(defineProps<IFilterSelectProps>(), {
   value: '',

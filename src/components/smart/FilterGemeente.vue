@@ -23,7 +23,7 @@
 <script setup lang="ts">
 import { VlMultiselect } from '@govflanders/vl-ui-design-system-vue3';
 import { computed, onBeforeMount, ref } from 'vue';
-import { type IFilterGemeenteProps, Niscode } from '@models/index';
+import { IFilterGemeenteProps, Niscode } from '@components/forms';
 import { CrabApiService } from '@services/crab-api.service';
 import type { IGemeente } from '@models/locatie';
 

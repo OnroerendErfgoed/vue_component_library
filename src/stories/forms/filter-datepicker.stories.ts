@@ -1,10 +1,9 @@
-import '@/scss/main.scss';
-import FilterDatepicker from '@components/dumb/FilterDatepicker.vue';
+import { FilterDatepicker } from '@components/forms';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof FilterDatepicker> = {
-  title: 'Dumb components/Filter Inputs/FilterDatepicker',
+  title: 'Forms/Filter Inputs/Filter Datepicker',
   component: FilterDatepicker,
   parameters: {
     docs: {

@@ -1,7 +1,7 @@
 /* eslint-disable vue/one-component-per-file */
-import FilterSelect from '../components/dumb/FilterSelect.vue';
+import FilterSelect from '../components/forms/dumb/OeFilterSelect.vue';
 import { defineComponent, ref } from 'vue';
-import type { IOption } from '@models/filter-input';
+import type { IOption } from '@components/forms/models/filter-input';
 
 describe('FilterSelect', () => {
   describe('default', () => {

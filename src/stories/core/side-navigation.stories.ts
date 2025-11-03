@@ -1,9 +1,9 @@
 import { vueRouter } from 'storybook-vue3-router';
-import OeSideNavigation from '@components/dumb/OeSideNavigation.vue';
+import { OeSideNavigation } from '@components/core';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof OeSideNavigation> = {
-  title: 'Dumb components/Side Navigation',
+  title: 'Core/Side Navigation',
   component: OeSideNavigation,
   tags: ['autodocs'],
   parameters: {

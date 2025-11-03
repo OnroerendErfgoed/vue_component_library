@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vl-datepicker
+    <VlDatepicker
       data-cy="datepicker"
       v-bind="$attrs"
       placeholder="dd-mm-jjjj"
@@ -10,9 +10,7 @@
       :parse-date="parseDate"
       @update:model-value="setDate"
     />
-    <vl-form-message-error v-if="hasFormatError"
-      >Ongeldig formaat, gebruik {{ datumDisplayFormat }}</vl-form-message-error
-    >
+    <VlFormMessageError v-if="hasFormatError">Ongeldig formaat, gebruik {{ datumDisplayFormat }}</VlFormMessageError>
   </div>
 </template>
 

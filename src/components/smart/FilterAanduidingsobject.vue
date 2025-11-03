@@ -13,9 +13,10 @@
 import { toRef } from '@vueuse/core';
 import { ref, watch } from 'vue';
 import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
+import { IFilterAanduidingsobjectProps } from '@components/forms';
 import { InventarisApiService } from '@services/inventaris-api.service';
 import type { IAutocompleteOption } from '@models/autocomplete';
-import type { IESAanduidingsobject, IFilterAanduidingsobjectProps } from '@models/index';
+import type { IESAanduidingsobject } from '@models/index';
 
 const props = withDefaults(defineProps<IFilterAanduidingsobjectProps>(), {
   id: '',

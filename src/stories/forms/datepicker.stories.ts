@@ -1,12 +1,13 @@
 import '@/scss/main.scss';
 import { ref } from 'vue';
-import OeDatepicker from '@components/dumb/OeDatepicker.vue';
+import { OeDatepicker } from '@components/forms';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof OeDatepicker> = {
-  title: 'Dumb components/Datepicker',
+  title: 'Forms/Datepicker',
   component: OeDatepicker,
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {

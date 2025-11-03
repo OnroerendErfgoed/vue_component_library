@@ -8,10 +8,9 @@
 </template>
 
 <script setup lang="ts">
-import OeDatepicker from './OeDatepicker.vue';
 import { format, parse } from 'date-fns';
 import { computed } from 'vue';
-import type { IFilterDatepickerProps } from '@models/filter-input';
+import { IFilterDatepickerProps, OeDatepicker } from '@/forms';
 
 const props = withDefaults(defineProps<IFilterDatepickerProps>(), {
   value: '',

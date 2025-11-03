@@ -1,9 +1,7 @@
 /* eslint-disable vue/one-component-per-file */
-import FilterInput from '../components/dumb/FilterInput.vue';
 import { defineComponent, ref } from 'vue';
-import { FilterDatepicker, FilterRadio, FilterSelect, FilterText } from '@components/dumb';
+import { FilterDatepicker, FilterInput, FilterRadio, FilterSelect, FilterText, IFilter, IFilterOption } from '@/forms';
 import { FilterGemeente } from '@components/smart';
-import type { IFilter, IFilterOption } from '@models/filter-input';
 
 describe('FilterInput', () => {
   const TestComponent = defineComponent({

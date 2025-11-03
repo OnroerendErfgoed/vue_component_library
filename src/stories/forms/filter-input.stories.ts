@@ -1,18 +1,12 @@
-import '@/scss/main.scss';
 import { VlColumn, VlGrid } from '@govflanders/vl-ui-design-system-vue3';
-import FilterDatepicker from '@components/dumb/FilterDatepicker.vue';
-import FilterInput from '@components/dumb/FilterInput.vue';
-import FilterRadio from '@components/dumb/FilterRadio.vue';
-import FilterSelect from '@components/dumb/FilterSelect.vue';
-import FilterText from '@components/dumb/FilterText.vue';
+import { FilterDatepicker, FilterInput, FilterRadio, FilterSelect, FilterText, IFilterOption, IOption } from '@/forms';
 import FilterAanduidingsobject from '@components/smart/FilterAanduidingsobject.vue';
 import FilterGemeente from '@components/smart/FilterGemeente.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
-import type { IFilterOption, IOption } from '@models/filter-input';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof FilterInput> = {
-  title: 'Dumb components/FilterInput',
+  title: 'Forms/Filter Input',
   component: FilterInput,
   tags: ['autodocs'],
   parameters: {

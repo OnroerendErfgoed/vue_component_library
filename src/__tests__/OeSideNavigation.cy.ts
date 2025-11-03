@@ -1,5 +1,9 @@
-import OeSideNavigation from '@components/dumb/OeSideNavigation.vue';
-import { OeSideNavigationProps, SideNavigationRoute, SideNavigationSection } from '@models/side-navigation';
+import OeSideNavigation from '@components/core/dumb/OeSideNavigation.vue';
+import {
+  OeSideNavigationProps,
+  SideNavigationRoute,
+  SideNavigationSection,
+} from '@components/core/models/side-navigation';
 
 const sideNavigation: SideNavigationSection[] = [
   {

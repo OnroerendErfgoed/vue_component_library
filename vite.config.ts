@@ -13,6 +13,7 @@ export default defineConfig({
         core: 'src/core.ts', // Essential components only
         composables: 'src/composables.ts', // Composables
         forms: 'src/forms.ts', // Form components
+        editor: 'src/editor.ts', // Rich text editor
         layout: 'src/layout.ts', // Layout components
         grid: 'src/grid.ts', // AG Grid components
         map: 'src/map.ts', // OpenLayers components
@@ -43,6 +44,7 @@ export default defineConfig({
         // Forms module dependencies
         '@vuelidate/core',
         '@vuelidate/validators',
+        'date-fns', // Add this
 
         // Grid module dependencies
         'ag-grid-vue3',
@@ -68,7 +70,7 @@ export default defineConfig({
 
         // Other utilities
         '@soerenmartius/vue3-clipboard',
-        'lodash-es', // Add this
+        'lodash-es',
       ],
       output: {
         globals: {

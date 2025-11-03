@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import { VlRadio } from '@govflanders/vl-ui-design-system-vue3';
-import type { IFilterInputRadioProps, IOption } from '@models/filter-input';
+import { IFilterInputRadioProps, IOption } from '@/forms';
 
 const props = withDefaults(defineProps<IFilterInputRadioProps>(), {
   id: '',

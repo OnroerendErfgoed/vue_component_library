@@ -22,8 +22,8 @@
 <script setup lang="ts">
 import { VlMultiselect } from '@govflanders/vl-ui-design-system-vue3';
 import { computed, onBeforeMount, ref } from 'vue';
+import { IFilterProvincieProps } from '@components/forms';
 import { CrabApiService } from '@services/crab-api.service';
-import type { IFilterProvincieProps } from '@models/index';
 import type { IProvincie } from '@models/locatie';
 
 const props = withDefaults(defineProps<IFilterProvincieProps>(), {

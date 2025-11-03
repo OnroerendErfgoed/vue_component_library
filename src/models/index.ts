@@ -3,23 +3,21 @@ export * from './aanduidingsobject';
 export * from './actor';
 export * from './adres';
 export * from './dataverantwoordelijke';
-export * from './filter-input';
 export * from './grid';
 export * from './input-phone';
 export * from './layerType.enum';
 export * from './links';
-export * from './locatie';
-export * from './niscode.enum';
 export * from './oe-openlayers';
 export * from './oe-map-config';
 export * from './status';
 export * from './user';
 export * from './wizard';
 export * from './dossier';
-export * from './workflow';
 export * from './editor';
 export * from './reference';
-export * from './side-navigation';
 
 // After refactoring accepted
+export * from './locatie';
 export * from './toast';
+export * from './niscode.enum';
+export * from './workflow';

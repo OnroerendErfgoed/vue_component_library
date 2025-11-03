@@ -1,6 +1,6 @@
-import { Niscode } from './niscode.enum';
+import { IGemeente } from '@models/locatie';
+import { Niscode } from '@models/niscode.enum';
 import { IWorkflowOwner } from '@models/workflow';
-import type { IGemeente } from './locatie';
 
 export type TFilterInput = string | IGemeente;
 

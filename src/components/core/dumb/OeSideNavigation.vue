@@ -27,7 +27,7 @@ import {
   VlSideNavigationList,
 } from '@govflanders/vl-ui-design-system-vue3';
 import { onMounted, ref } from 'vue';
-import { OeSideNavigationProps } from '@models/side-navigation';
+import { OeSideNavigationProps } from '@/core';
 
 const props = withDefaults(defineProps<OeSideNavigationProps>(), {
   autoExpand: true,

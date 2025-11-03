@@ -1,5 +1,5 @@
 import { defineComponent, ref } from 'vue';
-import OeDatepicker from '@components/dumb/OeDatepicker.vue';
+import OeDatepicker from '@components/forms/dumb/OeDatepicker.vue';
 
 describe('Datepicker', () => {
   beforeEach(() => {

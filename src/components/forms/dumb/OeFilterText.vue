@@ -1,5 +1,5 @@
 <template>
-  <vl-input-field
+  <VlInputField
     data-cy="filter-text"
     mod-block
     :placeholder="props.placeholder"
@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import { VlInputField } from '@govflanders/vl-ui-design-system-vue3';
-import type { IFilterTextProps } from '@models/filter-input';
+import { IFilterTextProps } from '@/forms';
 
 const props = withDefaults(defineProps<IFilterTextProps>(), {
   value: '',

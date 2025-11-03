@@ -1,5 +1,5 @@
 import { defineComponent, ref } from 'vue';
-import FilterText from '@components/dumb/FilterText.vue';
+import { FilterText } from '@/forms';
 
 describe('FilterText', () => {
   const TestComponent = defineComponent({
