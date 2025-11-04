@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof OeFilterDatepicker> = {
-  title: 'Forms/Filter Inputs/Filter Datepicker',
+  title: 'Forms Module/Filter Inputs/Filter Datepicker',
   component: OeFilterDatepicker,
   parameters: {
     docs: {

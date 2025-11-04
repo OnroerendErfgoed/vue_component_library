@@ -4,7 +4,7 @@ import { OeModalConfirmCancelChanges } from '@components/core';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof OeModalConfirmCancelChanges> = {
-  title: 'Core/Modal Confirm Cancel Changes',
+  title: 'Core Module/Modal Confirm Cancel Changes',
   component: OeModalConfirmCancelChanges,
   tags: ['autodocs'],
   parameters: {

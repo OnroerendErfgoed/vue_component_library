@@ -1,12 +1,10 @@
-import '@/scss/main.scss';
 import { ref } from 'vue';
-import OeEditor from '@components/dumb/OeEditor.vue';
-import { OeEditorToolbar } from '@models/editor';
+import { OeEditor, OeEditorToolbar } from '@components/editor';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof OeEditor> = {
-  title: 'Dumb components/Editor',
+  title: 'Editor Module/Editor',
   component: OeEditor,
   parameters: {
     docs: {
@@ -24,10 +22,9 @@ const meta: Meta<typeof OeEditor> = {
       return { args };
     },
     template: `
-      <oe-editor/>
+      <OeEditor/>
     `,
   }),
-  // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/vue/writing-docs/autodocs
   tags: ['autodocs'],
   argTypes: {
     modelValue: {
@@ -43,11 +40,7 @@ const meta: Meta<typeof OeEditor> = {
 
 export default meta;
 type Story = StoryObj<typeof OeEditor>;
-/*
- *👇 Render functions are a framework specific feature to allow you control on how the component renders.
- * See https://storybook.js.org/docs/vue/api/csf
- * to learn how to use render functions.
- */
+
 export const Default: Story = {
   parameters: {
     docs: {
@@ -90,7 +83,7 @@ export const Default: Story = {
       `);
       return { model };
     },
-    template: `<oe-editor id="default-editor" v-model="model" />`,
+    template: `<OeEditor id="default-editor" v-model="model" />`,
   }),
 };
 
@@ -136,7 +129,7 @@ export const AllowAllFormats: Story = {
       `);
       return { model };
     },
-    template: `<oe-editor id="editor-all-formats" v-model="model" enable-all-formats />`,
+    template: `<OeEditor id="editor-all-formats" v-model="model" enable-all-formats />`,
   }),
 };
 
@@ -182,7 +175,7 @@ export const FullToolbar: Story = {
       `);
       return { model };
     },
-    template: `<oe-editor id="editor-full-toolbar" v-model="model" enable-full-toolbar />`,
+    template: `<OeEditor id="editor-full-toolbar" v-model="model" enable-full-toolbar />`,
   }),
 };
 
@@ -244,7 +237,7 @@ export const CustomToolbar: Story = {
       ]);
       return { model, toolbar, formats };
     },
-    template: `<oe-editor id="editor-custom-toolbar" v-model="model" :toolbar="toolbar" :formats="formats" />`,
+    template: `<OeEditor id="editor-custom-toolbar" v-model="model" :toolbar="toolbar" :formats="formats" />`,
   }),
 };
 
@@ -266,7 +259,7 @@ export const DisabledState: Story = {
       return { model };
     },
     template: `
-      <oe-editor mod-disabled id="editor-3" v-model="model" />
+      <OeEditor mod-disabled id="editor-3" v-model="model" />
     `,
   }),
 };

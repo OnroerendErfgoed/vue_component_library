@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof OePhone> = {
-  title: 'Forms/Phone',
+  title: 'Forms Module/Phone',
   component: OePhone,
   parameters: {
     docs: {

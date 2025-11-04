@@ -1,12 +1,10 @@
-import '@/scss/main.scss';
 import { VlButton } from '@govflanders/vl-ui-design-system-vue3';
 import { ref } from 'vue';
-import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
+import { IAutocompleteOption, OeAutocomplete } from '@components/forms';
 import type { Meta, StoryObj } from '@storybook/vue3';
-import type { IAutocompleteOption } from '@models/autocomplete';
 
 const meta: Meta<typeof OeAutocomplete> = {
-  title: 'Dumb components/Autocomplete',
+  title: 'Forms Module/Autocomplete',
   component: OeAutocomplete,
   tags: ['autodocs'],
   parameters: {

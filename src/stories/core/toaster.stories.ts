@@ -5,7 +5,7 @@ import type { ToastType } from '@models/toast';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof OeToaster> = {
-  title: 'Core/Toaster',
+  title: 'Core Module/Toaster',
   component: OeToaster,
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/vue/writing-docs/autodocs
   tags: ['autodocs'],

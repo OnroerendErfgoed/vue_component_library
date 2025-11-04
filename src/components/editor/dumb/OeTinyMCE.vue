@@ -1,5 +1,5 @@
 <template>
-  <editor
+  <Editor
     v-model="editorValue"
     data-cy="editor"
     api-key="no-api-key"
@@ -59,5 +59,3 @@ watch(
   }
 );
 </script>
-
-<style lang="scss"></style>

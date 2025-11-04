@@ -5,7 +5,7 @@ import { ITab, OeContainer } from '@components/core';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof OeContainer> = {
-  title: 'Core/Container',
+  title: 'Core Module/Container',
   component: OeContainer,
   tags: ['autodocs'],
   parameters: {

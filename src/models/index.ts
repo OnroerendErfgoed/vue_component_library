@@ -12,10 +12,10 @@ export * from './status';
 export * from './user';
 export * from './wizard';
 export * from './dossier';
-export * from './editor';
 export * from './reference';
 
 // After refactoring accepted
 export * from './locatie';
 export * from './toast';
 export * from './niscode.enum';
+export * from './system-fields';

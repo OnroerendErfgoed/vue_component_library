@@ -2,7 +2,7 @@ import { SystemFields } from '@components/core';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof SystemFields> = {
-  title: 'Core/System Fields',
+  title: 'Core Module/System Fields',
   component: SystemFields,
   tags: ['autodocs'],
   argTypes: {

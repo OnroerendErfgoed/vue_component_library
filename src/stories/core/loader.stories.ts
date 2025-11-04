@@ -4,7 +4,7 @@ import { OeLoader } from '@components/core';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof OeLoader> = {
-  title: 'Core/Loader',
+  title: 'Core Module/Loader',
   component: OeLoader,
   parameters: {
     docs: {

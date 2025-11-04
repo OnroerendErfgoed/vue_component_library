@@ -14,10 +14,10 @@ export { default as OeToaster } from './dumb/OeToaster.vue';
 export * from './models/container';
 export * from './models/header';
 export * from './models/side-navigation';
-export * from './models/system-fields';
 
 // Common types
 export type { IToast } from '@models/toast';
+export * from '@models/system-fields';
 
 // Stores
 export { useUtilStore } from '@stores/utilStore';

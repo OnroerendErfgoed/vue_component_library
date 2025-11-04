@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof OeFilterText> = {
-  title: 'Forms/Filter Inputs/Filter Text',
+  title: 'Forms Module/Filter Inputs/Filter Text',
   component: OeFilterText,
   parameters: {
     docs: {

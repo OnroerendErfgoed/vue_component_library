@@ -12,10 +12,10 @@
 <script setup lang="ts">
 import { toRef } from '@vueuse/core';
 import { ref, watch } from 'vue';
-import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
 import { IFilterAanduidingsobjectProps } from '@components/forms';
+import OeAutocomplete from '@components/forms/dumb/OeAutocomplete.vue';
 import { InventarisApiService } from '@services/inventaris-api.service';
-import type { IAutocompleteOption } from '@models/autocomplete';
+import type { IAutocompleteOption } from '@components/forms/models/autocomplete';
 import type { IESAanduidingsobject } from '@models/index';
 
 const props = withDefaults(defineProps<IFilterAanduidingsobjectProps>(), {

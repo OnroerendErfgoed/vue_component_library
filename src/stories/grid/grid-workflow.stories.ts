@@ -24,7 +24,7 @@ ModuleRegistry.registerModules([
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof OeGridWorkflow> = {
-  title: 'Grid/Workflow',
+  title: 'Grid Module/Workflow',
   component: OeGridWorkflow,
   parameters: {
     docs: {

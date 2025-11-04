@@ -112,6 +112,7 @@
 
 <script setup lang="ts">
 import 'quill/dist/quill.snow.css';
+import { BibliografieBlock, OeEditorFormat, OeEditorProps, OeEditorToolbar, PrivateBlock } from '../models/editor';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { includes } from 'lodash-es';
 import Quill from 'quill';
@@ -119,7 +120,6 @@ import { htmlEditButton } from 'quill-html-edit-button';
 import QuillToggleFullscreenButton from 'quill-toggle-fullscreen-button';
 import { computed, onMounted, ref, watch } from 'vue';
 import { QuillyEditor } from 'vue-quilly';
-import { BibliografieBlock, OeEditorFormat, type OeEditorProps, OeEditorToolbar, PrivateBlock } from '@models/editor';
 
 const props = withDefaults(defineProps<OeEditorProps>(), {
   height: 400,

@@ -10,11 +10,11 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
 import { IFilterActorProps } from '@components/forms';
+import OeAutocomplete from '@components/forms/dumb/OeAutocomplete.vue';
 import { ActorService } from '@services/actor.service';
+import type { IAutocompleteOption } from '@components/forms/models/autocomplete';
 import type { IActor } from '@models/actor';
-import type { IAutocompleteOption } from '@models/autocomplete';
 
 const props = withDefaults(defineProps<IFilterActorProps>(), {
   id: '',

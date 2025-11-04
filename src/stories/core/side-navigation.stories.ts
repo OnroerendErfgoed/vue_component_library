@@ -3,7 +3,7 @@ import { OeSideNavigation } from '@components/core';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof OeSideNavigation> = {
-  title: 'Core/Side Navigation',
+  title: 'Core Module/Side Navigation',
   component: OeSideNavigation,
   tags: ['autodocs'],
   parameters: {

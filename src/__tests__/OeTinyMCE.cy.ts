@@ -1,15 +1,15 @@
 import { defineComponent, ref } from 'vue';
-import { OeTinyMce } from '@components/dumb';
+import { OeTinyMCE } from '@components/editor';
 
 describe('OeTinyMCE', () => {
   describe('default', () => {
     const TestComponent = defineComponent({
-      components: { OeTinyMce },
+      components: { OeTinyMCE },
       setup() {
         const data = ref('<p>Test</p>');
         return { data };
       },
-      template: '<oe-tiny-mce v-model="data" />',
+      template: '<OeTinyMCE v-model="data" />',
     });
 
     beforeEach(() => {

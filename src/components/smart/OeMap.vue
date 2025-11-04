@@ -46,7 +46,7 @@ import proj4 from 'proj4';
 import { onMounted, onUnmounted, provide, ref, useTemplateRef, watch } from 'vue';
 import { LayerType, defaultControlConfig, defaultLayerConfig } from '@/models';
 import { CrabApiService } from '@/services/crab-api.service';
-import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
+import OeAutocomplete from '@components/forms/dumb/OeAutocomplete.vue';
 import Layerswitcher from '@components/smart/OeMapLayerswitcher.vue';
 import { MapUtil, ProjectionUtil } from '@utils/index';
 import { Geolocate } from '@utils/openlayers/oe-ol-geolocate';
@@ -55,7 +55,7 @@ import type { Extent } from 'ol/extent';
 import type { Projection } from 'ol/proj';
 import type { Ref } from 'vue';
 import type { IBoundingBox, LayerOptions, OeMapProps } from '@/models';
-import type { IAutocompleteOption } from '@models/autocomplete';
+import type { IAutocompleteOption } from '@components/forms/models/autocomplete';
 import type { Contour } from '@models/oe-openlayers';
 
 const props = withDefaults(defineProps<OeMapProps>(), {

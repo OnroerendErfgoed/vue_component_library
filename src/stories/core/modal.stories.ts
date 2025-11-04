@@ -4,7 +4,7 @@ import { OeModal } from '@components/core';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof OeModal> = {
-  title: 'Core/Modal',
+  title: 'Core Module/Modal',
   component: OeModal,
   tags: ['autodocs'],
   parameters: {

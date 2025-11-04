@@ -2,7 +2,7 @@ import OeClipboardCopy from '@components/core/dumb/OeClipboardCopy.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof OeClipboardCopy> = {
-  title: 'Core/Clipboard Copy',
+  title: 'Core Module/Clipboard Copy',
   component: OeClipboardCopy,
   tags: ['autodocs'],
   argTypes: {

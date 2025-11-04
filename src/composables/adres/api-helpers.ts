@@ -4,7 +4,7 @@ import { uniqBy } from 'lodash-es';
 import { Niscode } from '@models/niscode.enum';
 import { logInfo } from '@utils/index';
 import type { AdresState } from './state';
-import type { IAutocompleteOption } from '@models/autocomplete';
+import type { IAutocompleteOption } from '@components/forms/models/autocomplete';
 import type { IGemeente, IProvincie } from '@models/locatie';
 import type { CrabApiService } from '@services/crab-api.service';
 

@@ -1,12 +1,10 @@
-import '@/scss/main.scss';
 import { ref } from 'vue';
-import OeTinyMce from '@components/dumb/OeTinyMCE.vue';
+import { OeTinyMCE } from '@components/editor';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-// More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
-const meta: Meta<typeof OeTinyMce> = {
-  title: 'Dumb components/TinyMce',
-  component: OeTinyMce,
+const meta: Meta<typeof OeTinyMCE> = {
+  title: 'Editor Module/Tiny MCE',
+  component: OeTinyMCE,
   parameters: {
     docs: {
       description: {
@@ -18,12 +16,12 @@ const meta: Meta<typeof OeTinyMce> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof OeTinyMce>;
+type Story = StoryObj<typeof OeTinyMCE>;
 
 export const Default: Story = {
   render: () => ({
     components: {
-      OeTinyMce,
+      OeTinyMCE,
     },
     setup() {
       const data = ref(`
@@ -33,7 +31,7 @@ export const Default: Story = {
       return { data };
     },
     template: `
-    <oe-tiny-mce v-model="data" />
+    <OeTinyMCE v-model="data" />
     <h3>Output:</h3>
     <pre>{{ data }}</pre>
     `,

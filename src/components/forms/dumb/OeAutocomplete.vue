@@ -48,8 +48,7 @@
 <script setup lang="ts">
 import { VlInputField } from '@govflanders/vl-ui-design-system-vue3';
 import { computed, onMounted, ref, useAttrs, watch } from 'vue';
-import { vClickOutside } from '@directives/click-outside.directive';
-import type { IAutocompleteOption, IAutocompleteProps } from '@models/autocomplete';
+import { IAutocompleteOption, IAutocompleteProps, vClickOutside } from '@/forms';
 
 const attrs = useAttrs();
 const props = withDefaults(defineProps<IAutocompleteProps>(), {

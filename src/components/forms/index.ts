@@ -1,6 +1,7 @@
 // Dumb components
 export { default as OeDatepicker } from './dumb/OeDatepicker.vue';
 export { default as OePhone } from './dumb/OePhone.vue';
+export { default as OeAutocomplete } from './dumb/OeAutocomplete.vue';
 
 // Filter components
 export { default as OeFilter } from './dumb/OeFilter.vue';
@@ -9,9 +10,13 @@ export { default as OeFilterRadio } from './dumb/OeFilterRadio.vue';
 export { default as OeFilterSelect } from './dumb/OeFilterSelect.vue';
 export { default as OeFilterText } from './dumb/OeFilterText.vue';
 
+// Directives
+export { vClickOutside } from '@directives/click-outside.directive';
+
 // Models
 export * from './models/filter';
 export * from './models/phone';
+export * from './models/autocomplete';
 
 // Common enums and types used by this module
 export { Niscode } from '@models/niscode.enum';

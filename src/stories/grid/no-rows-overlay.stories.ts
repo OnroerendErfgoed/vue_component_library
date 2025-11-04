@@ -2,7 +2,7 @@ import OeGridNoRowsOverlay from '@components/grid/dumb/OeGridNoRowsOverlay.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof OeGridNoRowsOverlay> = {
-  title: 'Grid/No Rows Overlay',
+  title: 'Grid Module/No Rows Overlay',
   component: OeGridNoRowsOverlay,
   tags: ['autodocs'],
   argTypes: {

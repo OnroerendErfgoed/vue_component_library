@@ -34,8 +34,8 @@
 <script setup lang="ts">
 import { VlButton, VlInputField } from '@govflanders/vl-ui-design-system-vue3';
 import { computed } from 'vue';
-import OeAutocomplete from '@components/dumb/OeAutocomplete.vue';
-import type { IAutocompleteOption } from '@models/autocomplete';
+import OeAutocomplete from '@components/forms/dumb/OeAutocomplete.vue';
+import type { IAutocompleteOption } from '@components/forms/models/autocomplete';
 import type { IAdres } from '@models/locatie';
 
 defineOptions({

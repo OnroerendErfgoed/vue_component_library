@@ -1,7 +1,7 @@
 import { Serializable } from './serializable';
-import type { ISystemFields } from '../components/core/models/system-fields';
 import type { IDataverantwoordelijke } from './dataverantwoordelijke';
 import type { IStatus } from './status';
+import type { ISystemFields } from './system-fields';
 
 export interface IESAanduidingsobject {
   id: number;

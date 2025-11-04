@@ -1,4 +1,4 @@
-import type { ISystemFields } from '../components/core/models/system-fields';
+import type { ISystemFields } from './system-fields';
 
 export enum ActorType {
   PERSOON = 'foaf:Person',
