@@ -45,6 +45,7 @@ export default defineConfig({
         '@vuelidate/core',
         '@vuelidate/validators',
         'date-fns', // Add this
+        'libphonenumber-js', // Add this
 
         // Grid module dependencies
         'ag-grid-vue3',

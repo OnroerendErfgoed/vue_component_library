@@ -4,7 +4,6 @@ export * from './actor';
 export * from './adres';
 export * from './dataverantwoordelijke';
 export * from './grid';
-export * from './input-phone';
 export * from './layerType.enum';
 export * from './links';
 export * from './oe-openlayers';

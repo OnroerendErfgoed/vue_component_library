@@ -52,8 +52,8 @@
 import 'ol/ol.css';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { VlCheckbox, VlRadio, VlTitle } from '@govflanders/vl-ui-design-system-vue3';
+import { Guid } from 'guid-typescript';
 import { Group } from 'ol/layer';
-import { v4 as uuidv4 } from 'uuid';
 import { inject, onMounted, onUnmounted, ref, watch } from 'vue';
 import { vClickOutside } from '@directives/click-outside.directive';
 import type Map from 'ol/Map';
@@ -67,7 +67,7 @@ const layerswitcherPanelRef = ref<HTMLElement>();
 const achtergrondLayersRef = ref<BaseLayer[]>([]) as Ref<BaseLayer[]>;
 const overlayLayersRef = ref<BaseLayer[]>([]) as Ref<BaseLayer[]>;
 const panelVisible = ref(false);
-const layerSwitcherId = ref(uuidv4());
+const layerSwitcherId = ref(Guid.create().toString());
 
 const selectedAchtergrondLayerRef = ref<string>();
 const achtergrondTitleRef = ref('Achtergrond');

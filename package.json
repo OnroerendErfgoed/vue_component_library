@@ -18,7 +18,7 @@
       "import": "./dist/forms.js",
       "types": "./dist/forms.d.ts"
     },
-    "./editor" : {
+    "./editor": {
       "import": "./dist/editor.js",
       "types": "./dist/editor.d.ts"
     },
@@ -77,8 +77,6 @@
   },
   "dependencies": {
     "guid-typescript": "^1.0.9",
-    "uuid": "^9.0.0",
-    "libphonenumber-js": "^1.10.37",
     "pyoes": "https://gitpkg.now.sh/OnroerendErfgoed/pyoes/npm-packages/pyoes?0.25.0"
   },
   "peerDependencies": {
@@ -98,6 +96,7 @@
     "axios-mock-adapter": "^1.22.0",
     "date-fns": "^2.30.0",
     "jsts": "2.7.2",
+    "libphonenumber-js": "^1.10.37",
     "lodash-es": "^4.17.21",
     "ol": "^7.4.0",
     "pinia": "^2.1.7",
@@ -123,6 +122,9 @@
       "optional": true
     },
     "jsts": {
+      "optional": true
+    },
+    "libphonenumber-js": {
       "optional": true
     },
     "proj4": {
@@ -200,10 +202,13 @@
     "chromatic": "^6.17.3",
     "cypress": "15.4.0",
     "cypress-watch-and-reload": "^1.10.6",
+    "date-fns": "^2.30.0",
     "eslint": "^9.17.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-vue": "^9.32.0",
     "jsts": "2.7.2",
+    "libphonenumber-js": "^1.10.37",
+    "lodash-es": "^4.17.21",
     "npm-run-all": "^4.1.5",
     "ol": "^7.4.0",
     "path": "^0.12.7",
@@ -230,8 +235,7 @@
     "vue-eslint-parser": "^9.1.1",
     "vue-i18n": "9",
     "vue-quilly": "^1.0.5",
-    "vue-tsc": "^2.2.0",
-    "date-fns": "^2.30.0"
+    "vue-tsc": "^2.2.0"
   },
   "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }

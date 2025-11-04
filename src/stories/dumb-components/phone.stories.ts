@@ -1,12 +1,11 @@
-import '@/scss/main.scss';
 import { ref } from 'vue';
-import InputPhone from '@components/dumb/InputPhone.vue';
+import OePhone from '@components/forms/dumb/OePhone.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
-const meta: Meta<typeof InputPhone> = {
-  title: 'Dumb components/InputPhone',
-  component: InputPhone,
+const meta: Meta<typeof OePhone> = {
+  title: 'Forms/Phone',
+  component: OePhone,
   parameters: {
     docs: {
       story: {
@@ -36,9 +35,18 @@ const meta: Meta<typeof InputPhone> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof InputPhone>;
+type Story = StoryObj<typeof OePhone>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  render: () => ({
+    components: {
+      OePhone,
+    },
+    template: `
+      <OePhone id="id1" model-value="" />
+    `,
+  }),
+};
 
 export const TwoWayBinding: Story = {
   parameters: {
@@ -53,7 +61,7 @@ export const TwoWayBinding: Story = {
   },
   render: () => ({
     components: {
-      InputPhone,
+      OePhone,
     },
     setup() {
       const phoneNumberBE = ref('+32497518852');
@@ -61,9 +69,9 @@ export const TwoWayBinding: Story = {
       return { phoneNumberBE, phoneNumberFR };
     },
     template: `
-      <input-phone id="id1" v-model="phoneNumberBE" />
+      <OePhone id="id1" v-model="phoneNumberBE" />
       <p class="vl-u-spacer-top vl-u-spacer-bottom--large">Model value phone number BE = {{ phoneNumberBE }}</p>
-      <input-phone id="id2" v-model="phoneNumberFR" />
+      <OePhone id="id2" v-model="phoneNumberFR" />
       <p class="vl-u-spacer-top">Model value phone number FR = {{ phoneNumberFR }}</p>
     `,
   }),

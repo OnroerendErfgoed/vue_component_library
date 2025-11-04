@@ -1,28 +1,26 @@
 <template>
   <div class="input-phone vl-grid" data-cy="input-phone-wrapper">
     <div :class="prefixClass" data-cy="prefix">
-      <vl-multiselect
+      <VlMultiselect
         v-bind="$attrs"
         v-model="countryCode"
-        data-cy="country-code"
         class="vl-u-spacer-right--xxsmall"
-        :allow-empty="false"
-        :searchable="false"
-        :mod-multiple="false"
+        data-cy="country-code"
         :options="countryCodeList"
-        :custom-label="(cc: ICountryCode) => cc.value"
+        mode="single"
+        object
+        :can-deselect="false"
         @select="emit('update:modelValue', '')"
       >
-        <template #singleLabel="properties">
-          <span class="flag" :class="properties.option.code.toLowerCase()">{{ properties.option.value }}</span>
+        <template #singlelabel="properties">
+          <span class="flag" :class="properties.value?.code.toLowerCase()">{{ properties.value?.value }}</span>
         </template>
-
         <template #option="properties">
-          <span class="flag" :class="properties.option.code.toLowerCase()">{{ properties.option.description }}</span>
+          <span class="flag" :class="properties.option?.code.toLowerCase()">{{ properties.option?.description }}</span>
         </template>
-      </vl-multiselect>
+      </VlMultiselect>
     </div>
-    <vl-input-field
+    <VlInputField
       v-bind="$attrs"
       :id="props.id"
       v-model="phoneNumberValue"
@@ -32,16 +30,15 @@
       :class="inputFieldClass"
       type="tel"
       @blur="inputTouched = true"
-    ></vl-input-field>
-    <vl-form-message-error
-      v-if="phoneNumberValue && inputTouched && !phoneNumberParsed?.isValid()"
-      data-cy="input-error"
+    ></VlInputField>
+    <VlFormMessageError v-if="phoneNumberValue && inputTouched && !phoneNumberParsed?.isValid()" data-cy="input-error"
       >Ongeldige waarde, gebruik formaat vb. {{ phoneNumberExample }}
-    </vl-form-message-error>
+    </VlFormMessageError>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ICountryCode, IInputPhoneProps } from '../models/phone';
 import { VlFormMessageError, VlInputField, VlMultiselect } from '@govflanders/vl-ui-design-system-vue3';
 import parsePhoneNumber, {
   type CountryCode,
@@ -52,7 +49,6 @@ import parsePhoneNumber, {
 } from 'libphonenumber-js';
 import examples from 'libphonenumber-js/mobile/examples';
 import { computed, ref, watch } from 'vue';
-import type { ICountryCode, IInputPhoneProps } from '@models/input-phone';
 
 const DEFAULT_COUNTRY_CODE = 'BE';
 const inputTouched = ref(false);
@@ -127,12 +123,23 @@ defineExpose({ isValid });
 
 <style lang="scss" scoped>
 .input-phone {
-  :deep(.multiselect__content-wrapper) {
+  :deep(.multiselect-wrapper) {
     width: auto;
+    height: 3.5rem;
+    min-height: unset;
+  }
+
+  :deep(.multiselect) {
+    height: 3.5rem;
+    min-height: unset;
   }
 
   :deep(.vl-multiselect .multiselect--active:not(.multiselect--above) .multiselect__tags) {
     padding: 0px 45px 0 6px;
+  }
+
+  :deep(.multiselect-dropdown) {
+    width: 250px;
   }
 
   span.flag {
