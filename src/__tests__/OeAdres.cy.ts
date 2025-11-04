@@ -4,6 +4,16 @@ import OeAdres from '@components/address/OeAdres.vue';
 import type { IAdresConfig } from '@components/address/models/adres';
 
 describe('Adres', () => {
+  beforeEach(() => {
+    cy.on('uncaught:exception', (err) => {
+      // Ignore errors from chunk files (bundled external libraries)
+      if (err.message.includes('chunk-') || err.stack?.includes('chunk-')) {
+        return false;
+      }
+      return true;
+    });
+  });
+
   const TestComponent = defineComponent({
     components: { OeAdres },
     setup() {
@@ -81,7 +91,7 @@ describe('Adres', () => {
         getAutocompleteInput('busnummer').should('have.class', 'vl-input-field--disabled');
       });
 
-      it.only('disables fields as long as the parent is not filled in', () => {
+      it('disables fields as long as the parent is not filled in', () => {
         // Country selection
         getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
         cy.wait('@dataGetGemeentenVlaamsGewest');
@@ -217,7 +227,7 @@ describe('Adres', () => {
         getMultiSelect('gemeente').find('.multiselect-search').type('br');
 
         getMultiSelect('gemeente')
-          .get('.multiselect__option span')
+          .get('.multiselect-option')
           .then(($options) => {
             const optionsText = Array.from($options)
               .filter((option) => option.offsetParent !== null)
@@ -264,7 +274,7 @@ describe('Adres', () => {
         getMultiSelect('straat').find('.multiselect-search').type('Do');
 
         getMultiSelect('straat')
-          .get('.multiselect__option span')
+          .get('.multiselect-option')
           .then(($options) => {
             const optionsText = Array.from($options)
               .filter((option) => option.offsetParent !== null)
@@ -431,10 +441,12 @@ describe('Adres', () => {
             },
             postcode: {
               nummer: '3060',
+              uri: 'https://data.vlaanderen.be/id/postinfo/3060',
             },
             straat: {
               naam: 'Dorpstraat',
               id: '32110',
+              uri: 'https://data.vlaanderen.be/id/straatnaam/32110',
             },
             adres: {
               huisnummer: '416',
@@ -668,7 +680,7 @@ describe('Adres', () => {
 
         getMultiSelect('gemeente').click();
         getMultiSelect('gemeente').find('.multiselect-search').type('Bierbeek');
-        getMultiSelect('gemeente').find('.multiselect__element').click();
+        getMultiSelect('gemeente').find('.multiselect-option').click();
 
         cy.wait('@dataGetStratenBierbeek');
 
@@ -1297,17 +1309,17 @@ describe('Adres', () => {
       cy.wait('@dataGetGemeentenVlaamsGewest');
 
       getMultiSelect('gemeente').click();
-      getMultiSelect('gemeente').find('.multiselect__element').should('have.length', 3);
+      getMultiSelect('gemeente').find('.multiselect-option').should('have.length', 3);
 
       getMultiSelect('gemeente').find('.multiselect-search').type('Aalst');
-      getMultiSelect('gemeente').find('.multiselect__element').click();
+      getMultiSelect('gemeente').find('.multiselect-option').click();
       getMultiSelect('postcode').click();
-      getMultiSelect('postcode').find('.multiselect__element').should('have.length', 3);
+      getMultiSelect('postcode').find('.multiselect-option').should('have.length', 3);
 
       getMultiSelect('postcode').find('.multiselect-search').type('9300');
-      getMultiSelect('postcode').find('.multiselect__element').click();
+      getMultiSelect('postcode').find('.multiselect-option').click();
       getMultiSelect('straat').click();
-      getMultiSelect('straat').find('.multiselect__element').should('have.length', 3);
+      getMultiSelect('straat').find('.multiselect-option').should('have.length', 3);
     });
   });
 
@@ -1372,23 +1384,23 @@ describe('Adres', () => {
         getLabel('provincie').should('have.text', 'Provincie');
       });
 
-      it('shows a list of gewesten and provincies', () => {
+      it.only('shows a list of gewesten and provincies', () => {
         getMultiSelect('gewest').click();
-        getMultiSelect('gewest').find('.multiselect__element').should('have.length', 3);
-        getMultiSelect('gewest').find('.multiselect__select').click();
+        getMultiSelect('gewest').find('.multiselect-option').should('have.length', 3);
+        getMultiSelect('gewest').find('.multiselect-option').click();
 
         cy.wait('@dataGetProvinciesVlaamsGewest');
 
         getMultiSelect('provincie').click();
-        getMultiSelect('provincie').find('.multiselect__element').should('have.length', 10);
+        getMultiSelect('provincie').find('.multiselect-option').should('have.length', 10);
       });
 
       it('narrows list of provincies and gemeenten on gewest selection', () => {
         setMultiSelectValue('gewest', 'Vlaams Gewest');
         cy.wait('@dataGetProvinciesVlaamsGewest');
         getMultiSelect('provincie').click();
-        getMultiSelect('provincie').find('.multiselect__element').should('have.length', 5);
-        getMultiSelect('provincie').find('.multiselect__select').click();
+        getMultiSelect('provincie').find('.multiselect-option').should('have.length', 5);
+        getMultiSelect('provincie').find('.multiselect-option').click();
       });
 
       it('disables provincie when selecting "Brussels Hoofdstedelijk Gewest"', () => {
@@ -1452,7 +1464,7 @@ describe('Adres', () => {
         setMultiSelectValue('provincie', 'Vlaams-Brabant');
 
         getMultiSelect('gemeente').click();
-        getMultiSelect('gemeente').find('.multiselect__element').first().should('have.text', 'Aarschot');
+        getMultiSelect('gemeente').find('.multiselect-option').first().should('have.text', 'Aarschot');
       });
     });
   });
@@ -1508,7 +1520,7 @@ describe('Adres', () => {
         getMultiSelect('gemeente').click();
         getMultiSelect('gemeente').find('.multiselect-search').type('Lummen');
         getMultiSelect('gemeente')
-          .find('.multiselect__element')
+          .find('.multiselect-option')
           .click()
           .then(() => {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any

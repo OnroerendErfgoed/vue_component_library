@@ -28,7 +28,7 @@ describe('FilterGemeente', () => {
       cy.mount(TestComponent, { props: { 'onUpdate:value': onUpdateValueSpy } }).then(({ component }) => {
         cy.dataCy('filter-gemeente').click().find('.multiselect__input').type('Bertem');
         cy.dataCy('filter-gemeente')
-          .find('.multiselect__element')
+          .find('.multiselect-option')
           .click()
           .then(() => {
             expect(component.gemeenteValue).to.deep.equal({
@@ -72,7 +72,7 @@ describe('FilterGemeente', () => {
       cy.mount(TestComponent, { props: { 'onUpdate:value': onUpdateValueSpy } }).then(({ component }) => {
         cy.dataCy('filter-gemeente').click().find('.multiselect__input').type('Bertem');
         cy.dataCy('filter-gemeente')
-          .find('.multiselect__element')
+          .find('.multiselect-option')
           .click()
           .then(() => {
             expect(component.gemeenteValue).to.deep.equal({
