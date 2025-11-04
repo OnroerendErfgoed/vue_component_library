@@ -4,17 +4,21 @@
     v-model="modelValueComputed"
     data-cy="select-provincie"
     placeholder="Provincie"
+    mode="single"
     :options="options"
-    :mod-multiple="false"
     :disabled="disabled"
     :mod-error="modError"
-    :options-limit="optionsLimit"
-    :preserve-search="true"
-    :custom-label="customLabel"
+    :limit="optionsLimit"
+    :can-deselect="false"
+    :can-clear="false"
+    searchable
+    object
+    label="naam"
+    value-prop="niscode"
     @keydown.tab="!modelValueComputed ? $event.preventDefault() : null"
   >
-    <template #noResult><span>Geen resultaten gevonden...</span></template>
-    <template #noOptions><span>Geen opties beschikbaar</span></template>
+    <template #noresults><span>Geen resultaten gevonden...</span></template>
+    <template #nooptions><span>Geen opties beschikbaar</span></template>
   </VlMultiselect>
 </template>
 
@@ -44,6 +48,4 @@ const modelValueComputed = computed({
   get: () => props.modelValue,
   set: (v) => emit('update:modelValue', v),
 });
-
-const customLabel = (option: IProvincie) => option.naam;
 </script>

@@ -1,4 +1,3 @@
-import '@/scss/main.scss';
 import { VlButton } from '@govflanders/vl-ui-design-system-vue3';
 import OeAdres from '@components/address/OeAdres.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';

@@ -6,17 +6,20 @@
       v-model="modelValueComputed"
       data-cy="select-postcode"
       placeholder="Postcode"
+      mode="single"
+      searchable
+      object
+      label="postcode"
+      value-prop="uri"
       :options="options"
       :disabled="disabled"
       :mod-error="modError"
       :mod-multiple="false"
-      :options-limit="optionsLimit"
-      :preserve-search="true"
-      :custom-label="customLabel"
+      :limit="optionsLimit"
       @keydown.tab="!modelValueComputed ? $event.preventDefault() : null"
     >
-      <template #noResult><span>Geen resultaten gevonden...</span></template>
-      <template #noOptions><span>Geen opties beschikbaar</span></template>
+      <template #noresults><span>Geen resultaten gevonden...</span></template>
+      <template #nooptions><span>Geen opties beschikbaar</span></template>
     </VlMultiselect>
     <VlInputField
       v-else
@@ -71,6 +74,4 @@ const modelValueComputed = computed({
   get: () => props.modelValue,
   set: (v) => emit('update:modelValue', v),
 });
-
-const customLabel = (option: IPostinfo) => option.postcode;
 </script>

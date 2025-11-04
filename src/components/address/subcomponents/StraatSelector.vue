@@ -6,18 +6,21 @@
       v-model="modelValueComputed"
       data-cy="select-straat"
       placeholder="Straat"
+      mode="single"
+      searchable
+      object
+      label="naam"
+      value-prop="uri"
+      :can-deselect="false"
+      :can-clear="false"
       :options="options"
       :disabled="disabled"
       :mod-error="modError"
-      :mod-multiple="false"
-      :options-limit="optionsLimit"
-      :preserve-search="true"
-      :custom-label="customLabel"
-      :filtering-sort-func="filteringSortFunc"
+      :limit="optionsLimit"
       @keydown.tab="!modelValue ? $event.preventDefault() : null"
     >
-      <template #noResult><span>Geen resultaten gevonden...</span></template>
-      <template #noOptions><span>Geen opties beschikbaar</span></template>
+      <template #noresults><span>Geen resultaten gevonden...</span></template>
+      <template #nooptions><span>Geen opties beschikbaar</span></template>
     </VlMultiselect>
     <VlInputField
       v-else
@@ -72,7 +75,4 @@ const modelValueComputed = computed({
   get: () => props.modelValue,
   set: (v) => emit('update:modelValue', v),
 });
-
-const customLabel = (option: IStraat) => option.naam;
-const filteringSortFunc = (a: IStraat, b: IStraat) => a.naam.localeCompare(b.naam);
 </script>

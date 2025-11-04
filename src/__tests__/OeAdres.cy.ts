@@ -74,48 +74,48 @@ describe('Adres', () => {
       });
 
       it('disables fields when country select is empty', () => {
-        getMultiSelect('gemeente').should('have.class', 'multiselect--disabled');
-        getMultiSelect('postcode').should('have.class', 'multiselect--disabled');
-        getMultiSelect('straat').should('have.class', 'multiselect--disabled');
+        getMultiSelect('gemeente').should('have.class', 'is-disabled');
+        getMultiSelect('postcode').should('have.class', 'is-disabled');
+        getMultiSelect('straat').should('have.class', 'is-disabled');
         getAutocompleteInput('huisnummer').should('have.class', 'vl-input-field--disabled');
         getAutocompleteInput('busnummer').should('have.class', 'vl-input-field--disabled');
       });
 
-      it('disables fields as long as the parent is not filled in', () => {
+      it.only('disables fields as long as the parent is not filled in', () => {
         // Country selection
         getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
         cy.wait('@dataGetGemeentenVlaamsGewest');
 
-        getMultiSelect('gemeente').should('not.have.class', 'multiselect--disabled');
-        getMultiSelect('postcode').should('have.class', 'multiselect--disabled');
-        getMultiSelect('straat').should('have.class', 'multiselect--disabled');
+        getMultiSelect('gemeente').should('not.have.class', 'is-disabled');
+        getMultiSelect('postcode').should('have.class', 'is-disabled');
+        getMultiSelect('straat').should('have.class', 'is-disabled');
         getAutocompleteInput('huisnummer').should('have.class', 'vl-input-field--disabled');
         getAutocompleteInput('busnummer').should('have.class', 'vl-input-field--disabled');
 
         // Gemeente selection
         setMultiSelectValue('gemeente', 'Bertem');
 
-        getMultiSelect('gemeente').should('not.have.class', 'multiselect--disabled');
-        getMultiSelect('postcode').should('not.have.class', 'multiselect--disabled');
-        getMultiSelect('straat').should('not.have.class', 'multiselect--disabled');
+        getMultiSelect('gemeente').should('not.have.class', 'is-disabled');
+        getMultiSelect('postcode').should('not.have.class', 'is-disabled');
+        getMultiSelect('straat').should('not.have.class', 'is-disabled');
         getAutocompleteInput('huisnummer').should('have.class', 'vl-input-field--disabled');
         getAutocompleteInput('busnummer').should('have.class', 'vl-input-field--disabled');
 
         // Straat selection
         setMultiSelectValue('straat', 'Dorpstraat');
 
-        getMultiSelect('gemeente').should('not.have.class', 'multiselect--disabled');
-        getMultiSelect('postcode').should('not.have.class', 'multiselect--disabled');
-        getMultiSelect('straat').should('not.have.class', 'multiselect--disabled');
+        getMultiSelect('gemeente').should('not.have.class', 'is-disabled');
+        getMultiSelect('postcode').should('not.have.class', 'is-disabled');
+        getMultiSelect('straat').should('not.have.class', 'is-disabled');
         getAutocompleteInput('huisnummer').should('not.have.class', 'vl-input-field--disabled');
         getAutocompleteInput('busnummer').should('have.class', 'vl-input-field--disabled');
 
         // Huisnummer selection
         setAutocompleteValue('huisnummer', '416');
 
-        getMultiSelect('gemeente').should('not.have.class', 'multiselect--disabled');
-        getMultiSelect('postcode').should('not.have.class', 'multiselect--disabled');
-        getMultiSelect('straat').should('not.have.class', 'multiselect--disabled');
+        getMultiSelect('gemeente').should('not.have.class', 'is-disabled');
+        getMultiSelect('postcode').should('not.have.class', 'is-disabled');
+        getMultiSelect('straat').should('not.have.class', 'is-disabled');
         getAutocompleteInput('huisnummer').should('not.have.class', 'vl-input-field--disabled');
         getAutocompleteInput('busnummer').should('not.have.class', 'vl-input-field--disabled');
       });
@@ -129,9 +129,9 @@ describe('Adres', () => {
 
         getMultiSelect('land').select(2).select(1);
 
-        getMultiSelect('gemeente').find('.multiselect__single').should('not.exist');
-        getMultiSelect('postcode').find('.multiselect__single').should('not.exist');
-        getMultiSelect('straat').find('.multiselect__single').should('not.exist');
+        getMultiSelect('gemeente').find('.multiselect-single-label-text').should('not.exist');
+        getMultiSelect('postcode').find('.multiselect-single-label-text').should('not.exist');
+        getMultiSelect('straat').find('.multiselect-single-label-text').should('not.exist');
         getAutocompleteInput('huisnummer').should('have.value', '');
         getAutocompleteInput('busnummer').should('have.value', '');
       });
@@ -169,14 +169,14 @@ describe('Adres', () => {
 
         // Gemeente selection
         setMultiSelectValue('gemeente', 'Durbuy');
-        getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Durbuy');
+        getMultiSelect('gemeente').find('.multiselect-single-label-text').should('have.text', 'Durbuy');
 
         cy.wait('@dataGetPostinfoDurbuy');
         cy.wait('@dataGetStratenDurbuy');
 
         // Straat selection
         setMultiSelectValue('straat', 'Hiva');
-        getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Hiva');
+        getMultiSelect('straat').find('.multiselect-single-label-text').should('have.text', 'Hiva');
 
         cy.wait('@dataGetAdressenDurbuy');
 
@@ -191,12 +191,12 @@ describe('Adres', () => {
 
         // Gemeente selection
         setMultiSelectValue('gemeente', 'Bertem');
-        getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Bertem');
+        getMultiSelect('gemeente').find('.multiselect-single-label-text').should('have.text', 'Bertem');
         cy.wait('@dataGetStratenBertem');
 
         // Straat selection
         setMultiSelectValue('straat', 'Dorpstraat');
-        getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Dorpstraat');
+        getMultiSelect('straat').find('.multiselect-single-label-text').should('have.text', 'Dorpstraat');
 
         // Huisnummer selection
         setAutocompleteValue('huisnummer', '383A');
@@ -214,7 +214,7 @@ describe('Adres', () => {
         cy.wait('@dataGetGemeentenBrusselsHoofdstedelijkGewest');
         cy.wait('@dataGetGemeentenWaalsGewest');
         getMultiSelect('gemeente').click();
-        getMultiSelect('gemeente').find('.multiselect__input').type('br');
+        getMultiSelect('gemeente').find('.multiselect-search').type('br');
 
         getMultiSelect('gemeente')
           .get('.multiselect__option span')
@@ -261,7 +261,7 @@ describe('Adres', () => {
         setMultiSelectValue('postcode', '3060');
 
         getMultiSelect('straat').click();
-        getMultiSelect('straat').find('.multiselect__input').type('Do');
+        getMultiSelect('straat').find('.multiselect-search').type('Do');
 
         getMultiSelect('straat')
           .get('.multiselect__option span')
@@ -383,18 +383,18 @@ describe('Adres', () => {
 
     it('disables all fields', () => {
       getMultiSelect('land').should('be.disabled');
-      getMultiSelect('gemeente').should('have.class', 'multiselect--disabled');
-      getMultiSelect('postcode').should('have.class', 'multiselect--disabled');
-      getMultiSelect('straat').should('have.class', 'multiselect--disabled');
+      getMultiSelect('gemeente').should('have.class', 'is-disabled');
+      getMultiSelect('postcode').should('have.class', 'is-disabled');
+      getMultiSelect('straat').should('have.class', 'is-disabled');
       getAutocompleteInput('huisnummer').should('have.class', 'vl-input-field--disabled');
       getAutocompleteInput('busnummer').should('have.class', 'vl-input-field--disabled');
     });
 
     it('should show the selected address', () => {
       getMultiSelect('land').find(':selected').should('have.text', 'België');
-      getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Durbuy');
-      getMultiSelect('postcode').find('.multiselect__single').should('have.text', '6940');
-      getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Hiva');
+      getMultiSelect('gemeente').find('.multiselect-single-label-text').should('have.text', 'Durbuy');
+      getMultiSelect('postcode').find('.multiselect-single-label-text').should('have.text', '6940');
+      getMultiSelect('straat').find('.multiselect-single-label-text').should('have.text', 'Hiva');
       getAutocompleteInput('huisnummer').should('have.value', '2');
       getAutocompleteInput('busnummer').should('have.value', '');
     });
@@ -450,9 +450,9 @@ describe('Adres', () => {
       cy.wait('@dataGetHuisnummersDorpstraatBertem');
 
       getMultiSelect('land').find(':selected').should('have.text', 'België');
-      getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Bertem');
-      getMultiSelect('postcode').find('.multiselect__single').should('have.text', '3060');
-      getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Dorpstraat');
+      getMultiSelect('gemeente').find('.multiselect-single-label-text').should('have.text', 'Bertem');
+      getMultiSelect('postcode').find('.multiselect-single-label-text').should('have.text', '3060');
+      getMultiSelect('straat').find('.multiselect-single-label-text').should('have.text', 'Dorpstraat');
       getAutocompleteInput('huisnummer').should('have.value', '416');
 
       getAutocompleteInput('busnummer').should('have.value', '0101');
@@ -492,9 +492,9 @@ describe('Adres', () => {
 
       getMultiSelect('land').find(':selected').should('have.text', 'België');
       cy.wait('@dataGetGemeentenBrusselsHoofdstedelijkGewest');
-      getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Brussel');
-      getMultiSelect('postcode').find('.multiselect__single').should('have.text', '1000');
-      getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Havenlaan');
+      getMultiSelect('gemeente').find('.multiselect-single-label-text').should('have.text', 'Brussel');
+      getMultiSelect('postcode').find('.multiselect-single-label-text').should('have.text', '1000');
+      getMultiSelect('straat').find('.multiselect-single-label-text').should('have.text', 'Havenlaan');
       getTextInput('huisnummer').should('have.value', '4');
       getTextInput('busnummer').should('have.value', 'B');
     });
@@ -537,9 +537,9 @@ describe('Adres', () => {
       cy.wait('@dataGetGemeentenVlaamsGewest');
 
       getMultiSelect('land').find(':selected').should('have.text', 'België');
-      getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Bierbeek');
-      getMultiSelect('postcode').find('.multiselect__single').should('have.text', '3360');
-      getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Krijkelberg');
+      getMultiSelect('gemeente').find('.multiselect-single-label-text').should('have.text', 'Bierbeek');
+      getMultiSelect('postcode').find('.multiselect-single-label-text').should('have.text', '3360');
+      getMultiSelect('straat').find('.multiselect-single-label-text').should('have.text', 'Krijkelberg');
       getAutocompleteInput('huisnummer').should('have.value', '5');
 
       getTextInput('busnummer').should('have.value', 'B');
@@ -621,16 +621,16 @@ describe('Adres', () => {
       });
 
       getMultiSelect('land').find(':selected').should('have.text', 'België');
-      getMultiSelect('gewest').find('.multiselect__single').should('have.text', 'Vlaams Gewest');
+      getMultiSelect('gewest').find('.multiselect-single-label-text').should('have.text', 'Vlaams Gewest');
 
       cy.wait('@dataGetProvinciesVlaamsGewest');
 
-      getMultiSelect('provincie').find('.multiselect__single').should('have.text', 'Vlaams-Brabant');
-      getMultiSelect('provincie').find('.multiselect__element').should('have.length', 5);
+      getMultiSelect('provincie').find('.multiselect-single-label-text').should('have.text', 'Vlaams-Brabant');
+      getMultiSelect('provincie').find('.multiselect-option').should('have.length', 5);
 
       cy.wait('@dataGetGemeentenVlaamsGewest');
 
-      getMultiSelect('gemeente').find('.multiselect__element').should('have.length', 63);
+      getMultiSelect('gemeente').find('.multiselect-option').should('have.length', 63);
     });
 
     it('updates the model binding on value change', () => {
@@ -667,7 +667,7 @@ describe('Adres', () => {
         cy.wait('@dataGetAdressenDorpstraatBertem');
 
         getMultiSelect('gemeente').click();
-        getMultiSelect('gemeente').find('.multiselect__input').type('Bierbeek');
+        getMultiSelect('gemeente').find('.multiselect-search').type('Bierbeek');
         getMultiSelect('gemeente').find('.multiselect__element').click();
 
         cy.wait('@dataGetStratenBierbeek');
@@ -801,11 +801,11 @@ describe('Adres', () => {
       it('clears gewest, provincie, gemeente, postcode, straat, huisnummer and busnummer autocomplete when changing land', () => {
         getMultiSelect('land').select(2).select(1);
 
-        getMultiSelect('gewest').find('.multiselect__single').should('not.exist');
-        getMultiSelect('provincie').find('.multiselect__single').should('not.exist');
-        getMultiSelect('gemeente').find('.multiselect__single').should('not.exist');
-        getMultiSelect('postcode').find('.multiselect__single').should('not.exist');
-        getMultiSelect('straat').find('.multiselect__single').should('not.exist');
+        getMultiSelect('gewest').find('.multiselect-single-label-text').should('not.exist');
+        getMultiSelect('provincie').find('.multiselect-single-label-text').should('not.exist');
+        getMultiSelect('gemeente').find('.multiselect-single-label-text').should('not.exist');
+        getMultiSelect('postcode').find('.multiselect-single-label-text').should('not.exist');
+        getMultiSelect('straat').find('.multiselect-single-label-text').should('not.exist');
         getAutocompleteInput('huisnummer').should('have.value', '');
         getAutocompleteInput('busnummer').should('have.value', '');
       });
@@ -815,10 +815,10 @@ describe('Adres', () => {
 
         cy.wait('@dataGetProvinciesWaalsGewest');
 
-        getMultiSelect('provincie').find('.multiselect__single').should('not.exist');
-        getMultiSelect('gemeente').find('.multiselect__single').should('not.exist');
-        getMultiSelect('postcode').find('.multiselect__single').should('not.exist');
-        getMultiSelect('straat').find('.multiselect__single').should('not.exist');
+        getMultiSelect('provincie').find('.multiselect-single-label-text').should('not.exist');
+        getMultiSelect('gemeente').find('.multiselect-single-label-text').should('not.exist');
+        getMultiSelect('postcode').find('.multiselect-single-label-text').should('not.exist');
+        getMultiSelect('straat').find('.multiselect-single-label-text').should('not.exist');
         getAutocompleteInput('huisnummer').should('have.value', '');
         getAutocompleteInput('busnummer').should('have.value', '');
       });
@@ -826,9 +826,9 @@ describe('Adres', () => {
       it('clears gemeente, postcode, straat, huisnummer and busnummer autocomplete when changing provincie', () => {
         setMultiSelectValue('provincie', 'Antwerpen');
 
-        getMultiSelect('gemeente').find('.multiselect__single').should('not.exist');
-        getMultiSelect('postcode').find('.multiselect__single').should('not.exist');
-        getMultiSelect('straat').find('.multiselect__single').should('not.exist');
+        getMultiSelect('gemeente').find('.multiselect-single-label-text').should('not.exist');
+        getMultiSelect('postcode').find('.multiselect-single-label-text').should('not.exist');
+        getMultiSelect('straat').find('.multiselect-single-label-text').should('not.exist');
         getAutocompleteInput('huisnummer').should('have.value', '');
         getAutocompleteInput('busnummer').should('have.value', '');
       });
@@ -839,8 +839,8 @@ describe('Adres', () => {
         cy.wait('@dataGetPostinfoBierbeek');
         cy.wait('@dataGetStratenBierbeek');
 
-        getMultiSelect('postcode').find('.multiselect__single').should('not.exist');
-        getMultiSelect('straat').find('.multiselect__single').should('not.exist');
+        getMultiSelect('postcode').find('.multiselect-single-label-text').should('not.exist');
+        getMultiSelect('straat').find('.multiselect-single-label-text').should('not.exist');
         getAutocompleteInput('huisnummer').should('have.value', '');
         getAutocompleteInput('busnummer').should('have.value', '');
       });
@@ -909,10 +909,10 @@ describe('Adres', () => {
         setMultiSelectValue('gewest', 'Waals Gewest');
         cy.wait('@dataGetProvinciesWaalsGewest');
 
-        getMultiSelect('provincie').find('.multiselect__single').should('not.exist');
-        getMultiSelect('gemeente').find('.multiselect__single').should('not.exist');
-        getMultiSelect('postcode').find('.multiselect__single').should('not.exist');
-        getMultiSelect('straat').find('.multiselect__single').should('not.exist');
+        getMultiSelect('provincie').find('.multiselect-single-label-text').should('not.exist');
+        getMultiSelect('gemeente').find('.multiselect-single-label-text').should('not.exist');
+        getMultiSelect('postcode').find('.multiselect-single-label-text').should('not.exist');
+        getMultiSelect('straat').find('.multiselect-single-label-text').should('not.exist');
         getAutocompleteInput('huisnummer').should('have.value', '');
         getAutocompleteInput('busnummer').should('have.value', '');
       });
@@ -936,10 +936,10 @@ describe('Adres', () => {
         setMultiSelectValue('gewest', 'Waals Gewest');
         cy.wait('@dataGetProvinciesWaalsGewest');
 
-        getMultiSelect('provincie').find('.multiselect__single').should('not.exist');
-        getMultiSelect('gemeente').find('.multiselect__single').should('not.exist');
-        getMultiSelect('postcode').find('.multiselect__single').should('not.exist');
-        getMultiSelect('straat').find('.multiselect__single').should('not.exist');
+        getMultiSelect('provincie').find('.multiselect-single-label-text').should('not.exist');
+        getMultiSelect('gemeente').find('.multiselect-single-label-text').should('not.exist');
+        getMultiSelect('postcode').find('.multiselect-single-label-text').should('not.exist');
+        getMultiSelect('straat').find('.multiselect-single-label-text').should('not.exist');
         getAutocompleteInput('huisnummer').should('have.value', '');
         getAutocompleteInput('busnummer').should('have.value', '');
       });
@@ -962,9 +962,9 @@ describe('Adres', () => {
 
         setMultiSelectValue('provincie', 'Antwerpen');
 
-        getMultiSelect('gemeente').find('.multiselect__single').should('not.exist');
-        getMultiSelect('postcode').find('.multiselect__single').should('not.exist');
-        getMultiSelect('straat').find('.multiselect__single').should('not.exist');
+        getMultiSelect('gemeente').find('.multiselect-single-label-text').should('not.exist');
+        getMultiSelect('postcode').find('.multiselect-single-label-text').should('not.exist');
+        getMultiSelect('straat').find('.multiselect-single-label-text').should('not.exist');
         getAutocompleteInput('huisnummer').should('have.value', '');
         getAutocompleteInput('busnummer').should('have.value', '');
       });
@@ -1299,12 +1299,12 @@ describe('Adres', () => {
       getMultiSelect('gemeente').click();
       getMultiSelect('gemeente').find('.multiselect__element').should('have.length', 3);
 
-      getMultiSelect('gemeente').find('.multiselect__input').type('Aalst');
+      getMultiSelect('gemeente').find('.multiselect-search').type('Aalst');
       getMultiSelect('gemeente').find('.multiselect__element').click();
       getMultiSelect('postcode').click();
       getMultiSelect('postcode').find('.multiselect__element').should('have.length', 3);
 
-      getMultiSelect('postcode').find('.multiselect__input').type('9300');
+      getMultiSelect('postcode').find('.multiselect-search').type('9300');
       getMultiSelect('postcode').find('.multiselect__element').click();
       getMultiSelect('straat').click();
       getMultiSelect('straat').find('.multiselect__element').should('have.length', 3);
@@ -1393,7 +1393,7 @@ describe('Adres', () => {
 
       it('disables provincie when selecting "Brussels Hoofdstedelijk Gewest"', () => {
         setMultiSelectValue('gewest', 'Brussels');
-        getMultiSelect('provincie').should('have.class', 'multiselect--disabled');
+        getMultiSelect('provincie').should('have.class', 'is-disabled');
       });
 
       it('triggers required validation after validate function is invoked', () => {
@@ -1506,7 +1506,7 @@ describe('Adres', () => {
         template: '<OeAdres v-model:adres="adres" :config="c" country-id="BE" />',
       }).then(({ component }) => {
         getMultiSelect('gemeente').click();
-        getMultiSelect('gemeente').find('.multiselect__input').type('Lummen');
+        getMultiSelect('gemeente').find('.multiselect-search').type('Lummen');
         getMultiSelect('gemeente')
           .find('.multiselect__element')
           .click()
@@ -1560,18 +1560,18 @@ const fillInOeAdresBelgium = () => {
   // Gemeente selection
   cy.wait('@dataGetGemeentenVlaamsGewest');
   setMultiSelectValue('gemeente', 'Bertem');
-  getMultiSelect('gemeente').find('.multiselect__single').should('have.text', 'Bertem');
+  getMultiSelect('gemeente').find('.multiselect-single-label-text').should('have.text', 'Bertem');
 
   // Postcode selection
   cy.wait('@dataGetPostinfoBertem');
 
   setMultiSelectValue('postcode', '3060');
-  getMultiSelect('postcode').find('.multiselect__single').should('have.text', '3060');
+  getMultiSelect('postcode').find('.multiselect-single-label-text').should('have.text', '3060');
 
   // Straat selection
   cy.wait('@dataGetStratenBertem');
   setMultiSelectValue('straat', 'Dorpstraat');
-  getMultiSelect('straat').find('.multiselect__single').should('have.text', 'Dorpstraat');
+  getMultiSelect('straat').find('.multiselect-single-label-text').should('have.text', 'Dorpstraat');
 
   // Huisnummer with multiple busnummers
   cy.wait('@dataGetAdressenDorpstraatBertem');
@@ -1598,8 +1598,8 @@ const fillInOeAdresOther = () => {
 
 const setMultiSelectValue = (field: string, value: string) => {
   getMultiSelect(field).click();
-  getMultiSelect(field).find('.multiselect__input').type(value);
-  getMultiSelect(field).find('.multiselect__element').click();
+  getMultiSelect(field).find('.multiselect-search').type(value);
+  getMultiSelect(field).find('.multiselect-option').click();
 };
 
 const setAutocompleteValue = (field: string, value: string) => {

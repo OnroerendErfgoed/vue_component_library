@@ -414,6 +414,11 @@ onBeforeMount(initializeData);
     display: block;
   }
 
+  :deep(.multiselect-wrapper) {
+    height: 3.5rem;
+    min-height: unset;
+  }
+
   :deep(.vl-properties__label) {
     font-weight: 400;
     line-height: inherit;
