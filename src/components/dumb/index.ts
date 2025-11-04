@@ -1,4 +1,4 @@
-import InputPhone from './InputPhone.vue';
+import InputPhone from '../forms/dumb/OePhone.vue';
 import OeAutocomplete from './OeAutocomplete.vue';
 import OeEditor from './OeEditor.vue';
 import OeInventarisLoadedLink from './OeInventarisLoadedLink.vue';

@@ -1,15 +1,15 @@
-import { FilterSelect } from '@/forms';
+import { OeFilterSelect } from '@/forms';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
-const meta: Meta<typeof FilterSelect> = {
+const meta: Meta<typeof OeFilterSelect> = {
   title: 'Forms/Filter Inputs/Filter Select',
-  component: FilterSelect,
+  component: OeFilterSelect,
   parameters: {
     docs: {
       description: {
         component:
-          'Generic filter input field to enter a select input - used as subcomponent of the `FilterInput` component.',
+          'Generic filter input field to enter a select input - used as subcomponent of the `OeFilter` component.',
       },
     },
   },
@@ -52,7 +52,7 @@ const meta: Meta<typeof FilterSelect> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof FilterSelect>;
+type Story = StoryObj<typeof OeFilterSelect>;
 
 export const Default: Story = {
   args: {
@@ -71,8 +71,8 @@ export const Default: Story = {
 
 export const WithSlot: Story = {
   render: () => ({
-    components: { FilterSelect },
-    template: `<filter-select>
+    components: { OeFilterSelect },
+    template: `<oe-filter-select>
               <optgroup label="Niet Actief">
                 <option value="klad">Klad</option>
                 <option value="kladzonderfoto">Klad zonder foto</option>
@@ -80,6 +80,6 @@ export const WithSlot: Story = {
               <optgroup label="Actief">
                 <option value="actief">Actief</option>
               </optgroup>
-            </filter-select>`,
+            </oe-filter-select>`,
   }),
 };

@@ -3,14 +3,13 @@
     <h4 class="vl-title vl-title--h4">Workflow</h4>
   </div>
   <div class="vl-col--12-12">
-    <oe-grid :grid-options="gridOptions" @first-data-rendered="firstDataRendered" @grid-ready="onGridReady" />
+    <OeGrid :grid-options="gridOptions" @first-data-rendered="firstDataRendered" @grid-ready="onGridReady" />
   </div>
 </template>
 <script setup lang="ts">
 import { format } from 'date-fns';
 import { getCurrentInstance, ref } from 'vue';
-// import { NoRowsOverlay } from '@/grid';
-import OeGrid from '@components/dumb/OeGrid.vue';
+import { GridWorkflowProps, IWorkflow, IWorkflowOwner, IWorkflowState, OeGrid } from '@/grid';
 import type {
   ColDef,
   GridApi,
@@ -19,7 +18,6 @@ import type {
   ICellRendererParams,
   ValueFormatterParams,
 } from 'ag-grid-community';
-import type { GridWorkflowProps, IWorkflow, IWorkflowOwner, IWorkflowState } from '@models/workflow';
 
 const props = defineProps<GridWorkflowProps>();
 

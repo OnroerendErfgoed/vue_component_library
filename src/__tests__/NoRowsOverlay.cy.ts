@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue';
-import NoRowsOverlay from '@components/dumb/NoRowsOverlay.vue';
+import NoRowsOverlay from '@components/grid/dumb/OeGridNoRowsOverlay.vue';
 
 describe('NoRowsOverlay', () => {
   const TestComponent = defineComponent({

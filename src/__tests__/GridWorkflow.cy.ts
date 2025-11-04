@@ -1,7 +1,7 @@
 import schema from '../../cypress/fixtures/workflowSchema.json';
 import { mount } from 'cypress/vue';
 import { defineComponent, useAttrs } from 'vue';
-import GridWorkflow from '@components/dumb/GridWorkflow.vue';
+import GridWorkflow from '@components/grid/dumb/OeGridWorkflow.vue';
 
 const data = [
   {

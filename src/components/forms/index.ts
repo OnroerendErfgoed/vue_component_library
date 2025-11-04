@@ -2,11 +2,11 @@
 export { default as OeDatepicker } from './dumb/OeDatepicker.vue';
 
 // Filter components
-export { default as FilterInput } from './dumb/OeFilterInput.vue';
-export { default as FilterDatepicker } from './dumb/OeFilterDatepicker.vue';
-export { default as FilterRadio } from './dumb/OeFilterRadio.vue';
-export { default as FilterSelect } from './dumb/OeFilterSelect.vue';
-export { default as FilterText } from './dumb/OeFilterText.vue';
+export { default as OeFilter } from './dumb/OeFilter.vue';
+export { default as OeFilterDatepicker } from './dumb/OeFilterDatepicker.vue';
+export { default as OeFilterRadio } from './dumb/OeFilterRadio.vue';
+export { default as OeFilterSelect } from './dumb/OeFilterSelect.vue';
+export { default as OeFilterText } from './dumb/OeFilterText.vue';
 
 // Models
 export * from './models/filter-input';

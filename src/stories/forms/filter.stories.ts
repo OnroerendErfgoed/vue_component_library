@@ -1,13 +1,18 @@
 import { VlColumn, VlGrid } from '@govflanders/vl-ui-design-system-vue3';
-import { FilterDatepicker, FilterInput, FilterRadio, FilterSelect, FilterText, IFilterOption, IOption } from '@/forms';
+import OeFilter from '@components/forms/dumb/OeFilter.vue';
+import OeFilterDatepicker from '@components/forms/dumb/OeFilterDatepicker.vue';
+import OeFilterRadio from '@components/forms/dumb/OeFilterRadio.vue';
+import OeFilterSelect from '@components/forms/dumb/OeFilterSelect.vue';
+import OeFilterText from '@components/forms/dumb/OeFilterText.vue';
+import { IFilterOption, IOption } from '@components/forms/models/filter-input';
 import FilterAanduidingsobject from '@components/smart/FilterAanduidingsobject.vue';
 import FilterGemeente from '@components/smart/FilterGemeente.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
-const meta: Meta<typeof FilterInput> = {
-  title: 'Forms/Filter Input',
-  component: FilterInput,
+const meta: Meta<typeof OeFilter> = {
+  title: 'Forms/Filter',
+  component: OeFilter,
   tags: ['autodocs'],
   parameters: {
     docs: {
@@ -16,7 +21,7 @@ const meta: Meta<typeof FilterInput> = {
       },
       description: {
         component:
-          'Generic filter input component that accepts any filter input field as long as the slot props are correctly used.\n\n See the `Filter Inputs` folder (both in `smart` and `dumb` components) for example components to be used. A subset is used in the example below.',
+          'Generic filter component that accepts any filter input field as long as the slot props are correctly used.\n\n See the `Filter Inputs` folder (both in `smart` and `dumb` components) for example components to be used. A subset is used in the example below.',
       },
     },
   },
@@ -64,16 +69,16 @@ setValue: function to apply the entered filter value from the custom filter fiel
 };
 
 export default meta;
-type Story = StoryObj<typeof FilterInput>;
+type Story = StoryObj<typeof OeFilter>;
 
 const renderConfig = {
   components: {
-    FilterInput,
-    FilterText,
-    FilterDatepicker,
+    OeFilter,
+    OeFilterText,
+    OeFilterDatepicker,
     FilterGemeente,
-    FilterRadio,
-    FilterSelect,
+    OeFilterRadio,
+    OeFilterSelect,
     FilterAanduidingsobject,
     VlGrid,
     VlColumn,
@@ -165,12 +170,12 @@ const renderConfig = {
 };
 
 const filterTemplate = `
-  <filter-text v-if="selectedOption.key === 'id'" :value="value" @update:value="setValue($event, $event)" placeholder="ID" @keyup.enter="addFilter"></filter-text>
-  <filter-text v-if="selectedOption.key === 'onderwerp'" :value="value" @update:value="setValue($event, $event)" placeholder="Onderwerp" @keyup.enter="addFilter"></filter-text>
-  <filter-datepicker v-if="selectedOption.key === 'datum_goedkeuring_van' || selectedOption.key === 'datum_goedkeuring_tot'" :value="value" @update:value="setValue($event, $event[0])"></filter-datepicker>
+  <OeFilterText v-if="selectedOption.key === 'id'" :value="value" @update:value="setValue($event, $event)" placeholder="ID" @keyup.enter="addFilter"></OeFilterText>
+  <OeFilterText v-if="selectedOption.key === 'onderwerp'" :value="value" @update:value="setValue($event, $event)" placeholder="Onderwerp" @keyup.enter="addFilter"></OeFilterText>
+  <OeFilterDatepicker v-if="selectedOption.key === 'datum_goedkeuring_van' || selectedOption.key === 'datum_goedkeuring_tot'" :value="value" @update:value="setValue($event, $event[0])"></OeFilterDatepicker>
   <filter-gemeente v-if="selectedOption.key === 'gemeente'" api="https://test-geo.onroerenderfgoed.be/" :value="value" @update:value="setValue($event.niscode, $event.naam)"></filter-gemeente>
-  <filter-radio v-if="selectedOption.key === 'beheerscommissie' || selectedOption.key === 'beheersplan_verlopen'" :options="radioOptions" :value="value" @update:value="setValue($event.value, $event.label)"></filter-radio>
-  <filter-select v-if="selectedOption.key === 'plantype'" placeholder="Type plan" :value="value" @update:value="setValue($event, $event)" @keyup.enter="addFilter">
+  <OeFilterRadio v-if="selectedOption.key === 'beheerscommissie' || selectedOption.key === 'beheersplan_verlopen'" :options="radioOptions" :value="value" @update:value="setValue($event.value, $event.label)"></OeFilterRadio>
+  <OeFilterSelect v-if="selectedOption.key === 'plantype'" placeholder="Type plan" :value="value" @update:value="setValue($event, $event)" @keyup.enter="addFilter">
     <optgroup label="Niet Actief">
       <option value="klad">Klad</option>
       <option value="kladzonderfoto">Klad zonder foto</option>
@@ -178,8 +183,8 @@ const filterTemplate = `
     <optgroup label="Actief">
       <option value="actief">Actief</option>
     </optgroup>
-  </filter-select>
-  <filter-select v-if="selectedOption.key === 'status'" :options="statusOptions" placeholder="Status" :value="value" @update:value="setValue($event, $event)" @keyup.enter="addFilter"></filter-select>
+  </OeFilterSelect>
+  <OeFilterSelect v-if="selectedOption.key === 'status'" :options="statusOptions" placeholder="Status" :value="value" @update:value="setValue($event, $event)" @keyup.enter="addFilter"></OeFilterSelect>
   <filter-aanduidingsobject
       id="test"
       v-if="selectedOption.key === 'aanduidingsobject'"
@@ -193,9 +198,9 @@ export const Default: Story = {
   render: () => ({
     ...renderConfig,
     template: `
-    <filter-input v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="defaultFilters" @filters-selected="$event => filters = $event">
+    <OeFilter v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="defaultFilters" @filters-selected="$event => filters = $event">
       ${filterTemplate}
-    </filter-input>
+    </OeFilter>
     `,
   }),
 };
@@ -212,9 +217,9 @@ export const UniqueFilters: Story = {
   render: () => ({
     ...renderConfig,
     template: `
-    <filter-input v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="defaultFilters" unique-filters @filters-selected="$event => filters = $event">
+    <OeFilter v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="defaultFilters" unique-filters @filters-selected="$event => filters = $event">
       ${filterTemplate}
-    </filter-input>
+    </OeFilter>
     `,
   }),
 };
@@ -233,58 +238,58 @@ export const ResponsiveDesign: Story = {
     template: `
     <p>A container with a width of 100% uses 50% of the available space</p>
     <div style="width: 100%; border: 1px solid lightgrey; padding: 1rem; box-sizing: border-box;">
-      <FilterInput v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="defaultFilters" @filters-selected="$event => filters = $event">
+      <OeFilter v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="defaultFilters" @filters-selected="$event => filters = $event">
         ${filterTemplate}
-      </FilterInput>
+      </OeFilter>
     </div>
     <br/>
     <p>A container with a width of 600px (smaller than 800px) uses 75% of the available space for the filter input</p>
     <div style="width: 600px ; border: 1px solid lightgrey; padding: 1rem; box-sizing: border-box;">
-      <FilterInput v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="defaultFilters" @filters-selected="$event => filters = $event">
+      <OeFilter v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="defaultFilters" @filters-selected="$event => filters = $event">
         ${filterTemplate}
-      </FilterInput>
+      </OeFilter>
     </div>
     <br/>
     <p>A container with a width of 450px (smaller than 500px) uses 100% of the available space for the filter input</p>
     <div style="width: 450px ; border: 1px solid lightgrey; padding: 1rem; box-sizing: border-box;">
-      <FilterInput v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="defaultFilters" @filters-selected="$event => filters = $event">
+      <OeFilter v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="defaultFilters" @filters-selected="$event => filters = $event">
         ${filterTemplate}
-      </FilterInput>
+      </OeFilter>
     </div>
     <br>
     <p>A container with a width of 320px (smaller than 350px) uses 100% of the available space for the filter input and renders as a single column</p>
     <div style="width: 320px ; border: 1px solid lightgrey; padding: 1rem; box-sizing: border-box;">
-      <FilterInput v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="defaultFilters" @filters-selected="$event => filters = $event">
+      <OeFilter v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="defaultFilters" @filters-selected="$event => filters = $event">
         ${filterTemplate}
-      </FilterInput>
+      </OeFilter>
     </div>
     <br/>
     <p>A container with a width of 100% and multiple selected filters for the filter input</p>
     <div style="width: 100%; border: 1px solid lightgrey; padding: 1rem; box-sizing: border-box;">
-      <FilterInput v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="manyDefaultFilters" @filters-selected="$event => filters = $event">
+      <OeFilter v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="manyDefaultFilters" @filters-selected="$event => filters = $event">
         ${filterTemplate}
-      </FilterInput>
+      </OeFilter>
     </div>
     <br/>
     <p>A container with a width of 600px and multiple selected filters</p>
     <div style="width: 600px ; border: 1px solid lightgrey; padding: 1rem; box-sizing: border-box;">
-      <FilterInput v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="manyDefaultFilters" @filters-selected="$event => filters = $event">
+      <OeFilter v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="manyDefaultFilters" @filters-selected="$event => filters = $event">
         ${filterTemplate}
-      </FilterInput>
+      </OeFilter>
     </div>
     <br/>
     <p>A container with a width of 450px and multiple selected filters</p>
     <div style="width: 450px ; border: 1px solid lightgrey; padding: 1rem; box-sizing: border-box;">
-      <FilterInput v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="manyDefaultFilters" @filters-selected="$event => filters = $event">
+      <OeFilter v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="manyDefaultFilters" @filters-selected="$event => filters = $event">
         ${filterTemplate}
-      </FilterInput>
+      </OeFilter>
     </div>
     <br/>
     <p>A container with a width of 320px and multiple selected filters</p>
     <div style="width: 320px ; border: 1px solid lightgrey; padding: 1rem; box-sizing: border-box;">
-      <FilterInput v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="manyDefaultFilters" @filters-selected="$event => filters = $event">
+      <OeFilter v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="manyDefaultFilters" @filters-selected="$event => filters = $event">
         ${filterTemplate}
-      </FilterInput>
+      </OeFilter>
     </div>
     `,
   }),

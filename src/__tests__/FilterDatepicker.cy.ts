@@ -1,6 +1,6 @@
 /* eslint-disable vue/one-component-per-file */
 import { defineComponent, ref } from 'vue';
-import { FilterDatepicker } from '@/forms';
+import { OeFilterDatepicker } from '@/forms';
 
 describe('FilterDatepicker', () => {
   beforeEach(() => {
@@ -14,13 +14,13 @@ describe('FilterDatepicker', () => {
 
   describe('default', () => {
     const TestComponent = defineComponent({
-      components: { FilterDatepicker },
+      components: { OeFilterDatepicker },
       setup() {
         const date = ref<string>();
         const setValue = (value: string) => (date.value = value);
         return { date, setValue };
       },
-      template: '<filter-datepicker :value="date" @update:value="setValue"/>',
+      template: '<OeFilterDatepicker :value="date" @update:value="setValue"/>',
     });
 
     it('accepts a value prop', () => {
@@ -55,14 +55,14 @@ describe('FilterDatepicker', () => {
 
   describe('custom api format - dd-MM-yyyy', () => {
     const TestComponent = defineComponent({
-      components: { FilterDatepicker },
+      components: { OeFilterDatepicker },
       setup() {
         const apiFormat = 'dd-MM-yyyy';
         const date = ref<string>();
         const setValue = (value: string) => (date.value = value);
         return { date, setValue, apiFormat };
       },
-      template: '<filter-datepicker :apiFormat="apiFormat" :value="date" @update:value="setValue"/>',
+      template: '<OeFilterDatepicker :apiFormat="apiFormat" :value="date" @update:value="setValue"/>',
     });
 
     it('accepts a value prop', () => {

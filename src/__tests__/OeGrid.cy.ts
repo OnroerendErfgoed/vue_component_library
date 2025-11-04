@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue';
-import OeGrid from '@components/dumb/OeGrid.vue';
+import OeGrid from '@components/grid/dumb/OeGrid.vue';
 
 describe('Grid', () => {
   const TestComponent = defineComponent({

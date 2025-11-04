@@ -1,9 +1,9 @@
-import NoRowsOverlay from '@components/dumb/NoRowsOverlay.vue';
+import OeGridNoRowsOverlay from '@components/grid/dumb/OeGridNoRowsOverlay.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-const meta: Meta<typeof NoRowsOverlay> = {
-  title: 'Dumb components/NoRowsOverlay',
-  component: NoRowsOverlay,
+const meta: Meta<typeof OeGridNoRowsOverlay> = {
+  title: 'Grid/No Rows Overlay',
+  component: OeGridNoRowsOverlay,
   tags: ['autodocs'],
   argTypes: {
     params: { control: 'object' },
@@ -16,6 +16,6 @@ const meta: Meta<typeof NoRowsOverlay> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof NoRowsOverlay>;
+type Story = StoryObj<typeof OeGridNoRowsOverlay>;
 
 export const Default: Story = {};

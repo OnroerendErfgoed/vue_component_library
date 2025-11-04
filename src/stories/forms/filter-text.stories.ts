@@ -1,15 +1,15 @@
-import { FilterText } from '@/forms';
+import { OeFilterText } from '@/forms';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
-const meta: Meta<typeof FilterText> = {
+const meta: Meta<typeof OeFilterText> = {
   title: 'Forms/Filter Inputs/Filter Text',
-  component: FilterText,
+  component: OeFilterText,
   parameters: {
     docs: {
       description: {
         component:
-          'Generic filter input field to enter a text input - used as subcomponent of the `FilterInput` component.',
+          'Generic filter input field to enter a text input - used as subcomponent of the `OeFilter` component.',
       },
     },
   },
@@ -41,6 +41,6 @@ const meta: Meta<typeof FilterText> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof FilterText>;
+type Story = StoryObj<typeof OeFilterText>;
 
 export const Default: Story = {};

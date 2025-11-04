@@ -1,15 +1,15 @@
-import { FilterDatepicker } from '@components/forms';
+import { OeFilterDatepicker } from '@components/forms';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
-const meta: Meta<typeof FilterDatepicker> = {
+const meta: Meta<typeof OeFilterDatepicker> = {
   title: 'Forms/Filter Inputs/Filter Datepicker',
-  component: FilterDatepicker,
+  component: OeFilterDatepicker,
   parameters: {
     docs: {
       description: {
         component:
-          'Generic filter input field to enter a date input - used as subcomponent of the `FilterInput` component.',
+          'Generic filter input field to enter a date input - used as subcomponent of the `OeFilter` component.',
       },
     },
   },
@@ -33,6 +33,6 @@ const meta: Meta<typeof FilterDatepicker> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof FilterDatepicker>;
+type Story = StoryObj<typeof OeFilterDatepicker>;
 
 export const Default: Story = {};

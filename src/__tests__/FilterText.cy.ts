@@ -1,15 +1,15 @@
 import { defineComponent, ref } from 'vue';
-import { FilterText } from '@/forms';
+import { OeFilterText } from '@/forms';
 
 describe('FilterText', () => {
   const TestComponent = defineComponent({
-    components: { FilterText },
+    components: { OeFilterText },
     setup() {
       const textValue = ref('');
       return { textValue };
     },
     template:
-      '<filter-text placeholder="Enter some text" :value="textValue" @update:value="$event => textValue=$event"/>',
+      '<OeFilterText placeholder="Enter some text" :value="textValue" @update:value="$event => textValue=$event"/>',
   });
 
   it('accepts a value prop', () => {

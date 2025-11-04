@@ -1,16 +1,24 @@
 /* eslint-disable vue/one-component-per-file */
 import { defineComponent, ref } from 'vue';
-import { FilterDatepicker, FilterInput, FilterRadio, FilterSelect, FilterText, IFilter, IFilterOption } from '@/forms';
+import {
+  IFilter,
+  IFilterOption,
+  OeFilter,
+  OeFilterDatepicker,
+  OeFilterRadio,
+  OeFilterSelect,
+  OeFilterText,
+} from '@/forms';
 import { FilterGemeente } from '@components/smart';
 
-describe('FilterInput', () => {
+describe('Filter', () => {
   const TestComponent = defineComponent({
-    components: { FilterInput },
+    components: { OeFilter },
     setup() {
       const options = ref<IFilterOption>();
       return { options };
     },
-    template: '<filter-input :options="options"></filter-input>',
+    template: '<OeFilter :options="options"></OeFilter>',
   });
 
   it('renders a message when no options are given', () => {
@@ -20,7 +28,7 @@ describe('FilterInput', () => {
 
   describe('with options', () => {
     const TestComponentWithOptions = defineComponent({
-      components: { FilterInput, FilterText, FilterDatepicker, FilterGemeente, FilterRadio, FilterSelect },
+      components: { OeFilterText, OeFilterDatepicker, FilterGemeente, OeFilterRadio, OeFilterSelect },
       props: {
         uniqueFilters: {
           type: Boolean,
@@ -56,12 +64,12 @@ describe('FilterInput', () => {
         return { options, filters, selectedOption, setFilters };
       },
       template: `
-      <filter-input v-slot="{ value, setValue, selectedOption, addFilter }" :options="options" :unique-filters="uniqueFilters" @filters-selected="setFilters">
-        <filter-text v-if="selectedOption.key === 'id'" :value="value" @update:value="setValue($event, $event)" placeholder="ID" @keyup.enter="addFilter"></filter-text>
-        <filter-datepicker v-if="selectedOption.key === 'datum_goedkeuring_van'" :value="value" @update:value="setValue($event, $event)"></filter-datepicker>
+      <OeFilter v-slot="{ value, setValue, selectedOption, addFilter }" :options="options" :unique-filters="uniqueFilters" @filters-selected="setFilters">
+        <OeFilterText v-if="selectedOption.key === 'id'" :value="value" @update:value="setValue($event, $event)" placeholder="ID" @keyup.enter="addFilter"></OeFilterText>
+        <OeFilterDatepicker v-if="selectedOption.key === 'datum_goedkeuring_van'" :value="value" @update:value="setValue($event, $event)"></OeFilterDatepicker>
         <filter-gemeente v-if="selectedOption.key === 'gemeente'" :value="value" @update:value="setValue($event, $event.naam)"></filter-gemeente>
-        <filter-radio v-if="selectedOption.key === 'beheerscommissie' || selectedOption.key === 'beheersplan_verlopen'" :options="radioOptions" :value="value" @update:value="setValue($event, $event)"></filter-radio>
-        <filter-select v-if="selectedOption.key === 'plantype'" placeholder="Type plan" :model-value="value" @update:model-value="setValue($event, $event)">
+        <OeFilterRadio v-if="selectedOption.key === 'beheerscommissie' || selectedOption.key === 'beheersplan_verlopen'" :options="radioOptions" :value="value" @update:value="setValue($event, $event)"></OeFilterRadio>
+        <OeFilterSelect v-if="selectedOption.key === 'plantype'" placeholder="Type plan" :model-value="value" @update:model-value="setValue($event, $event)">
           <optgroup label="Niet Actief">
             <option value="klad">Klad</option>
             <option value="kladzonderfoto">Klad zonder foto</option>
@@ -69,8 +77,8 @@ describe('FilterInput', () => {
           <optgroup label="Actief">
             <option value="actief">Actief</option>
           </optgroup>
-        </filter-select>
-      </filter-input>
+        </OeFilterSelect>
+      </OeFilter>
       `,
     });
 
@@ -244,7 +252,7 @@ describe('FilterInput', () => {
 
   describe('responsive behavior', () => {
     const TestComponentWithOptions = defineComponent({
-      components: { FilterInput, FilterText, FilterDatepicker, FilterGemeente, FilterRadio, FilterSelect },
+      components: { OeFilter, OeFilterText, OeFilterDatepicker, FilterGemeente, OeFilterRadio, OeFilterSelect },
       setup() {
         const options: IFilterOption[] = [
           { label: 'ID', key: 'id' },
@@ -258,12 +266,12 @@ describe('FilterInput', () => {
         return { options, filters, selectedOption };
       },
       template: `
-        <filter-input :options="options" @filters-selected="setFilters">
-          <filter-text v-if="selectedOption.key === 'id'" :value="value" @update:value="setValue($event, $event)" placeholder="ID"></filter-text>
-          <filter-datepicker v-if="selectedOption.key === 'datum_goedkeuring_van'" :value="value" @update:value="setValue($event, $event)"></filter-datepicker>
+        <OeFilter :options="options" @filters-selected="setFilters">
+          <OeFilterText v-if="selectedOption.key === 'id'" :value="value" @update:value="setValue($event, $event)" placeholder="ID"></OeFilterText>
+          <OeFilterDatepicker v-if="selectedOption.key === 'datum_goedkeuring_van'" :value="value" @update:value="setValue($event, $event)"></OeFilterDatepicker>
           <filter-gemeente v-if="selectedOption.key === 'gemeente'" :value="value" @update:value="setValue($event, $event.naam)"></filter-gemeente>
-          <filter-radio v-if="selectedOption.key === 'beheerscommissie'" :options="radioOptions" :value="value" @update:value="setValue($event, $event)"></filter-radio>
-          <filter-select v-if="selectedOption.key === 'plantype'" placeholder="Type plan" :model-value="value" @update:model-value="setValue($event, $event)">
+          <OeFilterRadio v-if="selectedOption.key === 'beheerscommissie'" :options="radioOptions" :value="value" @update:value="setValue($event, $event)"></OeFilterRadio>
+          <OeFilterSelect v-if="selectedOption.key === 'plantype'" placeholder="Type plan" :model-value="value" @update:model-value="setValue($event, $event)">
             <optgroup label="Niet Actief">
               <option value="klad">Klad</option>
               <option value="kladzonderfoto">Klad zonder foto</option>
@@ -271,8 +279,8 @@ describe('FilterInput', () => {
             <optgroup label="Actief">
               <option value="actief">Actief</option>
             </optgroup>
-          </filter-select>
-        </filter-input>
+          </OeFilterSelect>
+        </OeFilter>
       `,
     });
 

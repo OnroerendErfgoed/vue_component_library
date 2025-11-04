@@ -48,7 +48,7 @@ import { VlActionGroup, VlButton, VlColumn, VlGrid, VlSearch } from '@govflander
 import { isEmpty, omitBy } from 'lodash-es';
 import { computed, getCurrentInstance, ref, watch } from 'vue';
 // import { OeActorWidgetGridActies } from '@/grid';
-import OeGrid from '@components/dumb/OeGrid.vue';
+import OeGrid from '@components/grid/dumb/OeGrid.vue';
 import { ActorService, type IActorenQuery } from '@services/actor.service';
 import type {
   ColDef,

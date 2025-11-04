@@ -20,4 +20,3 @@ export * from './reference';
 export * from './locatie';
 export * from './toast';
 export * from './niscode.enum';
-export * from './workflow';

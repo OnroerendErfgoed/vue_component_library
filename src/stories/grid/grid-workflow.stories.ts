@@ -1,12 +1,31 @@
-import '@/scss/main.scss';
 import schema from '../../../cypress/fixtures/workflowSchema.json';
-import GridWorkflow from '@components/dumb/GridWorkflow.vue';
+import {
+  CellStyleModule,
+  ClientSideRowModelModule,
+  ColumnAutoSizeModule,
+  InfiniteRowModelModule,
+  ModuleRegistry,
+  PaginationModule,
+  RowSelectionModule,
+  ValidationModule,
+} from 'ag-grid-community';
+import OeGridWorkflow from '@components/grid/dumb/OeGridWorkflow.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
+ModuleRegistry.registerModules([
+  InfiniteRowModelModule,
+  ClientSideRowModelModule,
+  ValidationModule,
+  ColumnAutoSizeModule,
+  PaginationModule,
+  RowSelectionModule,
+  CellStyleModule,
+]);
+
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
-const meta: Meta<typeof GridWorkflow> = {
-  title: 'Dumb components/GridWorkflow',
-  component: GridWorkflow,
+const meta: Meta<typeof OeGridWorkflow> = {
+  title: 'Grid/Workflow',
+  component: OeGridWorkflow,
   parameters: {
     docs: {
       description: {
@@ -31,12 +50,12 @@ const meta: Meta<typeof GridWorkflow> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof GridWorkflow>;
+type Story = StoryObj<typeof OeGridWorkflow>;
 
 export const Default: Story = {
   render: () => ({
     components: {
-      GridWorkflow,
+      OeGridWorkflow,
     },
     setup() {
       const data = [
@@ -76,7 +95,7 @@ export const Default: Story = {
       return { data, schema };
     },
     template: `
-    <GridWorkflow :data="data" :schema="schema"></GridWorkflow>
+    <OeGridWorkflow :data="data" :schema="schema"></OeGridWorkflow>
     `,
   }),
 };
@@ -84,13 +103,13 @@ export const Default: Story = {
 export const NoData: Story = {
   render: () => ({
     components: {
-      GridWorkflow,
+      OeGridWorkflow,
     },
     setup() {
       return { data: [], schema };
     },
     template: `
-    <GridWorkflow data:="data" :schema="schema"></GridWorkflow>
+    <OeGridWorkflow :data="data" :schema="schema"></OeGridWorkflow>
     `,
   }),
 };
@@ -98,7 +117,7 @@ export const NoData: Story = {
 export const NoSchema: Story = {
   render: () => ({
     components: {
-      GridWorkflow,
+      OeGridWorkflow,
     },
     setup() {
       const data = [
@@ -138,7 +157,7 @@ export const NoSchema: Story = {
       return { data: data, schema: [] };
     },
     template: `
-    <GridWorkflow :data="data" :schema="schema"></GridWorkflow>
+    <OeGridWorkflow :data="data" :schema="schema"></OeGridWorkflow>
     `,
   }),
 };
