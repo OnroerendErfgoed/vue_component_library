@@ -1,3 +1,5 @@
+import { IAdresProps } from '../models/adres';
+import { logInfo } from '../utils';
 import { createApiHelpers } from './api-helpers';
 import { createAdresBuilders } from './builders';
 import { createInitializers } from './initialization';
@@ -5,8 +7,6 @@ import { useAdresState } from './state';
 import { setupWatchers } from './watchers';
 import { computed } from 'vue';
 import { CrabApiService } from '@services/crab-api.service';
-import { logInfo } from '@utils/index';
-import type { IAdresProps } from '@models/adres';
 import type { IGemeente, ILand } from '@models/locatie';
 
 export type ResetLevel = 'land' | 'gewest' | 'provincie' | 'gemeente' | 'straat' | 'huisnummer';

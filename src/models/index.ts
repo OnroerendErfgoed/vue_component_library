@@ -1,7 +1,6 @@
 export * from './_common';
 export * from './aanduidingsobject';
 export * from './actor';
-export * from './adres';
 export * from './dataverantwoordelijke';
 export * from './grid';
 export * from './layerType.enum';
@@ -9,7 +8,6 @@ export * from './oe-openlayers';
 export * from './oe-map-config';
 export * from './status';
 export * from './user';
-export * from '../components/forms/models/wizard';
 export * from './dossier';
 export * from './reference';
 

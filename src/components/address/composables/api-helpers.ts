@@ -1,11 +1,11 @@
-import { ResetLevel } from '@composables/adres';
+import { ResetLevel } from '../composables';
+import { logInfo } from '../utils';
 import { AxiosError } from 'axios';
 import { uniqBy } from 'lodash-es';
+import { IAutocompleteOption } from '@components/forms/models/autocomplete';
+import { IGemeente, IProvincie } from '@models/locatie';
 import { Niscode } from '@models/niscode.enum';
-import { logInfo } from '@utils/index';
 import type { AdresState } from './state';
-import type { IAutocompleteOption } from '@components/forms/models/autocomplete';
-import type { IGemeente, IProvincie } from '@models/locatie';
 import type { CrabApiService } from '@services/crab-api.service';
 
 /*

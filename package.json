@@ -22,10 +22,6 @@
       "import": "./dist/editor.js",
       "types": "./dist/editor.d.ts"
     },
-    "./layout": {
-      "import": "./dist/layout.js",
-      "types": "./dist/layout.d.ts"
-    },
     "./grid": {
       "import": "./dist/grid.js",
       "types": "./dist/grid.d.ts"
@@ -45,6 +41,10 @@
     "./utils": {
       "import": "./dist/utils.js",
       "types": "./dist/utils.d.ts"
+    },
+    "./address": {
+      "import": "./dist/address.js",
+      "types": "./dist/address.d.ts"
     },
     "./eslint": {
       "import": "./dist/eslint.config.js"

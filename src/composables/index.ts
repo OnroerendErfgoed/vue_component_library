@@ -1,5 +1,3 @@
-export * from './adres/index';
-
 // Composables
 export { useUtilStore } from '@stores/utilStore';
 

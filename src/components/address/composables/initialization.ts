@@ -1,10 +1,10 @@
+import { IAdresProps } from '../models/adres';
+import { logInfo } from '../utils';
 import { cloneDeep } from 'lodash-es';
 import { sortBy, uniqBy } from 'lodash-es';
 import { nextTick } from 'vue';
-import { logInfo } from '@utils/index';
 import { removeEmptyValues } from '@utils/object';
 import type { AdresState } from './state';
-import type { IAdresProps } from '@models/adres';
 import type { IAdres, IGemeente, IGewest, ILand, IPostinfo, IProvincie, IStraat } from '@models/locatie';
 import type { CrabApiService } from '@services/crab-api.service';
 

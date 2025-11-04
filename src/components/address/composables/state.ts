@@ -1,5 +1,5 @@
+import { logInfo } from '../utils';
 import { computed, ref } from 'vue';
-import { logInfo } from '@utils/index';
 import type { IAdres, IGemeente, IGewest, ILand, IPostinfo, IProvincie, IStraat } from '@models/locatie';
 
 /*

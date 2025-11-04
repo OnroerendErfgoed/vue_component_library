@@ -261,6 +261,7 @@
 </template>
 
 <script setup lang="ts">
+import { useAdresLogic } from './composables';
 import BusnummerSelector from './subcomponents/BusnummerSelector.vue';
 import GemeenteSelector from './subcomponents/GemeenteSelector.vue';
 import GewestSelector from './subcomponents/GewestSelector.vue';
@@ -269,7 +270,6 @@ import LandSelector from './subcomponents/LandSelector.vue';
 import PostcodeSelector from './subcomponents/PostcodeSelector.vue';
 import ProvincieSelector from './subcomponents/ProvincieSelector.vue';
 import StraatSelector from './subcomponents/StraatSelector.vue';
-import { useAdresLogic } from '@composables/adres';
 import {
   VlFormColumn,
   VlFormGrid,
@@ -285,7 +285,7 @@ import { Guid } from 'guid-typescript';
 import { computed, onBeforeMount } from 'vue';
 import OeLoader from '@components/core/dumb/OeLoader.vue';
 import { requiredIf } from '@utils/i18n-validators';
-import type { IAdresProps } from '@models/adres';
+import type { IAdresProps } from '@components/address/models/adres';
 
 const id = Guid.create().toString();
 

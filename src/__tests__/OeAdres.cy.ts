@@ -1,7 +1,7 @@
 import { mount } from 'cypress/vue';
 import { defineComponent, ref, useAttrs } from 'vue';
-import OeAdres from '@components/smart/adres/OeAdres.vue';
-import type { IAdresConfig } from '@models/adres';
+import OeAdres from '@components/address/OeAdres.vue';
+import type { IAdresConfig } from '@components/address/models/adres';
 
 describe('Adres', () => {
   const TestComponent = defineComponent({

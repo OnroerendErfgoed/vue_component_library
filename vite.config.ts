@@ -14,12 +14,12 @@ export default defineConfig({
         composables: 'src/composables.ts', // Composables
         forms: 'src/forms.ts', // Form components
         editor: 'src/editor.ts', // Rich text editor
-        layout: 'src/layout.ts', // Layout components
         grid: 'src/grid.ts', // AG Grid components
         map: 'src/map.ts', // OpenLayers components
         widgets: 'src/widgets.ts', // Complex widgets
         services: 'src/services.ts', // HTTP services
         utils: 'src/utils.ts', // Utilities, composables, directives
+        address: 'src/address.ts', // Address component
       },
       formats: ['es'],
       fileName: (format, entryName) => `${entryName}.js`,

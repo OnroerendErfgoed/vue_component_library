@@ -1,6 +1,6 @@
-import { ResetLevel } from '@composables/adres';
+import { ResetLevel } from '../composables';
+import { IAdresProps } from '../models/adres';
 import { Ref, watch } from 'vue';
-import { IAdresProps } from '@models/adres';
 import type { AdresState } from './state';
 import type { IAdres, ILocatieAdres } from '@models/locatie';
 
