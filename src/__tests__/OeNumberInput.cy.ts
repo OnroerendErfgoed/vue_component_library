@@ -1,6 +1,6 @@
 /* eslint-disable vue/one-component-per-file */
 import { defineComponent, ref } from 'vue';
-import OeNumberInput from '@components/dumb/OeNumberInput.vue';
+import OeNumberInput from '@components/forms/dumb/OeNumberInput.vue';
 
 const mountNumberInput = (initialValue: number | null = null) => {
   const TestComponent = defineComponent({

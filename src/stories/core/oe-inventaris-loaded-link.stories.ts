@@ -1,11 +1,9 @@
-import '@/scss/main.scss';
-import OeInventarisLoadedLink from '@components/dumb/OeInventarisLoadedLink.vue';
+import OeInventarisLoadedLink from '@components/core/dumb/OeInventarisLoadedLink.vue';
+import { IInventarisLinkGebeurtenis, IInventarisLinkWaarneming } from '@components/core/models/links';
 import type { Meta, StoryObj } from '@storybook/vue3';
-import type { IInventarisLinkGebeurtenis, IInventarisLinkWaarneming } from '@models/links';
 
-// More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof OeInventarisLoadedLink> = {
-  title: 'Dumb components/OeInventarisLoadedLink',
+  title: 'Core Module/Inventaris Loaded Link',
   component: OeInventarisLoadedLink,
   parameters: {
     docs: {

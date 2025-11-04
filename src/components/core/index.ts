@@ -9,11 +9,13 @@ export { default as OeModalConfirmCancelChanges } from './dumb/OeModalConfirmCan
 export { default as OeSideNavigation } from './dumb/OeSideNavigation.vue';
 export { default as OeSystemFields } from './dumb/OeSystemFields.vue';
 export { default as OeToaster } from './dumb/OeToaster.vue';
+export { default as OeInventarisLoadedLink } from './dumb/OeInventarisLoadedLink.vue';
 
 // Models
 export * from './models/container';
 export * from './models/header';
 export * from './models/side-navigation';
+export * from './models/links';
 
 // Common types
 export type { IToast } from '@models/toast';

@@ -5,12 +5,11 @@ export * from './adres';
 export * from './dataverantwoordelijke';
 export * from './grid';
 export * from './layerType.enum';
-export * from './links';
 export * from './oe-openlayers';
 export * from './oe-map-config';
 export * from './status';
 export * from './user';
-export * from './wizard';
+export * from '../components/forms/models/wizard';
 export * from './dossier';
 export * from './reference';
 

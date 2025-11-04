@@ -1,6 +1,6 @@
 import { mount } from 'cypress/vue';
 import { defineComponent, useAttrs } from 'vue';
-import OeInventarisLoadedLink from '@components/dumb/OeInventarisLoadedLink.vue';
+import OeInventarisLoadedLink from '@components/core/dumb/OeInventarisLoadedLink.vue';
 
 const TestComponent = defineComponent({
   components: { OeInventarisLoadedLink },

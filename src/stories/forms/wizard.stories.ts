@@ -1,11 +1,10 @@
-import '@/scss/main.scss';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
-import OeWizard from '@components/dumb/OeWizard.vue';
+import OeWizard from '@components/forms/dumb/OeWizard.vue';
+import { IStep } from '@components/forms/models/wizard';
 import type { Meta, StoryObj } from '@storybook/vue3';
-import type { IStep } from '@models/wizard';
 
 const meta: Meta<typeof OeWizard> = {
-  title: 'Dumb components/Wizard',
+  title: 'Forms Module/Wizard',
   component: OeWizard,
   parameters: {
     layout: 'fullscreen',

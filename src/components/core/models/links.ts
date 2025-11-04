@@ -1,3 +1,8 @@
+export interface IOeInventarisLoadedLink {
+  gebeurtenissen: IInventarisLinkGebeurtenis[];
+  waarnemingen: IInventarisLinkWaarneming[];
+}
+
 export interface ILinks {
   relaties: ILinkRelatie;
 }

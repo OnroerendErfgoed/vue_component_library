@@ -4,3 +4,4 @@
  */
 
 export * from '@directives/click-outside.directive';
+export * from '@directives/auto-resize-textarea.directive';

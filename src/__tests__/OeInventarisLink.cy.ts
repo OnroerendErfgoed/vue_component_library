@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { mount } from 'cypress/vue';
 import { defineComponent, useAttrs } from 'vue';
 import OeInventarisLink from '@components/smart/OeInventarisLink.vue';
-import type { IInventarisLinkGebeurtenis, IInventarisLinkWaarneming, ILinks } from '@models/links';
+import type { IInventarisLinkGebeurtenis, IInventarisLinkWaarneming, ILinks } from '@components/core/models/links';
 
 const WAARNEMING_API =
   'https://dev-inventaris.onroerenderfgoed.be/gebeurtenissen?bron_referentie_uri=https://dev-id.erfgoed.net/dossiers/158226';

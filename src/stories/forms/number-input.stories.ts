@@ -1,10 +1,9 @@
-import '@/scss/main.scss';
 import { ref } from 'vue';
-import OeNumberInput from '@components/dumb/OeNumberInput.vue';
+import { OeNumberInput } from '@components/forms';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof OeNumberInput> = {
-  title: 'Dumb components/NumberInput',
+  title: 'Forms Module/Number',
   component: OeNumberInput,
   tags: ['autodocs'],
   parameters: {

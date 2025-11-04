@@ -1,7 +1,7 @@
 /* eslint-disable vue/one-component-per-file */
 import { defineComponent, ref } from 'vue';
-import OeSelect from '@components/dumb/OeSelect.vue';
-import type { ISelectOption } from '@models/select';
+import OeSelect from '@components/forms/dumb/OeSelect.vue';
+import type { ISelectOption } from '@components/forms/models/select';
 
 describe('Select', () => {
   const select = () => cy.dataCy('oe-select');

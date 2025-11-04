@@ -13,8 +13,8 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import axios from 'axios';
 import { onBeforeMount, ref } from 'vue';
-import OeInventarisLoadedLink from '@components/dumb/OeInventarisLoadedLink.vue';
-import type { IInventarisLinkGebeurtenis, IInventarisLinkWaarneming, ILinks } from '@models/links';
+import OeInventarisLoadedLink from '@components/core/dumb/OeInventarisLoadedLink.vue';
+import type { IInventarisLinkGebeurtenis, IInventarisLinkWaarneming, ILinks } from '@components/core/models/links';
 
 interface IOeInventarisLink {
   links: ILinks;

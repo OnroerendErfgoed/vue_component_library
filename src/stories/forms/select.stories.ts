@@ -1,17 +1,15 @@
-import '@/scss/main.scss';
 import { ref } from 'vue';
-import OeSelect from '@components/dumb/OeSelect.vue';
+import { ISelectOption, OeSelect } from '@components/forms';
 import type { Meta, StoryObj } from '@storybook/vue3';
-import type { ISelectOption } from '@models/select';
 
 const meta: Meta<typeof OeSelect> = {
-  title: 'Dumb components/Select',
+  title: 'Forms Module/Select',
   component: OeSelect,
   tags: ['autodocs'],
   parameters: {
     docs: {
       story: {
-        height: '250px',
+        height: '300px',
       },
     },
   },

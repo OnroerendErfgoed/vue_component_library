@@ -35,12 +35,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import type { IInventarisLinkGebeurtenis, IInventarisLinkWaarneming } from '@models/links';
-
-interface IOeInventarisLoadedLink {
-  gebeurtenissen: IInventarisLinkGebeurtenis[];
-  waarnemingen: IInventarisLinkWaarneming[];
-}
+import { IOeInventarisLoadedLink } from '../models/links';
 
 const props = withDefaults(defineProps<IOeInventarisLoadedLink>(), {
   waarnemingen: undefined,

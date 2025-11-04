@@ -1,4 +1,4 @@
-import type { IToast } from './toast';
+import { IToast } from '@models/toast';
 
 export interface IWizardProps {
   steps: IStep[];

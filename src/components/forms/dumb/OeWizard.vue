@@ -12,7 +12,7 @@
         }"
         @click="goToStep(index)"
       >
-        <vl-badge v-vl-tooltip="step.name" :initials="(index + 1).toString()" mod-border mod-small />
+        <VlBadge v-vl-tooltip="step.name" :initials="(index + 1).toString()" mod-border mod-small />
         <span class="wizard__bar-item-name">{{ step.name }}</span>
       </a>
     </div>
@@ -22,17 +22,17 @@
     </div>
 
     <div class="wizard__actions vl-u-flex vl-u-flex-align-center">
-      <vl-button
+      <VlButton
         v-if="currentStep > 0"
         data-cy="previous-step-button"
         class="wizard__navigation-button vl-u-spacer-right--xsmall"
         mod-secondary
         @click="previousStep"
       >
-        <font-awesome-icon :icon="['fas', 'angles-left']" />
+        <FontAwesomeIcon :icon="faAnglesLeft" />
         Vorige
-      </vl-button>
-      <vl-button
+      </VlButton>
+      <VlButton
         v-if="currentStep < totalSteps - 1"
         :mod-disabled="steps[currentStep].nextStepDisabled"
         class="wizard__navigation-button"
@@ -40,30 +40,27 @@
         @click="nextStep"
       >
         Volgende
-        <font-awesome-icon :icon="['fas', 'angles-right']" />
-      </vl-button>
-      <vl-button
+        <FontAwesomeIcon :icon="faAnglesRight" />
+      </VlButton>
+      <VlButton
         v-else
         :mod-disabled="submitDisabled"
         class="wizard__navigation-button"
         data-cy="submit-button"
         @click="submit"
-        >Verzend</vl-button
+        >Verzend</VlButton
       >
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { IWizardProps } from '../models/wizard';
+import { faAnglesLeft, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { VlBadge, VlButton } from '@govflanders/vl-ui-design-system-vue3';
 import { computedAsync } from '@vueuse/core';
 import { ref, watch } from 'vue';
-import type { IWizardProps } from '@models/wizard';
-
-// Next line should be activated once VlUTooltip is properly exported
-// For now, an import of { VlUiUtil } in the implementing app also makes the tooltip available
-// import { VlUTooltip } from '@govflanders/vl-ui-design-system-vue3';
 
 const props = withDefaults(defineProps<IWizardProps>(), {
   steps: () => [],

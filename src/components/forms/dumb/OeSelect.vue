@@ -43,10 +43,10 @@
   </div>
 </template>
 <script lang="ts" setup>
+import { ISelectProps } from '../models/select';
 import { isEqual } from 'lodash-es';
 import { ref, watch } from 'vue';
 import { vClickOutside } from '@directives/click-outside.directive';
-import type { ISelectProps } from '@models/select';
 
 const showResults = ref<boolean>(false);
 
