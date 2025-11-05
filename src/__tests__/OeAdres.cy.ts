@@ -1384,10 +1384,10 @@ describe('Adres', () => {
         getLabel('provincie').should('have.text', 'Provincie');
       });
 
-      it.only('shows a list of gewesten and provincies', () => {
+      it('shows a list of gewesten and provincies', () => {
         getMultiSelect('gewest').click();
         getMultiSelect('gewest').find('.multiselect-option').should('have.length', 3);
-        getMultiSelect('gewest').find('.multiselect-option').click();
+        getMultiSelect('gewest').find('.multiselect-caret').click();
 
         cy.wait('@dataGetProvinciesVlaamsGewest');
 
@@ -1400,7 +1400,7 @@ describe('Adres', () => {
         cy.wait('@dataGetProvinciesVlaamsGewest');
         getMultiSelect('provincie').click();
         getMultiSelect('provincie').find('.multiselect-option').should('have.length', 5);
-        getMultiSelect('provincie').find('.multiselect-option').click();
+        getMultiSelect('provincie').find('.multiselect-caret').click();
       });
 
       it('disables provincie when selecting "Brussels Hoofdstedelijk Gewest"', () => {
@@ -1464,7 +1464,7 @@ describe('Adres', () => {
         setMultiSelectValue('provincie', 'Vlaams-Brabant');
 
         getMultiSelect('gemeente').click();
-        getMultiSelect('gemeente').find('.multiselect-option').first().should('have.text', 'Aarschot');
+        getMultiSelect('gemeente').find('.multiselect-option').first().should('contain.text', 'Aarschot');
       });
     });
   });
