@@ -17,8 +17,8 @@
     value-prop="niscode"
     @keydown.tab="!modelValueComputed ? $event.preventDefault() : null"
   >
-    <template #noresults><span>Geen resultaten gevonden...</span></template>
-    <template #nooptions><span>Geen opties beschikbaar</span></template>
+    <template #noresults><li class="multiselect-option">Geen resultaten gevonden...</li></template>
+    <template #nooptions><li class="multiselect-option">Geen opties beschikbaar</li></template>
   </VlMultiselect>
 </template>
 

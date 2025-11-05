@@ -30,17 +30,28 @@ $vl-icon-font-location: '@govflanders/vl-ui-design-system-style/assets/font/icon
 ----------------------------
 **/
 
-// Import core and custom component styling
-// @import '@govflanders/vl-ui-design-system-style/scss/core/_core.scss';
-// @import '@govflanders/vl-ui-autocomplete/src/scss/autocomplete';
-// @import '@govflanders/vl-ui-select/src/scss/select';
-
 @import '@govflanders/vl-ui-design-system-style/scss';
 /**
 -------------------------------
  Start override specific styles
 -------------------------------
 **/
+
+// Override CSS custom properties
+:root {
+  --vl-theme-primary-color: #{$primary-color};
+  --vl-theme-primary-color-60: #{mix($primary-color, $white, 60%)};
+  --vl-theme-primary-color-70: #{mix($primary-color, $white, 70%)};
+  --vl-theme-primary-color-rgba-30: #{rgba($primary-color, 0.3)};
+  --vl-theme-primary-color-rgba-20: #{rgba($primary-color, 0.2)};
+  --vl-theme-primary-color-rgba-10: #{rgba($primary-color, 0.1)};
+
+  --vl-theme-fg-color: #{$vl-mine-shaft};
+  --vl-theme-fg-color-60: #{mix($vl-mine-shaft, $white, 60%)};
+  --vl-theme-fg-color-70: #{mix($vl-mine-shaft, $white, 70%)};
+
+  --vl-theme-focus-outline-color: #{mix($primary-color, $white, 65%)};
+}
 
 // vl-button
 .vl-button {

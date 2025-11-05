@@ -168,4 +168,8 @@ onMounted(() => {
 .vl-input-field--disabled {
   opacity: 0.6;
 }
+
+.vl-input-field--error {
+  border-color: #ff0000 !important;
+}
 </style>
