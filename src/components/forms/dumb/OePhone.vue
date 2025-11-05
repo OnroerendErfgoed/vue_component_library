@@ -9,6 +9,7 @@
         :options="countryCodeList"
         mode="single"
         object
+        :can-clear="false"
         :can-deselect="false"
         @select="emit('update:modelValue', '')"
       >
