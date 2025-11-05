@@ -1,12 +1,26 @@
-import '@/scss/main.scss';
+import {
+  CellStyleModule,
+  ColumnAutoSizeModule,
+  InfiniteRowModelModule,
+  ModuleRegistry,
+  RowSelectionModule,
+  ValidationModule,
+} from 'ag-grid-community';
 import { ref } from 'vue';
-import { OeActorWidget } from '@components/dumb/grid';
+import OeActorWidget from '@components/widgets/smart/OeActorWidget.vue';
 import { ActorType } from '@models/actor';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-// More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
+ModuleRegistry.registerModules([
+  InfiniteRowModelModule,
+  ValidationModule,
+  ColumnAutoSizeModule,
+  RowSelectionModule,
+  CellStyleModule,
+]);
+
 const meta: Meta<typeof OeActorWidget> = {
-  title: 'Smart components/OeActorWidget',
+  title: 'Widgets Module/Actor Widget',
   component: OeActorWidget,
   parameters: {
     layout: 'fullscreen',
@@ -72,7 +86,7 @@ export const Default: Story = {
     },
     template: `
     <div style="zoom: .95">
-      <oe-actor-widget search-actor="van hum" :id="id" :api="api" :open="open" @add="console.log" @close="open=false" :actor-type="actorType">
+      <oe-actor-widget  :id="id" :api="api" :open="open" @add="console.log" @close="open=false" :actor-type="actorType">
         <template v-slot:dropdown>
           <div class="dropdown"></div>
         </template>
@@ -90,7 +104,7 @@ export const WithSsoTokenCallback: Story = {
     setup() {
       const actorType = ActorType.PERSOON;
       const id = '1';
-      const api = 'http://local.onroerenderfgoed.be:6543';
+      const api = 'https://dev-actoren.onroerenderfgoed.be';
       const getSsoToken = async () => 1;
       return { id, api, getSsoToken, actorType };
     },

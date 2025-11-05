@@ -5,11 +5,11 @@ import {
   IFilterOption,
   OeFilter,
   OeFilterDatepicker,
+  OeFilterGemeente,
   OeFilterRadio,
   OeFilterSelect,
   OeFilterText,
 } from '@/forms';
-import { FilterGemeente } from '@components/smart';
 
 describe('Filter', () => {
   const TestComponent = defineComponent({
@@ -28,7 +28,7 @@ describe('Filter', () => {
 
   describe('with options', () => {
     const TestComponentWithOptions = defineComponent({
-      components: { OeFilterText, OeFilterDatepicker, FilterGemeente, OeFilterRadio, OeFilterSelect },
+      components: { OeFilterText, OeFilterDatepicker, OeFilterGemeente, OeFilterRadio, OeFilterSelect },
       props: {
         uniqueFilters: {
           type: Boolean,
@@ -67,7 +67,7 @@ describe('Filter', () => {
       <OeFilter v-slot="{ value, setValue, selectedOption, addFilter }" :options="options" :unique-filters="uniqueFilters" @filters-selected="setFilters">
         <OeFilterText v-if="selectedOption.key === 'id'" :value="value" @update:value="setValue($event, $event)" placeholder="ID" @keyup.enter="addFilter"></OeFilterText>
         <OeFilterDatepicker v-if="selectedOption.key === 'datum_goedkeuring_van'" :value="value" @update:value="setValue($event, $event)"></OeFilterDatepicker>
-        <filter-gemeente v-if="selectedOption.key === 'gemeente'" :value="value" @update:value="setValue($event, $event.naam)"></filter-gemeente>
+        <OeFilterGemeente v-if="selectedOption.key === 'gemeente'" :value="value" @update:value="setValue($event, $event.naam)"></OeFilterGemeente>
         <OeFilterRadio v-if="selectedOption.key === 'beheerscommissie' || selectedOption.key === 'beheersplan_verlopen'" :options="radioOptions" :value="value" @update:value="setValue($event, $event)"></OeFilterRadio>
         <OeFilterSelect v-if="selectedOption.key === 'plantype'" placeholder="Type plan" :model-value="value" @update:model-value="setValue($event, $event)">
           <optgroup label="Niet Actief">
@@ -252,7 +252,7 @@ describe('Filter', () => {
 
   describe('responsive behavior', () => {
     const TestComponentWithOptions = defineComponent({
-      components: { OeFilter, OeFilterText, OeFilterDatepicker, FilterGemeente, OeFilterRadio, OeFilterSelect },
+      components: { OeFilter, OeFilterText, OeFilterDatepicker, OeFilterGemeente, OeFilterRadio, OeFilterSelect },
       setup() {
         const options: IFilterOption[] = [
           { label: 'ID', key: 'id' },
@@ -269,7 +269,7 @@ describe('Filter', () => {
         <OeFilter :options="options" @filters-selected="setFilters">
           <OeFilterText v-if="selectedOption.key === 'id'" :value="value" @update:value="setValue($event, $event)" placeholder="ID"></OeFilterText>
           <OeFilterDatepicker v-if="selectedOption.key === 'datum_goedkeuring_van'" :value="value" @update:value="setValue($event, $event)"></OeFilterDatepicker>
-          <filter-gemeente v-if="selectedOption.key === 'gemeente'" :value="value" @update:value="setValue($event, $event.naam)"></filter-gemeente>
+          <OeFilterGemeente v-if="selectedOption.key === 'gemeente'" :value="value" @update:value="setValue($event, $event.naam)"></OeFilterGemeente>
           <OeFilterRadio v-if="selectedOption.key === 'beheerscommissie'" :options="radioOptions" :value="value" @update:value="setValue($event, $event)"></OeFilterRadio>
           <OeFilterSelect v-if="selectedOption.key === 'plantype'" placeholder="Type plan" :model-value="value" @update:model-value="setValue($event, $event)">
             <optgroup label="Niet Actief">

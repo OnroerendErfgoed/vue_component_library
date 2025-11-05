@@ -1,6 +1,7 @@
 <template>
   <div>
     <DefineTemplate>
+      <slot />
       <div
         class="spinner-content"
         :class="{

@@ -10,7 +10,6 @@
     :can-deselect="false"
     :can-clear="false"
     :options="gemeenten"
-    :preserve-search="true"
     :model-value="gemeenteValue"
     @update:model-value="updateValue"
     @keydown.tab="!props.value ? $event.preventDefault() : null"

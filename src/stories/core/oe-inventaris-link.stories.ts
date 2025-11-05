@@ -1,19 +1,17 @@
-import '@/scss/main.scss';
-import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { OeInventarisLink } from '@components/smart';
+import { IInventarisLinkGebeurtenis, IInventarisLinkWaarneming, ILinks } from '@components/core/models/links';
+import OeInventarisLink from '@components/core/smart/OeInventarisLink.vue';
+import { axiosInstance } from '@services/http.service';
 import type { Meta, StoryObj } from '@storybook/vue3';
-import type { IInventarisLinkGebeurtenis, IInventarisLinkWaarneming, ILinks } from '@models/links';
 
 const WAARNEMING_API =
   'https://dev-inventaris.onroerenderfgoed.be/gebeurtenissen?bron_referentie_uri=https://dev-id.erfgoed.net/dossiers/158226';
 const GEBEURTENIS_API =
   'https://dev-inventaris.onroerenderfgoed.be/waarnemingsobjecten?bron_referentie_uri=https://dev-id.erfgoed.net/dossiers/158226';
 
-const mock = new MockAdapter(axios);
-// More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
+const mock = new MockAdapter(axiosInstance);
 const meta: Meta<typeof OeInventarisLink> = {
-  title: 'Smart components/OeInventarisLink',
+  title: 'Core Module/Inventaris Link',
   component: OeInventarisLink,
   parameters: {
     docs: {

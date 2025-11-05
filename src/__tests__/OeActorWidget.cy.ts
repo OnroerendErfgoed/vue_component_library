@@ -1,5 +1,5 @@
 /* eslint-disable vue/one-component-per-file */
-import OeActorWidget from '../components/smart/OeActorWidget.vue';
+import OeActorWidget from '../components/widgets/smart/OeActorWidget.vue';
 import { Interception } from 'cypress/types/net-stubbing';
 import { defineComponent } from 'vue';
 import { ActorType } from '@models/actor';

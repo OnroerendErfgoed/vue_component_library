@@ -1,10 +1,10 @@
 <template>
   <div>
-    <font-awesome-icon
+    <FontAwesomeIcon
       data-cy="actor-widget-detail-btn"
       title="Details van de actor bekijken"
       class="icon vl-u-spacer-right--xxsmall"
-      icon="eye"
+      :icon="faEye"
       @click="props.params.setStateDetail(params.data?.id as number)"
     />
     <a
@@ -12,12 +12,13 @@
       target="_blank"
       title="Bewerk actor"
     >
-      <font-awesome-icon class="icon" icon="pencil" />
+      <FontAwesomeIcon class="icon" :icon="faPencil" />
     </a>
   </div>
 </template>
 
 <script setup lang="ts">
+import { faEye, faPencil } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import type { ICellRendererParams } from 'ag-grid-community';
 import type { IActor } from '@models/actor';

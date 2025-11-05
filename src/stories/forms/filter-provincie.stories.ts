@@ -1,12 +1,10 @@
-import '@/scss/main.scss';
-import FilterProvincie from '@components/smart/FilterProvincie.vue';
+import OeFilterProvincie from '@components/forms/smart/OeFilterProvincie.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import type { IProvincie } from '@models/locatie';
 
-// More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
-const meta: Meta<typeof FilterProvincie> = {
-  title: 'Smart components/Filter Inputs/FilterProvincie',
-  component: FilterProvincie,
+const meta: Meta<typeof OeFilterProvincie> = {
+  title: 'Forms Module/Filter Inputs/Filter Provincie',
+  component: OeFilterProvincie,
   parameters: {
     docs: {
       description: {
@@ -44,7 +42,7 @@ const meta: Meta<typeof FilterProvincie> = {
     },
   },
   render: (args) => ({
-    components: { FilterProvincie },
+    components: { OeFilterProvincie },
     inheritAttrs: false,
     setup() {
       return { args };
@@ -52,7 +50,7 @@ const meta: Meta<typeof FilterProvincie> = {
     template: `
       <div>
       <Suspense>
-        <FilterProvincie v-bind="args" @update:value="onUpdateProvincie" />
+        <OeFilterProvincie v-bind="args" @update:value="onUpdateProvincie" />
       </Suspense>
       </div>
     `,
@@ -65,7 +63,7 @@ const meta: Meta<typeof FilterProvincie> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof FilterProvincie>;
+type Story = StoryObj<typeof OeFilterProvincie>;
 
 export const Default: Story = {
   args: {

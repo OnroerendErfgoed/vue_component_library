@@ -2,7 +2,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { mount } from 'cypress/vue';
 import { defineComponent, useAttrs } from 'vue';
-import OeInventarisLink from '@components/smart/OeInventarisLink.vue';
+import OeInventarisLink from '@components/core/smart/OeInventarisLink.vue';
 import type { IInventarisLinkGebeurtenis, IInventarisLinkWaarneming, ILinks } from '@components/core/models/links';
 
 const WAARNEMING_API =

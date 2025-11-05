@@ -1,22 +1,22 @@
 <template>
-  <vl-multiselect
+  <VlMultiselect
     data-cy="filter-provincie"
     placeholder="Provincie"
-    :custom-label="customProvincieLabel"
-    :mod-multiple="false"
+    label="naam"
+    mode="single"
+    searchable
+    object
+    value-prop="niscode"
+    :can-deselect="false"
+    :can-clear="false"
     :options="provincies"
-    :preserve-search="true"
-    :value="provincieValue"
-    @update:value="updateValue"
+    :model-value="provincieValue"
+    @update:model-value="updateValue"
     @keydown.tab="!props.value ? $event.preventDefault() : null"
   >
-    <template #noResult>
-      <span>Geen resultaten gevonden...</span>
-    </template>
-    <template #noOptions>
-      <span>Geen opties beschikbaar</span>
-    </template>
-  </vl-multiselect>
+    <template #noresults><li class="multiselect-option">Geen resultaten gevonden...</li></template>
+    <template #nooptions><li class="multiselect-option">Geen opties beschikbaar</li></template>
+  </VlMultiselect>
 </template>
 
 <script setup lang="ts">
@@ -41,7 +41,6 @@ const updateValue = (value: IProvincie) => emit('update:value', value);
 
 const crabApiService = new CrabApiService(props.api);
 const provincies = ref<IProvincie[]>([]);
-const customProvincieLabel = (option: IProvincie) => option.naam;
 
 onBeforeMount(async () => {
   provincies.value = await crabApiService.getProvincies();

@@ -11,6 +11,9 @@ export { default as OeSystemFields } from './dumb/OeSystemFields.vue';
 export { default as OeToaster } from './dumb/OeToaster.vue';
 export { default as OeInventarisLoadedLink } from './dumb/OeInventarisLoadedLink.vue';
 
+// Smart components
+export { default as OeInventarisLink } from './smart/OeInventarisLink.vue';
+
 // Models
 export * from './models/container';
 export * from './models/header';
@@ -23,3 +26,6 @@ export * from '@models/system-fields';
 
 // Stores
 export { useUtilStore } from '@stores/utilStore';
+
+// Common services used by this module
+export { HttpService } from '@services/http.service';

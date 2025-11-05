@@ -18,6 +18,7 @@ export { default as OeFilterText } from './dumb/OeFilterText.vue';
 export { default as OeFilterAanduidingsobject } from './smart/OeFilterAanduidingsobject.vue';
 export { default as OeFilterAOEActor } from './smart/OeFilterAOEActor.vue';
 export { default as OeFilterGemeente } from './smart/OeFilterGemeente.vue';
+export { default as OeFilterProvincie } from './smart/OeFilterProvincie.vue';
 
 // Directives
 export { vClickOutside } from '@directives/click-outside.directive';

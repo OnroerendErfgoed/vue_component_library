@@ -31,23 +31,23 @@
     </vl-grid>
     <vl-grid class="vl-u-spacer-top--xsmall">
       <vl-column width="12">
-        <oe-grid
+        <OeGrid
           class="table"
           :grid-options="gridOptions"
           @grid-ready="onGridReady"
           @first-data-rendered="firstDataRendered"
           @row-clicked="gridOptions?.onRowClicked"
-        ></oe-grid>
+        ></OeGrid>
       </vl-column>
     </vl-grid>
   </div>
 </template>
 
 <script setup lang="ts">
+import OeActorWidgetGridActies from '../dumb/OeActorWidgetGridActies.vue';
 import { VlActionGroup, VlButton, VlColumn, VlGrid, VlSearch } from '@govflanders/vl-ui-design-system-vue3';
 import { isEmpty, omitBy } from 'lodash-es';
 import { computed, getCurrentInstance, ref, watch } from 'vue';
-// import { OeActorWidgetGridActies } from '@/grid';
 import OeGrid from '@components/grid/dumb/OeGrid.vue';
 import { ActorService, type IActorenQuery } from '@services/actor.service';
 import type {
@@ -121,10 +121,9 @@ const getColumnDefinitions = (): ColDef[] => {
     { headerName: 'Voornaam', field: 'voornaam', flex: 1 },
     { headerName: 'Type', field: 'type.naam', colId: 'type', flex: 1 },
     {
-      headerName: 'Acties',
       width: 60,
       cellClass: 'acties-cell',
-      // cellRenderer: OeActorWidgetGridActies,
+      cellRenderer: OeActorWidgetGridActies,
       cellRendererParams: {
         setStateDetail: (id: number) => emit('setStateDetail', id),
         actorenUrl: props.api,
