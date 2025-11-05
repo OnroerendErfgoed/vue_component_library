@@ -1,23 +1,18 @@
-import '@/scss/main.scss';
-import { OeZoneerder } from '@components/smart';
-import { defaultLayerConfig } from '@models/oe-map-config';
+import { defaultLayerConfig } from '@components/map';
+import OeZoneerder from '@components/map/smart/OeZoneerder.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const api = 'https://test-geo.onroerenderfgoed.be/';
 
 const meta: Meta<typeof OeZoneerder> = {
-  /* 👇 The title prop is optional.
-   * See https://storybook.js.org/docs/vue/configure/overview#configure-story-loading
-   * to learn how to generate automatic titles
-   */
-  title: 'Smart components/OeZoneerder',
+  title: 'Map Module/Zoneerder',
   component: OeZoneerder,
   render: () => ({
     setup: () => {
       return { api };
     },
     components: { OeZoneerder },
-    template: '<oe-zoneerder :api="api" style="height: 500px"/>',
+    template: '<OeZoneerder :api="api" style="height: 500px"/>',
   }),
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/react/configure/story-layout
@@ -231,7 +226,7 @@ export const DrawZone: Story = {
         },
       };
     },
-    template: `<oe-zoneerder :api="api" v-model:zone="zone" :draw-panel-enabled="drawPanelEnabled" style="height: 500px"></oe-zoneerder>`,
+    template: `<OeZoneerder :api="api" v-model:zone="zone" :draw-panel-enabled="drawPanelEnabled" style="height: 500px"></OeZoneerder>`,
   }),
 };
 
@@ -252,6 +247,6 @@ export const AllSelects: Story = {
         layerConfig,
       };
     },
-    template: `<oe-zoneerder :api="api" :draw-panel-enabled="drawPanelEnabled" :layer-config="layerConfig" :feature-select-config="featureSelectConfig" style="height: 500px"></oe-zoneerder>`,
+    template: `<OeZoneerder :api="api" :draw-panel-enabled="drawPanelEnabled" :layer-config="layerConfig" :feature-select-config="featureSelectConfig" style="height: 500px"></OeZoneerder>`,
   }),
 };

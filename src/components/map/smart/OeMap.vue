@@ -11,7 +11,7 @@
     <div ref="leftControlsContainerRef" class="controlsContainer left">
       <div v-if="props.controlConfig.zoomSwitcher" class="zoom-switcher oe-ol-control ol-unselectable ol-control">
         <button class="zoomButton" title="Ga naar het Geoportaal" @click="zoomButtonClick">
-          <FontAwesomeIcon :icon="['fas', 'fa-globe']" />
+          <FontAwesomeIcon :icon="faGlobe" />
         </button>
       </div>
       <slot name="leftControls"></slot>
@@ -19,13 +19,21 @@
     <div ref="rightControlsContainerRef" class="controlsContainer right">
       <slot name="rightControls"></slot>
     </div>
-    <Layerswitcher @layerswitcher:mounted="addLayerswitcherControl" />
+    <OeMapLayerswitcher @layerswitcher:mounted="addLayerswitcherControl" />
     <slot name="panel"></slot>
   </div>
 </template>
 
 <script setup lang="ts">
 import 'ol/ol.css';
+import { LayerType } from '../models/layer-type.enum';
+import { LayerOptions, OeMapProps, defaultControlConfig, defaultLayerConfig } from '../models/map-config';
+import { Contour } from '../models/openlayers';
+import { MapUtil } from '../utils/openlayers/map-util';
+import { Geolocate } from '../utils/openlayers/oe-ol-geolocate';
+import { ProjectionUtil } from '../utils/openlayers/projection-util';
+import OeMapLayerswitcher from './OeMapLayerswitcher.vue';
+import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import Feature from 'ol/Feature';
 import Map from 'ol/Map';
@@ -44,19 +52,14 @@ import VectorSource from 'ol/source/Vector';
 import WMTSTileGrid from 'ol/tilegrid/WMTS';
 import proj4 from 'proj4';
 import { onMounted, onUnmounted, provide, ref, useTemplateRef, watch } from 'vue';
-import { LayerType, defaultControlConfig, defaultLayerConfig } from '@/models';
 import { CrabApiService } from '@/services/crab-api.service';
 import OeAutocomplete from '@components/forms/dumb/OeAutocomplete.vue';
-import Layerswitcher from '@components/smart/OeMapLayerswitcher.vue';
-import { MapUtil, ProjectionUtil } from '@utils/index';
-import { Geolocate } from '@utils/openlayers/oe-ol-geolocate';
+import { IAutocompleteOption } from '@components/forms/models/autocomplete';
+import { IBoundingBox } from '@models/locatie';
 import type { Coordinate } from 'ol/coordinate';
 import type { Extent } from 'ol/extent';
 import type { Projection } from 'ol/proj';
 import type { Ref } from 'vue';
-import type { IBoundingBox, LayerOptions, OeMapProps } from '@/models';
-import type { IAutocompleteOption } from '@components/forms/models/autocomplete';
-import type { Contour } from '@models/oe-openlayers';
 
 const props = withDefaults(defineProps<OeMapProps>(), {
   controlConfig: () => defaultControlConfig,

@@ -8,7 +8,7 @@
   >
     <div ref="elementRef" class="layerswitcher oe-ol-control ol-control ol-unselectable">
       <button ref="buttonRef" title="Verander kaartlagen" @click="togglePanel">
-        <FontAwesomeIcon :icon="['fas', 'layer-group']" style="pointer-events: none" />
+        <FontAwesomeIcon :icon="faLayerGroup" style="pointer-events: none" />
       </button>
     </div>
 
@@ -50,6 +50,7 @@
 
 <script setup lang="ts">
 import 'ol/ol.css';
+import { faLayerGroup } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { VlCheckbox, VlRadio, VlTitle } from '@govflanders/vl-ui-design-system-vue3';
 import { Guid } from 'guid-typescript';

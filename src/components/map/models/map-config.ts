@@ -1,6 +1,6 @@
-import { LayerType } from '@/models';
-import type { ILocatie, UrlString } from '@/models';
-import type { Contour } from '@models/oe-openlayers';
+import { LayerType } from './layer-type.enum';
+import { Contour } from './openlayers';
+import { ILocatie } from '@models/locatie';
 
 export interface ControlConfig {
   fullscreen: boolean;
@@ -157,7 +157,7 @@ export interface OeZoneerderProps extends OeMapProps {
 
 export interface OeMapProps {
   zone?: Contour;
-  api?: UrlString;
+  api?: string;
   controlConfig?: ControlConfig;
   layerConfig?: LayerConfig;
   locatie?: ILocatie;

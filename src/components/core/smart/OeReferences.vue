@@ -1,13 +1,13 @@
 <template>
-  <oe-loader v-if="isLoading" />
+  <OeLoader v-if="isLoading" />
   <div v-else>
     <div v-if="_reference?.has_references" class="vl-u-spacer-bottom">
       <p class="vl-u-align-right vl-u-spacer-right--small">
         <span class="toggle vl-u-text--small vl-u-spacer-right--small" @click="toggleAccordions(true)">
-          <font-awesome-icon :icon="['fas', 'angle-down']" /> Alles tonen
+          <FontAwesomeIcon :icon="faAngleDown" /> Alles tonen
         </span>
         <span class="toggle vl-u-text--small" @click="toggleAccordions(false)">
-          <font-awesome-icon class="vl-u-spacer-right--xxsmall" :icon="['fas', 'angle-up']" />Alles verbergen
+          <FontAwesomeIcon class="vl-u-spacer-right--xxsmall" :icon="faAngleUp" />Alles verbergen
         </span>
       </p>
       <span class="vl-u-mark--info vl-u-text">
@@ -34,7 +34,7 @@
             </template>
             <template v-if="application.count">
               <div v-for="item in application.items.slice(0, 5)" :key="item.uri">
-                <font-awesome-icon class="icon vl-u-spacer-right--xsmall" :icon="['fas', 'angle-right']" />
+                <FontAwesomeIcon class="icon vl-u-spacer-right--xsmall" :icon="faAngleRight" />
                 <vl-link :href="item.uri" target="_blank">{{ item.title }}</vl-link>
               </div>
             </template>
@@ -52,6 +52,9 @@
 </template>
 
 <script setup lang="ts">
+import OeLoader from '../dumb/OeLoader.vue';
+import { IReference } from '../models/reference';
+import { faAngleDown, faAngleRight, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import {
   VlAccordion,
@@ -62,9 +65,7 @@ import {
 } from '@govflanders/vl-ui-design-system-vue3';
 import { isEqual, sortBy } from 'lodash-es';
 import { type ComponentPublicInstance, computed, onBeforeMount, ref, watch } from 'vue';
-import OeLoader from '@components/core/dumb/OeLoader.vue';
 import { IdService } from '@services/id.service';
-import type { IReference } from '@models/reference';
 
 const props = defineProps<{ uri?: string; idServiceUrl?: string; reference?: IReference }>();
 const isLoading = ref(false);

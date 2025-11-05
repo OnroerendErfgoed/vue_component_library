@@ -1,12 +1,10 @@
-import '@/scss/main.scss';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import OeReferences from '@components/smart/OeReferences.vue';
-import { IReference } from '@models/reference';
+import { IReference } from '@components/core/models/reference';
+import OeReferences from '@components/core/smart/OeReferences.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-// More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
 const meta: Meta<typeof OeReferences> = {
-  title: 'Smart components/OeReferences',
+  title: 'Core Module/References',
   component: OeReferences,
   parameters: {
     layout: 'fullscreen',

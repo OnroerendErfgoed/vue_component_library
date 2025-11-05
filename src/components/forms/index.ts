@@ -12,8 +12,6 @@ export { default as OeFilterRadio } from './dumb/OeFilterRadio.vue';
 export { default as OeFilterSelect } from './dumb/OeFilterSelect.vue';
 export { default as OeFilterText } from './dumb/OeFilterText.vue';
 
-// Smart components
-
 // Smart filter components
 export { default as OeFilterAanduidingsobject } from './smart/OeFilterAanduidingsobject.vue';
 export { default as OeFilterAOEActor } from './smart/OeFilterAOEActor.vue';

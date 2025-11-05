@@ -13,12 +13,14 @@ export { default as OeInventarisLoadedLink } from './dumb/OeInventarisLoadedLink
 
 // Smart components
 export { default as OeInventarisLink } from './smart/OeInventarisLink.vue';
+export { default as OeReferences } from './smart/OeReferences.vue';
 
 // Models
 export * from './models/container';
 export * from './models/header';
 export * from './models/side-navigation';
 export * from './models/links';
+export * from './models/reference';
 
 // Common types
 export type { IToast } from '@models/toast';
@@ -29,3 +31,4 @@ export { useUtilStore } from '@stores/utilStore';
 
 // Common services used by this module
 export { HttpService } from '@services/http.service';
+export { IdService } from '@services/id.service';

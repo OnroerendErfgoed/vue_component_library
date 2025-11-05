@@ -1,23 +1,18 @@
-import '@/scss/main.scss';
-import { OeMap } from '@components/smart';
-import { defaultLayerConfig } from '@models/oe-map-config';
+import { defaultLayerConfig } from '@components/map/models/map-config';
+import OeMap from '@components/map/smart/OeMap.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const api = 'https://test-geo.onroerenderfgoed.be/';
 
 const meta: Meta<typeof OeMap> = {
-  /* 👇 The title prop is optional.
-   * See https://storybook.js.org/docs/vue/configure/overview#configure-story-loading
-   * to learn how to generate automatic titles
-   */
-  title: 'Smart components/OeMap',
+  title: 'Map Module/Map',
   component: OeMap,
   render: () => ({
     setup: () => {
       return { api };
     },
     components: { OeMap },
-    template: '<oe-map :api="api" style="height: 500px"/>',
+    template: '<OeMap :api="api" style="height: 500px"/>',
   }),
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/react/configure/story-layout
@@ -259,7 +254,7 @@ export const ShowZone: Story = {
         },
       };
     },
-    template: `<oe-map :api="api" v-model:zone="zone" style="height: 500px"></oe-map>`,
+    template: `<OeMap :api="api" v-model:zone="zone" style="height: 500px"></OeMap>`,
   }),
 };
 
@@ -282,6 +277,6 @@ export const AllControlsAndLayers: Story = {
         },
       };
     },
-    template: `<oe-map :api="api" :control-config="controlConfig" style="height: 500px"></oe-map>`,
+    template: `<OeMap :api="api" :control-config="controlConfig" style="height: 500px"></OeMap>`,
   }),
 };

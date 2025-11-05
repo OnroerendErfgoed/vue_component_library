@@ -11,26 +11,30 @@
       <div ref="rightControlsContainerRef" :class="{ hideZonePanelControl: !props.drawPanelEnabled }"></div>
     </template>
     <template #panel>
-      <ZonePanel
+      <OeZoneerderZonePanel
         v-model:feature-select="featureSelect"
         :feature-select-config="props.featureSelectConfig"
         :draw-panel-enabled="props.drawPanelEnabled"
         @zone-panel:mounted="addZonePanelControl"
-      ></ZonePanel>
+      />
     </template>
   </OeMap>
 </template>
 
 <script setup lang="ts">
 import 'ol/ol.css';
+import { FeatureSelectEnum } from '../models/feature-select.enum';
+import {
+  OeZoneerderProps,
+  defaultControlConfig,
+  defaultFeatureSelectConfig,
+  defaultLayerConfig,
+} from '../models/map-config';
+import { Contour } from '../models/openlayers';
+import OeMap from './OeMap.vue';
+import OeZoneerderZonePanel from './OeZoneerderZonePanel.vue';
 import { Control } from 'ol/control';
 import { Ref, ref, useTemplateRef, watch } from 'vue';
-import { defaultControlConfig, defaultFeatureSelectConfig, defaultLayerConfig } from '@/models';
-import OeMap from '@components/smart/OeMap.vue';
-import ZonePanel from '@components/smart/OeZoneerderZonePanel.vue';
-import { FeatureSelectEnum } from '@models/featureSelect.enum';
-import type { OeZoneerderProps } from '@/models';
-import type { Contour } from '@models/oe-openlayers';
 
 const props = withDefaults(defineProps<OeZoneerderProps>(), {
   controlConfig: () => defaultControlConfig,

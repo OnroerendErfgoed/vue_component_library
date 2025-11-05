@@ -17,7 +17,7 @@ import {
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Fill, Text as OlText, Stroke, Style } from 'ol/style';
-import type { Contour } from '@models/oe-openlayers';
+import type { Contour } from '@components/map/models/openlayers';
 
 interface VectorLayerOptions {
   color: ColorLike;

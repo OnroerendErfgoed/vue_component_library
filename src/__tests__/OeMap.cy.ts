@@ -1,7 +1,5 @@
 import { defineComponent } from 'vue';
-import { LayerType } from '@/models';
-import { OeMap } from '@components/smart';
-import type { OeMapProps } from '@/models';
+import { LayerType, OeMap, OeMapProps } from '@components/map';
 
 describe('OeMap', () => {
   describe('default', () => {

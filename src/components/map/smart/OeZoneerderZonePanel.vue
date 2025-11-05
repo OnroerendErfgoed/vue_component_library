@@ -2,13 +2,13 @@
   <div ref="zonePanelRef" :class="{ closed: !panelOpen || !props.drawPanelEnabled }" class="panel">
     <div ref="elementRef" class="zone-panel oe-ol-control ol-control ol-unselectable">
       <button data-cy="zonePanelControl" @click="togglePanel">
-        <FontAwesomeIcon icon="pencil" title="Zone samenstellen" />
+        <FontAwesomeIcon :icon="faPencil" title="Zone samenstellen" />
       </button>
     </div>
 
     <VlTitle class="panelHeader" tag-name="h4">
       <span v-if="panelOpen" class="titleText">&nbsp;Zone samenstellen</span>
-      <FontAwesomeIcon class="pointer" :icon="['fas', 'close']" @click="togglePanel" />
+      <FontAwesomeIcon class="pointer" :icon="faClose" @click="togglePanel" />
     </VlTitle>
 
     <div v-if="panelOpen" class="panelBody">
@@ -20,7 +20,7 @@
             title="Teken polygoon"
             @click="toggleDrawZone(true)"
           >
-            <FontAwesomeIcon icon="draw-polygon" />
+            <FontAwesomeIcon :icon="faDrawPolygon" />
           </VlButton>
           <VlButton
             mod-narrow
@@ -28,7 +28,7 @@
             title="Teken cirkel"
             @click="toggleDrawZone(true, 'Circle')"
           >
-            <FontAwesomeIcon :icon="['far', 'circle']" />
+            <FontAwesomeIcon :icon="faCircle" />
           </VlButton>
           <VlButton
             v-if="props.featureSelectConfig.perceel"
@@ -39,7 +39,7 @@
             title="Selecteer perceel"
             @click="startPerceelSelect()"
           >
-            <FontAwesomeIcon icon="map-marker-alt" />
+            <FontAwesomeIcon :icon="faMapMarkedAlt" />
           </VlButton>
           <VlButton
             v-if="props.featureSelectConfig.gebouw"
@@ -50,7 +50,7 @@
             title="Selecteer gebouw"
             @click="startGebouwSelect()"
           >
-            <FontAwesomeIcon icon="building" />
+            <FontAwesomeIcon :icon="faBuilding" />
           </VlButton>
           <VlButton
             v-if="props.featureSelectConfig.kunstwerk"
@@ -61,7 +61,7 @@
             title="Selecteer kunstwerk"
             @click="startKunstwerkSelect()"
           >
-            <FontAwesomeIcon icon="monument" />
+            <FontAwesomeIcon :icon="faMonument" />
           </VlButton>
           <VlButton data-cy="showWKTInput" vl-button mod-narrow mod-secondary title="WKT string" @click="showWktInput()"
             >WKT</VlButton
@@ -81,7 +81,7 @@
           <VlButton data-cy="plaatsWKT" vl-button mod-narrow mod-secondary @click="drawWKTZone()">Plaats</VlButton>
         </template>
         <VlButton title="annuleren" vl-button mod-narrow mod-secondary @click="toggleDrawZone(false)">
-          <FontAwesomeIcon icon="cancel" />
+          <FontAwesomeIcon :icon="faCancel" />
         </VlButton>
       </VlInputGroup>
 
@@ -90,7 +90,7 @@
         <li v-for="(item, index) in geometryObjectList" :key="index">
           <span>{{ item }}</span>
           <vl-link class="iconLink" title="Flash deze polygoon" data-cy="flashFeatureBtn" @click="flashFeature(item)">
-            <font-awesome-icon icon="bolt-lightning" />
+            <FontAwesomeIcon :icon="faBoltLightning" />
           </vl-link>
           <vl-link
             class="iconLink"
@@ -98,7 +98,7 @@
             data-cy="zoomFeatureBtn"
             @click="zoomToFeature(item)"
           >
-            <font-awesome-icon icon="magnifying-glass" />
+            <FontAwesomeIcon :icon="faMagnifyingGlass" />
           </vl-link>
           <vl-link
             class="iconLink"
@@ -106,7 +106,7 @@
             data-cy="deleteFeatureBtn"
             @click="removeGeometryObject(item)"
           >
-            <font-awesome-icon icon="trash-can" />
+            <FontAwesomeIcon :icon="faTrashCan" />
           </vl-link>
         </li>
       </ul>
@@ -116,6 +116,23 @@
 
 <script setup lang="ts">
 import 'ol/ol.css';
+import { FeatureSelectEnum } from '../models/feature-select.enum';
+import { FeatureSelectConfig } from '../models/map-config';
+import { IDrawGeomType } from '../models/openlayers';
+import { MapUtil } from '../utils/openlayers/map-util';
+import {
+  faBoltLightning,
+  faBuilding,
+  faCancel,
+  faCircle,
+  faClose,
+  faDrawPolygon,
+  faMagnifyingGlass,
+  faMapMarkedAlt,
+  faMonument,
+  faPencil,
+  faTrashCan,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { VlButton, VlInputField, VlInputGroup, VlLink, VlTitle } from '@govflanders/vl-ui-design-system-vue3';
 import Map from 'ol/Map';
@@ -127,11 +144,7 @@ import { Geometry, Point } from 'ol/geom';
 import { Draw } from 'ol/interaction';
 import VectorSource from 'ol/source/Vector';
 import { inject, onMounted, onUnmounted, ref, watch } from 'vue';
-import { FeatureSelectEnum } from '@models/featureSelect.enum';
-import { FeatureSelectConfig } from '@models/oe-map-config';
-import { MapUtil } from '@utils/index';
-import type { CrabApiService } from '@/services/crab-api.service';
-import type { IDrawGeomType } from '@models/oe-openlayers';
+import type { CrabApiService } from '@services/crab-api.service';
 
 const props = defineProps<{
   featureSelect: FeatureSelectEnum | undefined;

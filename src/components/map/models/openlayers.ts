@@ -1,8 +1,7 @@
 import type { Coordinate } from 'ol/coordinate';
-import type { UrlString } from '@models/_common';
 
 export interface LegendImageProperty {
-  url: UrlString;
+  url: string;
   title: string;
 }
 
