@@ -1,6 +1,7 @@
 import * as jsts from 'jsts';
-import { Feature, Map } from 'ol';
+import Feature from 'ol/Feature';
 import { FeatureLike } from 'ol/Feature';
+import Map from 'ol/Map';
 import { ColorLike } from 'ol/colorlike';
 import {
   Geometry,

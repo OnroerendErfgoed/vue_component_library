@@ -53,8 +53,7 @@ export default defineConfig({
         // Map module dependencies
         'jsts',
         'ol',
-        'ol-contextmenu',
-        'ol-ext',
+        /^ol\//, // All ol submodules
         'proj4',
 
         // Services module dependencies
@@ -65,9 +64,19 @@ export default defineConfig({
         // Editors
         '@tinymce/tinymce-vue',
         'quill',
+        /^quill\//, // Matches quill/* paths
         'quill-html-edit-button',
         'quill-toggle-fullscreen-button',
         'vue-quilly',
+
+        // Quill dependencies - externalize these too!
+        'parchment',
+        /^parchment\//,
+        'fast-diff',
+        'lodash.clonedeep',
+        'lodash.isequal',
+        'quill-delta',
+        /^quill-delta\//,
 
         // Other utilities
         '@soerenmartius/vue3-clipboard',

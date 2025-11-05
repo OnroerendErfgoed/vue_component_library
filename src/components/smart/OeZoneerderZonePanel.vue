@@ -118,7 +118,8 @@
 import 'ol/ol.css';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { VlButton, VlInputField, VlInputGroup, VlLink, VlTitle } from '@govflanders/vl-ui-design-system-vue3';
-import { Map, MapBrowserEvent } from 'ol';
+import Map from 'ol/Map';
+import MapBrowserEvent from 'ol/MapBrowserEvent';
 import { unByKey } from 'ol/Observable';
 import { type Extent } from 'ol/extent';
 import { GeoJSON, WKT } from 'ol/format';

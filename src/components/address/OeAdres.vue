@@ -262,6 +262,7 @@
 
 <script setup lang="ts">
 import { useAdresLogic } from './composables';
+import { IAdresProps } from './models/adres';
 import BusnummerSelector from './subcomponents/BusnummerSelector.vue';
 import GemeenteSelector from './subcomponents/GemeenteSelector.vue';
 import GewestSelector from './subcomponents/GewestSelector.vue';
@@ -285,7 +286,6 @@ import { Guid } from 'guid-typescript';
 import { computed, onBeforeMount } from 'vue';
 import OeLoader from '@components/core/dumb/OeLoader.vue';
 import { requiredIf } from '@utils/i18n-validators';
-import type { IAdresProps } from '@components/address/models/adres';
 
 const id = Guid.create().toString();
 
