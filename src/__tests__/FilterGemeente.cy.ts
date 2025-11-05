@@ -1,5 +1,5 @@
 /* eslint-disable vue/one-component-per-file */
-import FilterGemeente from '../components/smart/FilterGemeente.vue';
+import FilterGemeente from '../components/forms/smart/OeFilterGemeente.vue';
 import { defineComponent, ref } from 'vue';
 import { Niscode } from '@models/niscode.enum';
 import type { IGemeente } from '@models/locatie';

@@ -1,19 +1,19 @@
 <template>
-  <oe-autocomplete
+  <OeAutocomplete
     :id="props.id"
     data-cy="filter-actor"
     :callback-fn="performAutocompleteSearch"
     :value="actorValue"
     @update:value="updateValue"
-  ></oe-autocomplete>
+  />
 </template>
 
 <script setup lang="ts">
+import OeAutocomplete from '../dumb/OeAutocomplete.vue';
+import { IAutocompleteOption } from '../models/autocomplete';
+import { IFilterActorProps } from '../models/filter';
 import { computed, ref } from 'vue';
-import { IFilterActorProps } from '@components/forms';
-import OeAutocomplete from '@components/forms/dumb/OeAutocomplete.vue';
 import { ActorService } from '@services/actor.service';
-import type { IAutocompleteOption } from '@components/forms/models/autocomplete';
 import type { IActor } from '@models/actor';
 
 const props = withDefaults(defineProps<IFilterActorProps>(), {

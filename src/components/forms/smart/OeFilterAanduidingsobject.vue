@@ -1,22 +1,22 @@
 <template>
-  <oe-autocomplete
+  <OeAutocomplete
     :id="props.id"
     data-cy="filter-aanduidingsobject"
     :callback-fn="performAutocompleteSearch"
     :value="aanduidingsobjectValue"
     placeholder="Geef naam of id in"
     @update:value="updateValue"
-  ></oe-autocomplete>
+  />
 </template>
 
 <script setup lang="ts">
+import OeAutocomplete from '../dumb/OeAutocomplete.vue';
+import { IAutocompleteOption } from '../models/autocomplete';
+import { IFilterAanduidingsobjectProps } from '../models/filter';
 import { toRef } from '@vueuse/core';
 import { ref, watch } from 'vue';
-import { IFilterAanduidingsobjectProps } from '@components/forms';
-import OeAutocomplete from '@components/forms/dumb/OeAutocomplete.vue';
 import { InventarisApiService } from '@services/inventaris-api.service';
-import type { IAutocompleteOption } from '@components/forms/models/autocomplete';
-import type { IESAanduidingsobject } from '@models/index';
+import type { IESAanduidingsobject } from '@models/aanduidingsobject';
 
 const props = withDefaults(defineProps<IFilterAanduidingsobjectProps>(), {
   id: '',

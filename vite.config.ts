@@ -44,8 +44,9 @@ export default defineConfig({
         // Forms module dependencies
         '@vuelidate/core',
         '@vuelidate/validators',
-        'date-fns', // Add this
-        'libphonenumber-js', // Add this
+        'date-fns',
+        'libphonenumber-js',
+        /^libphonenumber-js\//, // All libphonenumber-js submodules
 
         // Grid module dependencies
         'ag-grid-vue3',
@@ -64,12 +65,12 @@ export default defineConfig({
         // Editors
         '@tinymce/tinymce-vue',
         'quill',
-        /^quill\//, // Matches quill/* paths
+        /^quill\//, // All quill submodules
         'quill-html-edit-button',
         'quill-toggle-fullscreen-button',
         'vue-quilly',
 
-        // Quill dependencies - externalize these too!
+        // Quill dependencies
         'parchment',
         /^parchment\//,
         'fast-diff',

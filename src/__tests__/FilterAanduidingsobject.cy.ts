@@ -1,5 +1,5 @@
 import { defineComponent, ref } from 'vue';
-import FilterAanduidingsobject from '@components/smart/FilterAanduidingsobject.vue';
+import FilterAanduidingsobject from '@components/forms/smart/OeFilterAanduidingsobject.vue';
 import type { IESAanduidingsobject } from '@models/aanduidingsobject';
 
 describe('FilterAanduidingsobject', () => {

@@ -1,4 +1,4 @@
-import FilterAOEActor from '../components/smart/FilterAOEActor.vue';
+import FilterAOEActor from '../components/forms/smart/OeFilterAOEActor.vue';
 import { defineComponent, ref } from 'vue';
 import type { IActor } from '@models/actor';
 

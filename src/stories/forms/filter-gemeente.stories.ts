@@ -1,13 +1,12 @@
-import '@/scss/main.scss';
-import FilterGemeente from '@components/smart/FilterGemeente.vue';
+import OeFilterGemeente from '@components/forms/smart/OeFilterGemeente.vue';
 import { Niscode } from '@models/niscode.enum';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import type { IGemeente } from '@models/locatie';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
-const meta: Meta<typeof FilterGemeente> = {
-  title: 'Smart components/Filter Inputs/FilterGemeente',
-  component: FilterGemeente,
+const meta: Meta<typeof OeFilterGemeente> = {
+  title: 'Forms Module/Filter Inputs/Filter Gemeente',
+  component: OeFilterGemeente,
   parameters: {
     docs: {
       description: {
@@ -53,7 +52,7 @@ const meta: Meta<typeof FilterGemeente> = {
     },
   },
   render: (args) => ({
-    components: { FilterGemeente },
+    components: { OeFilterGemeente },
     inheritAttrs: false,
     setup() {
       return { args };
@@ -61,7 +60,7 @@ const meta: Meta<typeof FilterGemeente> = {
     template: `
       <div>
       <Suspense>
-        <FilterGemeente v-bind="args" @update:value="onUpdateGemeente" />
+        <OeFilterGemeente v-bind="args" @update:value="onUpdateGemeente" />
       </Suspense>
       </div>
     `,
@@ -74,7 +73,7 @@ const meta: Meta<typeof FilterGemeente> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof FilterGemeente>;
+type Story = StoryObj<typeof OeFilterGemeente>;
 
 export const Default: Story = {
   args: {

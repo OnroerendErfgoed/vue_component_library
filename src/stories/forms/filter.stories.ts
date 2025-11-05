@@ -4,9 +4,9 @@ import OeFilterDatepicker from '@components/forms/dumb/OeFilterDatepicker.vue';
 import OeFilterRadio from '@components/forms/dumb/OeFilterRadio.vue';
 import OeFilterSelect from '@components/forms/dumb/OeFilterSelect.vue';
 import OeFilterText from '@components/forms/dumb/OeFilterText.vue';
-import { IFilterOption, IOption } from '@components/forms/models/filter-input';
-import FilterAanduidingsobject from '@components/smart/FilterAanduidingsobject.vue';
-import FilterGemeente from '@components/smart/FilterGemeente.vue';
+import { IFilterOption, IOption } from '@components/forms/models/filter';
+import OeFilterAanduidingsobject from '@components/forms/smart/OeFilterAanduidingsobject.vue';
+import OeFilterGemeente from '@components/forms/smart/OeFilterGemeente.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
@@ -76,10 +76,10 @@ const renderConfig = {
     OeFilter,
     OeFilterText,
     OeFilterDatepicker,
-    FilterGemeente,
+    OeFilterGemeente,
     OeFilterRadio,
     OeFilterSelect,
-    FilterAanduidingsobject,
+    OeFilterAanduidingsobject,
     VlGrid,
     VlColumn,
   },
@@ -173,7 +173,7 @@ const filterTemplate = `
   <OeFilterText v-if="selectedOption.key === 'id'" :value="value" @update:value="setValue($event, $event)" placeholder="ID" @keyup.enter="addFilter"></OeFilterText>
   <OeFilterText v-if="selectedOption.key === 'onderwerp'" :value="value" @update:value="setValue($event, $event)" placeholder="Onderwerp" @keyup.enter="addFilter"></OeFilterText>
   <OeFilterDatepicker v-if="selectedOption.key === 'datum_goedkeuring_van' || selectedOption.key === 'datum_goedkeuring_tot'" :value="value" @update:value="setValue($event, $event[0])"></OeFilterDatepicker>
-  <filter-gemeente v-if="selectedOption.key === 'gemeente'" api="https://test-geo.onroerenderfgoed.be/" :value="value" @update:value="setValue($event.niscode, $event.naam)"></filter-gemeente>
+  <OeFilterGemeente v-if="selectedOption.key === 'gemeente'" api="https://test-geo.onroerenderfgoed.be/" :value="value" @update:value="setValue($event.niscode, $event.naam)"></OeFilterGemeente>
   <OeFilterRadio v-if="selectedOption.key === 'beheerscommissie' || selectedOption.key === 'beheersplan_verlopen'" :options="radioOptions" :value="value" @update:value="setValue($event.value, $event.label)"></OeFilterRadio>
   <OeFilterSelect v-if="selectedOption.key === 'plantype'" placeholder="Type plan" :value="value" @update:value="setValue($event, $event)" @keyup.enter="addFilter">
     <optgroup label="Niet Actief">
@@ -185,13 +185,13 @@ const filterTemplate = `
     </optgroup>
   </OeFilterSelect>
   <OeFilterSelect v-if="selectedOption.key === 'status'" :options="statusOptions" placeholder="Status" :value="value" @update:value="setValue($event, $event)" @keyup.enter="addFilter"></OeFilterSelect>
-  <filter-aanduidingsobject
+  <OeFilterAanduidingsobject
       id="test"
       v-if="selectedOption.key === 'aanduidingsobject'"
       :value="value"
       api="https://dev-inventaris.onroerenderfgoed.be/"
       @update:value="setValue($event.value, $event.title)"
-    ></filter-aanduidingsobject>
+    ></OeFilterAanduidingsobject>
 `;
 
 export const Default: Story = {

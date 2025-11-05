@@ -1,11 +1,10 @@
-import '@/scss/main.scss';
-import FilterAOEActor from '@components/smart/FilterAOEActor.vue';
+import OeFilterAOEActor from '@components/forms/smart/OeFilterAOEActor.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
-const meta: Meta<typeof FilterAOEActor> = {
-  title: 'Smart components/Filter Inputs/FilterAOEActor',
-  component: FilterAOEActor,
+const meta: Meta<typeof OeFilterAOEActor> = {
+  title: 'Forms Module/Filter Inputs/Filter AOE Actor',
+  component: OeFilterAOEActor,
   parameters: {
     docs: {
       description: {
@@ -64,7 +63,7 @@ const meta: Meta<typeof FilterAOEActor> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof FilterAOEActor>;
+type Story = StoryObj<typeof OeFilterAOEActor>;
 
 export const Default: Story = {
   args: {
@@ -73,7 +72,7 @@ export const Default: Story = {
   },
   render: () => ({
     components: {
-      FilterAOEActor,
+      OeFilterAOEActor,
     },
     setup() {
       const api = 'https://dev-actoren.onroerenderfgoed.be';
@@ -82,7 +81,7 @@ export const Default: Story = {
     },
     template: `
     <div>
-      <FilterAOEActor id="my-id" :api="api" :get-sso-token="getSsoToken" />
+      <OeFilterAOEActor id="my-id" :api="api" :get-sso-token="getSsoToken" />
     </div>
     `,
   }),
@@ -95,7 +94,7 @@ export const WithGroepActoren: Story = {
   },
   render: () => ({
     components: {
-      FilterAOEActor,
+      OeFilterAOEActor,
     },
     setup() {
       const api = 'https://dev-actoren.onroerenderfgoed.be';
@@ -109,7 +108,7 @@ export const WithGroepActoren: Story = {
     },
     template: `
     <div>
-      <FilterAOEActor
+      <OeFilterAOEActor
         id="my-id"
         :api="api"
         :get-sso-token="getSsoToken"

@@ -126,13 +126,6 @@ defineExpose({ isValid });
 .input-phone {
   :deep(.multiselect-wrapper) {
     width: auto;
-    height: 3.5rem;
-    min-height: unset;
-  }
-
-  :deep(.multiselect) {
-    height: 3.5rem;
-    min-height: unset;
   }
 
   :deep(.vl-multiselect .multiselect--active:not(.multiselect--above) .multiselect__tags) {

@@ -150,6 +150,10 @@ const removeFilter = (filter: IFilter) =>
   width: 100%;
   container-type: inline-size; /* Enable container queries */
 
+  .vl-action-group {
+    gap: unset;
+  }
+
   .filters-input {
     display: flex;
     align-items: flex-start;

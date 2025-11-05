@@ -1,11 +1,10 @@
-import '@/scss/main.scss';
-import FilterAanduidingsobject from '@components/smart/FilterAanduidingsobject.vue';
+import OeFilterAanduidingsobject from '@components/forms/smart/OeFilterAanduidingsobject.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction
-const meta: Meta<typeof FilterAanduidingsobject> = {
-  title: 'Smart components/Filter Inputs/FilterAanduidingsobject',
-  component: FilterAanduidingsobject,
+const meta: Meta<typeof OeFilterAanduidingsobject> = {
+  title: 'Forms Module/Filter Inputs/Filter Aanduidingsobject',
+  component: OeFilterAanduidingsobject,
   parameters: {
     docs: {
       description: {
@@ -50,7 +49,7 @@ const meta: Meta<typeof FilterAanduidingsobject> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof FilterAanduidingsobject>;
+type Story = StoryObj<typeof OeFilterAanduidingsobject>;
 
 export const Default: Story = {
   args: {

@@ -1,29 +1,30 @@
 <template>
-  <vl-multiselect
-    :filtering-sort-func="(a: IGemeente, b: IGemeente) => a.naam.localeCompare(b.naam)"
+  <VlMultiselect
     data-cy="filter-gemeente"
     placeholder="Gemeente"
-    :custom-label="customGemeenteLabel"
-    :mod-multiple="false"
+    label="naam"
+    mode="single"
+    searchable
+    object
+    value-prop="niscode"
+    :can-deselect="false"
+    :can-clear="false"
     :options="gemeenten"
     :preserve-search="true"
-    :value="gemeenteValue"
-    @update:value="updateValue"
+    :model-value="gemeenteValue"
+    @update:model-value="updateValue"
     @keydown.tab="!props.value ? $event.preventDefault() : null"
   >
-    <template #noResult>
-      <span>Geen resultaten gevonden...</span>
-    </template>
-    <template #noOptions>
-      <span>Geen opties beschikbaar</span>
-    </template>
-  </vl-multiselect>
+    <template #noresults><li class="multiselect-option">Geen resultaten gevonden...</li></template>
+    <template #nooptions><li class="multiselect-option">Geen opties beschikbaar</li></template>
+  </VlMultiselect>
 </template>
 
 <script setup lang="ts">
+import { IFilterGemeenteProps } from '../models/filter';
 import { VlMultiselect } from '@govflanders/vl-ui-design-system-vue3';
 import { computed, onBeforeMount, ref } from 'vue';
-import { IFilterGemeenteProps, Niscode } from '@components/forms';
+import { Niscode } from '@models/niscode.enum';
 import { CrabApiService } from '@services/crab-api.service';
 import type { IGemeente } from '@models/locatie';
 
@@ -41,7 +42,6 @@ const updateValue = (value: IGemeente) => emit('update:value', value);
 
 const crabApiService = new CrabApiService(props.api);
 const gemeenten = ref<IGemeente[]>([]);
-const customGemeenteLabel = (option: IGemeente) => option.naam;
 
 onBeforeMount(async () => {
   const data = await crabApiService.getGemeenten();
