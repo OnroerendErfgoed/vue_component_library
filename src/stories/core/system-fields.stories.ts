@@ -1,9 +1,9 @@
-import { SystemFields } from '@components/core';
+import OeSystemFields from '@components/core/dumb/OeSystemFields.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-const meta: Meta<typeof SystemFields> = {
+const meta: Meta<typeof OeSystemFields> = {
   title: 'Core Module/System Fields',
-  component: SystemFields,
+  component: OeSystemFields,
   tags: ['autodocs'],
   argTypes: {
     status: { control: 'text' },
@@ -22,7 +22,7 @@ const meta: Meta<typeof SystemFields> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof SystemFields>;
+type Story = StoryObj<typeof OeSystemFields>;
 
 export const Default: Story = {};
 
@@ -31,10 +31,10 @@ export const Slot: Story = {
     setup() {
       return { args };
     },
-    components: { SystemFields },
-    template: `<SystemFields>
+    components: { OeSystemFields },
+    template: `<OeSystemFields>
     <template v-if="${'default' in args}" v-slot>${args.default}</template>
-    </SystemFields>`,
+    </OeSystemFields>`,
   }),
   argTypes: {
     default: {
