@@ -1,9 +1,15 @@
 {
   "name": "@OnroerendErfgoed/vue_component_library",
-  "type": "module",
   "version": "4.0.0",
+  "description": "Vue 3 component library for Onroerend Erfgoed applications, built on Govflanders Webuniversum design system",
+  "type": "module",
   "files": [
     "dist"
+  ],
+  "sideEffects": [
+    "*.css",
+    "*.scss",
+    "*.vue"
   ],
   "exports": {
     "./core": {
@@ -17,6 +23,10 @@
     "./forms": {
       "import": "./dist/forms.js",
       "types": "./dist/forms.d.ts"
+    },
+    "./address": {
+      "import": "./dist/address.js",
+      "types": "./dist/address.d.ts"
     },
     "./editor": {
       "import": "./dist/editor.js",
@@ -42,10 +52,6 @@
       "import": "./dist/utils.js",
       "types": "./dist/utils.d.ts"
     },
-    "./address": {
-      "import": "./dist/address.js",
-      "types": "./dist/address.d.ts"
-    },
     "./eslint": {
       "import": "./dist/eslint.config.js"
     },
@@ -56,21 +62,42 @@
     "type": "git",
     "url": "https://github.com/OnroerendErfgoed/vue_component_library.git"
   },
+  "homepage": "https://github.com/OnroerendErfgoed/vue_component_library#readme",
+  "bugs": {
+    "url": "https://github.com/OnroerendErfgoed/vue_component_library/issues"
+  },
+  "keywords": [
+    "vue",
+    "vue3",
+    "component-library",
+    "onroerend-erfgoed",
+    "govflanders",
+    "webuniversum",
+    "ui-components",
+    "typescript"
+  ],
+  "engines": {
+    "node": ">=22.0.0",
+    "yarn": ">=1.22.0"
+  },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
   "scripts": {
     "ci": "yarn install --frozen-lockfile",
+    "dev": "yarn storybook",
     "build": "yarn type-check && yarn build-only && yarn type-generation",
     "build:watch": "run-p type-check build-only:watch",
     "build-only": "vite build",
     "build-only:watch": "vite build --watch",
+    "test": "yarn test:unit",
     "test:unit": "cypress run --component --browser=chrome",
     "test:unit:dev": "cypress open --component",
     "type-check": "vue-tsc --noEmit",
     "type-generation": "vue-tsc --project tsconfig.build.json",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
+    "prepare": "yarn build",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "chromatic": "npx chromatic --project-token=CHROMATIC_PROJECT_TOKEN"
@@ -109,57 +136,23 @@
     "vue-quilly": "^1.0.5"
   },
   "peerDependenciesMeta": {
-    "axios": {
-      "optional": true
-    },
-    "axios-mock-adapter": {
-      "optional": true
-    },
-    "ag-grid-vue3": {
-      "optional": true
-    },
-    "date-fns": {
-      "optional": true
-    },
-    "jsts": {
-      "optional": true
-    },
-    "libphonenumber-js": {
-      "optional": true
-    },
-    "proj4": {
-      "optional": true
-    },
-    "ol": {
-      "optional": true
-    },
-    "@vuelidate/core": {
-      "optional": true
-    },
-    "@vuelidate/validators": {
-      "optional": true
-    },
-    "@soerenmartius/vue3-clipboard": {
-      "optional": true
-    },
-    "@tinymce/tinymce-vue": {
-      "optional": true
-    },
-    "@vueuse/core": {
-      "optional": true
-    },
-    "quill": {
-      "optional": true
-    },
-    "quill-html-edit-button": {
-      "optional": true
-    },
-    "quill-toggle-fullscreen-button": {
-      "optional": true
-    },
-    "vue-quilly": {
-      "optional": true
-    }
+    "axios": { "optional": true },
+    "axios-mock-adapter": { "optional": true },
+    "ag-grid-vue3": { "optional": true },
+    "date-fns": { "optional": true },
+    "jsts": { "optional": true },
+    "libphonenumber-js": { "optional": true },
+    "proj4": { "optional": true },
+    "ol": { "optional": true },
+    "@vuelidate/core": { "optional": true },
+    "@vuelidate/validators": { "optional": true },
+    "@soerenmartius/vue3-clipboard": { "optional": true },
+    "@tinymce/tinymce-vue": { "optional": true },
+    "@vueuse/core": { "optional": true },
+    "quill": { "optional": true },
+    "quill-html-edit-button": { "optional": true },
+    "quill-toggle-fullscreen-button": { "optional": true },
+    "vue-quilly": { "optional": true }
   },
   "devDependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
@@ -187,7 +180,6 @@
     "@types/node": "22",
     "@types/proj4": "^2.5.2",
     "@types/tinymce": "^4.6.6",
-    "@types/uuid": "^9.0.3",
     "@vitejs/plugin-vue": "^4.2.3",
     "@vue/eslint-config-prettier": "^10.1.0",
     "@vue/eslint-config-typescript": "^14.2.0",

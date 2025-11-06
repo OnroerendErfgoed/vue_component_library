@@ -1,10 +1,9 @@
-import '@/scss/main.scss';
 import { VlTextarea } from '@govflanders/vl-ui-design-system-vue3';
 import { vAutoResizeTextarea } from '@directives/auto-resize-textarea.directive';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta = {
-  title: 'Directives/AutoResizeTextarea',
+  title: 'Utils Module/Auto Resize Textarea',
   tags: ['autodocs'],
 };
 

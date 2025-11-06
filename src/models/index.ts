@@ -1,9 +1,6 @@
-export * from './dossier';
-export * from '../components/core/models/reference';
-
-// After refactoring accepted
 export * from './aanduidingsobject';
 export * from './actor';
+export * from './dossier';
 export * from './grid';
 export * from './locatie';
 export * from './niscode.enum';
