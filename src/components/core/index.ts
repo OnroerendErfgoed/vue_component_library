@@ -23,12 +23,12 @@ export * from './models/links';
 export * from './models/reference';
 
 // Common types
-export type { IToast } from '@models/toast';
-export * from '@models/system-fields';
+export type { IToast } from '../../models/toast';
+export * from '../../models/system-fields';
 
 // Stores
-export { useUtilStore } from '@stores/utilStore';
+export { useUtilStore } from '../../stores/utilStore';
 
 // Common services used by this module
-export { HttpService } from '@services/http.service';
-export { IdService } from '@services/id.service';
+export { HttpService } from '../../services/http.service';
+export { IdService } from '../../services/id.service';

@@ -1,7 +1,6 @@
 /**
- * Services Module - common services used across the component library
- * HTTP services, API clients, data fetching logic
+ * Services Module
+ * API services and HTTP clients
  */
 
-// Re-export everything from the service module
-export * from '@services/index';
+export * from './services/index';

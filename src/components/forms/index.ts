@@ -19,8 +19,8 @@ export { default as OeFilterGemeente } from './smart/OeFilterGemeente.vue';
 export { default as OeFilterProvincie } from './smart/OeFilterProvincie.vue';
 
 // Directives
-export { vClickOutside } from '@directives/click-outside.directive';
-export { vAutoResizeTextarea } from '@directives/auto-resize-textarea.directive';
+export { vClickOutside } from '../../directives/click-outside.directive';
+export { vAutoResizeTextarea } from '../../directives/auto-resize-textarea.directive';
 
 // Models
 export * from './models/filter';
@@ -29,13 +29,13 @@ export * from './models/autocomplete';
 export * from './models/select';
 
 // Common enums and types used by this module
-export { Niscode } from '@models/niscode.enum';
-export type { IWorkflowOwner } from '@models/workflow';
-export type { IGemeente } from '@models/locatie';
-export type { IToast } from '@models/toast';
-export type { IActor } from '@models/actor';
+export { Niscode } from '../../models/niscode.enum';
+export type { IWorkflowOwner } from '../../models/workflow';
+export type { IGemeente } from '../../models/locatie';
+export type { IToast } from '../../models/toast';
+export type { IActor } from '../../models/actor';
 
 // Common services used by this module
-export { ActorService } from '@services/actor.service';
-export { InventarisApiService } from '@services/inventaris-api.service';
-export { CrabApiService } from '@services/crab-api.service';
+export { ActorService } from '../../services/actor.service';
+export { InventarisApiService } from '../../services/inventaris-api.service';
+export { CrabApiService } from '../../services/crab-api.service';

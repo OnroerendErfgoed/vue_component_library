@@ -1,7 +1,8 @@
 /**
- * Core Module - Essential UI components
- * Lightweight components with no heavy dependencies
+ * Core Module
+ * Essential components, directives, and stores
  */
 
-// Re-export everything from the core module
-export * from '@components/core';
+export * from './components/core';
+export { useUtilStore } from './stores/utilStore';
+export type { IToast } from './models/toast';

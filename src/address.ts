@@ -1,7 +1,6 @@
 /**
- * Address Module - Address input component
- * Component for entering and validating addresses
+ * Address Module
+ * Address-related components and composables
  */
 
-// Re-export everything from the address module
-export * from '@components/address';
+export * from './components/address';

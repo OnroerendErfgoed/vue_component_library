@@ -1,7 +1,6 @@
 /**
- * Forms Module - Form-related UI components
- * Includes inputs, validation features and filter components
+ * Forms Module
+ * Form components and validation
  */
 
-// Re-export everything from the forms module
-export * from '@components/forms';
+export * from './components/forms';

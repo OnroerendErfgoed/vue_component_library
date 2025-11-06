@@ -1,7 +1,6 @@
 /**
- * Widgets Module - Advanced UI components
- * Complex components that may have additional dependencies
+ * Widgets Module
+ * Complex UI widgets
  */
 
-// Re-export everything from the widgets module
-export * from '@components/widgets';
+export * from './components/widgets';

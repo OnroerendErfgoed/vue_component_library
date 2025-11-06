@@ -1,11 +1,7 @@
 /**
- * Util Module - Utility functions, helpers and directives
- * Commonly used across the component library
+ * Utils Module
+ * Utility functions and directives
  */
 
-// Directives
-export * from '@directives/click-outside.directive';
-export * from '@directives/auto-resize-textarea.directive';
-
-// Models
-export * from '@models/index';
+export * from './utils/index';
+export * from './directives';

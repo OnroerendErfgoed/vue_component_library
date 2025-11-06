@@ -1,7 +1,6 @@
 /**
- * Editor Module - Rich text editing components
- * Components that may have heavier dependencies
+ * Editor Module
+ * Rich text editor components
  */
 
-// Re-export everything from the editor module
-export * from '@components/editor';
+export * from './components/editor';
