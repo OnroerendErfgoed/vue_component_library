@@ -1,12 +1,12 @@
 /* eslint-disable vue/one-component-per-file */
-import FilterSelect from '../components/forms/dumb/OeFilterSelect.vue';
 import { defineComponent, ref } from 'vue';
+import { OeFilterSelect } from '@components/forms';
 import type { IOption } from '@components/forms/models/filter';
 
 describe('FilterSelect', () => {
   describe('default', () => {
     const TestComponent = defineComponent({
-      components: { FilterSelect },
+      components: { OeFilterSelect },
       setup() {
         const selectValue = ref('');
         const options: IOption[] = [
@@ -22,7 +22,7 @@ describe('FilterSelect', () => {
         return { selectValue, options };
       },
       template:
-        '<filter-select :options="options" :value="selectValue" @update:model-value="$event => selectValue=$event"/>',
+        '<OeFilterSelect :options="options" :value="selectValue" @update:model-value="$event => selectValue=$event"/>',
     });
 
     it('renders a select option for each option', () => {
@@ -57,8 +57,8 @@ describe('FilterSelect', () => {
 
     it('renders a placeholder', () => {
       const TestComponentWithPlaceholder = defineComponent({
-        components: { FilterSelect },
-        template: '<filter-select placeholder="Select a value"/>',
+        components: { OeFilterSelect },
+        template: '<OeFilterSelect placeholder="Select a value"/>',
       });
       cy.mount(TestComponentWithPlaceholder);
       cy.dataCy('filter-select').children().first().invoke('text').should('equal', 'Select a value');
@@ -67,12 +67,12 @@ describe('FilterSelect', () => {
 
   describe('with slot', () => {
     const TestComponent = defineComponent({
-      components: { FilterSelect },
+      components: { OeFilterSelect },
       setup() {
         const selectValue = ref('');
         return { selectValue };
       },
-      template: `<filter-select :model-value="selectValue" @update:model-value="$event => selectValue=$event">
+      template: `<OeFilterSelect :model-value="selectValue" @update:model-value="$event => selectValue=$event">
                   <optgroup label="Niet Actief">
                     <option value="klad">Klad</option>
                     <option id="option-kladzonderfoto" value="kladzonderfoto">Klad zonder foto</option>
@@ -80,7 +80,7 @@ describe('FilterSelect', () => {
                   <optgroup label="Actief">
                     <option value="actief">Actief</option>
                   </optgroup>
-                </filter-select>`,
+                </OeFilterSelect>`,
     });
 
     it('renders the given body', () => {

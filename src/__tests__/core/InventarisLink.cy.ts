@@ -1,8 +1,8 @@
-import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { mount } from 'cypress/vue';
 import { defineComponent, useAttrs } from 'vue';
 import OeInventarisLink from '@components/core/smart/OeInventarisLink.vue';
+import { axiosInstance } from '@services/http.service';
 import type { IInventarisLinkGebeurtenis, IInventarisLinkWaarneming, ILinks } from '@components/core/models/links';
 
 const WAARNEMING_API =
@@ -10,7 +10,7 @@ const WAARNEMING_API =
 const GEBEURTENIS_API =
   'https://dev-inventaris.onroerenderfgoed.be/waarnemingsobjecten?bron_referentie_uri=https://dev-id.erfgoed.net/dossiers/158226';
 
-const mock = new MockAdapter(axios);
+const mock = new MockAdapter(axiosInstance);
 
 const TestComponent = defineComponent({
   components: { OeInventarisLink },

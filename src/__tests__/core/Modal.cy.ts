@@ -1,6 +1,4 @@
-import { VlActionGroup } from '@govflanders/vl-ui-design-system-vue3/build/components/vl-ui-action-group';
-import { VlButton } from '@govflanders/vl-ui-design-system-vue3/build/components/vl-ui-button';
-import { VlModalToggle } from '@govflanders/vl-ui-design-system-vue3/build/components/vl-ui-modal';
+import { VlActionGroup, VlButton, VlModalToggle } from '@govflanders/vl-ui-design-system-vue3';
 import { ref } from 'vue';
 import OeModal from '@components/core/dumb/OeModal.vue';
 

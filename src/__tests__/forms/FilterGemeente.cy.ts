@@ -1,32 +1,40 @@
 /* eslint-disable vue/one-component-per-file */
-import FilterGemeente from '../components/forms/smart/OeFilterGemeente.vue';
 import { defineComponent, ref } from 'vue';
+import { OeFilterGemeente } from '@components/forms';
 import { Niscode } from '@models/niscode.enum';
 import type { IGemeente } from '@models/locatie';
 
 describe('FilterGemeente', () => {
   beforeEach(() => {
+    cy.on('uncaught:exception', (err) => {
+      // Ignore errors from chunk files (bundled external libraries)
+      if (err.message.includes('chunk-') || err.stack?.includes('chunk-')) {
+        return false;
+      }
+      return true;
+    });
+
     cy.mockGewesten();
     cy.mockGemeenten();
   });
 
   describe('default', () => {
     const TestComponent = defineComponent({
-      components: { FilterGemeente },
+      components: { OeFilterGemeente },
       setup() {
         const gemeenteValue = ref<IGemeente>();
         const setValue = (value: IGemeente) => (gemeenteValue.value = value);
         return { gemeenteValue, setValue };
       },
       template:
-        '<filter-gemeente api="https://test-geo.onroerenderfgoed.be/" :value="gemeenteValue" @update:value="setValue"/>',
+        '<OeFilterGemeente api="https://test-geo.onroerenderfgoed.be/" :value="gemeenteValue" @update:value="setValue"/>',
     });
 
     it('fetch gemeenten, filter and assign the chosen filter to the corresponding data value', () => {
       const onUpdateValueSpy = cy.spy().as('onUpdateValueSpy');
 
       cy.mount(TestComponent, { props: { 'onUpdate:value': onUpdateValueSpy } }).then(({ component }) => {
-        cy.dataCy('filter-gemeente').click().find('.multiselect__input').type('Bertem');
+        cy.dataCy('filter-gemeente').click().find('.multiselect-search').type('Bertem');
         cy.dataCy('filter-gemeente')
           .find('.multiselect-option')
           .click()
@@ -55,7 +63,7 @@ describe('FilterGemeente', () => {
 
   describe('gewest prop', () => {
     const TestComponent = defineComponent({
-      components: { FilterGemeente },
+      components: { OeFilterGemeente },
       setup() {
         const gemeenteValue = ref<IGemeente>();
         const setValue = (value: IGemeente) => (gemeenteValue.value = value);
@@ -63,14 +71,14 @@ describe('FilterGemeente', () => {
         return { gemeenteValue, gewest, setValue };
       },
       template:
-        '<filter-gemeente api="https://test-geo.onroerenderfgoed.be/" :value="gemeenteValue" :gewest="gewest" @update:value="setValue"/>',
+        '<OeFilterGemeente api="https://test-geo.onroerenderfgoed.be/" :value="gemeenteValue" :gewest="gewest" @update:value="setValue"/>',
     });
 
     it('fetches gemeenten with gewest constraint, search and assign an available gemeente', () => {
       const onUpdateValueSpy = cy.spy().as('onUpdateValueSpy');
 
       cy.mount(TestComponent, { props: { 'onUpdate:value': onUpdateValueSpy } }).then(({ component }) => {
-        cy.dataCy('filter-gemeente').click().find('.multiselect__input').type('Bertem');
+        cy.dataCy('filter-gemeente').click().find('.multiselect-search').type('Bertem');
         cy.dataCy('filter-gemeente')
           .find('.multiselect-option')
           .click()
@@ -98,9 +106,9 @@ describe('FilterGemeente', () => {
 
     it('fetches gemeenten with gewest constraint and search for unavailable gemeente', () => {
       cy.mount(TestComponent).then(() => {
-        cy.dataCy('filter-gemeente').click().find('.multiselect__input').type('Brussel');
+        cy.dataCy('filter-gemeente').click().find('.multiselect-search').type('Brussel');
         cy.dataCy('filter-gemeente')
-          .find('.multiselect__option span')
+          .find('.multiselect-option')
           .first()
           .should('have.text', 'Geen resultaten gevonden...');
       });
@@ -108,9 +116,9 @@ describe('FilterGemeente', () => {
 
     it('sorts the gemeenten by naam using filtering-sort-func', () => {
       cy.mount(TestComponent).then(() => {
-        cy.dataCy('filter-gemeente').click().find('.multiselect__input').type('br');
+        cy.dataCy('filter-gemeente').click().find('.multiselect-search').type('br');
         cy.dataCy('filter-gemeente')
-          .get('.multiselect__option span')
+          .get('.multiselect-option')
           .then(($options) => {
             const optionsText = Array.from($options)
               .filter((option) => option.offsetParent !== null)

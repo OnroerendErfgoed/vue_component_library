@@ -1,18 +1,28 @@
-import FilterProvincie from '../components/forms/smart/OeFilterProvincie.vue';
 import { defineComponent, ref } from 'vue';
+import { OeFilterProvincie } from '@components/forms';
 import type { IProvincie } from '@models/locatie';
 
 describe('FilterProvincie', () => {
+  beforeEach(() => {
+    cy.on('uncaught:exception', (err) => {
+      // Ignore errors from chunk files (bundled external libraries)
+      if (err.message.includes('chunk-') || err.stack?.includes('chunk-')) {
+        return false;
+      }
+      return true;
+    });
+  });
+
   describe('default', () => {
     const TestComponent = defineComponent({
-      components: { FilterProvincie },
+      components: { OeFilterProvincie },
       setup() {
         const provincieValue = ref<IProvincie>();
         const setValue = (value: IProvincie) => (provincieValue.value = value);
         return { provincieValue, setValue };
       },
       template:
-        '<filter-provincie api="https://test-geo.onroerenderfgoed.be/" :value="provincieValue" @update:value="setValue"/>',
+        '<OeFilterProvincie api="https://test-geo.onroerenderfgoed.be/" :value="provincieValue" @update:value="setValue"/>',
     });
 
     beforeEach(() => {
@@ -26,9 +36,9 @@ describe('FilterProvincie', () => {
 
       cy.mount(TestComponent, { props: { 'onUpdate:value': onUpdateValueSpy } }).then(({ component }) => {
         cy.wait('@dataGetProvinciesVlaamsGewest').then(() => {
-          cy.dataCy('filter-provincie').click().find('.multiselect__input').type('vlaams');
+          cy.dataCy('filter-provincie').click().find('.multiselect-search').type('vlaams');
           cy.dataCy('filter-provincie')
-            .find('.multiselect__element')
+            .find('.multiselect-option')
             .click()
             .then(() => {
               expect(component.provincieValue).to.deep.equal({

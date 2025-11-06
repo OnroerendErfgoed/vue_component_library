@@ -1,7 +1,27 @@
-import schema from '../../cypress/fixtures/workflowSchema.json';
+import schema from '../../../cypress/fixtures/workflowSchema.json';
+import {
+  CellStyleModule,
+  ClientSideRowModelModule,
+  ColumnAutoSizeModule,
+  InfiniteRowModelModule,
+  ModuleRegistry,
+  PaginationModule,
+  RowSelectionModule,
+  ValidationModule,
+} from 'ag-grid-community';
 import { mount } from 'cypress/vue';
 import { defineComponent, useAttrs } from 'vue';
-import GridWorkflow from '@components/grid/dumb/OeGridWorkflow.vue';
+import OeGridWorkflow from '@components/grid/dumb/OeGridWorkflow.vue';
+
+ModuleRegistry.registerModules([
+  InfiniteRowModelModule,
+  ClientSideRowModelModule,
+  ValidationModule,
+  ColumnAutoSizeModule,
+  PaginationModule,
+  RowSelectionModule,
+  CellStyleModule,
+]);
 
 const data = [
   {
@@ -39,13 +59,13 @@ const data = [
 ];
 
 const TestComponent = defineComponent({
-  components: { GridWorkflow },
+  components: { OeGridWorkflow },
   setup() {
     const attrs = useAttrs();
     return { attrs };
   },
   template: `<div style="width: 100%; height: 300px">
-  <GridWorkflow v-bind="attrs"></GridWorkflow>
+  <OeGridWorkflow v-bind="attrs"></OeGridWorkflow>
   </div>`,
 });
 

@@ -1,6 +1,6 @@
 /* eslint-disable vue/one-component-per-file */
-import { VlButton } from '@govflanders/vl-ui-design-system-vue3/build/components/vl-ui-button';
 import { defineComponent, ref } from 'vue';
+import OeButton from '@components/core/dumb/OeButton.vue';
 import { OeAutocomplete } from '@components/forms';
 import type { IAutocompleteOption } from '@components/forms/models/autocomplete';
 
@@ -92,7 +92,7 @@ describe('Autocomplete', () => {
 
   describe('Initial value', () => {
     const TestComponent = defineComponent({
-      components: { OeAutocomplete, VlButton },
+      components: { OeAutocomplete, OeButton },
       setup() {
         const callback = (searchTerm: string): Promise<IAutocompleteOption[]> => {
           return new Promise(function (resolve) {

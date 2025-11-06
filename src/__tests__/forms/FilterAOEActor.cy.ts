@@ -1,11 +1,11 @@
-import FilterAOEActor from '../components/forms/smart/OeFilterAOEActor.vue';
 import { defineComponent, ref } from 'vue';
+import { OeFilterAOEActor } from '@components/forms';
 import type { IActor } from '@models/actor';
 
 describe('FilterAanduidingsobject', () => {
   describe('default', () => {
     const TestComponent = defineComponent({
-      components: { FilterAOEActor },
+      components: { OeFilterAOEActor },
       setup() {
         const actorValue = ref<IActor>();
         const setValue = (value: IActor) => (actorValue.value = value);
@@ -13,7 +13,7 @@ describe('FilterAanduidingsobject', () => {
         return { actorValue, setValue, getSsoToken };
       },
       template:
-        '<FilterAOEActor api="https://dev-actoren.onroerenderfgoed.be" :get-sso-token="getSsoToken" :value="actorValue" @update:value="setValue"/>',
+        '<OeFilterAOEActor api="https://dev-actoren.onroerenderfgoed.be" :get-sso-token="getSsoToken" :value="actorValue" @update:value="setValue"/>',
     });
 
     it('fetches wij actoren, filter and assign the chosen filter to the corresponding data value', () => {

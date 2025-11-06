@@ -1,14 +1,14 @@
 import { defineComponent, ref } from 'vue';
-import InputPhone from '@components/forms/dumb/OePhone.vue';
+import OePhone from '@components/forms/dumb/OePhone.vue';
 import type { CountryCode } from 'libphonenumber-js';
 
 const TestComponent = defineComponent({
-  components: { InputPhone },
+  components: { OePhone },
   setup() {
     const phoneNumber = ref('');
     return { phoneNumber: phoneNumber };
   },
-  template: '<input-phone id="id" v-model="phoneNumber"/>',
+  template: '<OePhone id="id" v-model="phoneNumber"/>',
 });
 
 const generateTestSuiteNonDefaultCountry = (
@@ -97,7 +97,7 @@ const generateTestSuiteNonDefaultCountry = (
   });
 };
 
-describe('InputPhone', () => {
+describe('Phone', () => {
   it('renders', () => {
     cy.mount(TestComponent);
   });
@@ -205,7 +205,7 @@ describe('InputPhone', () => {
 
 const checkFlagAndPrefix = (countryCode: string, prefix: string) => {
   cy.dataCy('country-code')
-    .find('.multiselect__single span')
+    .find('.multiselect-wrapper span')
     .should('have.class', 'flag')
     .should('have.class', countryCode.toLowerCase())
     .invoke('text')

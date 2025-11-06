@@ -1,10 +1,10 @@
-import FilterRadio from '../components/forms/dumb/OeFilterRadio.vue';
 import { defineComponent, ref } from 'vue';
+import { OeFilterRadio } from '@components/forms';
 import type { IOption } from '@components/forms/models/filter';
 
 describe('FilterRadio', () => {
   const TestComponent = defineComponent({
-    components: { FilterRadio },
+    components: { OeFilterRadio },
     setup() {
       const radioValue = ref('');
       const options: IOption[] = [
@@ -20,7 +20,7 @@ describe('FilterRadio', () => {
       return { radioValue, options };
     },
     template:
-      '<filter-radio id="cy-test" :options="options" :value="radioValue" @update:value="$event => radioValue=$event"/>',
+      '<OeFilterRadio id="cy-test" :options="options" :value="radioValue" @update:value="$event => radioValue=$event"/>',
   });
 
   it('renders a radio for each option', () => {

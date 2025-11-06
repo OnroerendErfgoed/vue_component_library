@@ -17,8 +17,6 @@ import '@/scss/main.scss';
 import './commands';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-// Import VL components
-import { installs } from '@govflanders/vl-ui-design-system-vue3';
 // Alternatively you can use CommonJS syntax:
 import { mount } from 'cypress/vue';
 

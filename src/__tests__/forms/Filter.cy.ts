@@ -28,7 +28,7 @@ describe('Filter', () => {
 
   describe('with options', () => {
     const TestComponentWithOptions = defineComponent({
-      components: { OeFilterText, OeFilterDatepicker, OeFilterGemeente, OeFilterRadio, OeFilterSelect },
+      components: { OeFilterText, OeFilterDatepicker, OeFilterGemeente, OeFilterRadio, OeFilterSelect, OeFilter },
       props: {
         uniqueFilters: {
           type: Boolean,

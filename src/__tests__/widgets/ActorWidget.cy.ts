@@ -1,8 +1,24 @@
 /* eslint-disable vue/one-component-per-file */
-import OeActorWidget from '../components/widgets/smart/OeActorWidget.vue';
+import {
+  CellStyleModule,
+  ColumnAutoSizeModule,
+  InfiniteRowModelModule,
+  ModuleRegistry,
+  RowSelectionModule,
+  ValidationModule,
+} from 'ag-grid-community';
 import { Interception } from 'cypress/types/net-stubbing';
 import { defineComponent } from 'vue';
+import { OeActorWidget } from '@components/widgets';
 import { ActorType } from '@models/actor';
+
+ModuleRegistry.registerModules([
+  InfiniteRowModelModule,
+  ValidationModule,
+  ColumnAutoSizeModule,
+  RowSelectionModule,
+  CellStyleModule,
+]);
 
 describe('OeActorWidget', () => {
   describe('default', () => {

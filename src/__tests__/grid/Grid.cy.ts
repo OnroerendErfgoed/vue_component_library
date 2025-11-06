@@ -1,5 +1,25 @@
+import {
+  CellStyleModule,
+  ClientSideRowModelModule,
+  ColumnAutoSizeModule,
+  InfiniteRowModelModule,
+  ModuleRegistry,
+  PaginationModule,
+  RowSelectionModule,
+  ValidationModule,
+} from 'ag-grid-community';
 import { defineComponent } from 'vue';
 import OeGrid from '@components/grid/dumb/OeGrid.vue';
+
+ModuleRegistry.registerModules([
+  InfiniteRowModelModule,
+  ClientSideRowModelModule,
+  ValidationModule,
+  ColumnAutoSizeModule,
+  PaginationModule,
+  RowSelectionModule,
+  CellStyleModule,
+]);
 
 describe('Grid', () => {
   const TestComponent = defineComponent({
