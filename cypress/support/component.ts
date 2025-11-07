@@ -15,12 +15,8 @@
 // Import commands.js using ES2015 syntax:
 import '@/scss/main.scss';
 import './commands';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
 // Alternatively you can use CommonJS syntax:
 import { mount } from 'cypress/vue';
-
-library.add(fas);
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.

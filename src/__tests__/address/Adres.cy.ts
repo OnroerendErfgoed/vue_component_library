@@ -1517,6 +1517,7 @@ describe('Adres', () => {
         },
         template: '<OeAdres v-model:adres="adres" :config="c" country-id="BE" />',
       }).then(({ component }) => {
+        cy.wait('@dataGetGemeentenVlaamsGewest');
         getMultiSelect('gemeente').click();
         getMultiSelect('gemeente').find('.multiselect-search').type('Lummen');
         getMultiSelect('gemeente')
