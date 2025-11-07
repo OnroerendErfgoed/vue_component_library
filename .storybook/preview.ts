@@ -21,6 +21,20 @@ const preview: Preview = {
         date: /Date$/,
       },
     },
+    options: {
+      storySort: {
+        method: 'alphabetical',
+        order: [
+          'Documentation',
+          'Core Module',
+          'Forms Module',
+          'Grid Module',
+          'Map Module',
+          'Services Module',
+          'Editors Module',
+        ],
+      },
+    },
   },
 };
 
