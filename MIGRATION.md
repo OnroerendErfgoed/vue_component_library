@@ -1,0 +1,422 @@
+# Migration Guide: v3 to v4
+
+## Overview
+
+Version 4.0 introduces a **modular architecture** with tree-shakeable exports, improved TypeScript support, and better bundle optimization.
+
+## Breaking Changes
+
+### 1. Modular Imports Required
+
+You **must** import from specific modules. The default export has been removed.
+
+**Before (v3):**
+
+```typescript
+import { OeButton, OeDatepicker, OeMap } from '@OnroerendErfgoed/vue_component_library';
+```
+
+**After (v4):**
+
+```typescript
+import { OeButton } from '@OnroerendErfgoed/vue_component_library/core';
+import { OeDatepicker } from '@OnroerendErfgoed/vue_component_library/forms';
+import { OeMap } from '@OnroerendErfgoed/vue_component_library/map';
+```
+
+### 2. CSS Import Paths Changed
+
+The `/dist/` prefix has been removed from CSS import paths.
+
+**Before (v3):**
+
+```typescript
+// Compiled CSS
+// Or SCSS
+import '@OnroerendErfgoed/vue_component_library/dist/scss/main.scss';
+import '@OnroerendErfgoed/vue_component_library/dist/vue-components.css';
+```
+
+**After (v4):**
+
+```typescript
+// Compiled CSS
+// Or SCSS
+import '@OnroerendErfgoed/vue_component_library/scss/main.scss';
+import '@OnroerendErfgoed/vue_component_library/vue-components.css';
+```
+
+## Available Modules
+
+| Module          | Import Path    | Gzipped Size | Description                                           |
+| --------------- | -------------- | ------------ | ----------------------------------------------------- |
+| **Composables** | `/composables` | ~0.13 KB     | Store exports only (re-exports utilStore)             |
+| **Grid**        | `/grid`        | ~1.61 KB     | Data grid components (ag-Grid wrapper)                |
+| **Services**    | `/services`    | ~0.85 KB     | API services (auth, actor, inventaris, ID)            |
+| **Editor**      | `/editor`      | ~3.54 KB     | Rich text editors (TinyMCE, Quill)                    |
+| **Utils**       | `/utils`       | ~1.03 KB     | Utility functions, validators, i18n                   |
+| **Widgets**     | `/widgets`     | ~4.48 KB     | Complex widgets (Actor, Locatie, Betrokkene)          |
+| **Address**     | `/address`     | ~9.36 KB     | Belgian address components with autocomplete          |
+| **Map**         | `/map`         | ~11.59 KB    | OpenLayers map components                             |
+| **Core**        | `/core`        | ~9.31 KB     | Essential UI components (Button, Modal, Header, etc.) |
+| **Forms**       | `/forms`       | ~6.46 KB     | Form inputs, filters, validation                      |
+
+## Migration Steps
+
+### Step 1: Update CSS Imports
+
+```diff
+# Compiled CSS
+- import '@OnroerendErfgoed/vue_component_library/dist/vue-components.css';
++ import '@OnroerendErfgoed/vue_component_library/vue-components.css';
+
+# SCSS (if using)
+- import '@OnroerendErfgoed/vue_component_library/dist/scss/main.scss';
++ import '@OnroerendErfgoed/vue_component_library/scss/main.scss';
+```
+
+### Step 2: Update Component Imports
+
+**Find and replace pattern:**
+
+```typescript
+// Before
+import { OeButton, OeDatepicker, OeMap, OeAdres } from '@OnroerendErfgoed/vue_component_library';
+
+// After - import from specific modules
+import { OeButton } from '@OnroerendErfgoed/vue_component_library/core';
+import { OeDatepicker } from '@OnroerendErfgoed/vue_component_library/forms';
+import { OeMap } from '@OnroerendErfgoed/vue_component_library/map';
+import { OeAdres } from '@OnroerendErfgoed/vue_component_library/address';
+```
+
+### Step 3: Install Required Peer Dependencies
+
+```bash
+# Core dependencies (always required)
+yarn add vue@^3.4.0 pinia@^2.1.7 vue-i18n@^9.0.0 lodash-es@^4.17.21
+yarn add @govflanders/vl-ui-design-system-vue3@~8.0.2
+yarn add @govflanders/vl-ui-design-system-style@~3.2.3
+yarn add @fortawesome/fontawesome-svg-core@^6.4.0
+yarn add @fortawesome/free-solid-svg-icons@^6.4.0
+yarn add @fortawesome/vue-fontawesome@^3.1.2
+```
+
+### Step 4: Install Optional Dependencies (Only What You Need)
+
+Based on which modules you're using:
+
+```bash
+# If using core module
+yarn add @vueuse/core@^10.0.0
+yarn add @soerenmartius/vue3-clipboard@^1.0.0
+
+# If using forms module
+yarn add @vuelidate/core@^2.0.2 @vuelidate/validators@^2.0.2
+yarn add date-fns@^2.30.0 libphonenumber-js@^1.10.37
+
+# If using address module
+yarn add axios@^1.12.0
+yarn add ol@^7.4.0  # Also needed for address autocomplete
+
+# If using grid module
+yarn add ag-grid-vue3@^34.0.0
+
+# If using map module
+yarn add ol@^7.4.0 jsts@2.7.2 proj4@^2.9.0
+
+# If using editor module (TinyMCE)
+yarn add @tinymce/tinymce-vue@^4
+
+# If using editor module (Quill)
+yarn add quill@^2.0.0 quill-html-edit-button@^3.0.0
+yarn add quill-toggle-fullscreen-button@^0.1.3 vue-quilly@^1.0.5
+yarn add parchment@^3.0.0 fast-diff@^1.3.0
+yarn add lodash.clonedeep@^4.5.0 lodash.isequal@^4.5.0 quill-delta@^5.1.0
+```
+
+### Step 5: Test Your Application
+
+```bash
+yarn dev
+yarn build
+```
+
+Check that:
+
+- ✅ All components render correctly
+- ✅ Fonts are still loaded (included in library CSS)
+- ✅ Bundle size matches your usage
+- ✅ No console errors
+
+## Benefits of v4
+
+### 🎯 Tree-Shaking
+
+Only import what you use. The modular structure allows bundlers to eliminate unused code.
+
+**Example 1: Using only core components**
+
+```typescript
+import '@OnroerendErfgoed/vue_component_library/vue-components.css';
+import { OeButton, OeModal } from '@OnroerendErfgoed/vue_component_library/core';
+```
+
+**Example 2: Forms-heavy application**
+
+```typescript
+import '@OnroerendErfgoed/vue_component_library/vue-components.css';
+import { OeDatepicker, OeSelect } from '@OnroerendErfgoed/vue_component_library/forms';
+```
+
+**Example 3: Minimal utility usage**
+
+```typescript
+import { removeEmptyValues } from '@OnroerendErfgoed/vue_component_library/utils';
+```
+
+### 🚀 Better Performance
+
+- Faster initial load times
+- Smaller JavaScript bundles through modular imports
+- Code splitting friendly
+- Only load dependencies you actually use
+- Shared code loaded once and cached
+
+### 💪 Better TypeScript Support
+
+- Full type inference for all modules
+- Better autocomplete in IDEs
+- Declaration maps for debugging
+- Proper type checking across module boundaries
+
+## Migration Examples
+
+### Example 1: Simple Form Page
+
+**Before (v3):**
+
+```typescript
+import '@OnroerendErfgoed/vue_component_library/dist/vue-components.css';
+import { OeButton, OeDatepicker, OeSelect } from '@OnroerendErfgoed/vue_component_library';
+```
+
+**After (v4):**
+
+```typescript
+import '@OnroerendErfgoed/vue_component_library/vue-components.css';
+import { OeButton } from '@OnroerendErfgoed/vue_component_library/core';
+import { OeDatepicker, OeSelect } from '@OnroerendErfgoed/vue_component_library/forms';
+```
+
+### Example 2: Address Form
+
+**Before (v3):**
+
+```typescript
+import '@OnroerendErfgoed/vue_component_library/dist/vue-components.css';
+import { OeAdres, OeButton, OeDatepicker } from '@OnroerendErfgoed/vue_component_library';
+```
+
+**After (v4):**
+
+```typescript
+import '@OnroerendErfgoed/vue_component_library/vue-components.css';
+import { OeAdres } from '@OnroerendErfgoed/vue_component_library/address';
+import { OeButton } from '@OnroerendErfgoed/vue_component_library/core';
+import { OeDatepicker } from '@OnroerendErfgoed/vue_component_library/forms';
+```
+
+### Example 3: Map Application
+
+**Before (v3):**
+
+```typescript
+import '@OnroerendErfgoed/vue_component_library/dist/vue-components.css';
+import { OeButton, OeMap, OeZoneerder } from '@OnroerendErfgoed/vue_component_library';
+```
+
+**After (v4):**
+
+```typescript
+import '@OnroerendErfgoed/vue_component_library/vue-components.css';
+import { OeButton } from '@OnroerendErfgoed/vue_component_library/core';
+import { OeMap, OeZoneerder } from '@OnroerendErfgoed/vue_component_library/map';
+```
+
+### Example 4: Using SCSS
+
+**Before (v3):**
+
+```scss
+// In your main.scss
+@import '@OnroerendErfgoed/vue_component_library/dist/scss/main.scss';
+
+// Custom overrides
+.my-component {
+  // Your styles
+}
+```
+
+**After (v4):**
+
+```scss
+// In your main.scss
+@import '@OnroerendErfgoed/vue_component_library/scss/main.scss';
+
+// Custom overrides
+.my-component {
+  // Your styles
+}
+```
+
+## Troubleshooting
+
+### "Cannot find module" errors
+
+Make sure you're importing from the correct module. Use the component location reference above.
+
+```typescript
+// ❌ Wrong
+import { OeDatepicker } from '@OnroerendErfgoed/vue_component_library/core';
+
+// ✅ Correct
+import { OeDatepicker } from '@OnroerendErfgoed/vue_component_library/forms';
+```
+
+### CSS not loading
+
+Make sure you've updated the CSS import path:
+
+```typescript
+// ❌ Old path (v3)
+import '@OnroerendErfgoed/vue_component_library/dist/vue-components.css';
+// ✅ New path (v4)
+import '@OnroerendErfgoed/vue_component_library/vue-components.css';
+```
+
+For SCSS:
+
+```scss
+// ❌ Old path (v3)
+@import '@OnroerendErfgoed/vue_component_library/dist/scss/main.scss';
+
+// ✅ New path (v4)
+@import '@OnroerendErfgoed/vue_component_library/scss/main.scss';
+```
+
+### Module '"@OnroerendErfgoed/vue_component_library/X"' has no exported member 'Y'
+
+This means the component is in a different module. Check the [Component Location Reference](#component-location-reference) above.
+
+Common mistakes:
+
+- `useAdres` is in `/address` (not `/composables`)
+- `OeDatepicker` is in `/forms` (not `/core`)
+- `OeMap` is in `/map` (not `/core`)
+
+### Missing peer dependencies
+
+You'll see warnings like:
+
+```
+Warning: @OnroerendErfgoed/vue_component_library requires a peer of ol@^7.4.0 but none is installed.
+```
+
+**Solution:** Only install peer dependencies for modules you use:
+
+- Using map components? → Install `ol`, `jsts`, `proj4`
+- Using address components? → Install `axios`, `ol` (for autocomplete features)
+- Using grid components? → Install `ag-grid-vue3`
+- Using form components? → Install `@vuelidate/core`, `@vuelidate/validators`, `date-fns`, `libphonenumber-js`
+- Using editor (Quill)? → Install `quill`, `vue-quilly`, and related packages
+- Not using these modules? → You can ignore the warnings (they're optional)
+
+### Bundle size larger than expected
+
+Check that you're not accidentally importing entire modules:
+
+```typescript
+// ❌ Bad - imports everything from forms module (~74.2 KB)
+import * as Forms from '@OnroerendErfgoed/vue_component_library/forms';
+const { OeDatepicker } = Forms;
+
+// ✅ Good - imports only what you need
+import { OeDatepicker } from '@OnroerendErfgoed/vue_component_library/forms';
+```
+
+Also check for dynamic imports of heavy modules:
+
+```typescript
+// For rarely-used heavy modules, use dynamic imports
+const OeMap = defineAsyncComponent(() => import('@OnroerendErfgoed/vue_component_library/map').then((m) => m.OeMap));
+```
+
+### TypeScript errors after upgrading
+
+1. Clear your TypeScript cache:
+
+```bash
+rm -rf node_modules/.vite
+rm -rf node_modules/.cache
+```
+
+2. Restart your TypeScript server in your IDE
+
+3. Make sure you're using the correct import paths
+
+## Best Practices
+
+### 1. Group Imports by Module
+
+```typescript
+// ✅ Good - organized and readable
+import { OeButton, OeModal } from '@OnroerendErfgoed/vue_component_library/core';
+import { OeSelect, OeDatepicker } from '@OnroerendErfgoed/vue_component_library/forms';
+import { OeAdres, useAdres } from '@OnroerendErfgoed/vue_component_library/address';
+import '@OnroerendErfgoed/vue_component_library/vue-components.css';
+
+// ❌ Harder to read
+import { OeButton } from '@OnroerendErfgoed/vue_component_library/core';
+import { OeDatepicker } from '@OnroerendErfgoed/vue_component_library/forms';
+import { OeModal } from '@OnroerendErfgoed/vue_component_library/core';
+import { OeSelect } from '@OnroerendErfgoed/vue_component_library/forms';
+```
+
+### 2. Use Dynamic Imports for Heavy Modules
+
+```typescript
+// Map module is ~55.8 KB - use dynamic import if not always needed
+const OeMap = defineAsyncComponent(() => import('@OnroerendErfgoed/vue_component_library/map').then((m) => m.OeMap));
+
+// Address module is ~58.9 KB
+const OeAdres = defineAsyncComponent(() =>
+  import('@OnroerendErfgoed/vue_component_library/address').then((m) => m.OeAdres)
+);
+```
+
+### 3. Import Types Separately
+
+```typescript
+import { OeAdres } from '@OnroerendErfgoed/vue_component_library/address';
+import type { IAdres, IGemeente } from '@OnroerendErfgoed/vue_component_library/address';
+```
+
+### 4. Check Bundle Size Regularly
+
+Use your bundler's analysis tool:
+
+```bash
+# For Vite
+yarn build
+# Check dist/stats.html
+```
+
+### 5. Be Selective with Module Imports
+
+Only import modules you actually need, remove unused imports
+
+## Need Help?
+
+- 📖 [Full Documentation](https://github.com/OnroerendErfgoed/vue_component_library#readme)
+- 🐛 [Report Issues](https://github.com/OnroerendErfgoed/vue_component_library/issues)

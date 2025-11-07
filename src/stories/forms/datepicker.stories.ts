@@ -16,7 +16,6 @@ const meta: Meta<typeof OeDatepicker> = {
       },
     },
   },
-  tags: ['autodocs'],
   argTypes: {
     modelValue: {
       description: 'Date in API format (yyyy-MM-dd)',
