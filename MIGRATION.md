@@ -46,6 +46,19 @@ import '@OnroerendErfgoed/vue_component_library/scss/main.scss';
 import '@OnroerendErfgoed/vue_component_library/vue-components.css';
 ```
 
+### 3. All Components Now Have 'Oe' Prefix
+
+All components are now consistently prefixed with `Oe` for better namespacing and to avoid conflicts.
+
+**Component naming in v4:**
+
+- ✅ All components: `OeButton`, `OeDatepicker`, `OeSelect`, `OeMap`, etc.
+- ✅ All composables: `useAdres`, `useAdresAPI`, `useUtilStore`
+- ✅ All services: `ActorService`, `HttpService`, `InventarisApiService`, etc.
+- ✅ All directives: `vClickOutside`
+
+**Note:** If you were using components without the `Oe` prefix in v3, you'll need to update them. Most components already had the prefix in v3, but this ensures consistency across the entire library.
+
 ## Available Modules
 
 | Module          | Import Path    | Gzipped Size | Description                                           |
@@ -90,7 +103,20 @@ import { OeMap } from '@OnroerendErfgoed/vue_component_library/map';
 import { OeAdres } from '@OnroerendErfgoed/vue_component_library/address';
 ```
 
-### Step 3: Install Required Peer Dependencies
+### Step 3: Verify Component Names Have 'Oe' Prefix
+
+Ensure all component references in your templates and code use the `Oe` prefix:
+
+```vue
+<template>
+  <!-- ✅ Correct - All components use Oe prefix -->
+  <OeButton @click="handleClick">Click me</OeButton>
+  <OeSelect v-model="country" :options="countries" />
+  <OeMap :center="[4.4025, 51.2194]" />
+</template>
+```
+
+### Step 4: Install Required Peer Dependencies
 
 ```bash
 # Core dependencies (always required)
@@ -102,7 +128,7 @@ yarn add @fortawesome/free-solid-svg-icons@^6.4.0
 yarn add @fortawesome/vue-fontawesome@^3.1.2
 ```
 
-### Step 4: Install Optional Dependencies (Only What You Need)
+### Step 5: Install Optional Dependencies (Only What You Need)
 
 Based on which modules you're using:
 
@@ -135,7 +161,7 @@ yarn add parchment@^3.0.0 fast-diff@^1.3.0
 yarn add lodash.clonedeep@^4.5.0 lodash.isequal@^4.5.0 quill-delta@^5.1.0
 ```
 
-### Step 5: Test Your Application
+### Step 6: Test Your Application
 
 ```bash
 yarn dev
@@ -145,6 +171,7 @@ yarn build
 Check that:
 
 - ✅ All components render correctly
+- ✅ All component names have the `Oe` prefix
 - ✅ Fonts are still loaded (included in library CSS)
 - ✅ Bundle size matches your usage
 - ✅ No console errors
@@ -160,6 +187,11 @@ Only import what you use. The modular structure allows bundlers to eliminate unu
 ```typescript
 import '@OnroerendErfgoed/vue_component_library/vue-components.css';
 import { OeButton, OeModal } from '@OnroerendErfgoed/vue_component_library/core';
+
+// Module: ~9.31 KB (gzipped)
+// Shared deps (first load): ~10.90 KB
+// CSS: ~6.54 KB
+// Total first load: ~26.75 KB
 ```
 
 **Example 2: Forms-heavy application**
@@ -167,12 +199,21 @@ import { OeButton, OeModal } from '@OnroerendErfgoed/vue_component_library/core'
 ```typescript
 import '@OnroerendErfgoed/vue_component_library/vue-components.css';
 import { OeDatepicker, OeSelect } from '@OnroerendErfgoed/vue_component_library/forms';
+
+// Module: ~6.46 KB (gzipped)
+// Shared deps (first load): ~10.90 KB
+// CSS: ~6.54 KB
+// Total first load: ~23.90 KB
 ```
 
 **Example 3: Minimal utility usage**
 
 ```typescript
 import { removeEmptyValues } from '@OnroerendErfgoed/vue_component_library/utils';
+
+// Module: ~1.03 KB (gzipped)
+// Shared deps: ~1.17 KB (object utilities only)
+// Total: ~2.20 KB
 ```
 
 ### 🚀 Better Performance
@@ -189,6 +230,12 @@ import { removeEmptyValues } from '@OnroerendErfgoed/vue_component_library/utils
 - Better autocomplete in IDEs
 - Declaration maps for debugging
 - Proper type checking across module boundaries
+
+### 🏷️ Consistent Naming
+
+- All components use the `Oe` prefix for clear namespacing
+- Reduces naming conflicts with other libraries
+- Easier to identify library components in your codebase
 
 ## Migration Examples
 
@@ -315,6 +362,8 @@ Common mistakes:
 - `OeDatepicker` is in `/forms` (not `/core`)
 - `OeMap` is in `/map` (not `/core`)
 
+**Remember:** All components have the `Oe` prefix!
+
 ### Missing peer dependencies
 
 You'll see warnings like:
@@ -337,7 +386,7 @@ Warning: @OnroerendErfgoed/vue_component_library requires a peer of ol@^7.4.0 bu
 Check that you're not accidentally importing entire modules:
 
 ```typescript
-// ❌ Bad - imports everything from forms module (~74.2 KB)
+// ❌ Bad - imports everything from forms module (~6.46 KB)
 import * as Forms from '@OnroerendErfgoed/vue_component_library/forms';
 const { OeDatepicker } = Forms;
 
@@ -365,6 +414,8 @@ rm -rf node_modules/.cache
 
 3. Make sure you're using the correct import paths
 
+4. Verify all components use the `Oe` prefix
+
 ## Best Practices
 
 ### 1. Group Imports by Module
@@ -386,12 +437,12 @@ import { OeSelect } from '@OnroerendErfgoed/vue_component_library/forms';
 ### 2. Use Dynamic Imports for Heavy Modules
 
 ```typescript
-// Map module is ~55.8 KB - use dynamic import if not always needed
+// Map module is ~11.59 KB - use dynamic import if not always needed
 const OeMap = defineAsyncComponent(() => import('@OnroerendErfgoed/vue_component_library/map').then((m) => m.OeMap));
 
-// Address module is ~58.9 KB
-const OeAdres = defineAsyncComponent(() =>
-  import('@OnroerendErfgoed/vue_component_library/address').then((m) => m.OeAdres)
+// Core module is ~9.31 KB, but if you only need it on specific pages
+const OeModal = defineAsyncComponent(() =>
+  import('@OnroerendErfgoed/vue_component_library/core').then((m) => m.OeModal)
 );
 ```
 
@@ -412,9 +463,47 @@ yarn build
 # Check dist/stats.html
 ```
 
-### 5. Be Selective with Module Imports
+### 5. Use SCSS for Better Customization
 
-Only import modules you actually need, remove unused imports
+If you need to customize component styles, use SCSS imports instead of compiled CSS:
+
+```scss
+// Import SCSS for customization
+@import '@OnroerendErfgoed/vue_component_library/scss/main.scss';
+
+// Override variables or add custom styles
+.oe-button {
+  // Your customizations
+}
+```
+
+### 6. Start Small, Add Modules as Needed
+
+```typescript
+// ✅ Good - Start with minimal imports
+import { OeButton } from '@OnroerendErfgoed/vue_component_library/core'; // 9.31 KB
+// Add more modules only when needed
+
+// ❌ Avoid - Don't import everything upfront
+import { OeButton } from '@OnroerendErfgoed/vue_component_library/core';
+import { OeAdres } from '@OnroerendErfgoed/vue_component_library/address';
+import { OeMap } from '@OnroerendErfgoed/vue_component_library/map';
+// ... unless you're actually using all of them
+```
+
+### 7. Leverage the Oe Prefix for Clarity
+
+```vue
+<template>
+  <!-- Easy to identify library components -->
+  <OeButton>Click me</OeButton>
+  <OeInput v-model="name" />
+
+  <!-- vs your own custom components -->
+  <MyCustomButton>Custom</MyCustomButton>
+  <CustomInput v-model="email" />
+</template>
+```
 
 ## Need Help?
 

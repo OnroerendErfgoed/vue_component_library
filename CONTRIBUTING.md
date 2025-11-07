@@ -442,9 +442,9 @@ yarn version --major
 
 ```typescript
 // ❌ Bad
-import * as Core from '@onroerend-erfgoed/vue_component_library/core';
+import * as Core from '@OnroerendErfgoed/vue_component_library/core';
 // ✅ Good
-import { OeButton } from '@onroerend-erfgoed/vue_component_library/core';
+import { OeButton } from '@OnroerendErfgoed/vue_component_library/core';
 ```
 
 ## 📚 Resources
