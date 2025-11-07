@@ -64,15 +64,15 @@ yarn build
 
 ### Step 1: Choose the Right Module
 
-| Module    | Purpose                       | Examples            |
-| --------- | ----------------------------- | ------------------- |
-| `core`    | Essential UI, used everywhere | OeButton, OeModal   |
-| `forms`   | Form inputs and validation    | OeSelect            |
-| `address` | Address-specific              | OeAdres             |
-| `map`     | Mapping functionality         | OeMap               |
-| `grid`    | Data tables                   | OeGrid              |
-| `editor`  | Rich text editing             | OeTinyMCE, OeEditor |
-| `widgets` | Complex business logic        | OeActorWidget       |
+| Module    | Purpose                       | Examples               |
+| --------- | ----------------------------- | ---------------------- |
+| `core`    | Essential UI, used everywhere | OeButton, OeModal      |
+| `forms`   | Form inputs and validation    | OeSelect, OeDatepicker |
+| `address` | Address-specific              | OeAdres                |
+| `map`     | Mapping functionality         | OeMap                  |
+| `grid`    | Data tables                   | OeGrid                 |
+| `editor`  | Rich text editing             | OeTinyMCE, OeEditor    |
+| `widgets` | Complex business logic        | OeActorWidget          |
 
 ### Step 2: Create the Component
 
