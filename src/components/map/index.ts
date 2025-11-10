@@ -5,18 +5,19 @@ export { default as OeZoneerder } from './smart/OeZoneerder.vue';
 export { default as OeZoneerderZonePanel } from './smart/OeZoneerderZonePanel.vue';
 
 // Models
-export * from './models/layer-type.enum';
-export * from './models/openlayers';
-export * from './models/map-config';
 export * from './models/feature-select.enum';
+export * from './models/layer-type.enum';
+export * from './models/map-config';
+export * from './models/openlayers';
 
 // Utils
-export * from './utils/openlayers/oe-ol-geolocate';
 export * from './utils/openlayers/map-util';
+export * from './utils/openlayers/oe-ol-geolocate';
 export * from './utils/openlayers/projection-util';
 
 // Common services used by this module
 export { CrabApiService } from '../../services/crab-api.service';
+export { GrbApiService } from '../../services/grb-api.service';
 
 // Common components and directives used by this module
 export { default as OeAutocomplete } from '../../components/forms/dumb/OeAutocomplete.vue';
