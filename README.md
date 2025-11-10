@@ -45,7 +45,6 @@ yarn add libphonenumber-js@^1.10.37
 
 # For address module
 yarn add axios@^1.12.0
-yarn add ol@^7.4.0  # Also needed for address autocomplete
 
 # For grid module
 yarn add ag-grid-vue3@^34.0.0
@@ -114,7 +113,7 @@ const showModal = ref(false);
 | --------------- | -------------- | ------- | ------------------------------------------------- |
 | **Core**        | `/core`        | ~33 KB  | Essential UI components (buttons, modals, toasts) |
 | **Forms**       | `/forms`       | ~24 KB  | Form inputs, validation, date pickers             |
-| **Address**     | `/address`     | ~60 KB  | Belgian address components                        |
+| **Address**     | `/address`     | ~60 KB  | Address components                                |
 | **Map**         | `/map`         | ~41 KB  | OpenLayers-based mapping                          |
 | **Grid**        | `/grid`        | ~4 KB   | ag-Grid data tables                               |
 | **Editor**      | `/editor`      | ~13 KB  | Rich text editors (TinyMCE, Quill)                |
@@ -283,8 +282,8 @@ library.add(fas);
 import { faUser, faHome } from '@fortawesome/free-solid-svg-icons';
 
 <template>
-  <font-awesome-icon :icon="faUser" />
-  <font-awesome-icon :icon="faHome" />
+  <FontAwesomeIcon :icon="faUser" />
+  <FontAwesomeIcon :icon="faHome" />
 </template>
 ```
 

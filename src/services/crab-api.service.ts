@@ -1,8 +1,5 @@
 import { HttpService } from './http.service';
 import { sortBy } from 'lodash-es';
-import WFS from 'ol/format/WFS';
-import Intersects from 'ol/format/filter/Intersects';
-import { Geometry } from 'ol/geom';
 import { Niscode } from '@models/niscode.enum';
 import type {
   IAdres,
@@ -200,27 +197,6 @@ export class CrabApiService extends HttpService {
 
     // Cache the result
     this.adresCache.set(cacheKey, response.data);
-    return response.data;
-  }
-
-  public async searchGRBWfs(geom: Geometry, srsName: string, featureTypes: string[]) {
-    const agivGrbUrl = `https://geo.api.vlaanderen.be/GRB`;
-    const agivGrbWfsUrl = `${agivGrbUrl}/wfs`;
-
-    const filter = new Intersects('SHAPE', geom, 'urn:x-ogc:def:crs:EPSG:31370');
-
-    const featureRequest = new WFS().writeGetFeature({
-      srsName,
-      filter,
-      featureNS: agivGrbUrl,
-      featurePrefix: 'GRB',
-      featureTypes,
-      outputFormat: 'application/json',
-    });
-
-    const data = new XMLSerializer().serializeToString(featureRequest);
-    const headers = { 'Content-Type': 'application/xml', Accept: 'application/json' };
-    const response = await this.post<ArrayBuffer, string>(agivGrbWfsUrl, data, { headers });
     return response.data;
   }
 }

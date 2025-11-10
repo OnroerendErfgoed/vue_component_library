@@ -1,4 +1,17 @@
 .ag-grid-vue {
+  &.ag-theme-balham {
+    -webkit-font-smoothing: antialiased;
+    background-color: $white;
+    color: $jet;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: normal;
+
+    * {
+      font-family: 'Flanders Art Sans', Arial, sans-serif;
+    }
+  }
+
   .ag-full-width-container {
     .ag-full-width-row {
       position: absolute;

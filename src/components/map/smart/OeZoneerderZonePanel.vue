@@ -144,7 +144,7 @@ import { Geometry, Point } from 'ol/geom';
 import { Draw } from 'ol/interaction';
 import VectorSource from 'ol/source/Vector';
 import { inject, onMounted, onUnmounted, ref, watch } from 'vue';
-import type { CrabApiService } from '@services/crab-api.service';
+import { GrbApiService } from '@services/grb-api.service';
 
 const props = defineProps<{
   featureSelect: FeatureSelectEnum | undefined;
@@ -157,7 +157,6 @@ const elementRef = ref<HTMLElement>();
 const emit = defineEmits(['update:feature-select', 'zone-panel:mounted']);
 
 const map = inject('map') as Map;
-const crabService = inject('crabService') as CrabApiService;
 const geoJsonFormatter = inject('geoJsonFormatter') as GeoJSON;
 const zoomToExtent = inject('zoomToExtent') as (extent: Extent) => void;
 
@@ -213,6 +212,7 @@ onUnmounted(() => {
   geometryObjectList.value = [];
 });
 
+const grbService = new GrbApiService();
 const featureSelectCallback = (
   evt: MapBrowserEvent<UIEvent>,
   featureTypes: string[],
@@ -220,7 +220,7 @@ const featureSelectCallback = (
   featureProp: string
 ) => {
   const geom = new Point(evt.coordinate, 'XY');
-  crabService.searchGRBWfs(geom, mapProjection.getCode(), featureTypes).then((result) => {
+  grbService.searchWfs(geom, mapProjection.getCode(), featureTypes).then((result) => {
     geoJsonFormatter.readFeatures(result).forEach((olFeature) => {
       if (olFeature) {
         const name = `${type} ${olFeature.get(featureProp)}`;

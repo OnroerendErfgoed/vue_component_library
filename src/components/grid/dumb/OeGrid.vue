@@ -24,16 +24,6 @@ import { AgGridVue } from 'ag-grid-vue3';
     }
   }
 
-  &.ag-theme-balham {
-    -webkit-font-smoothing: antialiased;
-    background-color: $white;
-    color: $jet;
-    font-family: 'Flanders Art Sans', Arial, sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: normal;
-  }
-
   .ag-overlay-wrapper {
     background-color: aliceblue;
 
