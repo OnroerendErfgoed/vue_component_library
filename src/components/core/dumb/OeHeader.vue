@@ -3,7 +3,7 @@
     <div class="header__title vl-col--9-12 vl-col--12-12--m">
       <div class="heading vl-u-flex vl-u-flex-v-center">
         <h1 data-cy="application-name" class="vl-u-spacer-left--small" :title="appName">
-          <vl-link :href="appUrl" exact>{{ appName }}</vl-link>
+          <VlLink :href="appUrl" exact>{{ appName }}</VlLink>
         </h1>
         <a title="Navigeer naar de officiële website van Onroerend Erfgoed" :href="props.logoUrl">
           <img
@@ -21,38 +21,38 @@
     </div>
     <div class="header__userinfo vl-col--3-12 vl-col--12-12--m vl-u-flex-align-flex-end">
       <div v-if="user" data-cy="user" class="user vl-u-spacer-left--large vl-u-spacer-right--small">
-        <vl-dropdown-navigation
+        <VlDropdownNavigation
           data-cy="dropdown-navigation"
           :title="user.name"
           class="vl-u-spacer-bottom--none vl-col--12-12 vl-u-flex-v-baseline"
           :label="user.name"
           title-size="h5"
         >
-          <vl-link-list data-cy="navigation-list" mod-border>
-            <vl-link-list-item data-cy="navigation-profile" title="Ga naar mijn gegevens">
-              <vl-link :href="props.profileUrl" mod-block mod-bold>Mijn profiel</vl-link>
-            </vl-link-list-item>
-            <vl-link-list-item data-cy="navigation-change" title="Wissel van profiel">
-              <vl-link :href="props.changeUrl" mod-block mod-bold>Wisselen</vl-link>
-            </vl-link-list-item>
-            <vl-link-list-item data-cy="navigation-logout" title="Meld je af">
-              <vl-link :href="props.logoutUrl" mod-block mod-bold mod-button>Afmelden</vl-link>
-            </vl-link-list-item>
-          </vl-link-list>
-        </vl-dropdown-navigation>
+          <VlLinkList data-cy="navigation-list" mod-border>
+            <VlLinkListItem data-cy="navigation-profile" title="Ga naar mijn gegevens">
+              <VlLink :href="props.profileUrl" mod-block mod-bold>Mijn profiel</VlLink>
+            </VlLinkListItem>
+            <VlLinkListItem data-cy="navigation-change" title="Wissel van profiel">
+              <VlLink :href="props.changeUrl" mod-block mod-bold>Wisselen</VlLink>
+            </VlLinkListItem>
+            <VlLinkListItem data-cy="navigation-logout" title="Meld je af">
+              <VlLink :href="props.logoutUrl" mod-block mod-bold mod-button>Afmelden</VlLink>
+            </VlLinkListItem>
+          </VlLinkList>
+        </VlDropdownNavigation>
         <small data-cy="role" class="vl-col--12-12 vl-u-text--small role" :title="user.role">{{ user.role }}</small>
       </div>
       <div v-else class="login">
-        <vl-link
+        <VlLink
           data-cy="login"
           class="vl-u-spacer-left--medium vl-u-spacer-right--medium"
           title="Aanmelden"
           :href="props.loginUrl"
-          >Aanmelden</vl-link
+          >Aanmelden</VlLink
         >
       </div>
       <div v-if="user && showLogoutShortcut" data-cy="logout-shortcut" class="logout">
-        <vl-link title="Afmelden" :href="props.logoutUrl" mod-icon-only icon="logout"></vl-link>
+        <VlLink title="Afmelden" :href="props.logoutUrl" mod-icon-only icon="logout"></VlLink>
       </div>
     </div>
   </div>

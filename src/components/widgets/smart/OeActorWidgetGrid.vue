@@ -1,8 +1,8 @@
 <template>
   <div class="vl-u-flex vl-u-flex-direction-column">
-    <vl-grid>
-      <vl-column width="12" class="vl-u-flex vl-u-flex-align-flex-end">
-        <vl-search
+    <VlGrid>
+      <VlColumn width="12" class="vl-u-flex vl-u-flex-align-flex-end">
+        <VlSearch
           id="actor-widget-menu-search"
           v-model="zoekterm"
           data-cy="actor-widget-menu-search"
@@ -13,24 +13,24 @@
           @click="handleSearchClick"
           @submit="triggerSearch"
           @input="zoekterm = $event.target.value"
-        ></vl-search>
-      </vl-column>
-    </vl-grid>
-    <vl-grid class="vl-u-spacer-top--xsmall">
-      <vl-column width="12">
-        <vl-action-group mod-space-between class="vl-u-flex-v-flex-end">
+        ></VlSearch>
+      </VlColumn>
+    </VlGrid>
+    <VlGrid class="vl-u-spacer-top--xsmall">
+      <VlColumn width="12">
+        <VlActionGroup mod-space-between class="vl-u-flex-v-flex-end">
           <span class="vl-u-mark--info vl-u-text--small">{{ rowCountText }}</span>
           <div>
             <a :href="`${props.api}/beheer/0`" target="_blank">
-              <vl-button icon="plus" mod-icon-before mod-naked> Actor aanmaken </vl-button>
+              <VlButton icon="plus" mod-icon-before mod-naked> Actor aanmaken </VlButton>
             </a>
-            <vl-button icon="synchronize" mod-icon-before mod-naked @click="refresh()">Vernieuwen</vl-button>
+            <VlButton icon="synchronize" mod-icon-before mod-naked @click="refresh()">Vernieuwen</VlButton>
           </div>
-        </vl-action-group>
-      </vl-column>
-    </vl-grid>
-    <vl-grid class="vl-u-spacer-top--xsmall">
-      <vl-column width="12">
+        </VlActionGroup>
+      </VlColumn>
+    </VlGrid>
+    <VlGrid class="vl-u-spacer-top--xsmall">
+      <VlColumn width="12">
         <OeGrid
           class="table"
           :grid-options="gridOptions"
@@ -38,8 +38,8 @@
           @first-data-rendered="firstDataRendered"
           @row-clicked="gridOptions?.onRowClicked"
         ></OeGrid>
-      </vl-column>
-    </vl-grid>
+      </VlColumn>
+    </VlGrid>
   </div>
 </template>
 

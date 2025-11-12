@@ -1,6 +1,6 @@
 <template>
   <div data-cy="filter-radio" class="radio-select">
-    <vl-radio
+    <VlRadio
       v-for="option in options"
       :id="`radio-${props.id}-${option.value}`"
       :key="option.value"
@@ -10,7 +10,7 @@
       @update:model-value="updateValue(option)"
     >
       {{ option.label }}
-    </vl-radio>
+    </VlRadio>
   </div>
 </template>
 

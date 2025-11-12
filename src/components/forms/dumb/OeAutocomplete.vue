@@ -1,6 +1,6 @@
 <template>
   <div :id="`autocomplete-${props.id}`" v-click-outside="hideResults" data-cy="autocomplete" class="js-vl-autocomplete">
-    <vl-input-field
+    <VlInputField
       v-bind="attrs"
       :id="props.id"
       v-model="searchTerm"
@@ -8,7 +8,7 @@
       :placeholder="props.placeholder"
       mod-block
       @update:model-value="handleInput"
-    ></vl-input-field>
+    ></VlInputField>
     <span v-if="loading" class="vl-loader vl-loader--small" data-cy="loader"></span>
 
     <div v-if="showResults && searchTerm?.length >= minChars" class="vl-autocomplete" data-cy="result">

@@ -21,9 +21,9 @@
       <!-- Default slot  -->
       <slot></slot>
 
-      <vl-accordion-list mod-bordered>
-        <vl-accordion-list-item v-for="(application, index) in applications" :key="index" ref="accordions">
-          <vl-accordion mod-xsmall mod-icon-right>
+      <VlAccordionList mod-bordered>
+        <VlAccordionListItem v-for="(application, index) in applications" :key="index" ref="accordions">
+          <VlAccordion mod-xsmall mod-icon-right>
             <template #title>
               <span class="vl-accordion__title"
                 >{{ application.title }}
@@ -35,18 +35,18 @@
             <template v-if="application.count">
               <div v-for="item in application.items.slice(0, 5)" :key="item.uri">
                 <FontAwesomeIcon class="icon vl-u-spacer-right--xsmall" :icon="faAngleRight" />
-                <vl-link :href="item.uri" target="_blank">{{ item.title }}</vl-link>
+                <VlLink :href="item.uri" target="_blank">{{ item.title }}</VlLink>
               </div>
             </template>
             <span v-else class="vl-u-mark--info vl-u-text">
               Er werden <span class="vl-u-text--bold">geen</span> referenties gevonden.</span
             >
-          </vl-accordion>
-        </vl-accordion-list-item>
-      </vl-accordion-list>
+          </VlAccordion>
+        </VlAccordionListItem>
+      </VlAccordionList>
     </div>
-    <vl-alert v-else class="vl-u-spacer-bottom" mod-warning icon="warning"
-      >Er werden geen referenties gevonden.</vl-alert
+    <VlAlert v-else class="vl-u-spacer-bottom" mod-warning icon="warning"
+      >Er werden geen referenties gevonden.</VlAlert
     >
   </div>
 </template>
