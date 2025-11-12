@@ -1475,6 +1475,7 @@ describe('Adres', () => {
       cy.mockGewesten();
       cy.mockProvincies();
       cy.mockGemeenten();
+      cy.mockBertem();
     });
 
     const config: IAdresConfig = {
@@ -1517,26 +1518,30 @@ describe('Adres', () => {
         },
         template: '<OeAdres v-model:adres="adres" :config="c" country-id="BE" />',
       }).then(({ component }) => {
+        cy.wait('@dataGetLanden');
+        cy.wait('@dataGetGewesten');
         cy.wait('@dataGetGemeentenVlaamsGewest');
+
+        // Wait for the gemeente select to be ready
+        getMultiSelect('gemeente').should('not.have.class', 'is-disabled');
         getMultiSelect('gemeente').click();
-        getMultiSelect('gemeente').find('.multiselect-search').type('Lummen');
-        getMultiSelect('gemeente')
-          .find('.multiselect-option')
-          .click()
-          .then(() => {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            expect((component.$data as any).adres).to.deep.equal({
-              land: { code: 'BE', naam: undefined },
-              gewest: undefined,
-              provincie: undefined,
-              gemeente: {
-                naam: 'Lummen',
-                niscode: '71037',
-              },
-              postcode: undefined,
-              straat: {},
-              adres: {},
-            });
+        getMultiSelect('gemeente').find('.multiselect-search').type('Bertem');
+        getMultiSelect('gemeente').find('.multiselect-option[role="option"]').should('be.visible').click();
+
+        // Use Cypress's retry-ability for the assertion
+        cy.wrap(component.$data)
+          .its('adres')
+          .should('deep.equal', {
+            land: { code: 'BE', naam: undefined },
+            gewest: undefined,
+            provincie: undefined,
+            gemeente: {
+              naam: 'Bertem',
+              niscode: '24009',
+            },
+            postcode: undefined,
+            straat: {},
+            adres: {},
           });
       });
     });
