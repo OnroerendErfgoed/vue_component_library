@@ -1,5 +1,5 @@
 import './main.scss';
-import { VlIcon, VlLoader, installs } from '@govflanders/vl-ui-design-system-vue3';
+import { installs } from '@govflanders/vl-ui-design-system-vue3';
 import { setup } from '@storybook/vue3';
 import { createPinia } from 'pinia';
 import type { Preview } from '@storybook/vue3';
@@ -7,8 +7,12 @@ import type { Preview } from '@storybook/vue3';
 setup((app) => {
   app.use(installs.VlUiCoreInstall);
   app.use(installs.VlUiUtilInstall);
-  app.component('VlIcon', VlIcon);
-  app.component('VlLoader', VlLoader);
+
+  // Register global components that are forgotten in WU Vue3 and give warnings in console.
+  // Consuming apps should register these themselves until fixed in WU.
+  app.use(installs.VlIconInstall);
+  app.use(installs.VlLoaderInstall);
+
   app.use(createPinia());
 });
 

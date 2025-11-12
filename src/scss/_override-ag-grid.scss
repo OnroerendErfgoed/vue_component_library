@@ -57,23 +57,5 @@
         }
       }
     }
-
-    .ag-cell-value {
-      &.edit-mode {
-        overflow: visible !important;
-        white-space: break-spaces !important;
-        .vl-select__list--dropdown {
-          width: 30vw;
-        }
-      }
-      &.read-mode {
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        padding: 0;
-        top: 20%;
-        display: block;
-      }
-    }
   }
 }

@@ -45,9 +45,7 @@
         </VlAccordionListItem>
       </VlAccordionList>
     </div>
-    <VlAlert v-else class="vl-u-spacer-bottom" mod-warning icon="warning"
-      >Er werden geen referenties gevonden.</VlAlert
-    >
+    <VlAlert v-else class="vl-u-spacer-bottom" mod-warning icon="warning">Er werden geen referenties gevonden.</VlAlert>
   </div>
 </template>
 
