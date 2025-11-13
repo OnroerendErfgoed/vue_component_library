@@ -43,7 +43,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           always-auth: true
-          node-version: 20
+          node-version: 22
           registry-url: https://npm.pkg.github.com/
       - run: |
           echo @OnroerendErfgoed:registry=https://npm.pkg.github.com/ > ~/.npmrc
