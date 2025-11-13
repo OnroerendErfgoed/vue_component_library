@@ -97,7 +97,6 @@
     "type-generation": "vue-tsc -p tsconfig.build.json",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
-    "prepare": "yarn build",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "chromatic": "npx chromatic --project-token=CHROMATIC_PROJECT_TOKEN"
