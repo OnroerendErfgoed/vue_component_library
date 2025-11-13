@@ -3,15 +3,6 @@ import { defineComponent, ref } from 'vue';
 import { OeFilterDatepicker } from '@/forms';
 
 describe('FilterDatepicker', () => {
-  beforeEach(() => {
-    Cypress.on('uncaught:exception', () => {
-      // Return false to prevent Cypress from failing the test
-      // Issue caused by Webuniversum component throwing an error
-      // [cleave.js] Please check the element
-      return false;
-    });
-  });
-
   describe('default', () => {
     const TestComponent = defineComponent({
       components: { OeFilterDatepicker },

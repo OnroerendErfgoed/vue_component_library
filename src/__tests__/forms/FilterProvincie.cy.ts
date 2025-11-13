@@ -3,16 +3,6 @@ import { OeFilterProvincie } from '@components/forms';
 import type { IProvincie } from '@models/locatie';
 
 describe('FilterProvincie', () => {
-  beforeEach(() => {
-    cy.on('uncaught:exception', (err) => {
-      // Ignore errors from chunk files (bundled external libraries)
-      if (err.message.includes('chunk-') || err.stack?.includes('chunk-')) {
-        return false;
-      }
-      return true;
-    });
-  });
-
   describe('default', () => {
     const TestComponent = defineComponent({
       components: { OeFilterProvincie },

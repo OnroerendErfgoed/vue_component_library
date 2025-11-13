@@ -33,5 +33,13 @@ declare global {
 
 Cypress.Commands.add('mount', mount);
 
+Cypress.on('uncaught:exception', (err) => {
+  // Ignore errors from chunk files (bundled external libraries)
+  if (err.message.includes('chunk-') || err.stack?.includes('chunk-')) {
+    return false;
+  }
+  return true;
+});
+
 // Example use:
 // cy.mount(MyComponent)

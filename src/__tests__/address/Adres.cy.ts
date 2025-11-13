@@ -4,16 +4,6 @@ import OeAdres from '@components/address/OeAdres.vue';
 import type { IAdresConfig } from '@components/address/models/adres';
 
 describe('Adres', () => {
-  beforeEach(() => {
-    cy.on('uncaught:exception', (err) => {
-      // Ignore errors from chunk files (bundled external libraries)
-      if (err.message.includes('chunk-') || err.stack?.includes('chunk-')) {
-        return false;
-      }
-      return true;
-    });
-  });
-
   const TestComponent = defineComponent({
     components: { OeAdres },
     setup() {

@@ -6,14 +6,6 @@ import type { IGemeente } from '@models/locatie';
 
 describe('FilterGemeente', () => {
   beforeEach(() => {
-    cy.on('uncaught:exception', (err) => {
-      // Ignore errors from chunk files (bundled external libraries)
-      if (err.message.includes('chunk-') || err.stack?.includes('chunk-')) {
-        return false;
-      }
-      return true;
-    });
-
     cy.mockGewesten();
     cy.mockGemeenten();
   });
