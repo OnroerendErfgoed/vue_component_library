@@ -19,6 +19,7 @@ export default defineConfig({
       '@composables': resolve(__dirname, '../src/composables'),
       '@directives': resolve(__dirname, '../src/directives'),
       '@services': resolve(__dirname, '../src/services'),
+      '@stores': resolve(__dirname, '../src/stores'),
       '@models': resolve(__dirname, '../src/models'),
       '@utils': resolve(__dirname, '../src/utils'),
     },

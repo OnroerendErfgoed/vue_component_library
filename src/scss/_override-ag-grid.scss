@@ -1,4 +1,17 @@
 .ag-grid-vue {
+  &.ag-theme-balham {
+    -webkit-font-smoothing: antialiased;
+    background-color: $white;
+    color: $jet;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: normal;
+
+    * {
+      font-family: 'Flanders Art Sans', Arial, sans-serif;
+    }
+  }
+
   .ag-full-width-container {
     .ag-full-width-row {
       position: absolute;
@@ -42,24 +55,6 @@
           content: '\f06a';
           margin-right: 5px;
         }
-      }
-    }
-
-    .ag-cell-value {
-      &.edit-mode {
-        overflow: visible !important;
-        white-space: break-spaces !important;
-        .vl-select__list--dropdown {
-          width: 30vw;
-        }
-      }
-      &.read-mode {
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        padding: 0;
-        top: 20%;
-        display: block;
       }
     }
   }

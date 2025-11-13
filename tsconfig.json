@@ -11,13 +11,14 @@
   "exclude": ["src/stories/**"],
   "compilerOptions": {
     "outDir": "dist",
-    "baseUrl": ".",
+    "rootDir": "./",
     "paths": {
       "@components/*": ["./src/components/*"],
       "@composables/*": ["./src/composables/*"],
       "@directives/*": ["./src/directives/*"],
       "@services/*": ["./src/services/*"],
       "@models/*": ["./src/models/*"],
+      "@stores/*": ["./src/stores/*"],
       "@utils/*": ["./src/utils/*"],
       "@/*": ["./src/*"]
     },

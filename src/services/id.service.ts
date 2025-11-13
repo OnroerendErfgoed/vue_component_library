@@ -1,5 +1,5 @@
 import { HttpService } from './http.service';
-import type { IReference } from '@models/reference';
+import type { IReference } from '@components/core/models/reference';
 
 export class IdService extends HttpService {
   readonly API_URL: string;

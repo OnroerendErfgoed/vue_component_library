@@ -1,6 +1,4 @@
 import { Serializable } from './serializable';
-import type { IDataverantwoordelijke } from './dataverantwoordelijke';
-import type { IStatus } from './status';
 import type { ISystemFields } from './system-fields';
 
 export interface IESAanduidingsobject {
@@ -60,4 +58,15 @@ export class ESAanduidingsobject extends Serializable<IESAanduidingsobject> {
 export interface IAanduidingsobjectType {
   id: number;
   naam: string;
+}
+
+export interface IDataverantwoordelijke {
+  uri: string;
+  omschrijving?: string;
+}
+
+export interface IStatus {
+  id: number;
+  naam: string;
+  actief: boolean;
 }

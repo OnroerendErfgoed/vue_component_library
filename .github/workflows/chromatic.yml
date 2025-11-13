@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           always-auth: true
-          node-version: '20'
+          node-version: '22'
           registry-url: https://registry.npmjs.org
       - name: Install dependencies
         # 👇 Install dependencies with the same package manager used in the project (replace it as needed), e.g. yarn, npm, pnpm
