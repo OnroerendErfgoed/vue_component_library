@@ -4,6 +4,7 @@ export { default as OePhone } from './dumb/OePhone.vue';
 export { default as OeAutocomplete } from './dumb/OeAutocomplete.vue';
 export { default as OeNumberInput } from './dumb/OeNumberInput.vue';
 export { default as OeSelect } from './dumb/OeSelect.vue';
+export { default as OeWizard } from './dumb/OeWizard.vue';
 
 // Dumb filter components
 export { default as OeFilter } from './dumb/OeFilter.vue';
@@ -27,6 +28,7 @@ export * from './models/filter';
 export * from './models/phone';
 export * from './models/autocomplete';
 export * from './models/select';
+export * from './models/wizard';
 
 // Common enums and types used by this module
 export { Niscode } from '../../models/niscode.enum';
