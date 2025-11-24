@@ -1,10 +1,10 @@
-import { VlColumn, VlGrid } from '@govflanders/vl-ui-design-system-vue3';
+import { VlButton, VlColumn, VlGrid } from '@govflanders/vl-ui-design-system-vue3';
 import OeFilter from '@components/forms/dumb/OeFilter.vue';
 import OeFilterDatepicker from '@components/forms/dumb/OeFilterDatepicker.vue';
 import OeFilterRadio from '@components/forms/dumb/OeFilterRadio.vue';
 import OeFilterSelect from '@components/forms/dumb/OeFilterSelect.vue';
 import OeFilterText from '@components/forms/dumb/OeFilterText.vue';
-import { IFilterOption, IOption } from '@components/forms/models/filter';
+import { IFilter, IFilterOption, IOption } from '@components/forms/models/filter';
 import OeFilterAanduidingsobject from '@components/forms/smart/OeFilterAanduidingsobject.vue';
 import OeFilterGemeente from '@components/forms/smart/OeFilterGemeente.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -82,6 +82,7 @@ const renderConfig = {
     OeFilterAanduidingsobject,
     VlGrid,
     VlColumn,
+    VlButton,
   },
   setup() {
     const filterOptions: IFilterOption[] = [
@@ -290,6 +291,208 @@ export const ResponsiveDesign: Story = {
       <OeFilter v-slot="{ value, setValue, selectedOption, addFilter }" :options="filterOptions" :default-filters="manyDefaultFilters" @filters-selected="$event => filters = $event">
         ${filterTemplate}
       </OeFilter>
+    </div>
+    `,
+  }),
+};
+
+export const ExposedMethods: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'This story demonstrates the exposed methods `addFilter` and `removeFilter` that can be accessed via template refs. These methods allow programmatic control of filters from parent components.',
+      },
+    },
+  },
+  render: () => ({
+    ...renderConfig,
+    data() {
+      return {
+        filters: [] as IFilter[],
+      };
+    },
+    template: `
+    <div>
+      <VlGrid>
+        <VlColumn width="12">
+          <h3>Programmatic Filter Control</h3>
+          <p>Use the buttons below to add or remove filters programmatically using the exposed methods.</p>
+        </VlColumn>
+      </VlGrid>
+
+      <VlGrid mod-stacked>
+        <VlColumn width="6">
+          <VlButton
+            @click="$refs.filterComponent.addFilter({
+              key: 'id',
+              label: 'ID',
+              value: { label: '12345', value: '12345' }
+            })"
+            mod-block
+          >
+            Add ID Filter (12345)
+          </VlButton>
+        </VlColumn>
+        <VlColumn width="6">
+          <VlButton
+            @click="$refs.filterComponent.addFilter({
+              key: 'onderwerp',
+              label: 'Onderwerp',
+              value: { label: 'Test Subject', value: 'Test Subject' }
+            })"
+            mod-block
+          >
+            Add Onderwerp Filter
+          </VlButton>
+        </VlColumn>
+        <VlColumn width="6">
+          <VlButton
+            @click="$refs.filterComponent.addFilter({
+              key: 'status',
+              label: 'Status',
+              value: { label: 'Actief', value: 'actief' }
+            })"
+            mod-block
+          >
+            Add Status Filter (Actief)
+          </VlButton>
+        </VlColumn>
+        <VlColumn width="6">
+          <VlButton
+            @click="$refs.filterComponent.removeFilter({
+              key: 'id',
+              label: 'ID',
+              value: { label: '12345', value: '12345' }
+            })"
+            mod-block
+            mod-secondary
+          >
+            Remove ID Filter
+          </VlButton>
+        </VlColumn>
+      </VlGrid>
+
+      <br/>
+
+      <OeFilter
+        ref="filterComponent"
+        v-slot="{ value, setValue, selectedOption, addFilter }"
+        :options="filterOptions"
+        @filters-selected="filters = $event"
+      >
+        ${filterTemplate}
+      </OeFilter>
+
+      <br/>
+
+      <VlGrid v-if="filters.length">
+        <VlColumn width="12">
+          <h4>Current Filters ({{ filters.length }})</h4>
+          <pre style="background: #f6f8fa; padding: 1rem; border-radius: 6px;">{{ JSON.stringify(filters, null, 2) }}</pre>
+        </VlColumn>
+      </VlGrid>
+    </div>
+    `,
+  }),
+};
+
+export const ExposedMethodsWithUniqueFilters: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'When `uniqueFilters` is enabled, the `addFilter` method will replace existing filters with the same key instead of adding another filter with the same key. This is useful for scenarios where only one value per filter type should be allowed.',
+      },
+    },
+  },
+  render: () => ({
+    ...renderConfig,
+    data() {
+      return {
+        filters: [] as IFilter[],
+      };
+    },
+    template: `
+    <div>
+      <VlGrid>
+        <VlColumn width="12">
+          <h3>Unique Filters with Exposed Methods</h3>
+          <p>Click the "Add Status Filter" button multiple times. Notice how it replaces the existing status filter instead of adding another filter with the same key.</p>
+        </VlColumn>
+      </VlGrid>
+
+      <VlGrid mod-stacked>
+        <VlColumn width="6">
+          <VlButton
+            @click="$refs.filterComponent.addFilter({
+              key: 'status',
+              label: 'Status',
+              value: { label: 'Actief', value: 'actief' }
+            })"
+            mod-block
+          >
+            Add Status Filter (Actief)
+          </VlButton>
+        </VlColumn>
+        <VlColumn width="6">
+          <VlButton
+            @click="$refs.filterComponent.addFilter({
+              key: 'status',
+              label: 'Status',
+              value: { label: 'Klad', value: 'klad' }
+            })"
+            mod-block
+          >
+            Add Status Filter (Klad) - Replaces Actief
+          </VlButton>
+        </VlColumn>
+        <VlColumn width="6">
+          <VlButton
+            @click="$refs.filterComponent.addFilter({
+              key: 'id',
+              label: 'ID',
+              value: { label: '111', value: '111' }
+            })"
+            mod-block
+          >
+            Add ID Filter (111)
+          </VlButton>
+        </VlColumn>
+        <VlColumn width="6">
+          <VlButton
+            @click="$refs.filterComponent.addFilter({
+              key: 'id',
+              label: 'ID',
+              value: { label: '222', value: '222' }
+            })"
+            mod-block
+          >
+            Add ID Filter (222) - Replaces 111
+          </VlButton>
+        </VlColumn>
+      </VlGrid>
+
+      <br/>
+
+      <OeFilter
+        ref="filterComponent"
+        v-slot="{ value, setValue, selectedOption, addFilter }"
+        :options="filterOptions"
+        :unique-filters="true"
+        @filters-selected="filters = $event"
+      >
+        ${filterTemplate}
+      </OeFilter>
+
+      <br/>
+
+      <VlGrid v-if="filters.length">
+        <VlColumn width="12">
+          <h4>Current Filters ({{ filters.length }})</h4>
+          <pre style="background: #f6f8fa; padding: 1rem; border-radius: 6px;">{{ JSON.stringify(filters, null, 2) }}</pre>
+        </VlColumn>
+      </VlGrid>
     </div>
     `,
   }),

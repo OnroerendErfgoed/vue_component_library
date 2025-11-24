@@ -110,35 +110,41 @@ watch(
 );
 
 // Filter helper methods
-const addFilter = () => {
-  const filter = {
-    key: selectedOption.value.key,
-    label: selectedOption.value.label,
-    value: {
-      label: filterInputValue.value?.label as string,
-      value: filterInputValue.value?.value,
-    },
-  };
+const addFilter = (filter?: IFilter) => {
+  // When filter is provided, use it directly; otherwise, construct from selected option and input value
+  const filterCriteria: IFilter =
+    filter?.key && filter?.value?.value
+      ? filter
+      : {
+          key: selectedOption.value.key,
+          label: selectedOption.value.label,
+          value: {
+            label: filterInputValue.value?.label as string,
+            value: filterInputValue.value?.value,
+          },
+        };
 
   if (
-    !filters.value.find((f) => f.key === filter.key && f.value.value === filter.value.value) &&
-    (!!filter.value.value || typeof filter.value.value === 'boolean')
+    !filters.value.find((f) => f.key === filterCriteria.key && f.value.value === filterCriteria.value.value) &&
+    (!!filterCriteria.value.value || typeof filterCriteria.value.value === 'boolean')
   ) {
     if (props.uniqueFilters) {
-      const existingIndex = filters.value.findIndex((f) => f.key === filter.key);
+      const existingIndex = filters.value.findIndex((f) => f.key === filterCriteria.key);
       if (existingIndex >= 0) {
-        filters.value.splice(existingIndex, 1, filter);
+        filters.value.splice(existingIndex, 1, filterCriteria);
         clearInputs();
         return;
       }
     }
 
-    filters.value.push(filter);
+    filters.value.push(filterCriteria);
     clearInputs();
   }
 };
 const removeFilter = (filter: IFilter) =>
   remove(filters.value, (f) => f.key === filter.key && filter.value.value === f.value.value);
+
+defineExpose({ addFilter, removeFilter });
 </script>
 
 <style lang="scss" scoped>
