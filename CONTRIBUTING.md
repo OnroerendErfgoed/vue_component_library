@@ -371,7 +371,7 @@ yarn test:unit --spec "src/__tests__/core/Button.cy.ts"
 ### Use Pyoes Variables
 
 ```scss
-@import 'pyoes/scss/base-variables';
+@import '@OnroerendErfgoed/pyoes/scss/base-variables';
 
 .oe-component {
   color: $primary-color;

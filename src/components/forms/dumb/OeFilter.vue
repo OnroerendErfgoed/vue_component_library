@@ -148,7 +148,7 @@ defineExpose({ addFilter, removeFilter });
 </script>
 
 <style lang="scss" scoped>
-@import 'pyoes/scss/base-variables';
+@import '@OnroerendErfgoed/pyoes/scss/base-variables';
 
 .filter-input-container {
   display: flex;

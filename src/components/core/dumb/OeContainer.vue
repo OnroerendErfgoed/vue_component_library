@@ -70,7 +70,7 @@ const closeTab = (item: ITab, confirm = false) => {
 </script>
 
 <style lang="scss">
-@import 'pyoes/scss/base-variables';
+@import '@OnroerendErfgoed/pyoes/scss/base-variables';
 
 .oe-container {
   background-color: $white;
