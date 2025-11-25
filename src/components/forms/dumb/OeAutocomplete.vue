@@ -141,7 +141,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import 'pyoes/scss/base-variables';
+@import '@OnroerendErfgoed/pyoes/scss/base-variables';
 
 .js-vl-autocomplete {
   width: 100%;

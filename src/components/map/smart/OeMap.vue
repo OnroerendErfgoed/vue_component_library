@@ -475,7 +475,7 @@ function addZoneToZoneLayer() {
 </script>
 
 <style lang="scss">
-@import 'pyoes/scss/base-variables';
+@import '@OnroerendErfgoed/pyoes/scss/base-variables';
 
 .map {
   height: 100%;

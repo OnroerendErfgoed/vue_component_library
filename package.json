@@ -102,8 +102,8 @@
     "chromatic": "npx chromatic --project-token=CHROMATIC_PROJECT_TOKEN"
   },
   "dependencies": {
-    "guid-typescript": "^1.0.9",
-    "pyoes": "https://gitpkg.now.sh/OnroerendErfgoed/pyoes/npm-packages/pyoes?0.25.0"
+    "@OnroerendErfgoed/pyoes": "^0.25.1",
+    "guid-typescript": "^1.0.9"
   },
   "peerDependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",

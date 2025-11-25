@@ -126,7 +126,7 @@ defineExpose({ reset, previousStep, nextStep, goToStep, submit });
 </script>
 
 <style lang="scss" scoped>
-@import 'pyoes/scss/base-variables';
+@import '@OnroerendErfgoed/pyoes/scss/base-variables';
 
 .wizard {
   width: 100%;

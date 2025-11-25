@@ -47,7 +47,7 @@ const formatDate = (dateString: string) => {
 </script>
 
 <style lang="scss" scoped>
-@import 'pyoes/scss/base-variables';
+@import '@OnroerendErfgoed/pyoes/scss/base-variables';
 
 ul {
   font-family: $font-family-sans-serif;

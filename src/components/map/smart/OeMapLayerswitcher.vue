@@ -140,7 +140,7 @@ function getLeafLayers(parent: Map | Group | undefined): BaseLayer[] {
 </script>
 
 <style lang="scss" scoped>
-@import 'pyoes/scss/base-variables';
+@import '@OnroerendErfgoed/pyoes/scss/base-variables';
 
 .panel {
   margin: 0.5em;

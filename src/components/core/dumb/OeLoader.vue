@@ -48,7 +48,7 @@ const props = defineProps<{
 </script>
 
 <style lang="scss" scoped>
-@import 'pyoes/scss/base-variables';
+@import '@OnroerendErfgoed/pyoes/scss/base-variables';
 
 .spinner-container div {
   z-index: 1001;

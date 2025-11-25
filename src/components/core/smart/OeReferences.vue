@@ -117,7 +117,7 @@ const toggleAccordions = (open: boolean) => {
 </script>
 
 <style lang="scss" scoped>
-@import 'pyoes/scss/base-variables';
+@import '@OnroerendErfgoed/pyoes/scss/base-variables';
 
 :deep(.vl-link, .vl-sidebar-header__toggle, .vl-sidebar-panel-list-item__button .vl-icon) {
   color: $primary-color !important;

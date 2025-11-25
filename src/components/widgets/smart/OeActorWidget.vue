@@ -118,7 +118,7 @@ defineExpose({ selectedActor });
 </script>
 
 <style lang="scss" scoped>
-@import 'pyoes/scss/base-variables';
+@import '@OnroerendErfgoed/pyoes/scss/base-variables';
 .actor-widget {
   :deep(h2.vl-title) {
     color: $primary-color;

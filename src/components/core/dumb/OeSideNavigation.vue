@@ -54,7 +54,7 @@ onMounted(expandActiveSection);
 </script>
 
 <style lang="scss" scoped>
-@import 'pyoes/scss/base-variables.scss';
+@import '@OnroerendErfgoed/pyoes/scss/base-variables.scss';
 
 .vl-side-navigation {
   padding-left: 0;
