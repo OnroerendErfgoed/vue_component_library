@@ -8,17 +8,24 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Use Node.js
+
+      - name: Setup Node.js for npmjs.org
         uses: actions/setup-node@v4
         with:
-          always-auth: true
           node-version: '22'
-          registry-url: https://registry.npmjs.org
+          registry-url: 'https://registry.npmjs.org'
+          always-auth: true
+
+      - name: Configure GitHub Package Registry
+        run: |
+          echo "@OnroerendErfgoed:registry=https://npm.pkg.github.com" >> .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> .npmrc
+
       - name: Install dependencies
-        # 👇 Install dependencies with the same package manager used in the project (replace it as needed), e.g. yarn, npm, pnpm
         run: yarn
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GOVFLANDERS_NPM_TOKEN}}
+          NODE_AUTH_TOKEN: ${{ secrets.GOVFLANDERS_NPM_TOKEN }}
+
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
