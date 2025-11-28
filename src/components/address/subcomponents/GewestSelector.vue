@@ -53,4 +53,8 @@ const modelValueComputed = computed({
   get: () => props.modelValue,
   set: (v) => emit('update:modelValue', v),
 });
+
+const selectedGewest = computed(() =>
+  typeof props.modelValue === 'string' ? props.modelValue : props.modelValue?.naam
+);
 </script>

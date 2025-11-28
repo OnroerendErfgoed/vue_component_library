@@ -46,6 +46,7 @@ const props = withDefaults(defineProps<ProvincieSelectorProps>(), {
   disabled: false,
   modError: false,
   optionsLimit: 5000,
+  readMode: false,
 });
 const emit = defineEmits(['update:modelValue']);
 
@@ -53,4 +54,8 @@ const modelValueComputed = computed({
   get: () => props.modelValue,
   set: (v) => emit('update:modelValue', v),
 });
+
+const selectedProvincie = computed(() =>
+  typeof props.modelValue === 'string' ? props.modelValue : props.modelValue?.naam
+);
 </script>

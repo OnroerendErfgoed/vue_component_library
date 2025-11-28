@@ -139,6 +139,7 @@ export const DisabledState: Story = {
         busnummer: '0101',
       },
     },
+    showRequiredPerField: true,
   },
 };
 

@@ -60,6 +60,7 @@ const props = withDefaults(defineProps<BusnummerSelectorProps>(), {
   autocompleteFn: undefined,
   isBelgiumOrEmpty: true,
   huisnummerIsFreeText: false,
+  readMode: false,
 });
 const emit = defineEmits(['update:modelValue']);
 

@@ -72,6 +72,7 @@ const props = withDefaults(defineProps<PostcodeSelectorProps>(), {
   showToggle: false,
   optionsLimit: 5000,
   isBelgiumOrEmpty: true,
+  readMode: false,
 });
 const emit = defineEmits(['update:modelValue', 'toggle-free-text']);
 
@@ -79,4 +80,8 @@ const modelValueComputed = computed({
   get: () => props.modelValue,
   set: (v) => emit('update:modelValue', v),
 });
+
+const selectedPostcode = computed(() =>
+  typeof props.modelValue === 'string' ? props.modelValue : props.modelValue?.postcode
+);
 </script>

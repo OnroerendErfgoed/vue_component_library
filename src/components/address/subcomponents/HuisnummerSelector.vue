@@ -64,6 +64,7 @@ const props = withDefaults(defineProps<HuisnummerSelectorProps>(), {
   autocompleteFn: undefined,
   showToggle: false,
   isBelgiumOrEmpty: true,
+  readMode: false,
 });
 const emit = defineEmits(['update:modelValue', 'toggle-free-text']);
 

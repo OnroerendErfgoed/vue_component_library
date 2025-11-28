@@ -14,7 +14,8 @@
           <VlFormColumn width="3" width-s="12">
             <VlFormMessageLabel :for="`land-${id}`" :class="{ 'vl-properties__label': adminMode }" data-cy="label-land">
               <span>Land</span>
-              <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.land?.required"
+              <VlFormMessageAnnotation
+                v-if="props.showRequiredPerField && $props.config?.land?.required && !props.modDisabled"
                 >VERPLICHT</VlFormMessageAnnotation
               >
             </VlFormMessageLabel>
@@ -42,7 +43,8 @@
               data-cy="label-gewest"
             >
               <span>Gewest</span>
-              <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.gewest?.required"
+              <VlFormMessageAnnotation
+                v-if="props.showRequiredPerField && $props.config?.gewest?.required && !props.modDisabled"
                 >VERPLICHT</VlFormMessageAnnotation
               >
             </VlFormMessageLabel>
@@ -72,7 +74,8 @@
               data-cy="label-provincie"
             >
               <span>Provincie</span>
-              <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.provincie?.required"
+              <VlFormMessageAnnotation
+                v-if="props.showRequiredPerField && $props.config?.provincie?.required && !props.modDisabled"
                 >VERPLICHT</VlFormMessageAnnotation
               >
             </VlFormMessageLabel>
@@ -101,7 +104,8 @@
             data-cy="label-gemeente"
           >
             <span>Gemeente</span>
-            <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.gemeente?.required"
+            <VlFormMessageAnnotation
+              v-if="props.showRequiredPerField && $props.config?.gemeente?.required && !props.modDisabled"
               >VERPLICHT</VlFormMessageAnnotation
             >
           </VlFormMessageLabel>
@@ -131,7 +135,8 @@
               data-cy="label-postcode"
             >
               <span>Postcode</span>
-              <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.postcode?.required"
+              <VlFormMessageAnnotation
+                v-if="props.showRequiredPerField && $props.config?.postcode?.required && !props.modDisabled"
                 >VERPLICHT</VlFormMessageAnnotation
               >
             </VlFormMessageLabel>
@@ -168,7 +173,8 @@
             data-cy="label-straat"
           >
             <span>Straat</span>
-            <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.straat?.required"
+            <VlFormMessageAnnotation
+              v-if="props.showRequiredPerField && $props.config?.straat?.required && !props.modDisabled"
               >VERPLICHT</VlFormMessageAnnotation
             >
           </VlFormMessageLabel>
@@ -200,7 +206,8 @@
             data-cy="label-huisnummer"
           >
             <span>Huisnummer</span>
-            <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.huisnummer?.required"
+            <VlFormMessageAnnotation
+              v-if="props.showRequiredPerField && $props.config?.huisnummer?.required && !props.modDisabled"
               >VERPLICHT</VlFormMessageAnnotation
             >
           </VlFormMessageLabel>
@@ -236,7 +243,8 @@
               data-cy="label-busnummer"
             >
               <span>Busnummer</span>
-              <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.busnummer?.required"
+              <VlFormMessageAnnotation
+                v-if="props.showRequiredPerField && $props.config?.busnummer?.required && !props.modDisabled"
                 >VERPLICHT</VlFormMessageAnnotation
               >
             </VlFormMessageLabel>
