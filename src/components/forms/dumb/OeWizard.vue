@@ -29,8 +29,10 @@
         mod-secondary
         @click="previousStep"
       >
-        <FontAwesomeIcon :icon="faAnglesLeft" />
-        Vorige
+        <slot name="previous-button-content">
+          <FontAwesomeIcon :icon="faAnglesLeft" />
+          Vorige
+        </slot>
       </VlButton>
       <VlButton
         v-if="currentStep < totalSteps - 1"
@@ -39,8 +41,10 @@
         data-cy="next-step-button"
         @click="nextStep"
       >
-        Volgende
-        <FontAwesomeIcon :icon="faAnglesRight" />
+        <slot name="next-button-content">
+          Volgende
+          <FontAwesomeIcon :icon="faAnglesRight" />
+        </slot>
       </VlButton>
       <VlButton
         v-else
@@ -48,8 +52,9 @@
         class="wizard__navigation-button"
         data-cy="submit-button"
         @click="submit"
-        >Verzend</VlButton
       >
+        <slot name="submit-button-content">Verzend</slot>
+      </VlButton>
     </div>
   </div>
 </template>

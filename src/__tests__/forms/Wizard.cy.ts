@@ -372,4 +372,59 @@ describe('OeWizard', () => {
       cy.dataCy('next-step-button').should('be.disabled');
     });
   });
+
+  describe('slots: button content', () => {
+    const TestComponent = defineComponent({
+      components: { OeWizard },
+      setup() {
+        const steps: IStep[] = [
+          { name: 'Gegevens EPC', validate: () => Promise.resolve({ valid: true }) },
+          { name: 'Mijn gegevens', validate: () => Promise.resolve({ valid: true }) },
+          { name: 'Bijlagen', validate: () => Promise.resolve({ valid: true }) },
+          { name: 'Overzicht', validate: () => Promise.resolve({ valid: true }) },
+        ];
+        return { steps };
+      },
+      template: `
+      <OeWizard :steps="steps">
+        <template #previous-button-content>
+          <span data-cy="custom-previous">Terug</span>
+        </template>
+        <template #next-button-content>
+          <span data-cy="custom-next">Verder</span>
+        </template>
+        <template #submit-button-content>
+          <span data-cy="custom-submit">Voltooien</span>
+        </template>
+      </OeWizard>
+    `,
+    });
+
+    it('renders custom slot content for previous, next, and submit buttons', () => {
+      cy.mount(TestComponent);
+
+      // Step 1: only next button visible
+      cy.dataCy('next-step-button').find('[data-cy="custom-next"]').should('contain.text', 'Verder');
+      cy.dataCy('previous-step-button').should('not.exist');
+      cy.dataCy('submit-button').should('not.exist');
+
+      // Step 2: previous and next buttons visible
+      cy.dataCy('next-step-button').click();
+      cy.dataCy('previous-step-button').find('[data-cy="custom-previous"]').should('contain.text', 'Terug');
+      cy.dataCy('next-step-button').find('[data-cy="custom-next"]').should('contain.text', 'Verder');
+      cy.dataCy('submit-button').should('not.exist');
+
+      // Step 3: previous and next buttons visible
+      cy.dataCy('next-step-button').click();
+      cy.dataCy('previous-step-button').find('[data-cy="custom-previous"]').should('contain.text', 'Terug');
+      cy.dataCy('next-step-button').find('[data-cy="custom-next"]').should('contain.text', 'Verder');
+      cy.dataCy('submit-button').should('not.exist');
+
+      // Step 4: previous and submit buttons visible
+      cy.dataCy('next-step-button').click();
+      cy.dataCy('previous-step-button').find('[data-cy="custom-previous"]').should('contain.text', 'Terug');
+      cy.dataCy('submit-button').find('[data-cy="custom-submit"]').should('contain.text', 'Voltooien');
+      cy.dataCy('next-step-button').should('not.exist');
+    });
+  });
 });
