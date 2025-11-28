@@ -266,3 +266,48 @@ export const DisableNextStepButton: Story = {
     `,
   }),
 };
+
+export const CustomButtons: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'The wizard provides named slots (`previous-button-content`, `next-button-content`, `submit-button-content`) to customize the button labels and icons while keeping the default navigation logic.',
+      },
+    },
+  },
+  render: () => ({
+    components: {
+      OeWizard,
+    },
+    setup() {
+      const steps: IStep[] = [
+        { name: 'Gegevens EPC', validate: () => Promise.resolve({ valid: true }) },
+        { name: 'Mijn gegevens', validate: () => Promise.resolve({ valid: true }) },
+        { name: 'Bijlagen', validate: () => Promise.resolve({ valid: true }) },
+        { name: 'Overzicht', validate: () => Promise.resolve({ valid: true }) },
+      ];
+
+      const handleSubmit = () => {
+        alert('Wizard submitted!');
+      };
+
+      return { steps, handleSubmit };
+    },
+    template: `
+    <OeWizard :steps="steps" @submit="handleSubmit">
+      <template #previous-button-content>
+        Terug
+      </template>
+
+      <template #next-button-content>
+        Verder
+      </template>
+
+      <template #submit-button-content>
+        Voltooien
+      </template>
+    </OeWizard>
+    `,
+  }),
+};
