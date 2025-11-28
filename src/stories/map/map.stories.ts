@@ -280,3 +280,36 @@ export const AllControlsAndLayers: Story = {
     template: `<OeMap :api="api" :control-config="controlConfig" style="height: 500px"></OeMap>`,
   }),
 };
+
+export const ConfigurableZoomLevels: Story = {
+  render: () => ({
+    components: { OeMap },
+    setup() {
+      return {
+        api,
+        layerConfig: defaultLayerConfig,
+        zoomlevel: 7,
+        minZoomlevel: 5,
+        maxZoomlevel: 10,
+      };
+    },
+    template: `
+      <OeMap
+        :api="api"
+        :layer-config="layerConfig"
+        :zoomlevel="zoomlevel"
+        :min-zoomlevel="minZoomlevel"
+        :max-zoomlevel="maxZoomlevel"
+        style="height: 500px"
+      />
+    `,
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Demonstrates the use of the `zoomlevel`, `minZoomlevel`, and `maxZoomlevel` props. The map will start at zoom level 7, and zooming is restricted between 5 and 10.',
+      },
+    },
+  },
+};

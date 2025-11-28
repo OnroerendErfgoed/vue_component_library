@@ -66,6 +66,9 @@ const props = withDefaults(defineProps<OeMapProps>(), {
   layerConfig: () => defaultLayerConfig,
   api: 'https://geo.onroerenderfgoed.be/',
   zone: undefined,
+  zoomlevel: 2,
+  minZoomlevel: 2,
+  maxZoomlevel: 15,
 });
 const zone = ref<Contour | undefined>(props.zone);
 
@@ -85,9 +88,9 @@ let map: Map | undefined = new Map({
   view: new View({
     center: getCenter(extentVlaanderen),
     projection: mapProjection,
-    zoom: 2,
-    minZoom: 2,
-    maxZoom: 15,
+    zoom: props.zoomlevel,
+    minZoom: props.minZoomlevel,
+    maxZoom: props.maxZoomlevel,
   }),
   layers: [getBaseLayerGroup(), ...getOverlays()],
   controls: [],
@@ -140,7 +143,7 @@ watch(zone, (newZone) => emit('update:zone', newZone), { deep: true });
 
 function zoomToExtent(extent: Extent) {
   map?.updateSize();
-  map?.getView().fit(extent, { maxZoom: 15 });
+  map?.getView().fit(extent, { maxZoom: props.maxZoomlevel });
 }
 
 function zoomButtonClick() {
