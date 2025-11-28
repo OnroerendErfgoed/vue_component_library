@@ -6,6 +6,7 @@
         :key="section.text"
         :ref="(el: VlSideNavigationItem) => (sideNavigationRefs[section.ref] = el)"
         :text="section.text"
+        :expanded="autoExpand && routeMatches.some((m) => m.name === section.ref)"
       >
         <VlSideNavigationList>
           <li v-for="link in section.links" :key="link.name">
@@ -26,31 +27,15 @@ import {
   VlSideNavigationItem,
   VlSideNavigationList,
 } from '@govflanders/vl-ui-design-system-vue3';
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import { OeSideNavigationProps } from '@/core';
 
-const props = withDefaults(defineProps<OeSideNavigationProps>(), {
+withDefaults(defineProps<OeSideNavigationProps>(), {
   autoExpand: true,
   routeMatches: () => [],
 });
 
 const sideNavigationRefs = ref<Record<string, VlSideNavigationItem>>({});
-
-const expandActiveSection = async () => {
-  if (!props.autoExpand) return;
-  const sections = props.sideNavigation.map((section) => section.ref);
-  const expandSection = (sectionName: string) => {
-    const sectionRef = sideNavigationRefs.value[sectionName];
-
-    if (sectionRef && props.routeMatches.some((m) => m.name === sectionName)) {
-      const toggle = sectionRef.$el?.querySelector('.vl-side-navigation__toggle');
-      if (toggle) toggle.click();
-    }
-  };
-  sections.forEach(expandSection);
-};
-
-onMounted(expandActiveSection);
 </script>
 
 <style lang="scss" scoped>

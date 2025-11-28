@@ -27,7 +27,7 @@
 
 <script setup lang="ts">
 import { VlAlert, VlToaster } from '@govflanders/vl-ui-design-system-vue3';
-import { useUtilStore } from '@stores/utilStore';
+import { useUtilStore } from '@/core';
 
 const store = useUtilStore();
 </script>
