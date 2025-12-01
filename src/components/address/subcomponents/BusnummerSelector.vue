@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!readMode">
     <OeAutocomplete
       v-if="isBelgiumOrEmpty && !huisnummerIsFreeText && !freeText"
       :id="$attrs.id as string"
@@ -25,10 +25,13 @@
       :mod-error="modError"
     />
   </div>
+  <VlPropertiesData v-else data-cy="busnummer-value">
+    {{ selectedBusnummer || '-' }}
+  </VlPropertiesData>
 </template>
 
 <script setup lang="ts">
-import { VlInputField } from '@govflanders/vl-ui-design-system-vue3';
+import { VlInputField, VlPropertiesData } from '@govflanders/vl-ui-design-system-vue3';
 import { computed } from 'vue';
 import OeAutocomplete from '@components/forms/dumb/OeAutocomplete.vue';
 import type { IAutocompleteOption } from '@components/forms/models/autocomplete';
@@ -46,6 +49,7 @@ interface BusnummerSelectorProps {
   autocompleteFn?: (term: string) => Promise<IAutocompleteOption[]>;
   isBelgiumOrEmpty: boolean;
   huisnummerIsFreeText: boolean;
+  readMode: boolean;
 }
 
 const props = withDefaults(defineProps<BusnummerSelectorProps>(), {
@@ -56,6 +60,7 @@ const props = withDefaults(defineProps<BusnummerSelectorProps>(), {
   autocompleteFn: undefined,
   isBelgiumOrEmpty: true,
   huisnummerIsFreeText: false,
+  readMode: false,
 });
 const emit = defineEmits(['update:modelValue']);
 
@@ -63,6 +68,10 @@ const modelValueComputed = computed({
   get: () => (typeof props.modelValue === 'string' ? props.modelValue : (props.modelValue as IAdres)?.busnummer || ''),
   set: (val: string) => emit('update:modelValue', val),
 });
+
+const selectedBusnummer = computed(() =>
+  typeof props.modelValue === 'string' ? props.modelValue : props.modelValue?.busnummer
+);
 
 const autocompleteOption = computed(() => ({
   title: typeof props.modelValue !== 'string' ? (props.modelValue as IAdres)?.busnummer : props.modelValue,

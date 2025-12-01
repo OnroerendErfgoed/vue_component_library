@@ -361,48 +361,86 @@ describe('Adres', () => {
     beforeEach(() => {
       cy.mockLanden();
       cy.mockGewesten();
+      cy.mockProvincies();
       cy.mockGemeenten();
       cy.mockDurbuy();
 
-      mount(TestComponent, {
-        props: {
-          modDisabled: true,
-          adres: {
-            land: { code: 'BE', naam: 'België' },
-            gemeente: { naam: 'Durbuy', niscode: '83012' },
-            postcode: { uri: 'https://data.vlaanderen.be/id/postinfo/6940', nummer: '6940' },
-            straat: { naam: 'Hiva', id: '125552', uri: 'https://data.vlaanderen.be/id/straatnaam/125552' },
-            adres: { huisnummer: '2' },
+      mount(
+        // eslint-disable-next-line vue/one-component-per-file
+        defineComponent({
+          components: { OeAdres },
+          setup() {
+            const config: IAdresConfig = {
+              land: { required: true },
+              gewest: { required: true },
+              provincie: { required: true },
+              gemeente: { required: true },
+              postcode: { required: true },
+              straat: { required: true },
+              huisnummer: { required: true },
+              busnummer: { required: true },
+            };
+
+            return { config };
           },
-        },
-      }).then(() => {
+          template: '<OeAdres :config="config"/>',
+        }),
+        {
+          props: {
+            modDisabled: true,
+            showRequiredPerField: true,
+            adres: {
+              land: { code: 'BE', naam: 'België' },
+              gewest: { naam: 'Waals Gewest', niscode: '3000' },
+              provincie: { naam: 'Luxemburg', niscode: '80000' },
+              gemeente: { naam: 'Durbuy', niscode: '83012' },
+              postcode: { uri: 'https://data.vlaanderen.be/id/postinfo/6940', nummer: '6940' },
+              straat: { naam: 'Hiva', id: '125552', uri: 'https://data.vlaanderen.be/id/straatnaam/125552' },
+              adres: { huisnummer: '2', busnummer: '0001' },
+            },
+          },
+        }
+      ).then(() => {
         cy.wait('@dataGetLanden');
         cy.wait('@dataGetGemeentenWaalsGewest');
       });
     });
 
-    it('disables all fields', () => {
-      getMultiSelect('land').should('be.disabled');
-      getMultiSelect('gemeente').should('have.class', 'is-disabled');
-      getMultiSelect('postcode').should('have.class', 'is-disabled');
-      getMultiSelect('straat').should('have.class', 'is-disabled');
-      getAutocompleteInput('huisnummer').should('have.class', 'vl-input-field--disabled');
-      getAutocompleteInput('busnummer').should('have.class', 'vl-input-field--disabled');
-    });
+    it('shows all fields as plain text', () => {
+      getMultiSelect('land').should('not.exist');
+      getMultiSelect('gewest').should('not.exist');
+      getMultiSelect('provincie').should('not.exist');
+      getMultiSelect('gemeente').should('not.exist');
+      getMultiSelect('postcode').should('not.exist');
+      getMultiSelect('straat').should('not.exist');
+      getTextInput('huisnummer').should('not.exist');
+      getTextInput('busnummer').should('not.exist');
 
-    it('should show the selected address', () => {
-      getMultiSelect('land').find(':selected').should('have.text', 'België');
-      getMultiSelect('gemeente').find('.multiselect-single-label-text').should('have.text', 'Durbuy');
-      getMultiSelect('postcode').find('.multiselect-single-label-text').should('have.text', '6940');
-      getMultiSelect('straat').find('.multiselect-single-label-text').should('have.text', 'Hiva');
-      getAutocompleteInput('huisnummer').should('have.value', '2');
-      getAutocompleteInput('busnummer').should('have.value', '');
+      cy.dataCy('land-value').should('exist').should('have.text', 'België');
+      cy.dataCy('gewest-value').should('exist').should('have.text', 'Waals Gewest');
+      cy.dataCy('provincie-value').should('exist').should('have.text', 'Luxemburg');
+      cy.dataCy('gemeente-value').should('exist').should('have.text', 'Durbuy');
+      cy.dataCy('postcode-value').should('exist').should('have.text', '6940');
+      cy.dataCy('straat-value').should('exist').should('have.text', 'Hiva');
+      cy.dataCy('huisnummer-value').should('exist').should('have.text', '2');
+      cy.dataCy('busnummer-value').should('exist').should('have.text', '0001');
     });
 
     it('should not show action buttons when disabled', () => {
       cy.dataCy('action-postcode-not-found').should('not.exist');
       cy.dataCy('action-straat-not-found').should('not.exist');
       cy.dataCy('action-huisnummer-not-found').should('not.exist');
+    });
+
+    it('should not show required annotations when disabled', () => {
+      getLabelAnnotation('land').should('not.exist');
+      getLabelAnnotation('gewest').should('not.exist');
+      getLabelAnnotation('provincie').should('not.exist');
+      getLabelAnnotation('gemeente').should('not.exist');
+      getLabelAnnotation('postcode').should('not.exist');
+      getLabelAnnotation('straat').should('not.exist');
+      getLabelAnnotation('huisnummer').should('not.exist');
+      getLabelAnnotation('busnummer').should('not.exist');
     });
   });
 
@@ -1554,7 +1592,7 @@ describe('Adres', () => {
 });
 
 const getLabel = (field: string) => cy.dataCy(`label-${field}`).find('span');
-const getLabelAnnotation = (field: string) => cy.dataCy(`label-${field}`).children().last();
+const getLabelAnnotation = (field: string) => cy.dataCy(`label-${field}`).find('.vl-form__annotation');
 const getMultiSelect = (field: string) => cy.dataCy(`select-${field}`);
 const getAutocompleteRootElement = (field: string) => cy.dataCy(`autocomplete-${field}`);
 const getAutocompleteInput = (field: string) => getAutocompleteRootElement(field).children().first();

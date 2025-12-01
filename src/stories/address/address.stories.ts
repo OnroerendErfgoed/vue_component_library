@@ -100,6 +100,46 @@ export const FormValidation: Story = {
 export const DisabledState: Story = {
   args: {
     modDisabled: true,
+    config: {
+      land: { required: true },
+      gewest: { required: true },
+      provincie: { required: true },
+      gemeente: { required: true },
+      postcode: { required: false },
+      straat: { required: false },
+      huisnummer: { required: false },
+      busnummer: { required: false },
+    },
+    adres: {
+      land: {
+        naam: 'België',
+        code: 'BE',
+      },
+      gewest: {
+        naam: 'Vlaams Gewest',
+        niscode: '2000',
+      },
+      provincie: {
+        naam: 'Vlaams-Brabant',
+        niscode: '20001',
+      },
+      gemeente: {
+        naam: 'Bertem',
+        niscode: '24009',
+      },
+      postcode: {
+        nummer: '3060',
+      },
+      straat: {
+        naam: 'Dorpstraat',
+        id: '32110',
+      },
+      adres: {
+        huisnummer: '416',
+        busnummer: '0101',
+      },
+    },
+    showRequiredPerField: true,
   },
 };
 

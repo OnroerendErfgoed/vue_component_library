@@ -14,7 +14,8 @@
           <VlFormColumn width="3" width-s="12">
             <VlFormMessageLabel :for="`land-${id}`" :class="{ 'vl-properties__label': adminMode }" data-cy="label-land">
               <span>Land</span>
-              <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.land?.required"
+              <VlFormMessageAnnotation
+                v-if="props.showRequiredPerField && $props.config?.land?.required && !props.modDisabled"
                 >VERPLICHT</VlFormMessageAnnotation
               >
             </VlFormMessageLabel>
@@ -42,7 +43,8 @@
               data-cy="label-gewest"
             >
               <span>Gewest</span>
-              <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.gewest?.required"
+              <VlFormMessageAnnotation
+                v-if="props.showRequiredPerField && $props.config?.gewest?.required && !props.modDisabled"
                 >VERPLICHT</VlFormMessageAnnotation
               >
             </VlFormMessageLabel>
@@ -52,6 +54,7 @@
               :id="`gewest-${id}`"
               v-model="gewest"
               :options="gewesten"
+              :read-mode="props.modDisabled"
               :disabled="!land || props.modDisabled"
               :mod-error="!!v$.gewest.$errors.length"
               :options-limit="optionsLimit"
@@ -71,7 +74,8 @@
               data-cy="label-provincie"
             >
               <span>Provincie</span>
-              <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.provincie?.required"
+              <VlFormMessageAnnotation
+                v-if="props.showRequiredPerField && $props.config?.provincie?.required && !props.modDisabled"
                 >VERPLICHT</VlFormMessageAnnotation
               >
             </VlFormMessageLabel>
@@ -80,6 +84,7 @@
             <ProvincieSelector
               :id="`provincie-${id}`"
               v-model="provincie"
+              :read-mode="props.modDisabled"
               :options="provincies"
               :disabled="!land || provincies.length === 0 || props.modDisabled"
               :mod-error="!!v$.provincie.$errors.length"
@@ -99,7 +104,8 @@
             data-cy="label-gemeente"
           >
             <span>Gemeente</span>
-            <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.gemeente?.required"
+            <VlFormMessageAnnotation
+              v-if="props.showRequiredPerField && $props.config?.gemeente?.required && !props.modDisabled"
               >VERPLICHT</VlFormMessageAnnotation
             >
           </VlFormMessageLabel>
@@ -108,6 +114,7 @@
           <GemeenteSelector
             :id="`gemeente-${id}`"
             v-model="gemeente"
+            :read-mode="props.modDisabled"
             :options="gemeenten"
             :disabled="!land || props.modDisabled"
             :mod-error="!!v$.gemeente.naam.$errors.length"
@@ -128,7 +135,8 @@
               data-cy="label-postcode"
             >
               <span>Postcode</span>
-              <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.postcode?.required"
+              <VlFormMessageAnnotation
+                v-if="props.showRequiredPerField && $props.config?.postcode?.required && !props.modDisabled"
                 >VERPLICHT</VlFormMessageAnnotation
               >
             </VlFormMessageLabel>
@@ -137,6 +145,7 @@
             <PostcodeSelector
               :id="`postcode-${id}`"
               v-model="postcode"
+              :read-mode="props.modDisabled"
               :options-limit="optionsLimit"
               :options="postinfo"
               :disabled="!gemeente || props.modDisabled"
@@ -164,7 +173,8 @@
             data-cy="label-straat"
           >
             <span>Straat</span>
-            <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.straat?.required"
+            <VlFormMessageAnnotation
+              v-if="props.showRequiredPerField && $props.config?.straat?.required && !props.modDisabled"
               >VERPLICHT</VlFormMessageAnnotation
             >
           </VlFormMessageLabel>
@@ -173,6 +183,7 @@
           <StraatSelector
             :id="`straat-${id}`"
             v-model="straat"
+            :read-mode="props.modDisabled"
             :options="straten"
             :options-limit="optionsLimit"
             :disabled="!gemeente || props.modDisabled"
@@ -195,7 +206,8 @@
             data-cy="label-huisnummer"
           >
             <span>Huisnummer</span>
-            <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.huisnummer?.required"
+            <VlFormMessageAnnotation
+              v-if="props.showRequiredPerField && $props.config?.huisnummer?.required && !props.modDisabled"
               >VERPLICHT</VlFormMessageAnnotation
             >
           </VlFormMessageLabel>
@@ -204,6 +216,7 @@
           <HuisnummerSelector
             :id="`huisnummer-${id}`"
             v-model="huisnummer"
+            :read-mode="props.modDisabled"
             :disabled="!straat || props.modDisabled"
             :free-text="huisnummerIsFreeText"
             :mod-error="!!v$.adres.huisnummer.$errors.length"
@@ -230,7 +243,8 @@
               data-cy="label-busnummer"
             >
               <span>Busnummer</span>
-              <VlFormMessageAnnotation v-if="props.showRequiredPerField && $props.config?.busnummer?.required"
+              <VlFormMessageAnnotation
+                v-if="props.showRequiredPerField && $props.config?.busnummer?.required && !props.modDisabled"
                 >VERPLICHT</VlFormMessageAnnotation
               >
             </VlFormMessageLabel>
@@ -239,6 +253,7 @@
             <BusnummerSelector
               :id="`busnummer-${id}`"
               v-model="busnummer"
+              :read-mode="props.modDisabled"
               :disabled="!huisnummer || props.modDisabled"
               :free-text="busnummerIsFreeText"
               :mod-error="!!v$.adres.busnummer.$errors.length"
