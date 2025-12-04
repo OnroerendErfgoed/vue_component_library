@@ -115,7 +115,6 @@
 </template>
 
 <script setup lang="ts">
-import 'ol/ol.css';
 import { FeatureSelectEnum } from '../models/feature-select.enum';
 import { FeatureSelectConfig } from '../models/map-config';
 import { IDrawGeomType } from '../models/openlayers';

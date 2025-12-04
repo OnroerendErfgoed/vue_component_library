@@ -22,7 +22,6 @@
 </template>
 
 <script setup lang="ts">
-import 'ol/ol.css';
 import { FeatureSelectEnum } from '../models/feature-select.enum';
 import {
   OeZoneerderProps,
