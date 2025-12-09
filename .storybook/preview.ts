@@ -8,11 +8,6 @@ setup((app) => {
   app.use(installs.VlUiCoreInstall);
   app.use(installs.VlUiUtilInstall);
 
-  // Register global components that are forgotten in WU Vue3 and give warnings in console.
-  // Consuming apps should register these themselves until fixed in WU.
-  app.use(installs.VlIconInstall);
-  app.use(installs.VlLoaderInstall);
-
   app.use(createPinia());
 });
 

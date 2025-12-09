@@ -8,8 +8,8 @@
       placeholder="Straat"
       mode="single"
       searchable
+      :track-by="['naam', 'homoniem']"
       object
-      label="naam"
       value-prop="uri"
       :can-deselect="false"
       :can-clear="false"
@@ -19,8 +19,22 @@
       :limit="optionsLimit"
       @keydown.tab="!modelValue ? $event.preventDefault() : null"
     >
-      <template #noresults><li class="multiselect-option">Geen resultaten gevonden...</li></template>
-      <template #nooptions><li class="multiselect-option">Geen opties beschikbaar</li></template>
+      <template #singlelabel="{ value }">
+        <div class="multiselect-single-label">
+          <span class="multiselect-single-label-text">
+            {{ value.naam }}{{ value.homoniem ? ' (' + value.homoniem + ')' : '' }}
+          </span>
+        </div>
+      </template>
+      <template #option="{ option }">
+        <li>{{ option.naam }}{{ option.homoniem ? ' (' + option.homoniem + ')' : '' }}</li>
+      </template>
+      <template #noresults>
+        <li class="multiselect-option">Geen resultaten gevonden...</li>
+      </template>
+      <template #nooptions>
+        <li class="multiselect-option">Geen opties beschikbaar</li>
+      </template>
     </VlMultiselect>
     <VlInputField
       v-else

@@ -1589,6 +1589,168 @@ describe('Adres', () => {
       });
     });
   });
+
+  describe('form - straat homoniem display', () => {
+    beforeEach(() => {
+      cy.mockLanden();
+      cy.mockGewesten();
+      cy.mockGemeenten();
+      cy.mockAntwerpen();
+    });
+
+    it('displays homoniem in straat multiselect options', () => {
+      mount(TestComponent).then(() => {
+        cy.wait('@dataGetLanden');
+
+        getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
+        cy.wait('@dataGetGemeentenVlaamsGewest');
+
+        setMultiSelectValue('gemeente', 'Antwerpen');
+        cy.wait('@dataGetStratenAntwerpen');
+
+        getMultiSelect('straat').click();
+        getMultiSelect('straat').find('.multiselect-search').type('Statiestraat');
+
+        getMultiSelect('straat')
+          .get('.multiselect-option')
+          .then(($options) => {
+            const optionsText = Array.from($options)
+              .filter((option) => option.offsetParent !== null)
+              .map((option) => option.textContent?.trim());
+
+            expect(optionsText).to.include('Statiestraat (EK)');
+            expect(optionsText).to.include('Statiestraat (BE)');
+            expect(optionsText).to.include('Statiestraat (AN)');
+          });
+      });
+    });
+
+    it('displays homoniem in straat single label after selection', () => {
+      mount(TestComponent).then(() => {
+        cy.wait('@dataGetLanden');
+
+        // Country selection
+        getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
+        cy.wait('@dataGetGemeentenVlaamsGewest');
+
+        // Gemeente selection - Antwerpen
+        setMultiSelectValue('gemeente', 'Antwerpen');
+        cy.wait('@dataGetStratenAntwerpen');
+
+        // Select Statiestraat (BE)
+        getMultiSelect('straat').click();
+        getMultiSelect('straat').find('.multiselect-search').type('Statiestraat');
+        getMultiSelect('straat').get('.multiselect-option').filter(':contains("Statiestraat (BE)")').first().click();
+
+        getMultiSelect('straat').find('.multiselect-single-label-text').should('have.text', 'Statiestraat (BE)');
+      });
+    });
+
+    it('differentiates between streets with same name but different homoniem', () => {
+      mount(TestComponent).then(() => {
+        cy.wait('@dataGetLanden');
+
+        getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
+        cy.wait('@dataGetGemeentenVlaamsGewest');
+
+        setMultiSelectValue('gemeente', 'Antwerpen');
+        cy.wait('@dataGetStratenAntwerpen');
+
+        getMultiSelect('straat').click();
+        getMultiSelect('straat').find('.multiselect-search').type('Statiestraat');
+
+        // Get all three options and verify they're different
+        getMultiSelect('straat')
+          .get('.multiselect-option')
+          .then(($options) => {
+            const options = Array.from($options)
+              .filter((option) => option.offsetParent !== null)
+              .map((option) => ({
+                text: option.textContent?.trim(),
+              }));
+
+            expect(options).to.have.lengthOf(3);
+            expect(options[0].text).to.include('(EK)');
+            expect(options[1].text).to.include('(BE)');
+            expect(options[2].text).to.include('(AN)');
+          });
+      });
+    });
+
+    it('allows selecting different streets with same name by homoniem', () => {
+      mount(TestComponent).then(() => {
+        cy.wait('@dataGetLanden');
+
+        getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
+        cy.wait('@dataGetGemeentenVlaamsGewest');
+
+        setMultiSelectValue('gemeente', 'Antwerpen');
+        cy.wait('@dataGetStratenAntwerpen');
+
+        getMultiSelect('straat').click();
+        getMultiSelect('straat').find('.multiselect-search').type('Statiestraat');
+        getMultiSelect('straat').get('.multiselect-option').filter(':contains("Statiestraat (BE)")').first().click();
+
+        // Verify Statiestraat (BE) is selected
+        getMultiSelect('straat').find('.multiselect-single-label-text').should('have.text', 'Statiestraat (BE)');
+
+        // Change selection to Statiestraat (AN)
+        getMultiSelect('straat').click();
+        getMultiSelect('straat').find('.multiselect-search').clear().type('Statiestraat');
+        getMultiSelect('straat').get('.multiselect-option').filter(':contains("Statiestraat (AN)")').first().click();
+
+        // Verify Statiestraat (AN) is now selected
+        getMultiSelect('straat').find('.multiselect-single-label-text').should('have.text', 'Statiestraat (AN)');
+      });
+    });
+
+    it('does not display homoniem for streets without homoniem', () => {
+      mount(TestComponent).then(() => {
+        cy.wait('@dataGetLanden');
+
+        getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
+        cy.wait('@dataGetGemeentenVlaamsGewest');
+
+        setMultiSelectValue('gemeente', 'Antwerpen');
+        cy.wait('@dataGetStratenAntwerpen');
+
+        getMultiSelect('straat').click();
+        getMultiSelect('straat').find('.multiselect-search').type('Steenbergstraat');
+
+        // Verify no homoniem is shown for streets without homoniem
+        getMultiSelect('straat')
+          .get('.multiselect-option')
+          .filter(':contains("Steenbergstraat")')
+          .first()
+          .should('not.contain', '(');
+      });
+    });
+
+    it('handles streets with homoniem in model binding', () => {
+      mount(TestComponent, {
+        data: () => ({
+          adres: {
+            land: { code: 'BE', naam: 'België' },
+            gemeente: { naam: 'Antwerpen', niscode: '11002' },
+            postcode: { uri: 'https://data.vlaanderen.be/id/postinfo/2000', nummer: '2000' },
+            straat: {
+              naam: 'Statiestraat',
+              homoniem: 'BE',
+              id: '2724',
+              uri: 'https://data.vlaanderen.be/id/straatnaam/2724',
+            },
+            adres: { huisnummer: '1' },
+          },
+        }),
+        template: '<OeAdres v-model:adres="adres"/>',
+      }).then(() => {
+        cy.wait('@dataGetLanden');
+
+        // Verify the street with homoniem is displayed correctly in the selection
+        getMultiSelect('straat').find('.multiselect-single-label-text').should('have.text', 'Statiestraat (BE)');
+      });
+    });
+  });
 });
 
 const getLabel = (field: string) => cy.dataCy(`label-${field}`).find('span');
