@@ -4,10 +4,10 @@
       <div class="toolbar-container">
         <div v-if="includes(tb, OeEditorToolbar.UNDO) || includes(tb, OeEditorToolbar.REDO)" class="toolbar-group">
           <button v-if="includes(tb, OeEditorToolbar.UNDO)" class="ql-undo" title="Undo">
-            <font-awesome-icon :icon="['fas', 'rotate-left']" />
+            <FontAwesomeIcon :icon="faRotateLeft" />
           </button>
           <button v-if="includes(tb, OeEditorToolbar.REDO)" class="ql-redo" title="Redo">
-            <font-awesome-icon :icon="['fas', 'rotate-right']" />
+            <FontAwesomeIcon :icon="faRotateRight" />
           </button>
         </div>
 
@@ -96,11 +96,11 @@
 
         <div v-if="includes(tb, OeEditorToolbar.BIBLIO) || includes(tb, OeEditorToolbar.PRIVATE)" class="toolbar-group">
           <button v-if="includes(tb, OeEditorToolbar.BIBLIO)" class="ql-biblio" title="Bibliografie">
-            <font-awesome-icon :icon="['fas', 'bookmark']" />
+            <FontAwesomeIcon :icon="faBookmark" />
           </button>
 
           <button v-if="includes(tb, OeEditorToolbar.PRIVATE)" class="ql-private" title="Prive">
-            <font-awesome-icon :icon="['fas', 'lock']" />
+            <FontAwesomeIcon :icon="faLock" />
           </button>
         </div>
       </div>
@@ -113,6 +113,7 @@
 <script setup lang="ts">
 import 'quill/dist/quill.snow.css';
 import { BibliografieBlock, OeEditorFormat, OeEditorProps, OeEditorToolbar, PrivateBlock } from '../models/editor';
+import { faBookmark, faLock, faRotateLeft, faRotateRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { includes } from 'lodash-es';
 import Quill from 'quill';

@@ -62,11 +62,12 @@ const sideNavigationRefs = ref<Record<string, VlSideNavigationItem>>({});
   }
 
   .vl-side-navigation__item {
-    cursor: pointer;
-
     :deep(.vl-side-navigation__toggle) {
       margin: 10px 0;
       text-decoration: none;
+      color: $primary-color;
+      cursor: pointer;
+      outline: none;
     }
 
     &:first-child {
