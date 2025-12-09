@@ -161,4 +161,7 @@ export interface OeMapProps {
   controlConfig?: ControlConfig;
   layerConfig?: LayerConfig;
   locatie?: ILocatie;
+  zoomlevel?: number;
+  minZoomlevel?: number;
+  maxZoomlevel?: number;
 }
