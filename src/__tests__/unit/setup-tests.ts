@@ -23,24 +23,25 @@ vi.mock('jsts', () => {
       intersects: (other: any) => intersectsExtent(extent, other?.__extent ?? extent),
       getCoordinates: () => (olGeom?.getCoordinates ? olGeom.getCoordinates() : [[[0, 0]]]),
       getType: () => (olGeom?.getType ? olGeom.getType() : 'Polygon'),
+      addEventListener: () => {},
+      removeEventListener: () => {},
+      on: () => {},
+      un: () => {},
     };
   };
-
   class OL3Parser {
     inject() {}
-    read(geom: any) {
-      return makeGeom(geom);
+    read(g: any) {
+      return makeGeom(g);
     }
     write(g: any) {
       return g ?? makeGeom();
     }
   }
-
   class GeoJSONWriter {
     write(g: any) {
       return { type: g?.getType ? g.getType() : 'Polygon', coordinates: g?.getCoordinates?.() ?? [] };
     }
   }
-
   return { io: { OL3Parser, GeoJSONWriter } };
 });
