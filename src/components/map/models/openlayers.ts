@@ -22,7 +22,7 @@ type MultiPolygon = IContour<'MultiPolygon', Coordinate[][][]>;
 
 export type Contour = Polygon | MultiPolygon;
 
-export interface Aanduidingsobject {
+export interface Bescherming {
   uri: string;
   id: number;
   naam: string;

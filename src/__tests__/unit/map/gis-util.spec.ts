@@ -3,7 +3,7 @@ import { Polygon } from 'ol/geom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { GisUtil } from '@/components/map/utils/openlayers/gis-util';
 import { MapUtil } from '@/components/map/utils/openlayers/map-util';
-import { Aanduidingsobject, Perceel } from '@components/map';
+import { Bescherming, Perceel } from '@components/map';
 
 // Mock MapUtil.mergePolygonsInBatches
 vi.mock('@/components/map/utils/openlayers/map-util', () => {
@@ -42,7 +42,7 @@ describe('GisUtil', () => {
   it('getBeschermingenPolygon filters by geselecteerd', async () => {
     const f1 = makeFeature('sel');
     const f2 = makeFeature('unsel');
-    const beschermingen: Aanduidingsobject[] = [
+    const beschermingen: Bescherming[] = [
       { feature: f1, geselecteerd: true, uri: '', id: 1, naam: 'Feature 1', type: { uri: 'type1', id: 1 } },
       { feature: f2, geselecteerd: false, uri: '', id: 2, naam: 'Feature 2', type: { uri: 'type2', id: 2 } },
     ];

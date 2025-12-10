@@ -1,4 +1,4 @@
-import { Aanduidingsobject, Perceel } from '../../models/openlayers';
+import { Bescherming, Perceel } from '../../models/openlayers';
 import { MapUtil } from './map-util';
 import { Feature } from 'ol';
 
@@ -6,7 +6,7 @@ export class GisUtil {
   /**
    * Get the polygon for selected beschermingen.
    */
-  public static getBeschermingenPolygon(beschermingen: Aanduidingsobject[]): Promise<Feature | null | undefined> {
+  public static getBeschermingenPolygon(beschermingen: Bescherming[]): Promise<Feature | null | undefined> {
     return GisUtil.calculatePolygonAsync(beschermingen, (item) => !!item.geselecteerd);
   }
 
@@ -55,9 +55,7 @@ export class GisUtil {
       const batch = items.slice(i, i + batchSize);
       for (const item of batch) {
         if (filterFn(item)) {
-          filteredFeatures.push(
-            item instanceof Feature ? item : ((item as Aanduidingsobject | Perceel).feature as Feature)
-          );
+          filteredFeatures.push(item instanceof Feature ? item : ((item as Bescherming | Perceel).feature as Feature));
         }
       }
       // Yield control to the browser
