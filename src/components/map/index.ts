@@ -11,6 +11,7 @@ export * from './models/map-config';
 export * from './models/openlayers';
 
 // Utils
+export * from './utils/openlayers/gis-util';
 export * from './utils/openlayers/map-util';
 export * from './utils/openlayers/oe-ol-geolocate';
 export * from './utils/openlayers/projection-util';

@@ -80,9 +80,17 @@ export class MapUtil {
   public static mergePolygons(features: Feature[]): Feature | null {
     const parser = this.getParser();
     let mergedJstsGeom: jsts.geom.Geometry | undefined;
+
     features.forEach((f) => {
       const jstsGeom = parser.read(f.getGeometry());
-      mergedJstsGeom = mergedJstsGeom ? mergedJstsGeom.union(jstsGeom) : jstsGeom;
+      const fixedGeom = jstsGeom.buffer(0); // Fix self-intersections
+
+      // Ensure the geometry is valid before merging
+      if (fixedGeom.isValid()) {
+        mergedJstsGeom = mergedJstsGeom ? mergedJstsGeom.union(fixedGeom) : fixedGeom;
+      } else {
+        console.warn('Invalid geometry found after buffering in mergePolygons:', f, fixedGeom);
+      }
     });
 
     if (!mergedJstsGeom) return null;
@@ -108,9 +116,16 @@ export class MapUtil {
 
     if (!intersects) return null;
 
-    const jstsGeom = polygon2 ? jstsGeom1.intersection(jstsGeom2) : jstsGeom1;
-    const buffered = jstsGeom.buffer(0);
-    const polygon = writer.write(buffered) as Contour;
+    const jstsGeom = jstsGeom1.intersection(jstsGeom2);
+    const fixedGeom = jstsGeom.buffer(0); // Fix self-intersections
+
+    // Ensure the geometry is valid before returning
+    if (!fixedGeom.isValid()) {
+      console.warn('Invalid geometry found after intersection:', polygon1, polygon2, fixedGeom);
+      return null;
+    }
+
+    const polygon = writer.write(fixedGeom) as Contour;
     const coords = polygon.type === 'Polygon' ? [polygon.coordinates] : polygon.coordinates;
     if (coords[0].length > 0) {
       return new Feature({
@@ -121,16 +136,27 @@ export class MapUtil {
     }
   }
 
-  public static subtractPolygons(polygon1: Feature, polygon2: Feature): Feature | null {
+  public static subtractPolygons(polygon1: Feature, polygon2?: Feature): Feature | null {
     const parser = this.getParser();
-    let jstsGeom;
+    const jstsGeom1 = parser.read(polygon1.getGeometry());
+
+    let jstsGeom: jsts.geom.Geometry;
     if (!polygon2) {
-      jstsGeom = parser.read(polygon1.getGeometry());
+      jstsGeom = jstsGeom1;
     } else {
-      jstsGeom = parser.read(polygon1.getGeometry()).difference(parser.read(polygon2.getGeometry()));
+      const jstsGeom2 = parser.read(polygon2.getGeometry());
+      jstsGeom = jstsGeom1.difference(jstsGeom2);
     }
 
-    const polygon = parser.write(jstsGeom);
+    const fixedGeom = jstsGeom.buffer(0); // Fix self-intersections
+
+    // Ensure the geometry is valid before returning
+    if (!fixedGeom.isValid()) {
+      console.warn('Invalid geometry found after subtraction:', polygon1, polygon2, fixedGeom);
+      return null;
+    }
+
+    const polygon = parser.write(fixedGeom);
     const coords = polygon.getType() === 'Polygon' ? [polygon.getCoordinates()] : polygon.getCoordinates();
     if (coords[0].length > 0) {
       return new Feature({
@@ -157,19 +183,53 @@ export class MapUtil {
   }
 
   public static bufferZone(zone: Feature, buffer: number): Feature {
-    const parser = new jsts.io.OL3Parser();
+    const parser = this.getParser();
     try {
       // convert the OpenLayers geometry to a JSTS geometry
       const jstsGeom = parser.read(zone.getGeometry());
       // create a buffer
       const buffered = jstsGeom.buffer(buffer);
+
+      // Ensure the geometry is valid before applying
+      if (!buffered.isValid()) {
+        console.warn('Invalid geometry found after buffering:', zone, buffered);
+        return zone;
+      }
+
       // convert back from JSTS and replace the geometry on the feature
       zone.setGeometry(parser.write(buffered));
     } catch (e) {
-      console.debug(e);
+      console.warn('Error during bufferZone operation:', e, zone);
       return zone;
     }
 
     return zone;
+  }
+
+  public static async mergePolygonsInBatches(
+    features: Feature[],
+    batchSize = 20,
+    onProgress?: (progress: number) => void
+  ): Promise<Feature | null | undefined> {
+    if (features.length === 0) return null;
+
+    let merged: Feature | null | undefined = features[0];
+    let processed = 1;
+
+    for (let i = 0; i < features.length; i += batchSize) {
+      const batch = features.slice(i, i + batchSize);
+      for (const feature of batch) {
+        if (merged) {
+          merged = MapUtil.mergePolygons([merged, feature]);
+        } else {
+          merged = feature;
+        }
+        processed++;
+      }
+      if (onProgress) onProgress(processed / features.length);
+      await new Promise((resolve) => setTimeout(resolve, 0));
+    }
+
+    return merged;
   }
 }
