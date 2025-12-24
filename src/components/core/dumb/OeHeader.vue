@@ -161,7 +161,6 @@ const props = withDefaults(defineProps<IHeaderProps>(), {
 
     .user {
       margin-left: auto;
-      align-items: flex-end;
       min-width: 0;
       padding-left: 2rem;
 
