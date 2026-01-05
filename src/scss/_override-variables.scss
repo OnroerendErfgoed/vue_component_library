@@ -230,6 +230,11 @@ body {
   flex: 1;
 }
 
+.vl-progress {
+  background: unset !important;
+  box-shadow: unset !important;
+}
+
 /**
 -------------------------------
  End override specific styles
