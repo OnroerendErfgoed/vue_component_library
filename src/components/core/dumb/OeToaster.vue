@@ -31,3 +31,13 @@ import { useUtilStore } from '@/core';
 
 const store = useUtilStore();
 </script>
+<style lang="scss" scoped>
+.vl-toaster {
+  word-break: break-word;
+
+  :deep(.vl-alert__message) {
+    // 4rem comes from the width of the closing button.
+    width: calc(100% + 4rem);
+  }
+}
+</style>
