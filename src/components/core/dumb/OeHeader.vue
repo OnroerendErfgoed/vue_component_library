@@ -20,7 +20,11 @@
       <div class="triangle-placeholder triangle-placeholder--invert"></div>
     </div>
     <div class="header__userinfo vl-col--3-12 vl-col--12-12--m vl-u-flex-align-flex-end">
-      <div v-if="user" data-cy="user" class="user vl-u-spacer-left--large vl-u-spacer-right--small">
+      <div
+        v-if="user"
+        data-cy="user"
+        class="user vl-u-spacer-right--small vl-u-flex vl-u-flex-direction-column vl-u-flex-align-flex-end"
+      >
         <VlDropdownNavigation
           data-cy="dropdown-navigation"
           :title="user.name"
@@ -156,6 +160,10 @@ const props = withDefaults(defineProps<IHeaderProps>(), {
     background-color: $white;
 
     .user {
+      margin-left: auto;
+      min-width: 0;
+      padding-left: 2rem;
+
       :deep(.vl-dropdown-navigation .vl-popover) {
         top: 13px;
         z-index: 1000;
@@ -163,7 +171,6 @@ const props = withDefaults(defineProps<IHeaderProps>(), {
 
       :deep(.vl-title) {
         text-overflow: ellipsis;
-        max-width: 200px;
         min-width: 120px;
         white-space: nowrap;
         overflow: hidden;
