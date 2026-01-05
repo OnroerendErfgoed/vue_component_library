@@ -1610,10 +1610,9 @@ describe('Adres', () => {
 
         getMultiSelect('straat').click();
         getMultiSelect('straat').find('.multiselect-search').type('Statiestraat');
-
         getMultiSelect('straat')
           .get('.multiselect-option')
-          .then(($options) => {
+          .should(($options) => {
             const optionsText = Array.from($options)
               .filter((option) => option.offsetParent !== null)
               .map((option) => option.textContent?.trim());
@@ -1662,7 +1661,7 @@ describe('Adres', () => {
         // Get all three options and verify they're different
         getMultiSelect('straat')
           .get('.multiselect-option')
-          .then(($options) => {
+          .should(($options) => {
             const options = Array.from($options)
               .filter((option) => option.offsetParent !== null)
               .map((option) => ({
@@ -1806,8 +1805,12 @@ const fillInOeAdresOther = () => {
 
 const setMultiSelectValue = (field: string, value: string) => {
   getMultiSelect(field).click();
-  getMultiSelect(field).find('.multiselect-search').type(value);
-  getMultiSelect(field).find('.multiselect-option').click();
+  getMultiSelect(field).find('.multiselect-search').clear().type(value);
+  getMultiSelect(field)
+    .find('.multiselect-option[role="option"]')
+    .should('be.visible', { timeout: 10000 })
+    .first()
+    .click();
 };
 
 const setAutocompleteValue = (field: string, value: string) => {
