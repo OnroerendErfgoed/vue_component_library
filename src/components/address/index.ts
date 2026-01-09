@@ -1,6 +1,9 @@
 // Address component
 export { default as OeAdres } from './OeAdres.vue';
 
+// Address models
+export * from './models/adres';
+
 // Common components used by this module
 export { default as OeAutocomplete } from '../../components/forms/dumb/OeAutocomplete.vue';
 export { default as OeLoader } from '../../components/core/dumb/OeLoader.vue';
