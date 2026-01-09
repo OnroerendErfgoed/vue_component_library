@@ -40,5 +40,12 @@ export default [
     },
   },
 
+  {
+    files: ['src/**/*.vue'],
+    rules: {
+      'vue/component-name-in-template-casing': ['warn', 'PascalCase'],
+    },
+  },
+
   skipFormatting,
 ];
