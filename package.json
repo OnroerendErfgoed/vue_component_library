@@ -1,6 +1,6 @@
 {
   "name": "@OnroerendErfgoed/vue_component_library",
-  "version": "4.0.0-alpha.6",
+  "version": "4.0.0",
   "description": "Vue 3 component library for Onroerend Erfgoed applications, built on Govflanders Webuniversum design system",
   "type": "module",
   "files": [
