@@ -1,6 +1,12 @@
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting';
 import vueTsEslintConfig from '@vue/eslint-config-typescript';
 import pluginVue from 'eslint-plugin-vue';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const projectRoot = resolve(__dirname, '..');
 
 export default [
   {
@@ -17,11 +23,29 @@ export default [
       '**/static/**',
       '**/storybook-static/**',
       '**/cypress/**',
+      '**/public/**',
     ],
   },
 
   ...pluginVue.configs['flat/recommended'],
-  ...vueTsEslintConfig(),
-  // Skip formatting rules, these are handled by the format command that runs prettier
+  ...vueTsEslintConfig({
+    rootDir: projectRoot,
+  }),
+
+  {
+    languageOptions: {
+      parserOptions: {
+        tsconfigRootDir: projectRoot,
+      },
+    },
+  },
+
+  {
+    files: ['src/**/*.vue'],
+    rules: {
+      'vue/component-name-in-template-casing': ['warn', 'PascalCase'],
+    },
+  },
+
   skipFormatting,
 ];

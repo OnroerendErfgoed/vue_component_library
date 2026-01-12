@@ -98,7 +98,6 @@ const mockDurbuy = () => {
 };
 
 // Helper function to mock Aalst-related API calls
-
 const mockAalst = () => {
   cy.intercept('GET', '**/adressenregister/gemeenten/Aalst/postinfo*', {
     body: [
@@ -161,6 +160,46 @@ const mockBrussel = () => {
   cy.intercept('GET', '**/adressenregister/straten/19887/adressen*', { body: [] }).as('dataGetAdressenBrussel');
 };
 
+// Helper function to mock Antwerpen-related API calls
+const mockAntwerpen = () => {
+  cy.intercept('GET', '**/adressenregister/gemeenten/Antwerpen/postinfo*', {
+    body: [],
+  }).as('dataGetPostinfoAntwerpen');
+  cy.intercept('GET', '**/adressenregister/gemeenten/11002/straten*', {
+    body: [
+      {
+        id: '2723',
+        naam: 'Statiestraat',
+        homoniem: 'EK',
+        status: 'inGebruik',
+        uri: 'https://data.vlaanderen.be/id/straatnaam/2723',
+      },
+      {
+        id: '2724',
+        naam: 'Statiestraat',
+        homoniem: 'BE',
+        status: 'inGebruik',
+        uri: 'https://data.vlaanderen.be/id/straatnaam/2724',
+      },
+      {
+        id: '2725',
+        naam: 'Statiestraat',
+        homoniem: 'AN',
+        status: 'inGebruik',
+        uri: 'https://data.vlaanderen.be/id/straatnaam/2725',
+      },
+      {
+        id: '2728',
+        naam: 'Steenbergstraat',
+        homoniem: null,
+        status: 'inGebruik',
+        uri: 'https://data.vlaanderen.be/id/straatnaam/2728',
+      },
+    ],
+  }).as('dataGetStratenAntwerpen');
+  cy.intercept('GET', '**/adressenregister/straten/10000/adressen*', { body: [] }).as('dataGetAdressenAntwerpen');
+};
+
 // Main mock function to call all helpers
 Cypress.Commands.add('mockAdressenregister', () => {
   mockLanden();
@@ -172,6 +211,7 @@ Cypress.Commands.add('mockAdressenregister', () => {
   mockDurbuy();
   mockAalst();
   mockBrussel();
+  mockAntwerpen();
 });
 
 Cypress.Commands.add('mockLanden', mockLanden);
@@ -183,6 +223,7 @@ Cypress.Commands.add('mockBierbeek', mockBierbeek);
 Cypress.Commands.add('mockDurbuy', mockDurbuy);
 Cypress.Commands.add('mockAalst', mockAalst);
 Cypress.Commands.add('mockBrussel', mockBrussel);
+Cypress.Commands.add('mockAntwerpen', mockAntwerpen);
 
 // Custom command to select elements by data-cy attribute
 Cypress.Commands.add('dataCy', (name: string) => {
@@ -203,6 +244,7 @@ declare global {
       mockDurbuy(): void;
       mockAalst(): void;
       mockBrussel(): void;
+      mockAntwerpen(): void;
     }
   }
 }

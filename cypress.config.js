@@ -12,7 +12,8 @@ export default defineConfig({
     baseUrl: 'http://localhost:4173',
   },
   component: {
-    specPattern: 'src/**/__tests__/*.{cy,spec}.{js,ts,jsx,tsx}',
+    specPattern: 'src/**/__tests__/**/*.{cy,spec}.{js,ts,jsx,tsx}',
+    excludeSpecPattern: ['**/__tests__/unit/**'],
     devServer: {
       framework: 'vue',
       bundler: 'vite',
