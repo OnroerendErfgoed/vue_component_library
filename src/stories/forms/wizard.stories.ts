@@ -1,3 +1,4 @@
+import { VlButton } from '@govflanders/vl-ui-design-system-vue3';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import OeWizard from '@components/forms/dumb/OeWizard.vue';
 import { IStep } from '@components/forms/models/wizard';
@@ -272,13 +273,14 @@ export const CustomButtons: Story = {
     docs: {
       description: {
         story:
-          'The wizard provides named slots (`previous-button-content`, `next-button-content`, `submit-button-content`) to customize the button labels and icons while keeping the default navigation logic.',
+          'The wizard provides named slots (`actions-before`, `previous-button-content`, `next-button-content`, `submit-button-content`, `actions-after`,) to customize the button labels, icons and extra actions while keeping the default navigation logic.',
       },
     },
   },
   render: () => ({
     components: {
       OeWizard,
+      VlButton,
     },
     setup() {
       const steps: IStep[] = [
@@ -296,6 +298,10 @@ export const CustomButtons: Story = {
     },
     template: `
     <OeWizard :steps="steps" @submit="handleSubmit">
+      <template #actions-before>
+        <VlButton class="vl-u-spacer-right--xsmall">ButtonBefore</VlButton>
+      </template>
+
       <template #previous-button-content>
         Terug
       </template>
@@ -306,6 +312,10 @@ export const CustomButtons: Story = {
 
       <template #submit-button-content>
         Voltooien
+      </template>
+
+      <template #actions-after>
+        <VlButton class="vl-u-spacer-left--xsmall">ButtonAfter</VlButton>
       </template>
     </OeWizard>
     `,
