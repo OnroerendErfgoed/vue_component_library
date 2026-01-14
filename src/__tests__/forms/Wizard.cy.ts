@@ -387,6 +387,11 @@ describe('OeWizard', () => {
       },
       template: `
       <OeWizard :steps="steps">
+        <template #actions-before>
+          <button data-cy="actions-before-button">
+            ButtonBefore
+          </button>
+        </template>
         <template #previous-button-content>
           <span data-cy="custom-previous">Terug</span>
         </template>
@@ -395,6 +400,11 @@ describe('OeWizard', () => {
         </template>
         <template #submit-button-content>
           <span data-cy="custom-submit">Voltooien</span>
+        </template>
+        <template #actions-after>
+          <button data-cy="actions-after-button">
+            ButtonAfter
+          </button>
         </template>
       </OeWizard>
     `,
@@ -425,6 +435,13 @@ describe('OeWizard', () => {
       cy.dataCy('previous-step-button').find('[data-cy="custom-previous"]').should('contain.text', 'Terug');
       cy.dataCy('submit-button').find('[data-cy="custom-submit"]').should('contain.text', 'Voltooien');
       cy.dataCy('next-step-button').should('not.exist');
+    });
+
+    it('renders custom slot content for before and after action content', () => {
+      cy.mount(TestComponent);
+
+      cy.dataCy('actions-before-button').should('exist').and('contain.text', 'ButtonBefore');
+      cy.dataCy('actions-after-button').should('exist').and('contain.text', 'ButtonAfter');
     });
   });
 });
