@@ -224,6 +224,10 @@ body {
   .vl-tab__pane:focus-visible {
     outline: none;
   }
+
+  .vl-tab__pane[role='tabpanel']:focus {
+    outline: none;
+  }
 }
 
 .oe-flex-1 {

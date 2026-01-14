@@ -98,7 +98,6 @@ const gridOptions = ref<GridOptions>({
   noRowsOverlayComponentParams: {
     noRowsMessage: 'Er zijn nog geen workflow gegevens beschikbaar',
   },
-  suppressBrowserResizeObserver: true,
   domLayout: 'autoHeight',
 });
 
