@@ -15,7 +15,7 @@ import {
   RowSelectionModule,
   ValidationModule,
 } from 'ag-grid-community';
-import { OeGrid } from '@components/grid';
+import { OeGrid, OeNoRowsOverlay } from '@components/grid';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 ModuleRegistry.registerModules([
@@ -64,6 +64,7 @@ export const Default: Story = {
           { make: 'Ford', model: 'Mondeo', price: 32000 },
           { make: 'Porsche', model: 'Boxster', price: 72000 },
         ],
+        domLayout: 'autoHeight',
       };
       const firstDataRendered = (grid: FirstDataRenderedEvent) => {
         grid.api.sizeColumnsToFit();
@@ -85,6 +86,9 @@ export const DefaultNoData: Story = {
           { headerName: 'Price', field: 'price' },
         ],
         rowData: [],
+        noRowsOverlayComponent: OeNoRowsOverlay,
+        noRowsOverlayComponentParams: { noRowsMessage: 'No data available' },
+        domLayout: 'autoHeight',
       };
       const firstDataRendered = (grid: FirstDataRenderedEvent) => {
         grid.api.sizeColumnsToFit();
