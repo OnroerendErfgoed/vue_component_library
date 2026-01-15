@@ -11,7 +11,6 @@
     :mod-error="modError"
     :limit="optionsLimit"
     :can-deselect="false"
-    :can-clear="false"
     searchable
     object
     label="naam"
