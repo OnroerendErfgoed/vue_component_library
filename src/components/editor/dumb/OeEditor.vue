@@ -112,7 +112,14 @@
 
 <script setup lang="ts">
 import 'quill/dist/quill.snow.css';
-import { BibliografieBlock, OeEditorFormat, OeEditorProps, OeEditorToolbar, PrivateBlock } from '../models/editor';
+import {
+  BibliografieBlock,
+  CustomModule,
+  OeEditorFormat,
+  OeEditorProps,
+  OeEditorToolbar,
+  PrivateBlock,
+} from '../models/editor';
 import BlotFormatter from '@enzedonline/quill-blot-formatter2';
 import { faBookmark, faLock, faRotateLeft, faRotateRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -155,6 +162,7 @@ const tb = computed(() => (props.enableFullToolbar ? Object.values(OeEditorToolb
 Quill.register(PrivateBlock, true);
 Quill.register(BibliografieBlock, true);
 Quill.register('modules/blotFormatter2', BlotFormatter);
+Quill.register('modules/custom-module', CustomModule);
 
 if (includes(tb.value, OeEditorToolbar.CODE)) {
   Quill.register('modules/htmlEditButton', htmlEditButton);
@@ -240,6 +248,7 @@ const options = computed(() => ({
         allowAligning: true,
       },
     },
+    'custom-module': true,
   },
   placeholder: '',
   readOnly: props.modDisabled,
@@ -468,5 +477,15 @@ watch(
     display: block;
     float: none;
   }
+}
+
+// Drag and drop visual feedback
+.oe-image-dragging {
+  cursor: grabbing;
+}
+
+.oe-image-drop-target {
+  outline: 2px dashed #ccc;
+  outline-offset: 4px;
 }
 </style>
