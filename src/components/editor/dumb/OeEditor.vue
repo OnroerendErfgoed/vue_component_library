@@ -113,6 +113,7 @@
 <script setup lang="ts">
 import 'quill/dist/quill.snow.css';
 import { BibliografieBlock, OeEditorFormat, OeEditorProps, OeEditorToolbar, PrivateBlock } from '../models/editor';
+import BlotFormatter from '@enzedonline/quill-blot-formatter2';
 import { faBookmark, faLock, faRotateLeft, faRotateRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { includes } from 'lodash-es';
@@ -153,6 +154,7 @@ const tb = computed(() => (props.enableFullToolbar ? Object.values(OeEditorToolb
 // Register custom blocks and modules
 Quill.register(PrivateBlock, true);
 Quill.register(BibliografieBlock, true);
+Quill.register('modules/blotFormatter2', BlotFormatter);
 
 if (includes(tb.value, OeEditorToolbar.CODE)) {
   Quill.register('modules/htmlEditButton', htmlEditButton);
@@ -193,6 +195,19 @@ const options = computed(() => ({
             return quill?.history.redo();
           }
         },
+        image: () => {
+          if (!quill?.isEnabled()) return;
+          const url = window.prompt('Geef een afbeelding URL in:');
+          if (!url) return;
+          // basic sanity check
+          const isUrl = /^https?:\/\//i.test(url);
+          if (!isUrl) return alert('Ongeldige URL');
+
+          const range = quill.getSelection(true);
+          const index = range ? range.index : quill.getLength();
+          quill.insertEmbed(index, 'image', url, Quill.sources.USER);
+          quill.setSelection(index + 1, Quill.sources.SILENT);
+        },
       },
     },
     history: {
@@ -214,6 +229,17 @@ const options = computed(() => ({
         buttonTitle: 'Fullscreen',
       },
     }),
+    blotFormatter2: {
+      image: {
+        allowAltTitleEdit: false,
+        linkOptions: {
+          allowLinkEdit: false,
+        },
+      },
+      align: {
+        allowAligning: false,
+      },
+    },
   },
   placeholder: '',
   readOnly: props.modDisabled,
@@ -238,7 +264,7 @@ watch(
 );
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '@OnroerendErfgoed/pyoes/scss/base-variables';
 
 .editor-disabled {
@@ -306,14 +332,14 @@ watch(
   }
 }
 
-:global(.ql-html-textArea.ql-container) {
+.ql-html-textArea.ql-container {
   position: relative !important;
   left: 0 !important;
   height: calc(100% - 30px) !important;
   width: 100%;
 }
 
-:global(.ql-html-buttonGroup) {
+.ql-html-buttonGroup {
   position: relative !important;
   left: unset !important;
   bottom: 0 !important;
@@ -324,8 +350,8 @@ watch(
   margin-top: 15px;
 }
 
-:global(.ql-html-buttonOk),
-:global(.ql-html-buttonCancel) {
+.ql-html-buttonOk,
+.ql-html-buttonCancel {
   border-radius: 0;
   -moz-appearance: none;
   appearance: none;
@@ -352,7 +378,7 @@ watch(
   cursor: pointer;
 }
 
-:global(.ql-html-buttonCancel) {
+.ql-html-buttonCancel {
   background-color: transparent;
   color: var(--vl-theme-action-color, #944ea1);
   border: 0.2rem solid currentColor;

@@ -179,6 +179,40 @@ export const FullToolbar: Story = {
   }),
 };
 
+export const ImageUrlHandling: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Toolbar includes the image button for URL-based insertion. Click the image icon, paste an external URL, and the handler will embed it without opening the file picker. A sample image is preloaded to verify rendering.',
+      },
+    },
+  },
+  render: () => ({
+    components: {
+      OeEditor,
+    },
+    setup() {
+      const model = ref(`
+        <p>Click the image icon in the toolbar to insert via URL.</p>
+      `);
+      const toolbar = ref<OeEditorToolbar[]>([
+        OeEditorToolbar.UNDO,
+        OeEditorToolbar.REDO,
+        OeEditorToolbar.HEADER,
+        OeEditorToolbar.IMAGE,
+        OeEditorToolbar.ALIGN,
+        OeEditorToolbar.INDENT,
+        OeEditorToolbar.OUTDENT,
+        OeEditorToolbar.REMOVEFORMAT,
+        OeEditorToolbar.CODE,
+      ]);
+      return { model, toolbar };
+    },
+    template: `<OeEditor id="editor-image-url" v-model="model" :toolbar="toolbar" enable-all-formats /><pre v-html="model"></pre>`,
+  }),
+};
+
 export const CustomToolbar: Story = {
   parameters: {
     docs: {

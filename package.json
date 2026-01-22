@@ -105,6 +105,7 @@
   },
   "dependencies": {
     "@OnroerendErfgoed/pyoes": "^0.25.1",
+    "@enzedonline/quill-blot-formatter2": "^3.0.3",
     "guid-typescript": "^1.0.9"
   },
   "peerDependencies": {
