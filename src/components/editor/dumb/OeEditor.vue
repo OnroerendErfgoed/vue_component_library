@@ -237,7 +237,7 @@ const options = computed(() => ({
         },
       },
       align: {
-        allowAligning: false,
+        allowAligning: true,
       },
     },
   },
@@ -332,6 +332,49 @@ watch(
   }
 }
 
+.oe-richtext {
+  white-space: normal;
+}
+
+.ql-align {
+  &-center {
+    text-align: center;
+  }
+  &-right {
+    text-align: right;
+  }
+  &-justify {
+    text-align: justify;
+  }
+}
+
+.ql-indent {
+  &-1 {
+    margin-left: 2rem;
+  }
+  &-2 {
+    margin-left: 4rem;
+  }
+  &-3 {
+    margin-left: 6rem;
+  }
+  &-4 {
+    margin-left: 8rem;
+  }
+  &-5 {
+    margin-left: 10rem;
+  }
+  &-6 {
+    margin-left: 12rem;
+  }
+  &-7 {
+    margin-left: 14rem;
+  }
+  &-8 {
+    margin-left: 16rem;
+  }
+}
+
 .ql-html-textArea.ql-container {
   position: relative !important;
   left: 0 !important;
@@ -386,5 +429,44 @@ watch(
     color 0.2s,
     border-color 0.2s,
     box-shadow 0.2s;
+}
+
+// Text wrapping for images (applies inside editor and when rendered externally)
+.ql-editor,
+.oe-richtext {
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  // Span-based image alignment from BlotFormatter
+  [class^='ql-image-align-'] {
+    display: inline-block;
+    width: var(--resize-width);
+    max-width: 100%;
+    vertical-align: top;
+
+    > img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .ql-image-align-left {
+    margin: var(--blot-align-left-margin, 0 1rem 1rem 0);
+    float: left;
+  }
+
+  .ql-image-align-right {
+    margin: var(--blot-align-right-margin, 0 0 1rem 1rem);
+    float: right;
+  }
+
+  .ql-image-align-center {
+    margin: var(--blot-align-center-margin, 1rem auto);
+    display: block;
+    float: none;
+  }
 }
 </style>

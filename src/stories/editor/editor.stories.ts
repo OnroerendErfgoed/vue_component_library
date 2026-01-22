@@ -206,10 +206,16 @@ export const ImageUrlHandling: Story = {
         OeEditorToolbar.OUTDENT,
         OeEditorToolbar.REMOVEFORMAT,
         OeEditorToolbar.CODE,
+        OeEditorToolbar.BOLD,
+        OeEditorToolbar.UNDERLINE,
+        OeEditorToolbar.COLOR,
       ]);
       return { model, toolbar };
     },
-    template: `<OeEditor id="editor-image-url" v-model="model" :toolbar="toolbar" enable-all-formats /><pre v-html="model"></pre>`,
+    template: `
+    <OeEditor id="editor-image-url" v-model="model" :toolbar="toolbar" enable-all-formats />
+    <br/>Resultaat<br/><br/>
+    <pre class="oe-richtext" v-html="model"/>`,
   }),
 };
 
