@@ -15,6 +15,13 @@ export class BibliografieBlock extends Block {
 }
 
 export class CustomModule extends Module {
+  private static readonly BLOCK_SELECTOR = 'p, div, li, blockquote, h1, h2, h3, h4, h5, h6';
+  private static readonly ALIGNED_IMAGE_CLASSES = [
+    'ql-image-align-left',
+    'ql-image-align-right',
+    'ql-image-align-center',
+  ];
+
   private q: Quill;
   private draggedIndex: number | null = null;
   private draggedHTML = '';
@@ -33,37 +40,34 @@ export class CustomModule extends Module {
   }
 
   handleDragstart = (evt: DragEvent) => {
-    const target = (evt.target as HTMLElement) || null;
-    if (!target) return;
+    const target = evt.target as HTMLElement;
+    if (!target || target.tagName !== 'IMG') return;
 
-    const container = target.tagName === 'IMG' ? (target.parentElement as HTMLElement) : target;
-    const isImageAlign =
-      container.classList?.contains('ql-image-align-left') ||
-      container.classList?.contains('ql-image-align-right') ||
-      container.classList?.contains('ql-image-align-center');
+    evt.stopPropagation();
 
-    if (isImageAlign) {
-      evt.stopPropagation();
-      const blot = Quill.find(container);
-      if (!blot) return;
-      this.draggedIndex = this.q.getIndex(blot as any);
-      this.draggedHTML = container.outerHTML;
-      container.style.opacity = '0.4';
-      container.style.cursor = 'grabbing';
-      this.q.root.classList.add('oe-image-dragging');
-      if (evt.dataTransfer) {
-        evt.dataTransfer.effectAllowed = 'move';
-        evt.dataTransfer.setData('text/html', this.draggedHTML);
-      }
+    const container = target.parentElement as HTMLElement;
+    const isAlignedImage = CustomModule.ALIGNED_IMAGE_CLASSES.some((cls) => container.classList?.contains(cls));
+    const dragElement = isAlignedImage ? container : target;
+
+    const blot = Quill.find(dragElement);
+    if (!blot) return;
+
+    this.draggedIndex = this.q.getIndex(blot as any);
+    this.draggedHTML = dragElement.outerHTML;
+    dragElement.style.opacity = '0.4';
+    dragElement.style.cursor = 'grabbing';
+    this.q.root.classList.add('oe-image-dragging');
+
+    if (evt.dataTransfer) {
+      evt.dataTransfer.effectAllowed = 'move';
+      evt.dataTransfer.setData('text/html', this.draggedHTML);
     }
   };
 
   handleDragover = (evt: DragEvent) => {
     if (!this.draggedHTML) return;
     evt.preventDefault();
-    if (evt.dataTransfer) {
-      evt.dataTransfer.dropEffect = 'move';
-    }
+    evt.dataTransfer!.dropEffect = 'move';
     this.highlightDropTarget(evt);
   };
 
@@ -73,34 +77,23 @@ export class CustomModule extends Module {
     evt.preventDefault();
     evt.stopPropagation();
 
-    this.clearDropHighlight();
-    this.q.root.classList.remove('oe-image-dragging');
-
-    // Find the drop target element
-    const target = evt.target as HTMLElement | null;
-    if (!target) return;
-    const dropTarget = target.closest('p, div, li, blockquote, h1, h2, h3, h4, h5, h6') as HTMLElement | null;
+    const target = evt.target as HTMLElement;
+    const dropTarget = target.closest(CustomModule.BLOCK_SELECTOR) as HTMLElement | null;
     if (!dropTarget) return;
 
-    // Get the index of the drop target
     const dropBlot = Quill.find(dropTarget);
     if (!dropBlot) return;
-    let dropIndex = this.q.getIndex(dropBlot as any);
 
-    // Remove old element first
+    let dropIndex = this.q.getIndex(dropBlot as any);
     this.q.deleteText(this.draggedIndex, 1, Quill.sources.USER);
 
-    // Adjust drop index if we removed text before it
     if (dropIndex > this.draggedIndex) {
-      dropIndex = dropIndex - 1;
+      dropIndex--;
     }
 
     this.q.clipboard.dangerouslyPasteHTML(dropIndex, this.draggedHTML, Quill.sources.USER);
     this.q.setSelection(dropIndex + 1, 0, Quill.sources.SILENT);
-
-    // Reset
-    this.draggedIndex = null;
-    this.draggedHTML = '';
+    this.cleanup();
   };
 
   handleDragleave = () => {
@@ -108,40 +101,36 @@ export class CustomModule extends Module {
   };
 
   handleDragend = () => {
-    if (this.draggedIndex !== null) {
-      const containers = this.q.root.querySelectorAll('[class^="ql-image-align-"]');
-      containers.forEach((el) => ((el as HTMLElement).style.opacity = ''));
-    }
-    this.q.root.classList.remove('oe-image-dragging');
-    this.draggedIndex = null;
-    this.draggedHTML = '';
-    this.clearDropHighlight();
+    this.cleanup();
   };
 
   private highlightDropTarget(evt: DragEvent) {
-    const target = evt.target as HTMLElement | null;
-    if (!target) return;
-    const root = this.q.root as HTMLElement;
+    const target = evt.target as HTMLElement;
+    const dropTarget = target.closest(CustomModule.BLOCK_SELECTOR) as HTMLElement | null;
 
-    const dropTarget = target.closest('p, div, li, blockquote, h1, h2, h3, h4, h5, h6') as HTMLElement | null;
-
-    if (this.currentDropTarget && this.currentDropTarget !== dropTarget) {
-      this.currentDropTarget.classList.remove('oe-image-drop-target');
+    if (this.currentDropTarget !== dropTarget) {
+      this.currentDropTarget?.classList.remove('oe-image-drop-target');
+      this.currentDropTarget = null;
     }
 
-    if (dropTarget && root.contains(dropTarget)) {
+    if (dropTarget && this.q.root.contains(dropTarget)) {
       this.currentDropTarget = dropTarget;
       this.currentDropTarget.classList.add('oe-image-drop-target');
-    } else {
-      this.currentDropTarget = null;
     }
   }
 
   private clearDropHighlight() {
-    if (this.currentDropTarget) {
-      this.currentDropTarget.classList.remove('oe-image-drop-target');
-    }
+    this.currentDropTarget?.classList.remove('oe-image-drop-target');
     this.currentDropTarget = null;
+  }
+
+  private cleanup() {
+    const containers = this.q.root.querySelectorAll('[class^="ql-image-align-"]');
+    containers.forEach((el) => ((el as HTMLElement).style.opacity = ''));
+    this.q.root.classList.remove('oe-image-dragging');
+    this.clearDropHighlight();
+    this.draggedIndex = null;
+    this.draggedHTML = '';
   }
 }
 
