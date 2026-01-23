@@ -184,7 +184,7 @@ export const ImageUrlHandling: Story = {
     docs: {
       description: {
         story:
-          'Toolbar includes the image button for URL-based insertion. Click the image icon, paste an external URL, and the handler will embed it without opening the file picker. A sample image is preloaded to verify rendering.',
+          'Toolbar includes the image button for URL-based insertion. Click the image icon, paste an external URL, and the handler will embed it without opening the file picker. A sample image is preloaded to verify rendering. **Important:** When rendering the HTML output outside the editor, wrap it with the `oe-richtext` class to apply editor styles including image alignment, text wrapping, and formatting. Example: `<div class="oe-richtext" v-html="model" />`',
       },
     },
   },
@@ -201,21 +201,18 @@ export const ImageUrlHandling: Story = {
         OeEditorToolbar.REDO,
         OeEditorToolbar.HEADER,
         OeEditorToolbar.IMAGE,
-        OeEditorToolbar.ALIGN,
-        OeEditorToolbar.INDENT,
-        OeEditorToolbar.OUTDENT,
         OeEditorToolbar.REMOVEFORMAT,
         OeEditorToolbar.CODE,
         OeEditorToolbar.BOLD,
         OeEditorToolbar.UNDERLINE,
-        OeEditorToolbar.COLOR,
       ]);
       return { model, toolbar };
     },
     template: `
     <OeEditor id="editor-image-url" v-model="model" :toolbar="toolbar" enable-all-formats />
     <br/>Resultaat<br/><br/>
-    <pre class="oe-richtext" v-html="model"/>`,
+    <pre class="oe-richtext" v-html="model"/>
+    `,
   }),
 };
 

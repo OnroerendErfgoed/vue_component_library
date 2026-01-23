@@ -14,7 +14,7 @@ export class BibliografieBlock extends Block {
   static blotName = 'biblio';
 }
 
-export class CustomModule extends Module {
+export class CustomModuleWithDragAndDropEnabled extends Module {
   private static readonly BLOCK_SELECTOR = 'p, div, li, blockquote, h1, h2, h3, h4, h5, h6';
   private static readonly ALIGNED_IMAGE_CLASSES = [
     'ql-image-align-left',
@@ -46,7 +46,9 @@ export class CustomModule extends Module {
     evt.stopPropagation();
 
     const container = target.parentElement as HTMLElement;
-    const isAlignedImage = CustomModule.ALIGNED_IMAGE_CLASSES.some((cls) => container.classList?.contains(cls));
+    const isAlignedImage = CustomModuleWithDragAndDropEnabled.ALIGNED_IMAGE_CLASSES.some((cls) =>
+      container.classList?.contains(cls)
+    );
     const dragElement = isAlignedImage ? container : target;
 
     const blot = Quill.find(dragElement);
@@ -78,7 +80,7 @@ export class CustomModule extends Module {
     evt.stopPropagation();
 
     const target = evt.target as HTMLElement;
-    const dropTarget = target.closest(CustomModule.BLOCK_SELECTOR) as HTMLElement | null;
+    const dropTarget = target.closest(CustomModuleWithDragAndDropEnabled.BLOCK_SELECTOR) as HTMLElement | null;
     if (!dropTarget) return;
 
     const dropBlot = Quill.find(dropTarget);
@@ -106,7 +108,7 @@ export class CustomModule extends Module {
 
   private highlightDropTarget(evt: DragEvent) {
     const target = evt.target as HTMLElement;
-    const dropTarget = target.closest(CustomModule.BLOCK_SELECTOR) as HTMLElement | null;
+    const dropTarget = target.closest(CustomModuleWithDragAndDropEnabled.BLOCK_SELECTOR) as HTMLElement | null;
 
     if (this.currentDropTarget !== dropTarget) {
       this.currentDropTarget?.classList.remove('oe-image-drop-target');

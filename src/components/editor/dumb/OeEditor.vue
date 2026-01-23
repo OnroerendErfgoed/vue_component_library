@@ -114,7 +114,7 @@
 import 'quill/dist/quill.snow.css';
 import {
   BibliografieBlock,
-  CustomModule,
+  CustomModuleWithDragAndDropEnabled,
   OeEditorFormat,
   OeEditorProps,
   OeEditorToolbar,
@@ -161,8 +161,6 @@ const tb = computed(() => (props.enableFullToolbar ? Object.values(OeEditorToolb
 // Register custom blocks and modules
 Quill.register(PrivateBlock, true);
 Quill.register(BibliografieBlock, true);
-Quill.register('modules/blotFormatter2', BlotFormatter);
-Quill.register('modules/custom-module', CustomModule);
 
 if (includes(tb.value, OeEditorToolbar.CODE)) {
   Quill.register('modules/htmlEditButton', htmlEditButton);
@@ -170,6 +168,11 @@ if (includes(tb.value, OeEditorToolbar.CODE)) {
 
 if (includes(tb.value, OeEditorToolbar.FULLSCREEN)) {
   Quill.register('modules/toggleFullscreen', QuillToggleFullscreenButton);
+}
+
+if (includes(tb.value, OeEditorToolbar.IMAGE)) {
+  Quill.register('modules/blotFormatter2', BlotFormatter);
+  Quill.register('modules/custom-module', CustomModuleWithDragAndDropEnabled);
 }
 
 // Quill config
@@ -237,18 +240,20 @@ const options = computed(() => ({
         buttonTitle: 'Fullscreen',
       },
     }),
-    blotFormatter2: {
-      image: {
-        allowAltTitleEdit: false,
-        linkOptions: {
-          allowLinkEdit: false,
+    ...(includes(tb.value, OeEditorToolbar.IMAGE) && {
+      blotFormatter2: {
+        image: {
+          allowAltTitleEdit: true,
+          linkOptions: {
+            allowLinkEdit: false,
+          },
+        },
+        align: {
+          allowAligning: true,
         },
       },
-      align: {
-        allowAligning: true,
-      },
-    },
-    'custom-module': true,
+      'custom-module': true,
+    }),
   },
   placeholder: '',
   readOnly: props.modDisabled,
@@ -446,6 +451,16 @@ watch(
   img {
     max-width: 100%;
     height: auto;
+    cursor: grab;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &:active {
+      cursor: grabbing;
+    }
   }
 
   // Span-based image alignment from BlotFormatter
@@ -477,15 +492,47 @@ watch(
     display: block;
     float: none;
   }
+
+  /* image caption */
+  /* common */
+  [class^='ql-image-align-'][data-title] {
+    margin-bottom: 0;
+  }
+  [class^='ql-image-align-'][data-title]::after {
+    content: attr(data-title);
+    padding: 0.25rem 0.2rem;
+    font-size: 0.9rem;
+    line-height: 1.1;
+    background-color: white;
+    width: 100%;
+  }
+  /* remove text decoration on caption when image linked */
+  a:has([class^='ql-image-align-'] > img) {
+    text-decoration: none !important;
+  }
+  /* left */
+  .ql-image-align-left[data-title]::after {
+    text-align: left;
+  }
+  /* center */
+  .ql-image-align-center[data-title]::after {
+    text-align: center;
+  }
+  /* right */
+  .ql-image-align-right[data-title]::after {
+    text-align: right;
+  }
 }
 
-// Drag and drop visual feedback
+// Drag and drop visual feedback (only in editor, not in external rendering)
+.ql-editor {
+  .oe-image-drop-target {
+    outline: 2px dashed #ccc;
+    outline-offset: 4px;
+  }
+}
+
 .oe-image-dragging {
   cursor: grabbing;
-}
-
-.oe-image-drop-target {
-  outline: 2px dashed #ccc;
-  outline-offset: 4px;
 }
 </style>
