@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { IReference } from '@components/core/models/reference';
 import OeReferences from '@components/core/smart/OeReferences.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -61,7 +60,7 @@ export const Custom: Story = {
     },
   },
   render: () => ({
-    components: { OeReferences: OeReferences, FontAwesomeIcon },
+    components: { OeReferences: OeReferences },
     setup: () => {
       const reference: IReference = {
         query_uri: 'https://dev-id.erfgoed.net/actor/12564/references',
@@ -120,7 +119,6 @@ export const Custom: Story = {
     },
     template: `
       <OeReferences :reference="reference">
-        <font-awesome-icon class="vl-u-spacer-top--small vl-u-spacer-right--xxsmall icon" :icon="['fas', 'circle-info']" />
         <span>Sommige referenties zijn voor jou niet zichtbaar op basis van je rechten.</span>
       </OeReferences>
     `,

@@ -1750,6 +1750,60 @@ describe('Adres', () => {
       });
     });
   });
+
+  describe('form - clear multiselects', () => {
+    beforeEach(() => {
+      cy.mockLanden();
+      cy.mockGewesten();
+      cy.mockProvincies();
+      cy.mockGemeenten();
+      cy.mockAntwerpen();
+    });
+
+    it('correctly clears every multiselect', () => {
+      mount(TestComponent, {
+        data: () => ({
+          adres: {
+            land: { code: 'BE', naam: 'België' },
+            gewest: { naam: 'Vlaams Gewest', niscode: '2000' },
+            provincie: {
+              naam: 'Antwerpen',
+              niscode: '10000',
+            },
+            gemeente: { naam: 'Antwerpen', niscode: '11002' },
+            postcode: { uri: 'https://data.vlaanderen.be/id/postinfo/2000', nummer: '2000' },
+            straat: {
+              naam: 'Statiestraat',
+              homoniem: 'BE',
+              id: '2724',
+              uri: 'https://data.vlaanderen.be/id/straatnaam/2724',
+            },
+            adres: { huisnummer: '1' },
+          },
+          config: {
+            gewest: {
+              hidden: false,
+            },
+            provincie: {
+              hidden: false,
+            },
+          },
+        }),
+        template: '<OeAdres v-model:adres="adres" country-id="BE" :config="config" />',
+      }).then(() => {
+        getMultiSelect('straat').find('.multiselect-clear').click();
+        getMultiSelect('straat').find('.multiselect-single-label-text').should('not.exist');
+        getMultiSelect('postcode').find('.multiselect-clear').click();
+        getMultiSelect('postcode').find('.multiselect-single-label-text').should('not.exist');
+        getMultiSelect('gemeente').find('.multiselect-clear').click();
+        getMultiSelect('gemeente').find('.multiselect-single-label-text').should('not.exist');
+        getMultiSelect('provincie').find('.multiselect-clear').click();
+        getMultiSelect('provincie').find('.multiselect-single-label-text').should('not.exist');
+        getMultiSelect('gewest').find('.multiselect-clear').click();
+        getMultiSelect('gewest').find('.multiselect-single-label-text').should('not.exist');
+      });
+    });
+  });
 });
 
 const getLabel = (field: string) => cy.dataCy(`label-${field}`).find('span');

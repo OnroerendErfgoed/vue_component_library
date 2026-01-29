@@ -11,7 +11,6 @@
       object
       label="postcode"
       value-prop="uri"
-      :can-clear="false"
       :options="options"
       :disabled="disabled"
       :mod-error="modError"

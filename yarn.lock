@@ -526,15 +526,17 @@
   resolved "https://registry.yarnpkg.com/@fortawesome/vue-fontawesome/-/vue-fontawesome-3.1.2.tgz#a61d44522bc0be3283ccd9811ed5a2de282c168a"
   integrity sha512-mhYnBIuuW8OIMHf31kOjaBmyE7BMrwBorhrOHVud6vTTu+7IPQNWB+DWaHoE75v10dRF5s/dFtcrgE7vKSEWwQ==
 
-"@govflanders/vl-ui-design-system-style@^3.2.6":
-  version "3.2.6"
-  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-design-system-style/-/vl-ui-design-system-style-3.2.6.tgz#84ab62f7c12db6cb6ff4579fce2b2f87dc3589fb"
-  integrity sha512-LWYKxGsg8d0ZWJD9YfG8Ax2awoY1HdAmlOINLHV72zoWG9TZM9GF3BLG9QYnGVkY37d1S/13YhUmJjSRdnVTEA==
+"@govflanders/vl-ui-design-system-style@3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-design-system-style/-/vl-ui-design-system-style-3.4.0.tgz#0866ef1ac8666d2e6a1c8938e2bda1ea1bb6395a"
+  integrity sha512-5MpkV89ldhSVEd5Gx8Y/bXaecSIY7fZBzrCe42GmUEEMhNPEYxFNwrl+IxBLb7xLQufC40DB+Pqee/io0jeTqw==
 
-"@govflanders/vl-ui-design-system-vue3@^8.0.5":
-  version "8.0.5"
-  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-design-system-vue3/-/vl-ui-design-system-vue3-8.0.5.tgz#cc97abec521767bd599ca58c2d4c061ced6adaa8"
-  integrity sha512-cWaB/K5K5ZeRooC9xn+6y2rCs/qRmnhFkE4KSn8aBWg9qVrzhVtxEanX6Te4rRyUtGmByUjYOzyBjxZQBcxY9w==
+"@govflanders/vl-ui-design-system-vue3@^8.2.0":
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-design-system-vue3/-/vl-ui-design-system-vue3-8.2.0.tgz#f60f4b0e019cf70caf02defeb65eeda36b4a6bff"
+  integrity sha512-OpGLCP5ZAg8Bxs0LAKtifuC20bdGryinIz0+b8aKmbGheGSgRspcIw0Ayw2DquMkptBrIuOWlfSHe/LT3bvXYA==
+  dependencies:
+    "@govflanders/vl-ui-design-system-style" "3.4.0"
 
 "@hapi/address@^5.1.1":
   version "5.1.1"
@@ -4578,6 +4580,11 @@ locate-path@^6.0.0:
   integrity sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==
   dependencies:
     p-locate "^5.0.0"
+
+lodash-es@^4.17.12:
+  version "4.17.22"
+  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.22.tgz#eb7d123ec2470d69b911abe34f85cb694849b346"
+  integrity sha512-XEawp1t0gxSi9x01glktRZ5HDy0HXqrM0x5pXQM98EaI0NxO6jVM7omDOxsuEo5UIASAnm2bRp1Jt/e0a2XU8Q==
 
 lodash-es@^4.17.21:
   version "4.17.21"

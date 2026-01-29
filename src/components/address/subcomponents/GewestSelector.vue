@@ -9,7 +9,6 @@
     :mod-error="modError"
     :limit="optionsLimit"
     :can-deselect="false"
-    :can-clear="false"
     mode="single"
     searchable
     object

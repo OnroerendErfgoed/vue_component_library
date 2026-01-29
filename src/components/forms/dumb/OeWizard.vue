@@ -22,6 +22,7 @@
     </div>
 
     <div class="wizard__actions vl-u-flex vl-u-flex-align-center">
+      <slot name="actions-before"></slot>
       <VlButton
         v-if="currentStep > 0"
         data-cy="previous-step-button"
@@ -55,6 +56,7 @@
       >
         <slot name="submit-button-content">Verzend</slot>
       </VlButton>
+      <slot name="actions-after"></slot>
     </div>
   </div>
 </template>
