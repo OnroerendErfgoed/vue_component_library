@@ -526,17 +526,17 @@
   resolved "https://registry.yarnpkg.com/@fortawesome/vue-fontawesome/-/vue-fontawesome-3.1.2.tgz#a61d44522bc0be3283ccd9811ed5a2de282c168a"
   integrity sha512-mhYnBIuuW8OIMHf31kOjaBmyE7BMrwBorhrOHVud6vTTu+7IPQNWB+DWaHoE75v10dRF5s/dFtcrgE7vKSEWwQ==
 
-"@govflanders/vl-ui-design-system-style@3.4.0":
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-design-system-style/-/vl-ui-design-system-style-3.4.0.tgz#0866ef1ac8666d2e6a1c8938e2bda1ea1bb6395a"
-  integrity sha512-5MpkV89ldhSVEd5Gx8Y/bXaecSIY7fZBzrCe42GmUEEMhNPEYxFNwrl+IxBLb7xLQufC40DB+Pqee/io0jeTqw==
+"@govflanders/vl-ui-design-system-style@3.4.1":
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-design-system-style/-/vl-ui-design-system-style-3.4.1.tgz#277503b6a9f985e6ed8ff0c26d677d608f9032e5"
+  integrity sha512-tP/dAhf2PYxHWyqBdt84U4k3y+i1OPP5Tm8HvrZMpqiElDTxjM+D0VoG8hbQWYpk314jbRBngzzwNuCqMiRzpg==
 
-"@govflanders/vl-ui-design-system-vue3@^8.2.0":
-  version "8.2.0"
-  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-design-system-vue3/-/vl-ui-design-system-vue3-8.2.0.tgz#f60f4b0e019cf70caf02defeb65eeda36b4a6bff"
-  integrity sha512-OpGLCP5ZAg8Bxs0LAKtifuC20bdGryinIz0+b8aKmbGheGSgRspcIw0Ayw2DquMkptBrIuOWlfSHe/LT3bvXYA==
+"@govflanders/vl-ui-design-system-vue3@^8.2.1":
+  version "8.2.1"
+  resolved "https://registry.yarnpkg.com/@govflanders/vl-ui-design-system-vue3/-/vl-ui-design-system-vue3-8.2.1.tgz#889cc402bf88efd264eb5c733a9696a96ba2e69d"
+  integrity sha512-1UaCRDJMD4R8HS5WeTa8MypVPhtaZ4ViC0PuRFoj7egk9bEi1OsLyFK8zAHh4Fa8QJpVOXhcOcx8HrlqF/I+sg==
   dependencies:
-    "@govflanders/vl-ui-design-system-style" "3.4.0"
+    "@govflanders/vl-ui-design-system-style" "3.4.1"
 
 "@hapi/address@^5.1.1":
   version "5.1.1"
