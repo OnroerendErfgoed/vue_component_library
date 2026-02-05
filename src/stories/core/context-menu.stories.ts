@@ -51,7 +51,7 @@ export const Basic: Story = {
     template: `
       <div style="padding: 40px; background: #f5f5f5; min-height: 300px;">
         <p>Click the button below to open the context menu:</p>
-        <VlButton @click="(e) => $refs.menu?.toggleMenu?.(e)"">
+        <VlButton @click="(e) => $refs.menu?.toggleMenu?.(e)">
           Open Menu
         </VlButton>
         <OeContextMenu ref="menu" :items="args.items" @action="handleAction" />
