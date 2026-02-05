@@ -55,17 +55,11 @@
 </template>
 
 <script setup lang="ts">
+import { MenuItem } from '../models/context-menu';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { onClickOutside, useEventListener } from '@vueuse/core';
 import { nextTick, ref, useTemplateRef } from 'vue';
-
-export interface MenuItem {
-  label?: string;
-  action?: string;
-  type?: 'divider';
-  submenu?: MenuItem[];
-}
 
 interface Props {
   items: MenuItem[];

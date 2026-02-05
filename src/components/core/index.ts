@@ -10,6 +10,7 @@ export { default as OeSideNavigation } from './dumb/OeSideNavigation.vue';
 export { default as OeSystemFields } from './dumb/OeSystemFields.vue';
 export { default as OeToaster } from './dumb/OeToaster.vue';
 export { default as OeInventarisLoadedLink } from './dumb/OeInventarisLoadedLink.vue';
+export { default as OeContextMenu } from './dumb/OeContextMenu.vue';
 
 // Smart components
 export { default as OeInventarisLink } from './smart/OeInventarisLink.vue';
@@ -21,6 +22,7 @@ export * from './models/header';
 export * from './models/side-navigation';
 export * from './models/links';
 export * from './models/reference';
+export * from './models/context-menu';
 
 // Common types
 export type { IToast } from '../../models/toast';
