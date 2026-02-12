@@ -65,6 +65,12 @@ interface IOrganisatie {
   id: string;
   naam: string;
   type: string;
+  nace_codes?: NaceCode[];
+}
+
+interface NaceCode {
+  code: string;
+  omschrijving: string;
 }
 
 interface IPersoonsgegevens {
