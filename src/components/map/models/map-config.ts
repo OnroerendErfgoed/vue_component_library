@@ -1,5 +1,6 @@
 import { LayerType } from './layer-type.enum';
 import { Contour } from './openlayers';
+import { Coordinate } from 'ol/coordinate';
 import { ILocatie } from '@models/locatie';
 
 export interface ControlConfig {
@@ -135,6 +136,13 @@ export const defaultLayerConfig: LayerConfig = {
       title: 'UNESCO',
       visible: false,
     },
+    archeologienotas: {
+      title: "Archeologienota's en nota's",
+      visible: false,
+      wmsLayers: 'vioe_geoportaal:archeologienotas',
+      type: LayerType.ErfgoedWms,
+      hidden: true,
+    },
   },
 };
 
@@ -164,4 +172,11 @@ export interface OeMapProps {
   zoomlevel?: number;
   minZoomlevel?: number;
   maxZoomlevel?: number;
+  locationPointMode?: boolean;
+}
+
+export interface LocationPointEvent {
+  mapCoordinate: Coordinate;
+  lonLat: Coordinate;
+  projection: string;
 }

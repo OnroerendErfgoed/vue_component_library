@@ -1,5 +1,5 @@
 <template>
-  <div ref="oeMap" data-cy="olMap" class="map">
+  <div ref="oeMap" data-cy="olMap" class="map" :class="{ 'map--clickable': props.locationPointMode }">
     <OeAutocomplete
       data-cy="locationSearchInput"
       :callback-fn="performAutocompleteSearch"
@@ -26,7 +26,13 @@
 
 <script setup lang="ts">
 import { LayerType } from '../models/layer-type.enum';
-import { LayerOptions, OeMapProps, defaultControlConfig, defaultLayerConfig } from '../models/map-config';
+import {
+  LayerOptions,
+  LocationPointEvent,
+  OeMapProps,
+  defaultControlConfig,
+  defaultLayerConfig,
+} from '../models/map-config';
 import { Contour } from '../models/openlayers';
 import { MapUtil } from '../utils/openlayers/map-util';
 import { Geolocate } from '../utils/openlayers/oe-ol-geolocate';
@@ -34,20 +40,25 @@ import { ProjectionUtil } from '../utils/openlayers/projection-util';
 import OeMapLayerswitcher from './OeMapLayerswitcher.vue';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { MapBrowserEvent } from 'ol';
 import Feature from 'ol/Feature';
 import Map from 'ol/Map';
+import { unByKey } from 'ol/Observable';
 import View from 'ol/View';
 import { Attribution, Control, FullScreen, Rotate, ScaleLine, Zoom, ZoomToExtent } from 'ol/control';
+import { EventsKey } from 'ol/events';
 import { getCenter, getTopLeft, getWidth } from 'ol/extent';
 import { GeoJSON } from 'ol/format';
 import { Circle, Geometry, MultiPolygon, Polygon } from 'ol/geom';
 import Point from 'ol/geom/Point';
 import { fromCircle } from 'ol/geom/Polygon';
 import { Group, Layer, Tile } from 'ol/layer';
-import { type ProjectionLike, get as getOlProj, transformExtent } from 'ol/proj';
+import VectorLayer from 'ol/layer/Vector';
+import { type ProjectionLike, get as getOlProj, transform, transformExtent } from 'ol/proj';
 import { register } from 'ol/proj/proj4';
 import { OSM, TileWMS, WMTS } from 'ol/source';
 import VectorSource from 'ol/source/Vector';
+import { Icon, Style } from 'ol/style';
 import WMTSTileGrid from 'ol/tilegrid/WMTS';
 import proj4 from 'proj4';
 import { onMounted, onUnmounted, provide, ref, useTemplateRef, watch } from 'vue';
@@ -68,6 +79,7 @@ const props = withDefaults(defineProps<OeMapProps>(), {
   zoomlevel: 2,
   minZoomlevel: 2,
   maxZoomlevel: 15,
+  locationPointMode: false,
 });
 const zone = ref<Contour | undefined>(props.zone);
 
@@ -76,7 +88,11 @@ const rightControlsContainerRef = ref<HTMLElement>() as Ref<HTMLElement>;
 const mapRef = useTemplateRef('oeMap');
 const autoCompleteValueRef = ref<IAutocompleteOption>();
 
-const emit = defineEmits(['map:created', 'update:zone']);
+const emit = defineEmits<{
+  'map:created': [map: Map | undefined];
+  'update:zone': [zone: Contour | undefined];
+  'map:click': [event: LocationPointEvent];
+}>();
 
 const extentVlaanderen: Extent = [9928.0, 66928.0, 272072.0, 329072.0];
 const mapProjection = setupProjection();
@@ -113,6 +129,62 @@ zoneLayer.getSource()?.on('removefeature', () => {
 map.addLayer(zoneLayer);
 addZoneToZoneLayer();
 
+const markerLayer = new VectorLayer({
+  source: new VectorSource(),
+  properties: { title: 'Marker', id: 'markerLayer' },
+});
+
+// Create SVG location pin icon
+const locationPinSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="24" height="32"><path fill="#944ea1" d="M0 188.6C0 84.4 86 0 192 0S384 84.4 384 188.6c0 119.3-120.2 262.3-170.4 316.8-11.8 12.8-31.5 12.8-43.3 0-50.2-54.5-170.4-197.5-170.4-316.8zM192 256a64 64 0 1 0 0-128 64 64 0 1 0 0 128z"/></svg>`;
+
+// Apply marker style
+markerLayer.setStyle(
+  new Style({
+    image: new Icon({
+      src: `data:image/svg+xml;utf8,${encodeURIComponent(locationPinSvg)}`,
+      anchor: [0.5, 1],
+      scale: 1,
+    }),
+  })
+);
+map.addLayer(markerLayer);
+
+let mapClickKey: EventsKey | undefined;
+
+const handleMapClick = (evt: MapBrowserEvent<MouseEvent>) => {
+  const mapCoordinate = evt.coordinate;
+  const lonLat = transform(mapCoordinate, mapProjection.getCode(), 'EPSG:4326');
+
+  // Clear previous markers and add new one
+  const markerSource = markerLayer.getSource() as VectorSource<Geometry>;
+  markerSource.clear();
+  const markerFeature = new Feature({
+    geometry: new Point(mapCoordinate),
+    name: 'Clicked Location',
+    show: true,
+  });
+  markerSource.addFeature(markerFeature);
+
+  emit('map:click', {
+    mapCoordinate,
+    lonLat,
+    projection: mapProjection.getCode(),
+  });
+};
+
+watch(
+  () => props.locationPointMode,
+  (enabled) => {
+    if (map && enabled && !mapClickKey) {
+      mapClickKey = map.on('click', handleMapClick);
+    } else if (map && !enabled && mapClickKey) {
+      unByKey(mapClickKey);
+      mapClickKey = undefined;
+    }
+  },
+  { immediate: true }
+);
+
 emit('map:created', map);
 provide('map', map);
 provide('crabService', crabService);
@@ -126,6 +198,10 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
+  if (mapClickKey) {
+    unByKey(mapClickKey);
+    mapClickKey = undefined;
+  }
   map?.setTarget(undefined);
   map = undefined;
 });
@@ -487,6 +563,10 @@ function addZoneToZoneLayer() {
   padding: 0;
   background-color: aliceblue;
   position: relative;
+
+  &--clickable {
+    cursor: crosshair;
+  }
 }
 
 .zone-search {

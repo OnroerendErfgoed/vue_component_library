@@ -1,8 +1,9 @@
+import { ref } from 'vue';
 import { defaultLayerConfig } from '@components/map/models/map-config';
 import OeMap from '@components/map/smart/OeMap.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-const api = 'https://test-geo.onroerenderfgoed.be/';
+const api = 'https://dev-geo.onroerenderfgoed.be/';
 
 const meta: Meta<typeof OeMap> = {
   title: 'Map Module/Map',
@@ -64,6 +65,12 @@ const meta: Meta<typeof OeMap> = {
       description: 'Emits the edited zone',
       table: {
         type: { summary: 'Contour' },
+      },
+    },
+    'map:click': {
+      description: 'Emits the clicked map coordinate (map projection)',
+      table: {
+        type: { summary: 'Coordinate' },
       },
     },
     leftControls: {
@@ -255,6 +262,72 @@ export const ShowZone: Story = {
       };
     },
     template: `<OeMap :api="api" v-model:zone="zone" style="height: 500px"></OeMap>`,
+  }),
+};
+
+export const LocationPointMode: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Demonstrates the `locationPointMode` prop, which when enabled allows users to click on the map and emits the clicked coordinate.\t\n' +
+          'The emitted coordinate is displayed in a panel on the top right. (storybook only)',
+      },
+    },
+  },
+  render: () => ({
+    components: { OeMap },
+    setup() {
+      const layerConfig = {
+        ...defaultLayerConfig,
+        baseLayers: {
+          ...defaultLayerConfig.baseLayers,
+          osm: {
+            ...defaultLayerConfig.baseLayers.osm,
+            visible: true,
+            hidden: false,
+          },
+          grb_bsk_grijs: {
+            ...defaultLayerConfig.baseLayers.grb_bsk_grijs,
+            visible: false,
+          },
+        },
+        overlays: {
+          ...defaultLayerConfig.overlays,
+          archeologienotas: {
+            ...defaultLayerConfig.overlays.archeologienotas,
+            visible: true,
+            hidden: false,
+          },
+        },
+      };
+      const clickedPointText = ref('Click anywhere on the map to see the coordinate.');
+      const onMapClick = (payload: { mapCoordinate?: unknown; lonLat?: unknown; projection?: string } | undefined) => {
+        if (!payload) {
+          clickedPointText.value = 'No coordinate.';
+          return;
+        }
+        clickedPointText.value = JSON.stringify(payload, null, 2);
+      };
+
+      return {
+        api,
+        clickedPointText,
+        onMapClick,
+        layerConfig,
+      };
+    },
+    template: `
+      <div style="position: relative; height: 500px;">
+        <OeMap :api="api" :layer-config="layerConfig" location-point-mode @map:click="onMapClick" style="height: 500px"/>
+        <div
+          style="position: absolute; right: 12px; top: 12px; background: white; padding: 10px; border-radius: 4px; border: 1px solid #ccc; max-width: 300px; max-height: 460px; overflow: auto;"
+        >
+          <strong>Clicked coordinate</strong>
+          <pre style="white-space: pre-wrap; font-size: 11px; margin: 6px 0 0;">{{ clickedPointText }}</pre>
+        </div>
+      </div>
+    `,
   }),
 };
 
