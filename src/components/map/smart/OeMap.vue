@@ -1,5 +1,5 @@
 <template>
-  <div ref="oeMap" data-cy="olMap" class="map" :class="mapClasses">
+  <div ref="oeMap" data-cy="olMap" class="map">
     <OeAutocomplete
       data-cy="locationSearchInput"
       :callback-fn="performAutocompleteSearch"
@@ -40,18 +40,16 @@ import { ProjectionUtil } from '../utils/openlayers/projection-util';
 import OeMapLayerswitcher from './OeMapLayerswitcher.vue';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { MapBrowserEvent } from 'ol';
 import Feature from 'ol/Feature';
 import Map from 'ol/Map';
-import { unByKey } from 'ol/Observable';
 import View from 'ol/View';
 import { Attribution, Control, FullScreen, Rotate, ScaleLine, Zoom, ZoomToExtent } from 'ol/control';
-import { EventsKey } from 'ol/events';
 import { getCenter, getTopLeft, getWidth } from 'ol/extent';
 import { GeoJSON } from 'ol/format';
 import { Circle, Geometry, MultiPolygon, Polygon } from 'ol/geom';
 import Point from 'ol/geom/Point';
 import { fromCircle } from 'ol/geom/Polygon';
+import Draw from 'ol/interaction/Draw';
 import { Group, Layer, Tile } from 'ol/layer';
 import VectorLayer from 'ol/layer/Vector';
 import { type ProjectionLike, get as getOlProj, transform, transformExtent } from 'ol/proj';
@@ -61,7 +59,7 @@ import VectorSource from 'ol/source/Vector';
 import { Icon, Style } from 'ol/style';
 import WMTSTileGrid from 'ol/tilegrid/WMTS';
 import proj4 from 'proj4';
-import { computed, onMounted, onUnmounted, provide, ref, useTemplateRef, watch } from 'vue';
+import { onMounted, onUnmounted, provide, ref, useTemplateRef, watch } from 'vue';
 import { CrabApiService } from '@/services/crab-api.service';
 import OeAutocomplete from '@components/forms/dumb/OeAutocomplete.vue';
 import { IAutocompleteOption } from '@components/forms/models/autocomplete';
@@ -87,10 +85,6 @@ const leftControlsContainerRef = ref<HTMLElement>() as Ref<HTMLElement>;
 const rightControlsContainerRef = ref<HTMLElement>() as Ref<HTMLElement>;
 const mapRef = useTemplateRef('oeMap');
 const autoCompleteValueRef = ref<IAutocompleteOption>();
-
-const mapClasses = computed(() => ({
-  'map--clickable': props.locationPointMode,
-}));
 
 const emit = defineEmits<{
   'map:created': [map: Map | undefined];
@@ -153,37 +147,41 @@ markerLayer.setStyle(
 );
 map.addLayer(markerLayer);
 
-let mapClickKey: EventsKey | undefined;
-
-const handleMapClick = (evt: MapBrowserEvent<MouseEvent>) => {
-  const mapCoordinate = evt.coordinate;
-  const lonLat = transform(mapCoordinate, mapProjection.getCode(), 'EPSG:4326');
-
-  // Clear previous markers and add new one
-  const markerSource = markerLayer.getSource() as VectorSource<Geometry>;
-  markerSource.clear();
-  const markerFeature = new Feature({
-    geometry: new Point(mapCoordinate),
-    name: 'Clicked Location',
-    show: true,
-  });
-  markerSource.addFeature(markerFeature);
-
-  emit('map:click', {
-    mapCoordinate,
-    lonLat,
-    projection: mapProjection.getCode(),
-  });
-};
+const markerSource = markerLayer.getSource() as VectorSource<Geometry>;
+let drawInteraction: Draw | undefined;
 
 watch(
   () => props.locationPointMode,
   (enabled) => {
-    if (map && enabled && !mapClickKey) {
-      mapClickKey = map.on('click', handleMapClick);
-    } else if (map && !enabled && mapClickKey) {
-      unByKey(mapClickKey);
-      mapClickKey = undefined;
+    if (map && enabled && !drawInteraction) {
+      drawInteraction = new Draw({
+        source: markerSource,
+        type: 'Point',
+      });
+
+      drawInteraction.on('drawstart', () => {
+        markerSource.clear();
+      });
+
+      drawInteraction.on('drawend', (evt) => {
+        const geometry = evt.feature.getGeometry() as Point;
+        const mapCoordinate = geometry.getCoordinates();
+        const lonLat = transform(mapCoordinate, mapProjection.getCode(), 'EPSG:4326');
+
+        evt.feature.set('name', 'Clicked Location');
+
+        emit('map:click', {
+          mapCoordinate,
+          lonLat,
+          projection: mapProjection.getCode(),
+        });
+      });
+
+      map.addInteraction(drawInteraction);
+    } else if (map && !enabled && drawInteraction) {
+      map.removeInteraction(drawInteraction);
+      drawInteraction = undefined;
+      markerSource.clear();
     }
   },
   { immediate: true }
@@ -202,9 +200,9 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  if (mapClickKey) {
-    unByKey(mapClickKey);
-    mapClickKey = undefined;
+  if (map && drawInteraction) {
+    map.removeInteraction(drawInteraction);
+    drawInteraction = undefined;
   }
   map?.setTarget(undefined);
   map = undefined;
@@ -567,10 +565,6 @@ function addZoneToZoneLayer() {
   padding: 0;
   background-color: aliceblue;
   position: relative;
-
-  &--clickable {
-    cursor: crosshair;
-  }
 }
 
 .zone-search {
