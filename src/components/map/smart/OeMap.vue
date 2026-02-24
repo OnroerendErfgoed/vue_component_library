@@ -1,5 +1,5 @@
 <template>
-  <div ref="oeMap" data-cy="olMap" class="map" :class="{ 'map--clickable': props.locationPointMode }">
+  <div ref="oeMap" data-cy="olMap" class="map" :class="mapClasses">
     <OeAutocomplete
       data-cy="locationSearchInput"
       :callback-fn="performAutocompleteSearch"
@@ -61,7 +61,7 @@ import VectorSource from 'ol/source/Vector';
 import { Icon, Style } from 'ol/style';
 import WMTSTileGrid from 'ol/tilegrid/WMTS';
 import proj4 from 'proj4';
-import { onMounted, onUnmounted, provide, ref, useTemplateRef, watch } from 'vue';
+import { computed, onMounted, onUnmounted, provide, ref, useTemplateRef, watch } from 'vue';
 import { CrabApiService } from '@/services/crab-api.service';
 import OeAutocomplete from '@components/forms/dumb/OeAutocomplete.vue';
 import { IAutocompleteOption } from '@components/forms/models/autocomplete';
@@ -87,6 +87,10 @@ const leftControlsContainerRef = ref<HTMLElement>() as Ref<HTMLElement>;
 const rightControlsContainerRef = ref<HTMLElement>() as Ref<HTMLElement>;
 const mapRef = useTemplateRef('oeMap');
 const autoCompleteValueRef = ref<IAutocompleteOption>();
+
+const mapClasses = computed(() => ({
+  'map--clickable': props.locationPointMode,
+}));
 
 const emit = defineEmits<{
   'map:created': [map: Map | undefined];
