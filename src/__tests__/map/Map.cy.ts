@@ -158,4 +158,61 @@ describe('OeMap', () => {
       });
     });
   });
+
+  describe('location point mode', () => {
+    it('does not emit map:click when locationPointMode is false', () => {
+      const onMapClick = cy.spy().as('mapClick');
+
+      const TestComponent = defineComponent({
+        components: { OeMap },
+        setup() {
+          return {
+            props: {
+              locationPointMode: false,
+            },
+            onMapClick,
+          };
+        },
+        template: `<OeMap ref="map" v-bind="props" @map:click="onMapClick" style="height: 400px" />`,
+      });
+
+      cy.mount(TestComponent);
+      cy.get('.ol-viewport').click(200, 200);
+      cy.get('@mapClick').should('not.have.been.called');
+    });
+
+    it('emits map:click and adds marker when locationPointMode is true', () => {
+      const onMapClick = cy.spy().as('mapClick');
+
+      const TestComponent = defineComponent({
+        components: { OeMap },
+        setup() {
+          return {
+            props: {
+              locationPointMode: true,
+            },
+            onMapClick,
+          };
+        },
+        template: `<OeMap ref="map"  v-bind="props" @map:click="onMapClick" style="height: 400px" />`,
+      });
+
+      cy.mount(TestComponent).then(({ component }) => {
+        cy.get('.ol-viewport').click(200, 200);
+
+        cy.get('@mapClick').should('have.been.calledOnce');
+
+        const map = (component.$refs?.map as typeof OeMap).map;
+        const markerLayer = map
+          .getLayers()
+          .getArray()
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          .find((layer: any) => layer.get?.('id') === 'markerLayer');
+
+        cy.wrap(null, { timeout: 2000 }).should(() => {
+          expect(markerLayer.getSource().getFeatures()).to.have.length(1);
+        });
+      });
+    });
+  });
 });
