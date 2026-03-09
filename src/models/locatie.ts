@@ -100,3 +100,10 @@ export interface IGeoLocation {
   locatie: string;
   type: string;
 }
+
+export enum LocatieElementType {
+  LOCATIE_ELEMENT = 'https://id.erfgoed.net/vocab/ontology#LocatieElement',
+  ADRES = 'https://id.erfgoed.net/vocab/ontology#LocatieElementAdres',
+  PERCEEL = 'https://id.erfgoed.net/vocab/ontology#LocatieElementPerceel',
+  OPENBAAR_DOMEIN = 'https://id.erfgoed.net/vocab/ontology#LocatieElementOpenbaarDomein',
+}
