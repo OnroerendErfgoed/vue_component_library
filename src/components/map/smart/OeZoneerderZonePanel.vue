@@ -143,6 +143,7 @@ import { Geometry, Point } from 'ol/geom';
 import { Draw } from 'ol/interaction';
 import VectorSource from 'ol/source/Vector';
 import { inject, onMounted, onUnmounted, ref, watch } from 'vue';
+import { GisUtil } from '@/map';
 import { GrbApiService } from '@services/grb-api.service';
 
 const props = defineProps<{
@@ -275,6 +276,9 @@ function drawWKTZone() {
   const wktParser = new WKT();
   try {
     invalidWKT.value = false;
+    if (!GisUtil.isMultiPolygonValid(WKTString.value)) {
+      throw new Error('De opgegeven WKT string is ongeldig.');
+    }
     const featureFromWKT = wktParser.readFeature(WKTString.value);
     const name = `Polygoon ${polygonIndex++}`;
     featureFromWKT.setProperties({
@@ -287,7 +291,7 @@ function drawWKTZone() {
     WKTString.value = '';
   } catch (error) {
     invalidWKT.value = true;
-    console.error(error, 'Dit is een ongeldige WKT geometrie.');
+    console.error(error);
   }
 }
 
