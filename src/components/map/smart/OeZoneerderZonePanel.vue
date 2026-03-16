@@ -84,6 +84,10 @@
           <FontAwesomeIcon :icon="faCancel" />
         </VlButton>
       </VlInputGroup>
+      <span v-if="addingWKT" class="vl-u-text--small">
+        Let op dat je het coördinatenstelsel EPSG:31370 (Lambert72) gebruikt en je enkel de WKT-string zelf gebruikt
+        zonder extra tekens.
+      </span>
 
       <p><strong>Toegevoegde zones</strong></p>
       <ul data-cy="geometryObjectList" class="geometryObjectList">
