@@ -84,6 +84,11 @@
           <FontAwesomeIcon :icon="faCancel" />
         </VlButton>
       </VlInputGroup>
+      <VlFormMessageError v-if="!!inputError">{{ inputError }}</VlFormMessageError>
+      <span v-if="addingWKT" class="vl-u-text--small">
+        Let op dat je het coördinatenstelsel EPSG:31370 (Lambert72) gebruikt en je enkel de WKT-string zelf gebruikt
+        zonder extra tekens.
+      </span>
 
       <p><strong>Toegevoegde zones</strong></p>
       <ul data-cy="geometryObjectList" class="geometryObjectList">
@@ -133,7 +138,14 @@ import {
   faTrashCan,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { VlButton, VlInputField, VlInputGroup, VlLink, VlTitle } from '@govflanders/vl-ui-design-system-vue3';
+import {
+  VlButton,
+  VlFormMessageError,
+  VlInputField,
+  VlInputGroup,
+  VlLink,
+  VlTitle,
+} from '@govflanders/vl-ui-design-system-vue3';
 import Map from 'ol/Map';
 import MapBrowserEvent from 'ol/MapBrowserEvent';
 import { unByKey } from 'ol/Observable';
@@ -170,6 +182,7 @@ const activeDrawType = ref<IDrawGeomType>();
 const geometryObjectList = ref<string[]>([]);
 const addingWKT = ref(false);
 const invalidWKT = ref(false);
+const inputError = ref('');
 let circleIndex = 1;
 let polygonIndex = 1;
 
@@ -247,12 +260,14 @@ function togglePanel() {
 
 function updateWKTString(value: string) {
   invalidWKT.value = false;
+  inputError.value = '';
   WKTString.value = value;
 }
 
 function toggleDrawZone(drawZoneEnabled = false, type: IDrawGeomType = 'Polygon') {
   resetSelect();
   addingWKT.value = false;
+  inputError.value = '';
   map.getInteractions().pop();
   activeDrawType.value = drawZoneEnabled ? type : undefined;
   for (const [drawType, interaction] of Object.entries(drawInteractions)) {
@@ -291,7 +306,8 @@ function drawWKTZone() {
     WKTString.value = '';
   } catch (error) {
     invalidWKT.value = true;
-    console.error(error);
+    inputError.value =
+      error instanceof Error ? error.message : 'Er is een fout opgetreden bij het verwerken van de WKT string.';
   }
 }
 
