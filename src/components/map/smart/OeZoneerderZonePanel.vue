@@ -84,6 +84,7 @@
           <FontAwesomeIcon :icon="faCancel" />
         </VlButton>
       </VlInputGroup>
+      <VlFormMessageError v-if="!!inputError">{{ inputError }}</VlFormMessageError>
       <span v-if="addingWKT" class="vl-u-text--small">
         Let op dat je het coördinatenstelsel EPSG:31370 (Lambert72) gebruikt en je enkel de WKT-string zelf gebruikt
         zonder extra tekens.
@@ -137,7 +138,14 @@ import {
   faTrashCan,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { VlButton, VlInputField, VlInputGroup, VlLink, VlTitle } from '@govflanders/vl-ui-design-system-vue3';
+import {
+  VlButton,
+  VlFormMessageError,
+  VlInputField,
+  VlInputGroup,
+  VlLink,
+  VlTitle,
+} from '@govflanders/vl-ui-design-system-vue3';
 import Map from 'ol/Map';
 import MapBrowserEvent from 'ol/MapBrowserEvent';
 import { unByKey } from 'ol/Observable';
@@ -147,6 +155,7 @@ import { Geometry, Point } from 'ol/geom';
 import { Draw } from 'ol/interaction';
 import VectorSource from 'ol/source/Vector';
 import { inject, onMounted, onUnmounted, ref, watch } from 'vue';
+import { GisUtil } from '@/map';
 import { GrbApiService } from '@services/grb-api.service';
 
 const props = defineProps<{
@@ -173,6 +182,7 @@ const activeDrawType = ref<IDrawGeomType>();
 const geometryObjectList = ref<string[]>([]);
 const addingWKT = ref(false);
 const invalidWKT = ref(false);
+const inputError = ref('');
 let circleIndex = 1;
 let polygonIndex = 1;
 
@@ -250,12 +260,14 @@ function togglePanel() {
 
 function updateWKTString(value: string) {
   invalidWKT.value = false;
+  inputError.value = '';
   WKTString.value = value;
 }
 
 function toggleDrawZone(drawZoneEnabled = false, type: IDrawGeomType = 'Polygon') {
   resetSelect();
   addingWKT.value = false;
+  inputError.value = '';
   map.getInteractions().pop();
   activeDrawType.value = drawZoneEnabled ? type : undefined;
   for (const [drawType, interaction] of Object.entries(drawInteractions)) {
@@ -279,6 +291,9 @@ function drawWKTZone() {
   const wktParser = new WKT();
   try {
     invalidWKT.value = false;
+    if (!GisUtil.isMultiPolygonValid(WKTString.value)) {
+      throw new Error('De opgegeven WKT string is ongeldig.');
+    }
     const featureFromWKT = wktParser.readFeature(WKTString.value);
     const name = `Polygoon ${polygonIndex++}`;
     featureFromWKT.setProperties({
@@ -291,7 +306,8 @@ function drawWKTZone() {
     WKTString.value = '';
   } catch (error) {
     invalidWKT.value = true;
-    console.error(error, 'Dit is een ongeldige WKT geometrie.');
+    inputError.value =
+      error instanceof Error ? error.message : 'Er is een fout opgetreden bij het verwerken van de WKT string.';
   }
 }
 
