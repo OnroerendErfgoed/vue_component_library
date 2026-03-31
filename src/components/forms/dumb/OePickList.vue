@@ -25,18 +25,14 @@ import { VlButton } from '@govflanders/vl-ui-design-system-vue3';
 
 withDefaults(
   defineProps<{
-    selectId: string;
     selectedItems: T[];
-    placeholderText: string;
     itemLabel: string;
+    itemText: (item: T) => string;
     isEditMode: boolean;
     disabled?: boolean;
-    itemText: (item: T) => string;
   }>(),
   {
-    canDelete: true,
     disabled: false,
-    errors: () => [],
   }
 );
 
