@@ -53,7 +53,7 @@ const meta: Meta<typeof OePickList> = {
     },
     disabled: {
       control: 'boolean',
-      description: 'Whether the delete buttons are disabled',
+      description: 'Whether the list and its input slot are disabled',
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },

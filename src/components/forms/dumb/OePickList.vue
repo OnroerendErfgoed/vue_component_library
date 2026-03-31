@@ -42,12 +42,14 @@ const emit = defineEmits<{
 </script>
 
 <style lang="scss" scoped>
+@import '@OnroerendErfgoed/pyoes/scss/base-variables';
+
 .pick-list {
   max-height: 16em;
   overflow-y: auto;
 
   &.divider > li {
-    border-bottom: 1px dashed #d5d5d5;
+    border-bottom: 1px dashed $gray;
   }
 
   > li {
