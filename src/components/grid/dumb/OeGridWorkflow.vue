@@ -1,12 +1,13 @@
 <template>
-  <div class="vl-properties__column">
-    <h4 class="vl-title vl-title--h4">Workflow</h4>
-  </div>
-  <div class="vl-col--12-12">
+  <VlColumn v-if="!props.modHideTitle">
+    <VlTitle tag-name="h4">Workflow</VlTitle>
+  </VlColumn>
+  <VlColumn>
     <OeGrid :grid-options="gridOptions" @first-data-rendered="firstDataRendered" @grid-ready="onGridReady" />
-  </div>
+  </VlColumn>
 </template>
 <script setup lang="ts">
+import { VlColumn, VlTitle } from '@govflanders/vl-ui-design-system-vue3';
 import { format } from 'date-fns';
 import { getCurrentInstance, ref } from 'vue';
 import { GridWorkflowProps, IWorkflow, IWorkflowOwner, IWorkflowState, OeGrid, OeNoRowsOverlay } from '@/grid';

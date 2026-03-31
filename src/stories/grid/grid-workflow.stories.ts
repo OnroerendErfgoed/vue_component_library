@@ -161,3 +161,17 @@ export const NoSchema: Story = {
     `,
   }),
 };
+
+export const NoTitle: Story = {
+  render: () => ({
+    components: {
+      OeGridWorkflow,
+    },
+    setup() {
+      return { data: [], schema, modHideTitle: true };
+    },
+    template: `
+    <OeGridWorkflow :data="data" :schema="schema" :modHideTitle="modHideTitle" />
+    `,
+  }),
+};

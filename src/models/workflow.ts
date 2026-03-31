@@ -7,6 +7,7 @@ export interface IWorkflow {
 }
 
 export interface GridWorkflowProps {
+  modHideTitle?: boolean;
   data: IWorkflow[];
   schema: ISaveState[];
 }
