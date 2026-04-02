@@ -1,3 +1,4 @@
+import { VlSelect } from '@govflanders/vl-ui-design-system-vue3';
 import { ref } from 'vue';
 import { OePickList } from '@components/forms';
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -73,7 +74,7 @@ type Story = StoryObj<typeof OePickList>;
 
 export const Default: Story = {
   render: () => ({
-    components: { OePickList },
+    components: { OePickList, VlSelect },
     setup() {
       const selectValue = ref<string>();
       const items = ref<Fruit[]>([...sampleItems]);
@@ -90,53 +91,53 @@ export const Default: Story = {
       return { selectValue, items, sampleItems, itemText, onSelect, onUnselect };
     },
     template: `
-      <oe-pick-list :selected-items="items" item-label="fruit" :item-text="itemText" is-edit-mode @unselect="onUnselect">
+      <OePickList :selected-items="items" item-label="fruit" :item-text="itemText" is-edit-mode @unselect="onUnselect">
         <template #input>
-          <select v-model="selectValue" placeholder="Zoek een fruit..." class="vl-select" @change="onSelect(selectValue)">
+          <VlSelect mod-block v-model="selectValue" placeholder-text="Zoek een fruit..." @change="onSelect(selectValue)">
             <option v-for="item in sampleItems" :key="item.id" :value="item">{{ item.name }}</option>
-          </select>
+          </VlSelect>
         </template>
-      </oe-pick-list>
+      </OePickList>
     `,
   }),
 };
 
 export const Disabled: Story = {
   render: () => ({
-    components: { OePickList },
+    components: { OePickList, VlSelect },
     setup() {
       const items = ref<Fruit[]>([...sampleItems]);
       const itemText = (item: Fruit) => item.name;
       return { items, sampleItems, itemText };
     },
     template: `
-      <oe-pick-list :selected-items="items" item-label="fruit" :item-text="itemText" is-edit-mode disabled>
+      <OePickList :selected-items="items" item-label="fruit" :item-text="itemText" is-edit-mode disabled>
         <template #input>
-          <select placeholder="Zoek een fruit..." disabled class="vl-select">
+          <VlSelect mod-block placeholder-text="Zoek een fruit..." disabled>
             <option v-for="item in sampleItems" :key="item.id" :value="item">{{ item.name }}</option>
-          </select>
+          </VlSelect>
         </template>
-      </oe-pick-list>
+      </OePickList>
     `,
   }),
 };
 
 export const ReadMode: Story = {
   render: () => ({
-    components: { OePickList },
+    components: { OePickList, VlSelect },
     setup() {
       const items = ref<Fruit[]>([...sampleItems]);
       const itemText = (item: Fruit) => item.name;
       return { items, sampleItems, itemText };
     },
     template: `
-      <oe-pick-list :selected-items="items" item-label="fruit" :item-text="itemText" :is-edit-mode="false">
+      <OePickList :selected-items="items" item-label="fruit" :item-text="itemText" :is-edit-mode="false">
         <template #input>
-          <select placeholder="Zoek een fruit..." disabled class="vl-select">
+          <VlSelect mod-block placeholder-text="Zoek een fruit...">
             <option v-for="item in sampleItems" :key="item.id" :value="item">{{ item.name }}</option>
-          </select>
+          </VlSelect>
         </template>
-      </oe-pick-list>
+      </OePickList>
     `,
   }),
 };
