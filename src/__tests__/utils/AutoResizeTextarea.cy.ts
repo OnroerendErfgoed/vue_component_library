@@ -60,4 +60,20 @@ describe('vAutoResizeTextarea Directive', () => {
       .invoke('outerHeight')
       .should('be.greaterThan', 0); // Ensure the height is adjusted
   });
+
+  it('should keep a minimum height when there is no content', () => {
+    mount({
+      template: `<textarea v-auto-resize-textarea />`,
+      directives: {
+        autoResizeTextarea: vAutoResizeTextarea,
+      },
+    });
+
+    cy.get('textarea')
+      .as('textarea')
+      .should('have.value', '')
+      .should('have.css', 'min-height', '58px')
+      .invoke('outerHeight')
+      .should('be.at.least', 58);
+  });
 });

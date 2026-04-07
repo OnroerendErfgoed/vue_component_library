@@ -1,6 +1,6 @@
 {
   "name": "@OnroerendErfgoed/vue_component_library",
-  "version": "4.1.0",
+  "version": "4.2.0-alpha.4",
   "description": "Vue 3 component library for Onroerend Erfgoed applications, built on Govflanders Webuniversum design system",
   "type": "module",
   "files": [
@@ -195,7 +195,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/vue-fontawesome": "^3.1.2",
-    "@govflanders/vl-ui-design-system-vue3": "^8.2.0",
+    "@govflanders/vl-ui-design-system-vue3": "^8.2.1",
     "@intlify/unplugin-vue-i18n": "^0.10.0",
     "@rushstack/eslint-patch": "^1.2.0",
     "@soerenmartius/vue3-clipboard": "^0.1.2",

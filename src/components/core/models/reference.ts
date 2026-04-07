@@ -20,3 +20,9 @@ export interface IReference {
   count: number;
   applications: IApplication[];
 }
+
+export interface IRedirectReference {
+  location: string;
+  uri: string;
+  success: boolean;
+}

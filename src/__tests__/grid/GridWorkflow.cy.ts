@@ -94,3 +94,18 @@ describe('GridWorkflow - data', () => {
     cy.dataCy('ag-grid-vue').find('.ag-center-cols-container').children().should('have.length', 2);
   });
 });
+
+describe('GridWorkflow - no title', () => {
+  it('renders', () => {
+    mount(TestComponent, {
+      props: { data: data, schema: schema, modHideTitle: true },
+    });
+  });
+
+  it("doesn't show the title", () => {
+    mount(TestComponent, {
+      props: { data: data, schema: schema, modHideTitle: true },
+    });
+    cy.get('h4').should('not.exist');
+  });
+});

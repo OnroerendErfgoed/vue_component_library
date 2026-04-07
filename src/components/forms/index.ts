@@ -3,6 +3,7 @@ export { default as OeDatepicker } from './dumb/OeDatepicker.vue';
 export { default as OePhone } from './dumb/OePhone.vue';
 export { default as OeAutocomplete } from './dumb/OeAutocomplete.vue';
 export { default as OeNumberInput } from './dumb/OeNumberInput.vue';
+export { default as OePickList } from './dumb/OePickList.vue';
 export { default as OeSelect } from './dumb/OeSelect.vue';
 export { default as OeWizard } from './dumb/OeWizard.vue';
 
