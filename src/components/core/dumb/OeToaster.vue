@@ -13,6 +13,8 @@
       closable
       close-text="Toast sluiten"
       :title="toast.title"
+      :class="{ 'close-on-click': !!closeOnClick }"
+      @click="closeOnClick && store.removeToast(toast.id as string)"
       @close="store.removeToast(toast?.id as string)"
     >
       <ul v-if="Array.isArray(toast.content)">
@@ -29,12 +31,17 @@
 import { VlAlert, VlToaster } from '@govflanders/vl-ui-design-system-vue3';
 import { useUtilStore } from '@/core';
 
+defineProps({ closeOnClick: { type: Boolean, default: false } });
+
 const store = useUtilStore();
 </script>
 <style lang="scss" scoped>
 .vl-toaster {
   word-break: break-word;
 
+  .vl-alert.close-on-click {
+    cursor: pointer;
+  }
   :deep(.vl-alert__message) {
     // 4rem comes from the width of the closing button.
     width: calc(100% + 4rem);
