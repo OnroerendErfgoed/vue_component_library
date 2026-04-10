@@ -10,6 +10,7 @@ const ToastDemo = defineComponent({
   props: {
     title: { type: String, default: 'Title' },
     content: { type: String, default: 'Content' },
+    closeOnClick: { type: Boolean, default: false },
   },
   setup(props) {
     const utilStore = useUtilStore();
@@ -29,7 +30,7 @@ const ToastDemo = defineComponent({
     <oe-button class="vl-u-spacer-bottom" @click="showToast('success')">Push success toast</oe-button><br/>
     <oe-button class="vl-u-spacer-bottom" @click="showToast('warning')">Push warning toast</oe-button><br/>
     <oe-button class="vl-u-spacer-bottom" @click="showToast()">Push default toast</oe-button><br/>
-    <oe-toaster />
+    <oe-toaster :close-on-click="closeOnClick" />
   `,
 });
 
@@ -40,10 +41,15 @@ const meta = {
   argTypes: {
     title: { control: 'text' },
     content: { control: 'text' },
+    closeOnClick: {
+      control: 'boolean',
+      description: 'Whether the toast should close when clicked',
+    },
   },
   args: {
     title: 'Title',
     content: 'Content',
+    closeOnClick: false,
   },
   parameters: {
     layout: 'fullscreen',

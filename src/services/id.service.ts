@@ -1,12 +1,15 @@
 import { HttpService } from './http.service';
-import type { IReference } from '@components/core/models/reference';
+import type { IRedirectReference, IReference } from '@components/core/models/reference';
 
 export class IdService extends HttpService {
   readonly API_URL: string;
 
-  constructor(apiUrl: string) {
+  private getSsoToken: () => Promise<string | void>;
+
+  constructor(apiUrl: string, getSsoToken?: () => Promise<string>) {
     super();
     this.API_URL = apiUrl;
+    this.getSsoToken = (getSsoToken as () => Promise<string>) || (() => Promise.resolve());
   }
 
   async getReferences(uri: string): Promise<IReference> {
@@ -15,5 +18,31 @@ export class IdService extends HttpService {
         params: { uri },
       })
     ).data;
+  }
+
+  async getByUri<T>(uri: string): Promise<T> {
+    try {
+      const reference = (
+        await this.get<IRedirectReference>(`${this.API_URL}/uris`, {
+          params: {
+            uri,
+          },
+          headers: {
+            Accept: 'application/json',
+            ...((await this.getSsoToken()) && { Authorization: 'Bearer ' + (await this.getSsoToken()) }),
+          },
+        })
+      ).data;
+      return (
+        await this.get<T>(reference.location, {
+          headers: {
+            Accept: 'application/json',
+            ...((await this.getSsoToken()) && { Authorization: 'Bearer ' + (await this.getSsoToken()) }),
+          },
+        })
+      ).data;
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 }
