@@ -1,6 +1,6 @@
 /* eslint-disable vue/one-component-per-file */
 import { defineComponent } from 'vue';
-import { LayerType, OeMap, OeMapProps } from '@components/map';
+import { LayerType, OeMap, OeMapProps, defaultControlConfig } from '@components/map';
 
 describe('OeMap', () => {
   describe('default', () => {
@@ -47,6 +47,39 @@ describe('OeMap', () => {
       cy.dataCy('olMap').find('.oe-ol-geolocate').should('exist');
       cy.dataCy('olMap').find('.oe-ol-control .ol-compass').should('exist');
       cy.dataCy('olMap').find('.oe-ol-control .zoomButton').should('exist');
+    });
+
+    it('includes geoportaal parameters in the opened uri when clicking the zoom switcher', () => {
+      cy.mount(TestComponent, {
+        props: {
+          controlConfig: {
+            ...defaultControlConfig,
+            zoomSwitcher: true,
+          },
+          geoportaalParameters: {
+            laag: 'test-laag',
+          },
+        },
+      }).then(() => {
+        cy.window().then((win) => {
+          cy.stub(win, 'open').as('windowOpen');
+
+          cy.dataCy('olMap').find('.zoomButton').click();
+
+          cy.get('@windowOpen').should('have.been.calledOnce');
+
+          cy.get('@windowOpen').then((openStub) => {
+            const windowOpenStub = openStub as unknown as { getCall: (index: number) => { args: unknown[] } };
+            const openedUrl = String(windowOpenStub.getCall(0).args[0]);
+            const openedUri = new URL(openedUrl);
+
+            expect(openedUri.searchParams.get('laag')).to.eq('test-laag');
+            expect(openedUri.searchParams.has('zoom')).to.eq(true);
+            expect(openedUri.searchParams.has('lat')).to.eq(true);
+            expect(openedUri.searchParams.has('lon')).to.eq(true);
+          });
+        });
+      });
     });
 
     it('adds configured layers', () => {
