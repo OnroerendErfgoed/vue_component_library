@@ -73,6 +73,7 @@ const props = withDefaults(defineProps<OeMapProps>(), {
   controlConfig: () => defaultControlConfig,
   layerConfig: () => defaultLayerConfig,
   api: 'https://geo.onroerenderfgoed.be/',
+  geoportaalParameters: () => ({}),
   zone: undefined,
   zoomlevel: 2,
   minZoomlevel: 2,
@@ -228,10 +229,16 @@ function zoomButtonClick() {
   const center = view.getCenter() as Coordinate;
   const zoom = view.getZoom() as number;
   const coordinates = transformLambert72ToWebMercator(center);
+  const queryParams = new URLSearchParams({
+    zoom: (zoom * 2).toString(),
+    lat: coordinates[1].toString(),
+    lon: coordinates[0].toString(),
+    ...props.geoportaalParameters,
+  }).toString();
 
   //Zoom * 2 is some kind of hack so the zoom levels somewhat align with the zoom levels on crabpyUrl.
   // Change if a better solution is found.
-  window.open(apiUrl + '#zoom=' + zoom * 2 + '&lat=' + coordinates[1] + '&lon=' + coordinates[0]);
+  window.open(`${apiUrl}?${queryParams}`, '_blank');
 }
 
 function addLayerswitcherControl(element: HTMLElement) {

@@ -166,6 +166,7 @@ export interface OeZoneerderProps extends OeMapProps {
 export interface OeMapProps {
   zone?: Contour;
   api?: string;
+  geoportaalParameters?: GeoportaalParameters;
   controlConfig?: ControlConfig;
   layerConfig?: LayerConfig;
   locatie?: ILocatie;
@@ -179,4 +180,8 @@ export interface LocationPointEvent {
   mapCoordinate: Coordinate;
   lonLat: Coordinate;
   projection: string;
+}
+
+export interface GeoportaalParameters {
+  laag?: string;
 }
