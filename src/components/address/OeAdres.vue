@@ -150,10 +150,7 @@
               :options="postinfo"
               :disabled="!gemeente || props.modDisabled"
               :mod-error="!!v$.postcode.nummer.$errors.length"
-              :free-text="postcodeIsFreeText"
-              :show-toggle="(!props.modDisabled && isBelgium && gemeenten.length && !isVlaamseGemeenteOrEmpty) || false"
-              :is-belgium-or-empty="isBelgiumOrEmpty"
-              @toggle-free-text="() => (postcodeIsFreeText = !postcodeIsFreeText)"
+              :is-vlaamse-gemeente-or-empty="isVlaamseGemeenteOrEmpty"
             />
             <VlFormMessageError
               v-for="error of v$.postcode.nummer.$errors"
@@ -188,10 +185,7 @@
             :options-limit="optionsLimit"
             :disabled="!gemeente || props.modDisabled"
             :mod-error="!!v$.straat.naam.$errors.length"
-            :free-text="straatIsFreeText"
-            :show-toggle="(!props.modDisabled && isBelgium && gemeenten.length && !isVlaamseGemeenteOrEmpty) || false"
-            :is-belgium-or-empty="isBelgiumOrEmpty"
-            @toggle-free-text="() => (straatIsFreeText = !straatIsFreeText)"
+            :is-vlaamse-gemeente-or-empty="isVlaamseGemeenteOrEmpty"
           />
           <VlFormMessageError v-for="error of v$.straat.naam.$errors" :key="error.$uid" data-cy="form-error-straat">
             {{ error.$message }}
@@ -221,9 +215,7 @@
             :free-text="huisnummerIsFreeText"
             :mod-error="!!v$.adres.huisnummer.$errors.length"
             :autocomplete-fn="performAutocompleteSearchHuisnummers"
-            :show-toggle="(!props.modDisabled && isBelgium && gemeenten.length && !isVlaamseGemeenteOrEmpty) || false"
-            :is-belgium-or-empty="isBelgiumOrEmpty"
-            @toggle-free-text="() => (huisnummerIsFreeText = !huisnummerIsFreeText)"
+            :is-vlaamse-gemeente-or-empty="isVlaamseGemeenteOrEmpty"
           />
           <VlFormMessageError
             v-for="error of v$.adres.huisnummer.$errors"
@@ -258,7 +250,7 @@
               :free-text="busnummerIsFreeText"
               :mod-error="!!v$.adres.busnummer.$errors.length"
               :autocomplete-fn="performAutocompleteSearchBusnummers"
-              :is-belgium-or-empty="isBelgiumOrEmpty"
+              :is-vlaamse-gemeente-or-empty="isVlaamseGemeenteOrEmpty"
               :huisnummer-is-free-text="huisnummerIsFreeText"
             />
             <VlFormMessageError
@@ -333,8 +325,6 @@ const emit = defineEmits(['update:adres']);
 
 const {
   isLoading,
-  postcodeIsFreeText,
-  straatIsFreeText,
   huisnummerIsFreeText,
   busnummerIsFreeText,
   land,
@@ -352,7 +342,6 @@ const {
   postinfo,
   straten,
   isBelgiumOrEmpty,
-  isBelgium,
   isVlaamseGemeenteOrEmpty,
   adres,
   performAutocompleteSearchHuisnummers,
@@ -421,12 +410,6 @@ onBeforeMount(initializeData);
 .oe-adres {
   :deep(.vl-form__group) {
     padding: 0;
-  }
-  .vl-link {
-    outline: none;
-    margin-left: auto;
-    cursor: pointer;
-    display: block;
   }
 
   :deep(.vl-properties__label) {

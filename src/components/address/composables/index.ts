@@ -26,7 +26,10 @@ export const useAdresLogic = (props: IAdresProps, emit: (event: 'update:adres', 
 
   // Computed
   const isVlaamseGemeenteOrEmptyComputed = computed(() => {
-    if (isBelgium() && !!state.gemeenten.value?.length && state.gemeente.value) {
+    // A non-Belgium land was explicitly chosen → not a Vlaamse context.
+    // "No land yet" stays empty so the disabled multiselect UX is preserved on initial render.
+    if (state.land.value && !isBelgium()) return false;
+    if (!!state.gemeenten.value?.length && state.gemeente.value) {
       return crabApiService.vlaamseGemeenten.some((g) => g.niscode === (state.gemeente.value as IGemeente)?.niscode);
     }
     return !state.gemeente.value;

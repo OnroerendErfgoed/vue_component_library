@@ -1,7 +1,7 @@
 <template>
   <div v-if="!readMode">
     <OeAutocomplete
-      v-if="isBelgiumOrEmpty && !freeText"
+      v-if="isVlaamseGemeenteOrEmpty && !freeText"
       :id="$attrs.id as string"
       data-cy="autocomplete-huisnummer"
       allow-free-text
@@ -24,10 +24,6 @@
       :mod-disabled="disabled"
       :mod-error="modError"
     />
-    <VlButton v-if="showToggle" mod-link data-cy="action-huisnummer-not-found" @click="$emit('toggle-free-text')">
-      <span v-if="!freeText">Een huisnummer invullen dat niet tussen de suggesties staat?</span>
-      <span v-else>Toon lijst met suggesties</span>
-    </VlButton>
   </div>
   <VlPropertiesData v-else data-cy="huisnummer-value">
     {{ selectedHuisnummer || '-' }}
@@ -35,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { VlButton, VlInputField, VlPropertiesData } from '@govflanders/vl-ui-design-system-vue3';
+import { VlInputField, VlPropertiesData } from '@govflanders/vl-ui-design-system-vue3';
 import { computed } from 'vue';
 import OeAutocomplete from '@components/forms/dumb/OeAutocomplete.vue';
 import type { IAutocompleteOption } from '@components/forms/models/autocomplete';
@@ -51,8 +47,7 @@ interface HuisnummerSelectorProps {
   freeText: boolean;
   modError: boolean;
   autocompleteFn?: (term: string) => Promise<IAutocompleteOption[]>;
-  showToggle: boolean;
-  isBelgiumOrEmpty: boolean;
+  isVlaamseGemeenteOrEmpty: boolean;
   readMode: boolean;
 }
 
@@ -62,11 +57,10 @@ const props = withDefaults(defineProps<HuisnummerSelectorProps>(), {
   freeText: false,
   modError: false,
   autocompleteFn: undefined,
-  showToggle: false,
-  isBelgiumOrEmpty: true,
+  isVlaamseGemeenteOrEmpty: true,
   readMode: false,
 });
-const emit = defineEmits(['update:modelValue', 'toggle-free-text']);
+const emit = defineEmits(['update:modelValue']);
 
 const modelValueComputed = computed<string>({
   get: () => (typeof props.modelValue === 'string' ? props.modelValue : (props.modelValue as IAdres)?.huisnummer || ''),

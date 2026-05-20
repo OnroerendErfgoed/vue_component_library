@@ -1,7 +1,7 @@
 <template>
   <div v-if="!readMode">
     <OeAutocomplete
-      v-if="isBelgiumOrEmpty && !huisnummerIsFreeText && !freeText"
+      v-if="isVlaamseGemeenteOrEmpty && !huisnummerIsFreeText && !freeText"
       :id="$attrs.id as string"
       data-cy="autocomplete-busnummer"
       allow-free-text
@@ -47,7 +47,7 @@ interface BusnummerSelectorProps {
   freeText: boolean;
   modError: boolean;
   autocompleteFn?: (term: string) => Promise<IAutocompleteOption[]>;
-  isBelgiumOrEmpty: boolean;
+  isVlaamseGemeenteOrEmpty: boolean;
   huisnummerIsFreeText: boolean;
   readMode: boolean;
 }
@@ -58,7 +58,7 @@ const props = withDefaults(defineProps<BusnummerSelectorProps>(), {
   freeText: false,
   modError: false,
   autocompleteFn: undefined,
-  isBelgiumOrEmpty: true,
+  isVlaamseGemeenteOrEmpty: true,
   huisnummerIsFreeText: false,
   readMode: false,
 });
