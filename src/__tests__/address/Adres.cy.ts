@@ -1295,6 +1295,7 @@ describe('Adres', () => {
 
   describe('form - specific country', () => {
     beforeEach(() => {
+      cy.mockLanden();
       mount(TestComponent, {
         template: '<OeAdres countryId="BE" v-model:adres="adres"/>',
       });
