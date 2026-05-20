@@ -159,7 +159,7 @@ describe('Adres', () => {
         getFormError('busnummer').should('not.exist');
       });
 
-      it('allows huisnummer to be free text input when no house numbers were found', () => {
+      it('renders postcode/straat/huisnummer/busnummer as free-text inputs when the gemeente is outside Vlaanderen', () => {
         cy.mockDurbuy();
 
         // Country selection
@@ -167,20 +167,17 @@ describe('Adres', () => {
 
         cy.wait('@dataGetGemeentenWaalsGewest');
 
-        // Gemeente selection
+        // Gemeente selection (Durbuy is a Waalse gemeente — outside Vlaanderen)
         setMultiSelectValue('gemeente', 'Durbuy');
         getMultiSelect('gemeente').find('.multiselect-single-label-text').should('have.text', 'Durbuy');
 
-        cy.wait('@dataGetPostinfoDurbuy');
-        cy.wait('@dataGetStratenDurbuy');
-
-        // Straat selection
-        setMultiSelectValue('straat', 'Hiva');
-        getMultiSelect('straat').find('.multiselect-single-label-text').should('have.text', 'Hiva');
-
-        cy.wait('@dataGetAdressenDurbuy');
-
+        // All fields below gemeente are free-text inputs (same behaviour as a non-Belgium country).
+        getTextInput('postcode').should('exist');
+        getMultiSelect('postcode').should('not.exist');
+        getTextInput('straat').should('exist');
+        getMultiSelect('straat').should('not.exist');
         getTextInput('huisnummer').should('exist');
+        getTextInput('busnummer').should('exist');
       });
 
       it('requires busnummer to be free text input when no house numbers were found', () => {
@@ -426,12 +423,6 @@ describe('Adres', () => {
       cy.dataCy('busnummer-value').should('exist').should('have.text', '0001');
     });
 
-    it('should not show action buttons when disabled', () => {
-      cy.dataCy('action-postcode-not-found').should('not.exist');
-      cy.dataCy('action-straat-not-found').should('not.exist');
-      cy.dataCy('action-huisnummer-not-found').should('not.exist');
-    });
-
     it('should not show required annotations when disabled', () => {
       getLabelAnnotation('land').should('not.exist');
       getLabelAnnotation('gewest').should('not.exist');
@@ -498,7 +489,7 @@ describe('Adres', () => {
       getAutocompleteInput('busnummer').should('have.value', '0101');
     });
 
-    it('fills in the predefined values - case 2 - huis- and busnummer freetext', () => {
+    it('fills in the predefined values - case 2 - non-Vlaamse gemeente renders all sub-fields as free-text inputs', () => {
       mount(TestComponent, {
         data: () => ({
           adres: {
@@ -533,8 +524,9 @@ describe('Adres', () => {
       getMultiSelect('land').find(':selected').should('have.text', 'België');
       cy.wait('@dataGetGemeentenBrusselsHoofdstedelijkGewest');
       getMultiSelect('gemeente').find('.multiselect-single-label-text').should('have.text', 'Brussel');
-      getMultiSelect('postcode').find('.multiselect-single-label-text').should('have.text', '1000');
-      getMultiSelect('straat').find('.multiselect-single-label-text').should('have.text', 'Havenlaan');
+      // Brussel is non-Vlaamse → postcode/straat/huisnummer/busnummer all render as text inputs.
+      getTextInput('postcode').should('have.value', '1000');
+      getTextInput('straat').should('have.value', 'Havenlaan');
       getTextInput('huisnummer').should('have.value', '4');
       getTextInput('busnummer').should('have.value', 'B');
     });
@@ -1303,6 +1295,7 @@ describe('Adres', () => {
 
   describe('form - specific country', () => {
     beforeEach(() => {
+      cy.mockLanden();
       mount(TestComponent, {
         template: '<OeAdres countryId="BE" v-model:adres="adres"/>',
       });

@@ -43,7 +43,10 @@ export const createApiHelpers = (state: AdresState, crabApiService: CrabApiServi
   };
 
   const isVlaamseGemeenteOrEmpty = (): boolean => {
-    if (isBelgium() && state.gemeente.value && !!state.gemeenten.value.length) {
+    // A non-Belgium land was explicitly chosen → not a Vlaamse context.
+    // "No land yet" stays empty so the disabled multiselect UX is preserved on initial render.
+    if (state.land.value && !isBelgium()) return false;
+    if (state.gemeente.value && !!state.gemeenten.value.length) {
       return crabApiService.vlaamseGemeenten.some(
         (g) => g.niscode === (state.gemeente.value as unknown as IGemeente).niscode
       );
