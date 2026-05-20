@@ -26,7 +26,8 @@ export const useAdresLogic = (props: IAdresProps, emit: (event: 'update:adres', 
 
   // Computed
   const isVlaamseGemeenteOrEmptyComputed = computed(() => {
-    if (isBelgium() && !!state.gemeenten.value?.length && state.gemeente.value) {
+    if (!isBelgium()) return false;
+    if (!!state.gemeenten.value?.length && state.gemeente.value) {
       return crabApiService.vlaamseGemeenten.some((g) => g.niscode === (state.gemeente.value as IGemeente)?.niscode);
     }
     return !state.gemeente.value;

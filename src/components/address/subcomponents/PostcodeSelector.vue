@@ -1,7 +1,7 @@
 <template>
   <div v-if="!readMode">
     <VlMultiselect
-      v-if="isBelgiumOrEmpty && !freeText"
+      v-if="isVlaamseGemeenteOrEmpty"
       :id="$attrs.id"
       v-model="modelValueComputed"
       data-cy="select-postcode"
@@ -31,10 +31,6 @@
       :mod-disabled="disabled"
       :mod-error="modError"
     />
-    <VlButton v-if="showToggle" data-cy="action-postcode-not-found" mod-link @click="$emit('toggle-free-text')">
-      <span v-if="!freeText">Een postcode invullen die niet tussen de suggesties staat?</span>
-      <span v-else>Toon lijst met suggesties</span>
-    </VlButton>
   </div>
   <VlPropertiesData v-else data-cy="postcode-value">
     {{ selectedPostcode || '-' }}
@@ -42,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import { VlButton, VlInputField, VlMultiselect, VlPropertiesData } from '@govflanders/vl-ui-design-system-vue3';
+import { VlInputField, VlMultiselect, VlPropertiesData } from '@govflanders/vl-ui-design-system-vue3';
 import { computed } from 'vue';
 import type { IPostinfo } from '@models/locatie';
 
@@ -55,10 +51,8 @@ interface PostcodeSelectorProps {
   options: IPostinfo[];
   disabled: boolean;
   modError: boolean;
-  freeText: boolean;
-  showToggle: boolean;
   optionsLimit: number;
-  isBelgiumOrEmpty: boolean;
+  isVlaamseGemeenteOrEmpty: boolean;
   readMode: boolean;
 }
 
@@ -67,16 +61,19 @@ const props = withDefaults(defineProps<PostcodeSelectorProps>(), {
   options: () => [],
   disabled: false,
   modError: false,
-  freeText: false,
-  showToggle: false,
   optionsLimit: 5000,
-  isBelgiumOrEmpty: true,
+  isVlaamseGemeenteOrEmpty: true,
   readMode: false,
 });
-const emit = defineEmits(['update:modelValue', 'toggle-free-text']);
+const emit = defineEmits(['update:modelValue']);
 
 const modelValueComputed = computed({
-  get: () => props.modelValue,
+  // When the gemeente is non-Vlaamse (input mode), the bound `modelValue` may still hold the
+  // IPostinfo object from initial data — unwrap it so the input shows the postcode string.
+  get: () =>
+    props.isVlaamseGemeenteOrEmpty || typeof props.modelValue === 'string'
+      ? props.modelValue
+      : (props.modelValue?.postcode ?? ''),
   set: (v) => emit('update:modelValue', v),
 });
 
