@@ -90,7 +90,9 @@ export default defineConfig({
           axios: 'axios',
         },
         assetFileNames: (assetInfo) => {
-          if (assetInfo.name === 'vue_component_library.css') return 'vue-components.css';
+          if (assetInfo.name === 'style.css' || assetInfo.name === 'vue_component_library.css') {
+            return 'vue-components.css';
+          }
           return assetInfo.name as string;
         },
       },

@@ -7,4 +7,5 @@ export enum LayerType {
   OMWRGBMRVL = 'OMWRGBMRVL',
   OSM = 'OSM',
   MWMTS = 'MWMTS',
+  Adressenregister = 'Adressenregister',
 }

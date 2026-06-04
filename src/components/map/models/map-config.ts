@@ -45,6 +45,10 @@ export interface GrbWmsLayerOptions extends WmsLayerOptions {
   type: LayerType.GrbWMS;
 }
 
+export interface AdressenregisterLayerOptions extends WmsLayerOptions {
+  type: LayerType.Adressenregister;
+}
+
 export interface ErfgoedWmsLayerOptions extends WmsLayerOptions {
   type: LayerType.ErfgoedWms;
   legendImages?: LegendImage[];
@@ -77,7 +81,8 @@ export type LayerOptions =
   | DHMVLayerOptions
   | OMWRGBMRVLOptions
   | OSMLayerOptions
-  | MWMTSLayerOptions;
+  | MWMTSLayerOptions
+  | AdressenregisterLayerOptions;
 
 export interface LayerConfig {
   baseLayers: { [layerId: string]: LayerOptions };
@@ -143,6 +148,7 @@ export const defaultLayerConfig: LayerConfig = {
       type: LayerType.ErfgoedWms,
       hidden: true,
     },
+    adrespunten: { type: LayerType.Adressenregister, wmsLayers: 'A_INGEBRUIK', title: 'Adrespunten' },
   },
 };
 

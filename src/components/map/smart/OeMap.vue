@@ -325,6 +325,8 @@ function _createLayer(id: string, layerOptions: LayerOptions, isBaseLayer: boole
   else if (layerOptions.type === LayerType.Ngi) layer = _createNgiLayer(id);
   else if (layerOptions.type === LayerType.OSM) layer = _createOSMLayer();
   else if (layerOptions.type === LayerType.MWMTS) layer = _createMercatorWMTSLayer(id);
+  else if (layerOptions.type === LayerType.Adressenregister)
+    layer = _createAdressenregisterLayer(layerOptions.wmsLayers);
   else throw `unsupported layer type: ${layerOptions.type}`;
 
   layer.set('title', layerOptions.title);
@@ -413,6 +415,19 @@ function _createErfgoedWMSLayer(wmsLayers: string) {
       params: { LAYERS: wmsLayers, TILED: true },
       serverType: 'geoserver',
       attributions: '© <a href="https://www.onroerenderfgoed.be">Onroerend Erfgoed</a>',
+    }),
+    maxResolution: 2000,
+    visible: false,
+  });
+}
+
+function _createAdressenregisterLayer(wmsLayers: string) {
+  return new Tile({
+    extent: mapProjection.getExtent(),
+    source: new TileWMS({
+      url: '//geo.api.vlaanderen.be/' + LayerType.Adressenregister + '/wms',
+      params: { LAYERS: wmsLayers, TILED: true },
+      serverType: 'geoserver',
     }),
     maxResolution: 2000,
     visible: false,
