@@ -327,6 +327,8 @@ function _createLayer(id: string, layerOptions: LayerOptions, isBaseLayer: boole
   else if (layerOptions.type === LayerType.MWMTS) layer = _createMercatorWMTSLayer(id);
   else if (layerOptions.type === LayerType.Adressenregister)
     layer = _createAdressenregisterLayer(layerOptions.wmsLayers);
+  else if (layerOptions.type === LayerType.Administratieve_eenheden)
+    layer = _createAdministratieveEenhedenLayer(layerOptions.wmsLayers);
   else throw `unsupported layer type: ${layerOptions.type}`;
 
   layer.set('title', layerOptions.title);
@@ -426,6 +428,19 @@ function _createAdressenregisterLayer(wmsLayers: string) {
     extent: mapProjection.getExtent(),
     source: new TileWMS({
       url: '//geo.api.vlaanderen.be/' + LayerType.Adressenregister + '/wms',
+      params: { LAYERS: wmsLayers, TILED: true },
+      serverType: 'geoserver',
+    }),
+    maxResolution: 2000,
+    visible: false,
+  });
+}
+
+function _createAdministratieveEenhedenLayer(wmsLayers: string) {
+  return new Tile({
+    extent: mapProjection.getExtent(),
+    source: new TileWMS({
+      url: '//geo.api.vlaanderen.be/' + LayerType.Administratieve_eenheden + '/wms',
       params: { LAYERS: wmsLayers, TILED: true },
       serverType: 'geoserver',
     }),

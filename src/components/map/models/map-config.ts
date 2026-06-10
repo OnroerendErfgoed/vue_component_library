@@ -49,6 +49,10 @@ export interface AdressenregisterLayerOptions extends WmsLayerOptions {
   type: LayerType.Adressenregister;
 }
 
+export interface AdministratieveEenhedenLayerOptions extends WmsLayerOptions {
+  type: LayerType.Administratieve_eenheden;
+}
+
 export interface ErfgoedWmsLayerOptions extends WmsLayerOptions {
   type: LayerType.ErfgoedWms;
   legendImages?: LegendImage[];
@@ -82,7 +86,8 @@ export type LayerOptions =
   | OMWRGBMRVLOptions
   | OSMLayerOptions
   | MWMTSLayerOptions
-  | AdressenregisterLayerOptions;
+  | AdressenregisterLayerOptions
+  | AdministratieveEenhedenLayerOptions;
 
 export interface LayerConfig {
   baseLayers: { [layerId: string]: LayerOptions };
@@ -149,6 +154,11 @@ export const defaultLayerConfig: LayerConfig = {
       hidden: true,
     },
     adrespunten: { type: LayerType.Adressenregister, wmsLayers: 'A_INGEBRUIK', title: 'Adrespunten' },
+    gemeentelijke_grenzen: {
+      type: LayerType.Administratieve_eenheden,
+      wmsLayers: 'RefgemGrens',
+      title: 'Gemeentelijke grenzen',
+    },
   },
 };
 
