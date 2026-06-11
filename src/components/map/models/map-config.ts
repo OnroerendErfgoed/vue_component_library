@@ -163,19 +163,34 @@ export const defaultLayerConfig: LayerConfig = {
 };
 
 export interface FeatureSelectConfig {
-  perceel: boolean;
-  gebouw: boolean;
-  kunstwerk: boolean;
+  polygon?: boolean;
+  circle?: boolean;
+  perceel?: boolean;
+  gebouw?: boolean;
+  kunstwerk?: boolean;
+  wkt?: boolean;
 }
 
 export const defaultFeatureSelectConfig: FeatureSelectConfig = {
+  polygon: true,
+  circle: true,
   perceel: true,
   gebouw: false,
   kunstwerk: false,
+  wkt: true,
 };
+
+export type ZoneInputAction = keyof FeatureSelectConfig;
+
+export interface ZoneLimitReachedEventDetail {
+  currentZones: number;
+  maxZones: number;
+  attemptedAction: ZoneInputAction;
+}
 
 export interface OeZoneerderProps extends OeMapProps {
   featureSelectConfig?: FeatureSelectConfig;
+  maxZones?: number;
   drawPanelEnabled?: boolean;
 }
 

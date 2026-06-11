@@ -12,10 +12,13 @@
     </template>
     <template #panel>
       <OeZoneerderZonePanel
+        ref="zonePanelRef"
         v-model:feature-select="featureSelect"
-        :feature-select-config="props.featureSelectConfig"
+        :feature-select-config="featureSelectConfig"
+        :max-zones="props.maxZones"
         :draw-panel-enabled="props.drawPanelEnabled"
         @zone-panel:mounted="addZonePanelControl"
+        @zone-limit-reached="onZoneLimitReached"
       />
     </template>
   </OeMap>
@@ -25,6 +28,7 @@
 import { FeatureSelectEnum } from '../models/feature-select.enum';
 import {
   OeZoneerderProps,
+  ZoneLimitReachedEventDetail,
   defaultControlConfig,
   defaultFeatureSelectConfig,
   defaultLayerConfig,
@@ -33,7 +37,7 @@ import { Contour } from '../models/openlayers';
 import OeMap from './OeMap.vue';
 import OeZoneerderZonePanel from './OeZoneerderZonePanel.vue';
 import { Control } from 'ol/control';
-import { Ref, ref, useTemplateRef, watch } from 'vue';
+import { Ref, computed, ref, useTemplateRef, watch } from 'vue';
 
 const props = withDefaults(defineProps<OeZoneerderProps>(), {
   controlConfig: () => defaultControlConfig,
@@ -42,17 +46,34 @@ const props = withDefaults(defineProps<OeZoneerderProps>(), {
   api: 'https://geo.onroerenderfgoed.be/',
   drawPanelEnabled: false,
   zone: undefined,
+  maxZones: undefined,
 });
-const emit = defineEmits(['update:zone']);
+const emit = defineEmits(['update:zone', 'zone-limit-reached']);
 const zone = ref<Contour | undefined>(props.zone);
 const rightControlsContainerRef = ref<HTMLElement>() as Ref<HTMLElement>;
 
 const featureSelect = ref<FeatureSelectEnum>();
+const featureSelectConfig = computed(() => ({
+  ...defaultFeatureSelectConfig,
+  ...props.featureSelectConfig,
+}));
 const mapRef = useTemplateRef('oeMap');
+const zonePanelRef = useTemplateRef('zonePanelRef');
 
-function addZonePanelControl(element: HTMLElement) {
+const addZonePanelControl = (element: HTMLElement) => {
   mapRef.value?.map?.addControl(new Control({ element, target: rightControlsContainerRef.value }));
-}
+};
+
+const onZoneLimitReached = (payload: ZoneLimitReachedEventDetail) => {
+  emit('zone-limit-reached', payload);
+};
+
+const resetZones = () => {
+  zonePanelRef.value?.resetZones();
+  zone.value = undefined;
+};
+
+defineExpose({ resetZones });
 
 watch(zone, (newZone) => emit('update:zone', newZone), { deep: true });
 </script>
