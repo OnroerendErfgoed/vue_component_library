@@ -441,7 +441,7 @@ function ensureSingleOptionIsActive() {
 
 function startSelect() {
   if (!canAddZone.value) {
-    onZoneLimitReached('select');
+    onZoneLimitReached(featureSelect.value!.toLowerCase());
     return false;
   }
 

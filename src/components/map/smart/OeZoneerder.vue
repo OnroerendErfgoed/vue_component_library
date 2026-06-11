@@ -70,7 +70,6 @@ const onZoneLimitReached = (payload: ZoneLimitReachedEventDetail) => {
 
 const resetZones = () => {
   zonePanelRef.value?.resetZones();
-  zone.value = undefined;
 };
 
 defineExpose({ resetZones });

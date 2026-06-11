@@ -220,13 +220,7 @@ watch(
     }
   }
 );
-watch(
-  zone,
-  (newZone) => {
-    emit('update:zone', newZone);
-  },
-  { deep: true }
-);
+watch(zone, (newZone) => emit('update:zone', newZone), { deep: true });
 
 function zoomToExtent(extent: Extent) {
   map?.updateSize();
