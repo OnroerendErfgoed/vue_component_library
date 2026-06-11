@@ -125,6 +125,9 @@ zoneLayer.getSource()?.on('addfeature', () => {
 zoneLayer.getSource()?.on('removefeature', () => {
   zoneLayerToZone();
 });
+zoneLayer.getSource()?.on('clear', () => {
+  zoneLayerToZone();
+});
 map.addLayer(zoneLayer);
 addZoneToZoneLayer();
 
@@ -217,7 +220,13 @@ watch(
     }
   }
 );
-watch(zone, (newZone) => emit('update:zone', newZone), { deep: true });
+watch(
+  zone,
+  (newZone) => {
+    emit('update:zone', newZone);
+  },
+  { deep: true }
+);
 
 function zoomToExtent(extent: Extent) {
   map?.updateSize();
@@ -550,6 +559,12 @@ function formatGeoJson(feature: Geometry): Contour {
 function zoneLayerToZone() {
   const multiPolygon = new MultiPolygon([], 'XY');
   const features = zoneLayer.getSource()?.getFeatures();
+
+  if (!features?.length) {
+    zone.value = undefined;
+    return;
+  }
+
   features?.forEach((feature) => {
     const geom = feature.getGeometry();
     if (geom instanceof Polygon) {

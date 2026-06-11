@@ -365,5 +365,78 @@ describe('OeZoneerder', () => {
       cy.dataCy('resetZones').click();
       cy.get('.geometryObjectList li').should('have.length', 0);
     });
+
+    it('emits only undefined for update:zone after reset', () => {
+      // eslint-disable-next-line vue/one-component-per-file
+      const ResetEmitTestComponent = defineComponent({
+        components: { OeZoneerder },
+        setup() {
+          const zoneerderRef = ref<InstanceType<typeof OeZoneerder> | null>(null);
+          const resetTriggered = ref(false);
+          const postResetEvents = ref<string[]>([]);
+
+          const onUpdateZone = (newZone: unknown) => {
+            if (!resetTriggered.value) return;
+            postResetEvents.value.push(newZone ? 'value' : 'undefined');
+          };
+
+          const reset = () => {
+            resetTriggered.value = true;
+            zoneerderRef.value?.resetZones();
+          };
+
+          return {
+            zoneerderRef,
+            onUpdateZone,
+            reset,
+            postResetEvents,
+            drawPanelEnabled: true,
+            zone: {
+              type: 'MultiPolygon',
+              coordinates: [
+                [
+                  [
+                    [152362.90394889, 213066.79304588],
+                    [152362.33710089, 213066.81429388],
+                    [152341.61601287, 213067.59202188],
+                    [152339.99700487, 213029.92098185],
+                    [152340.53703687, 213029.89851785],
+                    [152361.39399689, 213029.03202185],
+                    [152362.07585289, 213046.08514186],
+                    [152362.90394889, 213066.79304588],
+                  ],
+                ],
+              ],
+              crs: {
+                type: 'name',
+                properties: {
+                  name: 'urn:ogc:def:crs:EPSG::31370',
+                },
+              },
+            },
+          };
+        },
+        template: `
+          <div>
+            <oe-zoneerder
+              ref="zoneerderRef"
+              :draw-panel-enabled="drawPanelEnabled"
+              :zone="zone"
+              style="height: 100vh"
+              @update:zone="onUpdateZone"
+            />
+            <button data-cy="resetZones" @click="reset">Reset</button>
+            <span data-cy="postResetEvents">{{ postResetEvents.join(',') }}</span>
+          </div>
+        `,
+      });
+
+      cy.mount(ResetEmitTestComponent);
+      cy.dataCy('zonePanelControl').click();
+      cy.get('.geometryObjectList li').should('have.length', 1);
+
+      cy.dataCy('resetZones').click();
+      cy.dataCy('postResetEvents').should('have.text', 'undefined');
+    });
   });
 });

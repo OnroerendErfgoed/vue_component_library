@@ -414,7 +414,7 @@ function onZoneLimitReached(attemptedAction: string) {
 
 function resetZones() {
   const zoneSource = zoneLayer.getSource();
-  zoneSource?.clear();
+  zoneSource?.clear(true);
   geometryObjectList.value = [];
   circleIndex = 1;
   polygonIndex = 1;
