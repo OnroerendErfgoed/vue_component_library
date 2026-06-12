@@ -32,22 +32,47 @@ const datepickerDate = computed(() => {
 });
 
 const parseDate = (date: string) => {
-  const parsed = parse(date, datumDisplayFormat, new Date());
-  hasFormatError.value = !isValid(parsed);
-  return parsed;
+  const parsedDisplayDate = parse(date, datumDisplayFormat, new Date());
+
+  if (isValid(parsedDisplayDate)) {
+    hasFormatError.value = false;
+    return parsedDisplayDate;
+  }
+
+  const parsedApiDate = parse(date, datumApiFormat, new Date());
+
+  if (isValid(parsedApiDate)) {
+    hasFormatError.value = false;
+    return parsedApiDate;
+  }
+
+  hasFormatError.value = true;
+  return new Date('');
 };
 
-const setDate = (date: string[] | Event) => {
+const setDate = (date: string[] | Date[] | Event) => {
   if (date instanceof Event) {
     return;
   }
 
   if (!date || !date.length) {
     modelValue.value = null;
+    hasFormatError.value = false;
+    return;
+  }
+
+  const selectedDate = date[0];
+
+  const parsed = selectedDate instanceof Date
+    ? selectedDate
+    : parseDate(selectedDate);
+
+  if (!isValid(parsed)) {
+    hasFormatError.value = true;
     return;
   }
 
   hasFormatError.value = false;
-  modelValue.value = date ? format(new Date(date[0]), datumApiFormat) : null;
+  modelValue.value = format(parsed, datumApiFormat);
 };
 </script>
