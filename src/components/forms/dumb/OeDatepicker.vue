@@ -63,9 +63,7 @@ const setDate = (date: string[] | Date[] | Event) => {
 
   const selectedDate = date[0];
 
-  const parsed = selectedDate instanceof Date
-    ? selectedDate
-    : parseDate(selectedDate);
+  const parsed = selectedDate instanceof Date ? selectedDate : parseDate(selectedDate);
 
   if (!isValid(parsed)) {
     hasFormatError.value = true;
