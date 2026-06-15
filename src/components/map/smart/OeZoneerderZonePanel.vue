@@ -16,6 +16,7 @@
         <template v-if="!addingWKT">
           <VlButton
             v-if="props.featureSelectConfig.polygon"
+            :mod-disabled="isZoneLimitReached"
             mod-narrow
             :mod-secondary="!(activeDrawType === 'Polygon')"
             title="Teken polygoon"
@@ -25,6 +26,7 @@
           </VlButton>
           <VlButton
             v-if="props.featureSelectConfig.circle"
+            :mod-disabled="isZoneLimitReached"
             mod-narrow
             :mod-secondary="!(activeDrawType === 'Circle')"
             title="Teken cirkel"
@@ -34,6 +36,7 @@
           </VlButton>
           <VlButton
             v-if="props.featureSelectConfig.perceel"
+            :mod-disabled="isZoneLimitReached"
             data-cy="selectPerceelButton"
             vl-button
             mod-narrow
@@ -45,6 +48,7 @@
           </VlButton>
           <VlButton
             v-if="props.featureSelectConfig.gebouw"
+            :mod-disabled="isZoneLimitReached"
             data-cy="selectGebouwButton"
             vl-button
             mod-narrow
@@ -56,6 +60,7 @@
           </VlButton>
           <VlButton
             v-if="props.featureSelectConfig.kunstwerk"
+            :mod-disabled="isZoneLimitReached"
             data-cy="selectKunstwerkButton"
             vl-button
             mod-narrow
@@ -67,6 +72,7 @@
           </VlButton>
           <VlButton
             v-if="props.featureSelectConfig.wkt"
+            :mod-disabled="isZoneLimitReached"
             data-cy="showWKTInput"
             vl-button
             mod-narrow
@@ -89,10 +95,20 @@
           />
           <VlButton data-cy="plaatsWKT" vl-button mod-narrow mod-secondary @click="drawWKTZone()">Plaats</VlButton>
         </template>
-        <VlButton title="annuleren" vl-button mod-narrow mod-secondary @click="toggleDrawZone(false)">
+        <VlButton
+          :mod-disabled="isZoneLimitReached"
+          title="annuleren"
+          vl-button
+          mod-narrow
+          mod-secondary
+          @click="toggleDrawZone(false)"
+        >
           <FontAwesomeIcon :icon="faCancel" />
         </VlButton>
       </VlInputGroup>
+      <VlFormMessageError v-if="isZoneLimitReached"
+        >Het maximum aantal zones is bereikt. Verwijder eerst een zone om verder te gaan.</VlFormMessageError
+      >
       <VlFormMessageError v-if="!!inputError">{{ inputError }}</VlFormMessageError>
       <span v-if="addingWKT" class="vl-u-text--small">
         Let op dat je het coördinatenstelsel EPSG:31370 (Lambert72) gebruikt en je enkel de WKT-string zelf gebruikt
@@ -441,7 +457,6 @@ function ensureSingleOptionIsActive() {
 
 function startSelect() {
   if (!canAddZone.value) {
-    onZoneLimitReached(featureSelect.value!.toLowerCase());
     return false;
   }
 
@@ -452,6 +467,7 @@ function startSelect() {
 
 function startPerceelSelect() {
   if (!startSelect()) {
+    onZoneLimitReached('perceel');
     return;
   }
 
@@ -463,6 +479,7 @@ function startPerceelSelect() {
 
 function startGebouwSelect() {
   if (!startSelect()) {
+    onZoneLimitReached('gebouw');
     return;
   }
 
@@ -474,6 +491,7 @@ function startGebouwSelect() {
 
 function startKunstwerkSelect() {
   if (!startSelect()) {
+    onZoneLimitReached('kunstwerk');
     return;
   }
 

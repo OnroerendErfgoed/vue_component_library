@@ -231,9 +231,10 @@ describe('OeZoneerder', () => {
       cy.dataCy('WKTInput').type(wktValue, { delay: 0 });
       cy.dataCy('plaatsWKT').click();
       cy.get('.geometryObjectList li').should('have.length', 1);
+      cy.contains('Het maximum aantal zones is bereikt. Verwijder eerst een zone om verder te gaan.').should('exist');
+      cy.dataCy('showWKTInput').should('be.disabled');
 
       cy.dataCy('WKTInput').should('not.exist');
-      cy.dataCy('showWKTInput').click();
       cy.dataCy('WKTInput').should('not.exist');
       cy.get('.geometryObjectList li').should('have.length', 1);
     });
