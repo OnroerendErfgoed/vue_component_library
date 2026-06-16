@@ -1,3 +1,4 @@
+/* eslint-disable vue/one-component-per-file */
 import { defineComponent, ref } from 'vue';
 import { LayerType } from '@components/map';
 import { OeZoneerderProps, ZoneLimitReachedEventDetail } from '@components/map/models/map-config';
@@ -240,7 +241,6 @@ describe('OeZoneerder', () => {
     });
 
     it('emits up-to-date currentZones when limit is reached', () => {
-      // eslint-disable-next-line vue/one-component-per-file
       const EventTestComponent = defineComponent({
         components: { OeZoneerder },
         setup() {
@@ -313,7 +313,6 @@ describe('OeZoneerder', () => {
     });
 
     it('can reset all drawn zones via component API', () => {
-      // eslint-disable-next-line vue/one-component-per-file
       const ResettableTestComponent = defineComponent({
         components: { OeZoneerder },
         setup() {
@@ -368,7 +367,6 @@ describe('OeZoneerder', () => {
     });
 
     it('emits only undefined for update:zone after reset', () => {
-      // eslint-disable-next-line vue/one-component-per-file
       const ResetEmitTestComponent = defineComponent({
         components: { OeZoneerder },
         setup() {
