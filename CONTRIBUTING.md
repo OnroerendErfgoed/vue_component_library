@@ -71,7 +71,7 @@ yarn build
 | `address` | Address-specific              | OeAdres                |
 | `map`     | Mapping functionality         | OeMap                  |
 | `grid`    | Data tables                   | OeGrid                 |
-| `editor`  | Rich text editing             | OeTinyMCE, OeEditor    |
+| `editor`  | Rich text editing             | OeEditor               |
 | `widgets` | Complex business logic        | OeActorWidget          |
 
 ### Step 2: Create the Component

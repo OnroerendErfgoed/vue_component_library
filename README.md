@@ -54,9 +54,6 @@ yarn add ol@^7.4.0
 yarn add jsts@2.7.2
 yarn add proj4@^2.9.0
 
-# For editor module (TinyMCE)
-yarn add @tinymce/tinymce-vue@^4
-
 # For editor module (Quill)
 yarn add quill@^2.0.0
 yarn add quill-html-edit-button@^3.0.0
@@ -116,7 +113,7 @@ const showModal = ref(false);
 | **Address**     | `/address`     | ~60 KB  | Address components                                |
 | **Map**         | `/map`         | ~41 KB  | OpenLayers-based mapping                          |
 | **Grid**        | `/grid`        | ~4 KB   | ag-Grid data tables                               |
-| **Editor**      | `/editor`      | ~13 KB  | Rich text editors (TinyMCE, Quill)                |
+| **Editor**      | `/editor`      | ~13 KB  | Rich text editor (Quill)                          |
 | **Widgets**     | `/widgets`     | ~18 KB  | Complex business widgets                          |
 | **Services**    | `/services`    | ~2 KB   | API clients and services                          |
 | **Utils**       | `/utils`       | ~2 KB   | Utility functions                                 |
