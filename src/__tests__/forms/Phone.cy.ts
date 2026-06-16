@@ -133,7 +133,7 @@ describe('Phone', () => {
   describe('BE', () => {
     it('renders a placeholder according to selected country', () => {
       cy.mount(TestComponent);
-      cy.dataCy('input-phone').should('have.attr', 'placeholder', '0470 12 34 56');
+      cy.dataCy('input-phone').should('have.attr', 'placeholder', '0450 00 12 34');
     });
 
     it('accepts a phone number with leading 0 and formats accordingly', () => {
@@ -178,7 +178,7 @@ describe('Phone', () => {
           .type('15484184181')
           .then(() => {
             cy.get('@onUpdateModelValueSpy').should('not.have.been.calledWith', '15484184181');
-            checkError('0470 12 34 56');
+            checkError('0450 00 12 34');
           });
       });
     });

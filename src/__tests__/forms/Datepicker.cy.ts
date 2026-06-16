@@ -1,4 +1,3 @@
-import { VlDatepicker } from '@govflanders/vl-ui-design-system-vue3';
 import { defineComponent, ref } from 'vue';
 import OeDatepicker from '@components/forms/dumb/OeDatepicker.vue';
 
