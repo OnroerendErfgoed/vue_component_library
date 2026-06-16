@@ -8,4 +8,5 @@ export enum LayerType {
   OSM = 'OSM',
   MWMTS = 'MWMTS',
   Adressenregister = 'Adressenregister',
+  Administratieve_eenheden = 'Administratieve_eenheden',
 }

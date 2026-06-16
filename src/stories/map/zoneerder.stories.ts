@@ -1,4 +1,5 @@
-import { defaultLayerConfig } from '@components/map';
+import { ref } from 'vue';
+import { ZoneLimitReachedEventDetail, defaultLayerConfig } from '@components/map';
 import OeZoneerder from '@components/map/smart/OeZoneerder.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
@@ -30,9 +31,16 @@ const meta: Meta<typeof OeZoneerder> = {
   argTypes: {
     featureSelectConfig: {
       control: 'object',
-      description: 'Configure which select buttons are visible on the openlayers map',
+      description: 'Configure which zone input buttons are visible on the openlayers map',
       table: {
         type: { summary: 'featureSelectConfig' },
+      },
+    },
+    maxZones: {
+      control: 'number',
+      description: 'Maximum number of zones that can be added',
+      table: {
+        type: { summary: 'number | undefined' },
       },
     },
     controlConfig: {
@@ -63,18 +71,6 @@ const meta: Meta<typeof OeZoneerder> = {
     },
     zone: {
       description: 'The zoneerder zone object',
-      table: {
-        type: { summary: 'Contour' },
-      },
-    },
-    'map:created': {
-      description: 'Emits the created openlayers map',
-      table: {
-        type: { summary: 'Map' },
-      },
-    },
-    'update:zone': {
-      description: 'Emits the edited zone',
       table: {
         type: { summary: 'Contour' },
       },
@@ -248,5 +244,132 @@ export const AllSelects: Story = {
       };
     },
     template: `<OeZoneerder :api="api" :draw-panel-enabled="drawPanelEnabled" :layer-config="layerConfig" :feature-select-config="featureSelectConfig" style="height: 500px"></OeZoneerder>`,
+  }),
+};
+
+export const ZoneLimitAndReset: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'When the user tries to add a zone while already having the maximum number of zones present, the component will emit a "zone-limit-reached" event with details on the current number of zones, the maximum number of zones and the attempted action. ' +
+          'This story demonstrates this behavior with all zone input buttons enabled and a maxZones of 2 to more easily trigger the zone limit reached event. ' +
+          'The component API also has a resetZones function that can be used to reset the drawn zones, which is also demonstrated in this story.',
+      },
+    },
+  },
+  render: () => ({
+    components: { OeZoneerder },
+    setup() {
+      const zoneerderRef = ref<InstanceType<typeof OeZoneerder> | null>(null);
+      const status = ref('Nog geen limiet bereikt');
+
+      const resetZones = () => {
+        zoneerderRef.value?.resetZones();
+        status.value = 'Zones gereset';
+      };
+
+      const onZoneLimitReached = (payload: ZoneLimitReachedEventDetail) => {
+        status.value = `Limiet bereikt: ${payload.currentZones}/${payload.maxZones} via ${payload.attemptedAction}`;
+      };
+
+      return {
+        api,
+        zoneerderRef,
+        status,
+        resetZones,
+        onZoneLimitReached,
+        drawPanelEnabled: true,
+        maxZones: 2,
+        featureSelectConfig: {
+          polygon: true,
+          circle: true,
+          perceel: true,
+          gebouw: true,
+          kunstwerk: true,
+          wkt: true,
+        },
+      };
+    },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+        <div>
+          <button class="vl-button vl-button--secondary" @click="resetZones">Reset zones</button>
+          <span style="margin-left: 0.75rem;">{{ status }}</span>
+        </div>
+        <OeZoneerder
+          ref="zoneerderRef"
+          :api="api"
+          :draw-panel-enabled="drawPanelEnabled"
+          :max-zones="maxZones"
+          :feature-select-config="featureSelectConfig"
+          style="height: 500px"
+          @zone-limit-reached="onZoneLimitReached"
+        />
+      </div>
+    `,
+  }),
+};
+
+export const AutomaticToolSelection: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'When only one of the zone input buttons is enabled via the featureSelectConfig, the zoneerder will automatically select this tool for the user. ' +
+          'This story demonstrates this behavior with only the polygon select enabled and a maxZones of 1 to more easily trigger the zone limit reached event.',
+      },
+    },
+  },
+  render: () => ({
+    components: { OeZoneerder },
+    setup() {
+      const zoneerderRef = ref<InstanceType<typeof OeZoneerder> | null>(null);
+      const status = ref('Nog geen limiet bereikt');
+
+      const resetZones = () => {
+        zoneerderRef.value?.resetZones();
+        status.value = 'Zones gereset';
+      };
+
+      const onZoneLimitReached = (payload: ZoneLimitReachedEventDetail) => {
+        status.value = `Limiet bereikt: ${payload.currentZones}/${payload.maxZones} via ${payload.attemptedAction}`;
+      };
+
+      return {
+        api,
+        zoneerderRef,
+        status,
+        resetZones,
+        onZoneLimitReached,
+        drawPanelEnabled: true,
+        maxZones: 1,
+        featureSelectConfig: {
+          polygon: true,
+          circle: false,
+          perceel: false,
+          gebouw: false,
+          kunstwerk: false,
+          wkt: false,
+        },
+      };
+    },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+        <div>
+          <button class="vl-button vl-button--secondary" @click="resetZones">Reset zones</button>
+          <span style="margin-left: 0.75rem;">{{ status }}</span>
+        </div>
+        <OeZoneerder
+          ref="zoneerderRef"
+          :api="api"
+          :draw-panel-enabled="drawPanelEnabled"
+          :max-zones="maxZones"
+          :feature-select-config="featureSelectConfig"
+          style="height: 500px"
+          @zone-limit-reached="onZoneLimitReached"
+        />
+      </div>
+    `,
   }),
 };

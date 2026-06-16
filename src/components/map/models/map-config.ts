@@ -49,6 +49,10 @@ export interface AdressenregisterLayerOptions extends WmsLayerOptions {
   type: LayerType.Adressenregister;
 }
 
+export interface AdministratieveEenhedenLayerOptions extends WmsLayerOptions {
+  type: LayerType.Administratieve_eenheden;
+}
+
 export interface ErfgoedWmsLayerOptions extends WmsLayerOptions {
   type: LayerType.ErfgoedWms;
   legendImages?: LegendImage[];
@@ -82,7 +86,8 @@ export type LayerOptions =
   | OMWRGBMRVLOptions
   | OSMLayerOptions
   | MWMTSLayerOptions
-  | AdressenregisterLayerOptions;
+  | AdressenregisterLayerOptions
+  | AdministratieveEenhedenLayerOptions;
 
 export interface LayerConfig {
   baseLayers: { [layerId: string]: LayerOptions };
@@ -149,23 +154,43 @@ export const defaultLayerConfig: LayerConfig = {
       hidden: true,
     },
     adrespunten: { type: LayerType.Adressenregister, wmsLayers: 'A_INGEBRUIK', title: 'Adrespunten' },
+    gemeentelijke_grenzen: {
+      type: LayerType.Administratieve_eenheden,
+      wmsLayers: 'RefgemGrens',
+      title: 'Gemeentelijke grenzen',
+    },
   },
 };
 
 export interface FeatureSelectConfig {
-  perceel: boolean;
-  gebouw: boolean;
-  kunstwerk: boolean;
+  polygon?: boolean;
+  circle?: boolean;
+  perceel?: boolean;
+  gebouw?: boolean;
+  kunstwerk?: boolean;
+  wkt?: boolean;
 }
 
 export const defaultFeatureSelectConfig: FeatureSelectConfig = {
+  polygon: true,
+  circle: true,
   perceel: true,
   gebouw: false,
   kunstwerk: false,
+  wkt: true,
 };
+
+export type ZoneInputAction = keyof FeatureSelectConfig;
+
+export interface ZoneLimitReachedEventDetail {
+  currentZones: number;
+  maxZones: number;
+  attemptedAction: ZoneInputAction;
+}
 
 export interface OeZoneerderProps extends OeMapProps {
   featureSelectConfig?: FeatureSelectConfig;
+  maxZones?: number;
   drawPanelEnabled?: boolean;
 }
 
