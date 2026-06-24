@@ -104,10 +104,55 @@ describe('Filter', () => {
         cy.dataCy('filter-select')
           .should('exist')
           .children()
-          .should('have.length', 5)
+          .should('have.length', 6)
           .each((option, i) => {
-            expect(option.text()).to.equal(component.options[i].label);
+            if (i === 0) return;
+            expect(option.text()).to.equal(component.options[i - 1].label);
           });
+      });
+    });
+
+    describe('placeholder behavior', () => {
+      it('shows a disabled "Kies filter" placeholder option selected by default', () => {
+        cy.mount(TestComponentWithOptions);
+
+        cy.dataCy('filter-select')
+          .find('option')
+          .first()
+          .should('be.disabled')
+          .and('have.text', 'Kies filter')
+          .and('have.prop', 'selected', true);
+      });
+
+      it('shows a disabled placeholder input in the value column by default', () => {
+        cy.mount(TestComponentWithOptions);
+
+        cy.dataCy('filter-value-placeholder')
+          .should('exist')
+          .and('be.disabled')
+          .and('have.attr', 'placeholder', 'Kies eerst een filter');
+      });
+
+      it('disables the add button while no real filter option is selected', () => {
+        cy.mount(TestComponentWithOptions);
+
+        cy.dataCy('filter-add-button').should('be.disabled');
+      });
+
+      it('replaces the placeholder input with the matching filter input once an option is selected', () => {
+        cy.mount(TestComponentWithOptions);
+
+        cy.dataCy('filter-select').select('ID');
+
+        cy.dataCy('filter-value-placeholder').should('not.exist');
+        cy.dataCy('filter-text').should('exist');
+      });
+
+      it('cannot be selected again once another option has been chosen', () => {
+        cy.mount(TestComponentWithOptions);
+
+        cy.dataCy('filter-select').select('ID');
+        cy.dataCy('filter-select').find('option').first().should('be.disabled');
       });
     });
 
