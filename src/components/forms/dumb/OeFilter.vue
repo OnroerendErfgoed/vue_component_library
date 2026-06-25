@@ -14,6 +14,7 @@
             mod-inline
             @update:model-value="clearInputs"
           >
+            <option :value="PLACEHOLDER_OPTION" disabled>{{ PLACEHOLDER_OPTION.label }}</option>
             <option v-for="option in props.options" :key="option.key" :value="option">
               {{ option.label }}
             </option>
@@ -21,7 +22,16 @@
         </div>
         <div class="filter-value-column">
           <VlInputGroup>
+            <VlInputField
+              v-if="!selectedOption.key"
+              data-cy="filter-value-placeholder"
+              mod-disabled
+              mod-block
+              disabled
+              placeholder="Kies eerst een filter"
+            />
             <slot
+              v-else
               :value="filterInputValue?.value"
               :set-value="setFilterInputValue"
               :selected-option="selectedOption"
@@ -73,6 +83,7 @@ import {
   VlActionGroup,
   VlButton,
   VlInputAddon,
+  VlInputField,
   VlInputGroup,
   VlPill,
   VlSelect,
@@ -91,7 +102,8 @@ const emit = defineEmits<{
 }>();
 
 // Filter option
-const selectedOption = ref<IFilterOption>(props.options[0]);
+const PLACEHOLDER_OPTION: IFilterOption = { key: '', label: 'Kies filter' };
+const selectedOption = ref<IFilterOption>(PLACEHOLDER_OPTION);
 
 // Filter input
 const filterInputValue = ref<{ value?: TFilterInput; label?: string }>();
