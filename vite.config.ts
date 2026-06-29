@@ -63,7 +63,6 @@ export default defineConfig({
         '@vueuse/core',
 
         // Editors
-        '@tinymce/tinymce-vue',
         'quill',
         /^quill\//, // All quill submodules
         'quill-html-edit-button',

@@ -66,7 +66,7 @@ All components are now consistently prefixed with `Oe` for better namespacing an
 | **Composables** | `/composables` | ~0.13 KB     | Store exports only (re-exports utilStore)             |
 | **Grid**        | `/grid`        | ~1.61 KB     | Data grid components (ag-Grid wrapper)                |
 | **Services**    | `/services`    | ~0.85 KB     | API services (auth, actor, inventaris, ID)            |
-| **Editor**      | `/editor`      | ~3.54 KB     | Rich text editors (TinyMCE, Quill)                    |
+| **Editor**      | `/editor`      | ~3.54 KB     | Rich text editor (Quill)                              |
 | **Utils**       | `/utils`       | ~1.03 KB     | Utility functions, validators, i18n                   |
 | **Widgets**     | `/widgets`     | ~4.48 KB     | Complex widgets (Actor, Locatie, Betrokkene)          |
 | **Address**     | `/address`     | ~9.36 KB     | Belgian address components with autocomplete          |
@@ -150,9 +150,6 @@ yarn add ag-grid-vue3@^34.0.0
 
 # If using map module
 yarn add ol@^7.4.0 jsts@2.7.2 proj4@^2.9.0
-
-# If using editor module (TinyMCE)
-yarn add @tinymce/tinymce-vue@^4
 
 # If using editor module (Quill)
 yarn add quill@^2.0.0 quill-html-edit-button@^3.0.0
