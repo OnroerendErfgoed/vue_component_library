@@ -104,7 +104,7 @@
     "chromatic": "npx chromatic --project-token=CHROMATIC_PROJECT_TOKEN"
   },
   "dependencies": {
-    "@OnroerendErfgoed/pyoes": "^0.25.1",
+    "@OnroerendErfgoed/pyoes": "^0.26.2",
     "guid-typescript": "^1.0.9"
   },
   "peerDependencies": {

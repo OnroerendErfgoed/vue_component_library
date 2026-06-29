@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@OnroerendErfgoed/pyoes@^0.25.1":
-  version "0.25.1"
-  resolved "https://npm.pkg.github.com/download/@OnroerendErfgoed/pyoes/0.25.1/6656bdc6c9e33c6a054dcb73c2dd2a9d8bacf4ce#6656bdc6c9e33c6a054dcb73c2dd2a9d8bacf4ce"
-  integrity sha512-eDWmtO8YxaeGGdZQCHJneAAt6w6O05SL1ypDuyvkykwr8etHEdpFlj8+tFPHXS8dMLm/BCDAe6eERPJ6HTk9KA==
+"@OnroerendErfgoed/pyoes@^0.26.2":
+  version "0.26.2"
+  resolved "https://npm.pkg.github.com/download/@OnroerendErfgoed/pyoes/0.26.2/ae1419361d3f5f248a9cbf43dcb19a1a0eab9b71#ae1419361d3f5f248a9cbf43dcb19a1a0eab9b71"
+  integrity sha512-3Qrq6ttie1MJymNRKyA0AaW8xs5OX+Pj17bX3sG3ZLPvSGquK3C0SmbxiNFnUAL6sOuZXSxCmHU/r1Z/LDK3jA==
   dependencies:
     font-awesome "^4.7.0"
     foundation-sites "^5.5.3"
