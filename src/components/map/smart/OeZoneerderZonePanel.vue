@@ -1,6 +1,6 @@
 <template>
   <div ref="zonePanelRef" :class="{ closed: !panelOpen || !props.drawPanelEnabled }" class="panel">
-    <div ref="elementRef" class="zone-panel oe-ol-control ol-control ol-unselectable">
+    <div v-if="showZonePanelControl" ref="elementRef" class="zone-panel oe-ol-control ol-control ol-unselectable">
       <button data-cy="zonePanelControl" @click="togglePanel">
         <FontAwesomeIcon :icon="faPencil" title="Zone samenstellen" />
       </button>
@@ -15,6 +15,8 @@
       <VlInputGroup class="zone-input-group">
         <template v-if="!addingWKT">
           <VlButton
+            v-if="props.featureSelectConfig.polygon"
+            :mod-disabled="isZoneLimitReached"
             mod-narrow
             :mod-secondary="!(activeDrawType === 'Polygon')"
             title="Teken polygoon"
@@ -23,6 +25,8 @@
             <FontAwesomeIcon :icon="faDrawPolygon" />
           </VlButton>
           <VlButton
+            v-if="props.featureSelectConfig.circle"
+            :mod-disabled="isZoneLimitReached"
             mod-narrow
             :mod-secondary="!(activeDrawType === 'Circle')"
             title="Teken cirkel"
@@ -32,6 +36,7 @@
           </VlButton>
           <VlButton
             v-if="props.featureSelectConfig.perceel"
+            :mod-disabled="isZoneLimitReached"
             data-cy="selectPerceelButton"
             vl-button
             mod-narrow
@@ -43,6 +48,7 @@
           </VlButton>
           <VlButton
             v-if="props.featureSelectConfig.gebouw"
+            :mod-disabled="isZoneLimitReached"
             data-cy="selectGebouwButton"
             vl-button
             mod-narrow
@@ -54,6 +60,7 @@
           </VlButton>
           <VlButton
             v-if="props.featureSelectConfig.kunstwerk"
+            :mod-disabled="isZoneLimitReached"
             data-cy="selectKunstwerkButton"
             vl-button
             mod-narrow
@@ -63,7 +70,15 @@
           >
             <FontAwesomeIcon :icon="faMonument" />
           </VlButton>
-          <VlButton data-cy="showWKTInput" vl-button mod-narrow mod-secondary title="WKT string" @click="showWktInput()"
+          <VlButton
+            v-if="props.featureSelectConfig.wkt"
+            :mod-disabled="isZoneLimitReached"
+            data-cy="showWKTInput"
+            vl-button
+            mod-narrow
+            mod-secondary
+            title="WKT string"
+            @click="showWktInput()"
             >WKT</VlButton
           >
         </template>
@@ -80,10 +95,20 @@
           />
           <VlButton data-cy="plaatsWKT" vl-button mod-narrow mod-secondary @click="drawWKTZone()">Plaats</VlButton>
         </template>
-        <VlButton title="annuleren" vl-button mod-narrow mod-secondary @click="toggleDrawZone(false)">
+        <VlButton
+          :mod-disabled="isZoneLimitReached"
+          title="annuleren"
+          vl-button
+          mod-narrow
+          mod-secondary
+          @click="toggleDrawZone(false)"
+        >
           <FontAwesomeIcon :icon="faCancel" />
         </VlButton>
       </VlInputGroup>
+      <VlFormMessageError v-if="isZoneLimitReached"
+        >Het maximum aantal zones is bereikt. Verwijder eerst een zone om verder te gaan.</VlFormMessageError
+      >
       <VlFormMessageError v-if="!!inputError">{{ inputError }}</VlFormMessageError>
       <span v-if="addingWKT" class="vl-u-text--small">
         Let op dat je het coördinatenstelsel EPSG:31370 (Lambert72) gebruikt en je enkel de WKT-string zelf gebruikt
@@ -121,7 +146,7 @@
 
 <script setup lang="ts">
 import { FeatureSelectEnum } from '../models/feature-select.enum';
-import { FeatureSelectConfig } from '../models/map-config';
+import { FeatureSelectConfig, ZoneInputAction } from '../models/map-config';
 import { IDrawGeomType } from '../models/openlayers';
 import { MapUtil } from '../utils/openlayers/map-util';
 import {
@@ -154,19 +179,20 @@ import { GeoJSON, WKT } from 'ol/format';
 import { Geometry, Point } from 'ol/geom';
 import { Draw } from 'ol/interaction';
 import VectorSource from 'ol/source/Vector';
-import { inject, onMounted, onUnmounted, ref, watch } from 'vue';
+import { computed, inject, onMounted, onUnmounted, ref, watch } from 'vue';
 import { GisUtil } from '@/map';
 import { GrbApiService } from '@services/grb-api.service';
 
 const props = defineProps<{
   featureSelect: FeatureSelectEnum | undefined;
   featureSelectConfig: FeatureSelectConfig;
+  maxZones?: number;
   drawPanelEnabled?: boolean;
 }>();
 
 const featureSelectEventKey = ref();
 const elementRef = ref<HTMLElement>();
-const emit = defineEmits(['update:feature-select', 'zone-panel:mounted']);
+const emit = defineEmits(['update:feature-select', 'zone-panel:mounted', 'zone-limit-reached']);
 
 const map = inject('map') as Map;
 const geoJsonFormatter = inject('geoJsonFormatter') as GeoJSON;
@@ -186,6 +212,23 @@ const inputError = ref('');
 let circleIndex = 1;
 let polygonIndex = 1;
 
+const availableZoneInputActions = computed(() => {
+  return (Object.entries(props.featureSelectConfig) as Array<[ZoneInputAction, boolean | undefined]>)
+    .filter(([, enabled]) => !!enabled)
+    .map(([action]) => action);
+});
+const zoneCount = computed(() => geometryObjectList.value.length);
+const hasZoneLimit = computed(() => !!props.maxZones);
+const canAddZone = computed(() => !hasZoneLimit.value || zoneCount.value < props.maxZones!);
+const isZoneLimitReached = computed(() => hasZoneLimit.value && zoneCount.value >= props.maxZones!);
+const showZonePanelControl = computed(() => {
+  if (availableZoneInputActions.value.length !== 1) {
+    return true;
+  }
+
+  return availableZoneInputActions.value[0] === 'wkt';
+});
+
 const zoneLayer = MapUtil.getLayerById(map, 'zoneLayer');
 const flashLayer = MapUtil.createVectorLayer({
   color: 'rgba(255,0,255, 1)',
@@ -202,18 +245,26 @@ watch(
     if (!isEnabled) {
       resetSelect();
       toggleDrawZone(false);
+      panelOpen.value = false;
+    } else {
+      ensureSingleOptionIsActive();
     }
   }
 );
+watch(availableZoneInputActions, ensureSingleOptionIsActive);
 
 onMounted(() => {
-  emit('zone-panel:mounted', elementRef.value);
+  if (showZonePanelControl.value && elementRef.value) {
+    emit('zone-panel:mounted', elementRef.value);
+  }
   zoneLayer
     .getSource()
     ?.getFeatures()
     .forEach((feature) => {
       geometryObjectList.value.push(feature.get('name'));
     });
+
+  ensureSingleOptionIsActive();
 });
 
 onUnmounted(() => {
@@ -236,6 +287,11 @@ const featureSelectCallback = (
   grbService.searchWfs(geom, mapProjection.getCode(), featureTypes).then((result) => {
     geoJsonFormatter.readFeatures(result).forEach((olFeature) => {
       if (olFeature) {
+        if (!canAddZone.value) {
+          onZoneLimitReached(type.toLowerCase());
+          return;
+        }
+
         const name = `${type} ${olFeature.get(featureProp)}`;
         if (geometryObjectList.value.indexOf(name) === -1) {
           olFeature.set('name', name);
@@ -243,6 +299,9 @@ const featureSelectCallback = (
           if (zoneLayer.getSource()) {
             zoneLayer.getSource()?.addFeature(olFeature);
             geometryObjectList.value.push(name);
+            if (isZoneLimitReached.value) {
+              onZoneLimitReached(type.toLowerCase());
+            }
           }
         }
       } else {
@@ -265,15 +324,22 @@ function updateWKTString(value: string) {
 }
 
 function toggleDrawZone(drawZoneEnabled = false, type: IDrawGeomType = 'Polygon') {
+  if (drawZoneEnabled && !canAddZone.value) {
+    onZoneLimitReached(type.toLowerCase());
+    return;
+  }
+
   resetSelect();
   addingWKT.value = false;
   inputError.value = '';
-  map.getInteractions().pop();
   activeDrawType.value = drawZoneEnabled ? type : undefined;
   for (const [drawType, interaction] of Object.entries(drawInteractions)) {
     if (drawType === type) {
       interaction.setActive(drawZoneEnabled);
-      map.addInteraction(interaction);
+      const mapInteractions = map.getInteractions().getArray();
+      if (drawZoneEnabled && !mapInteractions.includes(interaction)) {
+        map.addInteraction(interaction);
+      }
     } else {
       interaction.setActive(false);
     }
@@ -291,6 +357,10 @@ function drawWKTZone() {
   const wktParser = new WKT();
   try {
     invalidWKT.value = false;
+    if (!canAddZone.value) {
+      onZoneLimitReached('wkt');
+      return;
+    }
     if (!GisUtil.isMultiPolygonValid(WKTString.value)) {
       throw new Error('De opgegeven WKT string is ongeldig.');
     }
@@ -302,6 +372,9 @@ function drawWKTZone() {
     });
     zoneLayer.getSource()?.addFeature(featureFromWKT);
     geometryObjectList.value.push(name);
+    if (isZoneLimitReached.value) {
+      onZoneLimitReached('wkt');
+    }
     zoomToFeatures();
     WKTString.value = '';
   } catch (error) {
@@ -330,18 +403,74 @@ function zoomToFeature(featureName: string) {
 }
 
 function showWktInput() {
+  if (!canAddZone.value) {
+    onZoneLimitReached('wkt');
+    return;
+  }
+
   toggleDrawZone(false);
   addingWKT.value = true;
   invalidWKT.value = false;
+  panelOpen.value = true;
+}
+
+function onZoneLimitReached(attemptedAction: string) {
+  const maxZones = props.maxZones;
+  if (!maxZones) {
+    return;
+  }
+
+  toggleDrawZone(false);
+  emit('zone-limit-reached', {
+    maxZones,
+    currentZones: zoneCount.value,
+    attemptedAction,
+  });
+}
+
+function resetZones() {
+  const zoneSource = zoneLayer.getSource();
+  zoneSource?.clear(true);
+  geometryObjectList.value = [];
+  circleIndex = 1;
+  polygonIndex = 1;
+  resetSelect();
+  toggleDrawZone(false);
+  WKTString.value = '';
+  inputError.value = '';
+  invalidWKT.value = false;
+  ensureSingleOptionIsActive();
+}
+
+function ensureSingleOptionIsActive() {
+  if (!props.drawPanelEnabled || availableZoneInputActions.value.length !== 1) {
+    return;
+  }
+
+  const [singleAction] = availableZoneInputActions.value;
+  if (singleAction !== 'wkt') {
+    panelOpen.value = false;
+  }
+
+  activateAction(singleAction);
 }
 
 function startSelect() {
+  if (!canAddZone.value) {
+    return false;
+  }
+
   toggleDrawZone(false);
   resetSelect();
+  return true;
 }
 
 function startPerceelSelect() {
-  startSelect();
+  if (!startSelect()) {
+    onZoneLimitReached('perceel');
+    return;
+  }
+
   featureSelect.value = FeatureSelectEnum.Perceel;
   featureSelectEventKey.value = map.on('click', (e) =>
     featureSelectCallback(e, ['ADP'], FeatureSelectEnum.Perceel, 'CAPAKEY')
@@ -349,7 +478,11 @@ function startPerceelSelect() {
 }
 
 function startGebouwSelect() {
-  startSelect();
+  if (!startSelect()) {
+    onZoneLimitReached('gebouw');
+    return;
+  }
+
   featureSelect.value = FeatureSelectEnum.Gebouw;
   featureSelectEventKey.value = map.on('click', (e) =>
     featureSelectCallback(e, ['GBG'], FeatureSelectEnum.Gebouw, 'OIDN')
@@ -357,7 +490,11 @@ function startGebouwSelect() {
 }
 
 function startKunstwerkSelect() {
-  startSelect();
+  if (!startSelect()) {
+    onZoneLimitReached('kunstwerk');
+    return;
+  }
+
   featureSelect.value = FeatureSelectEnum.Kunstwerk;
   featureSelectEventKey.value = map.on('click', (e) =>
     featureSelectCallback(e, ['KNW'], FeatureSelectEnum.Kunstwerk, 'OIDN')
@@ -371,10 +508,26 @@ function _createInteractions() {
   };
 
   for (const [type, interaction] of Object.entries(drawInteractions)) {
+    interaction.on('drawstart', () => {
+      if (!canAddZone.value) {
+        interaction.abortDrawing();
+        onZoneLimitReached(type.toLowerCase());
+      }
+    });
+
     interaction.on('drawend', (evt) => {
+      if (!canAddZone.value) {
+        zoneLayer.getSource()?.removeFeature(evt.feature);
+        onZoneLimitReached(type.toLowerCase());
+        return;
+      }
+
       const name = type === 'Circle' ? `Cirkel ${circleIndex++}` : `Polygoon ${polygonIndex++}`;
       evt.feature.setProperties({ name, show: true });
       geometryObjectList.value.push(evt.feature.getProperties().name);
+      if (isZoneLimitReached.value) {
+        onZoneLimitReached(type.toLowerCase());
+      }
     });
     interaction.setActive(false);
   }
@@ -389,6 +542,10 @@ function removeGeometryObject(name: string) {
   });
 
   geometryObjectList.value.splice(geometryObjectList.value.indexOf(name), 1);
+
+  if (canAddZone.value) {
+    ensureSingleOptionIsActive();
+  }
 }
 
 function flashFeature(featureName: string) {
@@ -407,6 +564,31 @@ function flashFeature(featureName: string) {
     }, 1000);
   }
 }
+
+function activateAction(action: ZoneInputAction) {
+  switch (action) {
+    case 'polygon':
+      toggleDrawZone(true, 'Polygon');
+      break;
+    case 'circle':
+      toggleDrawZone(true, 'Circle');
+      break;
+    case 'perceel':
+      startPerceelSelect();
+      break;
+    case 'gebouw':
+      startGebouwSelect();
+      break;
+    case 'kunstwerk':
+      startKunstwerkSelect();
+      break;
+    case 'wkt':
+      showWktInput();
+      break;
+  }
+}
+
+defineExpose({ resetZones });
 </script>
 
 <style lang="scss" scoped>

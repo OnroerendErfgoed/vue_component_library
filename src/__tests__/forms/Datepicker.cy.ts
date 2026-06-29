@@ -53,5 +53,16 @@ describe('Datepicker', () => {
           });
       });
     });
+    it('parses dates in yyyy-MM-dd format from native mobile datepicker', () => {
+      cy.mount(TestComponent).then(({ wrapper }) => {
+        const datepicker = wrapper.findComponent({ name: 'VlDatepicker' });
+        const parsed = datepicker.props('parseDate')('2024-07-24');
+
+        expect(parsed).to.be.instanceOf(Date);
+        expect(parsed.getFullYear()).to.equal(2024);
+        expect(parsed.getMonth()).to.equal(6);
+        expect(parsed.getDate()).to.equal(24);
+      });
+    });
   });
 });

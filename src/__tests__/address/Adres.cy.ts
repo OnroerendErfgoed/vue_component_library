@@ -1,3 +1,4 @@
+/* eslint-disable vue/one-component-per-file */
 import { mount } from 'cypress/vue';
 import { defineComponent, ref, useAttrs } from 'vue';
 import OeAdres from '@components/address/OeAdres.vue';
@@ -363,7 +364,6 @@ describe('Adres', () => {
       cy.mockDurbuy();
 
       mount(
-        // eslint-disable-next-line vue/one-component-per-file
         defineComponent({
           components: { OeAdres },
           setup() {
