@@ -314,7 +314,6 @@ const props = withDefaults(defineProps<IAdresProps>(), {
     huisnummer: { required: true },
     busnummer: { required: false },
   }),
-  api: 'https://test-geo.onroerenderfgoed.be/',
   countryId: undefined,
   adres: undefined,
   optionsLimit: 5000,
