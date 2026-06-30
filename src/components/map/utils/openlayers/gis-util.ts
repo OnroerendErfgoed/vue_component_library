@@ -1,6 +1,6 @@
 import { Bescherming, Perceel } from '../../models/openlayers';
 import { MapUtil } from './map-util';
-import * as jsts from 'jsts';
+import * as jsts from 'jsts/dist/jsts.min.js';
 import { Feature } from 'ol';
 import WKT from 'ol/format/WKT';
 import {

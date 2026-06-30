@@ -1,4 +1,4 @@
-import * as jsts from 'jsts';
+import * as jsts from 'jsts/dist/jsts.min.js';
 import Feature from 'ol/Feature';
 import { FeatureLike } from 'ol/Feature';
 import Map from 'ol/Map';

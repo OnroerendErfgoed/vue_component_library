@@ -10,7 +10,7 @@ import { vi } from 'vitest';
 HTMLCanvasElement.prototype.getContext = vi.fn();
 
 // Enhanced jsts mock with intersects based on extents
-vi.mock('jsts', () => {
+vi.mock('jsts/dist/jsts.min.js', () => {
   const makeGeom = (olGeom?: any) => {
     const extent = olGeom?.getExtent ? olGeom.getExtent() : [0, 0, 0, 0];
     return {
