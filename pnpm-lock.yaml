@@ -32,7 +32,7 @@ importers:
         version: 8.4.2(postcss@8.5.16)(vue@3.5.39(typescript@5.9.3))
       '@intlify/unplugin-vue-i18n':
         specifier: ^11.2.3
-        version: 11.2.4(@vue/compiler-dom@3.5.39)(eslint@9.39.4)(rollup@4.62.2)(typescript@5.9.3)(vite@7.3.6(@types/node@22.20.0)(sass@1.101.0)(yaml@2.9.0))(vue-i18n@11.4.6(vue@3.5.39(typescript@5.9.3)))(vue@3.5.39(typescript@5.9.3))
+        version: 11.2.4(@vue/compiler-dom@3.5.39)(eslint@9.39.4(supports-color@8.1.1))(rollup@4.62.2)(supports-color@8.1.1)(typescript@5.9.3)(vite@7.3.6(@types/node@22.20.0)(sass@1.101.0)(yaml@2.9.0))(vue-i18n@11.4.6(vue@3.5.39(typescript@5.9.3)))(vue@3.5.39(typescript@5.9.3))
       '@rushstack/eslint-patch':
         specifier: ^1.2.0
         version: 1.16.1
@@ -41,34 +41,34 @@ importers:
         version: 0.1.2
       '@storybook/addon-essentials':
         specifier: ^8.6.17
-        version: 8.6.18(@types/react@19.2.17)(storybook@8.6.18(prettier@3.9.1))
+        version: 8.6.18(@types/react@19.2.17)(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))
       '@storybook/addon-interactions':
         specifier: ^8.6.17
-        version: 8.6.18(storybook@8.6.18(prettier@3.9.1))
+        version: 8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))
       '@storybook/addon-links':
         specifier: ^8.6.17
-        version: 8.6.18(react@19.2.7)(storybook@8.6.18(prettier@3.9.1))
+        version: 8.6.18(react@19.2.7)(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))
       '@storybook/addon-mdx-gfm':
         specifier: ^8.6.17
-        version: 8.6.18(storybook@8.6.18(prettier@3.9.1))
+        version: 8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))(supports-color@8.1.1)
       '@storybook/addon-viewport':
         specifier: ^8.6.17
-        version: 8.6.18(storybook@8.6.18(prettier@3.9.1))
+        version: 8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))
       '@storybook/blocks':
         specifier: ^8.6.17
-        version: 8.6.18(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@8.6.18(prettier@3.9.1))
+        version: 8.6.18(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))
       '@storybook/builder-vite':
         specifier: ^8.6.17
-        version: 8.6.18(storybook@8.6.18(prettier@3.9.1))(vite@7.3.6(@types/node@22.20.0)(sass@1.101.0)(yaml@2.9.0))
+        version: 8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))(vite@7.3.6(@types/node@22.20.0)(sass@1.101.0)(yaml@2.9.0))
       '@storybook/testing-library':
         specifier: ^0.2.2
         version: 0.2.2
       '@storybook/vue3-vite':
         specifier: ^8.6.17
-        version: 8.6.18(storybook@8.6.18(prettier@3.9.1))(vite@7.3.6(@types/node@22.20.0)(sass@1.101.0)(yaml@2.9.0))(vue@3.5.39(typescript@5.9.3))
+        version: 8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))(vite@7.3.6(@types/node@22.20.0)(sass@1.101.0)(yaml@2.9.0))(vue@3.5.39(typescript@5.9.3))
       '@trivago/prettier-plugin-sort-imports':
         specifier: ^6.0.0
-        version: 6.0.2(@vue/compiler-sfc@3.5.39)(prettier@3.9.1)
+        version: 6.0.2(@vue/compiler-sfc@3.5.39)(prettier@3.9.1)(supports-color@8.1.1)
       '@tsconfig/node20':
         specifier: ^20.1.4
         version: 20.1.9
@@ -89,10 +89,10 @@ importers:
         version: 4.6.2(vite@7.3.6(@types/node@22.20.0)(sass@1.101.0)(yaml@2.9.0))(vue@3.5.39(typescript@5.9.3))
       '@vue/eslint-config-prettier':
         specifier: ^10.1.0
-        version: 10.2.0(eslint@9.39.4)(prettier@3.9.1)
+        version: 10.2.0(eslint@9.39.4(supports-color@8.1.1))(prettier@3.9.1)
       '@vue/eslint-config-typescript':
         specifier: ^14.2.0
-        version: 14.9.0(eslint-plugin-vue@9.33.0(eslint@9.39.4))(eslint@9.39.4)(typescript@5.9.3)
+        version: 14.9.0(eslint-plugin-vue@9.33.0(eslint@9.39.4(supports-color@8.1.1)))(eslint@9.39.4(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3)
       '@vue/test-utils':
         specifier: ^2.3.2
         version: 2.4.11(@vue/compiler-dom@3.5.39)(@vue/server-renderer@3.5.39(vue@3.5.39(typescript@5.9.3)))(vue@3.5.39(typescript@5.9.3))
@@ -113,10 +113,10 @@ importers:
         version: 34.3.1(vue@3.5.39(typescript@5.9.3))
       axios:
         specifier: ^1.16.0
-        version: 1.18.1(debug@4.4.3)
+        version: 1.18.1(supports-color@8.1.1)
       axios-mock-adapter:
         specifier: ^1.22.0
-        version: 1.22.0(axios@1.18.1)
+        version: 1.22.0(axios@1.18.1(supports-color@8.1.1))
       chromatic:
         specifier: ^6.17.3
         version: 6.24.1
@@ -131,16 +131,16 @@ importers:
         version: 2.30.0
       eslint:
         specifier: ^9.17.0
-        version: 9.39.4
+        version: 9.39.4(supports-color@8.1.1)
       eslint-plugin-import:
         specifier: ^2.31.0
-        version: 2.32.0(@typescript-eslint/parser@8.62.0(eslint@9.39.4)(typescript@5.9.3))(eslint@9.39.4)
+        version: 2.32.0(@typescript-eslint/parser@8.62.0(eslint@9.39.4(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3))(eslint@9.39.4(supports-color@8.1.1))(supports-color@8.1.1)
       eslint-plugin-vue:
         specifier: ^9.32.0
-        version: 9.33.0(eslint@9.39.4)
+        version: 9.33.0(eslint@9.39.4(supports-color@8.1.1))
       jsdom:
         specifier: ^27.3.0
-        version: 27.4.0
+        version: 27.4.0(supports-color@8.1.1)
       jsts:
         specifier: 2.7.2
         version: 2.7.2
@@ -200,13 +200,13 @@ importers:
         version: 1.101.0
       start-server-and-test:
         specifier: ^2.0.0
-        version: 2.1.5
+        version: 2.1.5(supports-color@8.1.1)
       storybook:
         specifier: ^8.6.17
-        version: 8.6.18(prettier@3.9.1)
+        version: 8.6.18(prettier@3.9.1)(supports-color@8.1.1)
       storybook-vue3-router:
         specifier: ^5.0.0
-        version: 5.1.0(@storybook/preview-api@8.6.18(storybook@8.6.18(prettier@3.9.1)))(@storybook/vue3@8.6.18(storybook@8.6.18(prettier@3.9.1))(vue@3.5.39(typescript@5.9.3)))(vue@3.5.39(typescript@5.9.3))
+        version: 5.1.0(@storybook/preview-api@8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1)))(@storybook/vue3@8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))(vue@3.5.39(typescript@5.9.3)))(vue-router@4.6.4(vue@3.5.39(typescript@5.9.3)))(vue@3.5.39(typescript@5.9.3))
       tslib:
         specifier: ^2.5.0
         version: 2.8.1
@@ -221,19 +221,22 @@ importers:
         version: 1.0.6(vite@7.3.6(@types/node@22.20.0)(sass@1.101.0)(yaml@2.9.0))
       vitest:
         specifier: ^4.1.0
-        version: 4.1.9(@types/node@22.20.0)(jsdom@27.4.0)(vite@7.3.6(@types/node@22.20.0)(sass@1.101.0)(yaml@2.9.0))
+        version: 4.1.9(@types/node@22.20.0)(jsdom@27.4.0(supports-color@8.1.1))(vite@7.3.6(@types/node@22.20.0)(sass@1.101.0)(yaml@2.9.0))
       vue:
         specifier: ^3.5.13
         version: 3.5.39(typescript@5.9.3)
       vue-eslint-parser:
         specifier: ^9.1.1
-        version: 9.4.3(eslint@9.39.4)
+        version: 9.4.3(eslint@9.39.4(supports-color@8.1.1))
       vue-i18n:
         specifier: ^11.4.5
         version: 11.4.6(vue@3.5.39(typescript@5.9.3))
       vue-quilly:
         specifier: ^1.0.5
         version: 1.1.6(typescript@5.9.3)
+      vue-router:
+        specifier: ^4.6.4
+        version: 4.6.4(vue@3.5.39(typescript@5.9.3))
       vue-tsc:
         specifier: ^2.2.0
         version: 2.2.12(typescript@5.9.3)
@@ -4510,6 +4513,11 @@ packages:
   vue-quilly@1.1.6:
     resolution: {integrity: sha512-tbEvbuhrNVs1w4sC/kmjj7no+/dRhZ+DptdompIPAxhsOTTmv6UyAOJluJydYdfdG64Mv7j2X2tA99/1s+RfAQ==}
 
+  vue-router@4.6.4:
+    resolution: {integrity: sha512-Hz9q5sa33Yhduglwz6g9skT8OBPii+4bFn88w6J+J4MfEo4KRRpmiNG/hHHkdbRFlLBOqxN8y8gf2Fb0MTUgVg==}
+    peerDependencies:
+      vue: ^3.5.0
+
   vue-tsc@2.2.12:
     resolution: {integrity: sha512-P7OP77b2h/Pmk+lZdJ0YWs+5tJ6J2+uOQPo7tlBnY44QqQSPYvS0qVT4wqDJgwrZaLe47etJLLQRFia71GYITw==}
     hasBin: true
@@ -4744,7 +4752,7 @@ snapshots:
       '@babel/parser': 7.29.7
       '@babel/types': 7.29.7
 
-  '@babel/traverse@7.29.7':
+  '@babel/traverse@7.29.7(supports-color@8.1.1)':
     dependencies:
       '@babel/code-frame': 7.29.7
       '@babel/generator': 7.29.7
@@ -4971,12 +4979,12 @@ snapshots:
 
   '@eslint-community/eslint-utils@4.9.1(eslint@9.39.4)':
     dependencies:
-      eslint: 9.39.4
+      eslint: 9.39.4(supports-color@8.1.1)
       eslint-visitor-keys: 3.4.3
 
   '@eslint-community/regexpp@4.12.2': {}
 
-  '@eslint/config-array@0.21.2':
+  '@eslint/config-array@0.21.2(supports-color@8.1.1)':
     dependencies:
       '@eslint/object-schema': 2.1.7
       debug: 4.4.3(supports-color@8.1.1)
@@ -4992,7 +5000,7 @@ snapshots:
     dependencies:
       '@types/json-schema': 7.0.15
 
-  '@eslint/eslintrc@3.3.5':
+  '@eslint/eslintrc@3.3.5(supports-color@8.1.1)':
     dependencies:
       ajv: 6.15.0
       debug: 4.4.3(supports-color@8.1.1)
@@ -5107,7 +5115,7 @@ snapshots:
 
   '@intlify/shared@11.4.6': {}
 
-  '@intlify/unplugin-vue-i18n@11.2.4(@vue/compiler-dom@3.5.39)(eslint@9.39.4)(rollup@4.62.2)(typescript@5.9.3)(vite@7.3.6(@types/node@22.20.0)(sass@1.101.0)(yaml@2.9.0))(vue-i18n@11.4.6(vue@3.5.39(typescript@5.9.3)))(vue@3.5.39(typescript@5.9.3))':
+  '@intlify/unplugin-vue-i18n@11.2.4(@vue/compiler-dom@3.5.39)(eslint@9.39.4(supports-color@8.1.1))(rollup@4.62.2)(supports-color@8.1.1)(typescript@5.9.3)(vite@7.3.6(@types/node@22.20.0)(sass@1.101.0)(yaml@2.9.0))(vue-i18n@11.4.6(vue@3.5.39(typescript@5.9.3)))(vue@3.5.39(typescript@5.9.3))':
     dependencies:
       '@eslint-community/eslint-utils': 4.9.1(eslint@9.39.4)
       '@intlify/bundle-utils': 11.2.4(vue-i18n@11.4.6(vue@3.5.39(typescript@5.9.3)))
@@ -5367,137 +5375,137 @@ snapshots:
 
   '@standard-schema/spec@1.1.0': {}
 
-  '@storybook/addon-actions@8.6.18(storybook@8.6.18(prettier@3.9.1))':
+  '@storybook/addon-actions@8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))':
     dependencies:
       '@storybook/global': 5.0.0
       '@types/uuid': 9.0.8
       dequal: 2.0.3
       polished: 4.3.1
-      storybook: 8.6.18(prettier@3.9.1)
+      storybook: 8.6.18(prettier@3.9.1)(supports-color@8.1.1)
       uuid: 9.0.1
 
-  '@storybook/addon-backgrounds@8.6.18(storybook@8.6.18(prettier@3.9.1))':
+  '@storybook/addon-backgrounds@8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))':
     dependencies:
       '@storybook/global': 5.0.0
       memoizerific: 1.11.3
-      storybook: 8.6.18(prettier@3.9.1)
+      storybook: 8.6.18(prettier@3.9.1)(supports-color@8.1.1)
       ts-dedent: 2.3.0
 
-  '@storybook/addon-controls@8.6.18(storybook@8.6.18(prettier@3.9.1))':
+  '@storybook/addon-controls@8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))':
     dependencies:
       '@storybook/global': 5.0.0
       dequal: 2.0.3
-      storybook: 8.6.18(prettier@3.9.1)
+      storybook: 8.6.18(prettier@3.9.1)(supports-color@8.1.1)
       ts-dedent: 2.3.0
 
-  '@storybook/addon-docs@8.6.18(@types/react@19.2.17)(storybook@8.6.18(prettier@3.9.1))':
+  '@storybook/addon-docs@8.6.18(@types/react@19.2.17)(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))':
     dependencies:
       '@mdx-js/react': 3.1.1(@types/react@19.2.17)(react@19.2.7)
-      '@storybook/blocks': 8.6.18(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@8.6.18(prettier@3.9.1))
-      '@storybook/csf-plugin': 8.6.18(storybook@8.6.18(prettier@3.9.1))
-      '@storybook/react-dom-shim': 8.6.18(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@8.6.18(prettier@3.9.1))
+      '@storybook/blocks': 8.6.18(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))
+      '@storybook/csf-plugin': 8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))
+      '@storybook/react-dom-shim': 8.6.18(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
-      storybook: 8.6.18(prettier@3.9.1)
+      storybook: 8.6.18(prettier@3.9.1)(supports-color@8.1.1)
       ts-dedent: 2.3.0
     transitivePeerDependencies:
       - '@types/react'
 
-  '@storybook/addon-essentials@8.6.18(@types/react@19.2.17)(storybook@8.6.18(prettier@3.9.1))':
+  '@storybook/addon-essentials@8.6.18(@types/react@19.2.17)(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))':
     dependencies:
-      '@storybook/addon-actions': 8.6.18(storybook@8.6.18(prettier@3.9.1))
-      '@storybook/addon-backgrounds': 8.6.18(storybook@8.6.18(prettier@3.9.1))
-      '@storybook/addon-controls': 8.6.18(storybook@8.6.18(prettier@3.9.1))
-      '@storybook/addon-docs': 8.6.18(@types/react@19.2.17)(storybook@8.6.18(prettier@3.9.1))
-      '@storybook/addon-highlight': 8.6.18(storybook@8.6.18(prettier@3.9.1))
-      '@storybook/addon-measure': 8.6.18(storybook@8.6.18(prettier@3.9.1))
-      '@storybook/addon-outline': 8.6.18(storybook@8.6.18(prettier@3.9.1))
-      '@storybook/addon-toolbars': 8.6.18(storybook@8.6.18(prettier@3.9.1))
-      '@storybook/addon-viewport': 8.6.18(storybook@8.6.18(prettier@3.9.1))
-      storybook: 8.6.18(prettier@3.9.1)
+      '@storybook/addon-actions': 8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))
+      '@storybook/addon-backgrounds': 8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))
+      '@storybook/addon-controls': 8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))
+      '@storybook/addon-docs': 8.6.18(@types/react@19.2.17)(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))
+      '@storybook/addon-highlight': 8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))
+      '@storybook/addon-measure': 8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))
+      '@storybook/addon-outline': 8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))
+      '@storybook/addon-toolbars': 8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))
+      '@storybook/addon-viewport': 8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))
+      storybook: 8.6.18(prettier@3.9.1)(supports-color@8.1.1)
       ts-dedent: 2.3.0
     transitivePeerDependencies:
       - '@types/react'
 
-  '@storybook/addon-highlight@8.6.18(storybook@8.6.18(prettier@3.9.1))':
+  '@storybook/addon-highlight@8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))':
     dependencies:
       '@storybook/global': 5.0.0
-      storybook: 8.6.18(prettier@3.9.1)
+      storybook: 8.6.18(prettier@3.9.1)(supports-color@8.1.1)
 
-  '@storybook/addon-interactions@8.6.18(storybook@8.6.18(prettier@3.9.1))':
+  '@storybook/addon-interactions@8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))':
     dependencies:
       '@storybook/global': 5.0.0
-      '@storybook/instrumenter': 8.6.18(storybook@8.6.18(prettier@3.9.1))
-      '@storybook/test': 8.6.18(storybook@8.6.18(prettier@3.9.1))
+      '@storybook/instrumenter': 8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))
+      '@storybook/test': 8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))
       polished: 4.3.1
-      storybook: 8.6.18(prettier@3.9.1)
+      storybook: 8.6.18(prettier@3.9.1)(supports-color@8.1.1)
       ts-dedent: 2.3.0
 
-  '@storybook/addon-links@8.6.18(react@19.2.7)(storybook@8.6.18(prettier@3.9.1))':
+  '@storybook/addon-links@8.6.18(react@19.2.7)(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))':
     dependencies:
       '@storybook/global': 5.0.0
-      storybook: 8.6.18(prettier@3.9.1)
+      storybook: 8.6.18(prettier@3.9.1)(supports-color@8.1.1)
       ts-dedent: 2.3.0
     optionalDependencies:
       react: 19.2.7
 
-  '@storybook/addon-mdx-gfm@8.6.18(storybook@8.6.18(prettier@3.9.1))':
+  '@storybook/addon-mdx-gfm@8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      remark-gfm: 4.0.1
-      storybook: 8.6.18(prettier@3.9.1)
+      remark-gfm: 4.0.1(supports-color@8.1.1)
+      storybook: 8.6.18(prettier@3.9.1)(supports-color@8.1.1)
       ts-dedent: 2.3.0
     transitivePeerDependencies:
       - supports-color
 
-  '@storybook/addon-measure@8.6.18(storybook@8.6.18(prettier@3.9.1))':
+  '@storybook/addon-measure@8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))':
     dependencies:
       '@storybook/global': 5.0.0
-      storybook: 8.6.18(prettier@3.9.1)
+      storybook: 8.6.18(prettier@3.9.1)(supports-color@8.1.1)
       tiny-invariant: 1.3.3
 
-  '@storybook/addon-outline@8.6.18(storybook@8.6.18(prettier@3.9.1))':
+  '@storybook/addon-outline@8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))':
     dependencies:
       '@storybook/global': 5.0.0
-      storybook: 8.6.18(prettier@3.9.1)
+      storybook: 8.6.18(prettier@3.9.1)(supports-color@8.1.1)
       ts-dedent: 2.3.0
 
-  '@storybook/addon-toolbars@8.6.18(storybook@8.6.18(prettier@3.9.1))':
+  '@storybook/addon-toolbars@8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))':
     dependencies:
-      storybook: 8.6.18(prettier@3.9.1)
+      storybook: 8.6.18(prettier@3.9.1)(supports-color@8.1.1)
 
-  '@storybook/addon-viewport@8.6.18(storybook@8.6.18(prettier@3.9.1))':
+  '@storybook/addon-viewport@8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))':
     dependencies:
       memoizerific: 1.11.3
-      storybook: 8.6.18(prettier@3.9.1)
+      storybook: 8.6.18(prettier@3.9.1)(supports-color@8.1.1)
 
-  '@storybook/blocks@8.6.18(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@8.6.18(prettier@3.9.1))':
+  '@storybook/blocks@8.6.18(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))':
     dependencies:
       '@storybook/icons': 1.6.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      storybook: 8.6.18(prettier@3.9.1)
+      storybook: 8.6.18(prettier@3.9.1)(supports-color@8.1.1)
       ts-dedent: 2.3.0
     optionalDependencies:
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
 
-  '@storybook/builder-vite@8.6.18(storybook@8.6.18(prettier@3.9.1))(vite@7.3.6(@types/node@22.20.0)(sass@1.101.0)(yaml@2.9.0))':
+  '@storybook/builder-vite@8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))(vite@7.3.6(@types/node@22.20.0)(sass@1.101.0)(yaml@2.9.0))':
     dependencies:
-      '@storybook/csf-plugin': 8.6.18(storybook@8.6.18(prettier@3.9.1))
+      '@storybook/csf-plugin': 8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))
       browser-assert: 1.2.1
-      storybook: 8.6.18(prettier@3.9.1)
+      storybook: 8.6.18(prettier@3.9.1)(supports-color@8.1.1)
       ts-dedent: 2.3.0
       vite: 7.3.6(@types/node@22.20.0)(sass@1.101.0)(yaml@2.9.0)
 
-  '@storybook/components@8.6.18(storybook@8.6.18(prettier@3.9.1))':
+  '@storybook/components@8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))':
     dependencies:
-      storybook: 8.6.18(prettier@3.9.1)
+      storybook: 8.6.18(prettier@3.9.1)(supports-color@8.1.1)
 
-  '@storybook/core@8.6.18(prettier@3.9.1)(storybook@8.6.18(prettier@3.9.1))':
+  '@storybook/core@8.6.18(prettier@3.9.1)(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@storybook/theming': 8.6.18(storybook@8.6.18(prettier@3.9.1))
+      '@storybook/theming': 8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))
       better-opn: 3.0.2
       browser-assert: 1.2.1
       esbuild: 0.25.12
-      esbuild-register: 3.6.0(esbuild@0.25.12)
+      esbuild-register: 3.6.0(esbuild@0.25.12)(supports-color@8.1.1)
       jsdoc-type-pratt-parser: 4.8.0
       process: 0.11.10
       recast: 0.23.12
@@ -5512,9 +5520,9 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@storybook/csf-plugin@8.6.18(storybook@8.6.18(prettier@3.9.1))':
+  '@storybook/csf-plugin@8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))':
     dependencies:
-      storybook: 8.6.18(prettier@3.9.1)
+      storybook: 8.6.18(prettier@3.9.1)(supports-color@8.1.1)
       unplugin: 1.16.1
 
   '@storybook/global@5.0.0': {}
@@ -5524,36 +5532,36 @@ snapshots:
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
 
-  '@storybook/instrumenter@8.6.18(storybook@8.6.18(prettier@3.9.1))':
+  '@storybook/instrumenter@8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))':
     dependencies:
       '@storybook/global': 5.0.0
       '@vitest/utils': 2.1.9
-      storybook: 8.6.18(prettier@3.9.1)
+      storybook: 8.6.18(prettier@3.9.1)(supports-color@8.1.1)
 
-  '@storybook/manager-api@8.6.18(storybook@8.6.18(prettier@3.9.1))':
+  '@storybook/manager-api@8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))':
     dependencies:
-      storybook: 8.6.18(prettier@3.9.1)
+      storybook: 8.6.18(prettier@3.9.1)(supports-color@8.1.1)
 
-  '@storybook/preview-api@8.6.18(storybook@8.6.18(prettier@3.9.1))':
+  '@storybook/preview-api@8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))':
     dependencies:
-      storybook: 8.6.18(prettier@3.9.1)
+      storybook: 8.6.18(prettier@3.9.1)(supports-color@8.1.1)
 
-  '@storybook/react-dom-shim@8.6.18(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@8.6.18(prettier@3.9.1))':
+  '@storybook/react-dom-shim@8.6.18(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))':
     dependencies:
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
-      storybook: 8.6.18(prettier@3.9.1)
+      storybook: 8.6.18(prettier@3.9.1)(supports-color@8.1.1)
 
-  '@storybook/test@8.6.18(storybook@8.6.18(prettier@3.9.1))':
+  '@storybook/test@8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))':
     dependencies:
       '@storybook/global': 5.0.0
-      '@storybook/instrumenter': 8.6.18(storybook@8.6.18(prettier@3.9.1))
+      '@storybook/instrumenter': 8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))
       '@testing-library/dom': 10.4.0
       '@testing-library/jest-dom': 6.5.0
       '@testing-library/user-event': 14.5.2(@testing-library/dom@10.4.0)
       '@vitest/expect': 2.0.5
       '@vitest/spy': 2.0.5
-      storybook: 8.6.18(prettier@3.9.1)
+      storybook: 8.6.18(prettier@3.9.1)(supports-color@8.1.1)
 
   '@storybook/testing-library@0.2.2':
     dependencies:
@@ -5561,17 +5569,17 @@ snapshots:
       '@testing-library/user-event': 14.6.1(@testing-library/dom@9.3.4)
       ts-dedent: 2.3.0
 
-  '@storybook/theming@8.6.18(storybook@8.6.18(prettier@3.9.1))':
+  '@storybook/theming@8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))':
     dependencies:
-      storybook: 8.6.18(prettier@3.9.1)
+      storybook: 8.6.18(prettier@3.9.1)(supports-color@8.1.1)
 
-  '@storybook/vue3-vite@8.6.18(storybook@8.6.18(prettier@3.9.1))(vite@7.3.6(@types/node@22.20.0)(sass@1.101.0)(yaml@2.9.0))(vue@3.5.39(typescript@5.9.3))':
+  '@storybook/vue3-vite@8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))(vite@7.3.6(@types/node@22.20.0)(sass@1.101.0)(yaml@2.9.0))(vue@3.5.39(typescript@5.9.3))':
     dependencies:
-      '@storybook/builder-vite': 8.6.18(storybook@8.6.18(prettier@3.9.1))(vite@7.3.6(@types/node@22.20.0)(sass@1.101.0)(yaml@2.9.0))
-      '@storybook/vue3': 8.6.18(storybook@8.6.18(prettier@3.9.1))(vue@3.5.39(typescript@5.9.3))
+      '@storybook/builder-vite': 8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))(vite@7.3.6(@types/node@22.20.0)(sass@1.101.0)(yaml@2.9.0))
+      '@storybook/vue3': 8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))(vue@3.5.39(typescript@5.9.3))
       find-package-json: 1.2.0
       magic-string: 0.30.21
-      storybook: 8.6.18(prettier@3.9.1)
+      storybook: 8.6.18(prettier@3.9.1)(supports-color@8.1.1)
       typescript: 5.9.3
       vite: 7.3.6(@types/node@22.20.0)(sass@1.101.0)(yaml@2.9.0)
       vue-component-meta: 2.2.12(typescript@5.9.3)
@@ -5579,15 +5587,15 @@ snapshots:
     transitivePeerDependencies:
       - vue
 
-  '@storybook/vue3@8.6.18(storybook@8.6.18(prettier@3.9.1))(vue@3.5.39(typescript@5.9.3))':
+  '@storybook/vue3@8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))(vue@3.5.39(typescript@5.9.3))':
     dependencies:
-      '@storybook/components': 8.6.18(storybook@8.6.18(prettier@3.9.1))
+      '@storybook/components': 8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))
       '@storybook/global': 5.0.0
-      '@storybook/manager-api': 8.6.18(storybook@8.6.18(prettier@3.9.1))
-      '@storybook/preview-api': 8.6.18(storybook@8.6.18(prettier@3.9.1))
-      '@storybook/theming': 8.6.18(storybook@8.6.18(prettier@3.9.1))
+      '@storybook/manager-api': 8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))
+      '@storybook/preview-api': 8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))
+      '@storybook/theming': 8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))
       '@vue/compiler-core': 3.5.39
-      storybook: 8.6.18(prettier@3.9.1)
+      storybook: 8.6.18(prettier@3.9.1)(supports-color@8.1.1)
       ts-dedent: 2.3.0
       type-fest: 2.19.0
       vue: 3.5.39(typescript@5.9.3)
@@ -5633,11 +5641,11 @@ snapshots:
     dependencies:
       '@testing-library/dom': 9.3.4
 
-  '@trivago/prettier-plugin-sort-imports@6.0.2(@vue/compiler-sfc@3.5.39)(prettier@3.9.1)':
+  '@trivago/prettier-plugin-sort-imports@6.0.2(@vue/compiler-sfc@3.5.39)(prettier@3.9.1)(supports-color@8.1.1)':
     dependencies:
       '@babel/generator': 7.29.7
       '@babel/parser': 7.29.7
-      '@babel/traverse': 7.29.7
+      '@babel/traverse': 7.29.7(supports-color@8.1.1)
       '@babel/types': 7.29.7
       javascript-natural-sort: 0.7.1
       lodash-es: 4.18.1
@@ -5723,15 +5731,15 @@ snapshots:
       '@types/node': 22.20.0
     optional: true
 
-  '@typescript-eslint/eslint-plugin@8.62.0(@typescript-eslint/parser@8.62.0(eslint@9.39.4)(typescript@5.9.3))(eslint@9.39.4)(typescript@5.9.3)':
+  '@typescript-eslint/eslint-plugin@8.62.0(@typescript-eslint/parser@8.62.0(eslint@9.39.4(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3))(eslint@9.39.4(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3)':
     dependencies:
       '@eslint-community/regexpp': 4.12.2
-      '@typescript-eslint/parser': 8.62.0(eslint@9.39.4)(typescript@5.9.3)
+      '@typescript-eslint/parser': 8.62.0(eslint@9.39.4(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3)
       '@typescript-eslint/scope-manager': 8.62.0
-      '@typescript-eslint/type-utils': 8.62.0(eslint@9.39.4)(typescript@5.9.3)
-      '@typescript-eslint/utils': 8.62.0(eslint@9.39.4)(typescript@5.9.3)
+      '@typescript-eslint/type-utils': 8.62.0(eslint@9.39.4(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3)
+      '@typescript-eslint/utils': 8.62.0(eslint@9.39.4(supports-color@8.1.1))(typescript@5.9.3)
       '@typescript-eslint/visitor-keys': 8.62.0
-      eslint: 9.39.4
+      eslint: 9.39.4(supports-color@8.1.1)
       ignore: 7.0.5
       natural-compare: 1.4.0
       ts-api-utils: 2.5.0(typescript@5.9.3)
@@ -5739,14 +5747,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/parser@8.62.0(eslint@9.39.4)(typescript@5.9.3)':
+  '@typescript-eslint/parser@8.62.0(eslint@9.39.4(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3)':
     dependencies:
       '@typescript-eslint/scope-manager': 8.62.0
       '@typescript-eslint/types': 8.62.0
       '@typescript-eslint/typescript-estree': 8.62.0(typescript@5.9.3)
       '@typescript-eslint/visitor-keys': 8.62.0
       debug: 4.4.3(supports-color@8.1.1)
-      eslint: 9.39.4
+      eslint: 9.39.4(supports-color@8.1.1)
       typescript: 5.9.3
     transitivePeerDependencies:
       - supports-color
@@ -5769,13 +5777,13 @@ snapshots:
     dependencies:
       typescript: 5.9.3
 
-  '@typescript-eslint/type-utils@8.62.0(eslint@9.39.4)(typescript@5.9.3)':
+  '@typescript-eslint/type-utils@8.62.0(eslint@9.39.4(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3)':
     dependencies:
       '@typescript-eslint/types': 8.62.0
       '@typescript-eslint/typescript-estree': 8.62.0(typescript@5.9.3)
-      '@typescript-eslint/utils': 8.62.0(eslint@9.39.4)(typescript@5.9.3)
+      '@typescript-eslint/utils': 8.62.0(eslint@9.39.4(supports-color@8.1.1))(typescript@5.9.3)
       debug: 4.4.3(supports-color@8.1.1)
-      eslint: 9.39.4
+      eslint: 9.39.4(supports-color@8.1.1)
       ts-api-utils: 2.5.0(typescript@5.9.3)
       typescript: 5.9.3
     transitivePeerDependencies:
@@ -5798,13 +5806,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/utils@8.62.0(eslint@9.39.4)(typescript@5.9.3)':
+  '@typescript-eslint/utils@8.62.0(eslint@9.39.4(supports-color@8.1.1))(typescript@5.9.3)':
     dependencies:
       '@eslint-community/eslint-utils': 4.9.1(eslint@9.39.4)
       '@typescript-eslint/scope-manager': 8.62.0
       '@typescript-eslint/types': 8.62.0
       '@typescript-eslint/typescript-estree': 8.62.0(typescript@5.9.3)
-      eslint: 9.39.4
+      eslint: 9.39.4(supports-color@8.1.1)
       typescript: 5.9.3
     transitivePeerDependencies:
       - supports-color
@@ -5941,23 +5949,23 @@ snapshots:
 
   '@vue/devtools-api@6.6.4': {}
 
-  '@vue/eslint-config-prettier@10.2.0(eslint@9.39.4)(prettier@3.9.1)':
+  '@vue/eslint-config-prettier@10.2.0(eslint@9.39.4(supports-color@8.1.1))(prettier@3.9.1)':
     dependencies:
-      eslint: 9.39.4
-      eslint-config-prettier: 10.1.8(eslint@9.39.4)
-      eslint-plugin-prettier: 5.5.6(eslint-config-prettier@10.1.8(eslint@9.39.4))(eslint@9.39.4)(prettier@3.9.1)
+      eslint: 9.39.4(supports-color@8.1.1)
+      eslint-config-prettier: 10.1.8(eslint@9.39.4(supports-color@8.1.1))
+      eslint-plugin-prettier: 5.5.6(eslint-config-prettier@10.1.8(eslint@9.39.4(supports-color@8.1.1)))(eslint@9.39.4(supports-color@8.1.1))(prettier@3.9.1)
       prettier: 3.9.1
     transitivePeerDependencies:
       - '@types/eslint'
 
-  '@vue/eslint-config-typescript@14.9.0(eslint-plugin-vue@9.33.0(eslint@9.39.4))(eslint@9.39.4)(typescript@5.9.3)':
+  '@vue/eslint-config-typescript@14.9.0(eslint-plugin-vue@9.33.0(eslint@9.39.4(supports-color@8.1.1)))(eslint@9.39.4(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3)':
     dependencies:
-      '@typescript-eslint/utils': 8.62.0(eslint@9.39.4)(typescript@5.9.3)
-      eslint: 9.39.4
-      eslint-plugin-vue: 9.33.0(eslint@9.39.4)
+      '@typescript-eslint/utils': 8.62.0(eslint@9.39.4(supports-color@8.1.1))(typescript@5.9.3)
+      eslint: 9.39.4(supports-color@8.1.1)
+      eslint-plugin-vue: 9.33.0(eslint@9.39.4(supports-color@8.1.1))
       fast-glob: 3.3.3
-      typescript-eslint: 8.62.0(eslint@9.39.4)(typescript@5.9.3)
-      vue-eslint-parser: 10.4.1(eslint@9.39.4)
+      typescript-eslint: 8.62.0(eslint@9.39.4(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3)
+      vue-eslint-parser: 10.4.1(eslint@9.39.4(supports-color@8.1.1))(supports-color@8.1.1)
     optionalDependencies:
       typescript: 5.9.3
     transitivePeerDependencies:
@@ -6064,7 +6072,7 @@ snapshots:
       ag-grid-community: 34.3.1
       vue: 3.5.39(typescript@5.9.3)
 
-  agent-base@6.0.2:
+  agent-base@6.0.2(supports-color@8.1.1):
     dependencies:
       debug: 4.4.3(supports-color@8.1.1)
     transitivePeerDependencies:
@@ -6213,17 +6221,27 @@ snapshots:
 
   aws4@1.13.2: {}
 
-  axios-mock-adapter@1.22.0(axios@1.18.1):
+  axios-mock-adapter@1.22.0(axios@1.18.1(supports-color@8.1.1)):
     dependencies:
-      axios: 1.18.1(debug@4.4.3)
+      axios: 1.18.1(supports-color@8.1.1)
       fast-deep-equal: 3.1.3
       is-buffer: 2.0.5
 
-  axios@1.18.1(debug@4.4.3):
+  axios@1.18.1(debug@4.4.3(supports-color@8.1.1)):
     dependencies:
-      follow-redirects: 1.16.0(debug@4.4.3)
+      follow-redirects: 1.16.0(debug@4.4.3(supports-color@8.1.1))
       form-data: 4.0.6
-      https-proxy-agent: 5.0.1
+      https-proxy-agent: 5.0.1(supports-color@8.1.1)
+      proxy-from-env: 2.1.0
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+
+  axios@1.18.1(supports-color@8.1.1):
+    dependencies:
+      follow-redirects: 1.16.0(debug@4.4.3(supports-color@8.1.1))
+      form-data: 4.0.6
+      https-proxy-agent: 5.0.1(supports-color@8.1.1)
       proxy-from-env: 2.1.0
     transitivePeerDependencies:
       - debug
@@ -6795,7 +6813,7 @@ snapshots:
       is-date-object: 1.1.0
       is-symbol: 1.1.1
 
-  esbuild-register@3.6.0(esbuild@0.25.12):
+  esbuild-register@3.6.0(esbuild@0.25.12)(supports-color@8.1.1):
     dependencies:
       debug: 4.4.3(supports-color@8.1.1)
       esbuild: 0.25.12
@@ -6876,11 +6894,11 @@ snapshots:
     optionalDependencies:
       source-map: 0.6.1
 
-  eslint-config-prettier@10.1.8(eslint@9.39.4):
+  eslint-config-prettier@10.1.8(eslint@9.39.4(supports-color@8.1.1)):
     dependencies:
-      eslint: 9.39.4
+      eslint: 9.39.4(supports-color@8.1.1)
 
-  eslint-import-resolver-node@0.3.10:
+  eslint-import-resolver-node@0.3.10(supports-color@8.1.1):
     dependencies:
       debug: 3.2.7(supports-color@8.1.1)
       is-core-module: 2.16.2
@@ -6888,17 +6906,17 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-module-utils@2.13.0(@typescript-eslint/parser@8.62.0(eslint@9.39.4)(typescript@5.9.3))(eslint-import-resolver-node@0.3.10)(eslint@9.39.4):
+  eslint-module-utils@2.13.0(@typescript-eslint/parser@8.62.0(eslint@9.39.4(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3))(eslint-import-resolver-node@0.3.10(supports-color@8.1.1))(eslint@9.39.4(supports-color@8.1.1))(supports-color@8.1.1):
     dependencies:
       debug: 3.2.7(supports-color@8.1.1)
     optionalDependencies:
-      '@typescript-eslint/parser': 8.62.0(eslint@9.39.4)(typescript@5.9.3)
-      eslint: 9.39.4
-      eslint-import-resolver-node: 0.3.10
+      '@typescript-eslint/parser': 8.62.0(eslint@9.39.4(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3)
+      eslint: 9.39.4(supports-color@8.1.1)
+      eslint-import-resolver-node: 0.3.10(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.62.0(eslint@9.39.4)(typescript@5.9.3))(eslint@9.39.4):
+  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.62.0(eslint@9.39.4(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3))(eslint@9.39.4(supports-color@8.1.1))(supports-color@8.1.1):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.9
@@ -6907,9 +6925,9 @@ snapshots:
       array.prototype.flatmap: 1.3.3
       debug: 3.2.7(supports-color@8.1.1)
       doctrine: 2.1.0
-      eslint: 9.39.4
-      eslint-import-resolver-node: 0.3.10
-      eslint-module-utils: 2.13.0(@typescript-eslint/parser@8.62.0(eslint@9.39.4)(typescript@5.9.3))(eslint-import-resolver-node@0.3.10)(eslint@9.39.4)
+      eslint: 9.39.4(supports-color@8.1.1)
+      eslint-import-resolver-node: 0.3.10(supports-color@8.1.1)
+      eslint-module-utils: 2.13.0(@typescript-eslint/parser@8.62.0(eslint@9.39.4(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3))(eslint-import-resolver-node@0.3.10(supports-color@8.1.1))(eslint@9.39.4(supports-color@8.1.1))(supports-color@8.1.1)
       hasown: 2.0.4
       is-core-module: 2.16.2
       is-glob: 4.0.3
@@ -6921,31 +6939,31 @@ snapshots:
       string.prototype.trimend: 1.0.10
       tsconfig-paths: 3.15.0
     optionalDependencies:
-      '@typescript-eslint/parser': 8.62.0(eslint@9.39.4)(typescript@5.9.3)
+      '@typescript-eslint/parser': 8.62.0(eslint@9.39.4(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3)
     transitivePeerDependencies:
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-plugin-prettier@5.5.6(eslint-config-prettier@10.1.8(eslint@9.39.4))(eslint@9.39.4)(prettier@3.9.1):
+  eslint-plugin-prettier@5.5.6(eslint-config-prettier@10.1.8(eslint@9.39.4(supports-color@8.1.1)))(eslint@9.39.4(supports-color@8.1.1))(prettier@3.9.1):
     dependencies:
-      eslint: 9.39.4
+      eslint: 9.39.4(supports-color@8.1.1)
       prettier: 3.9.1
       prettier-linter-helpers: 1.0.1
       synckit: 0.11.13
     optionalDependencies:
-      eslint-config-prettier: 10.1.8(eslint@9.39.4)
+      eslint-config-prettier: 10.1.8(eslint@9.39.4(supports-color@8.1.1))
 
-  eslint-plugin-vue@9.33.0(eslint@9.39.4):
+  eslint-plugin-vue@9.33.0(eslint@9.39.4(supports-color@8.1.1)):
     dependencies:
       '@eslint-community/eslint-utils': 4.9.1(eslint@9.39.4)
-      eslint: 9.39.4
+      eslint: 9.39.4(supports-color@8.1.1)
       globals: 13.24.0
       natural-compare: 1.4.0
       nth-check: 2.1.1
       postcss-selector-parser: 6.1.4
       semver: 7.8.5
-      vue-eslint-parser: 9.4.3(eslint@9.39.4)
+      vue-eslint-parser: 9.4.3(eslint@9.39.4(supports-color@8.1.1))
       xml-name-validator: 4.0.0
     transitivePeerDependencies:
       - supports-color
@@ -6973,14 +6991,14 @@ snapshots:
 
   eslint-visitor-keys@5.0.1: {}
 
-  eslint@9.39.4:
+  eslint@9.39.4(supports-color@8.1.1):
     dependencies:
       '@eslint-community/eslint-utils': 4.9.1(eslint@9.39.4)
       '@eslint-community/regexpp': 4.12.2
-      '@eslint/config-array': 0.21.2
+      '@eslint/config-array': 0.21.2(supports-color@8.1.1)
       '@eslint/config-helpers': 0.4.2
       '@eslint/core': 0.17.0
-      '@eslint/eslintrc': 3.3.5
+      '@eslint/eslintrc': 3.3.5(supports-color@8.1.1)
       '@eslint/js': 9.39.4
       '@eslint/plugin-kit': 0.4.1
       '@humanfs/node': 0.16.8
@@ -7164,7 +7182,7 @@ snapshots:
 
   flatted@3.4.2: {}
 
-  follow-redirects@1.16.0(debug@4.4.3):
+  follow-redirects@1.16.0(debug@4.4.3(supports-color@8.1.1)):
     optionalDependencies:
       debug: 4.4.3(supports-color@8.1.1)
 
@@ -7357,7 +7375,7 @@ snapshots:
     transitivePeerDependencies:
       - '@noble/hashes'
 
-  http-proxy-agent@7.0.2:
+  http-proxy-agent@7.0.2(supports-color@8.1.1):
     dependencies:
       agent-base: 7.1.4
       debug: 4.4.3(supports-color@8.1.1)
@@ -7370,14 +7388,14 @@ snapshots:
       jsprim: 2.0.2
       sshpk: 1.18.0
 
-  https-proxy-agent@5.0.1:
+  https-proxy-agent@5.0.1(supports-color@8.1.1):
     dependencies:
-      agent-base: 6.0.2
+      agent-base: 6.0.2(supports-color@8.1.1)
       debug: 4.4.3(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
-  https-proxy-agent@7.0.6:
+  https-proxy-agent@7.0.6(supports-color@8.1.1):
     dependencies:
       agent-base: 7.1.4
       debug: 4.4.3(supports-color@8.1.1)
@@ -7622,7 +7640,7 @@ snapshots:
 
   jsdoc-type-pratt-parser@4.8.0: {}
 
-  jsdom@27.4.0:
+  jsdom@27.4.0(supports-color@8.1.1):
     dependencies:
       '@acemir/cssom': 0.9.31
       '@asamuzakjp/dom-selector': 6.8.1
@@ -7631,8 +7649,8 @@ snapshots:
       data-urls: 6.0.1
       decimal.js: 10.6.0
       html-encoding-sniffer: 6.0.0
-      http-proxy-agent: 7.0.2
-      https-proxy-agent: 7.0.6
+      http-proxy-agent: 7.0.2(supports-color@8.1.1)
+      https-proxy-agent: 7.0.6(supports-color@8.1.1)
       is-potential-custom-element-name: 1.0.1
       parse5: 8.0.1
       saxes: 6.0.0
@@ -7795,14 +7813,14 @@ snapshots:
       unist-util-is: 6.0.1
       unist-util-visit-parents: 6.0.2
 
-  mdast-util-from-markdown@2.0.3:
+  mdast-util-from-markdown@2.0.3(supports-color@8.1.1):
     dependencies:
       '@types/mdast': 4.0.4
       '@types/unist': 3.0.3
       decode-named-character-reference: 1.3.0
       devlop: 1.1.0
       mdast-util-to-string: 4.0.0
-      micromark: 4.0.2
+      micromark: 4.0.2(supports-color@8.1.1)
       micromark-util-decode-numeric-character-reference: 2.0.2
       micromark-util-decode-string: 2.0.1
       micromark-util-normalize-identifier: 2.0.1
@@ -7824,7 +7842,7 @@ snapshots:
     dependencies:
       '@types/mdast': 4.0.4
       devlop: 1.1.0
-      mdast-util-from-markdown: 2.0.3
+      mdast-util-from-markdown: 2.0.3(supports-color@8.1.1)
       mdast-util-to-markdown: 2.1.2
       micromark-util-normalize-identifier: 2.0.1
     transitivePeerDependencies:
@@ -7833,7 +7851,7 @@ snapshots:
   mdast-util-gfm-strikethrough@2.0.0:
     dependencies:
       '@types/mdast': 4.0.4
-      mdast-util-from-markdown: 2.0.3
+      mdast-util-from-markdown: 2.0.3(supports-color@8.1.1)
       mdast-util-to-markdown: 2.1.2
     transitivePeerDependencies:
       - supports-color
@@ -7843,7 +7861,7 @@ snapshots:
       '@types/mdast': 4.0.4
       devlop: 1.1.0
       markdown-table: 3.0.4
-      mdast-util-from-markdown: 2.0.3
+      mdast-util-from-markdown: 2.0.3(supports-color@8.1.1)
       mdast-util-to-markdown: 2.1.2
     transitivePeerDependencies:
       - supports-color
@@ -7852,14 +7870,14 @@ snapshots:
     dependencies:
       '@types/mdast': 4.0.4
       devlop: 1.1.0
-      mdast-util-from-markdown: 2.0.3
+      mdast-util-from-markdown: 2.0.3(supports-color@8.1.1)
       mdast-util-to-markdown: 2.1.2
     transitivePeerDependencies:
       - supports-color
 
-  mdast-util-gfm@3.1.0:
+  mdast-util-gfm@3.1.0(supports-color@8.1.1):
     dependencies:
-      mdast-util-from-markdown: 2.0.3
+      mdast-util-from-markdown: 2.0.3(supports-color@8.1.1)
       mdast-util-gfm-autolink-literal: 2.0.1
       mdast-util-gfm-footnote: 2.1.0
       mdast-util-gfm-strikethrough: 2.0.0
@@ -8073,7 +8091,7 @@ snapshots:
 
   micromark-util-types@2.0.2: {}
 
-  micromark@4.0.2:
+  micromark@4.0.2(supports-color@8.1.1):
     dependencies:
       '@types/debug': 4.1.13
       debug: 4.4.3(supports-color@8.1.1)
@@ -8594,10 +8612,10 @@ snapshots:
       gopd: 1.2.0
       set-function-name: 2.0.2
 
-  remark-gfm@4.0.1:
+  remark-gfm@4.0.1(supports-color@8.1.1):
     dependencies:
       '@types/mdast': 4.0.4
-      mdast-util-gfm: 3.1.0
+      mdast-util-gfm: 3.1.0(supports-color@8.1.1)
       micromark-extension-gfm: 3.0.0
       remark-parse: 11.0.0
       remark-stringify: 11.0.0
@@ -8608,7 +8626,7 @@ snapshots:
   remark-parse@11.0.0:
     dependencies:
       '@types/mdast': 4.0.4
-      mdast-util-from-markdown: 2.0.3
+      mdast-util-from-markdown: 2.0.3(supports-color@8.1.1)
       micromark-util-types: 2.0.2
       unified: 11.0.5
     transitivePeerDependencies:
@@ -8883,7 +8901,7 @@ snapshots:
 
   stackback@0.0.2: {}
 
-  start-server-and-test@2.1.5:
+  start-server-and-test@2.1.5(supports-color@8.1.1):
     dependencies:
       arg: 5.0.2
       bluebird: 3.7.2
@@ -8892,7 +8910,7 @@ snapshots:
       execa: 5.1.1
       lazy-ass: 1.6.0
       ps-tree: 1.2.0
-      wait-on: 9.0.4(debug@4.4.3)
+      wait-on: 9.0.4(debug@4.4.3(supports-color@8.1.1))
     transitivePeerDependencies:
       - supports-color
 
@@ -8903,16 +8921,17 @@ snapshots:
       es-errors: 1.3.0
       internal-slot: 1.1.0
 
-  storybook-vue3-router@5.1.0(@storybook/preview-api@8.6.18(storybook@8.6.18(prettier@3.9.1)))(@storybook/vue3@8.6.18(storybook@8.6.18(prettier@3.9.1))(vue@3.5.39(typescript@5.9.3)))(vue@3.5.39(typescript@5.9.3)):
+  storybook-vue3-router@5.1.0(@storybook/preview-api@8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1)))(@storybook/vue3@8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))(vue@3.5.39(typescript@5.9.3)))(vue-router@4.6.4(vue@3.5.39(typescript@5.9.3)))(vue@3.5.39(typescript@5.9.3)):
     dependencies:
-      '@storybook/preview-api': 8.6.18(storybook@8.6.18(prettier@3.9.1))
-      '@storybook/vue3': 8.6.18(storybook@8.6.18(prettier@3.9.1))(vue@3.5.39(typescript@5.9.3))
+      '@storybook/preview-api': 8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))
+      '@storybook/vue3': 8.6.18(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))(vue@3.5.39(typescript@5.9.3))
     optionalDependencies:
       vue: 3.5.39(typescript@5.9.3)
+      vue-router: 4.6.4(vue@3.5.39(typescript@5.9.3))
 
-  storybook@8.6.18(prettier@3.9.1):
+  storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1):
     dependencies:
-      '@storybook/core': 8.6.18(prettier@3.9.1)(storybook@8.6.18(prettier@3.9.1))
+      '@storybook/core': 8.6.18(prettier@3.9.1)(storybook@8.6.18(prettier@3.9.1)(supports-color@8.1.1))(supports-color@8.1.1)
     optionalDependencies:
       prettier: 3.9.1
     transitivePeerDependencies:
@@ -9134,13 +9153,13 @@ snapshots:
       possible-typed-array-names: 1.1.0
       reflect.getprototypeof: 1.0.10
 
-  typescript-eslint@8.62.0(eslint@9.39.4)(typescript@5.9.3):
+  typescript-eslint@8.62.0(eslint@9.39.4(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3):
     dependencies:
-      '@typescript-eslint/eslint-plugin': 8.62.0(@typescript-eslint/parser@8.62.0(eslint@9.39.4)(typescript@5.9.3))(eslint@9.39.4)(typescript@5.9.3)
-      '@typescript-eslint/parser': 8.62.0(eslint@9.39.4)(typescript@5.9.3)
+      '@typescript-eslint/eslint-plugin': 8.62.0(@typescript-eslint/parser@8.62.0(eslint@9.39.4(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3))(eslint@9.39.4(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3)
+      '@typescript-eslint/parser': 8.62.0(eslint@9.39.4(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3)
       '@typescript-eslint/typescript-estree': 8.62.0(typescript@5.9.3)
-      '@typescript-eslint/utils': 8.62.0(eslint@9.39.4)(typescript@5.9.3)
-      eslint: 9.39.4
+      '@typescript-eslint/utils': 8.62.0(eslint@9.39.4(supports-color@8.1.1))(typescript@5.9.3)
+      eslint: 9.39.4(supports-color@8.1.1)
       typescript: 5.9.3
     transitivePeerDependencies:
       - supports-color
@@ -9266,7 +9285,7 @@ snapshots:
       sass: 1.101.0
       yaml: 2.9.0
 
-  vitest@4.1.9(@types/node@22.20.0)(jsdom@27.4.0)(vite@7.3.6(@types/node@22.20.0)(sass@1.101.0)(yaml@2.9.0)):
+  vitest@4.1.9(@types/node@22.20.0)(jsdom@27.4.0(supports-color@8.1.1))(vite@7.3.6(@types/node@22.20.0)(sass@1.101.0)(yaml@2.9.0)):
     dependencies:
       '@vitest/expect': 4.1.9
       '@vitest/mocker': 4.1.9(vite@7.3.6(@types/node@22.20.0)(sass@1.101.0)(yaml@2.9.0))
@@ -9290,7 +9309,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.20.0
-      jsdom: 27.4.0
+      jsdom: 27.4.0(supports-color@8.1.1)
     transitivePeerDependencies:
       - msw
 
@@ -9335,10 +9354,10 @@ snapshots:
       vue: 3.5.39(typescript@5.9.3)
       vue-inbrowser-compiler-independent-utils: 4.71.1(vue@3.5.39(typescript@5.9.3))
 
-  vue-eslint-parser@10.4.1(eslint@9.39.4):
+  vue-eslint-parser@10.4.1(eslint@9.39.4(supports-color@8.1.1))(supports-color@8.1.1):
     dependencies:
       debug: 4.4.3(supports-color@8.1.1)
-      eslint: 9.39.4
+      eslint: 9.39.4(supports-color@8.1.1)
       eslint-scope: 9.1.2
       eslint-visitor-keys: 5.0.1
       espree: 11.2.0
@@ -9347,10 +9366,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vue-eslint-parser@9.4.3(eslint@9.39.4):
+  vue-eslint-parser@9.4.3(eslint@9.39.4(supports-color@8.1.1)):
     dependencies:
       debug: 4.4.3(supports-color@8.1.1)
-      eslint: 9.39.4
+      eslint: 9.39.4(supports-color@8.1.1)
       eslint-scope: 7.2.2
       eslint-visitor-keys: 3.4.3
       espree: 9.6.1
@@ -9379,6 +9398,11 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
+  vue-router@4.6.4(vue@3.5.39(typescript@5.9.3)):
+    dependencies:
+      '@vue/devtools-api': 6.6.4
+      vue: 3.5.39(typescript@5.9.3)
+
   vue-tsc@2.2.12(typescript@5.9.3):
     dependencies:
       '@volar/typescript': 2.4.15
@@ -9399,9 +9423,9 @@ snapshots:
     dependencies:
       xml-name-validator: 5.0.0
 
-  wait-on@9.0.4(debug@4.4.3):
+  wait-on@9.0.4(debug@4.4.3(supports-color@8.1.1)):
     dependencies:
-      axios: 1.18.1(debug@4.4.3)
+      axios: 1.18.1(debug@4.4.3(supports-color@8.1.1))
       joi: 18.2.3
       lodash: 4.18.1
       minimist: 1.2.8
