@@ -45,19 +45,19 @@ src/
 
 ```bash
 # Install dependencies
-yarn install
+pnpm install
 
 # Start Storybook (development environment)
-yarn dev
+pnpm dev
 
 # Run tests
-yarn test
+pnpm test
 
 # Type check
-yarn type-check
+pnpm type-check
 
 # Build
-yarn build
+pnpm build
 ```
 
 ## ✨ Adding a New Component
@@ -331,13 +331,13 @@ cy.get('[data-cy=submit-button]').click();
 
 ```bash
 # Run all tests
-yarn test
+pnpm test
 
 # Open Cypress UI
-yarn test:unit:dev
+pnpm test:unit:dev
 
 # Run specific test
-yarn test:unit --spec "src/__tests__/core/Button.cy.ts"
+pnpm test:unit --spec "src/__tests__/core/Button.cy.ts"
 ```
 
 ## 🎨 Styling Guidelines
@@ -384,20 +384,20 @@ yarn test:unit --spec "src/__tests__/core/Button.cy.ts"
 
 ```bash
 # 1. Type check
-yarn type-check
+pnpm type-check
 
 # 2. Run tests
-yarn test
+pnpm test
 
 # 3. Build
-yarn build
+pnpm build
 
 # 4. Verify build output
 ls -la dist/
 cat dist/core.d.ts  # Check types are generated
 
 # 5. Check bundle sizes
-yarn build
+pnpm build
 # Review dist/stats.html
 ```
 
@@ -413,13 +413,13 @@ yarn build
 
 ```bash
 # Patch (bug fixes)
-yarn version --patch
+pnpm version patch
 
 # Minor (new features, backward compatible)
-yarn version --minor
+pnpm version minor
 
 # Major (breaking changes)
-yarn version --major
+pnpm version major
 ```
 
 ## 🐛 Common Issues
@@ -431,7 +431,7 @@ yarn version --major
 **Solution:**
 
 1. Use relative imports in entry files
-2. Run `yarn build` to regenerate
+2. Run `pnpm build` to regenerate
 3. Check `dist/*.d.ts` for correct paths
 
 ### Bundle Size Too Large

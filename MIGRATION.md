@@ -120,12 +120,12 @@ Ensure all component references in your templates and code use the `Oe` prefix:
 
 ```bash
 # Core dependencies (always required)
-yarn add vue@^3.4.0 pinia@^2.1.7 vue-i18n@^9.0.0 lodash-es@^4.17.21
-yarn add @govflanders/vl-ui-design-system-vue3@~8.0.2
-yarn add @govflanders/vl-ui-design-system-style@~3.2.3
-yarn add @fortawesome/fontawesome-svg-core@^6.4.0
-yarn add @fortawesome/free-solid-svg-icons@^6.4.0
-yarn add @fortawesome/vue-fontawesome@^3.1.2
+pnpm add vue@^3.4.0 pinia@^2.1.7 vue-i18n@^9.0.0 lodash-es@^4.17.21
+pnpm add @govflanders/vl-ui-design-system-vue3@~8.0.2
+pnpm add @govflanders/vl-ui-design-system-style@~3.2.3
+pnpm add @fortawesome/fontawesome-svg-core@^6.4.0
+pnpm add @fortawesome/free-solid-svg-icons@^6.4.0
+pnpm add @fortawesome/vue-fontawesome@^3.1.2
 ```
 
 ### Step 5: Install Optional Dependencies (Only What You Need)
@@ -134,35 +134,35 @@ Based on which modules you're using:
 
 ```bash
 # If using core module
-yarn add @vueuse/core@^10.0.0
-yarn add @soerenmartius/vue3-clipboard@^1.0.0
+pnpm add @vueuse/core@^10.0.0
+pnpm add @soerenmartius/vue3-clipboard@^1.0.0
 
 # If using forms module
-yarn add @vuelidate/core@^2.0.2 @vuelidate/validators@^2.0.2
-yarn add date-fns@^2.30.0 libphonenumber-js@^1.10.37
+pnpm add @vuelidate/core@^2.0.2 @vuelidate/validators@^2.0.2
+pnpm add date-fns@^2.30.0 libphonenumber-js@^1.10.37
 
 # If using address module
-yarn add axios@^1.12.0
-yarn add ol@^7.4.0  # Also needed for address autocomplete
+pnpm add axios@^1.12.0
+pnpm add ol@^7.4.0  # Also needed for address autocomplete
 
 # If using grid module
-yarn add ag-grid-vue3@^34.0.0
+pnpm add ag-grid-vue3@^34.0.0
 
 # If using map module
-yarn add ol@^7.4.0 jsts@2.7.2 proj4@^2.9.0
+pnpm add ol@^7.4.0 jsts@2.7.2 proj4@^2.9.0
 
 # If using editor module (Quill)
-yarn add quill@^2.0.0 quill-html-edit-button@^3.0.0
-yarn add quill-toggle-fullscreen-button@^0.1.3 vue-quilly@^1.0.5
-yarn add parchment@^3.0.0 fast-diff@^1.3.0
-yarn add lodash.clonedeep@^4.5.0 lodash.isequal@^4.5.0 quill-delta@^5.1.0
+pnpm add quill@^2.0.0 quill-html-edit-button@^3.0.0
+pnpm add quill-toggle-fullscreen-button@^0.1.3 vue-quilly@^1.0.5
+pnpm add parchment@^3.0.0 fast-diff@^1.3.0
+pnpm add lodash.clonedeep@^4.5.0 lodash.isequal@^4.5.0 quill-delta@^5.1.0
 ```
 
 ### Step 6: Test Your Application
 
 ```bash
-yarn dev
-yarn build
+pnpm dev
+pnpm build
 ```
 
 Check that:
@@ -456,7 +456,7 @@ Use your bundler's analysis tool:
 
 ```bash
 # For Vite
-yarn build
+pnpm build
 # Check dist/stats.html
 ```
 

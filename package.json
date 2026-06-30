@@ -78,19 +78,19 @@
   ],
   "engines": {
     "node": ">=22.0.0",
-    "yarn": ">=1.22.0"
+    "pnpm": ">=11.8.0"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
   "scripts": {
-    "ci": "yarn install --frozen-lockfile",
-    "dev": "yarn storybook",
-    "build": "yarn type-check && yarn build-only && yarn type-generation",
+    "ci": "pnpm install --frozen-lockfile",
+    "dev": "pnpm storybook",
+    "build": "pnpm type-check && pnpm build-only && pnpm type-generation",
     "build:watch": "run-p type-check build-only:watch",
     "build-only": "vite build",
     "build-only:watch": "vite build --watch",
-    "test": "yarn test:unit && yarn test:vitest",
+    "test": "pnpm test:unit && pnpm test:vitest",
     "test:unit": "cypress run --component --browser=chrome",
     "test:unit:dev": "cypress open --component",
     "test:vitest": "vitest run",
@@ -187,9 +187,6 @@
       "optional": true
     }
   },
-  "resolutions": {
-    "vite": "^7.3.2"
-  },
   "devDependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
@@ -265,5 +262,5 @@
     "vue-quilly": "^1.0.5",
     "vue-tsc": "^2.2.0"
   },
-  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
+  "packageManager": "pnpm@11.8.0"
 }

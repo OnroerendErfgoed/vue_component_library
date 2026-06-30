@@ -1,0 +1,10 @@
+shamefullyHoist: true
+
+overrides:
+  vite: "^7.3.2"
+
+allowBuilds:
+  '@parcel/watcher': true
+  cypress: true
+  esbuild: true
+  vue-demi: true
