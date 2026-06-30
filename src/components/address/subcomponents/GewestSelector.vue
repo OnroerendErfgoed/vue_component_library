@@ -30,12 +30,12 @@ import { computed } from 'vue';
 import type { IGewest } from '@models/locatie';
 
 interface GewestSelectorProps {
-  modelValue: string | IGewest | undefined;
-  options: IGewest[];
-  disabled: boolean;
-  modError: boolean;
-  optionsLimit: number;
-  readMode: boolean;
+  modelValue?: string | IGewest | undefined;
+  options?: IGewest[];
+  disabled?: boolean;
+  modError?: boolean;
+  optionsLimit?: number;
+  readMode?: boolean;
 }
 
 const props = withDefaults(defineProps<GewestSelectorProps>(), {

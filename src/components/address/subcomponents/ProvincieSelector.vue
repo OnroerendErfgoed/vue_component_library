@@ -31,12 +31,12 @@ import { computed } from 'vue';
 import type { IProvincie } from '@models/locatie';
 
 interface ProvincieSelectorProps {
-  modelValue: string | IProvincie | undefined;
-  options: IProvincie[];
-  disabled: boolean;
-  modError: boolean;
-  optionsLimit: number;
-  readMode: boolean;
+  modelValue?: string | IProvincie | undefined;
+  options?: IProvincie[];
+  disabled?: boolean;
+  modError?: boolean;
+  optionsLimit?: number;
+  readMode?: boolean;
 }
 
 const props = withDefaults(defineProps<ProvincieSelectorProps>(), {

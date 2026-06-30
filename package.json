@@ -194,7 +194,6 @@
     "@fortawesome/vue-fontawesome": "^3.3.0",
     "@govflanders/vl-ui-design-system-vue3": "^8.4.2",
     "@intlify/unplugin-vue-i18n": "^11.2.4",
-    "@rushstack/eslint-patch": "^1.16.1",
     "@soerenmartius/vue3-clipboard": "^0.1.2",
     "@storybook/addon-essentials": "^8.6.18",
     "@storybook/addon-interactions": "^8.6.18",
@@ -226,9 +225,8 @@
     "cypress": "15.18.0",
     "cypress-watch-and-reload": "^1.10.20",
     "date-fns": "^2.30.0",
-    "eslint": "^9.39.4",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-vue": "^9.33.0",
+    "eslint": "^10.6.0",
+    "eslint-plugin-vue": "^10.9.2",
     "jsdom": "^27.4.0",
     "jsts": "2.7.2",
     "libphonenumber-js": "^1.13.7",
@@ -258,11 +256,11 @@
     "vite-plugin-static-copy": "^1.0.6",
     "vitest": "^4.1.9",
     "vue": "^3.5.39",
-    "vue-eslint-parser": "^9.4.3",
+    "vue-eslint-parser": "^10.4.1",
     "vue-i18n": "^11.4.6",
     "vue-quilly": "^1.1.6",
     "vue-router": "^4.6.4",
     "vue-tsc": "^2.2.12"
   },
-  "packageManager": "pnpm@11.8.0"
+  "packageManager": "pnpm@11.9.0+sha512.bd682d5d03fe525ef7c9fd6780c6884d1e756ac4c9c9fe00c538782824310dcf90e3ddc4f53835f06dfaebd5085e41855e0bcbb3b60de2ac5bbab89e5036f03b"
 }

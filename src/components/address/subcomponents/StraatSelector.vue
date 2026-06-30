@@ -61,13 +61,13 @@ defineOptions({
 });
 
 interface StraatSelectorProps {
-  modelValue: string | IStraat | undefined;
-  options: IStraat[];
-  disabled: boolean;
-  modError: boolean;
-  optionsLimit: number;
-  isVlaamseGemeenteOrEmpty: boolean;
-  readMode: boolean;
+  modelValue?: string | IStraat | undefined;
+  options?: IStraat[];
+  disabled?: boolean;
+  modError?: boolean;
+  optionsLimit?: number;
+  isVlaamseGemeenteOrEmpty?: boolean;
+  readMode?: boolean;
 }
 
 const props = withDefaults(defineProps<StraatSelectorProps>(), {
