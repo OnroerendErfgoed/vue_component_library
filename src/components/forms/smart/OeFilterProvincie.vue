@@ -1,5 +1,6 @@
 <template>
   <VlMultiselect
+    id="filter-provincie"
     data-cy="filter-provincie"
     placeholder="Provincie"
     label="naam"

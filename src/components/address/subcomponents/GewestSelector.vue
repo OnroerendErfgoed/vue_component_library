@@ -1,6 +1,7 @@
 <template>
   <VlMultiselect
     v-if="!readMode"
+    id="select-gewest"
     v-model="modelValueComputed"
     data-cy="select-gewest"
     placeholder="Gewest"

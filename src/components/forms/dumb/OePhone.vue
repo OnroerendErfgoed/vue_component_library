@@ -3,6 +3,7 @@
     <div :class="prefixClass" data-cy="prefix">
       <VlMultiselect
         v-bind="$attrs"
+        :id="`${props.id}-country-code`"
         v-model="countryCode"
         class="vl-u-spacer-right--xxsmall"
         data-cy="country-code"
