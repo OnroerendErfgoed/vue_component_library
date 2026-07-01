@@ -1,3 +1,200 @@
+# Migration Guide: v4 to v5
+
+## Overview
+
+Version 5.0 bumps all major peer dependencies and removes the deprecated `OeTinyMCE` component. No architectural changes — the modular import paths introduced in v4 remain identical.
+
+## Breaking Changes
+
+### 1. `OeTinyMCE` removed
+
+`OeTinyMCE` has been removed from the `/editor` module. Switch to `OeEditor` (Quill-based), which has been the primary editor since v4.
+
+```typescript
+// Before
+import { OeTinyMCE } from '@OnroerendErfgoed/vue_component_library/editor';
+
+// After
+import { OeEditor } from '@OnroerendErfgoed/vue_component_library/editor';
+```
+
+The `@tinymce/tinymce-vue` peer dependency is no longer needed and can be removed.
+
+### 2. FontAwesome 6 → 7
+
+Update your peer dependencies:
+
+```bash
+pnpm add @fortawesome/fontawesome-svg-core@^7.3.0
+pnpm add @fortawesome/free-solid-svg-icons@^7.3.0
+```
+
+FontAwesome 7 renamed and reorganised several icons. Check the [FontAwesome 7 upgrade guide](https://docs.fontawesome.com/web/setup/upgrade/) for icon name changes — if any icons you import directly have been renamed, update those imports.
+
+### 3. ag-Grid 34 → 36
+
+Update your peer dependency:
+
+```bash
+pnpm add ag-grid-vue3@^36.0.0
+```
+
+**DOM structure changed.** The `.ag-center-cols-container` and `.ag-center-cols-viewport` CSS classes no longer exist. If you have custom CSS or Cypress/Playwright selectors targeting these classes:
+
+```css
+/* Before */
+.ag-center-cols-container { min-height: 40px; }
+
+/* After — target rows directly or the new scrolling container */
+.ag-grid-scrolling-rows { min-height: 40px; }
+ag-row-container { min-height: 40px; } /* custom element, no dot */
+```
+
+For test selectors that counted or clicked rows:
+
+```typescript
+// Before
+cy.get('.ag-center-cols-container').children().should('have.length', 2);
+cy.get('.ag-center-cols-container').children().first().click();
+
+// After
+cy.get('.ag-row').should('have.length', 2);
+cy.get('.ag-row').first().click();
+```
+
+### 4. OpenLayers 7 → 10
+
+Update your peer dependency:
+
+```bash
+pnpm add ol@^10.9.0
+```
+
+**TypeScript generic change.** `VectorSource<T>` now requires `T extends FeatureLike` (i.e. `Feature`) instead of `T extends Geometry`. Update any explicit type annotations:
+
+```typescript
+// Before
+const source = layer.getSource() as VectorSource<Geometry>;
+
+// After
+import Feature from 'ol/Feature';
+const source = layer.getSource() as VectorSource<Feature<Geometry>>;
+```
+
+**`MapBrowserEvent` constraint tightened.** The generic parameter is now restricted to `KeyboardEvent | PointerEvent | WheelEvent` (was `UIEvent`):
+
+```typescript
+// Before
+const onClick = (evt: MapBrowserEvent<UIEvent>) => { ... };
+
+// After
+const onClick = (evt: MapBrowserEvent<KeyboardEvent | PointerEvent | WheelEvent>) => { ... };
+```
+
+### 5. date-fns 2 → 4
+
+Update your peer dependency:
+
+```bash
+pnpm add date-fns@^4.4.0
+```
+
+date-fns v4 drops CommonJS exports (ESM only) and revamps locale handling. Most function signatures are unchanged, but if you use locales:
+
+```typescript
+// Before (v2)
+import { format } from 'date-fns';
+import { nl } from 'date-fns/locale';
+format(date, 'PP', { locale: nl });
+
+// After (v4) — same API, but locale imports moved
+import { format } from 'date-fns';
+import { nl } from 'date-fns/locale/nl';
+format(date, 'PP', { locale: nl });
+```
+
+Check the [date-fns v4 release notes](https://date-fns.org/v4.1.0/docs/changelog) for the full list of removed functions.
+
+### 6. @vueuse/core 10 → 14
+
+Update your peer dependency:
+
+```bash
+pnpm add @vueuse/core@^14.3.0
+```
+
+`toRef` was removed from `@vueuse/core` in v11 (it's now only in Vue core). If you import it from `@vueuse/core`, move the import to `vue`:
+
+```typescript
+// Before
+import { toRef } from '@vueuse/core';
+
+// After
+import { toRef } from 'vue';
+```
+
+### 7. pinia 2 → 3
+
+Update your peer dependency:
+
+```bash
+pnpm add pinia@^3.0.0
+```
+
+Pinia 3 drops Vue 2 compatibility and tightens some typing. For most Composition API usage (`defineStore`, `storeToRefs`) there are no changes. Check the [pinia 3 changelog](https://github.com/vuejs/pinia/blob/v3/packages/pinia/CHANGELOG.md) if you use options-style stores or plugins.
+
+### 8. axios-mock-adapter 1 → 2
+
+If you use `axios-mock-adapter` directly (it is an optional peer dep for testing):
+
+```bash
+pnpm add axios-mock-adapter@^2.1.0
+```
+
+The v2 API is largely compatible. The main change is that the default export is now a named export:
+
+```typescript
+// Before
+import MockAdapter from 'axios-mock-adapter';
+
+// After (v2 still supports default import, but verify your bundler config)
+import MockAdapter from 'axios-mock-adapter';
+```
+
+## Updated Peer Dependency Install Commands
+
+### Required
+
+```bash
+pnpm add @govflanders/vl-ui-design-system-vue3@^8.2.0
+pnpm add @fortawesome/fontawesome-svg-core@^7.3.0
+pnpm add @fortawesome/free-solid-svg-icons@^7.3.0
+pnpm add @fortawesome/vue-fontawesome@^3.1.2
+pnpm add vue@^3.5.11 pinia@^3.0.0 vue-i18n@^11.4.5 lodash-es@^4.18.0
+```
+
+### Optional (by module)
+
+```bash
+# core
+pnpm add @vueuse/core@^14.3.0
+
+# forms
+pnpm add date-fns@^4.4.0
+
+# grid
+pnpm add ag-grid-vue3@^36.0.0
+
+# map
+pnpm add ol@^10.9.0 proj4@^2.9.0 jsts@2.7.2
+
+# editor
+pnpm add quill@^2.0.0 quill-html-edit-button@^3.0.0
+pnpm add quill-toggle-fullscreen-button@^0.1.3 vue-quilly@^1.0.5
+```
+
+---
+
 # Migration Guide: v3 to v4
 
 ## Overview

@@ -374,7 +374,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines on:
 
 ## 📖 Documentation
 
-- [Migration Guide v3 → v4](MIGRATION.md) - Upgrade from v3 to v4
+- [Migration Guide v4 → v5](MIGRATION.md) - Upgrade from v4 to v5
+- [Migration Guide v3 → v4](MIGRATION.md#migration-guide-v3-to-v4) - Upgrade from v3 to v4
 - [Contributing Guide](CONTRIBUTING.md) - Development guidelines
 
 ## 🔗 Links
