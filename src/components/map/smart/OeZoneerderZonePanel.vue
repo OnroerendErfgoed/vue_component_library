@@ -171,6 +171,7 @@ import {
   VlLink,
   VlTitle,
 } from '@govflanders/vl-ui-design-system-vue3';
+import Feature from 'ol/Feature';
 import Map from 'ol/Map';
 import MapBrowserEvent from 'ol/MapBrowserEvent';
 import { unByKey } from 'ol/Observable';
@@ -278,7 +279,7 @@ onUnmounted(() => {
 
 const grbService = new GrbApiService();
 const featureSelectCallback = (
-  evt: MapBrowserEvent<UIEvent>,
+  evt: MapBrowserEvent<KeyboardEvent | PointerEvent | WheelEvent>,
   featureTypes: string[],
   type: FeatureSelectEnum,
   featureProp: string
@@ -503,8 +504,8 @@ function startKunstwerkSelect() {
 
 function _createInteractions() {
   const drawInteractions = {
-    Circle: new Draw({ type: 'Circle', source: zoneLayer.getSource() as VectorSource }),
-    Polygon: new Draw({ type: 'Polygon', source: zoneLayer.getSource() as VectorSource }),
+    Circle: new Draw({ type: 'Circle', source: zoneLayer.getSource() as VectorSource<Feature<Geometry>> }),
+    Polygon: new Draw({ type: 'Polygon', source: zoneLayer.getSource() as VectorSource<Feature<Geometry>> }),
   };
 
   for (const [type, interaction] of Object.entries(drawInteractions)) {
@@ -551,8 +552,8 @@ function removeGeometryObject(name: string) {
 function flashFeature(featureName: string) {
   if (!flashLayer || !zoneLayer) return;
 
-  const flashSource = flashLayer.getSource() as VectorSource<Geometry>;
-  const zoneSource = zoneLayer.getSource() as VectorSource<Geometry>;
+  const flashSource = flashLayer.getSource() as VectorSource<Feature<Geometry>>;
+  const zoneSource = zoneLayer.getSource() as VectorSource<Feature<Geometry>>;
 
   if (flashSource.getFeatures().find((feature) => feature.getProperties().name === featureName)) return;
 

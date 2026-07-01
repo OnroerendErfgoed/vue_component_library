@@ -151,7 +151,7 @@ markerLayer.setStyle(
 );
 map.addLayer(markerLayer);
 
-const markerSource = markerLayer.getSource() as VectorSource<Geometry>;
+const markerSource = markerLayer.getSource() as VectorSource<Feature<Geometry>>;
 let drawInteraction: Draw | undefined;
 
 watch(
@@ -583,7 +583,7 @@ function zoneLayerToZone() {
 function addZoneToZoneLayer() {
   if (!zoneLayer) return;
 
-  const zoneSource = zoneLayer.getSource() as VectorSource<Geometry>;
+  const zoneSource = zoneLayer.getSource() as VectorSource<Feature<Geometry>>;
   zoneSource.getFeatures().forEach((feature) => {
     zoneSource.removeFeature(feature);
   });

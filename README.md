@@ -23,8 +23,8 @@ pnpm add @OnroerendErfgoed/vue_component_library
 pnpm add vue@^3.5.11 pinia@^3.0.0 vue-i18n@^11.4.5 lodash-es@^4.18.0
 pnpm add @govflanders/vl-ui-design-system-vue3@^8.2.0
 pnpm add @govflanders/vl-ui-design-system-style@~3.2.3
-pnpm add @fortawesome/fontawesome-svg-core@^6.4.0
-pnpm add @fortawesome/free-solid-svg-icons@^6.4.0
+pnpm add @fortawesome/fontawesome-svg-core@^7.3.0
+pnpm add @fortawesome/free-solid-svg-icons@^7.3.0
 pnpm add @fortawesome/vue-fontawesome@^3.1.2
 ```
 
@@ -47,10 +47,10 @@ pnpm add libphonenumber-js@^1.10.37
 pnpm add axios@^1.12.0
 
 # For grid module
-pnpm add ag-grid-vue3@^34.0.0
+pnpm add ag-grid-vue3@^36.0.0
 
 # For map module
-pnpm add ol@^7.4.0
+pnpm add ol@^10.9.0
 pnpm add jsts@2.7.2
 pnpm add proj4@^2.9.0
 
