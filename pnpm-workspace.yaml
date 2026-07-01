@@ -8,3 +8,7 @@ allowBuilds:
   cypress: true
   esbuild: true
   vue-demi: true
+
+minimumReleaseAgeExclude:
+  - '@vue/language-core@3.3.6'
+  - vue-tsc@3.3.6

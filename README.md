@@ -34,13 +34,13 @@ Install only what you need based on the modules you use:
 
 ```bash
 # For core module
-pnpm add @vueuse/core@^10.0.0
+pnpm add @vueuse/core@^14.3.0
 pnpm add @soerenmartius/vue3-clipboard@^0.1.2
 
 # For forms module
 pnpm add @vuelidate/core@^2.0.2
 pnpm add @vuelidate/validators@^2.0.2
-pnpm add date-fns@^2.30.0
+pnpm add date-fns@^4.4.0
 pnpm add libphonenumber-js@^1.10.37
 
 # For address module

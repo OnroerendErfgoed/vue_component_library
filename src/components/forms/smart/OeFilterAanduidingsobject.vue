@@ -13,8 +13,7 @@
 import OeAutocomplete from '../dumb/OeAutocomplete.vue';
 import { IAutocompleteOption } from '../models/autocomplete';
 import { IFilterAanduidingsobjectProps } from '../models/filter';
-import { toRef } from '@vueuse/core';
-import { ref, watch } from 'vue';
+import { ref, toRef, watch } from 'vue';
 import { InventarisApiService } from '@services/inventaris-api.service';
 import type { IESAanduidingsobject } from '@models/aanduidingsobject';
 
