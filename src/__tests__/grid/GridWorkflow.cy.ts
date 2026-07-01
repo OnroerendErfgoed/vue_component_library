@@ -91,7 +91,7 @@ describe('GridWorkflow - data', () => {
     mount(TestComponent, {
       props: { data: data, schema: schema },
     });
-    cy.dataCy('ag-grid-vue').find('.ag-center-cols-container').children().should('have.length', 2);
+    cy.dataCy('ag-grid-vue').find('.ag-row').should('have.length', 2);
   });
 });
 

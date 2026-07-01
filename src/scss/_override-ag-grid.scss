@@ -61,8 +61,8 @@
 
   // Override min-height for rows to ensure consistent row height and prevent whitespace using domLayout 'autoHeight'
   // Ensure minimum height for center columns to align with header when no rows are present
-  .ag-center-cols-container,
-  .ag-center-cols-viewport {
+  .ag-grid-scrolling-rows,
+  ag-row-container {
     min-height: 40px !important;
   }
 
