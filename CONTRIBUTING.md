@@ -58,6 +58,9 @@ pnpm type-check
 
 # Build
 pnpm build
+
+# Build and pack into a tarball (for local testing before publishing)
+pnpm package
 ```
 
 ## ✨ Adding a New Component

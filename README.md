@@ -322,9 +322,11 @@ pnpm dev
 ### Project Scripts
 
 ```bash
-pnpm dev              # Start Storybook
+pnpm dev              # Start Storybook dev server
 pnpm build            # Build library
-pnpm test             # Run Cypress component tests
+pnpm build-storybook  # Build Storybook static files
+pnpm package          # Build and pack into a tarball (for local testing before publishing)
+pnpm test             # Run all tests (Cypress + Vitest)
 pnpm test:unit:dev    # Open Cypress UI
 pnpm type-check       # TypeScript type checking
 pnpm lint             # Lint and fix code
