@@ -62,6 +62,28 @@ cy.get('.ag-row').should('have.length', 2);
 cy.get('.ag-row').first().click();
 ```
 
+**`.ag-body-viewport` and `.ag-body-container` removed.** If you have custom CSS targeting cells inside `.ag-body-viewport`, lift those selectors up:
+
+```css
+/* Before */
+.ag-body-viewport .acties-cell { justify-content: center; }
+.ag-body-viewport .ag-row-selected { background-color: silver; }
+
+/* After — target directly */
+.acties-cell { justify-content: center; }
+.ag-row-selected { background-color: silver; }
+```
+
+**Header background color moved to CSS variable.** Setting `background-color` on `.ag-header` no longer works — v36 applies the header background via `var(--ag-header-background-color)` on the inner scrolling cells. Override the variable instead:
+
+```css
+/* Before */
+.my-grid .ag-header { background-color: #eee; }
+
+/* After */
+.my-grid.ag-theme-balham { --ag-header-background-color: #eee; }
+```
+
 ### 4. OpenLayers 7 → 10
 
 Update your peer dependency:

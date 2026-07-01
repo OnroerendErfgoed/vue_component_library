@@ -10,6 +10,11 @@ import { AgGridVue } from 'ag-grid-vue3';
 @import '@OnroerendErfgoed/pyoes/scss/base-variables';
 
 .ag-grid-vue {
+  // ag-Grid v36 applies header background via CSS variable, not directly on .ag-header
+  &.ag-theme-balham {
+    --ag-header-background-color: #eee;
+  }
+
   .ag-ltr .ag-header-cell::after {
     display: none;
   }
@@ -35,8 +40,6 @@ import { AgGridVue } from 'ag-grid-vue3';
 
   .ag-root-wrapper {
     .ag-header {
-      background-color: #eee;
-
       .ag-header-row {
         border-bottom: 1px solid #ddd;
       }
@@ -98,49 +101,42 @@ import { AgGridVue } from 'ag-grid-vue3';
       color: $mid-purple;
     }
 
-    .ag-body-viewport {
-      .ag-body-container.ag-layout-auto-height {
-        display: block;
-        min-height: 0;
-        margin-bottom: 0;
+    // .ag-body-viewport and .ag-body-container are removed in ag-Grid v36
+    .ag-row-selected {
+      background-color: $silver;
+
+      .ag-cell .cell-checkbox:before {
+        content: '\f046';
+        font-family: 'FontAwesome';
       }
+    }
 
-      .ag-row-selected {
-        background-color: $silver;
+    .acties-cell {
+      justify-content: center;
 
-        .ag-cell .cell-checkbox:before {
-          content: '\f046';
-          font-family: 'FontAwesome';
-        }
-      }
+      i.fa,
+      a.fa {
+        cursor: pointer;
+        color: $dark-purple;
 
-      .acties-cell {
-        justify-content: center;
-
-        i.fa,
-        a.fa {
-          cursor: pointer;
-          color: $dark-purple;
-
-          + .fa {
-            margin-left: 5px;
-          }
+        + .fa {
+          margin-left: 5px;
         }
       }
+    }
 
-      .icon-cell {
-        display: flex;
-        justify-content: center;
+    .icon-cell {
+      display: flex;
+      justify-content: center;
 
-        i.fa.fa-check {
-          color: $success-color;
-          cursor: default;
-        }
+      i.fa.fa-check {
+        color: $success-color;
+        cursor: default;
+      }
 
-        i.fa.fa-times {
-          color: $alert-color;
-          cursor: default;
-        }
+      i.fa.fa-times {
+        color: $alert-color;
+        cursor: default;
       }
     }
   }
