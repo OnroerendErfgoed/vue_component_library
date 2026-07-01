@@ -115,11 +115,13 @@ import { AgGridVue } from 'ag-grid-vue3';
       justify-content: center;
 
       i.fa,
-      a.fa {
+      a.fa,
+      svg {
         cursor: pointer;
-        color: $dark-purple;
+        color: $primary-color;
 
-        + .fa {
+        + .fa,
+        + svg {
           margin-left: 5px;
         }
       }

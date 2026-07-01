@@ -363,8 +363,8 @@ Ensure all component references in your templates and code use the `Oe` prefix:
 
 ```bash
 # Core dependencies (always required)
-pnpm add vue@^3.5.11 pinia@^3.0.0 vue-i18n@^11.4.5 lodash-es@^4.18.0
-pnpm add @govflanders/vl-ui-design-system-vue3@^8.2.0
+pnpm add vue@^3.4.0 pinia@^2.1.7 vue-i18n@^9.0.0 lodash-es@^4.17.21
+pnpm add @govflanders/vl-ui-design-system-vue3@~8.0.2
 pnpm add @govflanders/vl-ui-design-system-style@~3.2.3
 pnpm add @fortawesome/fontawesome-svg-core@^6.4.0
 pnpm add @fortawesome/free-solid-svg-icons@^6.4.0
