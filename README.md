@@ -35,7 +35,6 @@ Install only what you need based on the modules you use:
 ```bash
 # For core module
 pnpm add @vueuse/core@^14.3.0
-pnpm add @soerenmartius/vue3-clipboard@^0.1.2
 
 # For forms module
 pnpm add @vuelidate/core@^2.0.2

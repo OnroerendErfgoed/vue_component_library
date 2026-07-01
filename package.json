@@ -125,7 +125,6 @@
     "@fortawesome/free-solid-svg-icons": "^7.3.0",
     "@fortawesome/vue-fontawesome": "^3.1.2",
     "@govflanders/vl-ui-design-system-vue3": "^8.2.0",
-    "@soerenmartius/vue3-clipboard": "^0.1.2",
     "@vuelidate/core": "^2.0.2",
     "@vuelidate/validators": "^2.0.2",
     "@vueuse/core": "^14.3.0",
@@ -190,9 +189,6 @@
     "vue-quilly": {
       "optional": true
     },
-    "@soerenmartius/vue3-clipboard": {
-      "optional": true
-    },
     "@vueuse/core": {
       "optional": true
     },
@@ -206,7 +202,6 @@
     "@fortawesome/vue-fontawesome": "^3.3.0",
     "@govflanders/vl-ui-design-system-vue3": "^8.4.2",
     "@intlify/unplugin-vue-i18n": "^11.2.4",
-    "@soerenmartius/vue3-clipboard": "^0.1.2",
     "@storybook/addon-docs": "^10.4.6",
     "@storybook/addon-links": "^10.4.6",
     "@storybook/builder-vite": "^10.4.6",

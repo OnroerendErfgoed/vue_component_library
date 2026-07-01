@@ -143,7 +143,31 @@ pnpm add pinia@^3.0.0
 
 Pinia 3 drops Vue 2 compatibility and tightens some typing. For most Composition API usage (`defineStore`, `storeToRefs`) there are no changes. Check the [pinia 3 changelog](https://github.com/vuejs/pinia/blob/v3/packages/pinia/CHANGELOG.md) if you use options-style stores or plugins.
 
-### 8. axios-mock-adapter 1 → 2
+### 8. `@soerenmartius/vue3-clipboard` removed
+
+`OeClipboardCopy` now uses `useClipboard` from `@vueuse/core` (already a required peer dep for the core module). The `@soerenmartius/vue3-clipboard` peer dependency is no longer needed:
+
+```bash
+# Remove from your project
+pnpm remove @soerenmartius/vue3-clipboard
+```
+
+If you use `@soerenmartius/vue3-clipboard` directly in your own code, replace it with `useClipboard` from `@vueuse/core`:
+
+```typescript
+// Before
+import { toClipboard } from '@soerenmartius/vue3-clipboard';
+await toClipboard('text to copy');
+
+// After
+import { useClipboard } from '@vueuse/core';
+const { copy } = useClipboard();
+await copy('text to copy');
+```
+
+**Minor behaviour change**: the check icon in `OeClipboardCopy` now shows for 1500 ms (vueuse default) instead of 1000 ms.
+
+### 9. axios-mock-adapter 1 → 2
 
 If you use `axios-mock-adapter` directly (it is an optional peer dep for testing):
 
