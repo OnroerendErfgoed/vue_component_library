@@ -14,8 +14,8 @@ import { onBeforeMount, ref } from 'vue';
 import { axiosInstance } from '@services/http.service';
 
 interface IOeInventarisLink {
-  links: ILinks;
-  getSsoToken: () => Promise<string>;
+  links?: ILinks;
+  getSsoToken?: () => Promise<string>;
 }
 
 const props = withDefaults(defineProps<IOeInventarisLink>(), {
@@ -28,6 +28,7 @@ const gebeurtenissen = ref<IInventarisLinkGebeurtenis[] | []>([]);
 const loading = ref(false);
 
 onBeforeMount(async () => {
+  if (!props.links || !props.getSsoToken) return;
   const options = {
     headers: {
       Authorization: `Bearer ${await props.getSsoToken()}`,

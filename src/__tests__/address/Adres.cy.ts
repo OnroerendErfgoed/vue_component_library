@@ -577,6 +577,29 @@ describe('Adres', () => {
       getTextInput('busnummer').should('have.value', 'B');
     });
 
+    it('fills in the predefined values - case 3b - postcode and straat without URI are still shown in dropdowns', () => {
+      mount(TestComponent, {
+        data: () => ({
+          adres: {
+            land: { naam: 'België', code: 'BE' },
+            gemeente: { naam: 'Bertem', niscode: '24009' },
+            postcode: { nummer: '3060' },
+            straat: { naam: 'Dorpstraat', id: '32110' },
+            adres: { huisnummer: '416', busnummer: '0101' },
+          },
+        }),
+        template: '<OeAdres v-model:adres="adres"/>',
+      });
+
+      cy.wait('@dataGetLanden');
+      cy.wait('@dataGetGemeentenVlaamsGewest');
+      cy.wait('@dataGetPostinfoBertem');
+      cy.wait('@dataGetStratenBertem');
+
+      getMultiSelect('postcode').find('.multiselect-single-label-text').should('have.text', '3060');
+      getMultiSelect('straat').find('.multiselect-single-label-text').should('have.text', 'Dorpstraat');
+    });
+
     it('fills in the predefined values - case 4 - country with enriched data', () => {
       mount(TestComponent, {
         data: () => ({

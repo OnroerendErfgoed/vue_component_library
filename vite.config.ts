@@ -111,7 +111,7 @@ export default defineConfig({
     }),
     viteStaticCopy({
       targets: [
-        { src: 'src/scss/*', dest: 'scss' },
+        { src: 'src/scss/*', dest: 'scss', rename: { stripBase: true } },
         { src: 'src/assets/*', dest: 'assets' },
       ],
     }),

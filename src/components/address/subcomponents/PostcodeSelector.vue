@@ -47,13 +47,13 @@ defineOptions({
 });
 
 interface PostcodeSelectorProps {
-  modelValue: string | IPostinfo | undefined;
-  options: IPostinfo[];
-  disabled: boolean;
-  modError: boolean;
-  optionsLimit: number;
-  isVlaamseGemeenteOrEmpty: boolean;
-  readMode: boolean;
+  modelValue?: string | IPostinfo | undefined;
+  options?: IPostinfo[];
+  disabled?: boolean;
+  modError?: boolean;
+  optionsLimit?: number;
+  isVlaamseGemeenteOrEmpty?: boolean;
+  readMode?: boolean;
 }
 
 const props = withDefaults(defineProps<PostcodeSelectorProps>(), {

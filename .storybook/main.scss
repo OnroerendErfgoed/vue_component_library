@@ -12,6 +12,6 @@
 }
 
 // Skip showing de default story a second time because an editor with duplicate id's will break
-#stories + #anchor--dumb-components-editor--default {
+#stories + #anchor--editor-module-editor--default {
   display: none;
 }

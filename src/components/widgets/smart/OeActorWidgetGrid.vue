@@ -63,7 +63,7 @@ import type {
 import type { ActorType, IActor } from '@models/actor';
 
 export interface IOeActorWidgetGridProps {
-  api: string;
+  api?: string;
   getSsoToken?: () => Promise<string>;
   actorType?: ActorType;
   searchActor?: string;

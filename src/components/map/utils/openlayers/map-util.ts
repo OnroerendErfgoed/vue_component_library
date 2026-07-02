@@ -28,8 +28,8 @@ interface VectorLayerOptions {
 }
 
 export class MapUtil {
-  public static getLayerById(map: Map, id: string): VectorLayer<VectorSource<Geometry>> {
-    return map.getAllLayers().find((lyr) => lyr.get('id') === id) as VectorLayer<VectorSource<Geometry>>;
+  public static getLayerById(map: Map, id: string): VectorLayer<VectorSource<Feature<Geometry>>> {
+    return map.getAllLayers().find((lyr) => lyr.get('id') === id) as VectorLayer<VectorSource<Feature<Geometry>>>;
   }
 
   public static createVectorLayer(options: VectorLayerOptions) {

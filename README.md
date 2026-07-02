@@ -13,19 +13,19 @@ Vue 3 component library for Onroerend Erfgoed applications, built on the Govflan
 ## 📦 Installation
 
 ```bash
-yarn add @OnroerendErfgoed/vue_component_library
+pnpm add @OnroerendErfgoed/vue_component_library
 ```
 
 ### Required Peer Dependencies
 
 ```bash
 # Core dependencies (always required)
-yarn add vue@^3.4.0 pinia@^2.1.7 vue-i18n@^9.0.0 lodash-es@^4.17.21
-yarn add @govflanders/vl-ui-design-system-vue3@~8.0.2
-yarn add @govflanders/vl-ui-design-system-style@~3.2.3
-yarn add @fortawesome/fontawesome-svg-core@^6.4.0
-yarn add @fortawesome/free-solid-svg-icons@^6.4.0
-yarn add @fortawesome/vue-fontawesome@^3.1.2
+pnpm add vue@^3.5.11 pinia@^3.0.0 vue-i18n@^11.4.5 lodash-es@^4.18.0
+pnpm add @govflanders/vl-ui-design-system-vue3@^8.2.0
+pnpm add @govflanders/vl-ui-design-system-style@~3.2.3
+pnpm add @fortawesome/fontawesome-svg-core@^7.3.0
+pnpm add @fortawesome/free-solid-svg-icons@^7.3.0
+pnpm add @fortawesome/vue-fontawesome@^3.1.2
 ```
 
 ### Optional Dependencies by Module
@@ -34,36 +34,35 @@ Install only what you need based on the modules you use:
 
 ```bash
 # For core module
-yarn add @vueuse/core@^10.0.0
-yarn add @soerenmartius/vue3-clipboard@^1.0.0
+pnpm add @vueuse/core@^14.3.0
 
 # For forms module
-yarn add @vuelidate/core@^2.0.2
-yarn add @vuelidate/validators@^2.0.2
-yarn add date-fns@^2.30.0
-yarn add libphonenumber-js@^1.10.37
+pnpm add @vuelidate/core@^2.0.2
+pnpm add @vuelidate/validators@^2.0.2
+pnpm add date-fns@^4.4.0
+pnpm add libphonenumber-js@^1.10.37
 
 # For address module
-yarn add axios@^1.12.0
+pnpm add axios@^1.12.0
 
 # For grid module
-yarn add ag-grid-vue3@^34.0.0
+pnpm add ag-grid-vue3@^36.0.0
 
 # For map module
-yarn add ol@^7.4.0
-yarn add jsts@2.7.2
-yarn add proj4@^2.9.0
+pnpm add ol@^10.9.0
+pnpm add jsts@2.7.2
+pnpm add proj4@^2.9.0
 
 # For editor module (Quill)
-yarn add quill@^2.0.0
-yarn add quill-html-edit-button@^3.0.0
-yarn add quill-toggle-fullscreen-button@^0.1.3
-yarn add vue-quilly@^1.0.5
-yarn add parchment@^3.0.0
-yarn add fast-diff@^1.3.0
-yarn add lodash.clonedeep@^4.5.0
-yarn add lodash.isequal@^4.5.0
-yarn add quill-delta@^5.1.0
+pnpm add quill@^2.0.0
+pnpm add quill-html-edit-button@^3.0.0
+pnpm add quill-toggle-fullscreen-button@^0.1.3
+pnpm add vue-quilly@^1.0.5
+pnpm add parchment@^3.0.0
+pnpm add fast-diff@^1.3.0
+pnpm add lodash.clonedeep@^4.5.0
+pnpm add lodash.isequal@^4.5.0
+pnpm add quill-delta@^5.1.0
 ```
 
 ## 🚀 Quick Start
@@ -313,22 +312,24 @@ git clone https://github.com/OnroerendErfgoed/vue_component_library.git
 cd vue_component_library
 
 # Install dependencies
-yarn install
+pnpm install
 
 # Start Storybook
-yarn dev
+pnpm dev
 ```
 
 ### Project Scripts
 
 ```bash
-yarn dev              # Start Storybook
-yarn build            # Build library
-yarn test             # Run Cypress component tests
-yarn test:unit:dev    # Open Cypress UI
-yarn type-check       # TypeScript type checking
-yarn lint             # Lint and fix code
-yarn format           # Format code
+pnpm dev              # Start Storybook dev server
+pnpm build            # Build library
+pnpm build-storybook  # Build Storybook static files
+pnpm package          # Build and pack into a tarball (for local testing before publishing)
+pnpm test             # Run all tests (Cypress + Vitest)
+pnpm test:unit:dev    # Open Cypress UI
+pnpm type-check       # TypeScript type checking
+pnpm lint             # Lint and fix code
+pnpm format           # Format code
 ```
 
 ### Adding New Components
@@ -372,7 +373,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines on:
 
 ## 📖 Documentation
 
-- [Migration Guide v3 → v4](MIGRATION.md) - Upgrade from v3 to v4
+- [Migration Guide v4 → v5](MIGRATION.md) - Upgrade from v4 to v5
+- [Migration Guide v3 → v4](MIGRATION.md#migration-guide-v3-to-v4) - Upgrade from v3 to v4
 - [Contributing Guide](CONTRIBUTING.md) - Development guidelines
 
 ## 🔗 Links

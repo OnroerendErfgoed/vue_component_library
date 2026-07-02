@@ -62,11 +62,11 @@ const props = defineProps<{
   left: 0;
 }
 .spinner-content {
-  display: table;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  padding: 3px;
   width: 100px;
   height: 100px;
   margin: auto;
@@ -75,14 +75,9 @@ const props = defineProps<{
   left: 50%;
   transform: translate(-50%, -50%);
   position: fixed;
-  -webkit-border-radius: 50px;
-  -moz-border-radius: 50px;
   border-radius: 50px;
 
   .spinner {
-    position: absolute;
-    top: 25%;
-    left: 25%;
     font-size: 50px;
     color: rgb(255, 255, 255);
   }
@@ -93,7 +88,9 @@ const props = defineProps<{
     height: 18px;
     background: $dark-purple;
     position: relative;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     top: 0;
     left: 0;
     padding: 0;
@@ -103,8 +100,6 @@ const props = defineProps<{
 
     .spinner {
       font-size: 16px;
-      top: 0;
-      left: 0;
     }
   }
 
