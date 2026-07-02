@@ -57,6 +57,9 @@ const meta: Meta<typeof OeAdres> = {
       description: 'Title text',
     },
   },
+  args: {
+    api: 'https://test-geo.onroerenderfgoed.be/',
+  },
 };
 
 export default meta;
