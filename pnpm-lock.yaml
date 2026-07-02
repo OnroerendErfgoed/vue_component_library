@@ -51,9 +51,6 @@ importers:
       '@tsconfig/node20':
         specifier: ^20.1.9
         version: 20.1.9
-      '@types/jsts':
-        specifier: ^0.17.24
-        version: 0.17.24
       '@types/lodash-es':
         specifier: ^4.17.12
         version: 4.17.12
@@ -1596,9 +1593,6 @@ packages:
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
-  '@types/jsts@0.17.24':
-    resolution: {integrity: sha512-zZAAiAh7SjXCo5lYCMquz/klQVS9LVdSkAVXPk2BP/2l7FHqmfAFTj9PEld9zUFzXC/bgr04yiEDbDKDSaX7Hg==}
-
   '@types/lodash-es@4.17.12':
     resolution: {integrity: sha512-0NgftHUcV4v34VhXm8QBSftKVXtbkBG3ViCjs6+eJ5a6y6Mi/jiFGPc1sC7QK+9BFhWrURE3EOggmWaSxL9OzQ==}
 
@@ -1610,9 +1604,6 @@ packages:
 
   '@types/node@26.0.1':
     resolution: {integrity: sha512-fc3KiUoBt6kie0N9bIW3E47vZsuaMf0PM2AaUpLCLT0s/LvX1nxAim6Fc049cNxODPpGm6qRAuUOB86SkRuPQw==}
-
-  '@types/openlayers@4.6.23':
-    resolution: {integrity: sha512-7jCPIa4D4LV03Rttae1AEqvkIN0+nc6Snz4IgA/IjsJD5O3ONxpscqIOdp1qAGuAsikR/ZC9vrPF9np8JRc6ig==}
 
   '@types/rbush@4.0.0':
     resolution: {integrity: sha512-+N+2H39P8X+Hy1I5mC6awlTX54k3FhiUmvt7HWzGJZvF+syUAAxP/stwppS8JE84YHqFgRMv6fCy31202CMFxQ==}
@@ -5638,10 +5629,6 @@ snapshots:
 
   '@types/json-schema@7.0.15': {}
 
-  '@types/jsts@0.17.24':
-    dependencies:
-      '@types/openlayers': 4.6.23
-
   '@types/lodash-es@4.17.12':
     dependencies:
       '@types/lodash': 4.17.24
@@ -5653,8 +5640,6 @@ snapshots:
   '@types/node@26.0.1':
     dependencies:
       undici-types: 8.3.0
-
-  '@types/openlayers@4.6.23': {}
 
   '@types/rbush@4.0.0': {}
 

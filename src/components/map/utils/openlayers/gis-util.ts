@@ -1,18 +1,9 @@
 import { Bescherming, Perceel } from '../../models/openlayers';
-import { MapUtil } from './map-util';
-import * as jsts from 'jsts/dist/jsts.min.js';
+import { MapUtil, createJstsOl3Parser } from './map-util';
+import IsValidOp from 'jsts/org/locationtech/jts/operation/valid/IsValidOp.js';
 import { Feature } from 'ol';
 import WKT from 'ol/format/WKT';
-import {
-  GeometryCollection,
-  LineString,
-  LinearRing,
-  MultiLineString,
-  MultiPoint,
-  MultiPolygon,
-  Point,
-  Polygon,
-} from 'ol/geom';
+import { MultiPolygon, Polygon } from 'ol/geom';
 
 export class GisUtil {
   /**
@@ -92,10 +83,14 @@ export class GisUtil {
   public static isMultiPolygonValid(input: string | MultiPolygon | Polygon): boolean {
     try {
       const geometry = typeof input === 'string' ? GisUtil.readWktPolygonGeometry(input) : input;
-      return GisUtil.getJstsParser().read(geometry).isValid();
+      return IsValidOp.isValid(GisUtil.getJstsParser().read(geometry));
     } catch {
       return false;
     }
+  }
+
+  private static getJstsParser() {
+    return createJstsOl3Parser();
   }
 
   /**
@@ -109,23 +104,5 @@ export class GisUtil {
     }
 
     return geometry;
-  }
-
-  /**
-   * Create a JSTS OL3Parser with all geometry types injected.
-   */
-  private static getJstsParser(): jsts.io.OL3Parser {
-    const parser = new jsts.io.OL3Parser();
-    parser.inject(
-      Point,
-      LineString,
-      LinearRing,
-      Polygon,
-      MultiPoint,
-      MultiLineString,
-      MultiPolygon,
-      GeometryCollection
-    );
-    return parser;
   }
 }

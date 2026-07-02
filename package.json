@@ -208,7 +208,6 @@
     "@storybook/vue3-vite": "^10.4.6",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@tsconfig/node20": "^20.1.9",
-    "@types/jsts": "^0.17.24",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^26.0.1",
     "@vitejs/plugin-vue": "^6.0.7",

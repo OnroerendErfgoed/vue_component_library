@@ -10,17 +10,12 @@ import { vi } from 'vitest';
 HTMLCanvasElement.prototype.getContext = vi.fn();
 
 // Enhanced jsts mock with intersects based on extents
-vi.mock('jsts/dist/jsts.min.js', () => {
-  const makeGeom = (olGeom?: any) => {
+const { makeGeom } = vi.hoisted(() => {
+  const makeGeom = (olGeom?: any): any => {
     const extent = olGeom?.getExtent ? olGeom.getExtent() : [0, 0, 0, 0];
     return {
       __extent: extent,
-      buffer: () => makeGeom(olGeom),
-      union: () => makeGeom(olGeom),
-      intersection: () => makeGeom(olGeom),
-      difference: () => makeGeom(olGeom),
-      isValid: () => true,
-      intersects: (other: any) => intersectsExtent(extent, other?.__extent ?? extent),
+      __olGeom: olGeom,
       getCoordinates: () => (olGeom?.getCoordinates ? olGeom.getCoordinates() : [[[0, 0]]]),
       getType: () => (olGeom?.getType ? olGeom.getType() : 'Polygon'),
       addEventListener: () => {},
@@ -29,19 +24,46 @@ vi.mock('jsts/dist/jsts.min.js', () => {
       un: () => {},
     };
   };
-  class OL3Parser {
+  return { makeGeom };
+});
+
+vi.mock('jsts/org/locationtech/jts/io/OL3Parser.js', () => ({
+  default: class OL3Parser {
     inject() {}
     read(g: any) {
       return makeGeom(g);
     }
     write(g: any) {
-      return g ?? makeGeom();
+      // return the original ol geometry so `instanceof` checks on the result keep working
+      return g?.__olGeom ?? g ?? makeGeom();
     }
-  }
-  class GeoJSONWriter {
+  },
+}));
+
+vi.mock('jsts/org/locationtech/jts/io/GeoJSONWriter.js', () => ({
+  default: class GeoJSONWriter {
     write(g: any) {
       return { type: g?.getType ? g.getType() : 'Polygon', coordinates: g?.getCoordinates?.() ?? [] };
     }
-  }
-  return { io: { OL3Parser, GeoJSONWriter } };
-});
+  },
+}));
+
+vi.mock('jsts/org/locationtech/jts/operation/buffer/BufferOp.js', () => ({
+  default: { bufferOp: (g: any) => g },
+}));
+
+vi.mock('jsts/org/locationtech/jts/operation/union/UnionOp.js', () => ({
+  default: { union: (g: any) => g },
+}));
+
+vi.mock('jsts/org/locationtech/jts/operation/overlay/OverlayOp.js', () => ({
+  default: { intersection: (g: any) => g, difference: (g: any) => g },
+}));
+
+vi.mock('jsts/org/locationtech/jts/operation/relate/RelateOp.js', () => ({
+  default: { intersects: (g1: any, g2: any) => intersectsExtent(g1?.__extent, g2?.__extent ?? g1?.__extent) },
+}));
+
+vi.mock('jsts/org/locationtech/jts/operation/valid/IsValidOp.js', () => ({
+  default: { isValid: () => true },
+}));

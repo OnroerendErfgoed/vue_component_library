@@ -53,7 +53,7 @@ export default defineConfig({
 
         // Map module dependencies
         'jsts',
-        /^jsts\//, // jsts dist sub-path import (jsts/dist/jsts.min.js)
+        /^jsts\//, // jsts ESM sub-path imports (jsts/org/locationtech/jts/...)
         'ol',
         /^ol\//, // All ol submodules
         'proj4',
