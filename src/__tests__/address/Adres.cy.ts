@@ -1410,7 +1410,8 @@ describe('Adres', () => {
 
             return { c, adresComponent };
           },
-          template: '<OeAdres ref="adresComponent" api="https://test-geo.onroerenderfgoed.be/" countryId="BE" :config="c"/>',
+          template:
+            '<OeAdres ref="adresComponent" api="https://test-geo.onroerenderfgoed.be/" countryId="BE" :config="c"/>',
         }).then(({ component }) => {
           cy.wait('@dataGetLanden');
           cy.wait('@dataGetGewesten');
@@ -1560,7 +1561,8 @@ describe('Adres', () => {
 
           return { c };
         },
-        template: '<OeAdres api="https://test-geo.onroerenderfgoed.be/" v-model:adres="adres" :config="c" country-id="BE" />',
+        template:
+          '<OeAdres api="https://test-geo.onroerenderfgoed.be/" v-model:adres="adres" :config="c" country-id="BE" />',
       }).then(({ component }) => {
         cy.wait('@dataGetLanden');
         cy.wait('@dataGetGewesten');
@@ -1805,7 +1807,8 @@ describe('Adres', () => {
             },
           },
         }),
-        template: '<OeAdres api="https://test-geo.onroerenderfgoed.be/" v-model:adres="adres" country-id="BE" :config="config" />',
+        template:
+          '<OeAdres api="https://test-geo.onroerenderfgoed.be/" v-model:adres="adres" country-id="BE" :config="config" />',
       }).then(() => {
         getMultiSelect('straat').find('.multiselect-clear').click();
         getMultiSelect('straat').find('.multiselect-single-label-text').should('not.exist');

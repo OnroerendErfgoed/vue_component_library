@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { useClipboard } from '@vueuse/core';
 
 defineProps<{ value: string }>();
-const { copy, copied } = useClipboard();
+const { copy, copied } = useClipboard({ legacy: true });
 </script>
 
 <style lang="scss" scoped>
