@@ -88,7 +88,7 @@ export const FormValidation: Story = {
     components: { OeAdres, VlButton },
     template: `
       <div>
-        <OeAdres ref="oeAdres" v-model:adres="adres" :config="config" show-required-per-field />
+        <OeAdres ref="oeAdres" api="https://test-geo.onroerenderfgoed.be/" v-model:adres="adres" :config="config" show-required-per-field />
         <VlButton @click="validateForm" style="margin-top: 16px; float: right;">Validate Form</VlButton>
       </div>
     `,
@@ -223,7 +223,7 @@ export const TwoWayBinding: Story = {
     },
     template: `
       <div>
-      <OeAdres v-model:adres="adres" :config="config" @update:adres="onUpdateAdres" />
+      <OeAdres api="https://test-geo.onroerenderfgoed.be/" v-model:adres="adres" :config="config" @update:adres="onUpdateAdres" />
       <h3>Adres:</h3>
       <pre>{{ eventOutput }}</pre>
       </div>
@@ -277,7 +277,7 @@ export const CountryWithEnrichedData: Story = {
       return { adres };
     },
     template: `
-      <OeAdres v-model:adres="adres"  @update:adres="onUpdateAdres" />
+      <OeAdres api="https://test-geo.onroerenderfgoed.be/" v-model:adres="adres"  @update:adres="onUpdateAdres" />
     `,
     data() {
       return {
@@ -323,7 +323,7 @@ export const OldAddresses: Story = {
     template: `
       <div>
       <Suspense>
-        <OeAdres v-model:adres="adres"  @update:adres="onUpdateAdres" />
+        <OeAdres api="https://test-geo.onroerenderfgoed.be/" v-model:adres="adres"  @update:adres="onUpdateAdres" />
       </Suspense>
       <h3>Adres:</h3>
       <pre>{{ eventOutput }}</pre>
