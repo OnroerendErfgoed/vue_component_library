@@ -51,9 +51,6 @@ importers:
       '@tsconfig/node20':
         specifier: ^20.1.9
         version: 20.1.9
-      '@types/jsts':
-        specifier: ^0.17.24
-        version: 0.17.24
       '@types/lodash-es':
         specifier: ^4.17.12
         version: 4.17.12
@@ -115,8 +112,8 @@ importers:
         specifier: ^29.1.1
         version: 29.1.1
       jsts:
-        specifier: 2.7.2
-        version: 2.7.2
+        specifier: ^2.12.1
+        version: 2.12.1
       libphonenumber-js:
         specifier: ^1.13.7
         version: 1.13.7
@@ -1596,9 +1593,6 @@ packages:
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
-  '@types/jsts@0.17.24':
-    resolution: {integrity: sha512-zZAAiAh7SjXCo5lYCMquz/klQVS9LVdSkAVXPk2BP/2l7FHqmfAFTj9PEld9zUFzXC/bgr04yiEDbDKDSaX7Hg==}
-
   '@types/lodash-es@4.17.12':
     resolution: {integrity: sha512-0NgftHUcV4v34VhXm8QBSftKVXtbkBG3ViCjs6+eJ5a6y6Mi/jiFGPc1sC7QK+9BFhWrURE3EOggmWaSxL9OzQ==}
 
@@ -1610,9 +1604,6 @@ packages:
 
   '@types/node@26.0.1':
     resolution: {integrity: sha512-fc3KiUoBt6kie0N9bIW3E47vZsuaMf0PM2AaUpLCLT0s/LvX1nxAim6Fc049cNxODPpGm6qRAuUOB86SkRuPQw==}
-
-  '@types/openlayers@4.6.23':
-    resolution: {integrity: sha512-7jCPIa4D4LV03Rttae1AEqvkIN0+nc6Snz4IgA/IjsJD5O3ONxpscqIOdp1qAGuAsikR/ZC9vrPF9np8JRc6ig==}
 
   '@types/rbush@4.0.0':
     resolution: {integrity: sha512-+N+2H39P8X+Hy1I5mC6awlTX54k3FhiUmvt7HWzGJZvF+syUAAxP/stwppS8JE84YHqFgRMv6fCy31202CMFxQ==}
@@ -2614,6 +2605,9 @@ packages:
   fast-levenshtein@2.0.6:
     resolution: {integrity: sha512-DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==}
 
+  fastpriorityqueue@0.7.5:
+    resolution: {integrity: sha512-3Pa0n9gwy8yIbEsT3m2j/E9DXgWvvjfiZjjqcJ+AdNKTAlVMIuFYrYG5Y3RHEM8O6cwv9hOpOWY/NaMfywoQVA==}
+
   fastq@1.20.1:
     resolution: {integrity: sha512-GGToxJ/w1x32s/D2EKND7kTil4n8OVk/9mycTc4VDza13lOvpUZTGX3mFSCtV9ksdGBVzvsyAVLM6mHFThxXxw==}
 
@@ -3131,9 +3125,9 @@ packages:
   jstransformer@1.0.0:
     resolution: {integrity: sha512-C9YK3Rf8q6VAPDCCU9fnqo3mAfOH6vUGnMcP4AQAYIEpWtfGLpwOTmZ+igtdK5y+VvI2n3CyYSzy4Qh34eq24A==}
 
-  jsts@2.7.2:
-    resolution: {integrity: sha512-KxKqYj3pDZ6i3BBVEnBWKUztbuv43Rq5SWsB4s4a/y64pE4/StbO4jbbXjslflj4N+KchlUoRwQC04OnayknJA==}
-    engines: {node: '>= 14'}
+  jsts@2.12.1:
+    resolution: {integrity: sha512-aaiCZeGfeU5o9TbrYF1KF0VvhGGLtG3w7vNynmaTjC8XRmS2v15lq+2Bxa8lMtprsFFJiIpAayJZguLruiHd0w==}
+    engines: {node: '>= 18'}
 
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
@@ -5635,10 +5629,6 @@ snapshots:
 
   '@types/json-schema@7.0.15': {}
 
-  '@types/jsts@0.17.24':
-    dependencies:
-      '@types/openlayers': 4.6.23
-
   '@types/lodash-es@4.17.12':
     dependencies:
       '@types/lodash': 4.17.24
@@ -5650,8 +5640,6 @@ snapshots:
   '@types/node@26.0.1':
     dependencies:
       undici-types: 8.3.0
-
-  '@types/openlayers@4.6.23': {}
 
   '@types/rbush@4.0.0': {}
 
@@ -6889,6 +6877,8 @@ snapshots:
 
   fast-levenshtein@2.0.6: {}
 
+  fastpriorityqueue@0.7.5: {}
+
   fastq@1.20.1:
     dependencies:
       reusify: 1.1.0
@@ -7408,7 +7398,9 @@ snapshots:
       is-promise: 2.2.2
       promise: 7.3.1
 
-  jsts@2.7.2: {}
+  jsts@2.12.1:
+    dependencies:
+      fastpriorityqueue: 0.7.5
 
   keyv@4.5.4:
     dependencies:

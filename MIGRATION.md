@@ -189,7 +189,41 @@ await copy('text to copy');
 
 **Minor behaviour change**: the check icon in `OeClipboardCopy` now shows for 1500 ms (vueuse default) instead of 1000 ms.
 
-### 9. axios-mock-adapter 1 → 2
+### 9. jsts 2.7.2 → 2.12.1
+
+Update your peer dependency:
+
+```bash
+pnpm add jsts@^2.12.1
+```
+
+jsts 2.8+ dropped the `main` field and the bundled dist entry point. The library now imports directly from the jsts ESM modules — no action needed on your side unless you import jsts yourself.
+
+If you import jsts directly in your own code, replace the bare package import with the specific module paths:
+
+```typescript
+// Before
+import * as jsts from 'jsts';
+const parser = new jsts.io.OL3Parser();
+const buffered = jstsGeom.buffer(40);
+
+// After
+import OL3Parser from 'jsts/org/locationtech/jts/io/OL3Parser.js';
+import BufferOp from 'jsts/org/locationtech/jts/operation/buffer/BufferOp.js';
+const parser = new OL3Parser(undefined, undefined);
+parser.inject(Point, LineString, LinearRing, Polygon, MultiPoint, MultiLineString, MultiPolygon, GeometryCollection);
+const buffered = BufferOp.bufferOp(jstsGeom, 40);
+```
+
+jsts 2.12 ships its own TypeScript declarations via `typesVersions`, so `@types/jsts` is no longer needed and can be removed:
+
+```bash
+pnpm remove @types/jsts
+```
+
+### 10. axios-mock-adapter 1 → 2
+
+
 
 If you use `axios-mock-adapter` directly (it is an optional peer dep for testing):
 
@@ -232,7 +266,7 @@ pnpm add date-fns@^4.4.0
 pnpm add ag-grid-vue3@^36.0.0
 
 # map
-pnpm add ol@^10.9.0 proj4@^2.9.0 jsts@2.7.2
+pnpm add ol@^10.9.0 proj4@^2.9.0 jsts@^2.12.1
 
 # editor
 pnpm add quill@^2.0.0 quill-html-edit-button@^3.0.0
@@ -392,7 +426,7 @@ pnpm add ol@^7.4.0  # Also needed for address autocomplete
 pnpm add ag-grid-vue3@^34.0.0
 
 # If using map module
-pnpm add ol@^7.4.0 jsts@2.7.2 proj4@^2.9.0
+pnpm add ol@^10.9.0 jsts@^2.12.1 proj4@^2.9.0
 
 # If using editor module (Quill)
 pnpm add quill@^2.0.0 quill-html-edit-button@^3.0.0
