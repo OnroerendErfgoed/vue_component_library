@@ -13,7 +13,7 @@ describe('Adres', () => {
 
       return { attrs, adresComponent };
     },
-    template: '<OeAdres ref="adresComponent" v-bind="attrs"/>',
+    template: '<OeAdres ref="adresComponent" api="https://test-geo.onroerenderfgoed.be/" v-bind="attrs"/>',
   });
 
   it('renders', () => {
@@ -380,7 +380,7 @@ describe('Adres', () => {
 
             return { config };
           },
-          template: '<OeAdres :config="config"/>',
+          template: '<OeAdres api="https://test-geo.onroerenderfgoed.be/" :config="config"/>',
         }),
         {
           props: {
@@ -473,7 +473,7 @@ describe('Adres', () => {
             },
           },
         }),
-        template: '<OeAdres v-model:adres="adres"/>',
+        template: '<OeAdres api="https://test-geo.onroerenderfgoed.be/" v-model:adres="adres"/>',
       });
 
       cy.wait('@dataGetLanden');
@@ -516,7 +516,7 @@ describe('Adres', () => {
             },
           },
         }),
-        template: '<OeAdres v-model:adres="adres"/>',
+        template: '<OeAdres api="https://test-geo.onroerenderfgoed.be/" v-model:adres="adres"/>',
       });
 
       cy.wait('@dataGetLanden');
@@ -563,7 +563,7 @@ describe('Adres', () => {
             deelgemeente: {},
           },
         }),
-        template: '<OeAdres v-model:adres="adres"/>',
+        template: '<OeAdres api="https://test-geo.onroerenderfgoed.be/" v-model:adres="adres"/>',
       });
 
       cy.wait('@dataGetGemeentenVlaamsGewest');
@@ -622,7 +622,7 @@ describe('Adres', () => {
             },
           },
         }),
-        template: '<OeAdres v-model:adres="adres"/>',
+        template: '<OeAdres api="https://test-geo.onroerenderfgoed.be/" v-model:adres="adres"/>',
       });
 
       getMultiSelect('land').find(':selected').should('have.text', 'Bahrain');
@@ -672,7 +672,7 @@ describe('Adres', () => {
             busnummer: { required: false },
           },
         }),
-        template: '<OeAdres v-model:adres="adres" :config="config" />',
+        template: '<OeAdres api="https://test-geo.onroerenderfgoed.be/" v-model:adres="adres" :config="config" />',
       });
 
       getMultiSelect('land').find(':selected').should('have.text', 'België');
@@ -713,7 +713,7 @@ describe('Adres', () => {
             },
           },
         }),
-        template: '<OeAdres v-model:adres="adres"/>',
+        template: '<OeAdres api="https://test-geo.onroerenderfgoed.be/" v-model:adres="adres"/>',
       }).then(({ component }) => {
         // Wait for initial data loading
         cy.wait('@dataGetGemeentenVlaamsGewest');
@@ -754,7 +754,7 @@ describe('Adres', () => {
         data: () => ({
           adres: {},
         }),
-        template: '<OeAdres v-model:adres="adres"/> <pre>{{ adres }}</pre>',
+        template: '<OeAdres api="https://test-geo.onroerenderfgoed.be/" v-model:adres="adres"/> <pre>{{ adres }}</pre>',
       }).then(({ component }) => {
         // Wait for initial data loading
         cy.wait('@dataGetLanden');
@@ -832,7 +832,7 @@ describe('Adres', () => {
               busnummer: { required: false },
             },
           }),
-          template: '<OeAdres v-model:adres="adres" :config="config" />',
+          template: '<OeAdres api="https://test-geo.onroerenderfgoed.be/" v-model:adres="adres" :config="config" />',
         });
 
       beforeEach(() => {
@@ -930,7 +930,7 @@ describe('Adres', () => {
               busnummer: { required: false },
             },
           }),
-          template: '<OeAdres v-model:adres="adres" :config="config" />',
+          template: '<OeAdres api="https://test-geo.onroerenderfgoed.be/" v-model:adres="adres" :config="config" />',
         });
 
       beforeEach(() => {
@@ -1084,7 +1084,7 @@ describe('Adres', () => {
 
             return { c, adresComponent };
           },
-          template: '<OeAdres ref="adresComponent" :config="c"/>',
+          template: '<OeAdres ref="adresComponent" api="https://test-geo.onroerenderfgoed.be/" :config="c"/>',
         }).then(({ component }) => {
           cy.wait('@dataGetLanden');
           cy.wrap(component.$nextTick()).then(() => {
@@ -1181,7 +1181,7 @@ describe('Adres', () => {
 
             return { c, adresComponent };
           },
-          template: '<OeAdres ref="adresComponent" :config="c"/>',
+          template: '<OeAdres ref="adresComponent" api="https://test-geo.onroerenderfgoed.be/" :config="c"/>',
         }).then(({ component }) => {
           cy.wait('@dataGetLanden');
           cy.wrap(component.$nextTick()).then(() => {
@@ -1282,7 +1282,7 @@ describe('Adres', () => {
 
             return { c, adresComponent };
           },
-          template: '<OeAdres ref="adresComponent" :config="c"/>',
+          template: '<OeAdres ref="adresComponent" api="https://test-geo.onroerenderfgoed.be/" :config="c"/>',
         }).then(({ component }) => {
           cy.wait('@dataGetLanden');
           cy.wrap(component.$nextTick()).then(() => {
@@ -1320,7 +1320,7 @@ describe('Adres', () => {
     beforeEach(() => {
       cy.mockLanden();
       mount(TestComponent, {
-        template: '<OeAdres countryId="BE" v-model:adres="adres"/>',
+        template: '<OeAdres api="https://test-geo.onroerenderfgoed.be/" countryId="BE" v-model:adres="adres"/>',
       });
     });
 
@@ -1344,7 +1344,7 @@ describe('Adres', () => {
       cy.mockAalst();
 
       mount(TestComponent, {
-        template: '<OeAdres :options-limit="3" v-model:adres="adres"/>',
+        template: '<OeAdres api="https://test-geo.onroerenderfgoed.be/" :options-limit="3" v-model:adres="adres"/>',
       });
     });
     it('sets the max amount of items at multi-select elements', () => {
@@ -1410,7 +1410,7 @@ describe('Adres', () => {
 
             return { c, adresComponent };
           },
-          template: '<OeAdres ref="adresComponent" countryId="BE" :config="c"/>',
+          template: '<OeAdres ref="adresComponent" api="https://test-geo.onroerenderfgoed.be/" countryId="BE" :config="c"/>',
         }).then(({ component }) => {
           cy.wait('@dataGetLanden');
           cy.wait('@dataGetGewesten');
@@ -1495,7 +1495,7 @@ describe('Adres', () => {
 
             return { c };
           },
-          template: '<OeAdres :config="c"/>',
+          template: '<OeAdres api="https://test-geo.onroerenderfgoed.be/" :config="c"/>',
         });
       });
 
@@ -1560,7 +1560,7 @@ describe('Adres', () => {
 
           return { c };
         },
-        template: '<OeAdres v-model:adres="adres" :config="c" country-id="BE" />',
+        template: '<OeAdres api="https://test-geo.onroerenderfgoed.be/" v-model:adres="adres" :config="c" country-id="BE" />',
       }).then(({ component }) => {
         cy.wait('@dataGetLanden');
         cy.wait('@dataGetGewesten');
@@ -1597,7 +1597,7 @@ describe('Adres', () => {
 
           return { c };
         },
-        template: '<OeAdres :config="c" country-id="BE" />',
+        template: '<OeAdres api="https://test-geo.onroerenderfgoed.be/" :config="c" country-id="BE" />',
       }).then(() => {
         cy.wait('@dataGetGemeentenVlaamsGewest');
         getMultiSelect('postcode').should('not.exist');
@@ -1757,7 +1757,7 @@ describe('Adres', () => {
             adres: { huisnummer: '1' },
           },
         }),
-        template: '<OeAdres v-model:adres="adres"/>',
+        template: '<OeAdres api="https://test-geo.onroerenderfgoed.be/" v-model:adres="adres"/>',
       }).then(() => {
         cy.wait('@dataGetLanden');
 
@@ -1805,7 +1805,7 @@ describe('Adres', () => {
             },
           },
         }),
-        template: '<OeAdres v-model:adres="adres" country-id="BE" :config="config" />',
+        template: '<OeAdres api="https://test-geo.onroerenderfgoed.be/" v-model:adres="adres" country-id="BE" :config="config" />',
       }).then(() => {
         getMultiSelect('straat').find('.multiselect-clear').click();
         getMultiSelect('straat').find('.multiselect-single-label-text').should('not.exist');
