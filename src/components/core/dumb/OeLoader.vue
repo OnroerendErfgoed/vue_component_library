@@ -3,22 +3,22 @@
     <DefineTemplate>
       <slot />
       <div
-        class="spinner-content"
+        class="loader-content"
         :class="{
-          'spinner-content--inline': props.modInline,
-          'spinner-content--small': props.modInline && props.modSmall,
-          'spinner-content--large': props.modInline && props.modLarge,
-          'spinner-content--xlarge': props.modInline && props.modXLarge,
+          'loader-content--inline': props.modInline,
+          'loader-content--small': props.modInline && props.modSmall,
+          'loader-content--large': props.modInline && props.modLarge,
+          'loader-content--xlarge': props.modInline && props.modXLarge,
         }"
       >
-        <FontAwesomeIcon class="spinner" :icon="faSpinner" spin-pulse />
+        <FontAwesomeIcon class="loader" :icon="faSpinner" spin-pulse />
       </div>
     </DefineTemplate>
 
     <ReuseTemplate v-if="props.modInline" />
 
-    <div v-else class="spinner-container">
-      <div class="spinner-overlay">
+    <div v-else class="loader-container">
+      <div class="loader-overlay">
         <ReuseTemplate />
         <div v-if="props.title" class="title">
           {{ props.title }}
@@ -50,10 +50,10 @@ const props = defineProps<{
 <style lang="scss" scoped>
 @import '@OnroerendErfgoed/pyoes/scss/base-variables';
 
-.spinner-container div {
+.loader-container div {
   z-index: 1001;
 }
-.spinner-overlay {
+.loader-overlay {
   background-color: rgba(152, 152, 152, 0.5);
   position: fixed;
   top: 0;
@@ -61,7 +61,7 @@ const props = defineProps<{
   bottom: 0;
   left: 0;
 }
-.spinner-content {
+.loader-content {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -77,7 +77,7 @@ const props = defineProps<{
   position: fixed;
   border-radius: 50px;
 
-  .spinner {
+  .loader {
     font-size: 50px;
     color: rgb(255, 255, 255);
   }
@@ -98,7 +98,7 @@ const props = defineProps<{
     transform: none;
     vertical-align: middle;
 
-    .spinner {
+    .loader {
       font-size: 16px;
     }
   }
@@ -107,7 +107,7 @@ const props = defineProps<{
     width: 14px;
     height: 14px;
 
-    .spinner {
+    .loader {
       font-size: 12px;
     }
   }
@@ -116,7 +116,7 @@ const props = defineProps<{
     width: 22px;
     height: 22px;
 
-    .spinner {
+    .loader {
       font-size: 20px;
     }
   }
@@ -125,7 +125,7 @@ const props = defineProps<{
     width: 26px;
     height: 26px;
 
-    .spinner {
+    .loader {
       font-size: 24px;
     }
   }
