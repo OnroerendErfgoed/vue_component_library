@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import { VlColumn, VlTitle } from '@govflanders/vl-ui-design-system-vue3';
 import { format } from 'date-fns';
-import { getCurrentInstance, ref } from 'vue';
+import { ref } from 'vue';
 import { GridWorkflowProps, IWorkflow, IWorkflowOwner, IWorkflowState, OeGrid, OeNoRowsOverlay } from '@/grid';
 import type {
   ColDef,
@@ -85,7 +85,6 @@ const dateFormatter = (params: ValueFormatterParams) => {
 };
 
 const gridOptions = ref<GridOptions>({
-  context: getCurrentInstance(),
   defaultColDef: { sortable: true, resizable: true },
   suppressMovableColumns: true,
   suppressClickEdit: true,
