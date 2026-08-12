@@ -1,5 +1,5 @@
 import { VlButton } from '@govflanders/vl-ui-design-system-vue3';
-import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+import { INITIAL_VIEWPORTS } from 'storybook/viewport';
 import OeWizard from '@components/forms/dumb/OeWizard.vue';
 import { IStep } from '@components/forms/models/wizard';
 import type { Meta, StoryObj } from '@storybook/vue3';

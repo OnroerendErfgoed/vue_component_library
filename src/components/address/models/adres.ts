@@ -7,7 +7,7 @@ export interface IAdresProps {
   modStackedLarge?: boolean;
   modStackedSmall?: boolean;
   modStacked?: boolean;
-  api?: string;
+  api: string;
   config?: IAdresConfig;
   countryId?: string;
   adres?: ILocatieAdres;

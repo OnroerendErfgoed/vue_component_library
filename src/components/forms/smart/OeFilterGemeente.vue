@@ -1,5 +1,6 @@
 <template>
   <VlMultiselect
+    :id="id"
     data-cy="filter-gemeente"
     placeholder="Gemeente"
     label="naam"
@@ -22,10 +23,13 @@
 <script setup lang="ts">
 import { IFilterGemeenteProps } from '../models/filter';
 import { VlMultiselect } from '@govflanders/vl-ui-design-system-vue3';
+import { Guid } from 'guid-typescript';
 import { computed, onBeforeMount, ref } from 'vue';
 import { Niscode } from '@models/niscode.enum';
 import { CrabApiService } from '@services/crab-api.service';
 import type { IGemeente } from '@models/locatie';
+
+const id = `filter-gemeente-${Guid.create().toString()}`;
 
 const props = withDefaults(defineProps<IFilterGemeenteProps>(), {
   api: '',

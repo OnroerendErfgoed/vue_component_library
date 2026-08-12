@@ -1,5 +1,6 @@
 <template>
   <VlMultiselect
+    :id="id"
     data-cy="filter-provincie"
     placeholder="Provincie"
     label="naam"
@@ -21,10 +22,13 @@
 
 <script setup lang="ts">
 import { VlMultiselect } from '@govflanders/vl-ui-design-system-vue3';
+import { Guid } from 'guid-typescript';
 import { computed, onBeforeMount, ref } from 'vue';
 import { IFilterProvincieProps } from '@components/forms';
 import { CrabApiService } from '@services/crab-api.service';
 import type { IProvincie } from '@models/locatie';
+
+const id = `filter-provincie-${Guid.create().toString()}`;
 
 const props = withDefaults(defineProps<IFilterProvincieProps>(), {
   api: '',

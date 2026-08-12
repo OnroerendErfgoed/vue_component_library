@@ -55,11 +55,11 @@ describe('OeActorWidget', () => {
     });
 
     it('fetches actoren and shows a grid on startup', () => {
-      cy.dataCy('ag-grid-vue').find('.ag-center-cols-container').children().should('have.length', 1);
+      cy.dataCy('ag-grid-vue').find('.ag-row').should('have.length', 1);
     });
 
     it('enables the add button when a row is clicked', () => {
-      cy.dataCy('ag-grid-vue').find('.ag-center-cols-container').children().first().click();
+      cy.dataCy('ag-grid-vue').find('.ag-row').first().click();
       cy.dataCy('actor-widget-add-btn').should('be.enabled');
     });
 
@@ -157,7 +157,7 @@ describe('OeActorWidget', () => {
     });
 
     it('disables the add button', () => {
-      cy.dataCy('ag-grid-vue').find('.ag-center-cols-container').children().first().click();
+      cy.dataCy('ag-grid-vue').find('.ag-row').first().click();
       cy.dataCy('actor-widget-add-btn').should('be.disabled');
     });
   });

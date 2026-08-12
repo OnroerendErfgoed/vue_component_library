@@ -1,4 +1,10 @@
-import * as jsts from 'jsts';
+import GeoJSONWriter from 'jsts/org/locationtech/jts/io/GeoJSONWriter.js';
+import OL3Parser from 'jsts/org/locationtech/jts/io/OL3Parser.js';
+import BufferOp from 'jsts/org/locationtech/jts/operation/buffer/BufferOp.js';
+import OverlayOp from 'jsts/org/locationtech/jts/operation/overlay/OverlayOp.js';
+import RelateOp from 'jsts/org/locationtech/jts/operation/relate/RelateOp.js';
+import UnionOp from 'jsts/org/locationtech/jts/operation/union/UnionOp.js';
+import IsValidOp from 'jsts/org/locationtech/jts/operation/valid/IsValidOp.js';
 import Feature from 'ol/Feature';
 import { FeatureLike } from 'ol/Feature';
 import Map from 'ol/Map';
@@ -17,6 +23,7 @@ import {
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Fill, Text as OlText, Stroke, Style } from 'ol/style';
+import type JstsGeometry from 'jsts/org/locationtech/jts/geom/Geometry.js';
 import type { Contour } from '@components/map/models/openlayers';
 
 interface VectorLayerOptions {
@@ -27,9 +34,26 @@ interface VectorLayerOptions {
   maxLabelResolution?: number;
 }
 
+// The typings shipped with jsts describe OL3Parser against the legacy `@types/openlayers`
+// global namespace, which is structurally incompatible with the modern `ol` package types.
+// This interface retypes the parser against the real `ol` types.
+export interface JstsOl3Parser {
+  inject(...geometryClasses: unknown[]): void;
+  read(geometry: Geometry | undefined): JstsGeometry;
+  write(geometry: JstsGeometry): Geometry;
+}
+
+export const createJstsOl3Parser = (): JstsOl3Parser => {
+  // Both constructor args are optional at runtime (defaults are created internally),
+  // but the shipped jsts typings mark them as required.
+  const parser = new OL3Parser(undefined as never, undefined as never);
+  parser.inject(Point, LineString, LinearRing, Polygon, MultiPoint, MultiLineString, MultiPolygon, GeometryCollection);
+  return parser as unknown as JstsOl3Parser;
+};
+
 export class MapUtil {
-  public static getLayerById(map: Map, id: string): VectorLayer<VectorSource<Geometry>> {
-    return map.getAllLayers().find((lyr) => lyr.get('id') === id) as VectorLayer<VectorSource<Geometry>>;
+  public static getLayerById(map: Map, id: string): VectorLayer<VectorSource<Feature<Geometry>>> {
+    return map.getAllLayers().find((lyr) => lyr.get('id') === id) as VectorLayer<VectorSource<Feature<Geometry>>>;
   }
 
   public static createVectorLayer(options: VectorLayerOptions) {
@@ -79,15 +103,15 @@ export class MapUtil {
 
   public static mergePolygons(features: Feature[]): Feature | null {
     const parser = this.getParser();
-    let mergedJstsGeom: jsts.geom.Geometry | undefined;
+    let mergedJstsGeom: JstsGeometry | undefined;
 
     features.forEach((f) => {
       const jstsGeom = parser.read(f.getGeometry());
-      const fixedGeom = jstsGeom.buffer(0); // Fix self-intersections
+      const fixedGeom = BufferOp.bufferOp(jstsGeom, 0); // Fix self-intersections
 
       // Ensure the geometry is valid before merging
-      if (fixedGeom.isValid()) {
-        mergedJstsGeom = mergedJstsGeom ? mergedJstsGeom.union(fixedGeom) : fixedGeom;
+      if (IsValidOp.isValid(fixedGeom)) {
+        mergedJstsGeom = mergedJstsGeom ? UnionOp.union(mergedJstsGeom, fixedGeom) : fixedGeom;
       } else {
         console.warn('Invalid geometry found after buffering in mergePolygons:', f, fixedGeom);
       }
@@ -95,8 +119,8 @@ export class MapUtil {
 
     if (!mergedJstsGeom) return null;
 
-    const polygon = parser.write(mergedJstsGeom);
-    const coords = polygon.getType() === 'Polygon' ? [polygon.getCoordinates()] : polygon.getCoordinates();
+    const polygon = parser.write(mergedJstsGeom) as Polygon | MultiPolygon;
+    const coords = polygon instanceof Polygon ? [polygon.getCoordinates()] : polygon.getCoordinates();
     if (coords[0].length > 0) {
       return new Feature({
         geometry: new MultiPolygon(coords),
@@ -108,19 +132,19 @@ export class MapUtil {
 
   public static intersectPolygons(polygon1: Feature, polygon2: Feature): Feature | null {
     const parser = this.getParser();
-    const writer = new jsts.io.GeoJSONWriter();
+    const writer = new GeoJSONWriter();
 
     const jstsGeom1 = parser.read(polygon1.getGeometry());
     const jstsGeom2 = parser.read(polygon2.getGeometry());
-    const intersects = jstsGeom1.intersects(jstsGeom2);
+    const intersects = RelateOp.intersects(jstsGeom1, jstsGeom2);
 
     if (!intersects) return null;
 
-    const jstsGeom = jstsGeom1.intersection(jstsGeom2);
-    const fixedGeom = jstsGeom.buffer(0); // Fix self-intersections
+    const jstsGeom = OverlayOp.intersection(jstsGeom1, jstsGeom2);
+    const fixedGeom = BufferOp.bufferOp(jstsGeom, 0); // Fix self-intersections
 
     // Ensure the geometry is valid before returning
-    if (!fixedGeom.isValid()) {
+    if (!IsValidOp.isValid(fixedGeom)) {
       console.warn('Invalid geometry found after intersection:', polygon1, polygon2, fixedGeom);
       return null;
     }
@@ -140,24 +164,24 @@ export class MapUtil {
     const parser = this.getParser();
     const jstsGeom1 = parser.read(polygon1.getGeometry());
 
-    let jstsGeom: jsts.geom.Geometry;
+    let jstsGeom: JstsGeometry;
     if (!polygon2) {
       jstsGeom = jstsGeom1;
     } else {
       const jstsGeom2 = parser.read(polygon2.getGeometry());
-      jstsGeom = jstsGeom1.difference(jstsGeom2);
+      jstsGeom = OverlayOp.difference(jstsGeom1, jstsGeom2);
     }
 
-    const fixedGeom = jstsGeom.buffer(0); // Fix self-intersections
+    const fixedGeom = BufferOp.bufferOp(jstsGeom, 0); // Fix self-intersections
 
     // Ensure the geometry is valid before returning
-    if (!fixedGeom.isValid()) {
+    if (!IsValidOp.isValid(fixedGeom)) {
       console.warn('Invalid geometry found after subtraction:', polygon1, polygon2, fixedGeom);
       return null;
     }
 
-    const polygon = parser.write(fixedGeom);
-    const coords = polygon.getType() === 'Polygon' ? [polygon.getCoordinates()] : polygon.getCoordinates();
+    const polygon = parser.write(fixedGeom) as Polygon | MultiPolygon;
+    const coords = polygon instanceof Polygon ? [polygon.getCoordinates()] : polygon.getCoordinates();
     if (coords[0].length > 0) {
       return new Feature({
         geometry: new MultiPolygon(coords),
@@ -167,19 +191,8 @@ export class MapUtil {
     }
   }
 
-  private static getParser(): jsts.io.OL3Parser {
-    const parser = new jsts.io.OL3Parser();
-    parser.inject(
-      Point,
-      LineString,
-      LinearRing,
-      Polygon,
-      MultiPoint,
-      MultiLineString,
-      MultiPolygon,
-      GeometryCollection
-    );
-    return parser;
+  private static getParser(): JstsOl3Parser {
+    return createJstsOl3Parser();
   }
 
   public static bufferZone(zone: Feature, buffer: number): Feature {
@@ -188,10 +201,10 @@ export class MapUtil {
       // convert the OpenLayers geometry to a JSTS geometry
       const jstsGeom = parser.read(zone.getGeometry());
       // create a buffer
-      const buffered = jstsGeom.buffer(buffer);
+      const buffered = BufferOp.bufferOp(jstsGeom, buffer);
 
       // Ensure the geometry is valid before applying
-      if (!buffered.isValid()) {
+      if (!IsValidOp.isValid(buffered)) {
         console.warn('Invalid geometry found after buffering:', zone, buffered);
         return zone;
       }

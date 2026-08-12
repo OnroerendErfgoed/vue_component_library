@@ -42,13 +42,13 @@ defineOptions({
 });
 
 interface HuisnummerSelectorProps {
-  modelValue: string | IAdres | undefined;
-  disabled: boolean;
-  freeText: boolean;
-  modError: boolean;
+  modelValue?: string | IAdres | undefined;
+  disabled?: boolean;
+  freeText?: boolean;
+  modError?: boolean;
   autocompleteFn?: (term: string) => Promise<IAutocompleteOption[]>;
-  isVlaamseGemeenteOrEmpty: boolean;
-  readMode: boolean;
+  isVlaamseGemeenteOrEmpty?: boolean;
+  readMode?: boolean;
 }
 
 const props = withDefaults(defineProps<HuisnummerSelectorProps>(), {

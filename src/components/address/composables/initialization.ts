@@ -70,10 +70,27 @@ export const createInitializers = (
     try {
       if (!props.config?.postcode?.hidden) {
         state.postinfo.value = await crabApiService.getPostinfo((state.gemeente.value as IGemeente).naam);
+
+        if (state.postcode.value) {
+          const currentNum =
+            typeof state.postcode.value === 'string'
+              ? state.postcode.value
+              : (state.postcode.value as IPostinfo).postcode;
+          const match = state.postinfo.value.find((p) => p.postcode === currentNum);
+          if (match) state.postcode.value = match;
+        }
       }
 
       const stratenResult = await crabApiService.getStraten((state.gemeente.value as IGemeente).niscode);
       state.straten.value = sortBy(stratenResult, 'naam');
+
+      if (state.straat.value && typeof state.straat.value !== 'string') {
+        const currentStraat = state.straat.value as IStraat;
+        const match = state.straten.value.find(
+          (s) => s.id === currentStraat.id || (!currentStraat.id && s.naam === currentStraat.naam)
+        );
+        if (match) state.straat.value = match;
+      }
     } catch (error: unknown) {
       if (helpers.handleApiError(error)) {
         state.straten.value = [];

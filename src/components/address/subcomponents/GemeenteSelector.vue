@@ -43,13 +43,13 @@ import { computed } from 'vue';
 import type { IGemeente } from '@models/locatie';
 
 interface GemeenteSelectorProps {
-  modelValue: string | IGemeente | undefined;
-  options: IGemeente[];
-  disabled: boolean;
-  modError: boolean;
-  optionsLimit: number;
-  isBelgiumOrEmpty: boolean;
-  readMode: boolean;
+  modelValue?: string | IGemeente | undefined;
+  options?: IGemeente[];
+  disabled?: boolean;
+  modError?: boolean;
+  optionsLimit?: number;
+  isBelgiumOrEmpty?: boolean;
+  readMode?: boolean;
 }
 
 const props = withDefaults(defineProps<GemeenteSelectorProps>(), {

@@ -1,3 +1,280 @@
+# Migration Guide: v4 to v5
+
+## Overview
+
+Version 5.0 bumps all major peer dependencies and removes the deprecated `OeTinyMCE` component. No architectural changes — the modular import paths introduced in v4 remain identical.
+
+## Breaking Changes
+
+### 1. `OeTinyMCE` removed
+
+`OeTinyMCE` has been removed from the `/editor` module. Switch to `OeEditor` (Quill-based), which has been the primary editor since v4.
+
+```typescript
+// Before
+import { OeTinyMCE } from '@OnroerendErfgoed/vue_component_library/editor';
+
+// After
+import { OeEditor } from '@OnroerendErfgoed/vue_component_library/editor';
+```
+
+The `@tinymce/tinymce-vue` peer dependency is no longer needed and can be removed.
+
+### 2. FontAwesome 6 → 7
+
+Update your peer dependencies:
+
+```bash
+pnpm add @fortawesome/fontawesome-svg-core@^7.3.0
+pnpm add @fortawesome/free-solid-svg-icons@^7.3.0
+```
+
+FontAwesome 7 renamed and reorganised several icons. Check the [FontAwesome 7 upgrade guide](https://docs.fontawesome.com/web/setup/upgrade/) for icon name changes — if any icons you import directly have been renamed, update those imports.
+
+### 3. ag-Grid 34 → 36
+
+Update your peer dependency:
+
+```bash
+pnpm add ag-grid-vue3@^36.0.0
+```
+
+**DOM structure changed.** The `.ag-center-cols-container` and `.ag-center-cols-viewport` CSS classes no longer exist. If you have custom CSS or Cypress/Playwright selectors targeting these classes:
+
+```css
+/* Before */
+.ag-center-cols-container { min-height: 40px; }
+
+/* After — target rows directly or the new scrolling container */
+.ag-grid-scrolling-rows { min-height: 40px; }
+ag-row-container { min-height: 40px; } /* custom element, no dot */
+```
+
+For test selectors that counted or clicked rows:
+
+```typescript
+// Before
+cy.get('.ag-center-cols-container').children().should('have.length', 2);
+cy.get('.ag-center-cols-container').children().first().click();
+
+// After
+cy.get('.ag-row').should('have.length', 2);
+cy.get('.ag-row').first().click();
+```
+
+**`.ag-body-viewport` and `.ag-body-container` removed.** If you have custom CSS targeting cells inside `.ag-body-viewport`, lift those selectors up:
+
+```css
+/* Before */
+.ag-body-viewport .acties-cell { justify-content: center; }
+.ag-body-viewport .ag-row-selected { background-color: silver; }
+
+/* After — target directly */
+.acties-cell { justify-content: center; }
+.ag-row-selected { background-color: silver; }
+```
+
+**Header background color moved to CSS variable.** Setting `background-color` on `.ag-header` no longer works — v36 applies the header background via `var(--ag-header-background-color)` on the inner scrolling cells. Override the variable instead:
+
+```css
+/* Before */
+.my-grid .ag-header { background-color: #eee; }
+
+/* After */
+.my-grid.ag-theme-balham { --ag-header-background-color: #eee; }
+```
+
+### 4. OpenLayers 7 → 10
+
+Update your peer dependency:
+
+```bash
+pnpm add ol@^10.9.0
+```
+
+**TypeScript generic change.** `VectorSource<T>` now requires `T extends FeatureLike` (i.e. `Feature`) instead of `T extends Geometry`. Update any explicit type annotations:
+
+```typescript
+// Before
+const source = layer.getSource() as VectorSource<Geometry>;
+
+// After
+import Feature from 'ol/Feature';
+const source = layer.getSource() as VectorSource<Feature<Geometry>>;
+```
+
+**`MapBrowserEvent` constraint tightened.** The generic parameter is now restricted to `KeyboardEvent | PointerEvent | WheelEvent` (was `UIEvent`):
+
+```typescript
+// Before
+const onClick = (evt: MapBrowserEvent<UIEvent>) => { ... };
+
+// After
+const onClick = (evt: MapBrowserEvent<KeyboardEvent | PointerEvent | WheelEvent>) => { ... };
+```
+
+### 5. date-fns 2 → 4
+
+Update your peer dependency:
+
+```bash
+pnpm add date-fns@^4.4.0
+```
+
+date-fns v4 drops CommonJS exports (ESM only) and revamps locale handling. Most function signatures are unchanged, but if you use locales:
+
+```typescript
+// Before (v2)
+import { format } from 'date-fns';
+import { nl } from 'date-fns/locale';
+format(date, 'PP', { locale: nl });
+
+// After (v4) — same API, but locale imports moved
+import { format } from 'date-fns';
+import { nl } from 'date-fns/locale/nl';
+format(date, 'PP', { locale: nl });
+```
+
+Check the [date-fns v4 release notes](https://date-fns.org/v4.1.0/docs/changelog) for the full list of removed functions.
+
+### 6. @vueuse/core 10 → 14
+
+Update your peer dependency:
+
+```bash
+pnpm add @vueuse/core@^14.3.0
+```
+
+`toRef` was removed from `@vueuse/core` in v11 (it's now only in Vue core). If you import it from `@vueuse/core`, move the import to `vue`:
+
+```typescript
+// Before
+import { toRef } from '@vueuse/core';
+
+// After
+import { toRef } from 'vue';
+```
+
+### 7. pinia 2 → 3
+
+Update your peer dependency:
+
+```bash
+pnpm add pinia@^3.0.0
+```
+
+Pinia 3 drops Vue 2 compatibility and tightens some typing. For most Composition API usage (`defineStore`, `storeToRefs`) there are no changes. Check the [pinia 3 changelog](https://github.com/vuejs/pinia/blob/v3/packages/pinia/CHANGELOG.md) if you use options-style stores or plugins.
+
+### 8. `@soerenmartius/vue3-clipboard` removed
+
+`OeClipboardCopy` now uses `useClipboard` from `@vueuse/core` (already a required peer dep for the core module). The `@soerenmartius/vue3-clipboard` peer dependency is no longer needed:
+
+```bash
+# Remove from your project
+pnpm remove @soerenmartius/vue3-clipboard
+```
+
+If you use `@soerenmartius/vue3-clipboard` directly in your own code, replace it with `useClipboard` from `@vueuse/core`:
+
+```typescript
+// Before
+import { toClipboard } from '@soerenmartius/vue3-clipboard';
+await toClipboard('text to copy');
+
+// After
+import { useClipboard } from '@vueuse/core';
+const { copy } = useClipboard();
+await copy('text to copy');
+```
+
+**Minor behaviour change**: the check icon in `OeClipboardCopy` now shows for 1500 ms (vueuse default) instead of 1000 ms.
+
+### 9. jsts 2.7.2 → 2.12.1
+
+Update your peer dependency:
+
+```bash
+pnpm add jsts@^2.12.1
+```
+
+jsts 2.8+ dropped the `main` field and the bundled dist entry point. The library now imports directly from the jsts ESM modules — no action needed on your side unless you import jsts yourself.
+
+If you import jsts directly in your own code, replace the bare package import with the specific module paths:
+
+```typescript
+// Before
+import * as jsts from 'jsts';
+const parser = new jsts.io.OL3Parser();
+const buffered = jstsGeom.buffer(40);
+
+// After
+import OL3Parser from 'jsts/org/locationtech/jts/io/OL3Parser.js';
+import BufferOp from 'jsts/org/locationtech/jts/operation/buffer/BufferOp.js';
+const parser = new OL3Parser(undefined, undefined);
+parser.inject(Point, LineString, LinearRing, Polygon, MultiPoint, MultiLineString, MultiPolygon, GeometryCollection);
+const buffered = BufferOp.bufferOp(jstsGeom, 40);
+```
+
+jsts 2.12 ships its own TypeScript declarations via `typesVersions`, so `@types/jsts` is no longer needed and can be removed:
+
+```bash
+pnpm remove @types/jsts
+```
+
+### 10. axios-mock-adapter 1 → 2
+
+
+
+If you use `axios-mock-adapter` directly (it is an optional peer dep for testing):
+
+```bash
+pnpm add axios-mock-adapter@^2.1.0
+```
+
+The v2 API is largely compatible. The main change is that the default export is now a named export:
+
+```typescript
+// Before
+import MockAdapter from 'axios-mock-adapter';
+
+// After (v2 still supports default import, but verify your bundler config)
+import MockAdapter from 'axios-mock-adapter';
+```
+
+## Updated Peer Dependency Install Commands
+
+### Required
+
+```bash
+pnpm add @govflanders/vl-ui-design-system-vue3@^8.2.0
+pnpm add @fortawesome/fontawesome-svg-core@^7.3.0
+pnpm add @fortawesome/free-solid-svg-icons@^7.3.0
+pnpm add @fortawesome/vue-fontawesome@^3.1.2
+pnpm add vue@^3.5.11 pinia@^3.0.0 vue-i18n@^11.4.5 lodash-es@^4.18.0
+```
+
+### Optional (by module)
+
+```bash
+# core
+pnpm add @vueuse/core@^14.3.0
+
+# forms
+pnpm add date-fns@^4.4.0
+
+# grid
+pnpm add ag-grid-vue3@^36.0.0
+
+# map
+pnpm add ol@^10.9.0 proj4@^2.9.0 jsts@^2.12.1
+
+# editor
+pnpm add quill@^2.0.0 quill-html-edit-button@^3.0.0
+pnpm add quill-toggle-fullscreen-button@^0.1.3 vue-quilly@^1.0.5
+```
+
+---
+
 # Migration Guide: v3 to v4
 
 ## Overview
@@ -66,7 +343,7 @@ All components are now consistently prefixed with `Oe` for better namespacing an
 | **Composables** | `/composables` | ~0.13 KB     | Store exports only (re-exports utilStore)             |
 | **Grid**        | `/grid`        | ~1.61 KB     | Data grid components (ag-Grid wrapper)                |
 | **Services**    | `/services`    | ~0.85 KB     | API services (auth, actor, inventaris, ID)            |
-| **Editor**      | `/editor`      | ~3.54 KB     | Rich text editors (TinyMCE, Quill)                    |
+| **Editor**      | `/editor`      | ~3.54 KB     | Rich text editor (Quill)                              |
 | **Utils**       | `/utils`       | ~1.03 KB     | Utility functions, validators, i18n                   |
 | **Widgets**     | `/widgets`     | ~4.48 KB     | Complex widgets (Actor, Locatie, Betrokkene)          |
 | **Address**     | `/address`     | ~9.36 KB     | Belgian address components with autocomplete          |
@@ -120,12 +397,12 @@ Ensure all component references in your templates and code use the `Oe` prefix:
 
 ```bash
 # Core dependencies (always required)
-yarn add vue@^3.4.0 pinia@^2.1.7 vue-i18n@^9.0.0 lodash-es@^4.17.21
-yarn add @govflanders/vl-ui-design-system-vue3@~8.0.2
-yarn add @govflanders/vl-ui-design-system-style@~3.2.3
-yarn add @fortawesome/fontawesome-svg-core@^6.4.0
-yarn add @fortawesome/free-solid-svg-icons@^6.4.0
-yarn add @fortawesome/vue-fontawesome@^3.1.2
+pnpm add vue@^3.4.0 pinia@^2.1.7 vue-i18n@^9.0.0 lodash-es@^4.17.21
+pnpm add @govflanders/vl-ui-design-system-vue3@~8.0.2
+pnpm add @govflanders/vl-ui-design-system-style@~3.2.3
+pnpm add @fortawesome/fontawesome-svg-core@^6.4.0
+pnpm add @fortawesome/free-solid-svg-icons@^6.4.0
+pnpm add @fortawesome/vue-fontawesome@^3.1.2
 ```
 
 ### Step 5: Install Optional Dependencies (Only What You Need)
@@ -134,38 +411,35 @@ Based on which modules you're using:
 
 ```bash
 # If using core module
-yarn add @vueuse/core@^10.0.0
-yarn add @soerenmartius/vue3-clipboard@^1.0.0
+pnpm add @vueuse/core@^10.0.0
+pnpm add @soerenmartius/vue3-clipboard@^0.1.2
 
 # If using forms module
-yarn add @vuelidate/core@^2.0.2 @vuelidate/validators@^2.0.2
-yarn add date-fns@^2.30.0 libphonenumber-js@^1.10.37
+pnpm add @vuelidate/core@^2.0.2 @vuelidate/validators@^2.0.2
+pnpm add date-fns@^2.30.0 libphonenumber-js@^1.10.37
 
 # If using address module
-yarn add axios@^1.12.0
-yarn add ol@^7.4.0  # Also needed for address autocomplete
+pnpm add axios@^1.12.0
+pnpm add ol@^7.4.0  # Also needed for address autocomplete
 
 # If using grid module
-yarn add ag-grid-vue3@^34.0.0
+pnpm add ag-grid-vue3@^34.0.0
 
 # If using map module
-yarn add ol@^7.4.0 jsts@2.7.2 proj4@^2.9.0
-
-# If using editor module (TinyMCE)
-yarn add @tinymce/tinymce-vue@^4
+pnpm add ol@^10.9.0 jsts@^2.12.1 proj4@^2.9.0
 
 # If using editor module (Quill)
-yarn add quill@^2.0.0 quill-html-edit-button@^3.0.0
-yarn add quill-toggle-fullscreen-button@^0.1.3 vue-quilly@^1.0.5
-yarn add parchment@^3.0.0 fast-diff@^1.3.0
-yarn add lodash.clonedeep@^4.5.0 lodash.isequal@^4.5.0 quill-delta@^5.1.0
+pnpm add quill@^2.0.0 quill-html-edit-button@^3.0.0
+pnpm add quill-toggle-fullscreen-button@^0.1.3 vue-quilly@^1.0.5
+pnpm add parchment@^3.0.0 fast-diff@^1.3.0
+pnpm add lodash.clonedeep@^4.5.0 lodash.isequal@^4.5.0 quill-delta@^5.1.0
 ```
 
 ### Step 6: Test Your Application
 
 ```bash
-yarn dev
-yarn build
+pnpm dev
+pnpm build
 ```
 
 Check that:
@@ -459,7 +733,7 @@ Use your bundler's analysis tool:
 
 ```bash
 # For Vite
-yarn build
+pnpm build
 # Check dist/stats.html
 ```
 

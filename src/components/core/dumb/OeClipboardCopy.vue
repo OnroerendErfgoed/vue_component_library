@@ -1,6 +1,6 @@
 <template>
   <div class="vl-u-display-inline-block">
-    <FontAwesomeIcon v-if="!showCheck" class="clipboard" :icon="faClipboard" @click="clipboardClick" />
+    <FontAwesomeIcon v-if="!copied" class="clipboard" :icon="faClipboard" @click="copy(value)" />
     <FontAwesomeIcon v-else class="check" :icon="faCheck" />
   </div>
 </template>
@@ -8,19 +8,10 @@
 <script setup lang="ts">
 import { faCheck, faClipboard } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { toClipboard } from '@soerenmartius/vue3-clipboard';
-import { ref } from 'vue';
+import { useClipboard } from '@vueuse/core';
 
-const props = defineProps<{ value: string }>();
-const showCheck = ref(false);
-const clipboardClick = () => {
-  toClipboard(props.value);
-  showCheck.value = true;
-
-  setTimeout(() => {
-    showCheck.value = false;
-  }, 1000);
-};
+defineProps<{ value: string }>();
+const { copy, copied } = useClipboard({ legacy: true });
 </script>
 
 <style lang="scss" scoped>

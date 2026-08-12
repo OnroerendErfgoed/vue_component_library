@@ -1,0 +1,14 @@
+shamefullyHoist: true
+
+overrides:
+  vite: "^8.1.0"
+
+allowBuilds:
+  '@parcel/watcher': true
+  cypress: true
+  esbuild: true
+  vue-demi: true
+
+minimumReleaseAgeExclude:
+  - '@vue/language-core@3.3.6'
+  - vue-tsc@3.3.6

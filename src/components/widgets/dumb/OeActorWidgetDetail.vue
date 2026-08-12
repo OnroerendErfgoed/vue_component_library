@@ -22,7 +22,7 @@
           <VlPropertiesLabel>Email adressen</VlPropertiesLabel>
           <VlPropertiesData>
             <ul>
-              <li v-for="(email, index) in props.actor.emails" :key="index">
+              <li v-for="(email, index) in props.actor?.emails" :key="index">
                 <small>{{ email.email }} ({{ email.type.naam }})</small>
               </li>
             </ul>
@@ -30,7 +30,7 @@
           <VlPropertiesLabel>Telefoonnummers</VlPropertiesLabel>
           <VlPropertiesData>
             <ul>
-              <li v-for="(telefoon, index) in props.actor.telefoons" :key="index">
+              <li v-for="(telefoon, index) in props.actor?.telefoons" :key="index">
                 <small>{{ telefoon.volledig_nummer }} ({{ telefoon.type.naam }})</small>
               </li>
             </ul>
@@ -48,7 +48,7 @@
           <VlPropertiesLabel>URL's</VlPropertiesLabel>
           <VlPropertiesData>
             <ul>
-              <li v-for="(url, index) in props.actor.urls" :key="index">
+              <li v-for="(url, index) in props.actor?.urls" :key="index">
                 <small>{{ url.url }} ({{ url.type.naam }})</small>
               </li>
             </ul>
@@ -71,7 +71,7 @@ import {
 } from '@govflanders/vl-ui-design-system-vue3';
 import type { IActor } from '@models/actor';
 
-const props = withDefaults(defineProps<{ actor: IActor }>(), {
+const props = withDefaults(defineProps<{ actor?: IActor }>(), {
   actor: undefined,
 });
 const emit = defineEmits<{

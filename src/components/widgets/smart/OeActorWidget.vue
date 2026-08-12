@@ -49,8 +49,8 @@ import { ActorService } from '@services/actor.service';
 import type { ActorType, IActor } from '@models/actor';
 
 interface IOeActorWidgetProps {
-  id: string;
-  api: string;
+  id?: string;
+  api?: string;
   getSsoToken?: () => Promise<string>;
   actorType?: ActorType;
   searchActor?: string;

@@ -53,6 +53,7 @@ export default defineConfig({
 
         // Map module dependencies
         'jsts',
+        /^jsts\//, // jsts ESM sub-path imports (jsts/org/locationtech/jts/...)
         'ol',
         /^ol\//, // All ol submodules
         'proj4',
@@ -63,7 +64,6 @@ export default defineConfig({
         '@vueuse/core',
 
         // Editors
-        '@tinymce/tinymce-vue',
         'quill',
         /^quill\//, // All quill submodules
         'quill-html-edit-button',
@@ -112,7 +112,7 @@ export default defineConfig({
     }),
     viteStaticCopy({
       targets: [
-        { src: 'src/scss/*', dest: 'scss' },
+        { src: 'src/scss/*', dest: 'scss', rename: { stripBase: true } },
         { src: 'src/assets/*', dest: 'assets' },
       ],
     }),

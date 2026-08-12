@@ -1,4 +1,6 @@
 // Modular type imports
+import { faEye, faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import {
   CellStyleModule,
   ClientSideRowModelModule,
@@ -204,6 +206,66 @@ export const InfiniteRowModelWithDatasource: Story = {
         @grid-ready="onGridReady">
      </oe-grid>
 `,
+  }),
+};
+
+const ActionsCellRenderer = {
+  components: { FontAwesomeIcon },
+  props: ['params'],
+  setup(props: { params: { data: { make: string; model: string } } }) {
+    const onView = () => alert(`View: ${props.params.data.make} ${props.params.data.model}`);
+    const onEdit = () => alert(`Edit: ${props.params.data.make} ${props.params.data.model}`);
+    const onDelete = () => alert(`Delete: ${props.params.data.make} ${props.params.data.model}`);
+    return { faEye, faPen, faTrash, onView, onEdit, onDelete };
+  },
+  template: `
+    <span style="display: flex; gap: 8px; justify-content: center; width: 100%;">
+      <FontAwesomeIcon :icon="faEye" class="icon" title="Bekijk" @click="onView" />
+      <FontAwesomeIcon :icon="faPen" class="icon" title="Bewerk" @click="onEdit" />
+      <FontAwesomeIcon :icon="faTrash" class="icon" title="Verwijder" @click="onDelete" />
+    </span>
+  `,
+};
+
+export const ActiesCell: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `cellClass: "acties-cell"` on a column definition to get centered, styled action icons. ' +
+          'Use a Vue component as `cellRenderer` to render FontAwesome icons per row.',
+      },
+    },
+  },
+  render: () => ({
+    components: { OeGrid },
+    setup() {
+      const gridOptions: GridOptions = {
+        columnDefs: [
+          { headerName: 'Make', field: 'make' },
+          { headerName: 'Model', field: 'model' },
+          { headerName: 'Price', field: 'price' },
+          {
+            headerName: 'Acties',
+            cellClass: 'acties-cell',
+            cellRenderer: ActionsCellRenderer,
+            width: 120,
+            sortable: false,
+          },
+        ],
+        rowData: [
+          { make: 'Toyota', model: 'Celica', price: 35000 },
+          { make: 'Ford', model: 'Mondeo', price: 32000 },
+          { make: 'Porsche', model: 'Boxster', price: 72000 },
+        ],
+        domLayout: 'autoHeight',
+      };
+      const firstDataRendered = (grid: FirstDataRenderedEvent) => {
+        grid.api.sizeColumnsToFit();
+      };
+      return { firstDataRendered, gridOptions };
+    },
+    template: `<oe-grid style="width: 100%;" :grid-options="gridOptions" @first-data-rendered="firstDataRendered" />`,
   }),
 };
 

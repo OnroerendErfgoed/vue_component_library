@@ -47,7 +47,7 @@
 import OeActorWidgetGridActies from '../dumb/OeActorWidgetGridActies.vue';
 import { VlActionGroup, VlButton, VlColumn, VlGrid, VlSearch } from '@govflanders/vl-ui-design-system-vue3';
 import { isEmpty, omitBy } from 'lodash-es';
-import { computed, getCurrentInstance, ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import OeGrid from '@components/grid/dumb/OeGrid.vue';
 import { ActorService, type IActorenQuery } from '@services/actor.service';
 import type {
@@ -63,7 +63,7 @@ import type {
 import type { ActorType, IActor } from '@models/actor';
 
 export interface IOeActorWidgetGridProps {
-  api: string;
+  api?: string;
   getSsoToken?: () => Promise<string>;
   actorType?: ActorType;
   searchActor?: string;
@@ -133,7 +133,6 @@ const getColumnDefinitions = (): ColDef[] => {
   ];
 };
 const gridOptions = ref<GridOptions>({
-  context: getCurrentInstance(),
   defaultColDef: { sortable: true, resizable: true },
   suppressMovableColumns: false,
   suppressClickEdit: true,
