@@ -17,15 +17,18 @@ describe('Adres', () => {
   });
 
   it('renders', () => {
+    cy.mockLanden();
     mount(TestComponent);
   });
 
   it('has a title adres', () => {
+    cy.mockLanden();
     mount(TestComponent);
     cy.dataCy('title-adres').should('have.text', 'Adres');
   });
 
   it('has a title adres - custom title', () => {
+    cy.mockLanden();
     mount(TestComponent, { props: { titleText: 'Custom' } });
     cy.dataCy('title-adres').should('have.text', 'Custom');
   });
@@ -123,6 +126,32 @@ describe('Adres', () => {
 
       it('fills in the form', () => {
         fillInOeAdresBelgium();
+      });
+
+      it('keeps the address when pressing enter in the huisnummer field', () => {
+        fillInOeAdresBelgium();
+
+        getAutocompleteInput('huisnummer').clear().type('999{enter}');
+
+        getMultiSelect('gemeente').find('.multiselect-single-label-text').should('have.text', 'Bertem');
+        getMultiSelect('postcode').find('.multiselect-single-label-text').should('have.text', '3060');
+        getMultiSelect('straat').find('.multiselect-single-label-text').should('have.text', 'Dorpstraat');
+        getAutocompleteInput('huisnummer').should('have.value', '999');
+      });
+
+      it('keeps the address when pressing enter in a free-text field outside Vlaanderen', () => {
+        cy.mockDurbuy();
+
+        getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
+        cy.wait('@dataGetGemeentenWaalsGewest');
+
+        setMultiSelectValue('gemeente', 'Durbuy');
+        cy.wait('@dataGetStratenDurbuy');
+
+        getTextInput('straat').type('Rue du Centre{enter}');
+
+        getMultiSelect('gemeente').find('.multiselect-single-label-text').should('have.text', 'Durbuy');
+        getTextInput('straat').should('have.value', 'Rue du Centre');
       });
 
       it('clears the form when changing country', () => {
@@ -322,6 +351,7 @@ describe('Adres', () => {
 
   describe('form - show required annotation per field', () => {
     beforeEach(() => {
+      cy.mockLanden();
       mount(TestComponent, { props: { showRequiredPerField: true } });
     });
 
@@ -400,6 +430,7 @@ describe('Adres', () => {
       ).then(() => {
         cy.wait('@dataGetLanden');
         cy.wait('@dataGetGemeentenWaalsGewest');
+        cy.wait('@dataGetAdressenDurbuy');
       });
     });
 
@@ -523,6 +554,7 @@ describe('Adres', () => {
 
       getMultiSelect('land').find(':selected').should('have.text', 'België');
       cy.wait('@dataGetGemeentenBrusselsHoofdstedelijkGewest');
+      cy.wait('@dataGetAdressenBrussel');
       getMultiSelect('gemeente').find('.multiselect-single-label-text').should('have.text', 'Brussel');
       // Brussel is non-Vlaamse → postcode/straat/huisnummer/busnummer all render as text inputs.
       getTextInput('postcode').should('have.value', '1000');
@@ -567,6 +599,7 @@ describe('Adres', () => {
       });
 
       cy.wait('@dataGetGemeentenVlaamsGewest');
+      cy.wait('@dataGetHuisnummersKrijkelbergBierbeek');
 
       getMultiSelect('land').find(':selected').should('have.text', 'België');
       getMultiSelect('gemeente').find('.multiselect-single-label-text').should('have.text', 'Bierbeek');
@@ -595,6 +628,7 @@ describe('Adres', () => {
       cy.wait('@dataGetGemeentenVlaamsGewest');
       cy.wait('@dataGetPostinfoBertem');
       cy.wait('@dataGetStratenBertem');
+      cy.wait('@dataGetHuisnummersDorpstraatBertem');
 
       getMultiSelect('postcode').find('.multiselect-single-label-text').should('have.text', '3060');
       getMultiSelect('straat').find('.multiselect-single-label-text').should('have.text', 'Dorpstraat');
@@ -686,6 +720,7 @@ describe('Adres', () => {
       cy.wait('@dataGetGemeentenVlaamsGewest');
 
       getMultiSelect('gemeente').find('.multiselect-option').should('have.length', 63);
+      cy.wait('@dataGetAdressenKrijkelbergBierbeek');
     });
 
     it('updates the model binding on value change', () => {
@@ -851,6 +886,7 @@ describe('Adres', () => {
         cy.wait('@dataGetPostinfoBertem');
         cy.wait('@dataGetStratenBertem');
         cy.wait('@dataGetAdressenDorpstraatBertem');
+        cy.wait('@dataGetHuisnummersDorpstraatBertem');
       });
 
       it('clears gewest, provincie, gemeente, postcode, straat, huisnummer and busnummer autocomplete when changing land', () => {
@@ -1319,9 +1355,12 @@ describe('Adres', () => {
   describe('form - specific country', () => {
     beforeEach(() => {
       cy.mockLanden();
+      cy.mockGewesten();
+      cy.mockGemeenten();
       mount(TestComponent, {
         template: '<OeAdres api="https://test-geo.onroerenderfgoed.be/" countryId="BE" v-model:adres="adres"/>',
       });
+      waitForGemeenten();
     });
 
     it('does not render the land entry', () => {
@@ -1415,6 +1454,7 @@ describe('Adres', () => {
         }).then(({ component }) => {
           cy.wait('@dataGetLanden');
           cy.wait('@dataGetGewesten');
+          waitForGemeenten();
           cy.wrap(component.$nextTick()).then(() => {
             adresComponent = component.adresComponent;
           });
@@ -1601,7 +1641,7 @@ describe('Adres', () => {
         },
         template: '<OeAdres api="https://test-geo.onroerenderfgoed.be/" :config="c" country-id="BE" />',
       }).then(() => {
-        cy.wait('@dataGetGemeentenVlaamsGewest');
+        waitForGemeenten();
         getMultiSelect('postcode').should('not.exist');
         getAutocompleteRootElement('busnummer').should('not.exist');
       });
@@ -1762,6 +1802,7 @@ describe('Adres', () => {
         template: '<OeAdres api="https://test-geo.onroerenderfgoed.be/" v-model:adres="adres"/>',
       }).then(() => {
         cy.wait('@dataGetLanden');
+        cy.wait('@dataGetAdressenAntwerpen');
 
         // Verify the street with homoniem is displayed correctly in the selection
         getMultiSelect('straat').find('.multiselect-single-label-text').should('have.text', 'Statiestraat (BE)');
@@ -1810,6 +1851,7 @@ describe('Adres', () => {
         template:
           '<OeAdres api="https://test-geo.onroerenderfgoed.be/" v-model:adres="adres" country-id="BE" :config="config" />',
       }).then(() => {
+        cy.wait('@dataGetAdressenAntwerpen');
         getMultiSelect('straat').find('.multiselect-clear').click();
         getMultiSelect('straat').find('.multiselect-single-label-text').should('not.exist');
         getMultiSelect('postcode').find('.multiselect-clear').click();
@@ -1832,6 +1874,13 @@ const getAutocompleteRootElement = (field: string) => cy.dataCy(`autocomplete-${
 const getAutocompleteInput = (field: string) => getAutocompleteRootElement(field).children().first();
 const getTextInput = (field: string) => cy.dataCy(`input-${field}`);
 const getFormError = (field: string) => cy.dataCy(`form-error-${field}`);
+
+const waitForGemeenten = () =>
+  cy.wait([
+    '@dataGetGemeentenVlaamsGewest',
+    '@dataGetGemeentenWaalsGewest',
+    '@dataGetGemeentenBrusselsHoofdstedelijkGewest',
+  ]);
 
 const fillInOeAdresBelgium = () => {
   // Country selection
