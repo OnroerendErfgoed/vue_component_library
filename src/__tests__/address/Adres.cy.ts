@@ -430,7 +430,7 @@ describe('Adres', () => {
       ).then(() => {
         cy.wait('@dataGetLanden');
         cy.wait('@dataGetGemeentenWaalsGewest');
-        cy.wait('@dataGetAdressenDurbuy');
+        cy.wait('@dataGetStratenDurbuy');
       });
     });
 
@@ -554,7 +554,7 @@ describe('Adres', () => {
 
       getMultiSelect('land').find(':selected').should('have.text', 'België');
       cy.wait('@dataGetGemeentenBrusselsHoofdstedelijkGewest');
-      cy.wait('@dataGetAdressenBrussel');
+      cy.wait('@dataGetStratenBrussel');
       getMultiSelect('gemeente').find('.multiselect-single-label-text').should('have.text', 'Brussel');
       // Brussel is non-Vlaamse → postcode/straat/huisnummer/busnummer all render as text inputs.
       getTextInput('postcode').should('have.value', '1000');
@@ -938,6 +938,7 @@ describe('Adres', () => {
 
       it('clears huisnummer and busnummer autocomplete when changing straat', () => {
         setMultiSelectValue('straat', 'Alsemberglaan');
+        cy.wait('@dataGetAdressenAlsemberglaanBertem');
 
         getAutocompleteInput('huisnummer').should('have.value', '');
         getAutocompleteInput('busnummer').should('have.value', '');
@@ -1863,6 +1864,84 @@ describe('Adres', () => {
         getMultiSelect('gewest').find('.multiselect-clear').click();
         getMultiSelect('gewest').find('.multiselect-single-label-text').should('not.exist');
       });
+    });
+  });
+
+  describe('form - adres outside Vlaanderen or no longer in the adressenregister', () => {
+    beforeEach(() => {
+      cy.mockLanden();
+      cy.mockGewesten();
+      cy.mockGemeenten();
+      cy.mockBrussel();
+      // Spy on every straat lookup (adressen/huisnummers); the mocks above still reply
+      cy.intercept('GET', '**/adressenregister/straten/**').as('straatLookups');
+    });
+
+    it('does not look up straat and huisnummer of a predefined address outside Vlaanderen', () => {
+      mount(TestComponent, {
+        data: () => ({
+          adres: {
+            land: { code: 'BE', naam: 'België' },
+            gemeente: { naam: 'Brussel', niscode: '21004' },
+            postcode: { uri: 'https://data.vlaanderen.be/id/postinfo/1000', nummer: '1000' },
+            straat: { id: '19887', uri: 'https://data.vlaanderen.be/id/straatnaam/19887', naam: 'Havenlaan' },
+            adres: { huisnummer: '4' },
+          },
+        }),
+        template: '<OeAdres api="https://test-geo.onroerenderfgoed.be/" v-model:adres="adres"/>',
+      });
+
+      cy.wait('@dataGetStratenBrussel');
+
+      getTextInput('straat').should('have.value', 'Havenlaan');
+      getTextInput('huisnummer').should('have.value', '4');
+      cy.get('@straatLookups.all').should('have.length', 0);
+    });
+
+    it('does not call the adressenregister when typing a straat and huisnummer outside Vlaanderen', () => {
+      mount(TestComponent);
+      cy.wait('@dataGetLanden');
+
+      getMultiSelect('land').select(1);
+      waitForGemeenten();
+      setMultiSelectValue('gemeente', 'Brussel');
+      cy.wait('@dataGetStratenBrussel');
+
+      getTextInput('straat').type('nieuw');
+      getTextInput('huisnummer').type('37');
+
+      getTextInput('straat').should('have.value', 'nieuw');
+      getTextInput('huisnummer').should('have.value', '37');
+      cy.get('@straatLookups.all').should('have.length', 0);
+    });
+
+    it('falls back to free text when the straat of a predefined address no longer exists', () => {
+      cy.mockBertem();
+      cy.intercept('GET', '**/adressenregister/straten/99999/adressen*', { statusCode: 500, body: {} }).as(
+        'dataGetAdressenRemovedStraat'
+      );
+      cy.intercept('GET', '**/adressenregister/straten/99999/huisnummers/*', { statusCode: 500, body: {} }).as(
+        'dataGetHuisnummersRemovedStraat'
+      );
+
+      mount(TestComponent, {
+        data: () => ({
+          adres: {
+            land: { code: 'BE', naam: 'België' },
+            gemeente: { naam: 'Bertem', niscode: '24009' },
+            postcode: { uri: 'https://data.vlaanderen.be/id/postinfo/3060', nummer: '3060' },
+            straat: { id: '99999', uri: 'https://data.vlaanderen.be/id/straatnaam/99999', naam: 'Verdwenen straat' },
+            adres: { huisnummer: '37' },
+          },
+        }),
+        template: '<OeAdres api="https://test-geo.onroerenderfgoed.be/" v-model:adres="adres"/>',
+      });
+
+      cy.wait('@dataGetAdressenRemovedStraat');
+
+      getTextInput('huisnummer').should('have.value', '37');
+      getTextInput('busnummer').should('exist');
+      cy.get('@dataGetHuisnummersRemovedStraat.all').should('have.length', 0);
     });
   });
 });

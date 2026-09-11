@@ -2,7 +2,7 @@ import { ResetLevel } from '../composables';
 import { IAdresProps } from '../models/adres';
 import { Ref, watch } from 'vue';
 import type { AdresState } from './state';
-import type { IAdres, ILocatieAdres } from '@models/locatie';
+import type { IAdres, ILocatieAdres, IStraat } from '@models/locatie';
 
 interface WatcherConfig<T> {
   // Property to watch
@@ -60,6 +60,7 @@ export function setupWatchers(
     resetFreeTextState: () => void;
     isBelgium: () => boolean;
     isBelgiumOrEmpty: () => boolean;
+    isVlaamseGemeenteOrEmpty: () => boolean;
   },
   initializers: {
     initializeLandData: () => Promise<void>;
@@ -158,7 +159,12 @@ export function setupWatchers(
     {
       source: () => state.straat.value,
       resetLevel: 'straat',
-      shouldInitialize: (value) => helpers.isBelgiumOrEmpty() && !!value && !state.straatIsFreeText.value,
+      // Free-text straten (typed string, or outside Vlaanderen) can't be looked up in the adressenregister
+      shouldInitialize: (value) =>
+        helpers.isBelgiumOrEmpty() &&
+        helpers.isVlaamseGemeenteOrEmpty() &&
+        !!(value as IStraat)?.id &&
+        !state.straatIsFreeText.value,
       initializeAction: initializers.initializeStraatData,
       onValueChange: (_, oldValue) => {
         if (oldValue) {
@@ -180,6 +186,7 @@ export function setupWatchers(
 
     if (hasChanged) {
       helpers.resetDependentFields('huisnummer');
+      state.busnummers.value = [];
       if (!props.config?.busnummer?.hidden) {
         state.busnummerIsFreeText.value = false;
       }
