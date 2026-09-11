@@ -125,6 +125,32 @@ describe('Adres', () => {
         fillInOeAdresBelgium();
       });
 
+      it('keeps the address when pressing enter in the huisnummer field', () => {
+        fillInOeAdresBelgium();
+
+        getAutocompleteInput('huisnummer').clear().type('999{enter}');
+
+        getMultiSelect('gemeente').find('.multiselect-single-label-text').should('have.text', 'Bertem');
+        getMultiSelect('postcode').find('.multiselect-single-label-text').should('have.text', '3060');
+        getMultiSelect('straat').find('.multiselect-single-label-text').should('have.text', 'Dorpstraat');
+        getAutocompleteInput('huisnummer').should('have.value', '999');
+      });
+
+      it('keeps the address when pressing enter in a free-text field outside Vlaanderen', () => {
+        cy.mockDurbuy();
+
+        getMultiSelect('land').select(1).find(':selected').should('have.text', 'België');
+        cy.wait('@dataGetGemeentenWaalsGewest');
+
+        setMultiSelectValue('gemeente', 'Durbuy');
+        cy.wait('@dataGetStratenDurbuy');
+
+        getTextInput('straat').type('Rue du Centre{enter}');
+
+        getMultiSelect('gemeente').find('.multiselect-single-label-text').should('have.text', 'Durbuy');
+        getTextInput('straat').should('have.value', 'Rue du Centre');
+      });
+
       it('clears the form when changing country', () => {
         fillInOeAdresBelgium();
 
