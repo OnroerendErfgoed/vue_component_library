@@ -44,6 +44,18 @@ const mockBertem = () => {
   cy.intercept('GET', '**/adressenregister/straten/32110/adressen*', { fixture: 'adressenDorpstraatBertem.json' }).as(
     'dataGetAdressenDorpstraatBertem'
   );
+  cy.intercept('GET', '**/adressenregister/straten/32085/adressen*', {
+    body: [
+      {
+        id: '466001',
+        uri: 'https://data.vlaanderen.be/id/adres/466001',
+        label: 'Alsemberglaan 1, 3060 Bertem',
+        huisnummer: '1',
+        busnummer: '',
+        status: 'inGebruik',
+      },
+    ],
+  }).as('dataGetAdressenAlsemberglaanBertem');
   cy.intercept('GET', '**/adressenregister/straten/32110/huisnummers/416*', {
     fixture: 'huisnummersDorpstraatBertem.json',
   }).as('dataGetHuisnummersDorpstraatBertem');
