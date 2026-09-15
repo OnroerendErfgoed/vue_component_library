@@ -5,10 +5,10 @@ import OeInventarisLink from '@components/core/smart/OeInventarisLink.vue';
 import { axiosInstance } from '@services/http.service';
 import type { IInventarisLinkGebeurtenis, IInventarisLinkWaarneming, ILinks } from '@components/core/models/links';
 
-const WAARNEMING_API =
-  'https://dev-inventaris.onroerenderfgoed.be/gebeurtenissen?bron_referentie_uri=https://dev-id.erfgoed.net/dossiers/158226';
 const GEBEURTENIS_API =
-  'https://dev-inventaris.onroerenderfgoed.be/waarnemingsobjecten?bron_referentie_uri=https://dev-id.erfgoed.net/dossiers/158226';
+  'https://dev-inventaris.onroerenderfgoed.be/gebeurtenissen?bron_referentie_uri=https://dev-id.erfgoed.net/dossiers/158226';
+const WAARNEMING_API =
+  'https://dev-inventaris.onroerenderfgoed.be/waarnemingen?bron_referentie_uri=https://dev-id.erfgoed.net/dossiers/158226';
 
 const mock = new MockAdapter(axiosInstance);
 
