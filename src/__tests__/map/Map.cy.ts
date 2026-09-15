@@ -166,6 +166,39 @@ describe('OeMap', () => {
       });
     });
 
+    it('zoomToExtent respects the provided maxZoom argument instead of the prop value', () => {
+      const TestComponent = defineComponent({
+        components: { OeMap },
+        setup() {
+          return {
+            props: {
+              layerConfig: {
+                baseLayers: {},
+                overlays: {},
+              },
+              zoomlevel: 5,
+              minZoomlevel: 4,
+              maxZoomlevel: 6,
+            },
+          };
+        },
+        template: `<OeMap ref="map" v-bind="props" style="height: 400px" />`,
+      });
+
+      cy.mount(TestComponent).then(({ component }) => {
+        const mapComponent = component.$refs.map as typeof OeMap;
+        const map = mapComponent.map;
+
+        const smallExtent = [100, 100, 100.0001, 100.0001];
+        mapComponent.zoomToExtent(smallExtent, 4);
+
+        cy.wrap(null, { timeout: 2000 }).should(() => {
+          const view = map.getView();
+          expect(view.getZoom()).to.eq(4);
+        });
+      });
+    });
+
     it('uses default zoomlevel, minZoomlevel, and maxZoomlevel when props are not set', () => {
       const TestComponent = defineComponent({
         components: { OeMap },
