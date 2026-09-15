@@ -114,7 +114,6 @@ export default defineConfig({
       targets: [
         { src: 'src/scss/*', dest: 'scss', rename: { stripBase: true } },
         { src: 'src/assets/*', dest: 'assets' },
-        { src: 'public/prettier.config.js', dest: '.' },
       ],
     }),
   ],
