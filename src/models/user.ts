@@ -1,3 +1,5 @@
+import type { IErkenning } from './erkenning';
+
 export class User {
   public actor: IUserActor;
   public groups: string[];
@@ -41,24 +43,6 @@ export interface IUserActor {
   omschrijving: string;
   uid: string;
   uri: string;
-}
-
-interface IErkenning {
-  erkend_als: string;
-  erkend_voor: string;
-  erkenningsnummer: string;
-  geldigheid: string;
-  id: number;
-  omschrijving: string;
-  reden_erkenning: IRedenErkenning;
-  type: string;
-  type_erkenning_id: number;
-  uri: string;
-}
-
-interface IRedenErkenning {
-  id: number;
-  reden_erkenning: string;
 }
 
 interface IOrganisatie {
