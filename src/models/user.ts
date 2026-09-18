@@ -33,7 +33,7 @@ export interface IUser {
   userid: string;
 }
 
-interface IUserActor {
+export interface IUserActor {
   erkenningen: IErkenning[];
   id: number;
   instantie_actor_omschrijving: string;
