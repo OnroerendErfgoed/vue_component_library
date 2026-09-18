@@ -7,6 +7,7 @@ import {
   ModuleRegistry,
   PaginationModule,
   RowSelectionModule,
+  TooltipModule,
   ValidationModule,
 } from 'ag-grid-community';
 import { mount } from 'cypress/vue';
@@ -21,6 +22,7 @@ ModuleRegistry.registerModules([
   PaginationModule,
   RowSelectionModule,
   CellStyleModule,
+  TooltipModule,
 ]);
 
 const data = [

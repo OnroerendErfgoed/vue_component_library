@@ -1,6 +1,6 @@
 {
   "name": "@OnroerendErfgoed/vue_component_library",
-  "version": "5.0.0",
+  "version": "5.1.0-alpha.2",
   "description": "Vue 3 component library for Onroerend Erfgoed applications, built on Govflanders Webuniversum design system",
   "type": "module",
   "files": [
@@ -54,6 +54,9 @@
     },
     "./eslint": {
       "import": "./dist/eslint.config.js"
+    },
+    "./prettier": {
+      "import": "./dist/prettier.config.js"
     },
     "./vue-components.css": {
       "style": "./dist/vue-components.css",
@@ -118,6 +121,7 @@
   },
   "dependencies": {
     "@OnroerendErfgoed/pyoes": "^0.26.2",
+    "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "guid-typescript": "^1.0.9"
   },
   "peerDependencies": {
@@ -206,7 +210,6 @@
     "@storybook/addon-links": "^10.4.6",
     "@storybook/builder-vite": "^10.4.6",
     "@storybook/vue3-vite": "^10.4.6",
-    "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@tsconfig/node20": "^20.1.9",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^26.0.1",

@@ -49,6 +49,11 @@ import { AgGridVue } from 'ag-grid-vue3';
         height: inherit;
         width: inherit;
         color: $jet;
+
+        .ag-header-cell-text {
+          display: flex;
+          align-items: center;
+        }
       }
 
       .ag-header-cell-sortable {
