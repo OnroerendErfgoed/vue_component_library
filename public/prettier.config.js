@@ -1,7 +1,5 @@
-import sortImports from '@trivago/prettier-plugin-sort-imports';
-
 export default {
-  plugins: [sortImports],
+  plugins: ['@trivago/prettier-plugin-sort-imports'],
   arrowParens: 'always',
   printWidth: 120,
   singleQuote: true,
