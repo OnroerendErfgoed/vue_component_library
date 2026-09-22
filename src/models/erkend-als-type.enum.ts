@@ -1,0 +1,8 @@
+export enum ErkendAlsType {
+  ARCHEOLOOG_TYPE_0 = 6,
+  ARCHEOLOOG_TYPE_1 = 1,
+  ARCHEOLOOG_TYPE_2 = 4,
+  METAALDETECTORIST = 2,
+  IOED = 5,
+  OEG = 3,
+}
