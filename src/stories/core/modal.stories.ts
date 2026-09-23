@@ -228,3 +228,35 @@ export const BackdropCloseDisabled: Story = {
     `,
   }),
 };
+
+export const MobileCenterModal: Story = {
+  args: {
+    title: 'Mobile Center Modal Title',
+    'mod-mobile-center': true,
+  },
+  render: (args) => ({
+    components: { OeModal, VlButton },
+    setup() {
+      const isOpen = ref(false);
+      const openModal = () => {
+        isOpen.value = true;
+      };
+      const closeModal = () => {
+        isOpen.value = false;
+      };
+
+      return { isOpen, openModal, closeModal, args };
+    },
+    template: `
+        <div>
+          <VlButton @click="openModal">Open Mobile Center Modal</VlButton>
+          <OeModal v-model:open="isOpen" v-bind="args">
+            <p>This modal is centered on mobile width.</p>
+            <template #modal-footer>
+              <VlButton @click="closeModal">Close</VlButton>
+            </template>
+          </OeModal>
+        </div>
+    `,
+  }),
+};
