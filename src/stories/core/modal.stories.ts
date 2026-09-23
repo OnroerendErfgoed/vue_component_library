@@ -41,6 +41,22 @@ const meta: Meta<typeof OeModal> = {
       control: 'boolean',
       description: 'Show close button',
     },
+    id: {
+      control: 'text',
+      description: 'Modal identifier',
+    },
+    modLocked: {
+      control: 'boolean',
+      description: 'Prevent closing with Escape',
+    },
+    modDisableBackdropClose: {
+      control: 'boolean',
+      description: 'Prevent closing by clicking backdrop',
+    },
+    modMobileCenter: {
+      control: 'boolean',
+      description: 'Center modal vertically on mobile',
+    },
   },
   // Remove tags: ['autodocs'] - moved to parameters
 };
@@ -204,6 +220,38 @@ export const BackdropCloseDisabled: Story = {
           <OeModal v-model:open="isOpen" v-bind="args">
             <p>This modal cannot be closed by clicking on the backdrop.</p>
             <p>You can only close it using the close button or by pressing the ESC key when focusing on the modal.</p>
+            <template #modal-footer>
+              <VlButton @click="closeModal">Close</VlButton>
+            </template>
+          </OeModal>
+        </div>
+    `,
+  }),
+};
+
+export const MobileCenterModal: Story = {
+  args: {
+    title: 'Mobile Center Modal Title',
+    'mod-mobile-center': true,
+  },
+  render: (args) => ({
+    components: { OeModal, VlButton },
+    setup() {
+      const isOpen = ref(false);
+      const openModal = () => {
+        isOpen.value = true;
+      };
+      const closeModal = () => {
+        isOpen.value = false;
+      };
+
+      return { isOpen, openModal, closeModal, args };
+    },
+    template: `
+        <div>
+          <VlButton @click="openModal">Open Mobile Center Modal</VlButton>
+          <OeModal v-model:open="isOpen" v-bind="args">
+            <p>This modal is centered on mobile width.</p>
             <template #modal-footer>
               <VlButton @click="closeModal">Close</VlButton>
             </template>
