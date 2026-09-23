@@ -41,6 +41,22 @@ const meta: Meta<typeof OeModal> = {
       control: 'boolean',
       description: 'Show close button',
     },
+    id: {
+      control: 'text',
+      description: 'Modal identifier',
+    },
+    modLocked: {
+      control: 'boolean',
+      description: 'Prevent closing with Escape',
+    },
+    modDisableBackdropClose: {
+      control: 'boolean',
+      description: 'Prevent closing by clicking backdrop',
+    },
+    modMobileCenter: {
+      control: 'boolean',
+      description: 'Center modal vertically on mobile',
+    },
   },
   // Remove tags: ['autodocs'] - moved to parameters
 };
