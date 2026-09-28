@@ -102,6 +102,21 @@ import { AgGridVue } from 'ag-grid-vue3';
       }
     }
 
+    .ag-cell:focus-visible,
+    .ag-header-cell:focus-visible {
+      outline: 3px solid var(--vl-theme-focus-outline-color);
+      outline-offset: -3px;
+      box-shadow: none;
+    }
+
+    .ag-header {
+      --ag-focus-shadow: none;
+
+      .ag-header-cell:focus-visible::after {
+        display: none;
+      }
+    }
+
     .ag-cell .cell-checkbox {
       color: $mid-purple;
     }
