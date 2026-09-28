@@ -212,9 +212,8 @@ const checkFlagAndPrefix = (countryCode: CountryCode, prefix: string) => {
 
   cy.dataCy('country-code')
     .find('.multiselect-wrapper span')
-    .invoke('text')
-    .then((text) => {
-      expect(text.trim()).to.equal(`${flag} ${prefix}`);
+    .should(($span) => {
+      expect($span.text().trim()).to.equal(`${flag} ${prefix}`);
     });
 };
 
@@ -235,5 +234,11 @@ const changeCountryCode = (countryCode: CountryCode) => {
   const prefix = `+${getCountryCallingCode(countryCode)}`;
 
   cy.dataCy('country-code').click();
-  cy.dataCy('country-code').find('.multiselect-option').contains(`(${prefix})`).click();
+
+  cy.dataCy('country-code')
+    .find('.multiselect-dropdown')
+    .should('be.visible')
+    .find('.multiselect-option')
+    .contains(`(${prefix})`)
+    .click();
 };
