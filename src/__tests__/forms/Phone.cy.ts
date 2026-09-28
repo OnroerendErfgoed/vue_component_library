@@ -1,6 +1,6 @@
+import { type CountryCode, getCountryCallingCode } from 'libphonenumber-js';
 import { defineComponent, ref } from 'vue';
 import OePhone from '@components/forms/dumb/OePhone.vue';
-import { getCountryCallingCode, type CountryCode } from 'libphonenumber-js';
 
 const TestComponent = defineComponent({
   components: { OePhone },

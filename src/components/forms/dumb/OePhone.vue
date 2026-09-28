@@ -158,6 +158,7 @@ defineExpose({ isValid });
 
   :deep(.multiselect-dropdown) {
     width: 250px;
+    max-height: 350px;
   }
 }
 </style>
