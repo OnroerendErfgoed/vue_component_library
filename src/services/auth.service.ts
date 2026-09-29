@@ -28,7 +28,10 @@ export class AuthService extends HttpService {
   }
 
   isErfgoedgemeente() {
-    return this.user.hasRole(this.ROLE_PREFIX + 'oegemeente-lezer');
+    if (this.user) {
+      return this.user.hasRole(this.ROLE_PREFIX + 'oegemeente-lezer');
+    }
+    return false;
   }
 
   isErkendArcheoloogType0() {
@@ -48,6 +51,10 @@ export class AuthService extends HttpService {
   }
 
   private isErkendAls(typeId: number): boolean {
+    if (!this.user) {
+      return false;
+    }
+
     const now = new Date();
 
     return getErkenningen(this.user.actor).some((erkenning) => {
