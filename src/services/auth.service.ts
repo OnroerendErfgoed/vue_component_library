@@ -28,10 +28,7 @@ export class AuthService extends HttpService {
   }
 
   isErfgoedgemeente() {
-    if (this.user) {
-      return this.user.hasRole(this.ROLE_PREFIX + 'oegemeente-lezer');
-    }
-    return false;
+    return this.user?.hasRole(this.ROLE_PREFIX + 'oegemeente-lezer');
   }
 
   isErkendArcheoloogType0() {
