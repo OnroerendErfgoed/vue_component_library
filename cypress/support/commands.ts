@@ -44,6 +44,18 @@ const mockBertem = () => {
   cy.intercept('GET', '**/adressenregister/straten/32110/adressen*', { fixture: 'adressenDorpstraatBertem.json' }).as(
     'dataGetAdressenDorpstraatBertem'
   );
+  cy.intercept('GET', '**/adressenregister/straten/32085/adressen*', {
+    body: [
+      {
+        id: '466001',
+        uri: 'https://data.vlaanderen.be/id/adres/466001',
+        label: 'Alsemberglaan 1, 3060 Bertem',
+        huisnummer: '1',
+        busnummer: '',
+        status: 'inGebruik',
+      },
+    ],
+  }).as('dataGetAdressenAlsemberglaanBertem');
   cy.intercept('GET', '**/adressenregister/straten/32110/huisnummers/416*', {
     fixture: 'huisnummersDorpstraatBertem.json',
   }).as('dataGetHuisnummersDorpstraatBertem');
@@ -74,6 +86,18 @@ const mockBierbeek = () => {
     ],
   }).as('dataGetPostinfoBierbeek');
   cy.intercept('GET', '**/adressenregister/gemeenten/24011/straten*', { body: [] }).as('dataGetStratenBierbeek');
+  cy.intercept('GET', '**/adressenregister/straten/32284/adressen*', {
+    body: [
+      {
+        id: '3063117',
+        uri: 'https://data.vlaanderen.be/id/adres/3063117',
+        label: 'Krijkelberg 5, 3360 Bierbeek',
+        huisnummer: '5',
+        busnummer: '',
+        status: 'inGebruik',
+      },
+    ],
+  }).as('dataGetAdressenKrijkelbergBierbeek');
   cy.intercept('GET', '**/adressenregister/straten/32284/huisnummers/5*', {
     body: [],
   }).as('dataGetHuisnummersKrijkelbergBierbeek');
@@ -197,7 +221,12 @@ const mockAntwerpen = () => {
       },
     ],
   }).as('dataGetStratenAntwerpen');
-  cy.intercept('GET', '**/adressenregister/straten/10000/adressen*', { body: [] }).as('dataGetAdressenAntwerpen');
+  cy.intercept('GET', /\/adressenregister\/straten\/(2723|2724|2725|2728)\/adressen/, { body: [] }).as(
+    'dataGetAdressenAntwerpen'
+  );
+  cy.intercept('GET', /\/adressenregister\/straten\/(2723|2724|2725|2728)\/huisnummers\//, { body: [] }).as(
+    'dataGetHuisnummersAntwerpen'
+  );
 };
 
 // Main mock function to call all helpers

@@ -23,6 +23,30 @@ describe('OeModal', () => {
       cy.get('.vl-modal-dialog').should('have.attr', 'aria-labelledby', `${testId}-label`);
       cy.get('.vl-modal-dialog').should('have.attr', 'aria-describedby', `${testId}-description`);
     });
+
+    it('centers dialog on mobile when modMobileCenter is enabled', () => {
+      cy.viewport(767, 660);
+      cy.mount({
+        components: { OeModal },
+        setup() {
+          const open = ref(true);
+          return { open };
+        },
+        template: `
+          <OeModal v-model:open="open" mod-mobile-center title="Mobile centered modal">
+            <p>Test content</p>
+          </OeModal>
+        `,
+      });
+
+      cy.get('.vl-modal--mobile-center').should('exist');
+      cy.get('.vl-modal-dialog').should(($dialog) => {
+        const dialog = $dialog[0].getBoundingClientRect();
+        const dialogCenter = dialog.top + dialog.height / 2;
+
+        expect(dialogCenter).to.be.closeTo(window.innerHeight / 2, 1);
+      });
+    });
   });
 
   describe('Rendering and basic functionality', () => {

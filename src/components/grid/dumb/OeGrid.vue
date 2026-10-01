@@ -1,9 +1,18 @@
 <template>
-  <AgGridVue data-cy="ag-grid-vue" class="ag-grid-vue ag-theme-balham" />
+  <AgGridVue data-cy="ag-grid-vue" class="ag-grid-vue ag-theme-balham" :grid-options="gridOptions" />
 </template>
 
 <script setup lang="ts">
 import { AgGridVue } from 'ag-grid-vue3';
+import { tabIntoCellActions } from '@utils/grid-keyboard';
+import type { GridOptions } from 'ag-grid-community';
+
+const props = defineProps<{ gridOptions?: GridOptions }>();
+
+const gridOptions: GridOptions = {
+  ...props.gridOptions,
+  defaultColDef: { suppressKeyboardEvent: tabIntoCellActions, ...props.gridOptions?.defaultColDef },
+};
 </script>
 
 <style lang="scss">
@@ -49,6 +58,11 @@ import { AgGridVue } from 'ag-grid-vue3';
         height: inherit;
         width: inherit;
         color: $jet;
+
+        .ag-header-cell-text {
+          display: flex;
+          align-items: center;
+        }
       }
 
       .ag-header-cell-sortable {
@@ -94,6 +108,21 @@ import { AgGridVue } from 'ag-grid-vue3';
 
       &:focus-within {
         border-color: $primary-color;
+      }
+    }
+
+    .ag-cell:focus-visible,
+    .ag-header-cell:focus-visible {
+      outline: 3px solid var(--vl-theme-focus-outline-color);
+      outline-offset: -3px;
+      box-shadow: none;
+    }
+
+    .ag-header {
+      --ag-focus-shadow: none;
+
+      .ag-header-cell:focus-visible::after {
+        display: none;
       }
     }
 

@@ -59,6 +59,7 @@ export const useAdresLogic = (props: IAdresProps, emit: (event: 'update:adres', 
     handleApiError: apiHelpers.handleApiError,
     isBelgium,
     isBelgiumOrEmpty,
+    isVlaamseGemeenteOrEmpty: apiHelpers.isVlaamseGemeenteOrEmpty,
   });
 
   // Setup watchers - watch for changes in state and props to trigger actions and rebuild data
@@ -71,6 +72,7 @@ export const useAdresLogic = (props: IAdresProps, emit: (event: 'update:adres', 
       resetFreeTextState: apiHelpers.resetFreeTextState,
       isBelgium,
       isBelgiumOrEmpty,
+      isVlaamseGemeenteOrEmpty: apiHelpers.isVlaamseGemeenteOrEmpty,
     },
     initializers,
     adres
