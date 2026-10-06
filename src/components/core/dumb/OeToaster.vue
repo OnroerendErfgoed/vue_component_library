@@ -42,9 +42,5 @@ const store = useUtilStore();
   .vl-alert.close-on-click {
     cursor: pointer;
   }
-  :deep(.vl-alert__message) {
-    // 4rem comes from the width of the closing button.
-    width: calc(100% + 4rem);
-  }
 }
 </style>
