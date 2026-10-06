@@ -263,3 +263,45 @@ export const DisabledState: Story = {
     `,
   }),
 };
+
+export const Indentation: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Demonstrates indentation using inline padding-left styles. Indent and outdent should update the model using 3em increments.',
+      },
+    },
+  },
+  render: () => ({
+    components: {
+      OeEditor,
+    },
+    setup() {
+      const model = ref(`
+        <p>Normal paragraph</p>
+        <p style="padding-left: 3em;">Indent level 1</p>
+        <p style="padding-left: 6em;">Indent level 2</p>
+        <p style="padding-left: 9em;">Indent level 3</p>
+      `);
+
+      const toolbar = ref<OeEditorToolbar[]>([
+        OeEditorToolbar.INDENT,
+        OeEditorToolbar.OUTDENT,
+      ]);
+
+      return { model, toolbar };
+    },
+    template: `
+      <div>
+        <OeEditor
+          id="editor-indentation"
+          v-model="model"
+          :toolbar="toolbar"
+        />
+
+        <pre>{{ model }}</pre>
+      </div>
+    `,
+  }),
+};
