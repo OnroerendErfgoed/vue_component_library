@@ -128,7 +128,7 @@
     "@fortawesome/fontawesome-svg-core": "^7.3.0",
     "@fortawesome/free-solid-svg-icons": "^7.3.0",
     "@fortawesome/vue-fontawesome": "^3.1.2",
-    "@govflanders/vl-ui-design-system-vue3": "^8.2.0",
+    "@govflanders/vl-ui-design-system-vue3": "^8.4.2",
     "@vuelidate/core": "^2.0.2",
     "@vuelidate/validators": "^2.0.2",
     "@vueuse/core": "^14.3.0",
