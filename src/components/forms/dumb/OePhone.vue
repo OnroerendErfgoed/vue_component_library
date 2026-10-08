@@ -52,8 +52,8 @@ import parsePhoneNumber, {
   getExampleNumber,
 } from 'libphonenumber-js';
 import examples from 'libphonenumber-js/mobile/examples';
-import { computed, ref, watch } from 'vue';
 import { sortBy } from 'lodash-es';
+import { computed, ref, watch } from 'vue';
 
 const DEFAULT_COUNTRY_CODE = 'BE';
 const inputTouched = ref(false);

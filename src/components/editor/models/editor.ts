@@ -1,5 +1,6 @@
+import { Parchment } from 'quill';
 import Block from 'quill/blots/block';
-import { Scope, StyleAttributor } from 'parchment';
+import Indent from 'quill/formats/indent';
 
 export class PrivateBlock extends Block {
   static tagName = 'DIV';
@@ -13,39 +14,35 @@ export class BibliografieBlock extends Block {
   static blotName = 'biblio';
 }
 
-class IndentStyleAttributor extends StyleAttributor {
+const QuillIndentAttributor = Indent.constructor as typeof Parchment.ClassAttributor;
+
+class IndentStyleAttributor extends QuillIndentAttributor {
   add(node: HTMLElement, value: string | number) {
-    let normalizedValue = 0;
+    const result = super.add(node, value);
+    const indent = this.value(node);
 
-    if (value === '+1' || value === '-1') {
-      const indent = this.value(node) || 0;
-      normalizedValue = value === '+1' ? indent + 1 : indent - 1;
-    } else if (typeof value === 'number') {
-      normalizedValue = value;
+    if (result && indent) {
+      node.style.paddingLeft = `${indent * 3}em`;
+    } else {
+      node.style.removeProperty('padding-left');
     }
 
-    if (normalizedValue === 0) {
-      this.remove(node);
-      return true;
-    }
-
-    return super.add(node, `${normalizedValue * 3}em`);
+    return result;
   }
 
-  value(node: HTMLElement) {
-    const value = super.value(node);
+  remove(node: HTMLElement) {
+    super.remove(node);
+    node.style.removeProperty('padding-left');
 
-    if (!value) {
-      return undefined;
+    if (!node.getAttribute('style')) {
+      node.removeAttribute('style');
     }
-
-    return parseInt(value, 10) / 3 || undefined;
   }
 }
 
-export const IndentStyle = new IndentStyleAttributor('indent', 'padding-left', {
-  scope: Scope.BLOCK,
-  whitelist: ['3em', '6em', '9em', '12em', '15em', '18em', '21em', '24em'],
+export const IndentStyle = new IndentStyleAttributor('indent', 'ql-indent', {
+  scope: Parchment.Scope.BLOCK,
+  whitelist: ['1', '2', '3', '4', '5', '6', '7', '8'],
 });
 
 export interface OeEditorProps {

@@ -268,8 +268,7 @@ export const Indentation: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          'Demonstrates indentation using inline padding-left styles. Indent and outdent should update the model using 3em increments.',
+        story: 'Demonstrates indentation while preserving Quill indent classes and adding inline padding-left styles.',
       },
     },
   },
@@ -280,14 +279,16 @@ export const Indentation: Story = {
     setup() {
       const model = ref(`
         <p>Normal paragraph</p>
-        <p style="padding-left: 3em;">Indent level 1</p>
-        <p style="padding-left: 6em;">Indent level 2</p>
-        <p style="padding-left: 9em;">Indent level 3</p>
+        <p class="ql-indent-1" style="padding-left: 3em;">Indent level 1</p>
+        <p class="ql-indent-2" style="padding-left: 6em;">Indent level 2</p>
+        <p class="ql-indent-3" style="padding-left: 9em;">Indent level 3</p>
       `);
 
       const toolbar = ref<OeEditorToolbar[]>([
         OeEditorToolbar.INDENT,
         OeEditorToolbar.OUTDENT,
+        OeEditorToolbar.BULLIST,
+        OeEditorToolbar.NUMLIST,
       ]);
 
       return { model, toolbar };
@@ -300,6 +301,40 @@ export const Indentation: Story = {
           :toolbar="toolbar"
         />
 
+        <pre>{{ model }}</pre>
+      </div>
+    `,
+  }),
+};
+
+export const SemanticLists: Story = {
+  render: () => ({
+    components: { OeEditor },
+    setup() {
+      const model = ref(`
+        <ul>
+          <li>Bullet item 1</li>
+          <li>Bullet item 2
+            <ul>
+              <li>Nested bullet item</li>
+            </ul>
+          </li>
+        </ul>
+        <ol>
+          <li>Numbered item 1</li>
+          <li>Numbered item 2
+            <ol>
+              <li>Nested numbered item</li>
+            </ol>
+          </li>
+        </ol>
+      `);
+
+      return { model };
+    },
+    template: `
+      <div>
+        <OeEditor id="editor-semantic-lists" v-model="model" />
         <pre>{{ model }}</pre>
       </div>
     `,

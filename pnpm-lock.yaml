@@ -129,9 +129,6 @@ importers:
       ol:
         specifier: ^10.9.0
         version: 10.9.0
-      parchment:
-        specifier: ^3.0.0
-        version: 3.0.0
       path:
         specifier: ^0.12.7
         version: 0.12.7

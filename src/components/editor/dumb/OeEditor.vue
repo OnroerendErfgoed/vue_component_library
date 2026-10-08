@@ -106,7 +106,13 @@
       </div>
     </div>
 
-    <QuillyEditor ref="editor" v-model="editorModel" :style="{ height: `${props.height}px` }" :options="options" />
+    <QuillyEditor
+      ref="editor"
+      v-model="model"
+      :style="{ height: `${props.height}px` }"
+      :options="options"
+      :is-semantic-html-model="true"
+    />
   </div>
 </template>
 
@@ -229,30 +235,10 @@ const options = computed(() => ({
 
 // Model
 const model = defineModel({ type: String });
-const editorModel = ref(model.value ?? '');
 
 onMounted(() => {
   quill = editor.value?.initialize(Quill) as Quill;
-
-  quill.on('text-change', () => {
-    model.value = quill.getSemanticHTML();
-  });
 });
-
-watch(
-  () => model.value,
-  (value) => {
-    if (!quill) {
-      return;
-    }
-
-    if ((value ?? '') === quill.getSemanticHTML()) {
-      return;
-    }
-
-    editorModel.value = value ?? '';
-  }
-);
 
 watch(
   () => props.modDisabled,
