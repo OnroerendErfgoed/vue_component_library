@@ -222,9 +222,9 @@ watch(
 );
 watch(zone, (newZone) => emit('update:zone', newZone), { deep: true });
 
-function zoomToExtent(extent: Extent) {
+function zoomToExtent(extent: Extent, maxZoom = props.maxZoomlevel) {
   map?.updateSize();
-  map?.getView().fit(extent, { maxZoom: props.maxZoomlevel });
+  map?.getView().fit(extent, { maxZoom });
 }
 
 function zoomButtonClick() {

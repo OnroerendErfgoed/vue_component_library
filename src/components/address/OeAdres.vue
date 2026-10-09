@@ -3,7 +3,7 @@
   <div v-else :id="`oe-adres-${id}`" class="oe-adres">
     <VlPropertiesTitle v-if="!props.hideTitle" data-cy="title-adres">{{ titleText }}</VlPropertiesTitle>
 
-    <VlFormStructure @submit.prevent>
+    <VlFormStructure @submit.prevent @keydown.enter="preventImplicitSubmit">
       <VlFormGrid
         :mod-stacked-large="props.modStackedLarge"
         :mod-stacked-small="props.modStackedSmall"
@@ -395,6 +395,10 @@ const rules = computed(() => ({
 }));
 
 const v$ = useVuelidate(rules, adres);
+
+const preventImplicitSubmit = (event: KeyboardEvent) => {
+  if (event.target instanceof HTMLInputElement) event.preventDefault();
+};
 
 defineExpose({
   validate: () => v$.value.$validate(),

@@ -7,3 +7,5 @@ export * from './niscode.enum';
 export * from './system-fields';
 export * from './toast';
 export * from './user';
+export * from './erkenning';
+export * from './tabs';

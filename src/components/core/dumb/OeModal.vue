@@ -9,6 +9,7 @@
       :open="open"
       :mod-locked="modLocked"
       :mod-disable-backdrop="modDisableBackdropClose"
+      :class="{ 'vl-modal--mobile-center': modMobileCenter }"
       @update:open="open = $event"
     >
       <slot />
@@ -36,6 +37,7 @@ export interface OeModalProps extends /* @vue-ignore */ VlModalPropTypes {
   id?: string;
   modLocked?: boolean;
   modDisableBackdropClose?: boolean;
+  modMobileCenter?: boolean;
 }
 
 const open = defineModel<boolean>('open', { default: false });
@@ -44,6 +46,7 @@ const props = withDefaults(defineProps<OeModalProps>(), {
   id: Guid.create().toString(),
   modLocked: true,
   modDisableBackdropClose: false,
+  modMobileCenter: false,
 });
 
 const handleBackdropClick = () => {
@@ -63,5 +66,13 @@ const handleBackdropClick = () => {
   z-index: 10008;
   background-color: rgba(232, 235, 238, 0.95);
   opacity: 0.95;
+}
+
+@media (max-width: 767px) {
+  :deep(.vl-modal--mobile-center .vl-modal-dialog) {
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+  }
 }
 </style>
