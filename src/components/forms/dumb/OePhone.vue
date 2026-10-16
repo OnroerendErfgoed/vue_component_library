@@ -10,6 +10,7 @@
         :options="countryCodeList"
         mode="single"
         object
+        value-prop="code"
         :can-clear="false"
         :can-deselect="false"
         @select="emit('update:modelValue', '')"

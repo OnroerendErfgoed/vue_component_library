@@ -11,6 +11,8 @@ const TestComponent = defineComponent({
   template: '<OePhone id="id" v-model="phoneNumber"/>',
 });
 
+const countryNames = new Intl.DisplayNames(['nl'], { type: 'region' });
+
 const generateTestSuiteNonDefaultCountry = (
   countryCode: CountryCode,
   phonePlaceholder: string,
@@ -130,6 +132,19 @@ describe('Phone', () => {
     cy.dataCy('input-phone').should('have.class', 'test');
   });
 
+  it('selects only one country when countries have the same calling code', () => {
+    cy.mount(TestComponent);
+
+    changeCountryCode('AS');
+
+    cy.dataCy('country-code').click();
+
+    cy.dataCy('country-code')
+      .find('.multiselect-option.is-selected')
+      .should('have.length', 1)
+      .and('contain.text', 'Amerikaans-Samoa');
+  });
+
   describe('BE', () => {
     it('renders a placeholder according to selected country', () => {
       cy.mount(TestComponent);
@@ -232,6 +247,7 @@ const checkError = (expectedFormat: string) => {
 
 const changeCountryCode = (countryCode: CountryCode) => {
   const prefix = `+${getCountryCallingCode(countryCode)}`;
+  const countryName = countryNames.of(countryCode);
 
   cy.dataCy('country-code').click();
 
@@ -239,6 +255,6 @@ const changeCountryCode = (countryCode: CountryCode) => {
     .find('.multiselect-dropdown')
     .should('be.visible')
     .find('.multiselect-option')
-    .contains(`(${prefix})`)
+    .contains(`(${prefix}) ${countryName}`)
     .click();
 };
