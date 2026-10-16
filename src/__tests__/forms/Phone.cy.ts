@@ -1,6 +1,6 @@
+import { type CountryCode, getCountryCallingCode } from 'libphonenumber-js';
 import { defineComponent, ref } from 'vue';
 import OePhone from '@components/forms/dumb/OePhone.vue';
-import type { CountryCode } from 'libphonenumber-js';
 
 const TestComponent = defineComponent({
   components: { OePhone },
@@ -10,6 +10,8 @@ const TestComponent = defineComponent({
   },
   template: '<OePhone id="id" v-model="phoneNumber"/>',
 });
+
+const countryNames = new Intl.DisplayNames(['nl'], { type: 'region' });
 
 const generateTestSuiteNonDefaultCountry = (
   countryCode: CountryCode,
@@ -90,7 +92,7 @@ const generateTestSuiteNonDefaultCountry = (
         checkFlagAndPrefix(countryCode, phonePrefix);
         checkPhoneNumberInput(expectedInput);
 
-        changeCountryCode('be');
+        changeCountryCode('BE');
         checkPhoneNumberInput('');
       });
     });
@@ -130,6 +132,19 @@ describe('Phone', () => {
     cy.dataCy('input-phone').should('have.class', 'test');
   });
 
+  it('selects only one country when countries have the same calling code', () => {
+    cy.mount(TestComponent);
+
+    changeCountryCode('AS');
+
+    cy.dataCy('country-code').click();
+
+    cy.dataCy('country-code')
+      .find('.multiselect-option.is-selected')
+      .should('have.length', 1)
+      .and('contain.text', 'Amerikaans-Samoa');
+  });
+
   describe('BE', () => {
     it('renders a placeholder according to selected country', () => {
       cy.mount(TestComponent);
@@ -139,14 +154,14 @@ describe('Phone', () => {
     it('accepts a phone number with leading 0 and formats accordingly', () => {
       cy.mount(TestComponent);
       cy.dataCy('input-phone').type('0497668811');
-      checkFlagAndPrefix('be', '+32');
+      checkFlagAndPrefix('BE', '+32');
       checkPhoneNumberInput('497668811');
     });
 
     it('accepts a phone number with leading country code, sets country code and formats accordingly', () => {
       cy.mount(TestComponent);
       cy.dataCy('input-phone').type('+32497668811');
-      checkFlagAndPrefix('be', '+32');
+      checkFlagAndPrefix('BE', '+32');
       checkPhoneNumberInput('497668811');
     });
 
@@ -154,7 +169,7 @@ describe('Phone', () => {
       cy.mount(TestComponent).then(({ component }) => {
         component.phoneNumber = '+32497668811';
 
-        checkFlagAndPrefix('be', '+32');
+        checkFlagAndPrefix('BE', '+32');
         checkPhoneNumberInput('497668811');
       });
     });
@@ -187,10 +202,10 @@ describe('Phone', () => {
       cy.mount(TestComponent).then(({ component }) => {
         component.phoneNumber = '+32497668811';
 
-        checkFlagAndPrefix('be', '+32');
+        checkFlagAndPrefix('BE', '+32');
         checkPhoneNumberInput('497668811');
 
-        changeCountryCode('de');
+        changeCountryCode('DE');
         checkPhoneNumberInput('');
       });
     });
@@ -201,15 +216,20 @@ describe('Phone', () => {
   generateTestSuiteNonDefaultCountry('GB', '07400 123456', '+44', '7400123456');
   generateTestSuiteNonDefaultCountry('NL', '06 12345678', '+31', '612345678');
   generateTestSuiteNonDefaultCountry('LU', '628 123 456', '+352', '628123456');
+  generateTestSuiteNonDefaultCountry('UA', '050 123 4567', '+380', '501234567');
 });
 
-const checkFlagAndPrefix = (countryCode: string, prefix: string) => {
+const checkFlagAndPrefix = (countryCode: CountryCode, prefix: string) => {
+  const flag = countryCode
+    .split('')
+    .map((char) => String.fromCodePoint(127397 + char.charCodeAt(0)))
+    .join('');
+
   cy.dataCy('country-code')
     .find('.multiselect-wrapper span')
-    .should('have.class', 'flag')
-    .should('have.class', countryCode.toLowerCase())
-    .invoke('text')
-    .should('equal', prefix);
+    .should(($span) => {
+      expect($span.text().trim()).to.equal(`${flag} ${prefix}`);
+    });
 };
 
 const checkPhoneNumberInput = (phoneNumber: string) => {
@@ -225,6 +245,16 @@ const checkError = (expectedFormat: string) => {
     .should('equal', `Ongeldige waarde, gebruik formaat vb. ${expectedFormat}`);
 };
 
-const changeCountryCode = (countryCode: string) => {
-  cy.dataCy('country-code').click().find(`.flag.${countryCode.toLowerCase()}`).click();
+const changeCountryCode = (countryCode: CountryCode) => {
+  const prefix = `+${getCountryCallingCode(countryCode)}`;
+  const countryName = countryNames.of(countryCode);
+
+  cy.dataCy('country-code').click();
+
+  cy.dataCy('country-code')
+    .find('.multiselect-dropdown')
+    .should('be.visible')
+    .find('.multiselect-option')
+    .contains(`(${prefix}) ${countryName}`)
+    .click();
 };

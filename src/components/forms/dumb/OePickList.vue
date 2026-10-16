@@ -4,7 +4,7 @@
   </template>
   <ul :class="['pick-list', isEditMode ? 'vl-u-spacer-top--small divider' : '']">
     <li v-for="(item, index) in selectedItems" :key="index">
-      {{ itemText(item) }}
+      <slot name="item" :item="item" :index="index">{{ itemText?.(item) }}</slot>
       <VlButton
         v-if="isEditMode && !disabled"
         :title="`Verwijder ${itemLabel}`"
@@ -27,11 +27,12 @@ withDefaults(
   defineProps<{
     selectedItems: T[];
     itemLabel: string;
-    itemText: (item: T) => string;
+    itemText?: (item: T) => string;
     isEditMode: boolean;
     disabled?: boolean;
   }>(),
   {
+    itemText: undefined,
     disabled: false,
   }
 );

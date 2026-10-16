@@ -1,3 +1,4 @@
+import type { IErkenning } from './erkenning';
 import type { ISystemFields } from './system-fields';
 
 export enum ActorType {
@@ -99,24 +100,6 @@ interface IType {
   id: number;
   naam: string;
   uri?: string;
-}
-
-interface IErkenning {
-  erkend_als: string;
-  erkend_voor: string;
-  erkenningsnummer: string;
-  geldigheid: string;
-  id: number;
-  omschrijving: string;
-  reden_erkenning: IRedenErkenning;
-  type: string;
-  type_erkenning_id: number;
-  uri: string;
-}
-
-interface IRedenErkenning {
-  id: number;
-  reden_erkenning: string;
 }
 
 interface IId {

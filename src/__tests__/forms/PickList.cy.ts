@@ -1,4 +1,5 @@
 /* eslint-disable vue/one-component-per-file */
+import { VlLink } from '@govflanders/vl-ui-design-system-vue3';
 import { defineComponent, ref } from 'vue';
 import OePickList from '@components/forms/dumb/OePickList.vue';
 
@@ -235,6 +236,95 @@ describe('PickList', () => {
           });
         cy.get('.pick-list li').should('have.length', 1);
       });
+    });
+  });
+
+  describe('item slot', () => {
+    const TestComponent = defineComponent({
+      components: { OePickList, VlLink },
+      setup() {
+        const selectedItems = ref<ITestItem[]>([...items]);
+        return { selectedItems, itemText };
+      },
+      template: `
+        <OePickList
+          :selected-items="selectedItems"
+          item-label="item"
+          :item-text="itemText"
+          :is-edit-mode="true"
+        >
+          <template #item="{ item, index }">
+            <div :data-cy="'item-slot-' + index">
+              <span class="item-name">{{ item.name }}</span>
+              <VlLink class="item-link" :href="'https://example.org/' + item.id">link</VlLink>
+            </div>
+          </template>
+        </OePickList>
+      `,
+    });
+
+    it('renders the item slot for each item', () => {
+      cy.mount(TestComponent);
+      cy.get('.pick-list li [data-cy^="item-slot-"]').should('have.length', items.length);
+    });
+
+    it('exposes the item and its index to the slot', () => {
+      cy.mount(TestComponent);
+      items.forEach((item, index) => {
+        cy.get(`[data-cy="item-slot-${index}"] .item-name`).should('have.text', item.name);
+      });
+    });
+
+    it('renders interactive markup from the slot', () => {
+      cy.mount(TestComponent);
+      cy.get('.pick-list li .item-link')
+        .should('have.length', items.length)
+        .first()
+        .should('match', 'a')
+        .and('have.attr', 'href', `https://example.org/${items[0].id}`);
+    });
+
+    it('takes precedence over itemText', () => {
+      cy.mount(TestComponent);
+      cy.get('.pick-list li').first().should('not.contain.text', `${items[0].name}${items[0].name}`);
+    });
+
+    it('still renders the delete button next to the slot content', () => {
+      cy.mount(TestComponent);
+      cy.get('.pick-list .vl-button').should('have.length', items.length);
+    });
+
+    it('emits unselect with the correct item when the slot is used', () => {
+      const onUnselectSpy = cy.spy().as('onUnselect');
+      cy.mount(TestComponent, { props: { onUnselect: onUnselectSpy } });
+
+      cy.get('.pick-list .vl-button')
+        .eq(2)
+        .click()
+        .then(() => {
+          cy.get('@onUnselect').should('have.been.calledWith', items[2]);
+        });
+    });
+  });
+
+  describe('without itemText', () => {
+    const TestComponent = defineComponent({
+      components: { OePickList },
+      setup() {
+        const selectedItems = ref<ITestItem[]>([...items]);
+        return { selectedItems };
+      },
+      template: `
+        <OePickList :selected-items="selectedItems" item-label="item" :is-edit-mode="false">
+          <template #item="{ item }"><span class="item-name">{{ item.name }}</span></template>
+        </OePickList>
+      `,
+    });
+
+    it('renders the slot content when itemText is omitted', () => {
+      cy.mount(TestComponent);
+      cy.get('.pick-list li .item-name').should('have.length', items.length);
+      cy.get('.pick-list li .item-name').first().should('have.text', items[0].name);
     });
   });
 

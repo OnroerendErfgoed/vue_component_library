@@ -577,72 +577,72 @@
       "erkenningsnummer": "OE/ERK/Archeoloog/2020/00015",
       "id": 55,
       "type": "natuurlijk persoon",
-      "uri": "https://dev-id.erfgoed.net/actoren/12564",
       "omschrijving": "Van Humbeeck, Astrid",
-      "erkend_voor": "Archeologie type 1",
-      "erkend_als": "Archeoloog type 1",
-      "type_erkenning_id": 1,
+      "erkend_als": {
+        "id": 1,
+        "type_erkenning": "Archeologie",
+        "erkend_als": "Archeoloog type 1"
+      },
       "reden_erkenning": {
         "id": 2,
         "reden_erkenning": "Van rechtswege erkend"
       },
-      "geldigheid": "Vanaf 01-12-2020",
-      "startdatum_erkenning": "2020-12-01",
-      "einddatum_erkenning": null,
+      "startdatum": "2020-12-01",
+      "einddatum": null,
       "opmerkingen": ""
     },
     {
       "erkenningsnummer": "OE/ERK/Metaaldetectorist/2024/00126",
       "id": 254,
       "type": "natuurlijk persoon",
-      "uri": "https://dev-id.erfgoed.net/actoren/12564",
       "omschrijving": "Van Humbeeck, Astrid",
-      "erkend_voor": "Metaaldetectievondsten",
-      "erkend_als": "Metaaldetectorist",
-      "type_erkenning_id": 2,
+      "erkend_als": {
+        "id": 2,
+        "type_erkenning": "Metaaldetectie",
+        "erkend_als": "Metaaldetectorist"
+      },
       "reden_erkenning": {
         "id": 1,
         "reden_erkenning": "Erkend door Onroerend Erfgoed"
       },
-      "geldigheid": "Vanaf 30-09-2024",
-      "startdatum_erkenning": "2024-09-30",
-      "einddatum_erkenning": null,
+      "startdatum": "2024-09-30",
+      "einddatum": null,
       "opmerkingen": null
     },
     {
       "erkenningsnummer": "OE/ERK/Archeoloog/2024/00057",
       "id": 256,
       "type": "rechtspersoon",
-      "uri": "https://dev-id.erfgoed.net/actoren/12760",
       "omschrijving": "De zwarte doos",
-      "erkend_voor": "Archeologie type 1",
-      "erkend_als": "Archeoloog type 1",
-      "type_erkenning_id": 1,
+      "erkend_als": {
+        "id": 1,
+        "type_erkenning": "Archeologie",
+        "erkend_als": "Archeoloog type 1"
+      },
       "reden_erkenning": {
         "id": 2,
         "reden_erkenning": "Van rechtswege erkend"
       },
-      "geldigheid": "Vanaf 18-11-2024",
-      "startdatum_erkenning": "2024-11-18",
-      "einddatum_erkenning": null,
+      "startdatum": "2024-11-18",
+      "einddatum": null,
       "opmerkingen": null
     },
     {
       "erkenningsnummer": "OE/ERK/Archeoloog/2021/00010",
       "id": 71,
       "type": "rechtspersoon",
-      "uri": "https://dev-id.erfgoed.net/actoren/10083",
       "omschrijving": "Studiebureau Archeologie",
-      "erkend_voor": "Archeologie type 2",
-      "erkend_als": "Archeoloog type 2",
-      "type_erkenning_id": 4,
+      "erkend_als": {
+        "id": 4,
+        "type_erkenning": "Archeologie",
+        "erkend_als": "Archeoloog type 2"
+      },
       "reden_erkenning": {
         "id": 2,
         "reden_erkenning": "Van rechtswege erkend"
       },
-      "geldigheid": "Vanaf 01-04-2021",
-      "startdatum_erkenning": "2021-04-01",
-      "einddatum_erkenning": null,
+      "startdatum": "2021-04-01",
+      "einddatum": null,
       "opmerkingen": null
     }
   ],
