@@ -5,6 +5,7 @@ export { default as OeContainer } from './dumb/OeContainer.vue';
 export { default as OeHeader } from './dumb/OeHeader.vue';
 export { default as OeLoader } from './dumb/OeLoader.vue';
 export { default as OeModal } from './dumb/OeModal.vue';
+export { default as OeModalConfirm } from './dumb/OeModalConfirm.vue';
 export { default as OeModalConfirmCancelChanges } from './dumb/OeModalConfirmCancelChanges.vue';
 export { default as OeSideNavigation } from './dumb/OeSideNavigation.vue';
 export { default as OeSystemFields } from './dumb/OeSystemFields.vue';

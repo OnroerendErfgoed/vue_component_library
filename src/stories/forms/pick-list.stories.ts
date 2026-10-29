@@ -1,4 +1,4 @@
-import { VlSelect } from '@govflanders/vl-ui-design-system-vue3';
+import { VlLink, VlSelect } from '@govflanders/vl-ui-design-system-vue3';
 import { ref } from 'vue';
 import { OePickList } from '@components/forms';
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -22,7 +22,7 @@ const meta: Meta<typeof OePickList> = {
     docs: {
       description: {
         component:
-          'A list component that displays selected items with optional remove functionality. Supports a generic type for items and a custom `itemText` function to render item labels.',
+          'A list component that displays selected items with optional remove functionality. Supports a generic type for items and either a custom `itemText` function or an `item` slot to render item labels.',
       },
     },
   },
@@ -43,7 +43,7 @@ const meta: Meta<typeof OePickList> = {
       },
     },
     itemText: {
-      description: 'Function that returns the display text for an item',
+      description: 'Function that returns the display text for an item. Ignored when the `item` slot is used.',
       table: {
         type: { summary: '(item: T) => string' },
       },
@@ -136,6 +136,62 @@ export const ReadMode: Story = {
           <VlSelect mod-block placeholder-text="Zoek een fruit...">
             <option v-for="item in sampleItems" :key="item.id" :value="item">{{ item.name }}</option>
           </VlSelect>
+        </template>
+      </OePickList>
+    `,
+  }),
+};
+
+export const CustomItemTemplate: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Uses the `item` slot instead of `itemText`, so each item can render markup such as a link.',
+      },
+    },
+  },
+  render: () => ({
+    components: { OePickList, VlLink },
+    setup() {
+      const items = ref<Fruit[]>([...sampleItems]);
+      const onUnselect = (item: Fruit) => {
+        items.value = items.value.filter((i) => i.id !== item.id);
+      };
+      return { items, onUnselect };
+    },
+    template: `
+      <OePickList :selected-items="items" item-label="fruit" is-edit-mode @unselect="onUnselect">
+        <template #item="{ item }">
+          <VlLink :href="'https://example.org/fruit/' + item.id" target="_blank" rel="noopener">
+            {{ item.name }}
+          </VlLink>
+        </template>
+      </OePickList>
+    `,
+  }),
+};
+
+export const CustomItemTemplateReadMode: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'The `item` slot outside edit mode: the links still render, but the delete buttons and the dashed dividers are gone.',
+      },
+    },
+  },
+  render: () => ({
+    components: { OePickList, VlLink },
+    setup() {
+      const items = ref<Fruit[]>([...sampleItems]);
+      return { items };
+    },
+    template: `
+      <OePickList :selected-items="items" item-label="fruit" :is-edit-mode="false">
+        <template #item="{ item }">
+          <VlLink :href="'https://example.org/fruit/' + item.id" target="_blank" rel="noopener">
+            {{ item.name }}
+          </VlLink>
         </template>
       </OePickList>
     `,

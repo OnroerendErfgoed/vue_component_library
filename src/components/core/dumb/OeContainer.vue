@@ -94,6 +94,7 @@ const closeTab = (item: ITab, confirm = false) => {
 
         .vl-u-mark--info {
           height: fit-content;
+          width: fit-content;
         }
 
         .refresh-button {

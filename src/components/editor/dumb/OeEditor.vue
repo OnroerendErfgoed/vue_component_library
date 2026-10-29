@@ -106,13 +106,26 @@
       </div>
     </div>
 
-    <QuillyEditor ref="editor" v-model="model" :style="{ height: `${props.height}px` }" :options="options" />
+    <QuillyEditor
+      ref="editor"
+      v-model="model"
+      :style="{ height: `${props.height}px` }"
+      :options="options"
+      :is-semantic-html-model="true"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import 'quill/dist/quill.snow.css';
-import { BibliografieBlock, OeEditorFormat, OeEditorProps, OeEditorToolbar, PrivateBlock } from '../models/editor';
+import {
+  BibliografieBlock,
+  IndentStyle,
+  OeEditorFormat,
+  OeEditorProps,
+  OeEditorToolbar,
+  PrivateBlock,
+} from '../models/editor';
 import { faBookmark, faLock, faRotateLeft, faRotateRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { includes } from 'lodash-es';
@@ -153,6 +166,7 @@ const tb = computed(() => (props.enableFullToolbar ? Object.values(OeEditorToolb
 // Register custom blocks and modules
 Quill.register(PrivateBlock, true);
 Quill.register(BibliografieBlock, true);
+Quill.register(IndentStyle, true);
 
 if (includes(tb.value, OeEditorToolbar.CODE)) {
   Quill.register('modules/htmlEditButton', htmlEditButton);

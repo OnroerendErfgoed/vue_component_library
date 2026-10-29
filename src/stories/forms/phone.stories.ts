@@ -76,3 +76,26 @@ export const TwoWayBinding: Story = {
     `,
   }),
 };
+
+export const InternationalCountryCode: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Phone number with a country code outside the preferred countries.',
+      },
+    },
+  },
+  render: () => ({
+    components: {
+      OePhone,
+    },
+    setup() {
+      const phoneNumber = ref('+380501234567');
+      return { phoneNumber };
+    },
+    template: `
+      <OePhone id="international-phone" v-model="phoneNumber" />
+      <p class="vl-u-spacer-top">Model value = {{ phoneNumber }}</p>
+    `,
+  }),
+};

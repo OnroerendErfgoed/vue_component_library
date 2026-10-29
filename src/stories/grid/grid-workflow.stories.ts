@@ -7,6 +7,7 @@ import {
   ModuleRegistry,
   PaginationModule,
   RowSelectionModule,
+  TooltipModule,
   ValidationModule,
 } from 'ag-grid-community';
 import OeGridWorkflow from '@components/grid/dumb/OeGridWorkflow.vue';
@@ -20,6 +21,7 @@ ModuleRegistry.registerModules([
   PaginationModule,
   RowSelectionModule,
   CellStyleModule,
+  TooltipModule,
 ]);
 
 // More on how to set up stories at: https://storybook.js.org/docs/vue/writing-stories/introduction

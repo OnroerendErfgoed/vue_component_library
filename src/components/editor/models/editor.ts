@@ -1,4 +1,6 @@
+import { Parchment } from 'quill';
 import Block from 'quill/blots/block';
+import Indent from 'quill/formats/indent';
 
 export class PrivateBlock extends Block {
   static tagName = 'DIV';
@@ -11,6 +13,37 @@ export class BibliografieBlock extends Block {
   static className = 'biblio';
   static blotName = 'biblio';
 }
+
+const QuillIndentAttributor = Indent.constructor as typeof Parchment.ClassAttributor;
+
+class IndentStyleAttributor extends QuillIndentAttributor {
+  add(node: HTMLElement, value: string | number) {
+    const result = super.add(node, value);
+    const indent = this.value(node);
+
+    if (result && indent) {
+      node.style.paddingLeft = `${indent * 3}em`;
+    } else {
+      node.style.removeProperty('padding-left');
+    }
+
+    return result;
+  }
+
+  remove(node: HTMLElement) {
+    super.remove(node);
+    node.style.removeProperty('padding-left');
+
+    if (!node.getAttribute('style')) {
+      node.removeAttribute('style');
+    }
+  }
+}
+
+export const IndentStyle = new IndentStyleAttributor('indent', 'ql-indent', {
+  scope: Parchment.Scope.BLOCK,
+  whitelist: ['1', '2', '3', '4', '5', '6', '7', '8'],
+});
 
 export interface OeEditorProps {
   id: string;

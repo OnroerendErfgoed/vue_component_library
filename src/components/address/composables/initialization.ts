@@ -24,6 +24,7 @@ export const createInitializers = (
     handleApiError: (error: unknown) => boolean;
     isBelgium: () => boolean;
     isBelgiumOrEmpty: () => boolean;
+    isVlaamseGemeenteOrEmpty: () => boolean;
   }
 ) => {
   const initializeLandData = async () => {
@@ -99,39 +100,49 @@ export const createInitializers = (
   };
 
   const initializeStraatData = async () => {
-    if (!state.straat.value || !helpers.isBelgiumOrEmpty() || state.straatIsFreeText.value) return;
+    // Only straten of the Vlaamse adressenregister can be looked up; a free-text straat (string) has no id
+    const straatId = (state.straat.value as IStraat)?.id;
+    if (!straatId || !helpers.isBelgiumOrEmpty() || !helpers.isVlaamseGemeenteOrEmpty() || state.straatIsFreeText.value)
+      return;
 
     try {
-      const adressen = await crabApiService.getAdressen((state.straat.value as IStraat).id);
+      const adressen = await crabApiService.getAdressen(straatId);
       state.huisnummers.value = uniqBy(
         sortBy(adressen, (s) => parseInt(s.huisnummer, 0)),
         'huisnummer'
       );
       state.huisnummerIsFreeText.value = !state.huisnummers.value.length;
-    } catch (error: unknown) {
-      if (helpers.handleApiError(error)) {
-        state.huisnummers.value = [];
-        state.busnummers.value = [];
-        state.huisnummerIsFreeText.value = true;
-        state.busnummerIsFreeText.value = true;
-      }
+    } catch {
+      // Unknown or removed straat (e.g. 404/500 from the adressenregister): fall back to free text
+      state.huisnummers.value = [];
+      state.busnummers.value = [];
+      state.huisnummerIsFreeText.value = true;
+      state.busnummerIsFreeText.value = true;
     }
   };
 
   const initializeHuisnummerData = async (adresValue: { straat?: { id?: string } }) => {
+    // A free-text huisnummer (string) is no known address, so it has no busnummers to look up
+    const huisnummer = (state.huisnummer.value as IAdres)?.huisnummer;
     if (
       !adresValue.straat?.id ||
-      !state.huisnummer.value ||
+      !huisnummer ||
       !helpers.isBelgiumOrEmpty() ||
+      !helpers.isVlaamseGemeenteOrEmpty() ||
       state.huisnummerIsFreeText.value ||
       props.config?.busnummer?.hidden
     )
       return;
 
-    const adressen = await crabApiService.getAdressen(
-      adresValue.straat.id as string,
-      (state.huisnummer.value as IAdres).huisnummer
-    );
+    let adressen: IAdres[];
+    try {
+      adressen = await crabApiService.getAdressen(adresValue.straat.id as string, huisnummer);
+    } catch {
+      // Unknown or removed address: let the user enter the busnummer as free text
+      state.busnummers.value = [];
+      state.busnummerIsFreeText.value = true;
+      return;
+    }
 
     state.busnummers.value = sortBy(adressen, 'busnummer').filter((v) => !!v.busnummer);
 
