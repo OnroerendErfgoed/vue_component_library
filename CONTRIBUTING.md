@@ -63,6 +63,10 @@ pnpm build
 pnpm package
 ```
 
+Storybook discovers `src/**/*.stories.@(js|jsx|mjs|ts|tsx)` files and generates Vue
+component documentation with `vue-component-meta`. Add an MDX story pattern to
+`.storybook/main.ts` if MDX documentation files are introduced.
+
 ### Dependency security updates
 
 Security overrides in `pnpm-workspace.yaml` enforce patched versions of transitive

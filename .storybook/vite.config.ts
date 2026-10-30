@@ -8,20 +8,20 @@ export default defineConfig({
   plugins: [
     vue(),
     VueI18nPlugin({
-      include: resolve(__dirname, '../src/utils/i18n.json'),
+      include: resolve(import.meta.dirname, '../src/utils/i18n.json'),
     }),
   ],
   resolve: {
     alias: {
-      '@': resolve(__dirname, '../src'),
-      '@assets': resolve(__dirname, '../src/assets'),
-      '@components': resolve(__dirname, '../src/components'),
-      '@composables': resolve(__dirname, '../src/composables'),
-      '@directives': resolve(__dirname, '../src/directives'),
-      '@services': resolve(__dirname, '../src/services'),
-      '@stores': resolve(__dirname, '../src/stores'),
-      '@models': resolve(__dirname, '../src/models'),
-      '@utils': resolve(__dirname, '../src/utils'),
+      '@': resolve(import.meta.dirname, '../src'),
+      '@assets': resolve(import.meta.dirname, '../src/assets'),
+      '@components': resolve(import.meta.dirname, '../src/components'),
+      '@composables': resolve(import.meta.dirname, '../src/composables'),
+      '@directives': resolve(import.meta.dirname, '../src/directives'),
+      '@services': resolve(import.meta.dirname, '../src/services'),
+      '@stores': resolve(import.meta.dirname, '../src/stores'),
+      '@models': resolve(import.meta.dirname, '../src/models'),
+      '@utils': resolve(import.meta.dirname, '../src/utils'),
     },
   },
 });
