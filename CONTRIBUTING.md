@@ -69,8 +69,10 @@ Security overrides in `pnpm-workspace.yaml` enforce patched versions of transiti
 dependencies. Keep `pnpm-lock.yaml` in sync by running `pnpm install` after changing
 these overrides. Run `pnpm audit` to check the resolved dependency graph; remove an
 override only when all parent dependencies resolve to patched versions without it.
-When updating Vue or vue-i18n for security fixes, also update their minimum versions
-in both `peerDependencies` and `devDependencies` in `package.json`.
+When updating a peer dependency (such as Vue, vue-i18n, Axios, or PostCSS) for security
+fixes, also update its minimum version in both `peerDependencies` and
+`devDependencies` in `package.json`. Keep Storybook and its first-party addons and
+builders on matching versions.
 
 ## ✨ Adding a New Component
 
