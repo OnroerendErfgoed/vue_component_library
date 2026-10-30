@@ -63,6 +63,15 @@ pnpm build
 pnpm package
 ```
 
+### Dependency security updates
+
+Security overrides in `pnpm-workspace.yaml` enforce patched versions of transitive
+dependencies. Keep `pnpm-lock.yaml` in sync by running `pnpm install` after changing
+these overrides. Run `pnpm audit` to check the resolved dependency graph; remove an
+override only when all parent dependencies resolve to patched versions without it.
+When updating Vue or vue-i18n for security fixes, also update their minimum versions
+in both `peerDependencies` and `devDependencies` in `package.json`.
+
 ## ✨ Adding a New Component
 
 ### Step 1: Choose the Right Module
