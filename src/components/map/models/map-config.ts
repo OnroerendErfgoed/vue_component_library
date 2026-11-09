@@ -8,6 +8,7 @@ export interface ControlConfig {
   zoomInOut: boolean;
   zoomFullExtent: boolean;
   zoomGeoLocation: boolean;
+  geolocateTracking?: boolean;
   rotate: boolean;
   zoomSwitcher: boolean;
 }
@@ -17,6 +18,7 @@ export const defaultControlConfig: ControlConfig = {
   zoomInOut: true,
   zoomFullExtent: false,
   zoomGeoLocation: false,
+  geolocateTracking: false,
   rotate: true,
   zoomSwitcher: false,
 };

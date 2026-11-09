@@ -1,6 +1,6 @@
+import { mount } from 'cypress/vue';
 import { defineComponent, ref } from 'vue';
 import { OeEditor, OeEditorToolbar } from '@components/editor';
-import { mount } from 'cypress/vue';
 
 const mountEditor = (initialValue = '') => {
   const TestComponent = defineComponent({

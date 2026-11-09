@@ -42,39 +42,65 @@ export class Geolocate extends Control {
     element.className = this.className;
   }
 
-  private _zoomToLocation() {
+  public zoomToCurrentLocation() {
     const map = this.getMap();
     if (!map) {
       throw 'No map defined!';
     }
+
     const view = map.getView();
 
     if (!this.layer) {
       this.layer = this._createLayer(map);
     }
+
     const source = this.layer.getSource();
     if (!source) {
       throw 'No source defined!';
     }
+
     const positionFeature = this._createFeature();
 
+    navigator.geolocation.getCurrentPosition(
+      (pos: GeolocationPosition) => {
+        this._addPositionFeature(pos, view, source, positionFeature);
+      },
+      (error) => {
+        console.error(error);
+      },
+      { enableHighAccuracy: true, timeout: 5000, maximumAge: Infinity }
+    );
+  }
+
+  private _zoomToLocation() {
     if (!this.options.geolocateTracking) {
-      navigator.geolocation.getCurrentPosition(
-        (pos: GeolocationPosition) => {
-          this._addPositionFeature(pos, view, source, positionFeature);
-        },
-        (error) => {
-          console.error(error);
-        },
-        { enableHighAccuracy: true, timeout: 5000, maximumAge: Infinity }
-      );
+      this.zoomToCurrentLocation();
       return;
     }
 
-    if (this.watchId) {
+    const map = this.getMap();
+    if (!map) {
+      throw 'No map defined!';
+    }
+
+    const view = map.getView();
+
+    if (!this.layer) {
+      this.layer = this._createLayer(map);
+    }
+
+    const source = this.layer.getSource();
+    if (!source) {
+      throw 'No source defined!';
+    }
+
+    const positionFeature = this._createFeature();
+
+    if (this.watchId !== undefined) {
       navigator.geolocation.clearWatch(this.watchId);
-      source?.clear(true);
+      source.clear(true);
       this.watchId = undefined;
+      this.element.classList.remove('tracking-on');
       return;
     }
 
@@ -87,6 +113,8 @@ export class Geolocate extends Control {
       },
       this.options.geolocateTracking
     );
+
+    this.element.classList.add('tracking-on');
   }
 
   private _createLayer(map: Map): VectorLayer<VectorSource> {
@@ -103,7 +131,7 @@ export class Geolocate extends Control {
         image: new Circle({
           radius: 6,
           fill: new Fill({
-            color: '#3399CC',
+            color: '#944EA1',
           }),
           stroke: new Stroke({
             color: '#fff',
