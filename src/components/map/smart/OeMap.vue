@@ -60,6 +60,7 @@ import { Icon, Style } from 'ol/style';
 import WMTSTileGrid from 'ol/tilegrid/WMTS';
 import proj4 from 'proj4';
 import { onMounted, onUnmounted, provide, ref, useTemplateRef, watch } from 'vue';
+import { useUtilStore } from '@/core';
 import { CrabApiService } from '@/services/crab-api.service';
 import OeAutocomplete from '@components/forms/dumb/OeAutocomplete.vue';
 import { IAutocompleteOption } from '@components/forms/models/autocomplete';
@@ -68,6 +69,8 @@ import type { Coordinate } from 'ol/coordinate';
 import type { Extent } from 'ol/extent';
 import type { Projection } from 'ol/proj';
 import type { Ref } from 'vue';
+
+const utilStore = useUtilStore();
 
 const props = withDefaults(defineProps<OeMapProps>(), {
   controlConfig: () => defaultControlConfig,
@@ -119,6 +122,7 @@ const zoneLayer = MapUtil.createVectorLayer({
   title: 'Zone',
   id: 'zoneLayer',
 });
+let geolocateControl: Geolocate | undefined;
 zoneLayer.getSource()?.on('addfeature', () => {
   zoneLayerToZone();
 });
@@ -208,6 +212,10 @@ onUnmounted(() => {
     map.removeInteraction(drawInteraction);
     drawInteraction = undefined;
   }
+
+  geolocateControl?.cleanup();
+  geolocateControl = undefined;
+
   map?.setTarget(undefined);
   map = undefined;
 });
@@ -527,8 +535,19 @@ function addControls(leftControlsContainer?: HTMLElement, rightControlsContainer
     map?.addControl(new ZoomToExtent({ extent, tipLabel, className, label: '', target }));
   }
   if (props.controlConfig.zoomGeoLocation) {
-    const geolocateTracking: PositionOptions = { enableHighAccuracy: true, timeout: 5000, maximumAge: Infinity };
-    map?.addControl(new Geolocate({ geolocateTracking, target }));
+    const geolocateTracking: PositionOptions = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: Infinity,
+    };
+
+    geolocateControl = new Geolocate({
+      target,
+      ...(props.controlConfig.geolocateTracking && { geolocateTracking }),
+      onError: handleGeolocationError,
+    });
+
+    map?.addControl(geolocateControl);
   }
 
   target = rightControlsContainer;
@@ -597,6 +616,20 @@ function addZoneToZoneLayer() {
     zoneSource.addFeature(new Feature({ name, geometry, show: true }));
   }
   zoomToExtent(geoJsonFormatter.readGeometry(zone.value).getExtent());
+}
+
+function handleGeolocationError(error: GeolocationPositionError) {
+  console.error(error);
+
+  utilStore.addToast(
+    {
+      type: 'warning',
+      title: 'Locatie niet beschikbaar',
+      content:
+        'Er is een probleem met het verkrijgen van je locatie. Controleer of je toestemming gaf om je locatie te delen en of je apparaat een werkende GPS-verbinding heeft.',
+    },
+    5000
+  );
 }
 </script>
 
@@ -703,8 +736,90 @@ function addZoneToZoneLayer() {
 
 .oe-ol-geolocate.oe-ol-control {
   order: 3;
+
   button {
     background-image: url('data:image/svg+xml,<svg fill="%23944EA1" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M256 0c17.7 0 32 14.3 32 32V66.7C368.4 80.1 431.9 143.6 445.3 224H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H445.3C431.9 368.4 368.4 431.9 288 445.3V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V445.3C143.6 431.9 80.1 368.4 66.7 288H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H66.7C80.1 143.6 143.6 80.1 224 66.7V32c0-17.7 14.3-32 32-32zM128 256a128 128 0 1 0 256 0 128 128 0 1 0 -256 0zm128-80a80 80 0 1 1 0 160 80 80 0 1 1 0-160z"/></svg>');
+    background-size: 1em;
+  }
+
+  &.tracking-on {
+    button {
+      animation: geolocate-pulse 1.8s ease-in-out infinite;
+    }
+  }
+}
+
+.oe-ol-geolocate-marker {
+  position: relative;
+  width: 0;
+  height: 0;
+
+  .dot,
+  .halo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: $primary-color;
+    transform: translate(-50%, -50%);
+  }
+
+  .dot {
+    box-sizing: border-box;
+    border: 2.5px solid $white;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.45);
+    z-index: 2;
+  }
+
+  .halo {
+    opacity: 0;
+  }
+
+  &.tracking-on {
+    .halo {
+      animation: oe-geolocate-halo 1.8s cubic-bezier(0.22, 0.61, 0.26, 1) infinite;
+    }
+  }
+}
+
+@keyframes geolocate-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes oe-geolocate-halo {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
+  }
+
+  70% {
+    opacity: 0;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(4.2);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oe-ol-geolocate.oe-ol-control.tracking-on button {
+    animation: none;
+  }
+
+  .oe-ol-geolocate-marker.tracking-on .halo {
+    animation: none;
+    opacity: 0.28;
+    transform: translate(-50%, -50%) scale(2.6);
   }
 }
 

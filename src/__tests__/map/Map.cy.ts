@@ -1,5 +1,7 @@
 /* eslint-disable vue/one-component-per-file */
+import { createPinia, setActivePinia } from 'pinia';
 import { defineComponent } from 'vue';
+import { useUtilStore } from '@/core';
 import { LayerType, OeMap, OeMapProps, defaultControlConfig } from '@components/map';
 
 describe('OeMap', () => {
@@ -16,10 +18,11 @@ describe('OeMap', () => {
         props = { ...defaultProps, ...props };
         return { props };
       },
-      template: `<oe-map v-model:zone="props.zone" v-bind="props" style="height: 100vh" />`,
+      template: `<oe-map ref="map" v-model:zone="props.zone" v-bind="props" style="height: 100vh" />`,
     });
 
     beforeEach(() => {
+      setActivePinia(createPinia());
       cy.viewport('macbook-16');
     });
 
@@ -47,6 +50,140 @@ describe('OeMap', () => {
       cy.dataCy('olMap').find('.oe-ol-geolocate').should('exist');
       cy.dataCy('olMap').find('.oe-ol-control .ol-compass').should('exist');
       cy.dataCy('olMap').find('.oe-ol-control .zoomButton').should('exist');
+    });
+
+    it('zooms to current location without tracking by default', () => {
+      cy.window().then((win) => {
+        const getCurrentPosition = cy.stub(win.navigator.geolocation, 'getCurrentPosition');
+        const watchPosition = cy.stub(win.navigator.geolocation, 'watchPosition');
+
+        cy.mount(TestComponent, {
+          props: {
+            controlConfig: {
+              ...defaultControlConfig,
+              zoomGeoLocation: true,
+            },
+          },
+        });
+
+        cy.dataCy('olMap').find('.oe-ol-geolocate button').click();
+
+        cy.wrap(getCurrentPosition).should('have.been.calledOnce');
+        cy.wrap(watchPosition).should('not.have.been.called');
+      });
+    });
+
+    it('shows a warning when current location cannot be obtained', () => {
+      cy.window().then((win) => {
+        cy.stub(win.navigator.geolocation, 'getCurrentPosition').callsFake((_success, error) => {
+          error?.({
+            code: 1,
+            message: 'Permission denied',
+          } as GeolocationPositionError);
+        });
+
+        cy.mount(TestComponent, {
+          props: {
+            controlConfig: {
+              ...defaultControlConfig,
+              zoomGeoLocation: true,
+            },
+          },
+        }).then(() => {
+          const utilStore = useUtilStore();
+          cy.spy(utilStore, 'addToast').as('addToast');
+
+          cy.dataCy('olMap').find('.oe-ol-geolocate button').click();
+
+          cy.get('@addToast').should(
+            'have.been.calledWith',
+            Cypress.sinon.match({
+              type: 'warning',
+              title: 'Locatie niet beschikbaar',
+            }),
+            5000
+          );
+        });
+      });
+    });
+
+    it('zoomToCurrentLocation does not start tracking when tracking is enabled', () => {
+      cy.window().then((win) => {
+        const getCurrentPosition = cy.stub(win.navigator.geolocation, 'getCurrentPosition');
+        const watchPosition = cy.stub(win.navigator.geolocation, 'watchPosition');
+
+        cy.mount(TestComponent, {
+          props: {
+            controlConfig: {
+              ...defaultControlConfig,
+              zoomGeoLocation: true,
+              geolocateTracking: true,
+            },
+          },
+        }).then(({ component }) => {
+          const map = (component.$refs.map as typeof OeMap).map;
+          const geoControl = map
+            .getControls()
+            .getArray()
+            .find((control) =>
+              (control as unknown as { element?: Element }).element?.classList.contains('oe-ol-geolocate')
+            ) as unknown as { zoomToCurrentLocation: () => void };
+
+          geoControl.zoomToCurrentLocation();
+
+          cy.wrap(getCurrentPosition).should('have.been.calledOnce');
+          cy.wrap(watchPosition).should('not.have.been.called');
+          cy.dataCy('olMap').find('.oe-ol-geolocate').should('not.have.class', 'tracking-on');
+        });
+      });
+    });
+
+    it('tracks current location when geolocateTracking is enabled', () => {
+      cy.window().then((win) => {
+        const watchPosition = cy.stub(win.navigator.geolocation, 'watchPosition').callsFake((success) => {
+          success({
+            coords: {
+              latitude: 51.025,
+              longitude: 4.36,
+              accuracy: 10,
+              altitude: null,
+              altitudeAccuracy: null,
+              heading: null,
+              speed: null,
+            },
+            timestamp: Date.now(),
+          } as GeolocationPosition);
+
+          return 1;
+        });
+
+        const clearWatch = cy.stub(win.navigator.geolocation, 'clearWatch');
+
+        cy.mount(TestComponent, {
+          props: {
+            controlConfig: {
+              ...defaultControlConfig,
+              zoomGeoLocation: true,
+              geolocateTracking: true,
+            },
+          },
+        });
+
+        cy.dataCy('olMap').find('.oe-ol-geolocate button').click();
+
+        cy.wrap(watchPosition).should('have.been.calledOnce');
+        cy.dataCy('olMap').find('.oe-ol-geolocate').should('have.class', 'tracking-on');
+
+        cy.dataCy('olMap').find('.oe-ol-geolocate-marker').should('exist').and('have.class', 'tracking-on');
+        cy.dataCy('olMap').find('.oe-ol-geolocate-marker .dot').should('exist');
+        cy.dataCy('olMap').find('.oe-ol-geolocate-marker .halo').should('exist');
+
+        cy.dataCy('olMap').find('.oe-ol-geolocate button').click();
+
+        cy.wrap(clearWatch).should('have.been.calledWith', 1);
+        cy.dataCy('olMap').find('.oe-ol-geolocate').should('not.have.class', 'tracking-on');
+        cy.dataCy('olMap').find('.oe-ol-geolocate-marker').should('not.exist');
+      });
     });
 
     it('includes geoportaal parameters in the opened uri when clicking the zoom switcher', () => {

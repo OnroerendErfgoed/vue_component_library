@@ -1,4 +1,5 @@
 /* eslint-disable vue/one-component-per-file */
+import { createPinia, setActivePinia } from 'pinia';
 import { defineComponent, ref } from 'vue';
 import { LayerType } from '@components/map';
 import { OeZoneerderProps, ZoneLimitReachedEventDetail } from '@components/map/models/map-config';
@@ -25,6 +26,7 @@ describe('OeZoneerder', () => {
     });
 
     beforeEach(() => {
+      setActivePinia(createPinia());
       cy.viewport('macbook-16');
     });
 
