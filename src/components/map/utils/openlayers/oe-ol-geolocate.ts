@@ -1,5 +1,5 @@
-import { Control } from 'ol/control';
 import Overlay from 'ol/Overlay';
+import { Control } from 'ol/control';
 import { transform } from 'ol/proj';
 import type Map from 'ol/Map';
 import type View from 'ol/View';
@@ -137,11 +137,7 @@ export class Geolocate extends Control {
 
   private _updatePosition(pos: GeolocationPosition, view: View, positionOverlay: Overlay) {
     const zoomLevel = this.options.zoomLevel || 12;
-    const coordinates = transform(
-      [pos.coords.longitude, pos.coords.latitude],
-      'EPSG:4326',
-      view.getProjection()
-    );
+    const coordinates = transform([pos.coords.longitude, pos.coords.latitude], 'EPSG:4326', view.getProjection());
 
     view.setCenter(coordinates);
     view.setZoom(zoomLevel);
