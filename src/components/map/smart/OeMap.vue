@@ -11,7 +11,7 @@
     </div>
     <div ref="leftControlsContainerRef" class="controlsContainer left">
       <div v-if="props.controlConfig.zoomSwitcher" class="zoom-switcher oe-ol-control ol-unselectable ol-control">
-        <button class="zoomButton" title="Ga naar het Geoportaal" @click="zoomButtonClick">
+        <button class="zoomButton" title="Ga naar het Geoportaal van Onroerend Erfgoed" @click="zoomButtonClick">
           <FontAwesomeIcon :icon="faGlobe" />
         </button>
       </div>
