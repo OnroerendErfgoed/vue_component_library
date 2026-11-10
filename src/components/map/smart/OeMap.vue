@@ -60,6 +60,7 @@ import { Icon, Style } from 'ol/style';
 import WMTSTileGrid from 'ol/tilegrid/WMTS';
 import proj4 from 'proj4';
 import { onMounted, onUnmounted, provide, ref, useTemplateRef, watch } from 'vue';
+import { useUtilStore } from '@/core';
 import { CrabApiService } from '@/services/crab-api.service';
 import OeAutocomplete from '@components/forms/dumb/OeAutocomplete.vue';
 import { IAutocompleteOption } from '@components/forms/models/autocomplete';
@@ -68,6 +69,8 @@ import type { Coordinate } from 'ol/coordinate';
 import type { Extent } from 'ol/extent';
 import type { Projection } from 'ol/proj';
 import type { Ref } from 'vue';
+
+const utilStore = useUtilStore();
 
 const props = withDefaults(defineProps<OeMapProps>(), {
   controlConfig: () => defaultControlConfig,
@@ -537,6 +540,7 @@ function addControls(leftControlsContainer?: HTMLElement, rightControlsContainer
       new Geolocate({
         target,
         ...(props.controlConfig.geolocateTracking && { geolocateTracking }),
+        onError: handleGeolocationError,
       })
     );
   }
@@ -607,6 +611,20 @@ function addZoneToZoneLayer() {
     zoneSource.addFeature(new Feature({ name, geometry, show: true }));
   }
   zoomToExtent(geoJsonFormatter.readGeometry(zone.value).getExtent());
+}
+
+function handleGeolocationError(error: GeolocationPositionError) {
+  console.error(error);
+
+  utilStore.addToast(
+    {
+      type: 'warning',
+      title: 'Locatie niet beschikbaar',
+      content:
+        'Er is een probleem met het verkrijgen van je locatie. Controleer of je toestemming gaf om je locatie te delen en of je apparaat een werkende GPS-verbinding heeft.',
+    },
+    5000
+  );
 }
 </script>
 

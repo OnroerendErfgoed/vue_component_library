@@ -14,6 +14,7 @@ export interface GeolocateOptions extends ControlOptions {
   tipLabel?: string;
   zoomLevel?: number;
   geolocateTracking?: PositionOptions;
+  onError?: (error: GeolocationPositionError) => void;
 }
 
 export class Geolocate extends Control {
@@ -66,7 +67,7 @@ export class Geolocate extends Control {
         this._addPositionFeature(pos, view, source, positionFeature);
       },
       (error) => {
-        console.error(error);
+        this.options.onError?.(error);
       },
       { enableHighAccuracy: true, timeout: 5000, maximumAge: Infinity }
     );
@@ -109,7 +110,9 @@ export class Geolocate extends Control {
         this._addPositionFeature(pos, view, source, positionFeature);
       },
       (error) => {
-        console.error(error);
+        this.watchId = undefined;
+        this.element.classList.remove('tracking-on');
+        this.options.onError?.(error);
       },
       this.options.geolocateTracking
     );
