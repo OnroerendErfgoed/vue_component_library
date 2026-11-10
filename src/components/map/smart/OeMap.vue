@@ -1,13 +1,14 @@
 <template>
   <div ref="oeMap" data-cy="olMap" class="map">
-    <OeAutocomplete
-      data-cy="locationSearchInput"
-      :callback-fn="performAutocompleteSearch"
-      :placeholder="'Gemeente, straat of adres'"
-      :value="autoCompleteValueRef"
-      class="zone-search"
-      @update:value="onAutocompleteFinished"
-    ></OeAutocomplete>
+    <div class="zone-search">
+      <OeAutocomplete
+        data-cy="locationSearchInput"
+        :callback-fn="performAutocompleteSearch"
+        :placeholder="'Gemeente, straat of adres'"
+        :value="autoCompleteValueRef"
+        @update:value="onAutocompleteFinished"
+      ></OeAutocomplete>
+    </div>
     <div ref="leftControlsContainerRef" class="controlsContainer left">
       <div v-if="props.controlConfig.zoomSwitcher" class="zoom-switcher oe-ol-control ol-unselectable ol-control">
         <button class="zoomButton" title="Ga naar het Geoportaal" @click="zoomButtonClick">
@@ -613,19 +614,36 @@ function addZoneToZoneLayer() {
   position: relative;
 }
 
+.ol-hidden {
+  display: none;
+}
+
 .zone-search {
-  position: absolute !important;
-  width: 300px !important;
-  left: calc(50% - 150px);
+  position: absolute;
+  width: 300px;
+  left: 50%;
   top: 0.5em;
+  transform: translateX(-50%);
+  z-index: 1;
+
+  input {
+    position: static !important;
+    width: 100% !important;
+  }
 
   .vl-autocomplete {
     top: 48px !important;
   }
 }
 
-.ol-hidden {
-  display: none;
+@media only screen and (max-width: 52rem) {
+  .zone-search {
+    width: calc(100% - 8rem);
+  }
+}
+
+.ol-overlaycontainer-stopevent {
+  z-index: 2 !important;
 }
 
 .controlsContainer {
