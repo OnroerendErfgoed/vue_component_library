@@ -640,6 +640,14 @@ function addZoneToZoneLayer() {
   .zone-search {
     width: calc(100% - 8rem);
   }
+
+  .ol-mouse-position {
+    top: auto;
+    left: auto;
+    right: 0.5rem;
+    bottom: 2.5rem;
+    transform: none;
+  }
 }
 
 .ol-overlaycontainer-stopevent {
