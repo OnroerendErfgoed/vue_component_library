@@ -43,10 +43,10 @@ export class Geolocate extends Control {
     }
 
     const view = map.getView();
-    const positionOverlay = this._getOrCreatePositionOverlay(map);
 
     navigator.geolocation.getCurrentPosition(
       (pos: GeolocationPosition) => {
+        const positionOverlay = this._getOrCreatePositionOverlay(map);
         this._updatePosition(pos, view, positionOverlay);
       },
       (error) => {
