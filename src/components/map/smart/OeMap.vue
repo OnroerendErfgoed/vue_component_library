@@ -122,6 +122,7 @@ const zoneLayer = MapUtil.createVectorLayer({
   title: 'Zone',
   id: 'zoneLayer',
 });
+let geolocateControl: Geolocate | undefined;
 zoneLayer.getSource()?.on('addfeature', () => {
   zoneLayerToZone();
 });
@@ -211,6 +212,10 @@ onUnmounted(() => {
     map.removeInteraction(drawInteraction);
     drawInteraction = undefined;
   }
+
+  geolocateControl?.cleanup();
+  geolocateControl = undefined;
+
   map?.setTarget(undefined);
   map = undefined;
 });
@@ -536,13 +541,13 @@ function addControls(leftControlsContainer?: HTMLElement, rightControlsContainer
       maximumAge: Infinity,
     };
 
-    map?.addControl(
-      new Geolocate({
-        target,
-        ...(props.controlConfig.geolocateTracking && { geolocateTracking }),
-        onError: handleGeolocationError,
-      })
-    );
+    geolocateControl = new Geolocate({
+      target,
+      ...(props.controlConfig.geolocateTracking && { geolocateTracking }),
+      onError: handleGeolocationError,
+    });
+
+    map?.addControl(geolocateControl);
   }
 
   target = rightControlsContainer;
@@ -739,7 +744,42 @@ function handleGeolocationError(error: GeolocationPositionError) {
 
   &.tracking-on {
     button {
-      animation: geolocate-pulse 1.3s ease-in-out infinite;
+      animation: geolocate-pulse 1.8s ease-in-out infinite;
+    }
+  }
+}
+
+.oe-ol-geolocate-marker {
+  position: relative;
+  width: 0;
+  height: 0;
+
+  .dot,
+  .halo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: $primary-color;
+    transform: translate(-50%, -50%);
+  }
+
+  .dot {
+    box-sizing: border-box;
+    border: 2.5px solid $white;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.45);
+    z-index: 2;
+  }
+
+  .halo {
+    opacity: 0;
+  }
+
+  &.tracking-on {
+    .halo {
+      animation: oe-geolocate-halo 1.8s cubic-bezier(0.22, 0.61, 0.26, 1) infinite;
     }
   }
 }
@@ -747,17 +787,39 @@ function handleGeolocationError(error: GeolocationPositionError) {
 @keyframes geolocate-pulse {
   0%,
   100% {
-    background-size: 1em;
+    opacity: 1;
   }
 
   50% {
-    background-size: 1.15em;
+    opacity: 0.6;
+  }
+}
+
+@keyframes oe-geolocate-halo {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
+  }
+
+  70% {
+    opacity: 0;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(4.2);
+    opacity: 0;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .oe-ol-geolocate.oe-ol-control.tracking-on button {
     animation: none;
+  }
+
+  .oe-ol-geolocate-marker.tracking-on .halo {
+    animation: none;
+    opacity: 0.28;
+    transform: translate(-50%, -50%) scale(2.6);
   }
 }
 
