@@ -365,8 +365,8 @@ function _createGrbLayer(grbLayerId: string, type: LayerType) {
       style: '',
       tileGrid: new WMTSTileGrid({ origin, resolutions, matrixIds }),
       attributions:
-        '© <a href="https://www.vlaanderen.be/digitaal-vlaanderen" target="_blank" ' +
-        'title="Informatie Vlaanderen" class="copyrightLink">Digitaal Vlaanderen</a>',
+        '© <a href="https://overheid.vlaanderen.be/informatie-vlaanderen" target="_blank" ' +
+        'title="Informatie Vlaanderen" class="copyrightLink">Informatie Vlaanderen</a>',
     }),
     extent: mapProjection.getExtent(),
   });
