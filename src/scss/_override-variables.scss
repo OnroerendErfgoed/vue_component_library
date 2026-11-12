@@ -87,6 +87,12 @@ $vl-icon-font-location: '@govflanders/vl-ui-design-system-style/assets/font/icon
   }
 }
 
+// vl-accordion
+.vl-accordion__toggle:focus {
+  outline-width: 1px;
+  outline-color: $gray;
+}
+
 // vl-multiselect
 .multiselect {
   --ms-line-height: 1.315;
